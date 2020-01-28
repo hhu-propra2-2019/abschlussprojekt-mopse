@@ -1,5 +1,3 @@
-# Bei "schicht" können Sie 'vormittags', 'nachmittags' oder 'egal' eintragen.
-
 gruppe: Mopse
 url: https://github.com/hhu-propra2/abschlussprojekt-mopse
 names:
@@ -13,6 +11,8 @@ names:
 notebook: true
 schicht: vormittags
 projektauswahl:
-  - projekt1
-  - projekt2
-  - projekt3
+  - Einreichung
+  - Materialsammlung
+  - Foren
+  - Punkteübersicht
+  - Feedback
