@@ -1,7 +1,7 @@
-# Commit Guidelines
+= Commit Guidelines
 
 
-## Präfix
+== Präfix
 
 - ADD:
 - UPDATE:
@@ -9,6 +9,6 @@
 - FIX:
 - REFACTOR:
 
-## Nachricht
+== Nachricht
 
 Kurzer Header, wenn nötig ganze Sätze in den Nachrichtenkörper.
