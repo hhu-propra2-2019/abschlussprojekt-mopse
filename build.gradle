@@ -39,6 +39,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
@@ -50,8 +51,10 @@ dependencies {
     implementation 'mops:styleguide:2.0.0'
     compileOnly 'com.github.spotbugs:spotbugs-annotations:4.0.0'
     testImplementation 'com.tngtech.archunit:archunit-junit5:0.13.1'
-
     implementation 'io.minio:minio:6.0.13'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'org.keycloak:keycloak-spring-boot-starter:9.0.0'
+    implementation 'org.keycloak.bom:keycloak-adapter-bom:3.3.0.Final'
 }
 
 checkstyle {
