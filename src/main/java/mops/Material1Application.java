@@ -5,12 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Material1Application {
+
     /**
      * Runs the SpringApplication.
-     * @param args application args.
+     *
+     * @param args application args
      */
-    public static void main(final String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(Material1Application.class, args);
     }
-
 }
