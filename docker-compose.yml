@@ -1,13 +1,25 @@
+version: "3.7"
+
 services:
+  db:
+    image: mariadb:10.4
+    ports:
+      - "${MATERIAL1_DB_PORT:-23306}:3306"
+    volumes:
+      - material1_db_volume:/var/lib/mysql
+    env_file:
+      - prod.env
   material1:
     build:
       context: .
-      dockerfile: Dockerfile
-  mariadb:
-    image: mariadb:10.2
+      args:
+        MATERIAL1_PORT: ${MATERIAL1_PORT:-8080}
+        MATERIAL1_PROFILE: ${MATERIAL1_PROFILE:-prod}
     env_file:
       - prod.env
-    ports:
-      - "23306:3306"
-    volumes:
-      - ${PWD}/mariadb:/var/lib/mysql
+    environment:
+      MATERIAL1_DB_PORT: ${MATERIAL1_DB_PORT:-23306}
+      MATERIAL1_PROFILE: ${MATERIAL1_PROFILE:-prod}
+
+volumes:
+  material1_db_volume:

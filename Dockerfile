@@ -1,11 +1,13 @@
 FROM gradle:jdk11 AS BUILD
-WORKDIR /home/gradle/src
+WORKDIR /material1/build
 COPY . .
 RUN gradle bootJar
 
-
 FROM openjdk:11-jre-slim
-WORKDIR /code
-COPY --from=BUILD /home/gradle/src/build/libs/*.jar app.jar
-EXPOSE 8080
-CMD ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
+ARG MATERIAL1_PORT
+ARG MATERIAL1_PROFILE
+WORKDIR /material1/run
+COPY --from=BUILD /material1/build/build/libs/*.jar app.jar
+EXPOSE ${MATERIAL1_PORT}
+ENV MATERIAL1_PORT ${MATERIAL1_PORT}
+CMD ["java", "-jar", "-Dspring.profiles.active=${MATERIAL1_PROFILE}", "app.jar"]
