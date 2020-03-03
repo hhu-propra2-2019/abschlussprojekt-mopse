@@ -14,12 +14,11 @@ services:
       context: .
       args:
         MATERIAL1_PORT: ${MATERIAL1_PORT:-8080}
-        MATERIAL1_PROFILE: ${MATERIAL1_PROFILE:-prod}
     env_file:
       - prod.env
     environment:
+      MATERIAL1_PORT: ${MATERIAL1_PORT:-8080}
       MATERIAL1_DB_PORT: ${MATERIAL1_DB_PORT:-23306}
-      MATERIAL1_PROFILE: ${MATERIAL1_PROFILE:-prod}
 
 volumes:
   material1_db_volume:
