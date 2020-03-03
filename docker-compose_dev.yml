@@ -1,0 +1,9 @@
+services:
+  mariadb:
+    image: mariadb:10.2
+    env_file:
+      - dev.env
+    ports:
+      - "23306:3306"
+    volumes:
+      - ${PWD}/mariadb:/var/lib/mysql

@@ -1,0 +1,13 @@
+services:
+  material1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+  mariadb:
+    image: mariadb:10.2
+    env_file:
+      - prod.env
+    ports:
+      - "23306:3306"
+    volumes:
+      - ${PWD}/mariadb:/var/lib/mysql
