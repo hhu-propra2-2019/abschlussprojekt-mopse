@@ -9,6 +9,8 @@ on:
   pull_request:
     paths-ignore:
       - 'doc/**'
+      - '**/*.adoc'
+      - '**/*.md'
 
 jobs:
   test:
