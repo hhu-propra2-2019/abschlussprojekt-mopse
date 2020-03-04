@@ -9,26 +9,27 @@ Benutzer befindet sich auf Homepage von MOPS
 3. Der Benutzer wird weitergeleitet auf das persönliche Dashboard des MOPS
 
 === 2. Navigation
-2.1 Benutzer navigiert in Gruppenansicht seiner Veranstaltung "Bio_WS19/20". Es wird eine Tabelle mit den Metadaten der sichtbaren Dateien für Mitglieder angezeigt:
+2.1 Benutzer navigiert in Gruppenansicht seiner Veranstaltung "Bio_WS19/20". Es wird eine Tabelle mit den Metadaten der
+sichtbaren Dateien für Mitglieder angezeigt:
 
 
 |===
 |Name |Groesse |Datum
 
-|musterloesung_WS19/20.pdf
-|799 KB
-|02.03.2020 16:00
-
 |einfuehrung.pdf
 |520 KB
 |01.10.2019 14:00
+
+|musterloesung_WS19/20.pdf
+|799 KB
+|02.03.2020 16:00
 
 |willkommen.mp4
 |14 MB
 |05.10.2019 14:37
 |===
 
-2.2 Benutzer klickt die gesuchte Datei "musterloesung_WS19/20.pdf" an. Es öffnet sich eine neue Seite mit eingebetteter Vorschau der PDF-Datei. Die Datei kann per
-Button heruntergeladen werden
+2.2 Benutzer klickt die gesuchte Datei "musterloesung_WS19/20.pdf" an. Es öffnet sich eine neue Seite mit eingebetteter
+Vorschau der PDF-Datei. Die Datei kann per Button heruntergeladen werden.
 
 2.3 Benutzer klickt auf "Herunterladen". Es öffnet sich der Browserdialog zum Download der Datei.
