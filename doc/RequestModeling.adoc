@@ -2,10 +2,10 @@
 
 === Benötigte Anfragetypen
 
-1. `GET` Ansicht mit Übersicht aller Gruppen eines Benutzers (material1/groups -> Index
+1. `GET` Ansicht mit Übersicht aller Gruppen eines Benutzers (material1/groups -> Index)
 
-2. `GET` Ansicht mit Übersicht aller Dateien einer Gruppe (auf die der Nutzer Lesezugriff hat) (material1/groups/{ID}/files
--> Index
+2. `GET` Ansicht mit Übersicht aller Dateien einer Gruppe (auf die der Nutzer Lesezugriff hat)
+(material1/groups/{ID}/files -> Index
 
 3. `GET` Anfrage auf eine Datei (material1/files/{ID})
 
