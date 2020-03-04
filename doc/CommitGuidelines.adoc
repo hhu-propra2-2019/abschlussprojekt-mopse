@@ -3,11 +3,11 @@
 
 == Präfix
 
-- ADD:
-- UPDATE:
-- REMOVE:
-- FIX:
-- REFACTOR:
+* ADD:
+* UPDATE:
+* REMOVE:
+* FIX:
+* REFACTOR:
 
 == Nachricht
 
