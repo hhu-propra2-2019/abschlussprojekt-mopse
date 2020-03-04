@@ -1,25 +1,24 @@
 
 == Administrator fügt "Ana2-PDF" in Kurs "Ana2-19/20" hinzu.
+Benutzer befindet sich auf Homepage von MOPS
 
 === 1. Login
 
-1.1 Administrator besucht die Seite Mops.
+1.1 Benutzer klickt auf `Anmelden`.
 
-1.2 Administrator klickt auf `Anmelden`.
-
-1.3 Administrator gibt seine Benutzerdaten ein.
+1.3 Benutzer gibt seine Benutzerdaten ein.
 
  *Anmeldung erfolgreich.*
 
 === 2. Navigation
 
-2.1 Administrator wird weitergelietet auf sein Dashboard.
+2.1 Benutzer wird weitergelietet auf sein Dashboard.
 
-2.2 Administrator klickt auf `Materialsammlung`.
+2.2 Benutzer klickt auf `Materialsammlung`.
 
-2.3 Administrator wird auf die Dashboard von `Materialsammlung` weitergeleitet.
+2.3 Benutzer wird auf die Dashboard von `Materialsammlung` weitergeleitet.
 
-2.4 Administrator des Admins werden angezeigt.
+2.4 Benutzer des Admins werden angezeigt.
 
 |===
 
@@ -29,40 +28,39 @@
 
 |===
 
-2.5 Administrator klickt auf den Kurs `"Ana2-19/20"`.
+2.5 Benutzer klickt auf den Kurs `"Ana2-19/20"`.
 
-2.6 Administrator wird auf den Kurs `"Ana2-19/20"` Weitergeleitet.
+2.6 Benutzer wird auf den Kurs `"Ana2-19/20"` Weitergeleitet.
 
-2.7 Es werden nun unterordner von den Kurs "Ana2-19/20" angezeigt.
+2.7 Es werden nun Unterordner von den Kurs "Ana2-19/20" angezeigt.
 
 |===
 
+|Lerngruppe | |
+|Tutorium | |
+|Uebung  | |
+|Vorlesung |  |
 |willkommen.mp4 |14 MB |05.10.2019 14:37
 
-|Vorlesung |  |
-|Uebung  | |
-|Toturium | |
-|Lerngruppe | |
-
 |===
 
-2.8 Administrator klickt auf Uebung
+2.8 Benutzer klickt auf Uebung
 
-2.9 Administrator wird auf den kurs Ana2-1920/uebung witergeleitet
+2.9 Benutzer wird auf den kurs Ana2-1920/uebung weitergeleitet
 
-2.10 Adminstrator hat eine übersicht über die Dateien von dem Kurs `Ana2-1920/uebung`
+2.10 Benutzer hat eine Übersicht über die Dateien von dem Kurs `Ana2-1920/uebung`
 
 
 |===
 |Name |Groesse |Datum
 
-|musterloesung_WS19/20.pdf
-|799 KB
-|02.03.2020 16:00
-
 |einfuehrung.pdf
 |520 KB
 |01.10.2019 14:00
+
+|musterloesung_WS19/20.pdf
+|799 KB
+|02.03.2020 16:00
 
 |willkommen.mp4
 |14 MB
@@ -70,15 +68,15 @@
 
 |===
 
-=== 3.Einfügen
+=== 3.Hochladen
 
-3.1 Admin klickt auf `Datei hinzufügen`
+3.1 Admin klickt auf `Datei hochladen`
 
-3.2 Admin sucht in Computer nach der PDF datei undklickt es an
+3.2 Benutzer wählt eine Datei von seinem PC zum Hochladen
 
 3.3 Die Datei hat eine passende Größe und ein passendes Format.
 
-3.4 Admin Klickt auf `Datei hochladen`.
+3.4 Benutzer Klickt auf `Datei hochladen`.
 
 Datei wurde hochgeladen.
 
