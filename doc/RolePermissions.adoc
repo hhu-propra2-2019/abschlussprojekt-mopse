@@ -14,7 +14,10 @@
 ** [X] Löschen
 ** [X] Hochladen
 
-
+* Aussenstehender
+** [X] Lesen
+** [X] Löschen
+** [X] Hochladen
 
 
 
