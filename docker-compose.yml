@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  material1_db:
+    image: mariadb:10.4
+    ports:
+      - "${MATERIAL1_DB_PORT:-23306}:3306"
+    volumes:
+      - material1_db_volume:/var/lib/mysql
+    env_file:
+      - prod.env
+  material1:
+    build:
+      context: .
+      args:
+        MATERIAL1_PORT: ${MATERIAL1_PORT:-8080}
+    env_file:
+      - prod.env
+    environment:
+      MATERIAL1_PORT: ${MATERIAL1_PORT:-8080}
+      MATERIAL1_DB_PORT: ${MATERIAL1_DB_PORT:-23306}
+
+volumes:
+  material1_db_volume:

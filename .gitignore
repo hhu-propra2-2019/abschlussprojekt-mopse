@@ -16,6 +16,7 @@ build/
 
 ### IntelliJ IDEA ###
 .idea
+!.idea/runConfigurations/*.xml
 *.iws
 *.iml
 *.ipr
@@ -30,3 +31,5 @@ out/
 
 ### VS Code ###
 .vscode/
+
+prod.env
