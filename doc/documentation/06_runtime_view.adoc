@@ -1,15 +1,13 @@
 [[section-runtime-view]]
 == Laufzeitsicht
 
+
 ****
 Hier geht es darum, wie einzelne Abläufe funktionieren und wie sich die Beziehungen zwischen Bausteinen und externen Schnittstellen in bestimmten Szenarien ausspielen.
 Dabei spielen auch Fehler- und Ausnahmeszenarien sowie Inbetriebnahme, Start und Stop eine Rolle.
 
-Anmerkung:
-Das Kriterium für die Auswahl der möglichen Szenarien (d.h. Abläufe) des Systems ist deren Architekturrelevanz.
-Es geht nicht darum, möglichst viele Abläufe darzustellen, sondern eine angemessene Auswahl zu dokumentieren.
-
 Mögliche Darstellungsformen wären ein Flussdiagramm oder nummerierte Abläufe mit spezifischen Erklärungen.
+
 ****
 
 === _<Bezeichnung Laufzeitszenario 1>_

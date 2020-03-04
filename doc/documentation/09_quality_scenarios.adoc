@@ -1,7 +1,6 @@
 [[section-quality-scenarios]]
 == Qualitätsanforderungen
 
-[role="arc42help"]
 ****
 _Dieser Abschnitt ist möglicherweise zu vernachlässigen._
 

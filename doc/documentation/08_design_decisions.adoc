@@ -1,7 +1,6 @@
 [[section-design-decisions]]
 == Entwurfsentscheidungen
 
-[role="arc42help"]
 ****
 _Dieser Abschnitt ist möglichweise zu vernachlässigen._
 

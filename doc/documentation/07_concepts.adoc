@@ -1,7 +1,7 @@
 [[section-concepts]]
 == Querschnittliche Konzepte
 
-[role="arc42help"]
+
 ****
 .Inhalt
 Dieser Abschnitt beschreibt übergreifende, prinzipielle Regelungen und Lösungsansätze, die an mehreren Stellen (=_querschittlich_) relevant sind.
