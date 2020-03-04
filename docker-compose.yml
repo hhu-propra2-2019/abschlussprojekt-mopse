@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  db:
+  material1_db:
     image: mariadb:10.4
     ports:
       - "${MATERIAL1_DB_PORT:-23306}:3306"
