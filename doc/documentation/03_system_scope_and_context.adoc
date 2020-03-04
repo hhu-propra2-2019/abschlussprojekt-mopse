@@ -1,0 +1,17 @@
+[[section-system-scope-and-context]]
+== Kontextabgrenzung
+
+****
+Die (technische) Abgrenzung gegenüber allen Kommunikationsbeziehungen (Nachbarsysteme und Benutzerrollen).
+Somit werden die externen Schnittstellen festgelegt.
+
+Festlegung *aller* Kommunikationsbeziehungen mit Erklärung der *fachlichen* Ein- und Ausgabedaten.
+
+Kontextdiagramme, Listen von Kommunikationsbeziehungen aber auch plain text wären denkbar.
+****
+[cols="1,1,1" options="header"]
+|===
+|Kommunikationsbeziehung |Eingabe | Ausgabe
+| _<Kommunikationsbeziehung-1>_ | _<Eingabe-1>_ | _<Ausgabe-1>_
+| _<Kommunikationsbeziehung-2>_ | _<Eingabe-2>_ | _<Ausgabe-2>_
+|===
