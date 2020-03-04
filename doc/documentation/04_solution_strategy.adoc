@@ -1,0 +1,13 @@
+[[section-solution-strategy]]
+== Lösungsstrategie
+
+****
+Kurzer Überblick über die grundlegenden Entscheidungen und Lösungsansätze, die Entwurf und Implementierung des Systems prägen.
+Hierzu gehören:
+
+* Technologieentscheidungen
+* Entscheidungen über die Top-Level-Zerlegung des Systems, beispielsweise die Verwendung gesamthaft prägender Entwurfs- oder Architekturmuster,
+* Entscheidungen zur Erreichung der wichtigsten Qualitätsanforderungen sowie
+
+Eine *kurze* und *präzise* Darlegung aller relevanten Entscheidungen.
+****
