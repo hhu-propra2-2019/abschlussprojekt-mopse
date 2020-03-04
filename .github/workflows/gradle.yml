@@ -9,6 +9,13 @@ on:
   pull_request:
     paths-ignore:
       - 'doc/**'
+      - '**/*.adoc'
+      - '**/*.md'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.gif'
+      - '**/*.jpeg'
+      - '**/*.txt'
 
 jobs:
   test:
