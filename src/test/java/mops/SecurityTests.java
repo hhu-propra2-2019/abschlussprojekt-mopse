@@ -58,7 +58,7 @@ public class SecurityTests {
      */
     @Test
     @WithMockUser("randomUser")
-    public void signedInasNormalUser() throws Exception {
+    public void signedInAsNormalUser() throws Exception {
         mvc.perform(get("/"))
 //                TODO change when route "/" (or similar) exists
 //                .andExpect(status().isOk());
