@@ -1,11 +1,15 @@
-=== Mitglied möchte "musterloesung_WS19/20.pdf" aus "Bio_WS19/20" herunterladen
+== Mitglied möchte "musterloesung_WS19/20.pdf" aus "Bio_WS19/20" herunterladen
 
+Benutzer befindet sich auf Homepage von MOPS
 
-1. Benutzer besucht die Homepage von MOPS
-2. Benutzer klickt auf "Anmelden"
-3. Der User gibt seine Nutzerdaten ein und klickt auf "Log In"
-4. Der User wird weitergeleitet auf das persönliche Dashboard des MOPS
-5. Benutzer navigiert in Gruppenansicht seiner Veranstaltung "Bio_WS19/20". Es wird eine Tabelle mit den Metadaten der sichtbaren Dateien für Mitglieder angezeigt:
+=== 1. Login
+
+1. Benutzer klickt auf "Anmelden"
+2. Der Benutzer gibt seine Nutzerdaten ein und klickt auf "Log In"
+3. Der Benutzer wird weitergeleitet auf das persönliche Dashboard des MOPS
+
+=== 2. Navigation
+2.1 Benutzer navigiert in Gruppenansicht seiner Veranstaltung "Bio_WS19/20". Es wird eine Tabelle mit den Metadaten der sichtbaren Dateien für Mitglieder angezeigt:
 
 
 |===
@@ -24,6 +28,7 @@
 |05.10.2019 14:37
 |===
 
-6. User klickt die gesuchte Datei "musterloesung_WS19/20.pdf" an. Es öffnet sich eine neue Seite mit eingebetteter Vorschau der PDF-Datei. Die Datei kann per
+2.2 Benutzer klickt die gesuchte Datei "musterloesung_WS19/20.pdf" an. Es öffnet sich eine neue Seite mit eingebetteter Vorschau der PDF-Datei. Die Datei kann per
 Button heruntergeladen werden
-7. Benutzer klickt auf "Herunterladen". Es öffnet sich der Browserdialog zum Download der Datei.
+
+2.3 Benutzer klickt auf "Herunterladen". Es öffnet sich der Browserdialog zum Download der Datei.
