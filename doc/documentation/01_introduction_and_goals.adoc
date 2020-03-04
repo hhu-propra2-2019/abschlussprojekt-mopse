@@ -1,0 +1,43 @@
+[[section-introduction-and-goals]]
+==	Einführung und Ziele
+
+****
+Hier beschreiben wir unsere grundsätzlichen Geschäftsziele und die Aufgaben die wir bewätligen müssen. Außerdem geht es um Qualitätsziele und essentielle fachliche Anforderungen.
+
+****
+
+=== Aufgabenstellung
+
+****
+Kurzbeschreibung der fachlichen Aufgabenstellung.
+Möglicherweise in tabellarischer Use-Case Form.
+
+****
+
+=== Qualitätsziele
+
+****
+Die Top-3 bis Top-5 der Qualitätsziele für die Architektur, deren Erfüllung oder Einhaltung die Funktionalität des Programms maßgeblich beeinflussen.
+Unterschied zu Projektzielen beachten!
+
+Im Optimalfall in einer Tabelle o.Ä.
+****
+[cols="1,2" options="header"]
+|===
+|Qualitätsziel |Erläuterung
+| _<Qualitätsziel-1>_ | _<Erläuterung-1>_
+| _<Qualitätsziel-2>_ | _<Erläuterung-2>_
+|===
+=== Stakeholder
+
+****
+Möglicherweise ist es sinnvoll eine Liste der Personen/Organisationen zu erstellen, die mit unserem Programm und dessen Schnittstellen arbeiten wollen. Kann aber auch vernachlässigt werden.
+Die Auflistung mittels einer Tabelle wäre optimal
+****
+
+[cols="1,1,2" options="header"]
+|===
+|Rolle |Kontakt |Erwartungshaltung
+| _<Rolle-1>_ | _<Kontakt-1>_ | _<Erwartung-1>_
+| _<Rolle-2>_ | _<Kontakt-2>_ | _<Erwartung-2>_ 
+|===

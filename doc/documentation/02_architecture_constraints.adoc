@@ -1,0 +1,13 @@
+[[section-architecture-constraints]]
+== Randbedingungen
+
+****
+Randbedingungen und Vorgaben, die uns bezüglich Entwurf, Implementierung oder Entwicklung einschränken.
+In Form einer Tabelle.
+****
+[cols="1,2" options="header"]
+|===
+|Bedingung |Erläuterung
+| _<Bedingung-1>_ | _<Erläuterung-1>_
+| _<Bedingung-2>_ | _<Erläuterung-2>_
+|===
