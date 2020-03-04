@@ -9,7 +9,7 @@
 ** [X] Löschen
 ** [?] Hochladen
 
-* Mitglied
+* Administrator
 ** [X] Lesen
 ** [X] Löschen
 ** [X] Hochladen
