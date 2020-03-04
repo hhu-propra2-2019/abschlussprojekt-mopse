@@ -1,7 +1,7 @@
 FROM gradle:jdk11 AS BUILD
 WORKDIR /material1/build
 COPY . .
-RUN gradle bootJar
+RUN gradlew bootJar
 
 FROM openjdk:11-jre-slim
 ARG MATERIAL1_PORT
