@@ -1,4 +1,4 @@
-== Mitglied möchte "musterloesung_WS19/20.pdf" aus "Bio_WS19/20" herunterladen
+== Mitglied möchte "willkommen.mp4" aus "Bio_WS19/20" Im Browser ansehen
 
 Benutzer befindet sich auf Homepage von MOPS
 
@@ -29,7 +29,7 @@ sichtbaren Dateien für Mitglieder angezeigt:
 |05.10.2019 14:37
 |===
 
-2.2 Benutzer klickt die gesuchte Datei "musterloesung_WS19/20.pdf" an. Es öffnet sich eine neue Seite mit eingebetteter
-Vorschau der PDF-Datei. Die Datei kann per Button heruntergeladen werden.
+2.2 Benutzer klickt die gesuchte Datei "willkommen.mp4" an. Es öffnet sich eine neue Seite mit eingebettetem
+Video-Player der MP4-Datei. Die Datei kann per Button heruntergeladen werden.
 
-2.3 Benutzer klickt auf "Herunterladen". Es öffnet sich der Browserdialog zum Download der Datei.
+2.3 Benutzer kann das Video im Browser abspielen und/oder herunterladen
