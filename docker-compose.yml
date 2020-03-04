@@ -9,12 +9,6 @@ services:
       - material1_db_volume:/var/lib/mysql
     env_file:
       - prod.env
-  material1_prometheus:
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    image: prom/prometheus
   material1:
     build:
       context: .
