@@ -12,10 +12,10 @@
 
 === Format
 
-- Überschrift
+* Überschrift
 - Ausgangslage
-- Überschrift 1
-- Schritt 1.1
-- Schritt 1.X
-- Überschrift X
+* Überschrift 1
+** Schritt 1.1
+** Schritt 1.X
+* Überschrift X
 
