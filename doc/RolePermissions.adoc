@@ -1,0 +1,23 @@
+= Role Permissions
+
+* Besitzer der Datei hat Vollzugriff
+** [X] Lesen
+** [X] Löschen
+
+* Mitglied
+** [?] Lesen
+** [X] Löschen
+** [?] Hochladen
+
+* Administrator
+** [X] Lesen
+** [X] Löschen
+** [X] Hochladen
+
+* Aussenstehender
+** [X] Lesen
+** [X] Löschen
+** [X] Hochladen
+
+
+
