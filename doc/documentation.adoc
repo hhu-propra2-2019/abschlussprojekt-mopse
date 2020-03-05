@@ -23,7 +23,7 @@ ifdef::basebackend-html[]
 endif::basebackend-html[]
 
 // configure DE settings for asciidoc
-include::doc/documentation/config.adoc[]
+include::documentation/config.adoc[]
 
 // horizontal line
 
@@ -33,40 +33,40 @@ include::doc/documentation/config.adoc[]
 
 <<<<
 // 1. Anforderungen und Ziele
-include::doc/documentation/01_introduction_and_goals.adoc[]
+include::documentation/01_introduction_and_goals.adoc[]
 
 <<<<
 // 2. Randbedingungen
-include::doc/documentation/02_architecture_constraints.adoc[]
+include::documentation/02_architecture_constraints.adoc[]
 
 <<<<
 // 3. Kontextabgrenzung
-include::doc/documentation/03_system_scope_and_context.adoc[]
+include::documentation/03_system_scope_and_context.adoc[]
 
 <<<<
 // 4. Lösungsstrategie
-include::doc/documentation/04_solution_strategy.adoc[]
+include::documentation/04_solution_strategy.adoc[]
 
 <<<<
 // 5. Bausteinsicht
-include::doc/documentation/05_building_block_view.adoc[]
+include::documentation/05_building_block_view.adoc[]
 
 <<<<
 // 6. Laufzeitsicht
-include::doc/documentation/06_runtime_view.adoc[]
+include::documentation/06_runtime_view.adoc[]
 
 <<<<
 // 7. Querschnittliche Konzepte
-include::doc/documentation/08_concepts.adoc[]
+include::documentation/07_concepts.adoc[]
 
 <<<<
 // 8. Entscheidungen
-include::doc/documentation/09_design_decisions.adoc[]
+include::documentation/08_design_decisions.adoc[]
 
 <<<<
 // 9. Qualität...
-include::doc/documentation/10_quality_scenarios.adoc[]
+include::documentation/09_quality_scenarios.adoc[]
 
 <<<<
 // 10. Glossar
-include::doc/documentation/12_glossary.adoc[]
+include::documentation/10_glossary.adoc[]
