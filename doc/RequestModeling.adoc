@@ -3,20 +3,45 @@
 === Benötigte Anfragetypen
 
 === 1. Gruppenübersicht eines Benutzers
-`GET` Ansicht mit Übersicht aller Gruppen eines Benutzers (material1/groups -> Index)
+`GET` Ansicht mit Übersicht aller Gruppen eines Benutzers (`material1/groups` -> Index)
 
 * Request -> Business-Logic -> API-Aufruf -> Gruppenabfrage und Berechtigungsabfrage -> Metadatenbank -> Business Logic
 -> Formatierung und Representation Layer
 
 === 2. Dateiübersicht einer Gruppe
 `GET` Ansicht mit Übersicht aller Dateien einer Gruppe (auf die der Nutzer Lesezugriff hat)
-(material1/groups/{group_id} -> Index
+(`material1/group/{group_id}` -> `material1/dir/{dir_id}`)
 
-=== 3. Anfrage auf eine Datei
-`GET` Anfrage auf eine Datei (material1/{file_id})
+* Dieser Aufruf verlinkt immer auf das Root-Verzeichnis
+* Root-Verzeichnis wird erstellt, wenn nicht vorhanden
 
-=== 4. Löschen einer Datei
-`DELETE`/`POST` Löschen einer Datei (material1/{file_id}/delete)
+=== 3. Dateiübersicht eines Ordners
+`GET` Ansicht eines Ordners mit untergeordneten Dateien und Ordnern (`material1/dir/{dir_id}`)
 
-=== 5. Hochladen einer Datei
-`POST` Hochladen (material1/files/upload) ODER (material1/groups/{group_id}/upload)
+* Maximal 500 Ordner pro Gruppe (Sicherheit)
+
+=== 4. Anfrage auf eine Datei
+`GET` Anfrage auf eine Datei (`material1/file/{file_id}`)
+
+* Group ID irrelevant, da Zugriff auf einzelne Datei
+* Content-Type Preview, z.B. PDF (Video player etc. optional)
+
+=== 5. Löschen einer Datei
+`DELETE` Löschen einer Datei (`material1/file/{file_id}`)
+
+=== 6. Löschen eines Ordners
+`DELETE` Löschen eines Ordners (`material1/dir/{dir_id}`)
+
+=== 7. Hochladen einer Datei
+`POST` Hochladen (`material1/dir/{dir_id}/upload`)
+
+=== 8. Erstellen eines Ordners
+`POST` Erstellen eines Ordners (`material1/dir/{parent_dir_id}/create`)
+
+* {parent_dir_id} ist ID des Parent Verzeichnis des zu erstellenden Verzeichnis
+
+=== 9. Durchsuchen einer Gruppe
+
+`POST` Durchsuchen einer Gruppe nach einem Dateinamen (`material1/group/{group_id}/search`)
+
+`POST` Durchsuchen eines Ordners nach einem Dateinamen (`dir/{dir_id}/search`)
