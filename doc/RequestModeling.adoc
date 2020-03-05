@@ -2,13 +2,21 @@
 
 === Benötigte Anfragetypen
 
-1. `GET` Ansicht mit Übersicht aller Gruppen eines Benutzers (material1/groups -> Index)
+=== 1. Gruppenübersicht eines Benutzers
+`GET` Ansicht mit Übersicht aller Gruppen eines Benutzers (material1/groups -> Index)
 
-2. `GET` Ansicht mit Übersicht aller Dateien einer Gruppe (auf die der Nutzer Lesezugriff hat)
-(material1/groups/{group_id}/files -> Index
+* Request -> Business-Logic -> API-Aufruf -> Gruppenabfrage und Berechtigungsabfrage -> Metadatenbank -> Business Logic
+-> Formatierung und Representation Layer
 
-3. `GET` Anfrage auf eine Datei (material1/files/{file_id})
+=== 2. Dateiübersicht einer Gruppe
+`GET` Ansicht mit Übersicht aller Dateien einer Gruppe (auf die der Nutzer Lesezugriff hat)
+(material1/groups/{group_id} -> Index
 
-4. `DELETE`/`POST` Löschen einer Datei (material1/files/{file_id}/delete)
+=== 3. Anfrage auf eine Datei
+`GET` Anfrage auf eine Datei (material1/{file_id})
 
-5. `POST` Hochladen (material1/files/upload) ODER (material1/groups/{group_id}/upload)
+=== 4. Löschen einer Datei
+`DELETE`/`POST` Löschen einer Datei (material1/{file_id}/delete)
+
+=== 5. Hochladen einer Datei
+`POST` Hochladen (material1/files/upload) ODER (material1/groups/{group_id}/upload)
