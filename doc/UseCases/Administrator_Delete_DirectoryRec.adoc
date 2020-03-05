@@ -1,0 +1,36 @@
+== Mitglied möchte Verzeichnis "klausuren" aus "Info1_WS19/20" löschen, inklusive Unterdateien und Verzeichnissen
+
+Benutzer befindet sich auf Homepage von MOPS
+
+=== 1. Login
+
+1. Benutzer klickt auf "Anmelden"
+2. Der Benutzer gibt seine Nutzerdaten ein und klickt auf "Log In"
+3. Der Benutzer wird weitergeleitet auf das persönliche Dashboard des MOPS
+
+=== 2. Navigation
+2.1 Benutzer navigiert in Gruppenansicht seiner Veranstaltung "Info1_WS19/20". Es wird eine Tabelle mit den Metadaten der
+sichtbaren Dateien für Mitglieder angezeigt:
+
+
+|===
+|Name |Groesse |Datum
+
+|einfuehrung.pdf
+|520 KB
+|01.10.2019 14:00
+
+|willkommen.mp4
+|14 MB
+|05.10.2019 14:37
+
+|klausuren
+|
+|
+|===
+
+2.2 Benutzer klickt im Kontextmenü von "klausuren" auf Löschen
+
+2.3 Benutzer bestätigt die Löschung des Verzeichnisg
+
+2.4 Das Verzeichnis und alle darin enthaltenen Verzeichnisse und Dateien werden nicht mehr angezeigt
