@@ -44,4 +44,4 @@
 
 `POST` Durchsuchen einer Gruppe nach einem Dateinamen, Tags oder Inhalt (`material1/group/{group_id}/search`)
 
-`POST` Durchsuchen eines Ordners nach einem Dateinamen, Tags goder Inhalt (`dir/{dir_id}/search`)
+`POST` Durchsuchen eines Ordners nach einem Dateinamen, Tags oder Inhalt (`dir/{dir_id}/search`)
