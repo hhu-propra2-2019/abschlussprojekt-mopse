@@ -3,23 +3,23 @@
 * Ersetzen von Dateien erfordert Berechtigungen für `Löschen` und `Hochladen`
 
 * Besitzer der Datei hat Vollzugriff
-** [X] `Lesen`
-** [X] `Löschen`
+** [x] `Lesen`
+** [x] `Bearbeiten`
 
 * Mitglied
 ** [?] `Lesen`
-** [X] `Löschen`
+** [x] `Bearbeiten`
 ** [?] `Hochladen`
 
 * Administrator
-** [X] `Lesen`
-** [X] `Löschen`
-** [X] `Hochladen`
+** [x] `Lesen`
+** [x] `Bearbeiten`
+** [x] `Hochladen`
 
 * Aussenstehender
-** [X] `Lesen`
-** [X] `Löschen`
-** [X] `Hochladen`
+** [x] `Lesen`
+** [x] `Bearbeiten`
+** [x] `Hochladen`
 
 
 
