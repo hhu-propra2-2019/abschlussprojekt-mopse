@@ -2,7 +2,7 @@
 
 * Ersetzen von Dateien erfordert Berechtigungen für `Löschen` und `Hochladen`
 
-* Besitzer des Verzeichnis hat Vollzugriff
+* Besitzer der Datei hat Vollzugriff
 ** [X] `Lesen`
 ** [X] `Löschen`
 
