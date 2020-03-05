@@ -8,15 +8,15 @@
 
 * Mitglied
 ** [x] `Lesen`
-** [ ] `Löschen`
+** [ ] `Bearbeiten`
 ** [ ] `Hochladen`
 
 * Administrator
 ** [x] `Lesen`
-** [x] `Löschen`
+** [x] `Bearbeiten`
 ** [x] `Hochladen`
 
 * Aussenstehender
 ** [ ] `Lesen`
-** [ ] `Löschen`
+** [ ] `Bearbeiten`
 ** [ ] `Hochladen`
