@@ -1,12 +1,13 @@
 package mops;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class Material1ApplicationTests {
 
-    // TODO: enable test once db connection works
-    /*@Test
+    @SuppressWarnings("PMD")
+    @Test
     void contextLoads() {
-    }*/
+    }
 }

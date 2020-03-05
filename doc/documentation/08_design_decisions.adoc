@@ -1,0 +1,24 @@
+[[section-design-decisions]]
+== Entwurfsentscheidungen
+
+****
+_Dieser Abschnitt ist möglichweise zu vernachlässigen._
+
+Es geht hier darum große und wichtige Entscheidungen die während des Entwicklungsprozesses entstehen zu erklären und zu begründen.
+Es werden also Alternativen miteinader verglichen, abgewogen und die Beste ausgewählt.
+
+****
+
+=== _<Entscheidung 1>_
+
+_<Erklärung>_
+
+=== _<Entscheidung 2>_
+
+_<Erklärung>_
+
+...
+
+=== _<Entscheidung n>_
+
+_<Erklärung>_

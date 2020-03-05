@@ -1,0 +1,20 @@
+[[section-glossary]]
+== Glossar
+
+****
+Eine klare Definition aller Begriffe, die möglicherweise dem Team oder auch außenstehenden nicht einheitlich klar sind.
+Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskussionen vorzubeugen.
+****
+
+[cols="1,2" options="header"]
+|===
+|Begriff
+|Definition
+
+|_<Begriff-1>_
+|_<Definition-1>_
+
+
+|_<Begriff-2_
+|_<Definition-2>_
+|===

@@ -1,0 +1,111 @@
+[[section-building-block-view]]
+== Bausteinsicht
+
+****
+Eine Auflistung und Erklärung aller Bausteine des Systems. Das wären zum Beispiel:
+
+* Module
+* Komponenten
+* Subsysteme
+* Klassen
+* Interfaces
+* Pakete
+* Bibliotheken
+* Frameworks
+* Schichten
+* Funktionen
+* Datenstrukturen
+
+Diese Sicht sollte in jeder Architekturdokumentation vorhanden sein.
+In der Analogie zum Hausbau bildet die Bausteinsicht den _Grundrissplan_.
+
+Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren Beschreibungen.
+
+image:05_building_blocks-DE.png["Baustein Sichten"]
+
+Die *Gesamtabgrenzung* zeigt unser System in Abgrenzung zu Nachbarsystemen.
+
+*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen Bausteine (in unserem Fall die einzelnen Schichten).
+
+*Ebene 2* zoomt in die einzelnen Schichten hinein und zeigt die darin enthaltenen Komponenten.
+
+*Ebene 3* zoomt in die Komponenten hinein und beschreibt deren einzelne Funktionen und Schnittstellen genauer.
+****
+
+=== Gesamtabgrenzung
+
+****
+Eine Beschreibung des Gesamtsystems als Whitebox nach folgendem Template:
+
+* Ein Übersichtsdiagramm
+* die Begründung dieser Zerlegung
+* Blackbox-Beschreibungen der hier enthaltenen Bausteine mittels einer Tabelle.
+
+Es geht um die Abgrenzung unseres Systems zu den Nachbarsystemen anderer Gruppen.
+****
+
+_**<Übersichtsdiagramm>**_
+
+Begründung:: _<Erläuternder Text>_
+
+Enthaltene Bausteine::
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| _<Komponente-1>_ | _<Funktion-1>_ | _<Schnittstellen-1>_
+| _<Komponente-2>_ | _<Funktion-2>_ | _<Schnittstellen-2>_
+|===
+
+=== Ebene 1
+
+****
+Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie zuvor auch.
+****
+
+_**<Übersichtsdiagramm>**_
+
+Begründung:: _<Erläuternder Text>_
+
+Enthaltene Bausteine::
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| _<Komponente-1>_ | _<Funktion-1>_ | _<Schnittstellen-1>_
+| _<Komponente-2>_ | _<Funktion-2>_ | _<Schnittstellen-2>_
+|===
+
+=== Ebene 2
+
+****
+Ebene 2 zeigt die einzelnen Schichten im Detail und deren Komponenten. Darstellung nach gleichem Schema wie zuvor.
+****
+
+_**<Übersichtsdiagramm>**_
+
+Begründung:: _<Erläuternder Text>_
+
+Enthaltene Bausteine::
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| _<Komponente-1>_ | _<Funktion-1>_ | _<Schnittstellen-1>_
+| _<Komponente-2>_ | _<Funktion-2>_ | _<Schnittstellen-2>_
+|===
+
+=== Ebene 3
+
+****
+Ebene 3 zeigt die einzelnen Komponenten einer Schicht im Detail und deren Funktionen. Darstellung nach gleichem Schema wie zuvor.
+****
+
+_**<Übersichtsdiagramm>**_
+
+Begründung:: _<Erläuternder Text>_
+
+Enthaltene Bausteine::
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| _<Komponente-1>_ | _<Funktion-1>_ | _<Schnittstellen-1>_
+| _<Komponente-2>_ | _<Funktion-2>_ | _<Schnittstellen-2>_
+|===

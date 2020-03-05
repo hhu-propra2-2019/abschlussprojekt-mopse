@@ -48,7 +48,7 @@ dependencies {
     }
     testImplementation 'org.springframework.security:spring-security-test'
 
-    implementation 'mops:styleguide:2.0.0'
+    implementation 'mops:styleguide:2.1.0'
     compileOnly 'com.github.spotbugs:spotbugs-annotations:4.0.0'
     testImplementation 'com.tngtech.archunit:archunit-junit5:0.13.1'
     implementation 'io.minio:minio:6.0.13'
