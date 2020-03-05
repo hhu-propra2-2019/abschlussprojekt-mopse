@@ -4,22 +4,19 @@
 
 * Besitzer der Datei hat Vollzugriff
 ** [x] `Lesen`
-** [x] `Bearbeiten`
+** [x] `Löschen`
 
 * Mitglied
-** [?] `Lesen`
-** [x] `Bearbeiten`
-** [?] `Hochladen`
+** [x] `Lesen`
+** [ ] `Löschen`
+** [ ] `Hochladen`
 
 * Administrator
 ** [x] `Lesen`
-** [x] `Bearbeiten`
+** [x] `Löschen`
 ** [x] `Hochladen`
 
 * Aussenstehender
-** [x] `Lesen`
-** [x] `Bearbeiten`
-** [x] `Hochladen`
-
-
-
+** [ ] `Lesen`
+** [ ] `Löschen`
+** [ ] `Hochladen`
