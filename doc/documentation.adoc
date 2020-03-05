@@ -11,13 +11,6 @@
 ifdef::basebackend-html[]
 ++++
 <style>
-.arc42help {font-size:small; width: 14px; height: 16px; overflow: hidden; position: absolute; right: 0px; padding: 2px 0px 3px 2px;}
-.arc42help::before {content: "?";}
-.arc42help:hover {width:auto; height: auto; z-index: 100; padding: 10px;}
-.arc42help:hover::before {content: "";}
-@media print {
-	.arc42help {display:hidden;}
-}
 </style>
 ++++
 endif::basebackend-html[]
@@ -25,9 +18,26 @@ endif::basebackend-html[]
 // configure DE settings for asciidoc
 include::documentation/config.adoc[]
 
-// horizontal line
+// short explanation about formatting, can be deleted later
+== Formatierung
+
+****
+Normale Schrift stellt Text dar, der auch so in der fertigen Dokumentation stehen sollen, und somit prkatisch die "Lösung" der "Aufgabenstellung" darstellt.
+
+_Kursiver Text ist die "Aufgabenstellung", die wir erfüllen müssen. Diese sollte in der fertigen Dokumentation nicht mehr enthalten sein._
+
+Überschriften jetweder Form werden automatisch zur Nummerierung der einzelnen Punkte genutzt und sollten somit nicht leichtfertig genutzt werden.
+
+[cols="1,2" options="header"]
+|===
+|Spalte 1 |Spalte 2
+| Schlagworte in einer Tabelle sollten in normaler Schrift geschrieben werden. | _Genauere Erklärungen in einer Tabelle sollten kursiv geschrieben werden, um den Unterschied klar festzusetzen._
+| <Schlagwort> | _<Erklärung>_
+| <Schlagwort> | _<Erklärung>_
+|===
 
 
+****
 // numbering from here on
 :numbered:
 
