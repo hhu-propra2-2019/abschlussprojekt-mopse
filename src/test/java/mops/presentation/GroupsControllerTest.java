@@ -49,4 +49,15 @@ public class GroupsControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("Index"));
     }
+
+    /**
+     * Test if route secured.
+     *
+     * @throws Exception on error
+     */
+    @Test
+    public void notSignedIn() throws Exception {
+        mvc.perform(get("/material1/groups/"))
+                .andExpect(status().is3xxRedirection());
+    }
 }
