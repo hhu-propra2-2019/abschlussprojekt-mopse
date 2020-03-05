@@ -45,8 +45,8 @@ public class GroupsControllerTest {
      */
     @Test
     public void getAllGroups() throws Exception {
-        mvc.perform(get("/material1/groups/1"))
-                .andExpect(status().is3xxRedirection())
+        mvc.perform(get("/material1/groups/"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("Index"));
     }
 }
