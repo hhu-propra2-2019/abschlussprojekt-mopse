@@ -32,7 +32,7 @@ public class GroupsController {
      * @param model view model.
      * @return Index View.
      */
-    @GetMapping("/")
+    @GetMapping
     @RolesAllowed({"ROLE_orga", "ROLE_studentin"})
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
         final int userId = getAccountId(token);
