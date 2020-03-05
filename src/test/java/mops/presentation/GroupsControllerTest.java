@@ -1,14 +1,21 @@
 package mops.presentation;
 
+import mops.businesslogic.GroupService;
+import mops.persistence.Directory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -18,11 +25,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GroupsControllerTest {
 
+
+    @MockBean
+    private GroupService groupService;
     /**
      * Necessary bean.
      */
     @Autowired
     private WebApplicationContext context;
+
 
     /**
      * Necessary bean.
@@ -34,6 +45,8 @@ public class GroupsControllerTest {
      */
     @BeforeEach
     public void setUp() {
+        List<Directory> groupList = new ArrayList<>();
+        given(groupService.getAllGroups(1)).willReturn(groupList);
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .build();
