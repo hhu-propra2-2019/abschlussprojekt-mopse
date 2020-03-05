@@ -1,6 +1,5 @@
 package mops.presentation;
 
-import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.GroupService;
 import mops.persistence.Directory;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SuppressWarnings("PMD")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GroupsControllerTest extends ServletKeycloakAuthUnitTestingSupport {
+public class GroupsControllerTest {
 
 
     /**
