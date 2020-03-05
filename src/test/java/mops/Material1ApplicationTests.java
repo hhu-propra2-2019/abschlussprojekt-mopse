@@ -1,12 +1,20 @@
 package mops;
 
+import mops.businesslogic.GroupService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
+@SuppressWarnings("PMD")
 @SpringBootTest
 class Material1ApplicationTests {
+    /**
+     * necessary mock until GroupService is implemented.
+     */
+    @MockBean
+    private GroupService groupService;
 
-    @SuppressWarnings("PMD")
+
     @Test
     void contextLoads() {
     }
