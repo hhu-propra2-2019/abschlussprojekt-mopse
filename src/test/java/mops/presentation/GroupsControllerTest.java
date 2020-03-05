@@ -89,7 +89,7 @@ public class GroupsControllerTest {
         securityContext.setAuthentication(authenticationToken);
         mvc.perform(get("/material1/groups/"))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("Index"));
+                .andExpect(view().name("groups"));
     }
 
     /**

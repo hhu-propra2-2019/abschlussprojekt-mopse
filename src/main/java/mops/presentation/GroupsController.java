@@ -38,7 +38,7 @@ public class GroupsController {
         final int userId = getAccountId(token);
         final List<Directory> groups = groupService.getAllGroups(userId);
         model.addAttribute("groups", groups);
-        return "Index";
+        return "groups";
     }
 
     private int getAccountId(KeycloakAuthenticationToken token) {
