@@ -67,7 +67,7 @@ public class DirectoryController {
         final List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
-        return String.format("directory/%d", dirId);
+        return "directory";
     }
 }
 
