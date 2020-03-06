@@ -11,8 +11,8 @@ import java.util.Set;
 
 import static org.mockito.Mockito.*;
 
-@SuppressWarnings("PMD")
 public class SecurityContextUtil {
+
     /**
      * Builds a security context using mock for keycloak.
      *
@@ -22,12 +22,10 @@ public class SecurityContextUtil {
      */
     public static void setupSecurityContextMock(String userName, String userEmail, Set<String> roles) {
         //noinspection rawtypes as is it convention for this principal
-        KeycloakPrincipal principal = mock(KeycloakPrincipal.class,
-                RETURNS_DEEP_STUBS);
+        KeycloakPrincipal principal = mock(KeycloakPrincipal.class, RETURNS_DEEP_STUBS);
         when(principal.getName()).thenReturn(userName);
         when(principal.getKeycloakSecurityContext().getIdToken().getEmail()).thenReturn(userEmail);
-        SimpleKeycloakAccount account = new SimpleKeycloakAccount(principal,
-                roles,
+        SimpleKeycloakAccount account = new SimpleKeycloakAccount(principal, roles,
                 mock(RefreshableKeycloakSecurityContext.class));
         KeycloakAuthenticationToken authenticationToken = new KeycloakAuthenticationToken(account, true);
         SecurityContext securityContext = SecurityContextHolder.getContext();

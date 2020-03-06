@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@SuppressWarnings("PMD")
 @SpringBootTest
 class Material1ApplicationTests {
+
     /**
      * Necessary mock until GroupService is implemented.
      */
@@ -20,7 +20,6 @@ class Material1ApplicationTests {
      */
     @MockBean
     private FileService fileService;
-
 
     @Test
     void contextLoads() {

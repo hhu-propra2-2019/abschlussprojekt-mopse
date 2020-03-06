@@ -27,11 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@SuppressWarnings("PMD")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GroupsControllerTest {
-
 
     /**
      * Necessary mock until GroupService is implemented.
@@ -48,7 +46,6 @@ public class GroupsControllerTest {
      */
     @Autowired
     private WebApplicationContext context;
-
 
     /**
      * Necessary bean.
@@ -68,14 +65,13 @@ public class GroupsControllerTest {
                 .alwaysDo(print())
                 .apply(springSecurity())
                 .build();
-
     }
 
     /**
      * Test if all groups are presented in the index view.
      */
     @Test
-    @WithMockUser(username = "studi", roles = {"studentin"})
+    @WithMockUser(username = "studi", roles = { "studentin" })
     public void getAllGroups() throws Exception {
         SecurityContextUtil.setupSecurityContextMock("userName", "userEmail@mail.de", Set.of("studentin"));
         mvc.perform(get("/material1/groups/"))
