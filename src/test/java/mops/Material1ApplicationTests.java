@@ -9,7 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 @SpringBootTest
 class Material1ApplicationTests {
     /**
-     * necessary mock until GroupService is implemented.
+     * Necessary mock until GroupService is implemented.
      */
     @MockBean
     private GroupService groupService;
