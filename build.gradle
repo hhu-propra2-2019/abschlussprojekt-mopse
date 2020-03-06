@@ -39,7 +39,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.h2database:h2'
+    testRuntimeOnly 'com.h2database:h2'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
@@ -60,6 +60,7 @@ dependencies {
 checkstyle {
     toolVersion = '8.29'
 }
+checkstyleTest.enabled = false
 tasks.withType(Checkstyle) {
     reports {
         xml.enabled = false
@@ -71,6 +72,7 @@ pmd {
     ruleSets = []
     ruleSetFiles = files 'config/pmd/pmd.xml'
 }
+pmdTest.enabled = false
 tasks.withType(Pmd) {
     reports {
         xml.enabled = false
