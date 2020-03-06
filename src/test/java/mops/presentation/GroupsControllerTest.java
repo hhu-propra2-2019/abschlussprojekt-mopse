@@ -9,7 +9,6 @@ import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.mockito.internal.util.collections.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -76,7 +75,7 @@ public class GroupsControllerTest {
     @Test
     @WithMockUser(username = "studi", roles = {"studentin"})
     public void getAllGroups() throws Exception {
-        Set<String> roles = Sets.newSet("studentin");
+        Set<String> roles = Set.of("studentin");
         //noinspection rawtypes as is it convention for this principal
         KeycloakPrincipal principal = mock(KeycloakPrincipal.class,
                 RETURNS_DEEP_STUBS);
