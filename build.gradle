@@ -72,8 +72,8 @@ pmd {
     ruleSets = []
     ruleSetFiles = files 'config/pmd/pmd.xml'
 }
-pmdTest.enabled = false
 tasks.withType(Pmd) {
+    enabled = false
     reports {
         xml.enabled = false
         html.enabled = true

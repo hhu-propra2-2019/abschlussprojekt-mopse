@@ -13,13 +13,18 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@SuppressWarnings("PMD")
 public class TestService {
 
     private final FileInfoRepository fiRepo;
     private final DirectoryRepository dirRepo;
     private final DirectoryPermissionsRepository permRepo;
 
-    public TestService(FileInfoRepository fiRepo, DirectoryRepository dirRepo, DirectoryPermissionsRepository permRepo) {
+    public TestService(
+            FileInfoRepository fiRepo,
+            DirectoryRepository dirRepo,
+            DirectoryPermissionsRepository permRepo
+    ) {
         this.fiRepo = fiRepo;
         this.dirRepo = dirRepo;
         this.permRepo = permRepo;
