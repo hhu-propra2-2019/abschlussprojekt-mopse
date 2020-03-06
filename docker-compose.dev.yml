@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  minio-dev:
+    image: minio/minio
+    ports:
+      - 9000:9000
+    volumes:
+      - ./minio_data:/data
+    environment:
+      MINIO_ACCESS_KEY: dev_minio_access_key
+      MINIO_SECRET_KEY: dev_minio_secret_key
+    command: server /data
