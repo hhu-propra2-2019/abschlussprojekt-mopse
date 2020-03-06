@@ -34,7 +34,6 @@ public class HaveExactlyOneAggregateRoot extends ArchCondition<Slice> {
     @Override
     public void check(Slice slice, ConditionEvents conditionEvents) {
         List<String> aggregateRootNames = getAggregateRootNames(slice);
-        String packageName = slice.iterator().next().getPackageName();
 
         if (aggregateRootNames.size() == 1) {
             conditionEvents.add(satisfied(slice, "Exactly one Aggregate Root!"));
