@@ -9,6 +9,7 @@ import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class DirectoryController {
      * @param fileInfo file object
      * @return route after completion
      */
-    @PostMapping(path = "/{groupId}")
+    @PostMapping(path = "/{groupId}/upload")
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("groupId") int groupId,
@@ -39,7 +40,7 @@ public class DirectoryController {
         Account account = AccountUtil.getAccountFromToken(token);
         //TODO: exception handling and user error message
         directoryService.uploadFile(account, groupId, fileInfo);
-        return String.format("directory/%d", groupId);
+        return String.format("redirect:/material1/dir/%d", groupId);
     }
 }
 
