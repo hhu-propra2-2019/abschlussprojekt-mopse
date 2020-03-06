@@ -2,9 +2,9 @@ package mops.presentation;
 
 import lombok.AllArgsConstructor;
 import mops.Account;
+import mops.AccountUtil;
 import mops.businesslogic.GroupService;
 import mops.persistence.Directory;
-import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,26 +34,10 @@ public class GroupsController {
      */
     @GetMapping
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
-        final Account account = getAccount(token);
+        final Account account = AccountUtil.getAccountFromToken(token);
         final List<Directory> groups = groupService.getAllGroups(account);
         model.addAttribute("groups", groups);
         return "groups";
     }
 
-    /**
-     * Creates a Account Object from a token.
-     *
-     * @param token security toke provided by keycloak
-     * @return {@link Account}
-     */
-    @SuppressWarnings("PMD")
-    private Account getAccount(KeycloakAuthenticationToken token) {
-        //noinspection rawtypes as it is convention for this type
-        final KeycloakPrincipal principal = (KeycloakPrincipal) token.getPrincipal();
-        return new Account(
-                principal.getName(),
-                principal.getKeycloakSecurityContext().getIdToken().getEmail(),
-                null,
-                token.getAccount().getRoles());
-    }
 }
