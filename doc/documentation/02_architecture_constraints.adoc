@@ -2,12 +2,13 @@
 == Randbedingungen
 
 ****
-Randbedingungen und Vorgaben, die uns bezüglich Entwurf, Implementierung oder Entwicklung einschränken.
-In Form einer Tabelle.
+_Randbedingungen und Vorgaben, die uns bezüglich Entwurf, Implementierung oder Entwicklung einschränken.
+In Form einer Tabelle._
 ****
 [cols="1,2" options="header"]
 |===
 |Bedingung |Erläuterung
-| _<Bedingung-1>_ | _<Erläuterung-1>_
-| _<Bedingung-2>_ | _<Erläuterung-2>_
+| Zusammenarbeit mit anderen Gruppen | _Schnittstellen mit anderen Gruppen beeinflussen unsere Implementierung. Vor allem wenn diese Gruppen selbst noch keine abgeschlossenen Konzepte entworfen haben._
+| Fehlende Ordnerstruktur in MinOS | _Dies erfordert die Anlegung einer virtuellen Ordnerstruktur in einer externen Datenbank._
+| <Bedingung> | _<Erläuterung>_
 |===

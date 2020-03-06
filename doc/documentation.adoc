@@ -6,6 +6,7 @@
 = Dokumentation
 // toc-title definition MUST follow document title without blank line!
 :toc-title: Inhaltsverzeichnis
+:toc:
 
 //additional style for arc42 help callouts
 ifdef::basebackend-html[]
@@ -35,7 +36,6 @@ _Kursiver Text ist die "Aufgabenstellung", die wir erfüllen müssen. Diese soll
 | <Schlagwort> | _<Erklärung>_
 | <Schlagwort> | _<Erklärung>_
 |===
-
 
 ****
 // numbering from here on
