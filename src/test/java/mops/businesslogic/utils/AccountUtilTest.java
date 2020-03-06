@@ -1,7 +1,6 @@
-package mops;
+package mops.businesslogic.utils;
 
 import mops.businesslogic.Account;
-import mops.businesslogic.utils.AccountUtil;
 import org.junit.jupiter.api.Test;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
