@@ -1,6 +1,7 @@
 package mops.presentation;
 
 import mops.businesslogic.Account;
+import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import mops.persistence.Directory;
@@ -41,6 +42,11 @@ public class GroupsControllerTest {
      */
     @MockBean
     private FileService fileService;
+    /**
+     * Necessary mock until DirectoryService is implemented.
+     */
+    @MockBean
+    private DirectoryService directoryService;
     /**
      * Necessary bean.
      */

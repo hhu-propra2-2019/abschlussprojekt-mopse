@@ -1,9 +1,6 @@
 package mops.presentation;
 
-import mops.businesslogic.Account;
-import mops.businesslogic.FileQuery;
-import mops.businesslogic.FileService;
-import mops.businesslogic.GroupService;
+import mops.businesslogic.*;
 import mops.persistence.FileInfo;
 import mops.presentation.utils.SecurityContextUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +34,11 @@ public class GroupControllerTest {
      */
     @MockBean
     private GroupService groupService;
+    /**
+     * Necessary mock until DirectoryService is implemented.
+     */
+    @MockBean
+    private DirectoryService directoryService;
     /**
      * Necessary mock until GroupService is implemented.
      */
