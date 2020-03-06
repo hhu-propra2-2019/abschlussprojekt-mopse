@@ -80,7 +80,7 @@ public class GroupsControllerTest {
         //noinspection rawtypes as is it convention for this principal
         KeycloakPrincipal principal = mock(KeycloakPrincipal.class,
                 RETURNS_DEEP_STUBS);
-        when((principal).getKeycloakSecurityContext().getIdToken().getNickName()).thenReturn("studi");
+        when(principal.getKeycloakSecurityContext().getIdToken().getNickName()).thenReturn("studi");
         SimpleKeycloakAccount account = new SimpleKeycloakAccount(principal,
                 roles,
                 mock(RefreshableKeycloakSecurityContext.class));
