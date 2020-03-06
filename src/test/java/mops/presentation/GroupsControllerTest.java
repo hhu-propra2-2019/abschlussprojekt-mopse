@@ -39,7 +39,7 @@ public class GroupsControllerTest {
 
 
     /**
-     * necessary mock until GroupService is implemented.
+     * Necessary mock until GroupService is implemented.
      */
     @MockBean
     private GroupService groupService;
