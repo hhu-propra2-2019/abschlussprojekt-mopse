@@ -42,4 +42,14 @@ public interface DirectoryService {
      * @return the parent id of the deleted folder
      */
     int deleteFolder(Account account, int dirId);
+
+    /**
+     * Searches a folder for files.
+     *
+     * @param account user credentials
+     * @param dirId   id of the folder to be searched
+     * @param query   wrapper object of the query parameter
+     * @return list of files
+     */
+    List<FileInfo> searchFolder(Account account, int dirId, FileQuery query);
 }
