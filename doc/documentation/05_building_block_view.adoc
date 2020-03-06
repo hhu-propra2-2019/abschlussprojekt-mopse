@@ -52,8 +52,7 @@ Enthaltene Bausteine::
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
-| _<Komponente-1>_ | _<Funktion-1>_ | _<Schnittstellen-1>_
-| _<Komponente-2>_ | _<Funktion-2>_ | _<Schnittstellen-2>_
+| Keycloak | Authentifizierung und Authentifikation der User. | Wir erzeugen uns dafür ein eigenes Account Objekt.
 |===
 
 === Ebene 1
