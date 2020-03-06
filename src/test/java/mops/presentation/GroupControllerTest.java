@@ -48,8 +48,6 @@ public class GroupControllerTest {
      */
     @Autowired
     private WebApplicationContext context;
-
-
     /**
      * Necessary bean.
      */
@@ -82,7 +80,7 @@ public class GroupControllerTest {
     }
 
     /**
-     * Tests if all files the correct view is called upon searching in a group.
+     * Tests if the correct view is called upon searching in a group.
      */
     @Test
     public void searchFile() throws Exception {
