@@ -23,6 +23,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -69,12 +70,26 @@ public class GroupControllerTest {
     }
 
     /**
-     * Test if all files of the a group are returned.
+     * Tests if all files of the a group are returned.
      */
     @Test
     public void getAllFilesOfDirectory() throws Exception {
         SecurityContextUtil.setupSecurityContextMock("userName", "userEmail@mail.de", Set.of("studentin"));
         mvc.perform(get("/material1/group/1"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("directory"));
+    }
+
+    /**
+     * Tests if all files the correct view is called upon searching in a group.
+     */
+    @Test
+    public void searchFile() throws Exception {
+        FileQuery fileQuery = mock(FileQuery.class);
+        SecurityContextUtil.setupSecurityContextMock("userName", "userEmail@mail.de", Set.of("studentin"));
+        mvc.perform(post("/material1/group/1/search")
+                .requestAttr("searchQuery", fileQuery
+                ))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("directory"));
     }
