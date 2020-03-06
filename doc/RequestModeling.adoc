@@ -2,13 +2,46 @@
 
 === Benötigte Anfragetypen
 
-1. `GET` Ansicht mit Übersicht aller Gruppen eines Benutzers (material1/groups -> Index)
+=== 1. Gruppenübersicht eines Benutzers
+`GET` Ansicht mit Übersicht aller Gruppen eines Benutzers (`material1/groups` -> Index)
 
-2. `GET` Ansicht mit Übersicht aller Dateien einer Gruppe (auf die der Nutzer Lesezugriff hat)
-(material1/groups/{group_id}/files -> Index
+* Request -> Business-Logic -> API-Aufruf -> Gruppenabfrage und Berechtigungsabfrage -> Metadatenbank -> Business Logic
+-> Formatierung und Representation Layer
 
-3. `GET` Anfrage auf eine Datei (material1/files/{file_id})
+=== 2. Dateiübersicht einer Gruppe
+`GET` Ansicht mit Übersicht aller Dateien einer Gruppe (auf die der Nutzer Lesezugriff hat)
+(`material1/group/{group_id}` -> `material1/dir/{dir_id}`)
 
-4. `DELETE`/`POST` Löschen einer Datei (material1/files/{file_id}/delete)
+* Dieser Aufruf verlinkt immer auf das Root-Verzeichnis
+* Root-Verzeichnis wird erstellt, wenn nicht vorhanden
 
-5. `POST` Hochladen (material1/files/upload) ODER (material1/groups/{group_id}/upload)
+=== 3. Dateiübersicht eines Ordners
+`GET` Ansicht eines Ordners mit untergeordneten Dateien und Ordnern (`material1/dir/{dir_id}`)
+
+* Maximal 500 Ordner pro Gruppe (Sicherheit)
+
+=== 4. Anfrage auf eine Datei
+`GET` Anfrage auf eine Datei (`material1/file/{file_id}`)
+
+* Group ID irrelevant, da Zugriff auf einzelne Datei
+* Content-Type Preview, z.B. PDF (Video player etc. optional)
+
+=== 5. Löschen einer Datei
+`DELETE` Löschen einer Datei (`material1/file/{file_id}`)
+
+=== 6. Löschen eines Ordners
+`DELETE` Löschen eines Ordners (`material1/dir/{dir_id}`)
+
+=== 7. Hochladen einer Datei
+`POST` Hochladen (`material1/dir/{dir_id}/upload`)
+
+=== 8. Erstellen eines Ordners
+`POST` Erstellen eines Ordners (`material1/dir/{parent_dir_id}/create`)
+
+* {parent_dir_id} ist ID des Parent Verzeichnis des zu erstellenden Verzeichnis
+
+=== 9. Durchsuchen einer Gruppe
+
+`POST` Durchsuchen einer Gruppe nach einem Dateinamen, Tags oder Inhalt (`material1/group/{group_id}/search`)
+
+`POST` Durchsuchen eines Ordners nach einem Dateinamen, Tags oder Inhalt (`dir/{dir_id}/search`)
