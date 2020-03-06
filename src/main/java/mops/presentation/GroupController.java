@@ -1,13 +1,17 @@
 package mops.presentation;
 
 import lombok.AllArgsConstructor;
+import mops.businesslogic.Account;
+import mops.businesslogic.FileQuery;
 import mops.businesslogic.FileService;
+import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -32,7 +36,19 @@ public class GroupController {
     public String getAllFilesOfDirectory(KeycloakAuthenticationToken token,
                                          Model model,
                                          @PathVariable("groupId") int groupId) {
-        final List<FileInfo> files = fileService.getAllFilesOfGroup(groupId);
+        final Account account = AccountUtil.getAccountFromToken(token);
+        final List<FileInfo> files = fileService.getAllFilesOfGroup(account, groupId);
+        model.addAttribute("files", files);
+        return "directory";
+    }
+
+    @PostMapping(path = "/{groupId}/search")
+    public String searchFilesInGroup(KeycloakAuthenticationToken token,
+                                     Model model,
+                                     @PathVariable("groupId") int groupId) {
+        final Account account = AccountUtil.getAccountFromToken(token);
+        FileQuery query = (FileQuery) model.getAttribute("searchQuery");
+        final List<FileInfo> files = fileService.searchFilesInGroup(account, groupId, query);
         model.addAttribute("files", files);
         return "directory";
     }
