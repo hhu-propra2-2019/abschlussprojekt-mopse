@@ -55,7 +55,7 @@ public class GroupsControllerTest {
     public void setUp() {
         List<Directory> groupList = new ArrayList<>();
         final Account account = new Account("studi", "bla@bla.de", "pic.png", Set.of("studentin"));
-        given(groupService.getAllGroups(account)).willReturn(groupList);
+        given(groupService.getAllGroupRootDirectories(account)).willReturn(groupList);
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())

@@ -35,7 +35,7 @@ public class GroupsController {
     @GetMapping
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
         final Account account = AccountUtil.getAccountFromToken(token);
-        final List<Directory> groups = groupService.getAllGroups(account);
+        final List<Directory> groups = groupService.getAllGroupRootDirectories(account);
         model.addAttribute("groups", groups);
         return "groups";
     }
