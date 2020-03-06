@@ -33,3 +33,4 @@ out/
 .vscode/
 
 prod.env
+minio_data/
