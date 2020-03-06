@@ -11,8 +11,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SuppressWarnings("PMD")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -44,6 +44,7 @@ public class SecurityTests {
 
     /**
      * Tests auth needed on index.
+     *
      * @throws Exception on error
      */
     @Test
@@ -54,6 +55,7 @@ public class SecurityTests {
 
     /**
      * Tests get request as authenticated but not right role for monitoring.
+     *
      * @throws Exception on error
      */
     @Test
@@ -70,6 +72,7 @@ public class SecurityTests {
 
     /**
      * prometheus should get access to /actuator/.
+     *
      * @throws Exception on error
      */
     @Test
