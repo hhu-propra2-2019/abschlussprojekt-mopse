@@ -18,4 +18,4 @@
 :table-caption: Tabelle
 
 // where are images located?
-:imagesdir: ./doc/documentation/images
+:imagesdir: ./documentation/images
