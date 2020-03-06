@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
@@ -33,7 +32,6 @@ public class GroupsController {
      * @return groups view
      */
     @GetMapping
-    @RolesAllowed({"ROLE_orga", "ROLE_studentin"})
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
         final int userId = getAccountId(token);
         final List<Directory> groups = groupService.getAllGroups(userId);
