@@ -7,6 +7,7 @@ import mops.persistence.directory.permission.DirectoryPermissions;
 import mops.persistence.directory.permission.DirectoryPermissionsRepository;
 import mops.persistence.file.FileInfo;
 import mops.persistence.file.FileInfoRepository;
+import mops.persistence.file.FileTag;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -57,7 +58,9 @@ public class TestService {
 
         System.out.println("post-save-dir:" + dirRepo.findAll());
 
-        FileInfo fi1 = new FileInfo("file1", rootAfterSave.getId(), "text", 0L, "foo");
+        FileInfo fi1 = new FileInfo("file1", rootAfterSave.getId(), "text", 0L, "foo",
+                Set.of(new FileTag("random"))
+        );
         System.out.println("fi1: " + fi1);
         FileInfo fi1AfterSave = fiRepo.save(fi1);
         System.out.println("fi1AfterSave: " + fi1AfterSave);

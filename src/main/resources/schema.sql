@@ -1,3 +1,5 @@
+SET foreign_key_checks = 0;
+
 DROP TABLE IF EXISTS directory_permissions;
 CREATE TABLE directory_permissions
 (
@@ -41,3 +43,15 @@ CREATE TABLE file_info
     FOREIGN KEY (directory_id) REFERENCES directory (id),
     UNIQUE (name, directory_id)
 );
+
+DROP TABLE IF EXISTS file_tag;
+CREATE TABLE file_tag
+(
+    id      BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    name    VARCHAR(255)       NOT NULL CHECK (name NOT LIKE ''),
+    file_id BIGINT             NOT NULL,
+    FOREIGN KEY (file_id) REFERENCES file_info (id),
+    UNIQUE (name, file_id)
+);
+
+SET foreign_key_checks = 1;
