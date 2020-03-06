@@ -64,6 +64,7 @@ public class DirectoryControllerTest {
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(files);
         given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(2);
         given(directoryService.deleteFolder(account, 1)).willReturn(0);
+        given(directoryService.searchFolder(account, 1, mock(FileQuery.class))).willReturn(files);
         doNothing().when(directoryService).uploadFile(account, 1, mock(FileInfo.class));
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
