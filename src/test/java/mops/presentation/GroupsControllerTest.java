@@ -6,15 +6,9 @@ import mops.persistence.Directory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.keycloak.KeycloakPrincipal;
-import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
-import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -25,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -77,18 +70,7 @@ public class GroupsControllerTest {
     @Test
     @WithMockUser(username = "studi", roles = {"studentin"})
     public void getAllGroups() throws Exception {
-        Set<String> roles = Set.of("studentin");
-        //noinspection rawtypes as is it convention for this principal
-        KeycloakPrincipal principal = mock(KeycloakPrincipal.class,
-                RETURNS_DEEP_STUBS);
-        when(principal.getName()).thenReturn("userName");
-        when(principal.getKeycloakSecurityContext().getIdToken().getEmail()).thenReturn("userEmail@mail.de");
-        SimpleKeycloakAccount account = new SimpleKeycloakAccount(principal,
-                roles,
-                mock(RefreshableKeycloakSecurityContext.class));
-        KeycloakAuthenticationToken authenticationToken = new KeycloakAuthenticationToken(account, true);
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authenticationToken);
+        SecurityContextUtil.setupSecurityContextMock("userName", "userEmail@mail.de", Set.of("studentin"));
         mvc.perform(get("/material1/groups/"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("groups"));
