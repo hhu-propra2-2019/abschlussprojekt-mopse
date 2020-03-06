@@ -52,8 +52,7 @@ Enthaltene Bausteine::
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
-| _<Komponente-1>_ | _<Funktion-1>_ | _<Schnittstellen-1>_
-| _<Komponente-2>_ | _<Funktion-2>_ | _<Schnittstellen-2>_
+| Keycloak | Authentifizierung und Authentifikation der User. | Wir erzeugen uns dafür ein eigenes Account Objekt.
 |===
 
 === Ebene 1
@@ -77,14 +76,16 @@ Enthaltene Bausteine::
 === Ebene 2
 
 ****
-Ebene 2 zeigt die einzelnen Schichten im Detail und deren Komponenten. Darstellung nach gleichem Schema wie zuvor.
+Ebene 2 zeigt die einzelnen Schichten im Detail und deren Komponenten.
+Darstellung nach gleichem Schema wie zuvor.
 ****
 
 _**<Übersichtsdiagramm>**_
 
-Begründung:: _<Erläuternder Text>_
+Begründung:: Jeder Controller repräsentiert einen Routenanfang `/material1/{routenBeginn}`, wodurch zum einen großen Controllerklassen vermieden werden und wir es den praktischen Nutzen hat, dass man Routenbeginne an der Klasse selbst annotieren kann.
 
 Enthaltene Bausteine::
+
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
@@ -102,10 +103,14 @@ _**<Übersichtsdiagramm>**_
 
 Begründung:: _<Erläuternder Text>_
 
+
 Enthaltene Bausteine::
+
 [cols="1,1,1" options="header"]
 |===
-|Komponente |Funktion | Schnittstellen
-| _<Komponente-1>_ | _<Funktion-1>_ | _<Schnittstellen-1>_
-| _<Komponente-2>_ | _<Funktion-2>_ | _<Schnittstellen-2>_
+|Komponente |Funktion |
+| GroupsController | Bereitstellung aller Routen, die mit `/groups` beginnen.  | `GET: /material1/groups/`
+| GroupController | Bereistellung aller Routen, die mit `/group` beginnen. | `GET: /material1/group/{groupId}`
+
+`POST: /material1/group/{groupId}/search`
 |===

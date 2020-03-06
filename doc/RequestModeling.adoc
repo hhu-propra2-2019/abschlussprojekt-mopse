@@ -3,14 +3,14 @@
 === Benötigte Anfragetypen
 
 === 1. Gruppenübersicht eines Benutzers
-`GET` Ansicht mit Übersicht aller Gruppen eines Benutzers (`material1/groups` -> Index)
 
-* Request -> Business-Logic -> API-Aufruf -> Gruppenabfrage und Berechtigungsabfrage -> Metadatenbank -> Business Logic
--> Formatierung und Representation Layer
+`GET` Ansicht mit Übersicht aller Gruppen eines Benutzers (`material1/groups` -> groups)
+
+* Request -> Business-Logic -> API-Aufruf -> Gruppenabfrage und Berechtigungsabfrage -> Metadatenbank -> Business Logic -> Formatierung und Representation Layer
 
 === 2. Dateiübersicht einer Gruppe
-`GET` Ansicht mit Übersicht aller Dateien einer Gruppe (auf die der Nutzer Lesezugriff hat)
-(`material1/group/{group_id}` -> `material1/dir/{dir_id}`)
+
+`GET` Ansicht mit Übersicht aller Dateien einer Gruppe (auf die der Nutzer Lesezugriff hat) (`material1/group/{group_id}` -> `material1/dir/{dir_id}`)
 
 * Dieser Aufruf verlinkt immer auf das Root-Verzeichnis
 * Root-Verzeichnis wird erstellt, wenn nicht vorhanden
