@@ -1,6 +1,6 @@
 package mops.businesslogic;
 
-import mops.persistence.File;
+import mops.persistence.FileInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface FileService {
      * @param groupId group identification
      * @return list of all files in that directory
      */
-    List<File> getAllFilesOfGroup(int groupId);
+    List<FileInfo> getAllFilesOfGroup(int groupId);
 }
