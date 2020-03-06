@@ -7,13 +7,9 @@ import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,7 +52,7 @@ public class GroupController {
     public String searchFilesInGroup(KeycloakAuthenticationToken token,
                                      Model model,
                                      @PathVariable("groupId") int groupId,
-                                     @Param("searchQuery") FileQuery query) {
+                                     @RequestAttribute("searchQuery") FileQuery query) {
         final Account account = AccountUtil.getAccountFromToken(token);
         final List<FileInfo> files = fileService.searchFilesInGroup(account, groupId, query);
         model.addAttribute("files", files);
