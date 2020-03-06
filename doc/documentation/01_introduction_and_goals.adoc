@@ -15,6 +15,22 @@ Dabei verwalten wir sämtliche Dateien, die Studierende, Korrektoren und Organis
 _Kurzbeschreibung der fachlichen Aufgabenstellung.
 Möglicherweise in tabellarischer Use-Case Form._
 
+
+Mögliche Anwendungsszenarien
+[cols="2,3"]
+|===
+|Name |Szenario
+
+|Administrator lädt einzelne Datei hoch
+|_Der Administrator einer Gruppe lädt eine Datei in seiner Gruppenansicht hoch._
+
+|Mitglied möchte Ordner erstellen
+|_Ein Mitglied einer Gruppe möchte einen neuen Ordner erstellen._
+|===
+
+
+
+
 ****
 
 === Qualitätsziele
