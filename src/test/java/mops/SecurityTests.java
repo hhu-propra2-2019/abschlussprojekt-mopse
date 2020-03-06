@@ -51,6 +51,7 @@ public class SecurityTests {
 
     /**
      * Tests auth needed on index.
+     *
      * @throws Exception on error
      */
     @Test
@@ -61,6 +62,7 @@ public class SecurityTests {
 
     /**
      * Tests get request as authenticated but not right role for monitoring.
+     *
      * @throws Exception on error
      */
     @Test
@@ -77,6 +79,7 @@ public class SecurityTests {
 
     /**
      * prometheus should get access to /actuator/.
+     *
      * @throws Exception on error
      */
     @Test
