@@ -11,10 +11,7 @@ import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -73,19 +70,19 @@ public class DirectoryController {
     /**
      * Creates a new sub folder.
      *
-     * @param token   keycloak auth token
-     * @param model   spring view model
-     * @param dirId   id of the parent folder
-     * @param dirName name of the new sub folder
+     * @param token      keycloak auth token
+     * @param model      spring view model
+     * @param dirId      id of the parent folder
+     * @param folderName name of the new sub folder
      * @return object of the folder
      */
     @PostMapping("/{dirId}/create")
     public String createSubFolder(KeycloakAuthenticationToken token,
                                   Model model,
                                   @PathVariable("dirId") int dirId,
-                                  @Param("dirName") String dirName) {
+                                  @RequestAttribute("folderName") String folderName) {
         final Account account = AccountUtil.getAccountFromToken(token);
-        final int directoryId = directoryService.createFolder(account, dirId, dirName);
+        final int directoryId = directoryService.createFolder(account, dirId, folderName);
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
