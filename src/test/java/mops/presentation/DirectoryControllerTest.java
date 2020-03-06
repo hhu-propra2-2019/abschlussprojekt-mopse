@@ -95,7 +95,7 @@ public class DirectoryControllerTest {
     }
 
     /**
-     * Tests the route after creating a sub folder.
+     * Tests the route after creating a sub folder. It should be the new folder.
      */
     @Test
     public void createFolder() throws Exception {
@@ -103,8 +103,8 @@ public class DirectoryControllerTest {
         mvc.perform(post("/material1/dir/1/create")
                 .with(csrf())
                 .requestAttr("folderName", "Vorlesungen"))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("directory"));
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/material1/dir/2"));
     }
 
     /**
