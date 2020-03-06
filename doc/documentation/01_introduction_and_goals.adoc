@@ -2,70 +2,88 @@
 ==	Einführung und Ziele
 
 ****
-_Hier beschreiben wir unsere grundsätzlichen Geschäftsziele und die Aufgaben die wir bewätligen müssen. Außerdem geht es um Qualitätsziele und essentielle fachliche Anforderungen._
+_Hier beschreiben wir unsere grundsätzlichen Geschäftsziele und die Aufgaben die wir bewätligen müssen. Außerdem geht
+es um Qualitätsziele und essentielle fachliche Anforderungen._
 
 ****
 
 === Aufgabenstellung
 
 ****
-Das Ziel dieses Systems ist es, eine Materialsammlung für die "Modulare Onlineplattform für Studierende" (kurz: "Mops"), bereit zu stellen.
-Dabei verwalten wir sämtliche Dateien, die Studierende, Korrektoren und Organisatoren benötigen in einem File-System.
+Das Ziel dieses Systems ist es, eine Materialsammlung für die "Modulare Online Plattform für Studierende"
+(kurz: "MOPS"), bereit zu stellen.
+Dabei verwalten wir sämtliche Dateien, die Studierende, Korrektoren und Organisatoren benötigen, in einem File-System.
+Das System basiert dabei auf einer Gruppenstruktur. Solche Gruppen können sowohl Veranstaltungen als auch Lerngruppen
+repräsentieren.
 
-_Kurzbeschreibung der fachlichen Aufgabenstellung.
-Möglicherweise in tabellarischer Use-Case Form._
-
-Mögliche Anwendungsszenarien
+*Mögliche Anwendungsszenarien:*
 [cols="2,3"]
 |===
 |Name |Szenario
 
-|Administrator lädt einzelne Datei hoch
+|Ein Mitglied möchte eine Datei einsehen.
+|_Das Mitglied navigiert zur Gruppendateiübersicht. Dort navigiert es in den gewünschten Ordner in dem die
+entsprechende Datei liegt._
+
+|Ein Administrator lädt einzelne Datei hoch.
 |_Der Administrator einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann er mit einem
 Upload-Button den Dateiupload beginnen._
 
-|Mitglied möchte Verzeichnis erstellen
+|Ein Mitglied möchte Verzeichnis erstellen.
 |_Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit den "Neuer Ordner"-Button
 einen neues Verzeichnis anlegen._
 
-|Organisator möchte Verzeichnis mit Dateien löschen
+|Ein Organisator möchte Verzeichnis mit Dateien löschen.
 |_Der Organisator navigiert zur Gruppendateiübersicht. Dort klickt er das gesuchte Verzeichnis an
 und wählt "Verzeichnis löschen". Er bestätigt die Löschaktion und das Verzeichnis wird gelöscht_
+
 |===
-
-
-
-=======
-
 
 ****
 
 === Qualitätsziele
 
 ****
-_Die Top-3 bis Top-5 der Qualitätsziele für die Architektur, deren Erfüllung oder Einhaltung die Funktionalität des Programms maßgeblich beeinflussen.
-Unterschied zu Projektzielen beachten!_
+Unsere Entwicklung haben wir an folgender Prioritätssetzung orientiert, um eine bestmögliche Lernumgebung für alle
+Nutzergruppen zu gewährleisten.
 
-_Im Optimalfall in einer Tabelle o.Ä._
-****
 [cols="1,2" options="header"]
 |===
 |Qualitätsziel |Erläuterung
-| Performance | _Jeder Request muss in kürzester Zeit bearbeitet werden um dem Benutzer ein möglichst flüssiges Nutzungserlebnis zu bieten._
+| Performance | _Jeder Request muss in kürzester Zeit bearbeitet werden um dem Benutzer ein möglichst flüssiges
+Nutzungserlebnis zu bieten._
+| Zuverlässigkeit | _Das System muss zu jedem Zeitpunkt erreichbar und voll funktionsfähig sein, um Nutzer nicht in
+Problemlagen durch fehlenden Zugriff zu bringen. Außerdem soll der Wartungsaufwand durch modulare Aufbauweise minimiert
+werden._
 | Sicherheit | _In jedem Fall werden die Daten der Nutzer vertraulich behandelt und Fremdzugriff verhindert._
-| Zuverlässigkeit | _Das System muss zu jedem Zeitpunkt erreichbar und voll funktionsfähig sein, um Nutzer nicht in Problemlagen durc fehlenden Zugriff zu bringen._
 |===
+****
 
 === Involvierte Gruppen
 
 ****
-_Möglicherweise ist es sinnvoll eine Liste der Personen/Organisationen zu erstellen, die mit unserem Programm und dessen Schnittstellen arbeiten wollen. Kann aber auch vernachlässigt werden.
+_Möglicherweise ist es sinnvoll eine Liste der Personen/Organisationen zu erstellen, die mit unserem Programm und
+dessen Schnittstellen arbeiten wollen. Kann aber auch vernachlässigt werden.
 Die Auflistung mittels einer Tabelle wäre optimal._
-****
 
 [cols="1,2" options="header"]
 |===
 |Nutzergruppe |Erwartungshaltung
-| Studenten | _Brauchen eine Plattform um einfachen Zugriff auf die Inhalte der von ihnen besuchten Lehrveranstaltungen zu erhalten und sich mit ihren Kommilitonen zu organisieren ohne auf Engpässe bei Performance und Verfügbarkeit zu stoßen, die sie zum Ausweichen auf externe Systeme zwingen würden._
-| Organisatoren | _Wollen eine Möglichkeit, die es ihnen erlaubt die Inhalte ihrer Kurse zu verwalten und zu strukturieren. Außerdem wollen sie einen Überblick über die Aktivitäten ihrer Studenten haben und diesen Material zuweisen können._
+| Studierende | _Studierende brauchen eine Plattform, die einfachen Zugriff auf die Inhalte ihrer Lernveranstaltungen
+ermöglicht. Sie möchten sich mit ihren Mitstudierenden organisieren können und erwarten eine zuverlässige und nach
+heutigem Stand der Technik performante Plattform. Ausfälle durch Wartungsarbeiten und ungeplante Systemausfälle müssen
+minimiert werden, um eine vertrauenswürdige Umgebung zu schaffen._
+
+| Organisatoren | _Organisatoren legen wert auf eine intuitive Plattform, der es trotzdem nicht an Funktionalität
+mangelt. Hierbei spielt ein übersichtliches Layout eine entscheidende Rolle. Die Verlässlichkeit und Zuverlässigkeit
+des Systems hat weiterhin Priorität, um verlängerte Arbeitszeiten zu vermeiden. Organisatoren möchten viele
+Veranstaltungen einfach verwalten können, Materialien einsehen und organisieren, sowie Aktivitäten von Kursteilnehmern
+einsehen._
+
+| Systemadministratoren | _Systemadministratoren legen Wert auf eine hohe Wartbarkeit und Zuverlässigkeit des Systems.
+Im Idealfall muss das System zur Wartung/Datensicherung nicht ganz abgeschaltet werden, es reichen vorübergehende
+Modulabschaltungen oder gar keine Funktionsreduktion. Eindeutige Modularisierung, ausführliche aber sinnvolle
+Laufzeitanalyse, sowie verständliche Dokumentation sind hierbei besonders hilfreich für die Überprüfung, Systemwartung
+und Erweiterbarkeit._
 |===
+****
