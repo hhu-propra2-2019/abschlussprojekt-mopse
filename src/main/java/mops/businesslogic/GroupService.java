@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface GroupService {
     /**
-     * fetches all root directories (groups) of one user.
+     * Fetches all root directories (one for each group) of one user.
      *
      * @param userId the account id of the user
      * @return a list of group ids
