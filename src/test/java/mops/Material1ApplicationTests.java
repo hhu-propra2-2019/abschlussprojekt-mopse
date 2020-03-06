@@ -1,5 +1,6 @@
 package mops;
 
+import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +14,12 @@ class Material1ApplicationTests {
      */
     @MockBean
     private GroupService groupService;
+
+    /**
+     * Necessary mock until FileService is implemented.
+     */
+    @MockBean
+    private FileService fileService;
 
     @Test
     void contextLoads() {
