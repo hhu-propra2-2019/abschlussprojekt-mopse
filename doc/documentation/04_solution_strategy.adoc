@@ -11,3 +11,9 @@ Hierzu gehören:
 
 Eine *kurze* und *präzise* Darlegung aller relevanten Entscheidungen.
 ****
+
+== Controller Tests
+
+Eine Schwierigkeit für die Controller Tests war, dass man die sicherheitsrelevanten Aspekte von `spring-security` und `keycloak` berücksichtigen muss.
+Wir haben uns dafür entschieden diesen Teil zu mocken.
+Jedoch hat es bei uns nicht funktioniert mit `@WithMockUser` den Mock zu machen, daher haben wir den ganzen SecurityContext gemockt und stellen diesen mit `SecurityContextUtil` für jeden ControllerTest zur Verfügung.
