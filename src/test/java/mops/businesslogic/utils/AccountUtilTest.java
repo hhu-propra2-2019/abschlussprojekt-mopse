@@ -12,7 +12,6 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-@SuppressWarnings("PMD")
 public class AccountUtilTest {
 
     /**
@@ -25,12 +24,10 @@ public class AccountUtilTest {
         Set<String> roles = Set.of("studentin");
 
         //noinspection rawtypes as is it convention for this principal
-        KeycloakPrincipal principal = mock(KeycloakPrincipal.class,
-                RETURNS_DEEP_STUBS);
+        KeycloakPrincipal principal = mock(KeycloakPrincipal.class, RETURNS_DEEP_STUBS);
         when(principal.getName()).thenReturn(userName);
         when(principal.getKeycloakSecurityContext().getIdToken().getEmail()).thenReturn(userEmail);
-        SimpleKeycloakAccount keycloakAccount = new SimpleKeycloakAccount(principal,
-                roles,
+        SimpleKeycloakAccount keycloakAccount = new SimpleKeycloakAccount(principal, roles,
                 mock(RefreshableKeycloakSecurityContext.class));
         KeycloakAuthenticationToken keycloakAuthenticationToken = new KeycloakAuthenticationToken(keycloakAccount,
                 true);

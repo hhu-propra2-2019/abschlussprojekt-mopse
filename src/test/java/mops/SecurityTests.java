@@ -16,7 +16,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SuppressWarnings("PMD")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SecurityTests {
@@ -47,7 +46,6 @@ public class SecurityTests {
                 .apply(springSecurity())
                 .build();
     }
-
 
     /**
      * Tests auth needed on index.
@@ -83,7 +81,7 @@ public class SecurityTests {
      * @throws Exception on error
      */
     @Test
-    @WithMockUser(username = "prometheus", roles = {"monitoring"})
+    @WithMockUser(username = "prometheus", roles = { "monitoring" })
     public void prometheusShouldHaveAccess() throws Exception {
         mvc.perform(get("/actuator/"))
                 .andExpect(status().isOk());

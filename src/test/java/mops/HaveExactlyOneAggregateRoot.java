@@ -19,11 +19,10 @@ import static java.util.stream.Collectors.toList;
  */
 public class HaveExactlyOneAggregateRoot extends ArchCondition<Slice> {
 
-    public static final HaveExactlyOneAggregateRoot HAVE_EXACTLY_ONE_AGGREGATE_ROOT =
-            new HaveExactlyOneAggregateRoot("have exactly one aggregate root");
+    public static final HaveExactlyOneAggregateRoot HAVE_EXACTLY_ONE_AGGREGATE_ROOT = new HaveExactlyOneAggregateRoot();
 
-    private HaveExactlyOneAggregateRoot(String description, Object... args) {
-        super(description, args);
+    private HaveExactlyOneAggregateRoot() {
+        super("have exactly one aggregate root");
     }
 
     /**
