@@ -23,4 +23,14 @@ public interface DirectoryService {
      * @return list of folders
      */
     List<Directory> getSubFolders(Account account, int dirId);
+
+    /**
+     * Creates a new folder inside a folder.
+     *
+     * @param account user credentials
+     * @param dirId   id of the parent folder
+     * @param dirName name of the new folder
+     * @return object of the new folder
+     */
+    Directory createFolder(Account account, int dirId, String dirName);
 }
