@@ -22,10 +22,16 @@ Mögliche Anwendungsszenarien
 |Name |Szenario
 
 |Administrator lädt einzelne Datei hoch
-|_Der Administrator einer Gruppe lädt eine Datei in seiner Gruppenansicht hoch._
+|_Der Administrator einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann er mit einem
+Upload-Button den Dateiupload beginnen._
 
-|Mitglied möchte Ordner erstellen
-|_Ein Mitglied einer Gruppe möchte einen neuen Ordner erstellen._
+|Mitglied möchte Verzeichnis erstellen
+|_Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit den "Neuer Ordner"-Button
+einen neues Verzeichnis anlegen._
+
+|Organisator möchte Verzeichnis mit Dateien löschen
+|_Der Organisator navigiert zur Gruppendateiübersicht. Dort klickt er das gesuchte Verzeichnis an
+und wählt "Verzeichnis löschen". Er bestätigt die Löschaktion und das Verzeichnis wird gelöscht_
 |===
 
 
