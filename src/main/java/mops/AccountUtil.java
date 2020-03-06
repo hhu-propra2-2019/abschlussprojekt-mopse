@@ -6,9 +6,9 @@ import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 public class AccountUtil {
 
     /**
-     * Creates a Account Object from a token.
+     * Creates an Account Object from a token.
      *
-     * @param token security toke provided by keycloak
+     * @param token security token provided by keycloak
      * @return {@link Account}
      */
     @SuppressWarnings("PMD")
