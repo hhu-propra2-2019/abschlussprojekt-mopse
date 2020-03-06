@@ -1,12 +1,6 @@
 [[section-introduction-and-goals]]
 ==	Einführung und Ziele
 
-****
-_Hier beschreiben wir unsere grundsätzlichen Geschäftsziele und die Aufgaben die wir bewätligen müssen. Außerdem geht
-es um Qualitätsziele und essentielle fachliche Anforderungen._
-
-****
-
 === Aufgabenstellung
 
 ****
