@@ -14,4 +14,13 @@ public interface FileService {
      * @return list of all files in that directory
      */
     List<FileInfo> getAllFilesOfGroup(int groupId);
+
+    /**
+     * Searches for files in a group.
+     *
+     * @param groupId group identification for the group to be searched
+     * @param query   a query which specifies the serach
+     * @return a list of files
+     */
+    List<FileInfo> searchFilesInGroup(int groupId, FileQuery query);
 }
