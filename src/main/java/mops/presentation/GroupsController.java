@@ -30,7 +30,7 @@ public class GroupsController {
     /**
      * @param token authentication token from keycloak server.
      * @param model view model.
-     * @return Index View.
+     * @return groups view
      */
     @GetMapping
     @RolesAllowed({"ROLE_orga", "ROLE_studentin"})
