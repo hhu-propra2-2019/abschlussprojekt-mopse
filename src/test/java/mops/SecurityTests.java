@@ -76,7 +76,7 @@ public class SecurityTests {
      * @throws Exception on error
      */
     @Test
-    @WithMockUser(username = "prometheus", roles = {"monitoring"})
+    @WithMockUser(username = "prometheus", roles = { "monitoring" })
     public void prometheusShouldHaveAccess() throws Exception {
         mvc.perform(get("/actuator/"))
                 .andExpect(status().isOk());
