@@ -33,4 +33,13 @@ public interface DirectoryService {
      * @return id of the new folder
      */
     int createFolder(Account account, int dirId, String dirName);
+
+    /**
+     * Deletes a folder.
+     *
+     * @param account user credential
+     * @param dirId   id of the folder to be deleted
+     * @return the parent id of the deleted folder
+     */
+    int deleteFolder(Account account, int dirId);
 }
