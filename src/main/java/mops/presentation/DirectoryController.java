@@ -3,6 +3,7 @@ package mops.presentation;
 import lombok.AllArgsConstructor;
 import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
+import mops.businesslogic.FileQuery;
 import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.Directory;
@@ -102,6 +103,26 @@ public class DirectoryController {
         final Account account = AccountUtil.getAccountFromToken(token);
         final int directoryId = directoryService.deleteFolder(account, dirId);
         return String.format("redirect:/material1/dir/%d", directoryId);
+    }
+
+    /**
+     * Searches a folder for files.
+     *
+     * @param token user credentials
+     * @param model spring view model
+     * @param dirId id of the folder to be searched
+     * @param query wrapper object of the query parameter
+     * @return route to files view
+     */
+    @PostMapping("/{dirId}/search")
+    public String searchFolder(KeycloakAuthenticationToken token,
+                               Model model,
+                               @PathVariable("dirId") int dirId,
+                               @RequestAttribute("searchQuery") FileQuery query) {
+        final Account account = AccountUtil.getAccountFromToken(token);
+        final List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
+        model.addAttribute("files", files);
+        return "files";
     }
 }
 
