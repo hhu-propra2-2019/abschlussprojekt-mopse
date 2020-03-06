@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class KeycloakConfig {
     /**
      * Necessary keycloak config.
+     *
      * @return KeycloakSpringBootConfigResolver
      */
     @Bean
