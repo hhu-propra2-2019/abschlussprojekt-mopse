@@ -1,4 +1,4 @@
-package mops.presentation;
+package mops.presentation.utils;
 
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;

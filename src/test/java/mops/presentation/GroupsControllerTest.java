@@ -3,6 +3,7 @@ package mops.presentation;
 import mops.Account;
 import mops.businesslogic.GroupService;
 import mops.persistence.Directory;
+import mops.presentation.utils.SecurityContextUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
