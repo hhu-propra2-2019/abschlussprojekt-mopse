@@ -1,5 +1,6 @@
 package mops.presentation;
 
+import mops.Account;
 import mops.businesslogic.GroupService;
 import mops.persistence.Directory;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,7 +61,8 @@ public class GroupsControllerTest {
     @BeforeEach
     public void setUp() {
         List<Directory> groupList = new ArrayList<>();
-        given(groupService.getAllGroups(1)).willReturn(groupList);
+        final Account account = new Account("studi", "bla@bla.de", "pic.png", Set.of("studentin"));
+        given(groupService.getAllGroups(account)).willReturn(groupList);
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())
