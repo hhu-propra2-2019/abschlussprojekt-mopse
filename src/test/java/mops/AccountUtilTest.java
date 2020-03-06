@@ -1,5 +1,7 @@
 package mops;
 
+import mops.businesslogic.Account;
+import mops.businesslogic.utils.AccountUtil;
 import org.junit.jupiter.api.Test;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
@@ -14,6 +16,9 @@ import static org.mockito.Mockito.*;
 @SuppressWarnings("PMD")
 public class AccountUtilTest {
 
+    /**
+     * Tests if the account is correctly build from token.
+     */
     @Test
     public void getAccountFromToken() {
         String userName = "studi";
@@ -28,7 +33,8 @@ public class AccountUtilTest {
         SimpleKeycloakAccount keycloakAccount = new SimpleKeycloakAccount(principal,
                 roles,
                 mock(RefreshableKeycloakSecurityContext.class));
-        KeycloakAuthenticationToken keycloakAuthenticationToken = new KeycloakAuthenticationToken(keycloakAccount, true);
+        KeycloakAuthenticationToken keycloakAuthenticationToken = new KeycloakAuthenticationToken(keycloakAccount,
+                true);
 
         Account expectedAccount = new Account(userName, userEmail, roles);
 
