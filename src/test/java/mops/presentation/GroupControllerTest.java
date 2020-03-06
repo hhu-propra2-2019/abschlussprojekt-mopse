@@ -21,6 +21,7 @@ import java.util.Set;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -86,10 +87,12 @@ public class GroupControllerTest {
     @Test
     public void searchFile() throws Exception {
         FileQuery fileQuery = mock(FileQuery.class);
-        SecurityContextUtil.setupSecurityContextMock("userName", "userEmail@mail.de", Set.of("studentin"));
+        SecurityContextUtil.setupSecurityContextMock("userName",
+                "userEmail@mail.de",
+                Set.of("studentin"));
         mvc.perform(post("/material1/group/1/search")
-                .requestAttr("searchQuery", fileQuery
-                ))
+                .requestAttr("searchQuery", fileQuery)
+                .with(csrf()))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("directory"));
     }
