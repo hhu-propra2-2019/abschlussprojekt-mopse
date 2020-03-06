@@ -15,6 +15,29 @@ Dabei verwalten wir sämtliche Dateien, die Studierende, Korrektoren und Organis
 _Kurzbeschreibung der fachlichen Aufgabenstellung.
 Möglicherweise in tabellarischer Use-Case Form._
 
+Mögliche Anwendungsszenarien
+[cols="2,3"]
+|===
+|Name |Szenario
+
+|Administrator lädt einzelne Datei hoch
+|_Der Administrator einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann er mit einem
+Upload-Button den Dateiupload beginnen._
+
+|Mitglied möchte Verzeichnis erstellen
+|_Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit den "Neuer Ordner"-Button
+einen neues Verzeichnis anlegen._
+
+|Organisator möchte Verzeichnis mit Dateien löschen
+|_Der Organisator navigiert zur Gruppendateiübersicht. Dort klickt er das gesuchte Verzeichnis an
+und wählt "Verzeichnis löschen". Er bestätigt die Löschaktion und das Verzeichnis wird gelöscht_
+|===
+
+
+
+=======
+
+
 ****
 
 === Qualitätsziele
