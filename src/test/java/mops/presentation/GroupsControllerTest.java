@@ -1,6 +1,6 @@
 package mops.presentation;
 
-import mops.Account;
+import mops.businesslogic.Account;
 import mops.businesslogic.GroupService;
 import mops.persistence.Directory;
 import mops.presentation.utils.SecurityContextUtil;

@@ -1,9 +1,9 @@
 package mops.presentation;
 
 import lombok.AllArgsConstructor;
-import mops.Account;
-import mops.AccountUtil;
+import mops.businesslogic.Account;
 import mops.businesslogic.GroupService;
+import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.Directory;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;

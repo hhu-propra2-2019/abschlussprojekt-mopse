@@ -1,5 +1,6 @@
-package mops;
+package mops.businesslogic.utils;
 
+import mops.businesslogic.Account;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 

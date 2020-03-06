@@ -1,4 +1,4 @@
-package mops;
+package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
