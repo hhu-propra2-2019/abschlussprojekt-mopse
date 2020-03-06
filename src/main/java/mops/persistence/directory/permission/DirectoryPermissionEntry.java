@@ -1,4 +1,4 @@
-package mops.persistence.directory;
+package mops.persistence.directory.permission;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

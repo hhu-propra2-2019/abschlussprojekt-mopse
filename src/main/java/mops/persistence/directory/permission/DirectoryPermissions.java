@@ -1,4 +1,4 @@
-package mops.persistence.directory;
+package mops.persistence.directory.permission;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class DirectoryPermissions {
 
     @Id
     private Long id;
-    @MappedCollection(idColumn = "permission")
+    @MappedCollection(idColumn = "permissions_id")
     private Set<DirectoryPermissionEntry> entries;
 
     public DirectoryPermissions(Set<DirectoryPermissionEntry> entries) {

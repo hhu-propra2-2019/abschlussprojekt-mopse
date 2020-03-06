@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
 
 @Data
 @NoArgsConstructor
@@ -14,15 +13,14 @@ public class Directory {
     @Id
     private Long id;
     private String name;
-    private long parent;
+    private Long parentId;
     private long groupOwner;
-    @Column("directory")
-    private DirectoryPermissions permissions;
+    private long permissionsId;
 
-    public Directory(String name, long parent, long groupOwner, DirectoryPermissions permissions) {
+    public Directory(String name, Long parentId, long groupOwner, long permissionsId) {
         this.name = name;
-        this.parent = parent;
+        this.parentId = parentId;
         this.groupOwner = groupOwner;
-        this.permissions = permissions;
+        this.permissionsId = permissionsId;
     }
 }

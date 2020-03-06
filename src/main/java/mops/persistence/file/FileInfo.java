@@ -1,28 +1,28 @@
 package mops.persistence.file;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import mops.persistence.directory.Directory;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class FileInfo {
 
+    @Id
     private Long id;
     private String name;
-    private Directory directory;
+    private long directoryId;
     private String type;
     private long size;
     private String owner;
 
-    public FileInfo(Long id, String name, Directory directory, String type, long size, String owner) {
-        this.id = id;
+    public FileInfo(String name, long directoryId, String type, long size, String owner) {
         this.name = name;
-        this.directory = directory;
+        this.directoryId = directoryId;
         this.type = type;
         this.size = size;
         this.owner = owner;
-    }
-
-    public FileInfoDO toDO() {
-        return new FileInfoDO(name, directory.getId(), type, size, owner);
     }
 }
