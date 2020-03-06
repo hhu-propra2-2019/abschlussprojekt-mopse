@@ -1,14 +1,11 @@
 package mops;
 
-import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import mops.utils.AggregateRoot;
 import org.junit.jupiter.api.Test;
-
-import java.util.Set;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
@@ -24,7 +21,7 @@ public class ArchitectureRulesTest {
     private final JavaClasses javaClasses = new ClassFileImporter().importPackagesOf(Material1Application.class);
 
     /**
-     * * This test looks out for public classes that aren't annotated
+     * This test looks out for public classes that aren't annotated
      * with Aggregate Rootbut still are public, which stands against
      * having only one Aggregate Root per class/package.
      *
@@ -45,7 +42,7 @@ public class ArchitectureRulesTest {
     }
 
     /**
-     * * Tests if there is only one Aggregate Root per package
+     * Tests if there is only one Aggregate Root per package
      * for outer communication.
      *
      * @throws Exception If something goes wrong this throws an exception.
