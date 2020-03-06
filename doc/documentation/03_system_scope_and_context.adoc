@@ -13,5 +13,5 @@ _Kontextdiagramme, Listen von Kommunikationsbeziehungen aber auch plain text wä
 |===
 |Kommunikationsbeziehung |Eingabe | Ausgabe
 | Requests vom Gruppensystem | _Wir erhalten Requests für die Ordner-/Dateierstellung oder Löschung und den Erhalt von Dateien aus unserer Datenbank._ | _Wir liefern eine Bestätigung des betreffenden Requests (eventuell inklusive der gewollten Datei) zurück, wenn die entsprechenden Berechtigungen vorhanden waren. Ansonsten bearbeiten wir den Request nicht._
-| Erfragen von Berechtigungen | _Wir erfragen mit einer ID die Berechtigungen einer bestimmten Gruppe oder eines Benutzers._ | _Wir erhalten ein Datenobjekt (.json) zurück, dass alle Berechtigungen (Rollen) des betreffenden Nutzers beinhaltet._
+| Erfragen von Berechtigungen | _Wir erfragen mit einer ID die Berechtigungen einer bestimmten Gruppe oder dem Benutzernamen eines Benutzers._ | _Wir erhalten ein Datenobjekt (.json) zurück, dass alle Berechtigungen (Rollen) des betreffenden Nutzers beinhaltet._
 |===
