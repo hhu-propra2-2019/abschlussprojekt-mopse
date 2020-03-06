@@ -70,6 +70,16 @@ public class DirectoryControllerTest {
                 .build();
     }
 
+    /**
+     * Tests if the correct view is returned for showing content of a folder.
+     */
+    @Test
+    public void showContent() throws Exception {
+        SecurityContextUtil.setupSecurityContextMock("userName", "userEmail@mail.de", Set.of("studentin"));
+        mvc.perform(get("/material1/dir/1"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("directory"));
+    }
 
     /**
      * Tests the route after uploading a file.
