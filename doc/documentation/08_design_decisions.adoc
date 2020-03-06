@@ -9,7 +9,9 @@ Es werden also Alternativen miteinader verglichen, abgewogen und die Beste ausge
 
 ****
 
-=== _<Entscheidung 1>_
+=== Aufbau der Datenbank
+
+image::ER-Modell.png[]
 
 _<Erklärung>_
 
