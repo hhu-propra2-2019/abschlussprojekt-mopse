@@ -70,6 +70,24 @@ public class DirectoryController {
         return String.format("redirect:/material1/dir/%d", dirId);
     }
 
+    /**
+     * Creates a new sub folder.
+     *
+     * @param token   keycloak auth token
+     * @param model   spring view model
+     * @param dirId   id of the parent folder
+     * @param dirName name of the new sub folder
+     * @return object of the folder
+     */
+    @PostMapping("/{dirId}/create")
+    public String createSubFolder(KeycloakAuthenticationToken token,
+                                  Model model,
+                                  @PathVariable("dirId") int dirId,
+                                  @Param("dirName") String dirName) {
+        final Account account = AccountUtil.getAccountFromToken(token);
+        final int directoryId = directoryService.createFolder(account, dirId, dirName);
+        return String.format("redirect:/material1/dir/%d", directoryId);
+    }
 
 }
 
