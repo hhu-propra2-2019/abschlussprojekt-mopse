@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SecurityTests {
 
     /**
-     * necessary mock until GroupService is implemented.
+     * Necessary mock until GroupService is implemented.
      */
     @MockBean
     private GroupService groupService;
