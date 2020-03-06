@@ -13,9 +13,13 @@ Es werden also Alternativen miteinader verglichen, abgewogen und die Beste ausge
 
 _<Erklärung>_
 
-=== _<Entscheidung 2>_
+=== ArchUnit Tests
 
-_<Erklärung>_
+_Als erstes haben wir uns die Vorlesung zu ArchUnit `Vorlesung 14 PP2` durchgelesen und bearbeitet. Danach haben wir die Tests `onlyAggregateRootsArePublic`, `oneAggregateRootPerAggregate` und `checkIfLayeredArchitectureIsNotViolated` geschrieben und dazu eine Hilfsannotation `AggregateRoot` geschrieben.
+Der erste Test ist dafür da, um zu schauen, ob nur AggregateRoots Public sind und ob alle anderen Klassen privat sind. 
+Der zweite Test ist dafür da, um zu sehen, ob es nur eine einzige AggregateRoot pro Package gibt, welche mit anderen Packages kommunizieren kann.
+Der dritte Test überprüft, ob die Schicht-Archtitektur eingehalten wird.
+Die zusätzliche Annotation ist dafür da, um die AggregateRoot zu markieren, damit die Überprüfung zu erleichtern und auch die Lesbarkeit und Verständlichkeit der Klassen und Packages zu verbessern._
 
 ...
 
