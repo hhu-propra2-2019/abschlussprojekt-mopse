@@ -38,7 +38,7 @@ public class DirectoryController {
     @GetMapping(path = "/{dirId}")
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
-                                    @PathVariable("dirId") int dirId) {
+                                    @PathVariable("dirId") int dirId) { //NOPMD
         final Account account = AccountUtil.getAccountFromToken(token);
         final List<Directory> directories = directoryService.getSubFolders(account, dirId);
         final List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
@@ -86,5 +86,22 @@ public class DirectoryController {
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
+
+    /**
+     * Deletes a folder.
+     *
+     * @param token user credentials
+     * @param model spring view model
+     * @param dirId id of the folder to be deleted
+     * @return the id of the parent folder
+     */
+    @DeleteMapping("/{dirId}")
+    public String deleteFolder(KeycloakAuthenticationToken token,
+                               Model model,
+                               @PathVariable("dirId") int dirId) {
+        final Account account = AccountUtil.getAccountFromToken(token);
+        final int directoryId = directoryService.deleteFolder(account, dirId);
+        return String.format("redirect:/material1/dir/%d", directoryId);
+    }
 }
 
