@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import mops.Account;
 import mops.persistence.Directory;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,8 @@ public interface GroupService {
     /**
      * Fetches all root directories (one for each group) of one user.
      *
-     * @param userId the account id of the user
+     * @param account the account the user
      * @return a list of group ids
      */
-    List<Directory> getAllGroups(int userId);
+    List<Directory> getAllGroups(Account account);
 }

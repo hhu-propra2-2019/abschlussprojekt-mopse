@@ -1,6 +1,7 @@
 package mops.presentation;
 
 import lombok.AllArgsConstructor;
+import mops.Account;
 import mops.businesslogic.GroupService;
 import mops.persistence.Directory;
 import org.keycloak.KeycloakPrincipal;
@@ -33,15 +34,26 @@ public class GroupsController {
      */
     @GetMapping
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
-        final int userId = getAccountId(token);
-        final List<Directory> groups = groupService.getAllGroups(userId);
+        final Account account = getAccount(token);
+        final List<Directory> groups = groupService.getAllGroups(account);
         model.addAttribute("groups", groups);
         return "groups";
     }
 
-    private int getAccountId(KeycloakAuthenticationToken token) {
+    /**
+     * Creates a Account Object from a token.
+     *
+     * @param token security toke provided by keycloak
+     * @return {@link Account}
+     */
+    @SuppressWarnings("PMD")
+    private Account getAccount(KeycloakAuthenticationToken token) {
         //noinspection rawtypes as it is convention for this type
         final KeycloakPrincipal principal = (KeycloakPrincipal) token.getPrincipal();
-        return principal.getKeycloakSecurityContext().getIdToken().getNickName().hashCode(); //NOPMD
+        return new Account(
+                principal.getName(),
+                principal.getKeycloakSecurityContext().getIdToken().getEmail(),
+                null,
+                token.getAccount().getRoles());
     }
 }
