@@ -31,6 +31,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     /**
      * Configuration for spring security with keycloak.
+     *
      * @param auth auto injected
      */
     @Autowired
@@ -44,6 +45,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     /**
      * provides a SessionAuthenticationStrategy.
+     *
      * @return SessionAuthenticationStrategy
      */
     @Bean
@@ -55,6 +57,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     /**
      * allows to @Autowire a Keycloak access token.
+     *
      * @return Keycloak access token.
      */
     @Bean
@@ -72,6 +75,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     /**
      * Configures spring security  that authentication
      * is required for all resources.
+     *
      * @param http auto injected
      * @throws Exception on error
      */
