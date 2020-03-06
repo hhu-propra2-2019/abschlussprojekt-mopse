@@ -25,4 +25,11 @@ public interface FileService {
      * @return a list of files
      */
     List<FileInfo> searchFilesInGroup(Account account, int groupId, FileQuery query);
+
+    /**
+     * @param account user credentials
+     * @param dirId   id of the folder
+     * @return a list of file in that folder
+     */
+    List<FileInfo> getFilesOfDirectory(Account account, int dirId);
 }
