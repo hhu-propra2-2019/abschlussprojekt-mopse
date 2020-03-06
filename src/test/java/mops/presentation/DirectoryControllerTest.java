@@ -63,6 +63,7 @@ public class DirectoryControllerTest {
         final Account account = new Account("userName", "userEmail@mail.de", Set.of("studentin"));
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(files);
         given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(2);
+        given(directoryService.deleteFolder(account, 1)).willReturn(0);
         doNothing().when(directoryService).uploadFile(account, 1, mock(FileInfo.class));
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
@@ -130,8 +131,8 @@ public class DirectoryControllerTest {
         mvc.perform(delete("/material1/dir/1")
                 .requestAttr("dirId", 1)
                 .with(csrf()))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("directory"));
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/material1/dir/0"));
     }
 
     /**
