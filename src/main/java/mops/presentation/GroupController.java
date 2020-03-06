@@ -18,20 +18,21 @@ import java.util.List;
 public class GroupController {
 
     /**
-     * Retrieves file information for a folder
+     * Retrieves file information for a folder.
      */
     private FileService fileService;
 
     /**
-     * @param token
-     * @param model
-     * @param groupId
-     * @return
+     * @param token   a keycloak authentication token
+     * @param model   spring boot view model
+     * @param groupId the id of the group which files should be fetched
+     * @return the route to template 'directory'
      */
     @GetMapping(path = "/{groupId}")
-    public String getAllFilesOfDirectory(KeycloakAuthenticationToken token, Model model, @PathVariable("groupId") int groupId) {
-        final int userId = 0;
-        List<FileInfo> files = fileService.getAllFilesOfGroup(groupId);
+    public String getAllFilesOfDirectory(KeycloakAuthenticationToken token,
+                                         Model model,
+                                         @PathVariable("groupId") int groupId) {
+        final List<FileInfo> files = fileService.getAllFilesOfGroup(groupId);
         model.addAttribute("files", files);
         return "directory";
     }
