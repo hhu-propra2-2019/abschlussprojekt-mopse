@@ -33,6 +33,24 @@ public class DirectoryController {
     private final FileService fileService;
 
     /**
+     * @param token keycloak auth token
+     * @param model spring view model
+     * @param dirId id of the folder
+     * @return route to folder
+     */
+    @GetMapping(path = "/{dirId}")
+    public String showFolderContent(KeycloakAuthenticationToken token,
+                                    Model model,
+                                    @PathVariable("dirId") int dirId) {
+        final Account account = AccountUtil.getAccountFromToken(token);
+        final List<Directory> directories = directoryService.getSubFolders(account, dirId);
+        final List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+        model.addAttribute("dirs", directories);
+        model.addAttribute("files", files);
+        return "directory";
+    }
+
+    /**
      * Uploads a file.
      *
      * @param token    keycloak auth token
@@ -52,22 +70,6 @@ public class DirectoryController {
         return String.format("redirect:/material1/dir/%d", dirId);
     }
 
-    /**
-     * @param token keycloak auth token
-     * @param model spring view model
-     * @param dirId id of the folder
-     * @return route to folder
-     */
-    @GetMapping(path = "/{dirId}")
-    public String showFolderContent(KeycloakAuthenticationToken token,
-                                    Model model,
-                                    @PathVariable("dirId") int dirId) {
-        final Account account = AccountUtil.getAccountFromToken(token);
-        final List<Directory> directories = directoryService.getSubFolders(account, dirId);
-        final List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
-        model.addAttribute("dirs", directories);
-        model.addAttribute("files", files);
-        return "directory";
-    }
+
 }
 
