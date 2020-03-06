@@ -1,5 +1,7 @@
 package mops.presentation;
 
+import mops.businesslogic.Account;
+import mops.businesslogic.FileQuery;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import mops.persistence.FileInfo;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -56,7 +59,8 @@ public class GroupControllerTest {
     @BeforeEach
     void setUp() {
         ArrayList<FileInfo> files = new ArrayList<>();
-        given(fileService.getAllFilesOfGroup(1)).willReturn(files);
+        final Account account = new Account("studi", "bla@bla.de", "pic.png", Set.of("studentin"));
+        given(fileService.getAllFilesOfGroup(account, 1)).willReturn(files);
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())
