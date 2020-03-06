@@ -110,4 +110,7 @@ Enthaltene Bausteine::
 |===
 |Komponente |Funktion |
 | GroupsController | Bereitstellung aller Routen, die mit `/groups` beginnen.  | `GET: /material1/groups/`
+| GroupController | Bereistellung aller Routen, die mit `/group` beginnen. | `GET: /material1/group/{groupId}`
+
+`POST: /material1/group/{groupId}/search`
 |===
