@@ -28,19 +28,19 @@ public class DirectoryController {
      *
      * @param token    keycloak auth token
      * @param model    spring view model
-     * @param groupId  id of the group where it will be uploaded
+     * @param dirId    id of the directory id where it will be uploaded
      * @param fileInfo file object
      * @return route after completion
      */
-    @PostMapping(path = "/{groupId}/upload")
+    @PostMapping(path = "/{dirId}/upload")
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
-                             @PathVariable("groupId") int groupId,
+                             @PathVariable("dirId") int dirId,
                              @Param("file") FileInfo fileInfo) {
         Account account = AccountUtil.getAccountFromToken(token);
         //TODO: exception handling and user error message
-        directoryService.uploadFile(account, groupId, fileInfo);
-        return String.format("redirect:/material1/dir/%d", groupId);
+        directoryService.uploadFile(account, dirId, fileInfo);
+        return String.format("redirect:/material1/dir/%d", dirId);
     }
 }
 
