@@ -78,7 +78,7 @@ public class GroupControllerTest {
         SecurityContextUtil.setupSecurityContextMock("userName", "userEmail@mail.de", Set.of("studentin"));
         mvc.perform(get("/material1/group/1"))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("directory"));
+                .andExpect(view().name("files"));
     }
 
     /**
@@ -94,7 +94,7 @@ public class GroupControllerTest {
                 .requestAttr("searchQuery", fileQuery)
                 .with(csrf()))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("directory"));
+                .andExpect(view().name("files"));
     }
 
     /**

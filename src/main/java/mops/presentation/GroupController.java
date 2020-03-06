@@ -38,8 +38,8 @@ public class GroupController {
                                          @PathVariable("groupId") int groupId) {
         final Account account = AccountUtil.getAccountFromToken(token);
         final List<FileInfo> files = fileService.getAllFilesOfGroup(account, groupId);
-        model.addAttribute("files", files);
-        return "directory";
+        model.addAttribute("files", files); //NOPMD
+        return "files";
     }
 
     /**
@@ -58,6 +58,6 @@ public class GroupController {
         final FileQuery query = (FileQuery) model.getAttribute("searchQuery");
         final List<FileInfo> files = fileService.searchFilesInGroup(account, groupId, query);
         model.addAttribute("files", files);
-        return "directory";
+        return "files";
     }
 }
