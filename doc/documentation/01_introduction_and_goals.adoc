@@ -16,7 +16,7 @@ _Kurzbeschreibung der fachlichen Aufgabenstellung.
 Möglicherweise in tabellarischer Use-Case Form._
 
 
-Mögliche Anwendungsszenarien
+*Mögliche Anwendungsszenarien:*
 [cols="2,3"]
 |===
 |Name |Szenario
