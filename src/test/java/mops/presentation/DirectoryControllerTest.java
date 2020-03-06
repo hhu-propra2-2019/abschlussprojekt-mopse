@@ -60,8 +60,9 @@ public class DirectoryControllerTest {
     @BeforeEach
     public void setUp() {
         ArrayList<FileInfo> files = new ArrayList<>();
-        final Account account = new Account("studi", "bla@bla.de", "pic.png", Set.of("studentin"));
+        final Account account = new Account("userName", "userEmail@mail.de", Set.of("studentin"));
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(files);
+        given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(2);
         doNothing().when(directoryService).uploadFile(account, 1, mock(FileInfo.class));
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
@@ -101,8 +102,8 @@ public class DirectoryControllerTest {
     public void createFolder() throws Exception {
         SecurityContextUtil.setupSecurityContextMock("userName", "userEmail@mail.de", Set.of("studentin"));
         mvc.perform(post("/material1/dir/1/create")
-                .with(csrf())
-                .requestAttr("folderName", "Vorlesungen"))
+                .requestAttr("folderName", "Vorlesungen")
+                .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/material1/dir/2"));
     }
