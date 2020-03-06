@@ -1,5 +1,6 @@
 package mops;
 
+import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,11 @@ public class SecurityTests {
      */
     @MockBean
     private GroupService groupService;
+    /**
+     * Necessary mock until FileService is implemented.
+     */
+    @MockBean
+    private FileService fileService;
     /**
      * Necessary bean .
      */
