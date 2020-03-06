@@ -1,9 +1,6 @@
 package mops.presentation;
 
-import mops.businesslogic.Account;
-import mops.businesslogic.FileQuery;
-import mops.businesslogic.FileService;
-import mops.businesslogic.GroupService;
+import mops.businesslogic.*;
 import mops.persistence.FileInfo;
 import mops.presentation.utils.SecurityContextUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,13 +17,13 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -41,6 +38,11 @@ public class DirectoryControllerTest {
      */
     @MockBean
     private FileService fileService;
+    /**
+     * Necessary mock until DirectoryService is implemented.
+     */
+    @MockBean
+    private DirectoryService directoryService;
     /**
      * Necessary bean.
      */
@@ -60,6 +62,7 @@ public class DirectoryControllerTest {
         ArrayList<FileInfo> files = new ArrayList<>();
         final Account account = new Account("studi", "bla@bla.de", "pic.png", Set.of("studentin"));
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(files);
+        doNothing().when(directoryService).uploadFile(account, 1, mock(FileInfo.class));
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())
@@ -77,8 +80,8 @@ public class DirectoryControllerTest {
         mvc.perform(post("/material1/dir/1/upload")
                 .requestAttr("file", mock(FileInfo.class))
                 .with(csrf()))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("directory"));
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/material1/dir/1"));
     }
 
     /**
