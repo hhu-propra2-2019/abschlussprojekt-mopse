@@ -69,11 +69,21 @@ Die Auflistung mittels einer Tabelle wäre optimal._
 [cols="1,2" options="header"]
 |===
 |Nutzergruppe |Erwartungshaltung
-| Studenten | _Brauchen eine Plattform um einfachen Zugriff auf die Inhalte der von ihnen besuchten
-Lehrveranstaltungen zu erhalten und sich mit ihren Kommilitonen zu organisieren ohne auf Engpässe bei Performance
-und Verfügbarkeit zu stoßen, die sie zum Ausweichen auf externe Systeme zwingen würden._
-| Organisatoren | _Wollen eine Möglichkeit, die es ihnen erlaubt die Inhalte ihrer Kurse zu verwalten und zu
-strukturieren. Außerdem wollen sie einen Überblick über die Aktivitäten ihrer Studenten haben und diesen Material
-zuweisen können._
+| Studierende | _Studierende brauchen eine Plattform, die einfachen Zugriff auf die Inhalte ihrer Lernveranstaltungen
+ermöglicht. Sie möchten sich mit ihren Mitstudierenden organisieren können und erwarten eine zuverlässige und nach
+heutigem Stand der Technik performante Plattform. Ausfälle durch Wartungsarbeiten und ungeplante Systemausfälle müssen
+minimiert werden, um eine vertrauenswürdige Umgebung zu schaffen._
+
+| Organisatoren | _Organisatoren legen wert auf eine intuitive Plattform, der es trotzdem nicht an Funktionalität
+mangelt. Hierbei spielt ein übersichtliches Layout eine entscheidende Rolle. Die Verlässlichkeit und Zuverlässigkeit
+des Systems hat weiterhin Priorität, um verlängerte Arbeitszeiten zu vermeiden. Organisatoren möchten viele
+Veranstaltungen einfach verwalten können, Materialien einsehen und organisieren, sowie Aktivitäten von Kursteilnehmern
+einsehen._
+
+| Systemadministratoren | _Systemadministratoren legen Wert auf eine hohe Wartbarkeit und Zuverlässigkeit des Systems.
+Im Idealfall muss das System zur Wartung/Datensicherung nicht ganz abgeschaltet werden, es reichen vorübergehende
+Modulabschaltungen oder gar keine Funktionsreduktion. Eindeutige Modularisierung, ausführliche aber sinnvolle
+Laufzeitanalyse, sowie verständliche Dokumentation sind hierbei besonders hilfreich für die Überprüfung, Systemwartung
+und Erweiterbarkeit._
 |===
 ****
