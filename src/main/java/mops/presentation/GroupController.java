@@ -42,12 +42,20 @@ public class GroupController {
         return "directory";
     }
 
+    /**
+     * Searches are group for matching files.
+     *
+     * @param token   keycloak auth token
+     * @param model   spring view model
+     * @param groupId the id of the group to be searched
+     * @return the route to the template 'directory'
+     */
     @PostMapping(path = "/{groupId}/search")
     public String searchFilesInGroup(KeycloakAuthenticationToken token,
                                      Model model,
                                      @PathVariable("groupId") int groupId) {
         final Account account = AccountUtil.getAccountFromToken(token);
-        FileQuery query = (FileQuery) model.getAttribute("searchQuery");
+        final FileQuery query = (FileQuery) model.getAttribute("searchQuery");
         final List<FileInfo> files = fileService.searchFilesInGroup(account, groupId, query);
         model.addAttribute("files", files);
         return "directory";
