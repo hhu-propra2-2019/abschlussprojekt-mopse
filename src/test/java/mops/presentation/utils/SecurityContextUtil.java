@@ -20,8 +20,19 @@ public class SecurityContextUtil {
      * @param userEmail email of the user
      * @param roles     roles of the user
      */
+    public static void setupSecurityContextMock(String userName, String userEmail, String... roles) {
+        setupSecurityContextMock(userName, userEmail, Set.of(roles));
+    }
+
+    /**
+     * Builds a security context using mock for keycloak.
+     *
+     * @param userName  name of the user
+     * @param userEmail email of the user
+     * @param roles     roles of the user
+     */
+    @SuppressWarnings("rawtypes")
     public static void setupSecurityContextMock(String userName, String userEmail, Set<String> roles) {
-        //noinspection rawtypes as is it convention for this principal
         KeycloakPrincipal principal = mock(KeycloakPrincipal.class, RETURNS_DEEP_STUBS);
         when(principal.getName()).thenReturn(userName);
         when(principal.getKeycloakSecurityContext().getIdToken().getEmail()).thenReturn(userEmail);
