@@ -1,15 +1,13 @@
 package mops.businesslogic;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Account {
     /**
      * Name of the user.
