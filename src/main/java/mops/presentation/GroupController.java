@@ -32,7 +32,7 @@ public class GroupController {
     @GetMapping(path = "/{groupId}")
     public String getAllFilesOfDirectory(KeycloakAuthenticationToken token,
                                          Model model,
-                                         @PathVariable("groupId") int groupId) {
+                                         @PathVariable("groupId") long groupId) {
         final Account account = AccountUtil.getAccountFromToken(token);
         final List<FileInfo> files = fileService.getAllFilesOfGroup(account, groupId);
         model.addAttribute("files", files); //NOPMD
