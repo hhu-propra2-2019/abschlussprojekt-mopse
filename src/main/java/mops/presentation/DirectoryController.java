@@ -71,19 +71,20 @@ public class DirectoryController {
     /**
      * Creates a new sub folder.
      *
-     * @param token      keycloak auth token
-     * @param model      spring view model
-     * @param dirId      id of the parent folder
-     * @param folderName name of the new sub folder
+     * @param token       keycloak auth token
+     * @param model       spring view model
+     * @param parentDirId id of the parent folder
+     * @param folderName  name of the new sub folder
      * @return object of the folder
      */
-    @PostMapping("/{dirId}/create")
+    @PostMapping("/{parentDirId}/create")
     public String createSubFolder(KeycloakAuthenticationToken token,
                                   Model model,
-                                  @PathVariable("dirId") long dirId,
+                                  @PathVariable("parentDirId") long parentDirId,
                                   @RequestAttribute("folderName") String folderName) {
         final Account account = AccountUtil.getAccountFromToken(token);
-        final long directoryId = directoryService.createFolder(account, dirId, folderName);
+        final long directoryId = directoryService.createFolder(account, parentDirId
+                , folderName);
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
@@ -91,17 +92,17 @@ public class DirectoryController {
     /**
      * Deletes a folder.
      *
-     * @param token       user credentials
-     * @param model       spring view model
-     * @param parentDirId id of the folder to be deleted
+     * @param token user credentials
+     * @param model spring view model
+     * @param dirId id of the folder to be deleted
      * @return the id of the parent folder
      */
-    @DeleteMapping("/{parentDirId}")
+    @DeleteMapping("/{dirId}")
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
-                               @PathVariable("parentDirId") long parentDirId) {
+                               @PathVariable("dirId") long dirId) {
         final Account account = AccountUtil.getAccountFromToken(token);
-        final long directoryId = directoryService.deleteFolder(account, parentDirId);
+        final long directoryId = directoryService.deleteFolder(account, dirId);
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
