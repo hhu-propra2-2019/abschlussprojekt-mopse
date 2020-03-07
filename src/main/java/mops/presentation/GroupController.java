@@ -35,7 +35,7 @@ public class GroupController {
                                          @PathVariable("groupId") long groupId) {
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = fileService.getAllFilesOfGroup(account, groupId);
-        model.addAttribute("files", files); //NOPMD
+        model.addAttribute("files", files);
         return "files";
     }
 

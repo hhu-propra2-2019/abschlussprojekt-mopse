@@ -40,7 +40,7 @@ public class DirectoryController {
     @GetMapping("/{dirId}")
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
-                                    @PathVariable("dirId") long dirId) { //NOPMD
+                                    @PathVariable("dirId") long dirId) {
         Account account = AccountUtil.getAccountFromToken(token);
         List<Directory> directories = directoryService.getSubFolders(account, dirId);
         List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
