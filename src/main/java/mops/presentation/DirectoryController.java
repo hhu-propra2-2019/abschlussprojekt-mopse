@@ -39,7 +39,7 @@ public class DirectoryController {
     @GetMapping(path = "/{dirId}")
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
-                                    @PathVariable("dirId") int dirId) { //NOPMD
+                                    @PathVariable("dirId") long dirId) { //NOPMD
         final Account account = AccountUtil.getAccountFromToken(token);
         final List<Directory> directories = directoryService.getSubFolders(account, dirId);
         final List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
@@ -60,7 +60,7 @@ public class DirectoryController {
     @PostMapping(path = "/{dirId}/upload")
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
-                             @PathVariable("dirId") int dirId,
+                             @PathVariable("dirId") long dirId,
                              @Param("file") FileInfo fileInfo) {
         final Account account = AccountUtil.getAccountFromToken(token);
         //TODO: exception handling and user error message
@@ -80,7 +80,7 @@ public class DirectoryController {
     @PostMapping("/{dirId}/create")
     public String createSubFolder(KeycloakAuthenticationToken token,
                                   Model model,
-                                  @PathVariable("dirId") int dirId,
+                                  @PathVariable("dirId") long dirId,
                                   @RequestAttribute("folderName") String folderName) {
         final Account account = AccountUtil.getAccountFromToken(token);
         final int directoryId = directoryService.createFolder(account, dirId, folderName);
@@ -99,7 +99,7 @@ public class DirectoryController {
     @DeleteMapping("/{dirId}")
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
-                               @PathVariable("dirId") int dirId) {
+                               @PathVariable("dirId") long dirId) {
         final Account account = AccountUtil.getAccountFromToken(token);
         final int directoryId = directoryService.deleteFolder(account, dirId);
         return String.format("redirect:/material1/dir/%d", directoryId);
@@ -117,7 +117,7 @@ public class DirectoryController {
     @PostMapping("/{dirId}/search")
     public String searchFolder(KeycloakAuthenticationToken token,
                                Model model,
-                               @PathVariable("dirId") int dirId,
+                               @PathVariable("dirId") long dirId,
                                @RequestAttribute("searchQuery") FileQuery query) {
         final Account account = AccountUtil.getAccountFromToken(token);
         final List<FileInfo> files = directoryService.searchFolder(account, dirId, query);

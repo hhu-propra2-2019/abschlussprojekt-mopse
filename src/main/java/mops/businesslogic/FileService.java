@@ -31,5 +31,5 @@ public interface FileService {
      * @param dirId   id of the folder
      * @return a list of file in that folder
      */
-    List<FileInfo> getFilesOfDirectory(Account account, int dirId);
+    List<FileInfo> getFilesOfDirectory(Account account, long dirId);
 }
