@@ -52,7 +52,7 @@ public class GroupController {
     public String searchFilesInGroup(KeycloakAuthenticationToken token,
                                      Model model,
                                      @PathVariable("groupId") int groupId,
-                                     @RequestAttribute("searchQuery") FileQuery query) {
+                                     @ModelAttribute("searchQuery") FileQuery query) {
         final Account account = AccountUtil.getAccountFromToken(token);
         final List<FileInfo> files = fileService.searchFilesInGroup(account, groupId, query);
         model.addAttribute("files", files);

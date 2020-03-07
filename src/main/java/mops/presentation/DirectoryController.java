@@ -118,7 +118,7 @@ public class DirectoryController {
     public String searchFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
-                               @RequestAttribute("searchQuery") FileQuery query) {
+                               @ModelAttribute("searchQuery") FileQuery query) {
         final Account account = AccountUtil.getAccountFromToken(token);
         final List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
         model.addAttribute("files", files);
