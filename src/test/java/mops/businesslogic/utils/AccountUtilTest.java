@@ -18,12 +18,12 @@ public class AccountUtilTest {
      * Tests if the account is correctly build from token.
      */
     @Test
+    @SuppressWarnings("rawtypes")
     public void getAccountFromToken() {
         String userName = "studi";
         String userEmail = "bla@bla.com";
         Set<String> roles = Set.of("studentin");
 
-        //noinspection rawtypes as is it convention for this principal
         KeycloakPrincipal principal = mock(KeycloakPrincipal.class, RETURNS_DEEP_STUBS);
         when(principal.getName()).thenReturn(userName);
         when(principal.getKeycloakSecurityContext().getIdToken().getEmail()).thenReturn(userEmail);
