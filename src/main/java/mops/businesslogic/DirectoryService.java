@@ -32,7 +32,7 @@ public interface DirectoryService {
      * @param dirName name of the new folder
      * @return id of the new folder
      */
-    int createFolder(Account account, long dirId, String dirName);
+    long createFolder(Account account, long dirId, String dirName);
 
     /**
      * Deletes a folder.
@@ -41,7 +41,7 @@ public interface DirectoryService {
      * @param dirId   id of the folder to be deleted
      * @return the parent id of the deleted folder
      */
-    int deleteFolder(Account account, long dirId);
+    long deleteFolder(Account account, long dirId);
 
     /**
      * Searches a folder for files.

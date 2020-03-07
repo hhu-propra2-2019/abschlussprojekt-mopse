@@ -83,7 +83,7 @@ public class DirectoryController {
                                   @PathVariable("dirId") long dirId,
                                   @RequestAttribute("folderName") String folderName) {
         final Account account = AccountUtil.getAccountFromToken(token);
-        final int directoryId = directoryService.createFolder(account, dirId, folderName);
+        final long directoryId = directoryService.createFolder(account, dirId, folderName);
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
@@ -101,7 +101,7 @@ public class DirectoryController {
                                Model model,
                                @PathVariable("dirId") long dirId) {
         final Account account = AccountUtil.getAccountFromToken(token);
-        final int directoryId = directoryService.deleteFolder(account, dirId);
+        final long directoryId = directoryService.deleteFolder(account, dirId);
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
