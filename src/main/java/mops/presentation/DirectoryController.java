@@ -36,7 +36,7 @@ public class DirectoryController {
      * @param dirId id of the folder
      * @return route to folder
      */
-    @GetMapping(path = "/{dirId}")
+    @GetMapping("/{dirId}")
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
                                     @PathVariable("dirId") long dirId) { //NOPMD
@@ -57,7 +57,7 @@ public class DirectoryController {
      * @param fileInfo file object
      * @return route after completion
      */
-    @PostMapping(path = "/{dirId}/upload")
+    @PostMapping("/{dirId}/upload")
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("dirId") long dirId,
