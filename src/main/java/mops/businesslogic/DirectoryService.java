@@ -27,12 +27,12 @@ public interface DirectoryService {
     /**
      * Creates a new folder inside a folder.
      *
-     * @param account user credentials
-     * @param dirId   id of the parent folder
-     * @param dirName name of the new folder
+     * @param account     user credentials
+     * @param parentDirId id of the parent folder
+     * @param dirName     name of the new folder
      * @return id of the new folder
      */
-    long createFolder(Account account, long dirId, String dirName);
+    long createFolder(Account account, long parentDirId, String dirName);
 
     /**
      * Deletes a folder.

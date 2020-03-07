@@ -91,17 +91,17 @@ public class DirectoryController {
     /**
      * Deletes a folder.
      *
-     * @param token user credentials
-     * @param model spring view model
-     * @param dirId id of the folder to be deleted
+     * @param token       user credentials
+     * @param model       spring view model
+     * @param parentDirId id of the folder to be deleted
      * @return the id of the parent folder
      */
-    @DeleteMapping("/{dirId}")
+    @DeleteMapping("/{parentDirId}")
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
-                               @PathVariable("dirId") long dirId) {
+                               @PathVariable("parentDirId") long parentDirId) {
         final Account account = AccountUtil.getAccountFromToken(token);
-        final long directoryId = directoryService.deleteFolder(account, dirId);
+        final long directoryId = directoryService.deleteFolder(account, parentDirId);
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
