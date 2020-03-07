@@ -83,8 +83,7 @@ public class DirectoryController {
                                   @PathVariable("parentDirId") long parentDirId,
                                   @RequestAttribute("folderName") String folderName) {
         final Account account = AccountUtil.getAccountFromToken(token);
-        final long directoryId = directoryService.createFolder(account, parentDirId
-                , folderName);
+        final long directoryId = directoryService.createFolder(account, parentDirId, folderName);
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
