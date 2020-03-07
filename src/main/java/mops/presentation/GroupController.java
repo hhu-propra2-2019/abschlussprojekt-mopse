@@ -51,7 +51,7 @@ public class GroupController {
     @PostMapping(path = "/{groupId}/search")
     public String searchFilesInGroup(KeycloakAuthenticationToken token,
                                      Model model,
-                                     @PathVariable("groupId") int groupId,
+                                     @PathVariable("groupId") long groupId,
                                      @ModelAttribute("searchQuery") FileQuery query) {
         final Account account = AccountUtil.getAccountFromToken(token);
         final List<FileInfo> files = fileService.searchFilesInGroup(account, groupId, query);
