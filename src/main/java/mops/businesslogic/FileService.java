@@ -14,7 +14,7 @@ public interface FileService {
      * @param groupId group identification
      * @return list of all files in that directory
      */
-    List<FileInfo> getAllFilesOfGroup(Account account, int groupId);
+    List<FileInfo> getAllFilesOfGroup(Account account, long groupId);
 
     /**
      * Searches for files in a group.
@@ -24,7 +24,7 @@ public interface FileService {
      * @param query   a query which specifies the serach
      * @return a list of files
      */
-    List<FileInfo> searchFilesInGroup(Account account, int groupId, FileQuery query);
+    List<FileInfo> searchFilesInGroup(Account account, long groupId, FileQuery query);
 
     /**
      * @param account user credentials
