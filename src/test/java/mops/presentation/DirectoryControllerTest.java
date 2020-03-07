@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static org.mockito.BDDMockito.given;
@@ -59,7 +59,7 @@ public class DirectoryControllerTest {
      */
     @BeforeEach
     public void setUp() {
-        ArrayList<FileInfo> files = new ArrayList<>();
+        List<FileInfo> files = List.of();
         final Account account = new Account("userName", "userEmail@mail.de", Set.of("studentin"));
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(files);
         given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(2L);
