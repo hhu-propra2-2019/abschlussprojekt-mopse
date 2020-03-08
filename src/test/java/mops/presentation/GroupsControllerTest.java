@@ -4,7 +4,6 @@ import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
-import mops.persistence.Directory;
 import mops.presentation.utils.SecurityContextUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,9 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -62,9 +59,8 @@ public class GroupsControllerTest {
      */
     @BeforeEach
     public void setUp() {
-        List<Directory> groupList = new ArrayList<>();
-        final Account account = new Account("studi", "bla@bla.de", "pic.png", Set.of("studentin"));
-        given(groupService.getAllGroupRootDirectories(account)).willReturn(groupList);
+        Account account = new Account("studi", "bla@bla.de", "studentin");
+        given(groupService.getAllGroupRootDirectories(account)).willReturn(List.of());
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())
@@ -77,7 +73,7 @@ public class GroupsControllerTest {
      */
     @Test
     public void getAllGroups() throws Exception {
-        SecurityContextUtil.setupSecurityContextMock("userName", "userEmail@mail.de", Set.of("studentin"));
+        SecurityContextUtil.setupSecurityContextMock("user", "user@mail.de", "studentin");
         mvc.perform(get("/material1/groups/"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("groups"));

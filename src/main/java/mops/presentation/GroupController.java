@@ -29,13 +29,13 @@ public class GroupController {
      * @param groupId the id of the group which files should be fetched
      * @return the route to template 'directory'
      */
-    @GetMapping(path = "/{groupId}")
+    @GetMapping("/{groupId}")
     public String getAllFilesOfDirectory(KeycloakAuthenticationToken token,
                                          Model model,
                                          @PathVariable("groupId") long groupId) {
-        final Account account = AccountUtil.getAccountFromToken(token);
-        final List<FileInfo> files = fileService.getAllFilesOfGroup(account, groupId);
-        model.addAttribute("files", files); //NOPMD
+        Account account = AccountUtil.getAccountFromToken(token);
+        List<FileInfo> files = fileService.getAllFilesOfGroup(account, groupId);
+        model.addAttribute("files", files);
         return "files";
     }
 
@@ -48,13 +48,13 @@ public class GroupController {
      * @param query   wrapper for a search query
      * @return the route to the template 'directory'
      */
-    @PostMapping(path = "/{groupId}/search")
+    @PostMapping("/{groupId}/search")
     public String searchFilesInGroup(KeycloakAuthenticationToken token,
                                      Model model,
                                      @PathVariable("groupId") long groupId,
                                      @ModelAttribute("searchQuery") FileQuery query) {
-        final Account account = AccountUtil.getAccountFromToken(token);
-        final List<FileInfo> files = fileService.searchFilesInGroup(account, groupId, query);
+        Account account = AccountUtil.getAccountFromToken(token);
+        List<FileInfo> files = fileService.searchFilesInGroup(account, groupId, query);
         model.addAttribute("files", files);
         return "files";
     }

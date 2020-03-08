@@ -12,14 +12,12 @@ public class AccountUtil {
      * @param token security token provided by keycloak
      * @return {@link Account}
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings({ "PMD", "rawtypes" })
     public static Account getAccountFromToken(KeycloakAuthenticationToken token) {
-        //noinspection rawtypes as it is convention for this type
-        final KeycloakPrincipal principal = (KeycloakPrincipal) token.getPrincipal();
+        KeycloakPrincipal principal = (KeycloakPrincipal) token.getPrincipal();
         return new Account(
                 principal.getName(),
                 principal.getKeycloakSecurityContext().getIdToken().getEmail(),
-                null,
                 token.getAccount().getRoles());
     }
 }

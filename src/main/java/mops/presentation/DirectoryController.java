@@ -20,6 +20,7 @@ import java.util.List;
 @RequestMapping("/material1/dir")
 @AllArgsConstructor
 public class DirectoryController {
+
     /**
      * Manages all directory queries.
      */
@@ -39,10 +40,10 @@ public class DirectoryController {
     @GetMapping("/{dirId}")
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
-                                    @PathVariable("dirId") long dirId) { //NOPMD
-        final Account account = AccountUtil.getAccountFromToken(token);
-        final List<Directory> directories = directoryService.getSubFolders(account, dirId);
-        final List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+                                    @PathVariable("dirId") long dirId) {
+        Account account = AccountUtil.getAccountFromToken(token);
+        List<Directory> directories = directoryService.getSubFolders(account, dirId);
+        List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
         return "directory";
@@ -62,7 +63,7 @@ public class DirectoryController {
                              Model model,
                              @PathVariable("dirId") long dirId,
                              @Param("file") FileInfo fileInfo) {
-        final Account account = AccountUtil.getAccountFromToken(token);
+        Account account = AccountUtil.getAccountFromToken(token);
         //TODO: exception handling and user error message
         directoryService.uploadFile(account, dirId, fileInfo);
         return String.format("redirect:/material1/dir/%d", dirId);
@@ -82,11 +83,10 @@ public class DirectoryController {
                                   Model model,
                                   @PathVariable("parentDirId") long parentDirId,
                                   @RequestAttribute("folderName") String folderName) {
-        final Account account = AccountUtil.getAccountFromToken(token);
-        final long directoryId = directoryService.createFolder(account, parentDirId, folderName);
+        Account account = AccountUtil.getAccountFromToken(token);
+        long directoryId = directoryService.createFolder(account, parentDirId, folderName);
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
-
 
     /**
      * Deletes a folder.
@@ -100,8 +100,8 @@ public class DirectoryController {
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId) {
-        final Account account = AccountUtil.getAccountFromToken(token);
-        final long directoryId = directoryService.deleteFolder(account, dirId);
+        Account account = AccountUtil.getAccountFromToken(token);
+        long directoryId = directoryService.deleteFolder(account, dirId);
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
@@ -119,8 +119,8 @@ public class DirectoryController {
                                Model model,
                                @PathVariable("dirId") long dirId,
                                @ModelAttribute("searchQuery") FileQuery query) {
-        final Account account = AccountUtil.getAccountFromToken(token);
-        final List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
+        Account account = AccountUtil.getAccountFromToken(token);
+        List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
         model.addAttribute("files", files);
         return "files";
     }
