@@ -1,15 +1,12 @@
 package mops.businesslogic;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 
-import java.util.Objects;
 import java.util.Set;
 
 @Getter
 @AllArgsConstructor
+@RequiredArgsConstructor
 @EqualsAndHashCode
 public class Account {
     /**
@@ -40,21 +37,6 @@ public class Account {
      * @param roles permission roles
      */
     public Account(String name, String email, String... roles) {
-        this.name = Objects.requireNonNull(name);
-        this.email = Objects.requireNonNull(email);
-        this.roles = Set.of(roles);
-    }
-
-    /**
-     * Create a new Account.
-     *
-     * @param name  user name
-     * @param email email address
-     * @param roles permission roles
-     */
-    public Account(String name, String email, Set<String> roles) {
-        this.name = Objects.requireNonNull(name);
-        this.email = Objects.requireNonNull(email);
-        this.roles = Set.copyOf(roles);
+        this(name, email, Set.of(roles));
     }
 }
