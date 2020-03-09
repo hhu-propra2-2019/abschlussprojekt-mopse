@@ -14,4 +14,12 @@ public interface GroupService {
      * @return a list of group ids
      */
     List<Directory> getAllGroupRootDirectories(Account account);
+
+    /**
+     * Checks if the root folder exists and if not it will create it.
+     *
+     * @param account the user user account
+     * @param groupId the id of the group
+     */
+    void createIfNotExists(Account account, long groupId);
 }
