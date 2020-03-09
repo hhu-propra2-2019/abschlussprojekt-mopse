@@ -6,6 +6,8 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import mops.utils.AggregateRoot;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Controller;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
@@ -68,5 +70,53 @@ public class ArchitectureRulesTest {
                         "mopsPresentation", "mopsBusinesslogic");
 
         checkLayeredArchitecture.check(javaClasses);
+    }
+
+    /**
+     * This tests if there are any Controllers, that aren't in the Presentation layer,
+     * which would be a violation of the Layer Architecture.
+     */
+    @Test
+    public void allControllersShouldResideInMopsPresentation() {
+        ArchRule allControllersShouldResideInMopsPresentation = classes()
+                .that()
+                .resideInAPackage(MOPS_PRESENTATION)
+                .should()
+                .onlyBeAccessed()
+                .byAnyPackage(MOPS_PRESENTATION);
+
+        allControllersShouldResideInMopsPresentation.check(javaClasses);
+    }
+
+    /**
+     * This checks, if everything in "presentation" is annotated with @Controller,
+     * because there shouldn't be anything else there.
+     * the "areNotAnnotatedWith(SpringBootTest.class)" is there, so that test.mops.presentation,
+     * which are the tests, will not be tested and cause a wrong outcome of the test.
+     */
+    @Test
+    public void everythingInPresentationShouldBeAController() {
+        ArchRule everythingInPresentationShouldBeAController = classes()
+                .that()
+                .resideInAPackage(MOPS_PRESENTATION)
+                .and()
+                .areNotAnnotatedWith(SpringBootTest.class)
+                .should()
+                .beAnnotatedWith(Controller.class);
+
+        everythingInPresentationShouldBeAController.check(javaClasses);
+    }
+
+    /**
+     * This tests, if there are no Cycles within the Packages.
+     */
+    @Test
+    public void areThereAnyCyclesWithinPackages() {
+        ArchRule areThereAnyCyclesWithinPackages = slices()
+                .matching("mops.(*)..")
+                .should()
+                .beFreeOfCycles();
+
+        areThereAnyCyclesWithinPackages.check(javaClasses);
     }
 }
