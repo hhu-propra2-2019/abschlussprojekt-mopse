@@ -23,8 +23,8 @@ public class ArchitectureRulesTest {
 
     /**
      * This test looks out for public classes that aren't annotated
-     * with Aggregate Root but still are public, which stands against
-     * having only one Aggregate Root per class/package.
+     * with Aggregate Root but are still public, which stands against
+     * having only one @AggregateRoot per class/package.
      */
     @Test
     public void onlyAggregateRootsArePublic() {
