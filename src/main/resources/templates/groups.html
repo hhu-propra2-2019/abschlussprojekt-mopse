@@ -21,7 +21,7 @@
                 <th>Name</th>
                 <th>Typ</th>
             </tr>
-            <tr th:each="group : ${groups}">
+            <tr th:each="group : ${groups}" th:href="@{/dir/${group.id}}">
                 <td th:text="${group.directoryName}">%Name%</td>
             </tr>
         </table>
