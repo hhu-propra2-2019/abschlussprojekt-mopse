@@ -80,7 +80,7 @@ public class GroupControllerTest {
         setupSecurityContextMock(account);
         mvc.perform(get("/material1/group/1/url"))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("$.url").value("/dir/1"))
+                .andExpect(jsonPath("$.url").value("/material1/dir/1"))
                 .andExpect(jsonPath("$.group_id").value(1L));
     }
 
