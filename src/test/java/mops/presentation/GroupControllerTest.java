@@ -64,7 +64,7 @@ public class GroupControllerTest {
     void setUp() {
         account = new Account("studi", "bla@bla.de", "studentin");
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
-        given(groupService.getGroupURL(account, 1)).willReturn(new GroupURLWrapper(1L));
+        given(groupService.getGroupURL(account, 1)).willReturn(new GroupDirUrlWrapper(1L));
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())

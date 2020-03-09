@@ -51,9 +51,9 @@ public class GroupController {
      */
     @GetMapping(value = "/{groupId}/url", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public GroupURLWrapper getGroupURL(KeycloakAuthenticationToken token,
-                                       Model model,
-                                       @PathVariable("groupId") long groupId) {
+    public GroupDirUrlWrapper getGroupURL(KeycloakAuthenticationToken token,
+                                          Model model,
+                                          @PathVariable("groupId") long groupId) {
         Account account = AccountUtil.getAccountFromToken(token);
         return groupService.getGroupURL(account, groupId);
     }

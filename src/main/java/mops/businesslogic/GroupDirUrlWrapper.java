@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
  * Wraps a url for a group given a group id.
  */
 @AllArgsConstructor
-public class GroupURLWrapper {
+public class GroupDirUrlWrapper {
     /**
      * The id of the group.
      */

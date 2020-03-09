@@ -20,5 +20,5 @@ public interface GroupService {
      * @param groupId the id of the group
      * @return a wrapper for group urls
      */
-    GroupURLWrapper getGroupURL(Account account, long groupId);
+    GroupDirUrlWrapper getGroupURL(Account account, long groupId);
 }
