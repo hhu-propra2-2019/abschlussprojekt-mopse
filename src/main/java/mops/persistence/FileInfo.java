@@ -1,5 +1,8 @@
 package mops.persistence;
 
+/**
+ * Represents a 'file' of the file server.
+ */
 public interface FileInfo {
    String name = null;
    int date = 0;
