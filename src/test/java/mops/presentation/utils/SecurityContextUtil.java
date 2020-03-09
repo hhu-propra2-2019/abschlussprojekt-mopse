@@ -1,5 +1,6 @@
 package mops.presentation.utils;
 
+import mops.businesslogic.Account;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
@@ -27,11 +28,20 @@ public class SecurityContextUtil {
     /**
      * Builds a security context using mock for keycloak.
      *
+     * @param account user
+     */
+    public static void setupSecurityContextMock(Account account) {
+        setupSecurityContextMock(account.getName(), account.getEmail(), account.getRoles());
+    }
+
+    /**
+     * Builds a security context using mock for keycloak.
+     *
      * @param userName  name of the user
      * @param userEmail email of the user
      * @param roles     roles of the user
      */
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"PMD", "rawtypes"})
     public static void setupSecurityContextMock(String userName, String userEmail, Set<String> roles) {
         KeycloakPrincipal principal = mock(KeycloakPrincipal.class, RETURNS_DEEP_STUBS);
         when(principal.getName()).thenReturn(userName);
