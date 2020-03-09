@@ -4,6 +4,10 @@ package mops.persistence;
  * Represents a 'file' of the file server.
  */
 public interface FileInfo {
+   /**
+    * @return Returns the id of a file
+    */
+   long getId();
 
    /**
     * @return Returns display name of the file.
@@ -17,6 +21,7 @@ public interface FileInfo {
    /**
     * @return Returns content type (pdf, png, etc.) of the file.
     */
+
    String getContentType();
    /**
     * @return Returns byte size of the file.
