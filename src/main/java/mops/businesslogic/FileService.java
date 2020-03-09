@@ -32,4 +32,17 @@ public interface FileService {
      * @return a list of file in that folder
      */
     List<FileInfo> getFilesOfDirectory(Account account, long dirId);
+
+    /**
+     * @param account user credentials
+     * @param fileId file id of needed file
+     * @return file (not int, type not known yet)
+     */
+    int getFile(Account account, long fileId);
+
+    /**
+     * @param account user credentials
+     * @param fileId file id of file to be deleted
+     */
+    void deleteFile(Account account, long fileId);
 }
