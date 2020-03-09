@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "mops.storage.minio")
 @Getter
 @Setter
-public class StorageServiceConfiguration {
+public class FileRepositoryConfiguration {
 
 
     /**
