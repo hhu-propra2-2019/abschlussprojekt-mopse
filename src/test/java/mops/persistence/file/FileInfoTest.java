@@ -11,11 +11,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringTestContext
 @DataJdbcTest
@@ -42,6 +44,22 @@ class FileInfoTest {
         FileTag t1 = new FileTag("1");
         FileTag t2 = new FileTag("2");
         this.file = new FileInfo("a", rootDir.getId(), "txt", 0, "a", Set.of(t1, t2));
+    }
+
+    @Test
+    void failCreation() {
+        assertThatThrownBy(() -> new FileTag(null))
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new FileInfo(null, -1, null, 0, null, null))
+                .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void failSave() {
+        FileInfo wrong = new FileInfo("a", -1, "txt", 0, "a", Set.of());
+
+        assertThatThrownBy(() -> repo.save(wrong))
+                .isInstanceOf(DbActionExecutionException.class);
     }
 
     @Test

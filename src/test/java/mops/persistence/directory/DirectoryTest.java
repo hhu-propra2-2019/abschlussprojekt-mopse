@@ -9,11 +9,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringTestContext
 @DataJdbcTest
@@ -36,6 +38,21 @@ class DirectoryTest {
         rootDir = repo.save(rootDir);
 
         this.dir = new Directory("a", rootDir.getParentId(), -1, rootDirPerms.getId());
+    }
+
+    @Test
+    void failCreation() {
+        assertThatThrownBy(() -> new Directory(null, -1L, -1, -1L))
+                .isInstanceOf(NullPointerException.class)
+                .hasNoCause();
+    }
+
+    @Test
+    void failSave() {
+        Directory wrong = new Directory("a", -1L, -1, -1L);
+
+        assertThatThrownBy(() -> repo.save(wrong))
+                .isInstanceOf(DbActionExecutionException.class);
     }
 
     @Test

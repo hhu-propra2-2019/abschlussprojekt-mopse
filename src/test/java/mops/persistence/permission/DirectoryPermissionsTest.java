@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringTestContext
 @DataJdbcTest
@@ -26,6 +27,14 @@ class DirectoryPermissionsTest {
         DirectoryPermissionEntry e1 = new DirectoryPermissionEntry("admin", true, true, true);
         DirectoryPermissionEntry e2 = new DirectoryPermissionEntry("user", true, false, false);
         this.perms = new DirectoryPermissions(Set.of(e1, e2));
+    }
+
+    @Test
+    void failCreation() {
+        assertThatThrownBy(() -> new DirectoryPermissionEntry(null, false, false, false))
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new DirectoryPermissions(null))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
