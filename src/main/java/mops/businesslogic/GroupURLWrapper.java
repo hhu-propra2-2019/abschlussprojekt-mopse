@@ -1,7 +1,11 @@
 package mops.businesslogic;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Ignore unused private field warning
+ */
 @SuppressWarnings("PMD")
 public class GroupURLWrapper {
     /**
@@ -9,18 +13,20 @@ public class GroupURLWrapper {
      */
     @JsonProperty("group_id")
     private final long groupId;
-    /**
-     * The relative url of the group root dir.
-     */
-    @JsonProperty("url")
-    private final String url;
-
 
     /**
      * @param groupId the of the group
      */
     public GroupURLWrapper(long groupId) {
         this.groupId = groupId;
-        url = String.format("/dir/%d", groupId);
+
+    }
+
+    /**
+     * The relative url of the group root dir.
+     */
+    @JsonGetter("url")
+    public String getGroupUrl() {
+        return String.format("/dir/%d", groupId);
     }
 }
