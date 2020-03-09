@@ -26,4 +26,4 @@ Und zwar weil MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, wo
 
 Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist umständlich immer diesen Docker-Container laufen zu lassen.
 Also haben wir uns entschieden in der Entwicklung und zum Testen H2 zu benutzen.
-Das ist eine Embedded In-Memory Datenbank die sehr schnell startet und die wir bereits kennen gelernt haben.
+Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir bereits kennen gelernt haben.
