@@ -1,17 +1,18 @@
 package mops.businesslogic;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @SuppressWarnings("PMD")
-@JsonAutoDetect
 public class GroupURLWrapper {
     /**
      * The id of the group.
      */
+    @JsonProperty("group_id")
     private final long groupId;
     /**
      * The relative url of the group root dir.
      */
+    @JsonProperty("url")
     private final String url;
 
 
