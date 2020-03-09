@@ -5,11 +5,11 @@ package mops.persistence;
  */
 public interface Directory {
     /**
-     * Unique directory id.
+     * @return  Returns unique directory id.
      */
-    int id = 0;
+    int getId();
     /**
-     * Display Name of a directory.
+     * @return Returns display name of directory.
      */
-    String name = null;
+    String getDirectoryName();
 }

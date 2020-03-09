@@ -4,20 +4,22 @@ package mops.persistence;
  * Represents a 'file' of the file server.
  */
 public interface FileInfo {
+
    /**
-    * Display Name of a file.
+    * @return Returns display name of the file.
     */
-   String name = null;
+   String getFileName();
+
    /**
-    * Creation date of a file.
+    * @return Returns upload date of the file.
     */
-   int date = 0;
+   int getDate();
    /**
-    * Content Type of a File (pdf, png, etc.).
+    * @return Returns content type (pdf, png, etc.) of the file.
     */
-   String contentType = null;
+   String getContentType();
    /**
-    * Byte size of a file.
+    * @return Returns byte size of the file.
     */
-   int size = 0;
+   int getSize();
 }
