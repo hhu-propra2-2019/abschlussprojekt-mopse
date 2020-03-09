@@ -5,6 +5,7 @@ import mops.businesslogic.*;
 import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +49,8 @@ public class GroupController {
      * @param groupId the id of the group of the requested url
      * @return a wrapper for the url string
      */
-    @GetMapping("/{groupId}/url")
+    @GetMapping(value = "/{groupId}/url", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public GroupURLWrapper getGroupURL(KeycloakAuthenticationToken token,
                                        Model model,
                                        @PathVariable("groupId") long groupId) {
