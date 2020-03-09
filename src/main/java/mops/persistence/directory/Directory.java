@@ -47,7 +47,7 @@ public class Directory {
      * @param groupOwner    Id of the owing group
      * @param permissionsId Id of the DirectoryPermissions
      */
-    public Directory(String name, Long parentId, long groupOwner, long permissionsId) {
+    public Directory(@NonNull String name, Long parentId, long groupOwner, long permissionsId) {
         this.name = name;
         this.parentId = parentId;
         this.groupOwner = groupOwner;

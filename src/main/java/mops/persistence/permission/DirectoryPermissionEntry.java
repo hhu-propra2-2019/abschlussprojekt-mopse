@@ -11,7 +11,7 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-class DirectoryPermissionEntry {
+public class DirectoryPermissionEntry {
 
     /**
      * The role this belongs to.
@@ -30,4 +30,5 @@ class DirectoryPermissionEntry {
      * If this role may delete files.
      */
     private boolean canDelete;
+
 }

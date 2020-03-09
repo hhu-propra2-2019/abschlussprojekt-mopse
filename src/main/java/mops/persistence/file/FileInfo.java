@@ -64,7 +64,8 @@ public class FileInfo {
      * @param owner       file owner
      * @param tags        file tags
      */
-    public FileInfo(String name, long directoryId, String type, long size, String owner, Set<FileTag> tags) {
+    public FileInfo(@NonNull String name, long directoryId, @NonNull String type, long size, @NonNull String owner,
+                    @NonNull Set<FileTag> tags) {
         this.name = name;
         this.directoryId = directoryId;
         this.type = type;

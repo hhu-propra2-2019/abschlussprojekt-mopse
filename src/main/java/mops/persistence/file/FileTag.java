@@ -11,7 +11,7 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-class FileTag {
+public class FileTag {
 
     /**
      * Tag name.

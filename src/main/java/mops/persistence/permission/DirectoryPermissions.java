@@ -31,25 +31,25 @@ public class DirectoryPermissions {
      */
     @NonNull
     @MappedCollection(idColumn = "permissions_id")
-    private Set<DirectoryPermissionEntry> entries;
+    private Set<DirectoryPermissionEntry> permissions;
 
     /**
-     * Create new DirectoryPermissions.
+     * Create a new permissions object.
      *
-     * @param entries the role permissions
+     * @param permissions role permissions
      */
-    public DirectoryPermissions(Set<DirectoryPermissionEntry> entries) {
-        this.entries = entries;
+    public DirectoryPermissions(@NonNull Set<DirectoryPermissionEntry> permissions) {
+        this.permissions = permissions;
     }
 
     /**
-     * Create new DirectoryPermissions.
+     * Create a new permissions object.
      *
-     * @param id      database id
-     * @param entries the role permissions
+     * @param id          database id
+     * @param permissions role permissions
      */
-    public DirectoryPermissions(Long id, Set<DirectoryPermissionEntry> entries) {
+    public DirectoryPermissions(Long id, @NonNull Set<DirectoryPermissionEntry> permissions) {
         this.id = id;
-        this.entries = entries;
+        this.permissions = permissions;
     }
 }
