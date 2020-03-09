@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{mopslayout :: html(name='Ordner', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Ordner</title>
+    <th:block th:fragment="headcontent">
+        <!-- Links, Skripts, Styles hier einfügen! -->
+    </th:block>
+</head>
+<body>
+<header>
+    <nav class="navigation navigation-secondary" is="mops-navigation" th:fragment="navigation">
+        <!-- Navigation als ungeordnete Liste mit einfachen Links hier einfügen! -->
+    </nav>
+</header>
+<main th:fragment="bodycontent">
+
+</main>
+</body>
+</html>
