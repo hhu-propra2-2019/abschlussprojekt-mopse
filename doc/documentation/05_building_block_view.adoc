@@ -103,10 +103,11 @@ Ebene 3 zeigt die einzelnen Komponenten einer Schicht im Detail und deren Funkti
 Darstellung nach gleichem Schema wie zuvor.
 ****
 
+==== Präsentation
+
 _**<Übersichtsdiagramm>**_
 
 Begründung:: _<Erläuternder Text>_
-
 
 Enthaltene Bausteine::
 
@@ -128,5 +129,32 @@ Enthaltene Bausteine::
 `POST: /material1/dir/{dirId}`/upload
 
 `DELETE: /material1/dir/{dirId}`
+| FileInfoRepository | Bereitstellung von Zugriffsfunktionen auf das `FileInfo`-Aggregat | ...
+|===
 
+==== Persistenz
+
+Begründung:: Die einzelnen Repositories korrespondieren zu den Aggregaten.
+
+===== Repositories
+
+[cols="1,1,1" options="header"]
+|===
+| Komponente | Funktion |
+| FileInfoRepository | Bereitstellung von Zugriffsfunktionen auf das `FileInfo`-Aggregat | Standardfunktionen von
+CRUDRepository
+| DirectoryRepository | Bereitstellung von Zugriffsfunktionen auf das `Directory`-Aggregat | Standardfunktionen von
+CRUDRepository
+| DirectoryPermissionsRepository | Bereitstellung von Zugriffsfunktionen auf das `DirectoryPermissions`-Aggregat |
+Standardfunktionen von CRUDRepository
+|===
+
+===== Aggregate
+
+[cols="1,1" options="header"]
+|===
+| Aggregat | Funktion
+| `FileInfo` | Repräsentiert eine Datei im System
+| `Directory` | Repräsentiert einen Ordner im System
+| `DirectoryPermissions` | Repräsentiert die Berechtigungen aller Rollen für einen Ordner im System
 |===

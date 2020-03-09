@@ -3,7 +3,7 @@ package mops.presentation;
 import lombok.AllArgsConstructor;
 import mops.businesslogic.*;
 import mops.businesslogic.utils.AccountUtil;
-import mops.persistence.FileInfo;
+import mops.persistence.file.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
