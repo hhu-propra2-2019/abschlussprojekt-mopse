@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 
 /**
- * Ignore unused private field warning
+ * Wraps a url for a group given a group id.
  */
 @AllArgsConstructor
 public class GroupURLWrapper {
@@ -16,7 +16,7 @@ public class GroupURLWrapper {
     private final long groupId;
 
     /**
-     * The relative url of the group root dir.
+     * @return the relative url of the group root dir.
      */
     @JsonGetter("url")
     public String getGroupUrl() {
