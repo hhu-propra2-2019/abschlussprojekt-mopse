@@ -15,7 +15,17 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
-    <!-- Restlichen Inhalt hier einfügen! -->
+    <table>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Typ</th>
+            </tr>
+            <tr th:each="group : ${groups}">
+                <td th:text="${group.directoryName}">%Name%</td>
+            </tr>
+        </table>
+    </table>
 </main>
 </body>
 </html>
