@@ -21,7 +21,7 @@ public class ArchitectureRulesTest {
 
     /**
      * This test looks out for public classes that aren't annotated
-     * with Aggregate Rootbut still are public, which stands against
+     * with Aggregate Root but still are public, which stands against
      * having only one Aggregate Root per class/package.
      */
     @Test
@@ -61,6 +61,7 @@ public class ArchitectureRulesTest {
                 .layer("mopsPersistence").definedBy(MOPS_PERSISTENCE)
                 .layer("mopsBusinesslogic").definedBy(MOPS_BUSINESSLOGIC)
                 .layer("mopsPresentation").definedBy(MOPS_PRESENTATION)
+
                 .whereLayer("mopsPresentation").mayNotBeAccessedByAnyLayer()
                 .whereLayer("mopsBusinesslogic").mayOnlyBeAccessedByLayers("mopsPresentation")
                 .whereLayer("mopsPersistence").mayOnlyBeAccessedByLayers(
