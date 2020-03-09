@@ -20,6 +20,6 @@ public class GroupDirUrlWrapper {
      */
     @JsonGetter("url")
     public String getGroupUrl() {
-        return String.format("/dir/%d", groupId);
+        return String.format("/material1/dir/%d", groupId);
     }
 }
