@@ -17,3 +17,13 @@ Eine *kurze* und *präzise* Darlegung aller relevanten Entscheidungen.
 Eine Schwierigkeit für die Controller Tests war, dass man die sicherheitsrelevanten Aspekte von `spring-security` und `keycloak` berücksichtigen muss.
 Wir haben uns dafür entschieden diesen Teil zu mocken.
 Jedoch hat es bei uns nicht funktioniert mit `@WithMockUser` den Mock zu machen, daher haben wir den ganzen SecurityContext gemockt und stellen diesen mit `SecurityContextUtil` für jeden ControllerTest zur Verfügung.
+
+== Datenbank
+
+Zur Auswahl standen hier MySQL, MariaDB und PostgreSQL, da wir damit bereits Erfahrungen gesammelt haben.
+Wir haben uns nach einer kurzen Diskussion für MariaDB entschieden.
+Und zwar weil MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, womit wir am meisten Erfahrung haben.
+
+Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist umständlich immer diesen Docker-Container laufen zu lassen.
+Also haben wir uns entschieden in der Entwicklung und zum Testen H2 zu benutzen.
+Das ist eine Embedded In-Memory Datenbank die sehr schnell startet und die wir bereits kennen gelernt haben.
