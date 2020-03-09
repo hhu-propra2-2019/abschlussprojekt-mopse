@@ -17,6 +17,15 @@ public class SecurityContextUtil {
     /**
      * Builds a security context using mock for keycloak.
      *
+     * @param account the user
+     */
+    public static void setupSecurityContextMock(Account account) {
+        setupSecurityContextMock(account.getName(), account.getEmail(), account.getRoles());
+    }
+
+    /**
+     * Builds a security context using mock for keycloak.
+     *
      * @param userName  name of the user
      * @param userEmail email of the user
      * @param roles     roles of the user
