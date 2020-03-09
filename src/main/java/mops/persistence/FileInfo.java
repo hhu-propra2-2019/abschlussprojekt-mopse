@@ -17,7 +17,7 @@ public interface FileInfo {
     */
    String contentType = null;
    /**
-    * Byte size of a file
+    * Byte size of a file.
     */
    int size = 0;
 }
