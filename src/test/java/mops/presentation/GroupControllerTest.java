@@ -53,13 +53,17 @@ public class GroupControllerTest {
      * Necessary bean.
      */
     private MockMvc mvc;
+    /**
+     * Wrapper of user credentials.
+     */
+    private Account account;
 
     /**
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
     void setUp() {
-        Account account = new Account("studi", "bla@bla.de", "studentin");
+        account = new Account("studi", "bla@bla.de", "studentin");
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
@@ -73,7 +77,7 @@ public class GroupControllerTest {
      */
     @Test
     public void getAllFilesOfDirectory() throws Exception {
-        setupSecurityContextMock("user", "user@mail.de", "studentin");
+        setupSecurityContextMock(account);
         mvc.perform(get("/material1/group/1"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("files"));
@@ -85,7 +89,7 @@ public class GroupControllerTest {
     @Test
     public void searchFile() throws Exception {
         FileQuery fileQuery = mock(FileQuery.class);
-        setupSecurityContextMock("user", "user@mail.de", "studentin");
+        setupSecurityContextMock(account);
         mvc.perform(post("/material1/group/1/search")
                 .requestAttr("searchQuery", fileQuery)
                 .with(csrf()))
