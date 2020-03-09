@@ -53,13 +53,17 @@ public class GroupsControllerTest {
      * Necessary bean.
      */
     private MockMvc mvc;
+    /**
+     * Wrapper of user credentials.
+     */
+    private Account account;
 
     /**
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
     public void setUp() {
-        Account account = new Account("studi", "bla@bla.de", "studentin");
+        account = new Account("studi", "bla@bla.de", "studentin");
         given(groupService.getAllGroupRootDirectories(account)).willReturn(List.of());
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
@@ -73,7 +77,7 @@ public class GroupsControllerTest {
      */
     @Test
     public void getAllGroups() throws Exception {
-        SecurityContextUtil.setupSecurityContextMock("user", "user@mail.de", "studentin");
+        SecurityContextUtil.setupSecurityContextMock(account);
         mvc.perform(get("/material1/groups/"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("groups"));

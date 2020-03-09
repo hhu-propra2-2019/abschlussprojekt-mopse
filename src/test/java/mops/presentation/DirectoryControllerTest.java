@@ -53,13 +53,17 @@ public class DirectoryControllerTest {
      * Necessary bean.
      */
     private MockMvc mvc;
+    /**
+     * Wrapper of user credentials.
+     */
+    private Account account;
 
     /**
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
     public void setUp() {
-        Account account = new Account("user", "user@mail.de", "studentin");
+        account = new Account("user", "user@mail.de", "studentin");
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(2L);
         given(directoryService.deleteFolder(account, 1)).willReturn(0L);
@@ -77,7 +81,7 @@ public class DirectoryControllerTest {
      */
     @Test
     public void showContent() throws Exception {
-        setupSecurityContextMock("user", "user@mail.de", "studentin");
+        setupSecurityContextMock(account);
         mvc.perform(get("/material1/dir/1"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("directory"));
@@ -88,7 +92,7 @@ public class DirectoryControllerTest {
      */
     @Test
     public void uploadFile() throws Exception {
-        setupSecurityContextMock("user", "user@mail.de", "studentin");
+        setupSecurityContextMock(account);
         mvc.perform(post("/material1/dir/1/upload")
                 .requestAttr("file", mock(FileInfo.class))
                 .with(csrf()))
@@ -101,7 +105,7 @@ public class DirectoryControllerTest {
      */
     @Test
     public void createFolder() throws Exception {
-        setupSecurityContextMock("user", "user@mail.de", "studentin");
+        setupSecurityContextMock(account);
         mvc.perform(post("/material1/dir/1/create")
                 .requestAttr("folderName", "Vorlesungen")
                 .with(csrf()))
@@ -114,7 +118,7 @@ public class DirectoryControllerTest {
      */
     @Test
     public void searchFolder() throws Exception {
-        setupSecurityContextMock("user", "user@mail.de", "studentin");
+        setupSecurityContextMock(account);
         mvc.perform(post("/material1/dir/1/search")
                 .requestAttr("searchQuery", mock(FileQuery.class))
                 .with(csrf()))
@@ -127,7 +131,7 @@ public class DirectoryControllerTest {
      */
     @Test
     public void deleteDirectory() throws Exception {
-        setupSecurityContextMock("user", "user@mail.de", "studentin");
+        setupSecurityContextMock(account);
         mvc.perform(delete("/material1/dir/1")
                 .requestAttr("dirId", 1)
                 .with(csrf()))
