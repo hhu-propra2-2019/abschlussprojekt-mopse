@@ -24,18 +24,16 @@ class DirectoryTest {
     @Autowired
     private DirectoryPermissionsRepository permRepo;
 
-    private DirectoryPermissions rootDirPerms;
-    private Directory rootDir;
     private Directory dir;
 
     @BeforeEach
     void setup() {
         DirectoryPermissions rootDirPerms = new DirectoryPermissions(Set.of(new DirectoryPermissionEntry("admin", true,
                 true, true)));
-        this.rootDirPerms = permRepo.save(rootDirPerms);
+        rootDirPerms = permRepo.save(rootDirPerms);
 
         Directory rootDir = new Directory("", null, -1, rootDirPerms.getId());
-        this.rootDir = repo.save(rootDir);
+        rootDir = repo.save(rootDir);
 
         this.dir = new Directory("a", rootDir.getParentId(), -1, rootDirPerms.getId());
     }

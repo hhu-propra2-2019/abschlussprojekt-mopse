@@ -28,7 +28,6 @@ class FileInfoTest {
     @Autowired
     private DirectoryRepository dirRepo;
 
-    private Directory rootDir;
     private FileInfo file;
 
     @BeforeEach
@@ -38,7 +37,7 @@ class FileInfoTest {
         rootDirPerms = permRepo.save(rootDirPerms);
 
         Directory rootDir = new Directory("", null, -1, rootDirPerms.getId());
-        this.rootDir = dirRepo.save(rootDir);
+        rootDir = dirRepo.save(rootDir);
 
         FileTag t1 = new FileTag("1");
         FileTag t2 = new FileTag("2");
