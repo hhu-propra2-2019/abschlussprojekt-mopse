@@ -80,10 +80,11 @@ public class ArchitectureRulesTest {
     public void allControllersShouldResideInMopsPresentation() {
         ArchRule allControllersShouldResideInMopsPresentation = classes()
                 .that()
-                .resideInAPackage(MOPS_PRESENTATION)
+                .areAnnotatedWith(Controller.class)
+                .and()
+                .resideOutsideOfPackage(MOPS_PRESENTATION)
                 .should()
-                .onlyBeAccessed()
-                .byAnyPackage(MOPS_PRESENTATION);
+                .notBeAnnotatedWith(Controller.class);
 
         allControllersShouldResideInMopsPresentation.check(javaClasses);
     }
