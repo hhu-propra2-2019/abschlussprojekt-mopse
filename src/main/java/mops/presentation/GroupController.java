@@ -56,8 +56,7 @@ public class GroupController {
                                        Model model,
                                        @PathVariable("groupId") long groupId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        groupService.createIfNotExists(account, groupId);
-        return new GroupURLWrapper(groupId);
+        return groupService.getGroupURL(account, groupId);
     }
 
     /**
