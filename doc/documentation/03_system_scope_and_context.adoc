@@ -21,5 +21,5 @@ _Kontextdiagramme, Listen von Kommunikationsbeziehungen aber auch plain text wä
 [cols="1,1,1" options="header"]
 |===
 |Anfrage |Route |Erläuterung
-|Gruppenurl |`/material1/group/{groupId}/url | Gibt eine JSON Objekt zurück, welches die Attribute `group_id` und `url` hat. Zweiteres ist der relative Pfad nach `material1/`, wo der Rootordner der Gruppe aufgerufen werden kann.
+|Gruppenurl |`/material1/group/{groupId}/url | Gibt ein JSON-Objekt zurück, das die Attribute `group_id` und `url` hat. Letzteres ist der relative Pfad, wo der Rootordner der Gruppe aufgerufen werden kann.
 |===
