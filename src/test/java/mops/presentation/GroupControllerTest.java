@@ -81,7 +81,7 @@ public class GroupControllerTest {
         mvc.perform(get("/material1/group/1/url"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.url").value("/dir/1"))
-                .andExpect(jsonPath("$.group_id").value("1"));
+                .andExpect(jsonPath("$.group_id").value(1L));
     }
 
     /**
