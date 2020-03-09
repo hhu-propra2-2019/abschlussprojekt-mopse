@@ -15,7 +15,26 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
-    <!-- Restlichen Inhalt hier einfügen! -->
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Datum</th>
+            <th>Typ</th>
+            <th>Größe</th>
+        </tr>
+        <tr th:each="dir : ${dirs}"} th:href="@{/${dir.id}}">
+            <td th:text="${dir.directoryName}">%Name%</td>
+            <td></td>
+            <td>Dateiordner</td>
+            <td></td>
+        </tr>
+        <tr th:each="file : ${files}">
+            <td th:text="${file.fileName}">%Name%</td>
+            <td th:text="${file.date}">%Datum%</td>
+            <td th:text="${file.contentType}">%Typ%</td>
+            <td th:text="${file.size}">%Größe%</td>
+        </tr>
+    </table>
 </main>
 </body>
 </html>
