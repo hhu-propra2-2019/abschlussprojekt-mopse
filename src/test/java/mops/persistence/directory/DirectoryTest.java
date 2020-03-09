@@ -26,6 +26,7 @@ class DirectoryTest {
 
     private DirectoryPermissions rootDirPerms;
     private Directory rootDir;
+    private Directory dir;
 
     @BeforeEach
     void setup() {
@@ -35,12 +36,12 @@ class DirectoryTest {
 
         Directory rootDir = new Directory("", null, -1, rootDirPerms.getId());
         this.rootDir = repo.save(rootDir);
+
+        this.dir = new Directory("a", rootDir.getParentId(), -1, rootDirPerms.getId());
     }
 
     @Test
     void save() {
-        Directory dir = new Directory("a", rootDir.getParentId(), -1, rootDirPerms.getId());
-
         Directory saved = repo.save(dir);
 
         assertThat(saved).isEqualToIgnoringNullFields(dir);
@@ -48,8 +49,6 @@ class DirectoryTest {
 
     @Test
     void loadSave() {
-        Directory dir = new Directory("a", rootDir.getParentId(), -1, rootDirPerms.getId());
-
         Long id = repo.save(dir).getId();
 
         Optional<Directory> loaded = repo.findById(id);
@@ -59,16 +58,14 @@ class DirectoryTest {
 
     @Test
     void loadWriteSave() {
-        Directory dir1 = new Directory("a", rootDir.getParentId(), -1, rootDirPerms.getId());
+        Long id = repo.save(dir).getId();
+        Directory loaded = repo.findById(id).orElseThrow();
 
-        Long id1 = repo.save(dir1).getId();
+        loaded.setName("b");
+        Long id2 = repo.save(loaded).getId();
 
-        Directory dir2 = new Directory(id1, "b", rootDir.getParentId(), -1, rootDirPerms.getId());
+        Optional<Directory> loaded2 = repo.findById(id2);
 
-        Long id2 = repo.save(dir2).getId();
-
-        Optional<Directory> loaded = repo.findById(id2);
-
-        assertThat(loaded).get().isEqualToIgnoringNullFields(dir2);
+        assertThat(loaded2).get().isEqualTo(loaded);
     }
 }

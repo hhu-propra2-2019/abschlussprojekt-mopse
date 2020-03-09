@@ -2,6 +2,7 @@ package mops.persistence.permission;
 
 import mops.SpringTestContext;
 import mops.persistence.DirectoryPermissionsRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
@@ -18,12 +19,17 @@ class DirectoryPermissionsTest {
     @Autowired
     private DirectoryPermissionsRepository repo;
 
-    @Test
-    void save() {
+    private DirectoryPermissions perms;
+
+    @BeforeEach
+    void setup() {
         DirectoryPermissionEntry e1 = new DirectoryPermissionEntry("admin", true, true, true);
         DirectoryPermissionEntry e2 = new DirectoryPermissionEntry("user", true, false, false);
-        DirectoryPermissions perms = new DirectoryPermissions(Set.of(e1, e2));
+        this.perms = new DirectoryPermissions(Set.of(e1, e2));
+    }
 
+    @Test
+    void save() {
         DirectoryPermissions saved = repo.save(perms);
 
         assertThat(saved).isEqualToIgnoringNullFields(perms);
@@ -31,10 +37,6 @@ class DirectoryPermissionsTest {
 
     @Test
     void loadSave() {
-        DirectoryPermissionEntry e1 = new DirectoryPermissionEntry("admin", true, true, true);
-        DirectoryPermissionEntry e2 = new DirectoryPermissionEntry("user", true, false, false);
-        DirectoryPermissions perms = new DirectoryPermissions(Set.of(e1, e2));
-
         Long id = repo.save(perms).getId();
 
         Optional<DirectoryPermissions> loaded = repo.findById(id);
@@ -44,20 +46,16 @@ class DirectoryPermissionsTest {
 
     @Test
     void loadWriteSave() {
+        Long id = repo.save(perms).getId();
+        DirectoryPermissions loaded = repo.findById(id).orElseThrow();
+
         DirectoryPermissionEntry e1 = new DirectoryPermissionEntry("admin", true, true, true);
-        DirectoryPermissionEntry e2 = new DirectoryPermissionEntry("user", true, false, false);
-        DirectoryPermissions perms1 = new DirectoryPermissions(Set.of(e1, e2));
+        DirectoryPermissionEntry e2 = new DirectoryPermissionEntry("user", true, true, true);
+        loaded.setPermissions(Set.of(e1, e2));
+        Long id2 = repo.save(loaded).getId();
 
-        Long id1 = repo.save(perms1).getId();
+        Optional<DirectoryPermissions> loaded2 = repo.findById(id2);
 
-        DirectoryPermissionEntry e3 = new DirectoryPermissionEntry("admin", true, true, true);
-        DirectoryPermissionEntry e4 = new DirectoryPermissionEntry("user", true, true, true);
-        DirectoryPermissions perms2 = new DirectoryPermissions(id1, Set.of(e3, e4));
-
-        Long id2 = repo.save(perms2).getId();
-
-        Optional<DirectoryPermissions> loaded = repo.findById(id2);
-
-        assertThat(loaded).get().isEqualToIgnoringNullFields(perms2);
+        assertThat(loaded2).get().isEqualTo(loaded);
     }
 }
