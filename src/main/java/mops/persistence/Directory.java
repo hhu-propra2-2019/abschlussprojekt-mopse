@@ -7,7 +7,8 @@ public interface Directory {
     /**
      * @return  Returns unique directory id.
      */
-    int getId();
+    long getId();
+
     /**
      * @return Returns display name of directory.
      */
