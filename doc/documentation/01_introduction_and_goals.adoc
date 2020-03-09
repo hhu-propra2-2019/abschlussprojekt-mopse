@@ -1,12 +1,6 @@
 [[section-introduction-and-goals]]
 ==	Einführung und Ziele
 
-****
-_Hier beschreiben wir unsere grundsätzlichen Geschäftsziele und die Aufgaben die wir bewätligen müssen. Außerdem geht
-es um Qualitätsziele und essentielle fachliche Anforderungen._
-
-****
-
 === Aufgabenstellung
 
 ****
@@ -62,9 +56,8 @@ werden._
 === Involvierte Gruppen
 
 ****
-_Möglicherweise ist es sinnvoll eine Liste der Personen/Organisationen zu erstellen, die mit unserem Programm und
-dessen Schnittstellen arbeiten wollen. Kann aber auch vernachlässigt werden.
-Die Auflistung mittels einer Tabelle wäre optimal._
+Um die Erwartungen und Anforderungen der Nutzergruppen unserer Plattform zu erfüllen, haben wir im Folgenden eine
+Aufstellung der Erwartungshaltungen zusammengefasst, um diese in unserer Entwicklung zu berücksichtigen.
 
 [cols="1,2" options="header"]
 |===

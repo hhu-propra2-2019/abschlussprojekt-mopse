@@ -2,13 +2,17 @@
 == Randbedingungen
 
 ****
-_Randbedingungen und Vorgaben, die uns bezüglich Entwurf, Implementierung oder Entwicklung einschränken.
-In Form einer Tabelle._
-****
+Um unerwartete Verzögerung im Entwicklungsablauf zu vermeiden, haben wir in der Planungsphase und während der
+Implementierung der Kernkomponenten berücksichtigt, welche Randbedingungen und technische sowie fachliche Einschränkungen
+den Ablauf der Entwicklung beeinflussen könnten.
 [cols="1,2" options="header"]
 |===
 |Bedingung |Erläuterung
-| Zusammenarbeit mit anderen Gruppen | _Schnittstellen mit anderen Gruppen beeinflussen unsere Implementierung. Vor allem wenn diese Gruppen selbst noch keine abgeschlossenen Konzepte entworfen haben._
-| Fehlende Ordnerstruktur in MinOS | _Dies erfordert die Anlegung einer virtuellen Ordnerstruktur in einer externen Datenbank._
-| <Bedingung> | _<Erläuterung>_
+| Zusammenarbeit mit anderen Gruppen | _Schnittstellen mit anderen Gruppen beeinflussen unsere Implementierung. Vor
+allem, wenn diese Gruppen selbst noch keine abgeschlossenen Konzepte entworfen haben._
+| Fehlende Ordnerstruktur in MinIO | _Da MinOS keine Ordnerstruktur unterstützt, ist die Anlegung einer virtuellen
+Ordnerstruktur in einer externen Datenbank notwendig._
+| Keycloak erschwert UnitTest| _Aufgrund der Sicherheitskomponenten werden die Controller-Tests stark verkompliziert,
+da die Sicherheitsfeatures gemockt werden müssen._
 |===
+****
