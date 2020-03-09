@@ -14,4 +14,11 @@ public interface GroupService {
      * @return a list of group ids
      */
     List<Directory> getAllGroupRootDirectories(Account account);
+
+    /**
+     * @param account user account
+     * @param groupId the id of the group
+     * @return a wrapper for group urls
+     */
+    GroupDirUrlWrapper getGroupUrl(Account account, long groupId);
 }
