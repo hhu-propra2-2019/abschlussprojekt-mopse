@@ -23,7 +23,20 @@ Der zweite Test ist dafür da, um zu sehen, ob es nur eine einzige AggregateRoot
 Der dritte Test überprüft, ob die Schicht-Archtitektur eingehalten wird.
 Die zusätzliche Annotation ist dafür da, um die AggregateRoot zu markieren, damit die Überprüfung zu erleichtern und auch die Lesbarkeit und Verständlichkeit der Klassen und Packages zu verbessern._
 
-...
+=== FileStorage
+
+_Als Schnittstelle für die Datei Speicherung haben wir MinIO gewählt, weil es vorgegeben wurde. Die erforderliche Konfiguration erfolgt über Umgebungsvariablen um möglichst flexiblen Einsatz zu ermöglichen._
+
+_Die erforderlichen Umgebungsvariablen lauten:_
+
+- MINIO_URL
+- MINIO_BUCKET_NAME
+- MINIO_ACCESS_KEY
+- MINIO_SECRET_KEY
+
+_Im Entwicklungsprozess sind diese durch default Werte (welche im Dev Docker Container gesetzt werden) vorgegeben._
+
+_Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach Ersetzt werden, wenn eine andere Lösung zur Speicherung von Dateien genutzt wird._
 
 === _<Entscheidung n>_
 
