@@ -1,12 +1,13 @@
 package mops.presentation;
 
-import mops.Material1SpringTest;
+import mops.SpringTestContext;
 import mops.businesslogic.*;
 import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -25,7 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Material1SpringTest
+@SpringTestContext
+@SpringBootTest
 public class DirectoryControllerTest {
 
     /**

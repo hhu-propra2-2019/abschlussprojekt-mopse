@@ -1,6 +1,5 @@
 package mops.persistence.permission;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -14,7 +13,6 @@ import java.util.Set;
  * Represents a collection of Permissions for a Directory.
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @AggregateRoot
 public class DirectoryPermissions {
@@ -25,6 +23,10 @@ public class DirectoryPermissions {
     @Id
     private Long id;
     /**
+     * This is necessary because Spring Data JDBC is unable to UPDATE empty objects.
+     */
+    private boolean fixJdbcBug;
+    /**
      * The permission entries.
      */
     @NonNull
@@ -34,9 +36,20 @@ public class DirectoryPermissions {
     /**
      * Create new DirectoryPermissions.
      *
-     * @param entries the permissions
+     * @param entries the role permissions
      */
     public DirectoryPermissions(Set<DirectoryPermissionEntry> entries) {
+        this.entries = entries;
+    }
+
+    /**
+     * Create new DirectoryPermissions.
+     *
+     * @param id      database id
+     * @param entries the role permissions
+     */
+    public DirectoryPermissions(Long id, Set<DirectoryPermissionEntry> entries) {
+        this.id = id;
         this.entries = entries;
     }
 }

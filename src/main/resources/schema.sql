@@ -3,13 +3,13 @@ SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS directory_permissions;
 CREATE TABLE directory_permissions
 (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT
+    id           BIGINT PRIMARY KEY AUTO_INCREMENT,
+    fix_jdbc_bug BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 DROP TABLE IF EXISTS directory_permission_entry;
 CREATE TABLE directory_permission_entry
 (
-    id             BIGINT PRIMARY KEY AUTO_INCREMENT,
     permissions_id BIGINT       NOT NULL,
     role           VARCHAR(255) NOT NULL CHECK (role NOT LIKE ''),
     can_read       BOOLEAN      NOT NULL,
@@ -47,7 +47,6 @@ CREATE TABLE file_info
 DROP TABLE IF EXISTS file_tag;
 CREATE TABLE file_tag
 (
-    id      BIGINT PRIMARY KEY AUTO_INCREMENT,
     name    VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     file_id BIGINT       NOT NULL,
     CONSTRAINT fk_tag_file FOREIGN KEY (file_id) REFERENCES file_info (id),

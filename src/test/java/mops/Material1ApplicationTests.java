@@ -4,9 +4,11 @@ import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@Material1SpringTest
+@SpringTestContext
+@SpringBootTest
 class Material1ApplicationTests {
 
     /**
