@@ -1,11 +1,6 @@
 package mops.presentation;
 
-import mops.businesslogic.Account;
-import mops.businesslogic.FileQuery;
-import mops.businesslogic.FileService;
-import mops.businesslogic.GroupService;
-import mops.persistence.FileInfo;
-import mops.presentation.utils.SecurityContextUtil;
+import mops.businesslogic.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -16,9 +11,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
 
+import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -32,11 +27,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GroupControllerTest {
+
     /**
      * Necessary mock until GroupService is implemented.
      */
     @MockBean
     private GroupService groupService;
+    /**
+     * Necessary mock until DirectoryService is implemented.
+     */
+    @MockBean
+    private DirectoryService directoryService;
     /**
      * Necessary mock until GroupService is implemented.
      */
@@ -58,9 +59,8 @@ public class GroupControllerTest {
      */
     @BeforeEach
     void setUp() {
-        ArrayList<FileInfo> files = new ArrayList<>();
-        final Account account = new Account("studi", "bla@bla.de", "pic.png", Set.of("studentin"));
-        given(fileService.getAllFilesOfGroup(account, 1)).willReturn(files);
+        Account account = new Account("studi", "bla@bla.de", "studentin");
+        given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())
@@ -73,7 +73,7 @@ public class GroupControllerTest {
      */
     @Test
     public void getAllFilesOfDirectory() throws Exception {
-        SecurityContextUtil.setupSecurityContextMock("userName", "userEmail@mail.de", Set.of("studentin"));
+        setupSecurityContextMock("user", "user@mail.de", "studentin");
         mvc.perform(get("/material1/group/1"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("files"));
@@ -85,9 +85,7 @@ public class GroupControllerTest {
     @Test
     public void searchFile() throws Exception {
         FileQuery fileQuery = mock(FileQuery.class);
-        SecurityContextUtil.setupSecurityContextMock("userName",
-                "userEmail@mail.de",
-                Set.of("studentin"));
+        setupSecurityContextMock("user", "user@mail.de", "studentin");
         mvc.perform(post("/material1/group/1/search")
                 .requestAttr("searchQuery", fileQuery)
                 .with(csrf()))

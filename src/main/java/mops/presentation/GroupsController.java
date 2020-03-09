@@ -26,7 +26,6 @@ public class GroupsController {
      */
     private final GroupService groupService;
 
-
     /**
      * @param token authentication token from keycloak server.
      * @param model view model.
@@ -34,10 +33,9 @@ public class GroupsController {
      */
     @GetMapping
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
-        final Account account = AccountUtil.getAccountFromToken(token);
-        final List<Directory> groups = groupService.getAllGroupRootDirectories(account);
+        Account account = AccountUtil.getAccountFromToken(token);
+        List<Directory> groups = groupService.getAllGroupRootDirectories(account);
         model.addAttribute("groups", groups);
         return "groups";
     }
-
 }
