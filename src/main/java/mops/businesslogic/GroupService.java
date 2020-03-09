@@ -1,6 +1,6 @@
 package mops.businesslogic;
 
-import mops.persistence.Directory;
+import mops.persistence.directory.Directory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

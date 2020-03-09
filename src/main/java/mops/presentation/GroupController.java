@@ -5,7 +5,7 @@ import mops.businesslogic.Account;
 import mops.businesslogic.FileQuery;
 import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
-import mops.persistence.FileInfo;
+import mops.persistence.file.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
