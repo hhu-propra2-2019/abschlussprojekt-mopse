@@ -55,6 +55,7 @@ dependencies {
     implementation 'io.micrometer:micrometer-registry-prometheus:1.3.5'
     implementation 'org.keycloak:keycloak-spring-boot-starter:9.0.0'
     implementation 'org.keycloak.bom:keycloak-adapter-bom:3.3.0.Final'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor:2.2.5.RELEASE'
 }
 
 checkstyle {
