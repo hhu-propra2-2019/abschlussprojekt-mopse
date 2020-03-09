@@ -3,6 +3,7 @@ package mops.persistence.directory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import mops.utils.AggregateRoot;
 import org.springframework.data.annotation.Id;
 
@@ -23,6 +24,7 @@ public class Directory {
     /**
      * Directory name.
      */
+    @NonNull
     private String name;
     /**
      * Id of the Directory above this one.

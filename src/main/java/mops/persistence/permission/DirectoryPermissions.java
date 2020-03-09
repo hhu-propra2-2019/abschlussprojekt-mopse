@@ -3,6 +3,7 @@ package mops.persistence.permission;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import mops.utils.AggregateRoot;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
@@ -26,6 +27,7 @@ public class DirectoryPermissions {
     /**
      * The permission entries.
      */
+    @NonNull
     @MappedCollection(idColumn = "permissions_id")
     private Set<DirectoryPermissionEntry> entries;
 

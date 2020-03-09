@@ -3,6 +3,7 @@ package mops.persistence.permission;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -21,6 +22,7 @@ class DirectoryPermissionEntry {
     /**
      * The role this belongs to.
      */
+    @NonNull
     private String role;
     /**
      * If the role may read directories.

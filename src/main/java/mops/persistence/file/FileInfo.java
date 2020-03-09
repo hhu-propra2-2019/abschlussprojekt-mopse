@@ -3,6 +3,7 @@ package mops.persistence.file;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import mops.utils.AggregateRoot;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
@@ -26,6 +27,7 @@ public class FileInfo {
     /**
      * File name.
      */
+    @NonNull
     private String name;
     /**
      * Id of the Directory this file resides in.
@@ -34,6 +36,7 @@ public class FileInfo {
     /**
      * File type.
      */
+    @NonNull
     private String type;
     /**
      * Size in bytes.
@@ -42,10 +45,12 @@ public class FileInfo {
     /**
      * Username of the owner.
      */
+    @NonNull
     private String owner;
     /**
      * File tags.
      */
+    @NonNull
     @MappedCollection(idColumn = "file_id")
     private Set<FileTag> tags;
 

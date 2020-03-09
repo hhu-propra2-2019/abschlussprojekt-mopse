@@ -3,6 +3,7 @@ package mops.persistence.file;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -21,6 +22,7 @@ class FileTag {
     /**
      * Tag name.
      */
+    @NonNull
     private String name;
 
     /**
