@@ -21,8 +21,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -66,6 +65,18 @@ public class GroupControllerTest {
                 .alwaysDo(print())
                 .apply(springSecurity())
                 .build();
+    }
+
+    /**
+     * Tests the API for getting the group url.
+     */
+    @Test
+    public void getGroupURL() throws Exception {
+        setupSecurityContextMock("user", "user@mail.de", "studentin");
+        mvc.perform(get("/material1/group/1/url"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$.url").value("/dir/1"));
+
     }
 
     /**
