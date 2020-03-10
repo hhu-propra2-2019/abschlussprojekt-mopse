@@ -36,5 +36,5 @@ jobs:
       - name: Save Test Reports
         uses: actions/upload-artifact@v1.0.0
         with:
-          name: test-reports
+          name: test-reports-${{ matrix.os }}-${{ matrix.java }}
           path: build/reports
