@@ -2,8 +2,10 @@ package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
 import mops.persistence.DirectoryRepository;
+import mops.persistence.FileInfoRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.persistence.file.FileTag;
 import mops.security.PermissionService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -22,6 +25,11 @@ public class DirectoryServiceImpl implements DirectoryService {
     private final DirectoryRepository directoryRepository;
 
     /**
+     * This connects to database related to File information.
+     */
+    private final FileInfoRepository fileInfoRepository;
+
+    /**
      * API for GruppenFindung which handles permissions.
      */
     private final PermissionService permissionService;
@@ -29,13 +37,20 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Uploads a file.
      *
-     * @param account  user credentials
-     * @param dirId    the id of the folder where the file will be uploaded
+     * @param account       user credentials
+     * @param dirId         the id of the folder where the file will be uploaded
      * @param multipartFile the file object
      */
     @Override
-    public FileInfo uploadFile(Account account, long dirId, MultipartFile multipartFile) {
-        return null;
+    public FileInfo uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<FileTag> fileTags) {
+
+        FileInfo fileInfo = new FileInfo(multipartFile.getName(), dirId, multipartFile.getContentType(),
+                multipartFile.getSize(), account.getName(), fileTags);
+
+        fileInfoRepository.save(fileInfo);
+
+
+        return fileInfo;
     }
 
     /**

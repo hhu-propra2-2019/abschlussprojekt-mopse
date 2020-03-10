@@ -2,9 +2,11 @@ package mops.businesslogic;
 
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.persistence.file.FileTag;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 public interface DirectoryService {
     /**
@@ -14,7 +16,7 @@ public interface DirectoryService {
      * @param dirId    the id of the folder where the file will be uploaded
      * @param multipartFile the file object
      */
-    FileInfo uploadFile(Account account, long dirId, MultipartFile multipartFile);
+    FileInfo uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<FileTag> fileTags);
 
     /**
      * Returns all folders of the parent folder.
