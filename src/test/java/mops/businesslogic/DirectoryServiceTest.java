@@ -109,6 +109,8 @@ public class DirectoryServiceTest {
 
     /**
      * Test if a group folder is correctly created.
+     *
+     * @throws WriteAccessPermission user does not have writing permission
      */
     @Test
     public void createGroupRootFolder() throws WriteAccessPermission {
@@ -131,6 +133,8 @@ public class DirectoryServiceTest {
 
     /**
      * Test if folder is created in a given root folder.
+     *
+     * @throws WriteAccessPermission user does not have writing permission
      */
     @Test
     public void createFolderTest() throws WriteAccessPermission {
@@ -152,6 +156,9 @@ public class DirectoryServiceTest {
 
     /**
      * Test if sub folders are correctly returned.
+     *
+     * @throws WriteAccessPermission user does not have writing permission
+     * @throws ReadAccessPermission  user does not have reading permission
      */
     @Test
     public void getSubFoldersTest() throws WriteAccessPermission, ReadAccessPermission {
@@ -176,6 +183,11 @@ public class DirectoryServiceTest {
         assertThat(subFolders).containsExactlyInAnyOrder(firstDirectory, secondDirectory);
     }
 
+    /**
+     * Checks if exception is thrown if the user does not have writing permission.
+     *
+     * @throws WriteAccessPermission user does not have writing permission
+     */
     @Test
     public void getSubFoldersWithoutPermissionTest() throws WriteAccessPermission {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
