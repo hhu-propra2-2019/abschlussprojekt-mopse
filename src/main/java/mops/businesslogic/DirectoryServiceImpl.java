@@ -2,9 +2,11 @@ package mops.businesslogic;
 
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Uploads a file.
