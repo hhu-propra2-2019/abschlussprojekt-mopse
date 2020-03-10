@@ -1,14 +1,22 @@
 package mops.businesslogic;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import mops.persistence.permission.DirectoryPermissionEntry;
 
 /**
  * Represents role defined by GruppenFindung.
  */
-public interface GroupRole {
+@Data
+@AllArgsConstructor
+public class GroupRole {
+    private final String roleName;
+
     /**
      * @return a permission entry for that role.
      */
-    DirectoryPermissionEntry getPermissionEntry();
+    public DirectoryPermissionEntry getPermissionEntry() {
+        return null;
+    }
 }
 
