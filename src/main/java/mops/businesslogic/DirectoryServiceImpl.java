@@ -78,7 +78,8 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public Directory createFolder(Account account, long parentDirId, String dirName) {
         permissionService.fetchRoleForUserInGroup(account, parentDirId);
-        Directory directory = fetchDirectory(parentDirId);
+        Directory rootDirectory = fetchDirectory(parentDirId);
+        Directory directory = new Directory(dirName, rootDirectory.getId(), rootDirectory.getGroupOwner(), rootDirectory.getPermissionsId());
         return directoryRepository.save(directory);
     }
 
