@@ -1,8 +1,10 @@
 DROP TABLE IF EXISTS directory_permissions;
 CREATE TABLE directory_permissions
 (
-    id           BIGINT PRIMARY KEY AUTO_INCREMENT,
-    fix_jdbc_bug BOOLEAN NOT NULL DEFAULT FALSE
+    id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
+    fix_jdbc_bug       BOOLEAN      NOT NULL DEFAULT FALSE,
+    creation_time      TIMESTAMP(9) NOT NULL,
+    last_modified_time TIMESTAMP(9) NOT NULL
 );
 
 DROP TABLE IF EXISTS directory_permission_entry;
@@ -19,11 +21,13 @@ CREATE TABLE directory_permission_entry
 DROP TABLE IF EXISTS directory;
 CREATE TABLE directory
 (
-    id             BIGINT PRIMARY KEY AUTO_INCREMENT,
-    name           VARCHAR(255) NOT NULL,
-    parent_id      BIGINT,
-    group_owner    INTEGER      NOT NULL,
-    permissions_id BIGINT       NOT NULL,
+    id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name               VARCHAR(255) NOT NULL,
+    parent_id          BIGINT,
+    group_owner        INTEGER      NOT NULL,
+    permissions_id     BIGINT       NOT NULL,
+    creation_time      TIMESTAMP(9) NOT NULL,
+    last_modified_time TIMESTAMP(9) NOT NULL,
     CONSTRAINT fk_dir_dir FOREIGN KEY (parent_id) REFERENCES directory (id),
     CONSTRAINT fk_dir_perm FOREIGN KEY (permissions_id) REFERENCES directory_permissions (id),
     CONSTRAINT u_dir UNIQUE (name, parent_id, group_owner)

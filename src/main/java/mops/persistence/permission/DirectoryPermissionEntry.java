@@ -2,14 +2,12 @@ package mops.persistence.permission;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
  * Represents specific access rights for a role.
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class DirectoryPermissionEntry {
 

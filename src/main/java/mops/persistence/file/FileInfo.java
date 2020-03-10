@@ -58,14 +58,14 @@ public class FileInfo {
     /**
      * Creation Time.
      */
-    @CreatedDate
     @Setter(AccessLevel.PRIVATE)
+    @CreatedDate
     private Timestamp creationTime;
     /**
      * Last Modified Time.
      */
-    @LastModifiedDate
     @Setter(AccessLevel.PRIVATE)
+    @LastModifiedDate
     private Timestamp lastModifiedTime;
 
     /**
