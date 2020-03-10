@@ -31,7 +31,7 @@ public class FileRepository {
     /**
      * Connects to MinIO Server and checks if the bucket exists.
      *
-     * @param configuration the injected Conf.
+     * @param configuration the injected Config.
      * @throws StorageException on Error
      */
     public FileRepository(FileRepositoryConfig configuration) throws StorageException {
@@ -112,7 +112,7 @@ public class FileRepository {
      */
     @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     @SuppressFBWarnings(value = "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE",
-            justification = "There is no null-check here, maybe SpotBugs sees an implicit null check in the "
+            justification = "There is no null-check here, maybe SpotBugs sees an implicit null-check in the "
                     + "try-with-resources?")
     public byte[] getFileContent(long fileId) throws StorageException {
         byte[] content;

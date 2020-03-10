@@ -118,9 +118,9 @@ _Die erforderlichen Umgebungsvariablen lauten:_
 - MINIO_ACCESS_KEY
 - MINIO_SECRET_KEY
 
-_Im Entwicklungsprozess sind diese durch default Werte (welche im Dev Docker Container gesetzt werden) vorgegeben._
+_Im Entwicklungsprozess sind diese durch Default-Werte (welche im Dev Docker Container gesetzt werden) vorgegeben._
 
-_Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach Ersetzt werden, wenn eine andere Lösung zur Speicherung von Dateien genutzt wird._
+_Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach ersetzt werden, wenn eine andere Lösung zur Speicherung von Dateien genutzt wird._
 
 === _<Entscheidung n>_
 
