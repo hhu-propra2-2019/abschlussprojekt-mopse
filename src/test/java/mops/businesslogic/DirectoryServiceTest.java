@@ -2,7 +2,6 @@ package mops.businesslogic;
 
 import mops.SpringTestContext;
 import mops.persistence.DirectoryPermissionsRepository;
-import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
@@ -46,12 +45,6 @@ public class DirectoryServiceTest {
      */
     @Autowired
     private DirectoryService directoryService;
-
-    /**
-     * Repository related to directories.
-     */
-    @Autowired
-    private DirectoryRepository directoryRepository;
 
     /**
      * Repository for directory permissions.
@@ -108,13 +101,12 @@ public class DirectoryServiceTest {
      */
     @Test
     public void createFolderTest() {
-        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
-        Directory root = new Directory("root", null, groupOwner, permissionsId);
-        Directory savedRoot = directoryRepository.save(root);
-        parentId = savedRoot.getId();
+        Directory root = directoryService.createRootFolder(account, groupOwner);
+        parentId = root.getId();
+        long permissionsId = root.getPermissionsId();
         String nameFirstDirectory = "first";
 
-        Directory expectedDirectory = new Directory(savedRoot.getId() + 1,
+        Directory expectedDirectory = new Directory(parentId + 1,
                 nameFirstDirectory,
                 parentId,
                 groupOwner,
