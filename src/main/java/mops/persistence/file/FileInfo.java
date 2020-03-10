@@ -1,13 +1,11 @@
 package mops.persistence.file;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import mops.utils.AggregateRoot;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.sql.Timestamp;
@@ -18,8 +16,7 @@ import java.util.Set;
  * Represents a file.
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE, onConstructor_ = @PersistenceConstructor)
 @AggregateRoot
 public class FileInfo {
 
@@ -27,6 +24,7 @@ public class FileInfo {
      * Database Id.
      */
     @Id
+    @Setter(AccessLevel.PRIVATE)
     private Long id;
     /**
      * File name.
@@ -55,18 +53,20 @@ public class FileInfo {
      * Creation Time.
      */
     @CreatedDate
+    @Setter(AccessLevel.PRIVATE)
     private Timestamp creationTime;
     /**
      * Last Modified Time.
      */
     @LastModifiedDate
+    @Setter(AccessLevel.PRIVATE)
     private Timestamp lastModifiedTime;
     /**
      * File tags.
      */
     @NonNull
     @MappedCollection(idColumn = "file_id")
-    private Set<FileTag> tags;
+    private final Set<FileTag> tags;
 
     /**
      * Create a new File.
@@ -80,12 +80,7 @@ public class FileInfo {
      */
     public FileInfo(@NonNull String name, long directoryId, @NonNull String type, long size, @NonNull String owner,
                     @NonNull Set<FileTag> tags) {
-        this.name = name;
-        this.directoryId = directoryId;
-        this.type = type;
-        this.size = size;
-        this.owner = owner;
-        this.tags = tags;
+        this(null, name, directoryId, type, size, owner, null, null, tags);
     }
 
     /**
@@ -98,29 +93,11 @@ public class FileInfo {
     }
 
     /**
-     * Set the creation time.
-     *
-     * @param creationTime creation time
-     */
-    public void setCreationTime(Instant creationTime) {
-        this.creationTime = Timestamp.from(creationTime);
-    }
-
-    /**
      * Get the last modified time.
      *
      * @return last modified time
      */
     public Instant getLastModifiedTime() {
         return lastModifiedTime.toInstant();
-    }
-
-    /**
-     * Set the last modified time.
-     *
-     * @param lastModifiedTime last modified time
-     */
-    public void setLastModifiedTime(Instant lastModifiedTime) {
-        this.lastModifiedTime = Timestamp.from(lastModifiedTime);
     }
 }
