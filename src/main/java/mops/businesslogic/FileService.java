@@ -1,6 +1,6 @@
 package mops.businesslogic;
 
-import mops.persistence.FileInfo;
+import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
