@@ -30,7 +30,6 @@ public class FileController {
 
     /**
      * @param token  a keycloak authentication token
-     * @param model  spring boot view model
      * @param fileId the id of the requested file
      * @return the route to template 'file'
      */
