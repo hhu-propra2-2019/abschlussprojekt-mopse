@@ -103,9 +103,10 @@ public class DirectoryServiceTest {
     @Test
     public void uploadFileTest() {
         Directory fisrtDirectory = new Directory("first", parentId, groupOwner, permissionsId);
-        FileInfo fileInfo1 = new FileInfo(multipartFile.getName(), fisrtDirectory.getId(), multipartFile.getContentType(), multipartFile.getSize(), account.getName(), Set.of());
+        FileInfo fileInfo1 = new FileInfo(multipartFile.getName(), fisrtDirectory.getId(),
+                multipartFile.getContentType(), multipartFile.getSize(), account.getName(), Set.of());
 
-        FileInfo fileInfo2 = directoryService.uploadFile(account, fisrtDirectory.getId(), multipartFile);
+        FileInfo fileInfo2 = directoryService.uploadFile(account, fisrtDirectory.getId(), multipartFile, Set.of());
 
 
         assertThat(fileInfo2).isEqualTo(fileInfo1);
