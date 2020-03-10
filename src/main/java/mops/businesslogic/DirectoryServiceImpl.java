@@ -88,7 +88,8 @@ public class DirectoryServiceImpl implements DirectoryService {
         Set<DirectoryPermissionEntry> permissions = defaultPermissions();
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         Long permissionId = directoryPermissionsRepository.save(permission).getId();
-        return new Directory(groupId.toString(), null, groupId, permissionId);
+        Directory directory = new Directory(groupId.toString(), null, groupId, permissionId);
+        return directoryRepository.save(directory);
     }
 
     /**
