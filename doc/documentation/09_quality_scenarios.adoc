@@ -5,7 +5,8 @@
 _Dieser Abschnitt ist möglicherweise zu vernachlässigen._
 
 Der Abschnitt ist im Prinzip eine genauere Variante des in 1.2 beschriebenen.
-Er ist nur dann relevant, wenn abgesehen von ven dort erläuterten Anforderungen noch mehrere, kleinere Anforderungen existieren, die nicht relevant genug für die dortigen Auflistung waren.
+Er ist nur dann relevant, wenn abgesehen von ven dort erläuterten Anforderungen noch mehrere, kleinere Anforderungen
+existieren, die nicht relevant genug für die dortigen Auflistung waren.
 
 ****
 
