@@ -109,11 +109,7 @@ public class DirectoryServiceTest {
      * Test if a group folder is not created when the user does not have permission.
      */
     @Test
-    public void createGroupRootFolderWithoutPermission() throws WriteAccessPermission {
-        String nameFirstDirectory = String.valueOf(groupOwner);
-        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
-        Directory expectedDirectory = new Directory(nameFirstDirectory, null, groupOwner, permissionsId + 1L);
-
+    public void createGroupRootFolderWithoutPermission() {
         assertThatExceptionOfType(WriteAccessPermission.class).isThrownBy(() -> directoryService.createRootFolder(account, groupOwner));
     }
 
