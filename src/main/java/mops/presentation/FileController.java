@@ -52,8 +52,8 @@ public class FileController {
                              Model model,
                              @PathVariable("fileId") long fileId) {
         Account account = AccountUtil.getAccountFromToken(token);
+        long dirId = fileService.getFile(account, fileId).getDirectoryId();
         fileService.deleteFile(account, fileId);
-        //TODO: Implement post-delete routine
-        return String.format("redirect:/material1/dir/%d", -1); //TODO: get parent dir id
+        return String.format("redirect:/material1/dir/%d", dirId);
     }
 }
