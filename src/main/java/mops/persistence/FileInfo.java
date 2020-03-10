@@ -7,26 +7,26 @@ import java.time.LocalDateTime;
  */
 public interface FileInfo {
    /**
-    * @return file id
+    * @return file id.
     */
    long getId();
 
    /**
-    * @return display name
+    * @return display name.
     */
    String getFileName();
 
    /**
-    * @return creation date
+    * @return creation date.
     */
    LocalDateTime getCreationDate();
    /**
-    * @return Returns content type (pdf, png, etc.) of the file.
+    * @return content type (pdf, png, etc.).
     */
 
    String getContentType();
    /**
-    * @return Returns byte size of the file.
+    * @return byte size.
     */
    int getSize();
 }
