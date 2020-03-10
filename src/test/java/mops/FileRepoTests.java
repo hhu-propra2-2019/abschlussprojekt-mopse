@@ -1,5 +1,6 @@
 package mops;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mops.persistence.FileRepository;
 import mops.persistence.FileRepositoryConfig;
 import mops.persistence.StorageException;
@@ -75,13 +76,9 @@ public class FileRepoTests {
         );
     }
 
-    private Long getRandomId() {
-        return new Random().nextLong();
-    }
-
     @Test
     public void shouldSaveAFile() throws StorageException {
-        Long fileId =  getRandomId();
+        Long fileId =  1337L;
         MultipartFile file = getRandomMultipartFile();
 
         // File shouldn't already exist
@@ -95,7 +92,7 @@ public class FileRepoTests {
 
     @Test
     public void fileGetsDeleted() throws StorageException {
-        Long fileId = getRandomId();
+        Long fileId = 69L;
         MultipartFile file = getRandomMultipartFile();
 
         assertThat(fileRepository.fileExist(fileId)).isFalse();
@@ -112,13 +109,8 @@ public class FileRepoTests {
 
     @Test
     public void deleteShouldOnlyDeleteOneFile() throws StorageException {
-        Long fileId1 = getRandomId();
-        Long fileId2;
-
-        // Ensure unique ID's
-        do {
-            fileId2 = getRandomId();
-        } while (fileId1.equals(fileId2));
+        Long fileId1 = 1234L;
+        Long fileId2 = 5678L;
 
         MultipartFile file1 = getRandomMultipartFile();
         MultipartFile file2 = getRandomMultipartFile();
@@ -134,7 +126,7 @@ public class FileRepoTests {
 
     @Test
     public void shouldReturnOriginalContent() throws StorageException {
-        Long fileId = getRandomId();
+        Long fileId = 987L;
         byte[] originalContent = getRandomBytes();
         MultipartFile file = new MockMultipartFile("file.bin", originalContent);
 
