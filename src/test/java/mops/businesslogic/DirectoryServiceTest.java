@@ -6,6 +6,7 @@ import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.security.PermissionService;
+import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,6 +68,12 @@ public class DirectoryServiceTest {
      * Account Object containing user credentials.
      */
     private Account account;
+
+    /**
+     * An Account with no rights what so ever.
+     */
+    private Account intruder;
+
     /**
      * Id of the parent folder.
      */
@@ -96,6 +103,8 @@ public class DirectoryServiceTest {
         given(permissionService.fetchRoleForUserInGroup(eq(admin), anyLong())).willReturn(ADMINISTRATOR);
         given(permissionService.fetchRolesInGroup(anyLong())).willReturn(Set.of(ADMINISTRATOR, STUDENTIN));
         given(permissionService.fetchRoleForUserInDirectory(eq(account), any(Directory.class))).willReturn(STUDENTIN);
+        given(permissionService.fetchRoleForUserInDirectory(eq(intruder), any(Directory.class))).willReturn("intruder");
+        intruder = new Account("intruder", "intruder@uni-koeln.de", Set.of("intruder"));
     }
 
     /**
@@ -165,6 +174,22 @@ public class DirectoryServiceTest {
         secondDirectory.setId(root.getId() + 2L);
 
         assertThat(subFolders).containsExactlyInAnyOrder(firstDirectory, secondDirectory);
+    }
+
+    @Test
+    public void getSubFoldersWithoutPermissionTest() throws WriteAccessPermission {
+        Directory root = directoryService.createRootFolder(admin, groupOwner);
+        parentId = root.getId();
+
+        long permissionsId = root.getPermissionsId();
+
+        String nameFirstDirectory = "first";
+        String nameSecondDirectory = "second";
+
+        Directory firstDirectory = new Directory(nameFirstDirectory, parentId, groupOwner, permissionsId);
+        Directory secondDirectory = new Directory(nameSecondDirectory, parentId, groupOwner, permissionsId);
+
+        assertThatExceptionOfType(ReadAccessPermission.class).isThrownBy(() -> directoryService.getSubFolders(intruder, parentId));
     }
 
     /**
