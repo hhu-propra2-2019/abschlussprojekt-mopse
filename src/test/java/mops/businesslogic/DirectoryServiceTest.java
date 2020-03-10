@@ -122,9 +122,12 @@ public class DirectoryServiceTest {
      */
     @Test
     public void getSubFoldersTest() {
+        Directory root = directoryService.createRootFolder(account, groupOwner);
+        parentId = root.getId();
+        long permissionsId = root.getPermissionsId();
+
         String nameFirstDirectory = "first";
         String nameSecondDirectory = "second";
-        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
 
         Directory firstDirectory = new Directory(nameFirstDirectory, parentId, groupOwner, permissionsId);
         Directory secondDirectory = new Directory(nameSecondDirectory, parentId, groupOwner, permissionsId);
