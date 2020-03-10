@@ -71,7 +71,7 @@ public class FileRepository {
                     fileId.toString(),
                     file.getInputStream(),
                     file.getSize(),
-                    new HashMap<String, String>(),
+                    new HashMap<>(),
                     null, // no encryption will be needed
                     file.getContentType()
             );
@@ -106,7 +106,7 @@ public class FileRepository {
      * @return file content as InputStream.
      */
     public InputStream getFileContent(Long fileId) {
-        InputStream bytes = null;
+        InputStream bytes;
         try {
             bytes =  minioClient.getObject(
                     configuration.getBucketName(),
