@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.PersistenceConstructor;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 /**
  * Represents a directory where files can be stored.
@@ -63,5 +64,23 @@ public class Directory {
      */
     public Directory(String name, Long parentId, long groupOwner, long permissionsId) {
         this(null, name, parentId, groupOwner, permissionsId, null, null);
+    }
+
+    /**
+     * Get the creation time.
+     *
+     * @return creation time
+     */
+    public Instant getCreationTime() {
+        return creationTime == null ? Instant.EPOCH : creationTime.toInstant();
+    }
+
+    /**
+     * Get the last modified time.
+     *
+     * @return last modified time
+     */
+    public Instant getLastModifiedTime() {
+        return lastModifiedTime == null ? Instant.EPOCH : lastModifiedTime.toInstant();
     }
 }

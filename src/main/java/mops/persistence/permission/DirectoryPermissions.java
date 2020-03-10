@@ -9,6 +9,7 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Set;
 
 /**
@@ -67,5 +68,23 @@ public class DirectoryPermissions {
      */
     DirectoryPermissions(Long id, Set<DirectoryPermissionEntry> permissions) {
         this(id, false, permissions, null, null);
+    }
+
+    /**
+     * Get the creation time.
+     *
+     * @return creation time
+     */
+    public Instant getCreationTime() {
+        return creationTime == null ? Instant.EPOCH : creationTime.toInstant();
+    }
+
+    /**
+     * Get the last modified time.
+     *
+     * @return last modified time
+     */
+    public Instant getLastModifiedTime() {
+        return lastModifiedTime == null ? Instant.EPOCH : lastModifiedTime.toInstant();
     }
 }
