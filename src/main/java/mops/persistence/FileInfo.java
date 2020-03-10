@@ -5,7 +5,7 @@ package mops.persistence;
  */
 public interface FileInfo {
    /**
-    * @return Returns the id of a file
+    * @return file id
     */
    long getId();
 
