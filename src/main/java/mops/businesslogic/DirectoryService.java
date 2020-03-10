@@ -28,6 +28,15 @@ public interface DirectoryService {
     List<Directory> getSubFolders(Account account, long dirId);
 
     /**
+     * Creates the group root directory.
+     *
+     * @param account user credentials
+     * @param groupId the group id
+     * @return the directory created
+     */
+    Directory createRootFolder(Account account, Long groupId);
+
+    /**
      * Creates a new folder inside a folder.
      *
      * @param account     user credentials

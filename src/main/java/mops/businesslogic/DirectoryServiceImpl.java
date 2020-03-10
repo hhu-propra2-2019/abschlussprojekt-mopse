@@ -1,11 +1,14 @@
 package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
+import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.file.FileTag;
+import mops.persistence.permission.DirectoryPermissionEntry;
+import mops.persistence.permission.DirectoryPermissions;
 import mops.security.PermissionService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +36,11 @@ public class DirectoryServiceImpl implements DirectoryService {
      * API for GruppenFindung which handles permissions.
      */
     private final PermissionService permissionService;
+
+    /**
+     * This connects to database to handle directory permissions.
+     */
+    private final DirectoryPermissionsRepository directoryPermissionsRepository;
 
     /**
      * Uploads a file.
@@ -65,6 +73,29 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = fetchDirectory(parentDirID);
         permissionService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
         return directoryRepository.getAllSubFoldersOfParent(parentDirID);
+    }
+
+    /**
+     * Creates the group root directory.
+     *
+     * @param account user credentials
+     * @param groupId the group id
+     * @return the directory created
+     */
+    @Override
+    public Directory createRootFolder(Account account, Long groupId) {
+        permissionService.fetchRoleForUserInGroup(account, groupId);
+        Set<DirectoryPermissionEntry> permissions = defaultPermissions();
+        DirectoryPermissions permission = new DirectoryPermissions(permissions);
+        Long permissionId = directoryPermissionsRepository.save(permission).getId();
+        return new Directory(groupId.toString(), null, groupId, permissionId);
+    }
+
+    /**
+     * @return a set of the default permissions
+     */
+    private Set<DirectoryPermissionEntry> defaultPermissions() {
+        return Set.of();
     }
 
     /**
