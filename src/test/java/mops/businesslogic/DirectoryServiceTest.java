@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @SpringTestContext
 @SpringBootTest
@@ -95,6 +96,18 @@ public class DirectoryServiceTest {
         Directory directory = directoryService.createRootFolder(account, groupOwner);
 
         assertThat(directory).isEqualToIgnoringGivenFields(expectedDirectory, "id");
+    }
+
+    /**
+     * Test if a group folder is not created when the user does not have permission.
+     */
+    @Test
+    public void createGroupRootFolderWithoutPermission() throws WriteAccessPermission {
+        String nameFirstDirectory = String.valueOf(groupOwner);
+        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
+        Directory expectedDirectory = new Directory(nameFirstDirectory, null, groupOwner, permissionsId + 1L);
+
+        assertThatExceptionOfType(WriteAccessPermission.class).isThrownBy(() -> directoryService.createRootFolder(account, groupOwner));
     }
 
     /**
