@@ -146,7 +146,7 @@ public class DirectoryServiceTest {
      */
     @Test
     public void getSubFoldersTest() throws WriteAccessPermission {
-        Directory root = directoryService.createRootFolder(account, groupOwner);
+        Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
         long permissionsId = root.getPermissionsId();
 
