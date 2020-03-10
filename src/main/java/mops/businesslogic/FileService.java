@@ -35,14 +35,14 @@ public interface FileService {
 
     /**
      * @param account user credentials
-     * @param fileId file id of needed file
-     * @return file (not int, type not known yet)
+     * @param fileId  file id of needed file
+     * @return file
      */
-    int getFile(Account account, long fileId);
+    FileInfo getFile(Account account, long fileId);
 
     /**
      * @param account user credentials
-     * @param fileId file id of file to be deleted
+     * @param fileId  file id of file to be deleted
      */
     void deleteFile(Account account, long fileId);
 }

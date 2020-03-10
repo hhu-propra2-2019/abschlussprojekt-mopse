@@ -13,6 +13,7 @@ public interface GroupService {
      * @param account the account the user
      * @return a list of group ids
      */
+    // TODO: make this Group objects
     List<Directory> getAllGroupRootDirectories(Account account);
 
     /**

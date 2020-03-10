@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{mopslayout :: html(name='Ordner', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}"
+<html lang="en"
+      th:replace="~{mopslayout :: html(name='Ordner', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -22,16 +23,16 @@
             <th>Typ</th>
             <th>Größe</th>
         </tr>
-        <tr th:each="dir : ${dirs}"} th:href="@{/${dir.id}}">
-            <td th:text="${dir.directoryName}">%Name%</td>
+        <tr th:each="dir : ${dirs}" th:href="@{/${dir.id}}" }>
+            <td th:text="${dir.name}">%Name%</td>
             <td></td>
             <td>Dateiordner</td>
             <td></td>
         </tr>
         <tr th:each="file : ${files}" th:href="@{/file/${file.id}}">
-            <td th:text="${file.fileName}">%Name%</td>
-            <td th:text="${file.creationDate}">%Datum%</td>
-            <td th:text="${file.contentType}">%Typ%</td>
+            <td th:text="${file.name}">%Name%</td>
+            <td th:text="TBD">%Datum%</td>
+            <td th:text="${file.type}">%Typ%</td>
             <td th:text="${file.size}">%Größe%</td>
         </tr>
     </table>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{mopslayout :: html(name='Dateien', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}"
+<html lang="en"
+      th:replace="~{mopslayout :: html(name='Dateien', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -23,9 +24,9 @@
             <th>Größe</th>
         </tr>
         <tr th:each="file : ${files}" th:href="@{/${file.id}}">
-            <td th:text="${file.fileName}">%Name%</td>
-            <td th:text="${file.date}">%Datum%</td>
-            <td th:text="${file.contentType}">%Typ%</td>
+            <td th:text="${file.name}">%Name%</td>
+            <td th:text="TBD">%Datum%</td>
+            <td th:text="${file.type}">%Typ%</td>
             <td th:text="${file.size}">%Größe%</td>
         </tr>
     </table>
