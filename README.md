@@ -13,7 +13,6 @@ Es ist aufwendig für Lerngruppen oder Kurse Dateien mit einander zu teilen, wen
 ### Aufgabenstellung
 
 - Bereitstellung eines gruppenbasierten Dateisystems.
--
 
 ### Features
 
