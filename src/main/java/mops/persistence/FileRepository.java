@@ -105,18 +105,18 @@ public class FileRepository {
      * @param fileId the ID of the file that's desired to be returned.
      * @return file content as InputStream.
      */
-    public InputStream getFileContent(Long fileId) {
-        InputStream bytes;
+    public byte[] getFileContent(Long fileId) {
+        byte[] content;
         try {
-            bytes =  minioClient.getObject(
+            content =  minioClient.getObject(
                     configuration.getBucketName(),
                     fileId.toString()
-            );
+            ).readAllBytes();
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return null;
         }
-        return bytes;
+        return content;
     }
 
     /**
