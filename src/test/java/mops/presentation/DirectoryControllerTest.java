@@ -71,7 +71,7 @@ public class DirectoryControllerTest {
         account = new Account("user", "user@mail.de", "studentin");
         given(directory.getId()).willReturn(2L);
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
-        given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(directory);
+        given(directoryService.createFolder(account, 1L, "Vorlesungen")).willReturn(directory);
         given(directoryService.deleteFolder(account, 1)).willReturn(0L);
         given(directoryService.searchFolder(account, 1, mock(FileQuery.class))).willReturn(List.of());
         doNothing().when(directoryService).uploadFile(account, 1, mock(MultipartFile.class));

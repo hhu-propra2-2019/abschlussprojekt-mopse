@@ -35,7 +35,7 @@ public interface DirectoryService {
      * @param dirName     name of the new folder
      * @return id of the new folder
      */
-    Directory createFolder(Account account, long parentDirId, String dirName);
+    Directory createFolder(Account account, Long parentDirId, String dirName);
 
     /**
      * Deletes a folder.
