@@ -11,10 +11,16 @@ Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskuss
 |Begriff
 |Definition
 
-|_<Begriff-1>_
-|_<Definition-1>_
+|Rolle
+|Die Berechtigungsstufe eines Nutzers im System; je nach Kontext entweder global oder lokal in einem Kurs
+
+|FileInfo
+|Die Metadaten einer Datei im System
 
 
-|_<Begriff-2_
-|_<Definition-2>_
+|Directory
+|Ein (virtueller) Ordner im System
+
+|DirectoryPermissions
+|Die Berechtigungen (Lesen, Hochladen, Löschen) die jede Rolle hat; einem Ordner zugeordnet
 |===
