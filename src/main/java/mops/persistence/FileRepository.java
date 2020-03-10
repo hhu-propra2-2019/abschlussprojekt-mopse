@@ -6,7 +6,6 @@ import io.minio.errors.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
 import java.util.HashMap;
 
 
@@ -98,7 +97,7 @@ public class FileRepository {
             return false;
         }
 
-        return !isFileAvailable(fileId);
+        return !existsFile(fileId);
     }
     /**
      * Retrieves the bytes of the file.
@@ -124,7 +123,7 @@ public class FileRepository {
      * @param fileId the file ID
      * @return true if found
      */
-    public boolean isFileAvailable(Long fileId) {
+    public boolean existsFile(Long fileId) {
         ObjectStat objectStat;
         try {
             objectStat = minioClient.statObject(configuration.getBucketName(), fileId.toString());
