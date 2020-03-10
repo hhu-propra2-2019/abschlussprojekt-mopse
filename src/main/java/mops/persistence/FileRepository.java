@@ -1,7 +1,6 @@
 package mops.persistence;
 
 import io.minio.MinioClient;
-import io.minio.ServerSideEncryption;
 import io.minio.errors.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,14 +19,13 @@ public class FileRepository {
     /**
      * Injected MinIO configuration.
      */
-//    @Autowired
-    private FileRepositoryConfiguration configuration;
+    private FileRepositoryConfig configuration;
 
     /**
      * Connects to MinIO Server and checks if the bucket exists.
      * @param configuration the injected Conf.
      */
-    public FileRepository(FileRepositoryConfiguration configuration) {
+    public FileRepository(FileRepositoryConfig configuration) {
         this.configuration = configuration;
         try {
             this.minioClient = new MinioClient(
@@ -41,8 +39,12 @@ public class FileRepository {
                 minioClient.makeBucket(configuration.getBucketName());
             }
 
+            System.err.println("SUCCESS");
         } catch (InvalidEndpointException e) {
-            System.err.println("MinIO endpoint not found.");
+            System.err.println("MinIO endpoint not found: "
+                    + configuration.getHost()
+                    + ":"
+                    + configuration.getPort());
             System.exit(1);
         } catch (InvalidPortException e) {
             System.err.println("MinIO port invalid.");
