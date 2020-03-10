@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "mops.storage.minio")
+@ConfigurationProperties(prefix = "material1.mops.storage.minio")
 @Getter
 @Setter
 public class FileRepositoryConfig {
