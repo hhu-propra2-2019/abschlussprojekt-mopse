@@ -54,7 +54,7 @@ public class FileInfo {
      */
     @NonNull
     @MappedCollection(idColumn = "file_id")
-    private final Set<FileTag> tags;
+    private Set<FileTag> tags;
     /**
      * Creation Time.
      */
