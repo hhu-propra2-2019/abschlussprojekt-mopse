@@ -44,12 +44,11 @@ public class FileRepoTests {
 
     @BeforeAll
     static void setUp() {
-
-        fileRepoConfig = mock(FileRepositoryConfig.class);
-        when(fileRepoConfig.getAccessKey()).thenReturn("access_key");
-        when(fileRepoConfig.getSecretKey()).thenReturn("very_secret_key");
-        when(fileRepoConfig.getHost()).thenReturn("http://127.0.0.1");
-        when(fileRepoConfig.getBucketName()).thenReturn("test-bucket");
+        fileRepoConfig = new FileRepositoryConfig();
+        fileRepoConfig.setAccessKey("access_key");
+        fileRepoConfig.setSecretKey("secret_key");
+        fileRepoConfig.setHost("http://localhost");
+        fileRepoConfig.setBucketName("test-bucket");
 
         minioServer = new GenericContainer("minio/minio")
                 .withEnv("MINIO_ACCESS_KEY", fileRepoConfig.getAccessKey())
@@ -63,7 +62,7 @@ public class FileRepoTests {
         minioServer.start();
 
         Integer mappedPort = minioServer.getFirstMappedPort();
-        when(fileRepoConfig.getPort()).thenReturn(mappedPort);
+        fileRepoConfig.setPort(mappedPort);
 
         fileRepository = new FileRepository(fileRepoConfig);
     }
