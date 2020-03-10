@@ -5,7 +5,11 @@ import io.minio.ObjectStat;
 import io.minio.errors.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.xmlpull.v1.XmlPullParserException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 
@@ -15,44 +19,39 @@ public class FileRepository {
     /**
      * The MinIO client.
      */
-    private MinioClient minioClient;
+    private final transient MinioClient minioClient;
 
     /**
      * Injected MinIO configuration.
      */
-    private FileRepositoryConfig configuration;
+    private final transient FileRepositoryConfig configuration;
 
     /**
      * Connects to MinIO Server and checks if the bucket exists.
      * @param configuration the injected Conf.
+     * @throws StorageException on Error
      */
-    public FileRepository(FileRepositoryConfig configuration) {
+    public FileRepository(FileRepositoryConfig configuration) throws StorageException {
         this.configuration = configuration;
         try {
             this.minioClient = new MinioClient(
-                    configuration.getHost(),
-                    configuration.getPort(),
-                    configuration.getAccessKey(),
-                    configuration.getSecretKey()
-            );
+                        configuration.getHost(),
+                        configuration.getPort(),
+                        configuration.getAccessKey(),
+                        configuration.getSecretKey()
+                );
+        } catch (InvalidEndpointException | InvalidPortException e) {
+            throw new StorageException(e);
+        }
 
+        try {
             if (!minioClient.bucketExists(configuration.getBucketName())) {
                 minioClient.makeBucket(configuration.getBucketName());
             }
-
-        } catch (InvalidEndpointException e) {
-            System.err.println("MinIO endpoint not found: "
-                    + configuration.getHost()
-                    + ":"
-                    + configuration.getPort());
-            System.exit(1);
-        } catch (InvalidPortException e) {
-            System.err.println("MinIO port invalid.");
-            System.exit(1);
-        } catch (Exception e) {
-            // Multiple, unlikely exceptions ¯\_(ツ)_/¯
-            System.err.println(e.getClass().toString() + ": " + e.getMessage());
-            System.exit(1);
+        } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
+                | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
+                | ErrorResponseException | InternalException | InvalidResponseException | RegionConflictException e) {
+            throw new StorageException(e);
         }
     }
 
@@ -60,10 +59,9 @@ public class FileRepository {
      * Saves a file.
      * @param file the file that should get saved permanently.
      * @param fileId the File ID given by the FileInfo database.
-     * @return true if successful; false if not.
+     * @throws StorageException on Error
      */
-    public boolean saveFile(MultipartFile file, Long fileId) {
-
+    public void saveFile(MultipartFile file, Long fileId) throws StorageException {
         try {
             minioClient.putObject(configuration.getBucketName(),
                     fileId.toString(),
@@ -73,45 +71,52 @@ public class FileRepository {
                     null, // no encryption will be needed
                     file.getContentType()
             );
-        } catch (Exception e) {
-            return false;
+        } catch (MinioException | IOException | InvalidKeyException
+                | NoSuchAlgorithmException | XmlPullParserException e) {
+            throw new StorageException(e);
         }
-        return true;
     }
 
     /**
      * Deletes a file permanently.
      * @param fileId the ID of the file that's desired to be deleted.
      * @return true if successful; false if not.
+     * @throws StorageException on error
      */
-    public boolean deleteFile(Long fileId) {
+    public boolean deleteFile(Long fileId) throws StorageException {
         try {
             minioClient.removeObject(
                     configuration.getBucketName(),
                     fileId.toString()
             );
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return false;
+        } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
+                | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
+                | ErrorResponseException | InternalException | InvalidArgumentException | InvalidResponseException e) {
+            throw new StorageException(e);
         }
 
-        return !existsFile(fileId);
+        return !fileExist(fileId);
     }
     /**
      * Retrieves the bytes of the file.
      * @param fileId the ID of the file that's desired to be returned.
-     * @return file content as InputStream.
+     * @return file content as byte array
+     * @throws StorageException on error
      */
-    public byte[] getFileContent(Long fileId) {
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.LawOfDemeter", "PMD.CloseResource"})
+    public byte[] getFileContent(Long fileId) throws StorageException {
         byte[] content;
         try {
-            content =  minioClient.getObject(
+            InputStream stream =  minioClient.getObject(
                     configuration.getBucketName(),
                     fileId.toString()
-            ).readAllBytes();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return null;
+            );
+            content = stream.readAllBytes();
+            stream.close();
+        } catch (IOException | InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
+                | InvalidKeyException | NoResponseException | XmlPullParserException | ErrorResponseException
+                | InternalException | InvalidArgumentException | InvalidResponseException e) {
+            throw new StorageException(e);
         }
         return content;
     }
@@ -121,25 +126,20 @@ public class FileRepository {
      * @param fileId the file ID
      * @return true if found
      */
-    public boolean existsFile(Long fileId) {
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn"})
+    public boolean fileExist(Long fileId) throws StorageException {
         ObjectStat objectStat;
         try {
             objectStat = minioClient.statObject(configuration.getBucketName(), fileId.toString());
         } catch (ErrorResponseException e) {
             // not found
             return false;
-        } catch (Exception e) {
-            System.err.println(e.getClass()
-                    + ": "
-                    + e.getMessage()
-            );
-            return false;
+        } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | InvalidResponseException
+                | XmlPullParserException | InvalidArgumentException | InsufficientDataException | InternalException
+                | InvalidBucketNameException | IOException e) {
+            throw new StorageException(e);
         }
 
-        if (objectStat == null) {
-            return false;
-        }
-
-        return objectStat.length() > 0;
+        return objectStat != null;
     }
 }
