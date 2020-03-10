@@ -8,6 +8,7 @@ import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.data.repository.query.Param;
@@ -43,7 +44,7 @@ public class DirectoryController {
     @GetMapping("/{dirId}")
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
-                                    @PathVariable("dirId") long dirId) {
+                                    @PathVariable("dirId") long dirId) throws ReadAccessPermission {
         Account account = AccountUtil.getAccountFromToken(token);
         List<Directory> directories = directoryService.getSubFolders(account, dirId);
         List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);

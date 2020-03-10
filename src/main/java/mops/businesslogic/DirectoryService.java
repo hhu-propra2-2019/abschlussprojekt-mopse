@@ -3,6 +3,7 @@ package mops.businesslogic;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.file.FileTag;
+import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +29,7 @@ public interface DirectoryService {
      * @param dirId   id of the folder
      * @return list of folders
      */
-    List<Directory> getSubFolders(Account account, long dirId);
+    List<Directory> getSubFolders(Account account, long dirId) throws ReadAccessPermission;
 
     /**
      * Creates the group root directory.

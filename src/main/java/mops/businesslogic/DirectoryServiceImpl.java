@@ -10,6 +10,7 @@ import mops.persistence.file.FileTag;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.security.PermissionService;
+import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -76,11 +77,12 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return list of folders
      */
     @Override
-    public List<Directory> getSubFolders(Account account, long parentDirID) {
+    public List<Directory> getSubFolders(Account account, long parentDirID) throws ReadAccessPermission {
         Directory directory = fetchDirectory(parentDirID);
-        String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
+        checkReadPermission(account, directory);
         return directoryRepository.getAllSubFoldersOfParent(parentDirID);
     }
+
 
     /**
      * Creates the group root directory.
@@ -169,8 +171,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param directory directory object of the permissions requested
      */
     private void checkWritePermission(Account account, Directory directory) throws WriteAccessPermission {
-        Optional<DirectoryPermissions> optDirPerm = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        DirectoryPermissions directoryPermissions = optDirPerm.orElseThrow(getExecption(directory.getId())); //NOPMD// this is not a violation of demeter's law
+        DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
 
         String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
 
@@ -185,6 +186,30 @@ public class DirectoryServiceImpl implements DirectoryService {
                     directory.getName()));
         }
     }
+
+    private void checkReadPermission(Account account, Directory directory) throws ReadAccessPermission {
+        DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
+
+        String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
+
+        boolean allowedToWrite = directoryPermissions.getPermissions()
+                .stream()
+                .filter(DirectoryPermissionEntry::isCanRead)
+                .anyMatch(permission -> permission.getRole().equals(userRole));
+
+        if (!allowedToWrite) {
+            throw new ReadAccessPermission(String.format("The user %s doesn't have read access to %s.",
+                    account.getName(),
+                    directory.getName()));
+        }
+
+    }
+
+    private DirectoryPermissions getDirectoryPermissions(Directory directory) {
+        Optional<DirectoryPermissions> optDirPerm = directoryPermissionsRepo.findById(directory.getPermissionsId());
+        return optDirPerm.orElseThrow(getExecption(directory.getId()));
+    }
+
 
     private Set<DirectoryPermissionEntry> createDefaultPermissions(Set<String> roleNames) {
         return roleNames.stream() //NOPMD// this is not a violation of demeter's law
