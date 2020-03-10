@@ -16,5 +16,5 @@ public interface PermissionService {
      * @param directory directory object
      * @return a list of directory permission entries
      */
-    Set<String> fetchRoleForUserInGroup(Account account, Directory directory);
+    Set<String> fetchRoleForUserInDirectory(Account account, Directory directory);
 }
