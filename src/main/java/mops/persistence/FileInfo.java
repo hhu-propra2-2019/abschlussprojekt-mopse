@@ -28,5 +28,5 @@ public interface FileInfo {
    /**
     * @return byte size.
     */
-   int getSize();
+   long getSize();
 }
