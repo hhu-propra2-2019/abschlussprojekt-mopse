@@ -33,6 +33,18 @@ public class DirectoryServiceImplTest {
      * Account Object containing user credentials.
      */
     private Account account;
+    /**
+     * Id of the parent folder.
+     */
+    private long parentId;
+    /**
+     * Id of the group owner.
+     */
+    private long groupOwner;
+    /**
+     * Id of the permission object for that folder.
+     */
+    private long permissionsId;
 
     /**
      * Creates a user account.
@@ -40,5 +52,10 @@ public class DirectoryServiceImplTest {
     @BeforeEach
     void setUp() {
         account = new Account("user", "user@hhu.de", Set.of("studentin"));
+        parentId = 1L;
+        groupOwner = 1L;
+        permissionsId = 1L;
     }
+
+
 }
