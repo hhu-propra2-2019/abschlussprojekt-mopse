@@ -71,7 +71,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public List<Directory> getSubFolders(Account account, long parentDirID) {
         Directory directory = fetchDirectory(parentDirID);
-        permissionService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
+        permissionService.fetchRoleForUserInGroup(account, directory);
         return directoryRepository.getAllSubFoldersOfParent(parentDirID);
     }
 
@@ -84,11 +84,14 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     public Directory createRootFolder(Account account, Long groupId) {
-        permissionService.fetchRoleForUserInGroup(account, groupId);
+        Directory directory = new Directory();
+        directory.setName(groupId.toString());
+        directory.setGroupOwner(groupId);
+        permissionService.fetchRoleForUserInGroup(account, directory);
         Set<DirectoryPermissionEntry> permissions = defaultPermissions();
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         Long permissionId = directoryPermissionsRepository.save(permission).getId();
-        Directory directory = new Directory(groupId.toString(), null, groupId, permissionId);
+        directory.setPermissionsId(permissionId);
         return directoryRepository.save(directory);
     }
 
@@ -110,7 +113,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public Directory createFolder(Account account, Long parentDirId, String dirName) {
         Directory rootDirectory = fetchDirectory(parentDirId);
-        permissionService.fetchRoleForUserInGroup(account, rootDirectory.getGroupOwner());
+        permissionService.fetchRoleForUserInGroup(account, rootDirectory);
         Directory directory = new Directory(dirName, rootDirectory.getId(), rootDirectory.getGroupOwner(), rootDirectory.getPermissionsId());
         return directoryRepository.save(directory);
     }
