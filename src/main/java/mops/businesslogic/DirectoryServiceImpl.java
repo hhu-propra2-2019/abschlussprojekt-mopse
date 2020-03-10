@@ -76,7 +76,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public List<Directory> getSubFolders(Account account, long parentDirID) {
         Directory directory = fetchDirectory(parentDirID);
-        permissionService.fetchRoleForUserInDirectory(account, directory);
+        String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
         return directoryRepository.getAllSubFoldersOfParent(parentDirID);
     }
 

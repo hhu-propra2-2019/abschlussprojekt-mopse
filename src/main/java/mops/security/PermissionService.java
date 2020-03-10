@@ -4,8 +4,6 @@ import mops.businesslogic.Account;
 import mops.persistence.directory.Directory;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-
 /**
  * API for GruppenFindung which handles permissions.
  */
@@ -16,5 +14,5 @@ public interface PermissionService {
      * @param directory directory object
      * @return a list of directory permission entries
      */
-    Set<String> fetchRoleForUserInDirectory(Account account, Directory directory);
+    String fetchRoleForUserInDirectory(Account account, Directory directory);
 }
