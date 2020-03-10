@@ -1,12 +1,6 @@
-package mops;
+package mops.persistence;
 
-import mops.persistence.FileRepository;
-import mops.persistence.FileRepositoryConfig;
-import mops.persistence.StorageException;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.testcontainers.containers.GenericContainer;
@@ -49,6 +43,11 @@ public class FileRepoTests {
         fileRepoConfig.setPort(mappedPort);
 
         fileRepository = new FileRepository(fileRepoConfig);
+    }
+
+    @AfterEach
+    void cleanUpEach() throws StorageException {
+        fileRepository.clearBucket();
     }
 
     @AfterAll

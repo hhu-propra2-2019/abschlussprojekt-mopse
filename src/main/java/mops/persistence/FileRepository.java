@@ -3,7 +3,9 @@ package mops.persistence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.minio.MinioClient;
 import io.minio.ObjectStat;
+import io.minio.Result;
 import io.minio.errors.*;
+import io.minio.messages.Item;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import org.xmlpull.v1.XmlPullParserException;
@@ -154,5 +156,21 @@ public class FileRepository {
         }
 
         return objectStat != null;
+    }
+
+    /**
+     * Removes all files. For internal use only.
+     *
+     * @throws StorageException if an error occurs
+     */
+    @SuppressWarnings("PMD")
+    void clearBucket() throws StorageException {
+        try {
+            for (Result<Item> result : minioClient.listObjects(configuration.getBucketName())) {
+                minioClient.removeObject(configuration.getBucketName(), result.get().objectName());
+            }
+        } catch (Exception e) {
+            throw new StorageException(e);
+        }
     }
 }
