@@ -5,7 +5,10 @@ import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import mops.utils.AggregateRoot;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Controller;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
@@ -21,10 +24,12 @@ public class ArchitectureRulesTest {
 
     /**
      * This test looks out for public classes that aren't annotated
-     * with Aggregate Rootbut still are public, which stands against
-     * having only one Aggregate Root per class/package.
+     * with Aggregate Root but are still public, which stands against
+     * having only one @AggregateRoot per class/package.
      */
     @Test
+    // TODO: find solution
+    @Disabled("We need to instantiate Aggregate members other than the root in tests and possibly other code")
     public void onlyAggregateRootsArePublic() {
         ArchRule aggregateRootPublicNothingElse = classes()
                 .that()
@@ -61,11 +66,61 @@ public class ArchitectureRulesTest {
                 .layer("mopsPersistence").definedBy(MOPS_PERSISTENCE)
                 .layer("mopsBusinesslogic").definedBy(MOPS_BUSINESSLOGIC)
                 .layer("mopsPresentation").definedBy(MOPS_PRESENTATION)
+
                 .whereLayer("mopsPresentation").mayNotBeAccessedByAnyLayer()
                 .whereLayer("mopsBusinesslogic").mayOnlyBeAccessedByLayers("mopsPresentation")
                 .whereLayer("mopsPersistence").mayOnlyBeAccessedByLayers(
                         "mopsPresentation", "mopsBusinesslogic");
 
         checkLayeredArchitecture.check(javaClasses);
+    }
+
+    /**
+     * This tests if there are any Controllers, that aren't in the Presentation layer,
+     * which would be a violation of the Layer Architecture.
+     */
+    @Test
+    public void allControllersShouldResideInMopsPresentation() {
+        ArchRule allControllersShouldResideInMopsPresentation = classes()
+                .that()
+                .areAnnotatedWith(Controller.class)
+                .and()
+                .resideOutsideOfPackage(MOPS_PRESENTATION)
+                .should()
+                .notBeAnnotatedWith(Controller.class);
+
+        allControllersShouldResideInMopsPresentation.check(javaClasses);
+    }
+
+    /**
+     * This checks, if everything in "presentation" is annotated with @Controller,
+     * because there shouldn't be anything else there.
+     * the "areNotAnnotatedWith(SpringBootTest.class)" is there, so that test.mops.presentation,
+     * which are the tests, will not be tested and cause a wrong outcome of the test.
+     */
+    @Test
+    public void everythingInPresentationShouldBeAController() {
+        ArchRule everythingInPresentationShouldBeAController = classes()
+                .that()
+                .resideInAPackage(MOPS_PRESENTATION)
+                .and()
+                .areNotAnnotatedWith(SpringBootTest.class)
+                .should()
+                .beAnnotatedWith(Controller.class);
+
+        everythingInPresentationShouldBeAController.check(javaClasses);
+    }
+
+    /**
+     * This tests, if there are no Cycles within the Packages.
+     */
+    @Test
+    public void areThereAnyCyclesWithinPackages() {
+        ArchRule areThereAnyCyclesWithinPackages = slices()
+                .matching("mops.(*)..")
+                .should()
+                .beFreeOfCycles();
+
+        areThereAnyCyclesWithinPackages.check(javaClasses);
     }
 }

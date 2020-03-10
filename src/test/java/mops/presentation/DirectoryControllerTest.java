@@ -1,7 +1,8 @@
 package mops.presentation;
 
+import mops.SpringTestContext;
 import mops.businesslogic.*;
-import mops.persistence.FileInfo;
+import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -25,7 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringTestContext
+@SpringBootTest
 public class DirectoryControllerTest {
 
     /**
