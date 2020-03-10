@@ -1,12 +1,17 @@
 package mops.businesslogic;
 
 import mops.SpringTestContext;
+import mops.persistence.directory.Directory;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.List;
 import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringTestContext
 @SpringBootTest
@@ -57,5 +62,23 @@ public class DirectoryServiceImplTest {
         permissionsId = 1L;
     }
 
+    /**
+     * Test if sub folders are correctly returned.
+     */
+    @Test
+    public void getSubFoldersTest() {
+        String nameFirstDirectory = "first";
+        String nameSecondDirectory = "second";
 
+        Directory firstDirectory = new Directory(nameFirstDirectory, parentId, groupOwner, permissionsId);
+        Directory secondDirectory = new Directory(nameSecondDirectory, parentId, groupOwner, permissionsId);
+
+        directoryService.createFolder(account, parentId, nameFirstDirectory);
+        directoryService.createFolder(account, parentId, nameSecondDirectory);
+
+        List<Directory> subFolders = directoryService.getSubFolders(account, parentId);
+
+
+        assertThat(subFolders).containsExactlyInAnyOrder(firstDirectory, secondDirectory);
+    }
 }
