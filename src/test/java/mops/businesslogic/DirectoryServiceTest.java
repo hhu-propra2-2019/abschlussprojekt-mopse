@@ -94,6 +94,19 @@ public class DirectoryServiceTest {
     }
 
     /**
+     * Test if a group folder is correctly created.
+     */
+    @Test
+    public void createGroupRootFolder() {
+        String nameFirstDirectory = String.valueOf(groupOwner);
+        Directory expectedDirectory = new Directory(1L, nameFirstDirectory, null, groupOwner, 2L);
+
+        Directory directory = directoryService.createRootFolder(account, groupOwner);
+
+        assertThat(directory).isEqualTo(expectedDirectory);
+    }
+
+    /**
      * Test if folder is created in a given root folder.
      */
     @Test
