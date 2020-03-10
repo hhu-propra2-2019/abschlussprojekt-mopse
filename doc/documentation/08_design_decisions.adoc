@@ -13,7 +13,68 @@ Es werden also Alternativen miteinader verglichen, abgewogen und die Beste ausge
 
 image::ER-Modell.png[]
 
-_<Erklärung>_
+
+==== Dir
+
+Das Datenobjekt 'Dir' stellt ein Ordner dar.
+'Dir' hat ein Attribut 'name'. Dies stellt den Namen des Ordners dar.
+
+Außerdem hat das Entity 'dir' ein Attribut 'group'.
+Im Attribut 'group' wird eine ID gespeichert, welche die Gruppe des Ordners identifiziert.
+Zusätzlich hat ein Ordner eine Eindeutige 'ID'.
+
+==== Permission
+
+Das Datenbankobjekt 'Permission' stellt Berechtigungen für die erstellten Ordner dar.
+Die Permission hat eine eindeutige 'ID'.
+
+==== PermissionEntry
+
+Das Datenbankobjekt 'PermissionEntry' stellt Berechtigungsinformationen dar.
+PermissionEntry hat eine eindeutige ID.
+Außerdem hat 'PermissionEntry' einen Attribut 'role'. 'role' stellt die Rolle(Student, Organisator) dar.
+Für die Rolle gibt es Informationen ob man lesen, schreiben oder löschen darf. Deswegen haben wir 3 boolean Attribute für lesen, schreiben und löschen erstellt ('canRead', 'canWrite', 'canDelete').
+
+==== File_info
+
+In dem Datenbankobjekt 'File_info' sind Informationen von einer Datei dargestellt.
+
+Das Attribut 'owner' speichert den Namen des Inhabers der Datei.
+Außerdem speichern wir die Größe('size'), den Namen('name') und den Typ der Datei('contentTyp'),
+Zusätzlich hat jede 'File_info' eine eindeutige 'ID'.
+
+==== File_tag
+
+Hier speichern wir Tags für die Files(Dateien). Das Attribut 'name' speichert den namen des Tags.
+Außerdem hat jeder Tag eine eindeutige 'ID'.
+
+==== Beziehungen
+
+===== Dir hat File_info
+
+Hier haben wir eine 1 zu N Beziehung weil ein Ordner('Dir') mehrere Dateien('File_info') enthalten kann. Wiederum kann ein File genau in einem Ordner liegen. Entweder es liegt im Root-Directory oder in einem Unterordner.
+
+===== Dir parent Dir
+'Dir' hat eine rekursive Beziehung mit sich selbst. Denn ein Ordner kann mehrere Unterordner haben und jeder Ordner liegt in höchstens einem Ordner.
+Ein Ordner kann auch in keinem Ordner liegen da wir beschlossen haben das ein Kurs auch ein Ordner ist
+und somit ist es der Stammordner(Root-directory).
+
+===== File_info hat File_Tag
+
+Hier haben wir eine 1 zu N Beziehung. Logischerweise kann ein File mehrere Tags haben aber immer wenn ein Tag erstellt wird, wird es genau zu einem File zugeordnet.
+
+===== Dir hat Permission
+
+Jedem Ordner wird genau eine Berechtigung zugeteilt. Somit wissen wir welche zugriffe die Rollen haben. Eine Berechtigung('Permission') kann mehreren Ordnern zugeteilt werden da wir uns beschlossen haben das nur die one-level Ordner eine Berechtigung haben.
+Alle Unterordner erben von deren one-Level Ordner. Außerdem hat die Root-directory auch eine eigene Berechtigung('Permission') denn hier können auch Dateien gespeichert werden.
+
+===== Permission hat PermissionEntry
+
+Hier haben wir eine 1 zu N Beziehung.
+Das Datenbankobjekt 'Permission' nimmt Berechtigungsinformationen von 'PermissionEntry'. Somit kann eine 'Permission' mehrere Berechtigungsinformationen für bestimmte Rollen haben.
+Wiederum wird immer eine 'PermissionEntry' zu genau einer 'Permission' zugeordnet.
+
+
 
 === ArchUnit Tests
 
