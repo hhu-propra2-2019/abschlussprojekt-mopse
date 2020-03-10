@@ -16,6 +16,7 @@ Es ist aufwendig für Lerngruppen oder Kurse Dateien miteinander zu teilen, wenn
 
 ### Features
 
+- Ordner- und gruppenbasiertes Dateisystem
 - Rollenbasierte Berechtigungen
 - Vorschaufunktion für verschiedene Dateiformate
 
