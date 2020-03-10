@@ -3,6 +3,7 @@ package mops.persistence;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,9 +15,13 @@ public class FileRepositoryConfiguration {
 
 
     /**
-     * URL of the MinIO server.
+     * Host of the MinIO server.
      */
-    private String url;
+    private String host;
+    /**
+     * Port of the MinIO server.
+     */
+    private int port;
     /**
      * Name of the bucket.
      */
