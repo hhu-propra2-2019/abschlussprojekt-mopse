@@ -1,8 +1,11 @@
 package mops.businesslogic;
 
 import mops.SpringTestContext;
+import mops.persistence.DirectoryPermissionsRepository;
+import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.persistence.permission.DirectoryPermissions;
 import mops.security.PermissionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,6 +48,18 @@ public class DirectoryServiceTest {
     private DirectoryService directoryService;
 
     /**
+     * Repository related to directories.
+     */
+    @Autowired
+    private DirectoryRepository directoryRepository;
+
+    /**
+     * Repository for directory permissions.
+     */
+    @Autowired
+    private DirectoryPermissionsRepository directoryPermissionsRepository;
+
+    /**
      * Account Object containing user credentials.
      */
     private Account account;
@@ -74,15 +89,21 @@ public class DirectoryServiceTest {
         account = new Account("user", "user@hhu.de", Set.of("studentin"));
         parentId = 1L;
         groupOwner = 1L;
-        permissionsId = 1L;
+        DirectoryPermissions directoryPermissions = new DirectoryPermissions();
+        permissionsId = directoryPermissionsRepository.save(directoryPermissions).getId();
     }
 
     @Test
     public void createFolderTest() {
+        Directory root = new Directory("root", null, groupOwner, permissionsId);
+        Directory savedRoot = directoryRepository.save(root);
+        parentId = savedRoot.getId();
         String nameFirstDirectory = "first";
-        long folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
+        Directory expectedDirectory = new Directory(2L, nameFirstDirectory, parentId, groupOwner, permissionsId);
 
-        assertThat(folder).isEqualTo(1L);
+        Directory folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
+
+        assertThat(folder).isEqualTo(expectedDirectory);
     }
 
     /**
