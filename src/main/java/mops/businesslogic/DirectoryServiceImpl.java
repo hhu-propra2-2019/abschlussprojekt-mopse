@@ -170,10 +170,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private void checkWritePermission(Account account, Directory directory) throws WriteAccessPermission {
         Optional<DirectoryPermissions> optDirPerm = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        DirectoryPermissions directoryPermissions = optDirPerm.orElseThrow(getExecption(directory.getId()));
-        if (directoryPermissions.getPermissions().size() == 0) {
-            throw new IllegalArgumentException("Permission are empty.");
-        }
+        DirectoryPermissions directoryPermissions = optDirPerm.orElseThrow(getExecption(directory.getId())); //NOPMD// this is not a violation of demeter's law
+
         String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
 
         boolean allowedToWrite = directoryPermissions.getPermissions()
