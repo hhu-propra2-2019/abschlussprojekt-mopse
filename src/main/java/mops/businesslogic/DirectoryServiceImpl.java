@@ -92,11 +92,12 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = new Directory();
         directory.setName(groupId.toString());
         directory.setGroupOwner(groupId);
-        @NonNull Set<String> roleNames = account.getRoles();
-        if (!roleNames.contains(ADMINISTRATOR)) {
+        String role = permissionService.fetchRoleForUserInGroup(account, groupId);
+        if (!ADMINISTRATOR.equals(role)) {
             String errorMessage = String.format("User is not %s of %d and there for not allowed to create a root folder.", ADMINISTRATOR, groupId);
             throw new WriteAccessPermission(errorMessage);
         }
+        Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
         Set<DirectoryPermissionEntry> permissions = createDefaultPermissions(roleNames);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
