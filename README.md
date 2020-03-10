@@ -8,7 +8,7 @@ Eine Verwaltungssoftware für Material für Kurse und Lerngruppen.
 
 ## Management Summary
 
-Es ist aufwendig für Lerngruppen oder Kurse Dateien mit einander zu teilen, wenn man aktuelle Unisoftware oder gar externe Lösungen muss.
+Es ist aufwendig für Lerngruppen oder Kurse Dateien miteinander zu teilen, wenn man die aktuelle Unisoftware oder gar externe Anwendungen benutzen muss.
 
 ### Aufgabenstellung
 
