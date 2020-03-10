@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -171,7 +172,9 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     private Set<DirectoryPermissionEntry> createDefaultPermissions(Set<String> roleNames) {
-        return null;
+        return roleNames.stream()
+                .map(role -> new DirectoryPermissionEntry(role, true, true, true))
+                .collect(Collectors.toSet());
     }
 
     /**
