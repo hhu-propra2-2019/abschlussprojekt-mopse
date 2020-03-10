@@ -4,7 +4,8 @@
 ****
 _Dieser Abschnitt ist möglichweise zu vernachlässigen._
 
-Es geht hier darum große und wichtige Entscheidungen die während des Entwicklungsprozesses entstehen zu erklären und zu begründen.
+Es geht hier darum große und wichtige Entscheidungen die während des Entwicklungsprozesses entstehen zu erklären und zu
+begründen.
 Es werden also Alternativen miteinader verglichen, abgewogen und die Beste ausgewählt.
 
 ****
@@ -33,7 +34,8 @@ Die Permission hat eine eindeutige 'ID'.
 Das Datenbankobjekt 'PermissionEntry' stellt Berechtigungsinformationen dar.
 PermissionEntry hat eine eindeutige ID.
 Außerdem hat 'PermissionEntry' einen Attribut 'role'. 'role' stellt die Rolle (Student, Organisator) dar.
-Für die Rolle gibt es Informationen ob der Benutzer lesen, schreiben oder löschen darf. Deswegen haben wir 3 boolean Attribute für lesen, schreiben und löschen erstellt ('canRead', 'canWrite', 'canDelete').
+Für die Rolle gibt es Informationen ob der Benutzer lesen, schreiben oder löschen darf. Deswegen haben wir 3 boolean
+Attribute für lesen, schreiben und löschen erstellt ('canRead', 'canWrite', 'canDelete').
 
 ==== File_info
 
@@ -52,43 +54,57 @@ Außerdem hat jeder Tag eine eindeutige 'ID'.
 
 ===== Dir hat File_info
 
-Hier haben wir eine 1 zu N Beziehung weil ein Ordner('Dir') mehrere Dateien('File_info') enthalten kann. Wiederum kann ein File genau in einem Ordner liegen. Entweder es liegt im Root-Directory oder in einem Unterordner.
+Hier haben wir eine 1 zu N Beziehung weil ein Ordner('Dir') mehrere Dateien('File_info') enthalten kann. Wiederum kann
+ein File genau in einem Ordner liegen. Entweder es liegt im Root-Directory oder in einem Unterordner.
 
 ===== Dir parent Dir
 
-'Dir' hat eine rekursive Beziehung mit sich selbst. Denn ein Ordner kann mehrere Unterordner haben und jeder Ordner liegt in höchstens einem Ordner.
+'Dir' hat eine rekursive Beziehung mit sich selbst. Denn ein Ordner kann mehrere Unterordner haben und jeder Ordner
+liegt in höchstens einem Ordner.
 Ein Ordner kann auch in keinem Ordner liegen da wir beschlossen haben das ein Kurs auch ein Ordner
 und somit der Stammordner (Root-directory) ist.
 
 ===== File_info hat File_Tag
 
-Hier haben wir eine 1 zu N Beziehung. Logischerweise kann ein File mehrere Tags haben aber immer wenn ein Tag erstellt wird, wird es genau zu einem File zugeordnet.
+Hier haben wir eine 1 zu N Beziehung. Logischerweise kann ein File mehrere Tags haben aber immer wenn ein Tag erstellt
+wird, wird es genau zu einem File zugeordnet.
 
 ===== Dir hat Permission
 
-Jedem Ordner wird genau eine Berechtigung zugeteilt. Somit wissen wir welche Zugriffe die Rollen haben. Eine Berechtigung ('Permission') kann mehreren Ordnern zugeteilt werden da wir beschlossen haben, dass nur die one-level Ordner eine Berechtigung haben.
-Alle Unterordner erben von deren one-Level Ordner. Außerdem hat die Root-directory auch eine eigene Berechtigung ('Permission'), denn hier können auch Dateien gespeichert werden.
+Jedem Ordner wird genau eine Berechtigung zugeteilt. Somit wissen wir welche Zugriffe die Rollen haben. Eine
+Berechtigung ('Permission') kann mehreren Ordnern zugeteilt werden da wir beschlossen haben, dass nur die one-level
+Ordner eine Berechtigung haben.
+Alle Unterordner erben von deren one-Level Ordner. Außerdem hat die Root-directory auch eine eigene Berechtigung
+('Permission'), denn hier können auch Dateien gespeichert werden.
 
 ===== Permission hat PermissionEntry
 
 Hier haben wir eine 1 zu N Beziehung.
-Das Datenbankobjekt 'Permission' nimmt Berechtigungsinformationen von 'PermissionEntry'. Somit kann eine 'Permission' mehrere Berechtigungsinformationen für bestimmte Rollen haben.
+Das Datenbankobjekt 'Permission' nimmt Berechtigungsinformationen von 'PermissionEntry'. Somit kann eine 'Permission'
+mehrere Berechtigungsinformationen für bestimmte Rollen haben.
 Wiederum wird immer eine 'PermissionEntry' zu genau einer 'Permission' zugeordnet.
 
 
 
 === ArchUnit Tests
 
-_Als erstes haben wir uns die Vorlesung zu ArchUnit `Vorlesung 14 PP2` durchgelesen und bearbeitet. Danach haben wir die Tests `onlyAggregateRootsArePublic`, `oneAggregateRootPerAggregate` und `checkIfLayeredArchitectureIsNotViolated` geschrieben und dazu eine Hilfsannotation `AggregateRoot` geschrieben.
+_Als erstes haben wir uns die Vorlesung zu ArchUnit `Vorlesung 14 PP2` durchgelesen und bearbeitet. Danach haben wir die
+Tests `onlyAggregateRootsArePublic`, `oneAggregateRootPerAggregate` und `checkIfLayeredArchitectureIsNotViolated`
+geschrieben und dazu eine Hilfsannotation `AggregateRoot` geschrieben.
 Der erste Test ist dafür da, um zu schauen, ob nur AggregateRoots Public sind und ob alle anderen Klassen privat sind. 
-Der zweite Test ist dafür da, um zu sehen, ob es nur eine einzige AggregateRoot pro Package gibt, welche mit anderen Packages kommunizieren kann.
+Der zweite Test ist dafür da, um zu sehen, ob es nur eine einzige AggregateRoot pro Package gibt, welche mit anderen
+Packages kommunizieren kann.
 Der dritte Test überprüft, ob die Schicht-Architektur eingehalten wird.
-Die zusätzliche Annotation ist dafür da, um die AggregateRoot zu markieren, damit die Überprüfung zu erleichtern und auch die Lesbarkeit und Verständlichkeit der Klassen und Packages zu verbessern.
-Hier haben wir am 09.03. drei neue Tests hinzugefügt...
-Der vierte Test, also `allControllersShouldResideInMopsPresentation` sorgt dafür, dass alle Controller im Presentation-Layer liegen müssen, da es bei der Schicht-Architektur so gehört.
-Der fünfte Test, `everythingInPresentationShouldBeAController` ist eine Ergänzung des vorherigen und schaut, ob alle Controller im Presentation-Package sind, da man sie ja eigentlich nur da brauchen würde.
-Der letzte Test ist ein double-check, ob es keine cycles im Projekt gibt, was eigentlich durch die Schicht-Architektur Vorraussetzung ist, aber dies ist ein zusätzlicher Test, 
-ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus sein, der dies dann doch noch herausfindet._
+Die zusätzliche Annotation ist dafür da, um die AggregateRoot zu markieren, damit die Überprüfung zu erleichtern und
+auch die Lesbarkeit und Verständlichkeit der Klassen und Packages zu verbessern. Hier haben wir am 09.03. drei neue
+Tests hinzugefügt...
+Der vierte Test, also `allControllersShouldResideInMopsPresentation` sorgt dafür, dass alle Controller im
+Presentation-Layer liegen müssen, da es bei der Schicht-Architektur so gehört.
+Der fünfte Test, `everythingInPresentationShouldBeAController` ist eine Ergänzung des vorherigen und schaut, ob alle
+Controller im Presentation-Package sind, da man sie ja eigentlich nur da brauchen würde.
+Der letzte Test ist ein double-check, ob es keine cycles im Projekt gibt, was eigentlich durch die Schicht-Architektur
+Vorraussetzung ist, aber dies ist ein zusätzlicher Test,
+ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus
 
 ...
 
