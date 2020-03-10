@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -87,19 +88,12 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = new Directory();
         directory.setName(groupId.toString());
         directory.setGroupOwner(groupId);
-        permissionService.fetchRoleForUserInGroup(account, directory);
-        Set<DirectoryPermissionEntry> permissions = defaultPermissions();
+        List<GroupRole> groupRoles = permissionService.fetchRoleForUserInGroup(account, directory);
+        Set<DirectoryPermissionEntry> permissions = createPermissionEntries(groupRoles);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
         directory.setPermission(rootPermissions);
         return directoryRepository.save(directory);
-    }
-
-    /**
-     * @return a set of the default permissions
-     */
-    private Set<DirectoryPermissionEntry> defaultPermissions() {
-        return Set.of();
     }
 
     /**
@@ -113,7 +107,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public Directory createFolder(Account account, Long parentDirId, String dirName) {
         Directory rootDirectory = fetchDirectory(parentDirId);
-        permissionService.fetchRoleForUserInGroup(account, rootDirectory);
+        List<GroupRole> groupRoles = permissionService.fetchRoleForUserInGroup(account, rootDirectory);
         Directory directory = rootDirectory.createSubDirectory(dirName); //NOPMD// this is no violation of demeter's law
         return directoryRepository.save(directory);
     }
@@ -141,6 +135,16 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) {
         return null;
+    }
+
+    /**
+     * @param groupRoles all roles in the group
+     * @return a set of the default permissions
+     */
+    private Set<DirectoryPermissionEntry> createPermissionEntries(List<GroupRole> groupRoles) {
+        return groupRoles.stream()
+                .map(GroupRole::getPermissionEntry)
+                .collect(Collectors.toSet());
     }
 
     private Directory fetchDirectory(long parentDirID) {
