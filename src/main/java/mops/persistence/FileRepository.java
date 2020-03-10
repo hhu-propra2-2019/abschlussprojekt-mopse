@@ -6,6 +6,7 @@ import io.minio.errors.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
@@ -28,6 +29,7 @@ public class FileRepository {
 
     /**
      * Connects to MinIO Server and checks if the bucket exists.
+     *
      * @param configuration the injected Conf.
      * @throws StorageException on Error
      */
@@ -35,11 +37,11 @@ public class FileRepository {
         this.configuration = configuration;
         try {
             this.minioClient = new MinioClient(
-                        configuration.getHost(),
-                        configuration.getPort(),
-                        configuration.getAccessKey(),
-                        configuration.getSecretKey()
-                );
+                    configuration.getHost(),
+                    configuration.getPort(),
+                    configuration.getAccessKey(),
+                    configuration.getSecretKey()
+            );
         } catch (InvalidEndpointException | InvalidPortException e) {
             throw new StorageException(e);
         }
@@ -57,15 +59,16 @@ public class FileRepository {
 
     /**
      * Saves a file.
-     * @param file the file that should get saved permanently.
+     *
+     * @param file   the file that should get saved permanently.
      * @param fileId the File ID given by the FileInfo database.
      * @throws StorageException on Error
      */
     public void saveFile(MultipartFile file, Long fileId) throws StorageException {
-        try {
+        try (InputStream stream = file.getInputStream()) {
             minioClient.putObject(configuration.getBucketName(),
                     fileId.toString(),
-                    file.getInputStream(),
+                    stream,
                     file.getSize(),
                     new HashMap<>(),
                     null, // no encryption will be needed
@@ -79,6 +82,7 @@ public class FileRepository {
 
     /**
      * Deletes a file permanently.
+     *
      * @param fileId the ID of the file that's desired to be deleted.
      * @return true if successful; false if not.
      * @throws StorageException on error
@@ -97,22 +101,22 @@ public class FileRepository {
 
         return !fileExist(fileId);
     }
+
     /**
      * Retrieves the bytes of the file.
+     *
      * @param fileId the ID of the file that's desired to be returned.
      * @return file content as byte array
      * @throws StorageException on error
      */
-    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.LawOfDemeter", "PMD.CloseResource"})
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.LawOfDemeter", "PMD.CloseResource" })
     public byte[] getFileContent(Long fileId) throws StorageException {
         byte[] content;
-        try {
-            InputStream stream =  minioClient.getObject(
-                    configuration.getBucketName(),
-                    fileId.toString()
-            );
+        try (InputStream stream = minioClient.getObject(
+                configuration.getBucketName(),
+                fileId.toString()
+        )) {
             content = stream.readAllBytes();
-            stream.close();
         } catch (IOException | InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | InvalidKeyException | NoResponseException | XmlPullParserException | ErrorResponseException
                 | InternalException | InvalidArgumentException | InvalidResponseException e) {
@@ -123,10 +127,11 @@ public class FileRepository {
 
     /**
      * Checks if a file with a specified ID already exists.
+     *
      * @param fileId the file ID
      * @return true if found
      */
-    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn"})
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn" })
     public boolean fileExist(Long fileId) throws StorageException {
         ObjectStat objectStat;
         try {
