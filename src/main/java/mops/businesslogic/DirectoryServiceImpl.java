@@ -176,6 +176,7 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         boolean allowedToWrite = directoryPermissions.getPermissions()
                 .stream()
+                .filter(DirectoryPermissionEntry::isCanWrite)
                 .anyMatch(permission -> permission.getRole().equals(userRole));
 
         if (!allowedToWrite) {
