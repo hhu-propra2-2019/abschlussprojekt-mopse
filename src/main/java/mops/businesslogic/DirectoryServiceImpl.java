@@ -62,8 +62,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     public List<Directory> getSubFolders(Account account, long parentDirID) {
-        Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
-        Directory directory = optionalDirectory.orElseThrow(() -> new NoSuchElementException("There is no directory with the id: " + parentDirID + " in the database."));
+        Directory directory = fetchDirectory(parentDirID);
         permissionService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
         return directoryRepository.getAllSubFoldersOfParent(parentDirID);
     }
@@ -78,6 +77,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     public long createFolder(Account account, long parentDirId, String dirName) {
+        permissionService.fetchRoleForUserInGroup(account, parentDirId);
+        Directory directory = fetchDirectory(parentDirId);
+        directoryRepository.save(directory);
         return 0;
     }
 
@@ -104,5 +106,10 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) {
         return null;
+    }
+
+    private Directory fetchDirectory(long parentDirID) {
+        Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
+        return optionalDirectory.orElseThrow(() -> new NoSuchElementException("There is no directory with the id: " + parentDirID + " in the database."));
     }
 }
