@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * API for GruppenFindung which handles permissions.
+ */
 @Service
 public interface PermissionService {
     /**

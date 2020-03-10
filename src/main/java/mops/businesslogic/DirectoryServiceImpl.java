@@ -147,6 +147,10 @@ public class DirectoryServiceImpl implements DirectoryService {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * @param parentDirID the id of the parent folder
+     * @return a directory object of the request folder
+     */
     private Directory fetchDirectory(long parentDirID) {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
         return optionalDirectory.orElseThrow(() -> { //NOPMD
