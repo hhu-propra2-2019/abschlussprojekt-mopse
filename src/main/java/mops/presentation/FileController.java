@@ -36,7 +36,7 @@ public class FileController {
     @SuppressWarnings("PMD")
     @ResponseBody
     @GetMapping("/{fileId}")
-    ResponseEntity getFile(KeycloakAuthenticationToken token,//NOPMD
+    ResponseEntity getFile(KeycloakAuthenticationToken token,
                                 @PathVariable("fileId") long fileId) {
         Account account = AccountUtil.getAccountFromToken(token);
         FileInfo result = fileService.getFile(account, fileId);
