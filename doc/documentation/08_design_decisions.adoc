@@ -29,7 +29,8 @@ _Als Schnittstelle für die Datei Speicherung haben wir MinIO gewählt, weil es 
 
 _Die erforderlichen Umgebungsvariablen lauten:_
 
-- MINIO_URL
+- MINIO_HOST
+- MINIO_PORT
 - MINIO_BUCKET_NAME
 - MINIO_ACCESS_KEY
 - MINIO_SECRET_KEY
