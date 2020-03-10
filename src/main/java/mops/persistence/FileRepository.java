@@ -1,5 +1,6 @@
 package mops.persistence;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.minio.MinioClient;
 import io.minio.ObjectStat;
 import io.minio.errors.*;
@@ -64,10 +65,10 @@ public class FileRepository {
      * @param fileId the File ID given by the FileInfo database.
      * @throws StorageException on Error
      */
-    public void saveFile(MultipartFile file, Long fileId) throws StorageException {
+    public void saveFile(MultipartFile file, long fileId) throws StorageException {
         try (InputStream stream = file.getInputStream()) {
             minioClient.putObject(configuration.getBucketName(),
-                    fileId.toString(),
+                    String.valueOf(fileId),
                     stream,
                     file.getSize(),
                     new HashMap<>(),
@@ -87,11 +88,11 @@ public class FileRepository {
      * @return true if successful; false if not.
      * @throws StorageException on error
      */
-    public boolean deleteFile(Long fileId) throws StorageException {
+    public boolean deleteFile(long fileId) throws StorageException {
         try {
             minioClient.removeObject(
                     configuration.getBucketName(),
-                    fileId.toString()
+                    String.valueOf(fileId)
             );
         } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
@@ -109,12 +110,15 @@ public class FileRepository {
      * @return file content as byte array
      * @throws StorageException on error
      */
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.LawOfDemeter", "PMD.CloseResource" })
-    public byte[] getFileContent(Long fileId) throws StorageException {
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+    @SuppressFBWarnings(value = "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE",
+            justification = "There is no null-check here, maybe SpotBugs sees an implicit null check in the "
+                    + "try-with-resources?")
+    public byte[] getFileContent(long fileId) throws StorageException {
         byte[] content;
         try (InputStream stream = minioClient.getObject(
                 configuration.getBucketName(),
-                fileId.toString()
+                String.valueOf(fileId)
         )) {
             content = stream.readAllBytes();
         } catch (IOException | InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
@@ -122,6 +126,7 @@ public class FileRepository {
                 | InternalException | InvalidArgumentException | InvalidResponseException e) {
             throw new StorageException(e);
         }
+
         return content;
     }
 
@@ -132,10 +137,13 @@ public class FileRepository {
      * @return true if found
      */
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn" })
-    public boolean fileExist(Long fileId) throws StorageException {
+    public boolean fileExist(long fileId) throws StorageException {
         ObjectStat objectStat;
         try {
-            objectStat = minioClient.statObject(configuration.getBucketName(), fileId.toString());
+            objectStat = minioClient.statObject(
+                    configuration.getBucketName(),
+                    String.valueOf(fileId)
+            );
         } catch (ErrorResponseException e) {
             // not found
             return false;
