@@ -2,7 +2,6 @@ package mops.security;
 
 import mops.businesslogic.Account;
 import mops.persistence.directory.Directory;
-import mops.persistence.permission.DirectoryPermissionEntry;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -17,5 +16,5 @@ public interface PermissionService {
      * @param directory directory object
      * @return a list of directory permission entries
      */
-    Set<DirectoryPermissionEntry> fetchRoleForUserInGroup(Account account, Directory directory);
+    Set<String> fetchRoleForUserInGroup(Account account, Directory directory);
 }
