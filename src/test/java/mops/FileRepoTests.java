@@ -33,14 +33,6 @@ import java.util.Random;
 @SpringTestContext
 @Testcontainers
 public class FileRepoTests {
-
-    @MockBean
-    DirectoryService directoryService;
-    @MockBean
-    FileService fileService;
-    @MockBean
-    GroupService groupService;
-
     private static FileRepository fileRepository;
 
     @SuppressWarnings("rawtypes")
