@@ -56,16 +56,16 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Returns all folders of the parent folder.
      *
-     * @param account user credentials
-     * @param dirId   id of the folder
+     * @param account     user credentials
+     * @param parentDirID id of the parent folder
      * @return list of folders
      */
     @Override
-    public List<Directory> getSubFolders(Account account, long dirId) {
-        Optional<Directory> optionalDirectory = directoryRepository.findById(dirId);
-        Directory directory = optionalDirectory.orElseThrow(() -> new NoSuchElementException("There is no directory with the id: " + dirId + " in the database."));
+    public List<Directory> getSubFolders(Account account, long parentDirID) {
+        Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
+        Directory directory = optionalDirectory.orElseThrow(() -> new NoSuchElementException("There is no directory with the id: " + parentDirID + " in the database."));
         permissionService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
-        return directoryRepository.getAllSubFoldersOfParent(dirId);
+        return directoryRepository.getAllSubFoldersOfParent(parentDirID);
     }
 
     /**
