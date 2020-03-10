@@ -40,7 +40,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * This connects to database to handle directory permissions.
      */
-    private final DirectoryPermissionsRepository directoryPermissionsRepository;
+    private final DirectoryPermissionsRepository directoryPermissionsRepo;
 
     /**
      * Uploads a file.
@@ -90,7 +90,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         permissionService.fetchRoleForUserInGroup(account, directory);
         Set<DirectoryPermissionEntry> permissions = defaultPermissions();
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
-        Long permissionId = directoryPermissionsRepository.save(permission).getId();
+        Long permissionId = directoryPermissionsRepo.save(permission).getId();
         directory.setPermissionsId(permissionId);
         return directoryRepository.save(directory);
     }
@@ -145,6 +145,6 @@ public class DirectoryServiceImpl implements DirectoryService {
 
     private Directory fetchDirectory(long parentDirID) {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
-        return optionalDirectory.orElseThrow(() -> new NoSuchElementException("There is no directory with the id: " + parentDirID + " in the database."));
+        return optionalDirectory.orElseThrow(() -> new NoSuchElementException("There is no directory with the id: " + parentDirID + " in the database.")); //NOPMD
     }
 }
