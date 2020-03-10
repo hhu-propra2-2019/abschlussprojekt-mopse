@@ -1,8 +1,6 @@
 package mops.security.exception;
 
-public class WriteAccessPermission extends Exception {
-    private static final long serialVersionUID = 588335701190058578L;
-
+public class WriteAccessPermission extends Exception { //NOPMD serialized is outdated
     /**
      * Is thrown when a user tries to write to a directory for which he/she/it does not have writing permissions.
      *
