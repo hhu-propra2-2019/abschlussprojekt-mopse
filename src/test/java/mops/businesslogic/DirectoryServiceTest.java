@@ -93,6 +93,9 @@ public class DirectoryServiceTest {
         permissionsId = directoryPermissionsRepository.save(directoryPermissions).getId();
     }
 
+    /**
+     * Test if folder is created in a given root folder.
+     */
     @Test
     public void createFolderTest() {
         Directory root = new Directory("root", null, groupOwner, permissionsId);
