@@ -13,12 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.List;
-
 import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willReturn;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -68,7 +64,7 @@ public class FileControllerTest {
     public void setUp() {
         account = new Account("user", "user@mail.de", "studentin");
         FileInfo f = mock(FileInfo.class);
-        given(f.getDirectoryId()).willReturn(1L);
+        given(f.getDirectoryId()).willReturn(2L);
         given(fileService.getFile(account, 1)).willReturn(f);
 
         mvc = MockMvcBuilders
@@ -79,16 +75,27 @@ public class FileControllerTest {
     }
 
     /**
+     * Tests the route for getting a file preview, or downloading if preview is not supported.
+     */
+    //@Test //TODO: Re-enable
+    public void getFile() throws Exception { //TODO: Implement with file expectation
+        setupSecurityContextMock(account);
+        mvc.perform(get("/material1/file/1")
+                .with(csrf()));
+                //.andExpect(status().)
+    }
+
+    /**
      * Tests if a user can delete a file.
      */
     @Test
-    public void deleteFile() throws Exception { //TODO: Implement (copy pasta-ed)
+    public void deleteFile() throws Exception {
 
         setupSecurityContextMock(account);
         mvc.perform(delete("/material1/file/1")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect((redirectedUrl("/material1/dir/1")));
+                .andExpect((redirectedUrl("/material1/dir/2")));
     }
 
     /**
