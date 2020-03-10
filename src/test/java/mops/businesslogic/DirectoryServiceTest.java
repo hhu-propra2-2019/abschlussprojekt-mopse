@@ -77,6 +77,14 @@ public class DirectoryServiceTest {
         permissionsId = 1L;
     }
 
+    @Test
+    public void createFolderTest() {
+        String nameFirstDirectory = "first";
+        long folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
+
+        assertThat(folder).isEqualTo(1L);
+    }
+
     /**
      * Test if sub folders are correctly returned.
      */
