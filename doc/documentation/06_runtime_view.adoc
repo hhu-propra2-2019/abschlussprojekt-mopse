@@ -3,7 +3,8 @@
 
 
 ****
-Hier geht es darum, wie einzelne Abläufe funktionieren und wie sich die Beziehungen zwischen Bausteinen und externen Schnittstellen in bestimmten Szenarien ausspielen.
+Hier geht es darum, wie einzelne Abläufe funktionieren und wie sich die Beziehungen zwischen Bausteinen und externen
+Schnittstellen in bestimmten Szenarien ausspielen.
 Dabei spielen auch Fehler- und Ausnahmeszenarien sowie Inbetriebnahme, Start und Stop eine Rolle.
 
 Mögliche Darstellungsformen wären ein Flussdiagramm oder nummerierte Abläufe mit spezifischen Erklärungen.

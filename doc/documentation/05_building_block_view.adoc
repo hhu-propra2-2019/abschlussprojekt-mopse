@@ -19,13 +19,15 @@ Eine Auflistung und Erklärung aller Bausteine des Systems. Das wären zum Beisp
 Diese Sicht sollte in jeder Architekturdokumentation vorhanden sein.
 In der Analogie zum Hausbau bildet die Bausteinsicht den _Grundrissplan_.
 
-Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren Beschreibungen.
+Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren
+Beschreibungen.
 
 image:05_building_blocks-DE.png["Baustein Sichten"]
 
 Die *Gesamtabgrenzung* zeigt unser System in Abgrenzung zu Nachbarsystemen.
 
-*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen Bausteine (in unserem Fall die einzelnen Schichten).
+*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen
+Bausteine (in unserem Fall die einzelnen Schichten).
 
 *Ebene 2* zoomt in die einzelnen Schichten hinein und zeigt die darin enthaltenen Komponenten.
 
@@ -58,7 +60,8 @@ Enthaltene Bausteine::
 === Ebene 1
 
 ****
-Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie zuvor auch.
+Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie
+zuvor auch.
 ****
 
 _**<Übersichtsdiagramm>**_
@@ -82,7 +85,9 @@ Darstellung nach gleichem Schema wie zuvor.
 
 _**<Übersichtsdiagramm>**_
 
-Begründung:: Jeder Controller repräsentiert einen Routenanfang `/material1/{routenBeginn}`, wodurch zum einen großen Controllerklassen vermieden werden und wir es den praktischen Nutzen hat, dass man Routenbeginne an der Klasse selbst annotieren kann.
+Begründung:: Jeder Controller repräsentiert einen Routenanfang `/material1/{routenBeginn}`, wodurch zum einen großen
+Controllerklassen vermieden werden und wir es den praktischen Nutzen hat, dass man Routenbeginne an der Klasse selbst
+annotieren kann.
 
 Enthaltene Bausteine::
 
