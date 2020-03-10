@@ -50,6 +50,12 @@ public class FileInfo {
     @NonNull
     private String owner;
     /**
+     * File tags.
+     */
+    @NonNull
+    @MappedCollection(idColumn = "file_id")
+    private final Set<FileTag> tags;
+    /**
      * Creation Time.
      */
     @CreatedDate
@@ -61,12 +67,6 @@ public class FileInfo {
     @LastModifiedDate
     @Setter(AccessLevel.PRIVATE)
     private Timestamp lastModifiedTime;
-    /**
-     * File tags.
-     */
-    @NonNull
-    @MappedCollection(idColumn = "file_id")
-    private final Set<FileTag> tags;
 
     /**
      * Create a new File.
@@ -78,9 +78,8 @@ public class FileInfo {
      * @param owner       file owner
      * @param tags        file tags
      */
-    public FileInfo(@NonNull String name, long directoryId, @NonNull String type, long size, @NonNull String owner,
-                    @NonNull Set<FileTag> tags) {
-        this(null, name, directoryId, type, size, owner, null, null, tags);
+    public FileInfo(String name, long directoryId, String type, long size, String owner, Set<FileTag> tags) {
+        this(null, name, directoryId, type, size, owner, tags, null, null);
     }
 
     /**
@@ -89,7 +88,7 @@ public class FileInfo {
      * @return creation time
      */
     public Instant getCreationTime() {
-        return creationTime.toInstant();
+        return creationTime == null ? Instant.EPOCH : creationTime.toInstant();
     }
 
     /**
@@ -98,6 +97,6 @@ public class FileInfo {
      * @return last modified time
      */
     public Instant getLastModifiedTime() {
-        return lastModifiedTime.toInstant();
+        return lastModifiedTime == null ? Instant.EPOCH : lastModifiedTime.toInstant();
     }
 }

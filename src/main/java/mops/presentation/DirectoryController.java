@@ -9,7 +9,6 @@ import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,7 +61,7 @@ public class DirectoryController {
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("dirId") long dirId,
-                             @Param("file") FileInfo fileInfo) {
+                             @RequestAttribute("file") FileInfo fileInfo) {
         Account account = AccountUtil.getAccountFromToken(token);
         //TODO: exception handling and user error message
         directoryService.uploadFile(account, dirId, fileInfo);
@@ -118,7 +117,7 @@ public class DirectoryController {
     public String searchFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
-                               @ModelAttribute("searchQuery") FileQuery query) {
+                               @RequestAttribute("searchQuery") FileQuery query) {
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
         model.addAttribute("files", files);
