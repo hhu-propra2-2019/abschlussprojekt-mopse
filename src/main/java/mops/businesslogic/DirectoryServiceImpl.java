@@ -158,7 +158,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private Directory fetchDirectory(long parentDirID) {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
-        return optionalDirectory.orElseThrow(getExecption(parentDirID));
+        return optionalDirectory.orElseThrow(getExecption(parentDirID)); //NOPMD// this is not a violation of demeter's law
     }
 
 
@@ -186,7 +186,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     private Set<DirectoryPermissionEntry> createDefaultPermissions(Set<String> roleNames) {
-        return roleNames.stream()
+        return roleNames.stream() //NOPMD// this is not a violation of demeter's law
                 .map(role -> new DirectoryPermissionEntry(role, true, true, true))
                 .collect(Collectors.toSet());
     }
