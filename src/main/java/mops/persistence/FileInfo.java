@@ -15,7 +15,7 @@ public interface FileInfo {
    String getFileName();
 
    /**
-    * @return Returns upload date of the file.
+    * @return creation date
     */
    int getDate();
    /**
