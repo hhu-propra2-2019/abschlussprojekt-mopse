@@ -1,5 +1,7 @@
 package mops.persistence;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a 'file' of the file server.
  */
@@ -17,7 +19,7 @@ public interface FileInfo {
    /**
     * @return creation date
     */
-   int getDate();
+   LocalDateTime getCreationDate();
    /**
     * @return Returns content type (pdf, png, etc.) of the file.
     */
