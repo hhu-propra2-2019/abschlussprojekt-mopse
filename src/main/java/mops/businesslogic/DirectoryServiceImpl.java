@@ -88,7 +88,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = new Directory();
         directory.setName(groupId.toString());
         directory.setGroupOwner(groupId);
-        Set<DirectoryPermissionEntry> permissions = (Set<DirectoryPermissionEntry>) permissionService.fetchRoleForUserInGroup(account, directory);
+        Set<DirectoryPermissionEntry> permissions = permissionService.fetchRoleForUserInGroup(account, directory);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
         directory.setPermission(rootPermissions);
@@ -106,7 +106,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public Directory createFolder(Account account, Long parentDirId, String dirName) {
         Directory rootDirectory = fetchDirectory(parentDirId);
-        List<GroupRole> groupRoles = permissionService.fetchRoleForUserInGroup(account, rootDirectory);
+        checkWritePermission(account, rootDirectory);
         Directory directory = rootDirectory.createSubDirectory(dirName); //NOPMD// this is no violation of demeter's law
         return directoryRepository.save(directory);
     }
