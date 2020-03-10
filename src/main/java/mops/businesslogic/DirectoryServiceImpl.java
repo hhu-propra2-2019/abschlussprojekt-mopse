@@ -114,7 +114,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public Directory createFolder(Account account, Long parentDirId, String dirName) {
         Directory rootDirectory = fetchDirectory(parentDirId);
         permissionService.fetchRoleForUserInGroup(account, rootDirectory);
-        Directory directory = rootDirectory.createSubDirectory(dirName);
+        Directory directory = rootDirectory.createSubDirectory(dirName); //NOPMD// this is no violation of demeter's law
         return directoryRepository.save(directory);
     }
 
