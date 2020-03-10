@@ -33,9 +33,10 @@ public class FileController {
      * @param fileId the id of the requested file
      * @return the route to template 'file'
      */
+    @SuppressWarnings("PMD")
     @ResponseBody
     @GetMapping("/{fileId}")
-    ResponseEntity getFile(KeycloakAuthenticationToken token,
+    ResponseEntity getFile(KeycloakAuthenticationToken token,//NOPMD
                                 @PathVariable("fileId") long fileId) {
         Account account = AccountUtil.getAccountFromToken(token);
         FileInfo result = fileService.getFile(account, fileId);
@@ -51,7 +52,7 @@ public class FileController {
         MediaType contentType = MediaType.parseMediaType(result.getType());
         FileSystemResource resource = new FileSystemResource("material1/file/" + fileId);
         //TODO: We don't know what kind of Resource we get from FileService
-
+        // IDEA: Create an empty FileSystemResource to have a path and fill it step by step with all needed informations
         try {
             Long contentLength = resource.contentLength();
 
@@ -85,8 +86,7 @@ public class FileController {
                              Model model,
                              @PathVariable("fileId") long fileId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        long dirId = fileService.getFile(account, fileId).getDirectoryId();
-        fileService.deleteFile(account, fileId);
+        long dirId = fileService.deleteFile(account, fileId);
         return String.format("redirect:/material1/dir/%d", dirId);
     }
 }

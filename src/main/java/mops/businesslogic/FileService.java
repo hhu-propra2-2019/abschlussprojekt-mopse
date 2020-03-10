@@ -43,6 +43,7 @@ public interface FileService {
     /**
      * @param account user credentials
      * @param fileId  file id of file to be deleted
+     * @return parent directory Id
      */
-    void deleteFile(Account account, long fileId);
+    long deleteFile(Account account, long fileId);
 }
