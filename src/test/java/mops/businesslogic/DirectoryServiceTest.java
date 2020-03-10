@@ -181,11 +181,6 @@ public class DirectoryServiceTest {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
 
-        long permissionsId = root.getPermissionsId();
-
-        String nameFirstDirectory = "first";
-        String nameSecondDirectory = "second";
-
         assertThatExceptionOfType(ReadAccessPermission.class).isThrownBy(() -> directoryService.getSubFolders(intruder, parentId));
     }
 
