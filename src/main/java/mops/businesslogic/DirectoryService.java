@@ -16,6 +16,8 @@ public interface DirectoryService {
      * @param account       user credentials
      * @param dirId         the id of the folder where the file will be uploaded
      * @param multipartFile the file object
+     * @param fileTags      set of the file tags
+     * @return the file meta object
      */
     FileInfo uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<FileTag> fileTags);
 
