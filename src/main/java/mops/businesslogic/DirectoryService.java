@@ -12,8 +12,8 @@ public interface DirectoryService {
     /**
      * Uploads a file.
      *
-     * @param account  user credentials
-     * @param dirId    the id of the folder where the file will be uploaded
+     * @param account       user credentials
+     * @param dirId         the id of the folder where the file will be uploaded
      * @param multipartFile the file object
      */
     FileInfo uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<FileTag> fileTags);
@@ -35,7 +35,7 @@ public interface DirectoryService {
      * @param dirName     name of the new folder
      * @return id of the new folder
      */
-    long createFolder(Account account, long parentDirId, String dirName);
+    Directory createFolder(Account account, long parentDirId, String dirName);
 
     /**
      * Deletes a folder.

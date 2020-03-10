@@ -76,11 +76,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return id of the new folder
      */
     @Override
-    public long createFolder(Account account, long parentDirId, String dirName) {
+    public Directory createFolder(Account account, long parentDirId, String dirName) {
         permissionService.fetchRoleForUserInGroup(account, parentDirId);
         Directory directory = fetchDirectory(parentDirId);
-        directoryRepository.save(directory);
-        return 0;
+        return directoryRepository.save(directory);
     }
 
     /**
