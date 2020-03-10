@@ -25,6 +25,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class DirectoryServiceImpl implements DirectoryService {
 
+    /**
+     * Represents the role of an admin.
+     */
     public static final String ADMINISTRATOR = "administrator";
     /**
      * This connects to database related to directory information.
@@ -93,7 +96,10 @@ public class DirectoryServiceImpl implements DirectoryService {
         directory.setGroupOwner(groupId);
         String role = permissionService.fetchRoleForUserInGroup(account, groupId);
         if (!ADMINISTRATOR.equals(role)) {
-            String errorMessage = String.format("User is not %s of %d and there for not allowed to create a root folder.", ADMINISTRATOR, groupId);
+            String errorMessage = String.format(
+                    "User is not %s of %d and there for not allowed to create a root folder.",
+                    ADMINISTRATOR,
+                    groupId);
             throw new WriteAccessPermission(errorMessage);
         }
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
@@ -152,7 +158,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private Directory fetchDirectory(long parentDirID) {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
-        return optionalDirectory.orElseThrow(getNoSuchElementExceptionSupplier(parentDirID));
+        return optionalDirectory.orElseThrow(getExecption(parentDirID));
     }
 
 
@@ -163,8 +169,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param directory directory object of the permissions requested
      */
     private void checkWritePermission(Account account, Directory directory) throws WriteAccessPermission {
-        Optional<DirectoryPermissions> optionalDirectoryPermissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        DirectoryPermissions directoryPermissions = optionalDirectoryPermissions.orElseThrow(getNoSuchElementExceptionSupplier(directory.getId()));
+        Optional<DirectoryPermissions> optDirPerm = directoryPermissionsRepo.findById(directory.getPermissionsId());
+        DirectoryPermissions directoryPermissions = optDirPerm.orElseThrow(getExecption(directory.getId()));
         if (directoryPermissions.getPermissions().size() == 0) {
             throw new IllegalArgumentException("Permission are empty.");
         }
@@ -175,7 +181,9 @@ public class DirectoryServiceImpl implements DirectoryService {
                 .anyMatch(permission -> permission.getRole().equals(userRole));
 
         if (!allowedToWrite) {
-            throw new WriteAccessPermission(String.format("The user %s doesn't have write access to %s.", account.getName(), directory.getName()));
+            throw new WriteAccessPermission(String.format("The user %s doesn't have write access to %s.",
+                    account.getName(),
+                    directory.getName()));
         }
     }
 
@@ -189,7 +197,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param dirId directory id
      * @return a supplier to throw a exception
      */
-    private Supplier<NoSuchElementException> getNoSuchElementExceptionSupplier(long dirId) {
+    private Supplier<NoSuchElementException> getExecption(long dirId) {
         return () -> { //NOPMD
             String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
             return new NoSuchElementException(errorMessage);
