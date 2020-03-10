@@ -11,6 +11,7 @@ import mops.persistence.file.FileTag;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.security.PermissionService;
+import mops.security.exception.WriteAccessPermission;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Supplier;
 
 @Service
 @AllArgsConstructor
@@ -88,7 +90,8 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = new Directory();
         directory.setName(groupId.toString());
         directory.setGroupOwner(groupId);
-        Set<DirectoryPermissionEntry> permissions = permissionService.fetchRoleForUserInGroup(account, directory);
+        Set<String> roleNames = permissionService.fetchRoleForUserInGroup(account, directory);
+        Set<DirectoryPermissionEntry> permissions = createDefaultPermissions(roleNames);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
         directory.setPermission(rootPermissions);
@@ -104,7 +107,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return id of the new folder
      */
     @Override
-    public Directory createFolder(Account account, Long parentDirId, String dirName) {
+    public Directory createFolder(Account account, Long parentDirId, String dirName) throws WriteAccessPermission {
         Directory rootDirectory = fetchDirectory(parentDirId);
         checkWritePermission(account, rootDirectory);
         Directory directory = rootDirectory.createSubDirectory(dirName); //NOPMD// this is no violation of demeter's law
@@ -143,9 +146,43 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private Directory fetchDirectory(long parentDirID) {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
-        return optionalDirectory.orElseThrow(() -> { //NOPMD
-            String errorMessage = String.format("There is no directory with the id: %d in the database.", parentDirID);
-            return new NoSuchElementException(errorMessage);
-        });
+        return optionalDirectory.orElseThrow(getNoSuchElementExceptionSupplier(parentDirID));
     }
+
+
+    /**
+     * Checks if the user has permission to write in that folder.
+     *
+     * @param account   user credentials
+     * @param directory directory object of the permissions requested
+     */
+    private void checkWritePermission(Account account, Directory directory) throws WriteAccessPermission {
+        Optional<DirectoryPermissions> optionalDirectoryPermissions = directoryPermissionsRepo.findById(directory.getId());
+        DirectoryPermissions directoryPermissions = optionalDirectoryPermissions.orElseThrow(getNoSuchElementExceptionSupplier(directory.getId()));
+        @NonNull Set<String> userRoles = account.getRoles();
+
+        boolean allowedToWrite = directoryPermissions.getPermissions()
+                .stream()
+                .anyMatch(permission -> userRoles.contains(permission.getRole()));
+
+        if (!allowedToWrite) {
+            throw new WriteAccessPermission(String.format("The user %s doesn't have write access to %s.", account.getName(), directory.getName()));
+        }
+    }
+
+    private Set<DirectoryPermissionEntry> createDefaultPermissions(Set<String> roleNames) {
+        return null;
+    }
+
+    /**
+     * @param dirId directory id
+     * @return a supplier to throw a exception
+     */
+    private Supplier<NoSuchElementException> getNoSuchElementExceptionSupplier(long dirId) {
+        return () -> { //NOPMD
+            String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
+            return new NoSuchElementException(errorMessage);
+        };
+    }
+
 }
