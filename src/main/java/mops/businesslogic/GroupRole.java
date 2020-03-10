@@ -10,6 +10,9 @@ import mops.persistence.permission.DirectoryPermissionEntry;
 @Data
 @AllArgsConstructor
 public class GroupRole {
+    /**
+     * Name of the role. It's given by GruppenFindung.
+     */
     private final String roleName;
 
     /**
