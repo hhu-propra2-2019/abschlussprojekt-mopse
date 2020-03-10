@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import mops.persistence.permission.DirectoryPermissions;
 import mops.utils.AggregateRoot;
 import org.springframework.data.annotation.Id;
 
@@ -52,5 +53,14 @@ public class Directory {
         this.parentId = parentId;
         this.groupOwner = groupOwner;
         this.permissionsId = permissionsId;
+    }
+
+    /**
+     * Sets the permission id of the directory.
+     *
+     * @param permissions directory permissions
+     */
+    public void setPermission(DirectoryPermissions permissions) {
+        permissionsId = permissions.getId();
     }
 }

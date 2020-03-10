@@ -90,8 +90,8 @@ public class DirectoryServiceImpl implements DirectoryService {
         permissionService.fetchRoleForUserInGroup(account, directory);
         Set<DirectoryPermissionEntry> permissions = defaultPermissions();
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
-        Long permissionId = directoryPermissionsRepo.save(permission).getId();
-        directory.setPermissionsId(permissionId);
+        DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
+        directory.setPermission(rootPermissions);
         return directoryRepository.save(directory);
     }
 
