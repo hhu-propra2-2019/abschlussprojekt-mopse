@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class DirectoryControllerTest {
         given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(2L);
         given(directoryService.deleteFolder(account, 1)).willReturn(0L);
         given(directoryService.searchFolder(account, 1, mock(FileQuery.class))).willReturn(List.of());
-        doNothing().when(directoryService).uploadFile(account, 1, mock(FileInfo.class));
+        doNothing().when(directoryService).uploadFile(account, 1, mock(MultipartFile.class));
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())

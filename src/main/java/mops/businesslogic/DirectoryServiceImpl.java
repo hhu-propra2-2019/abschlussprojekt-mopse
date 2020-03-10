@@ -5,6 +5,7 @@ import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,12 +23,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      *
      * @param account  user credentials
      * @param dirId    the id of the folder where the file will be uploaded
-     * @param fileInfo the file object
+     * @param multipartFile the file object
      */
     @Override
-    public void uploadFile(Account account, long dirId, FileInfo fileInfo) {
-
-    }
+    public FileInfo uploadFile(Account account, long dirId, MultipartFile multipartFile) {return null; }
 
     /**
      * Returns all folders of the parent folder.
