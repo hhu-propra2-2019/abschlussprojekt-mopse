@@ -145,6 +145,9 @@ public class DirectoryServiceImpl implements DirectoryService {
 
     private Directory fetchDirectory(long parentDirID) {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
-        return optionalDirectory.orElseThrow(() -> new NoSuchElementException("There is no directory with the id: " + parentDirID + " in the database.")); //NOPMD
+        return optionalDirectory.orElseThrow(() -> {
+            String errorMessag = String.format("There is no directory with the id: %d in the database.", parentDirID);
+            return new NoSuchElementException(errorMessag);
+        }); //NOPMD
     }
 }
