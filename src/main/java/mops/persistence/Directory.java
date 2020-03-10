@@ -10,7 +10,7 @@ public interface Directory {
     long getId();
 
     /**
-     * @return Returns display name of directory.
+     * @return display name
      */
     String getDirectoryName();
 }
