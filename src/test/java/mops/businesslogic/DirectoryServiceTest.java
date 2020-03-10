@@ -35,7 +35,7 @@ public class DirectoryServiceTest {
      * API for getting permission roles from GruppenFindung.
      */
     @MockBean
-    PermissionService permissionService;
+    private PermissionService permissionService;
 
     /**
      * Service for communication related to directories.
