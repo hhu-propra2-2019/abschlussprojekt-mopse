@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/material1/dir")
@@ -66,7 +67,7 @@ public class DirectoryController {
                              @Param("file") MultipartFile multipartFile) {
         Account account = AccountUtil.getAccountFromToken(token);
         //TODO: exception handling and user error message
-        directoryService.uploadFile(account, dirId, multipartFile);
+        directoryService.uploadFile(account, dirId, multipartFile, Set.of());
         return String.format("redirect:/material1/dir/%d", dirId);
     }
 

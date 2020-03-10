@@ -16,6 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
 import static org.mockito.BDDMockito.given;
@@ -74,7 +75,7 @@ public class DirectoryControllerTest {
         given(directoryService.createFolder(account, 1L, "Vorlesungen")).willReturn(directory);
         given(directoryService.deleteFolder(account, 1)).willReturn(0L);
         given(directoryService.searchFolder(account, 1, mock(FileQuery.class))).willReturn(List.of());
-        doNothing().when(directoryService).uploadFile(account, 1, mock(MultipartFile.class));
+        doNothing().when(directoryService).uploadFile(account, 1, mock(MultipartFile.class), Set.of());
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())
