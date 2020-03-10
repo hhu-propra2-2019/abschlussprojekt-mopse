@@ -137,6 +137,8 @@ public class DirectoryServiceTest {
 
         List<Directory> subFolders = directoryService.getSubFolders(account, parentId);
 
+        firstDirectory.setId(root.getId() + 1L);
+        secondDirectory.setId(root.getId() + 2L);
 
         assertThat(subFolders).containsExactlyInAnyOrder(firstDirectory, secondDirectory);
     }
