@@ -63,4 +63,12 @@ public class Directory {
     public void setPermission(DirectoryPermissions permissions) {
         permissionsId = permissions.getId();
     }
+
+    /**
+     * @param dirName name of new sub folder
+     * @return a directory object which uses the root dir information.
+     */
+    public Directory createSubDirectory(String dirName) {
+        return new Directory(dirName, id, groupOwner, permissionsId);
+    }
 }

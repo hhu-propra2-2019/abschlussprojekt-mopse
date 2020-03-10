@@ -114,7 +114,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public Directory createFolder(Account account, Long parentDirId, String dirName) {
         Directory rootDirectory = fetchDirectory(parentDirId);
         permissionService.fetchRoleForUserInGroup(account, rootDirectory);
-        Directory directory = new Directory(dirName, rootDirectory.getId(), rootDirectory.getGroupOwner(), rootDirectory.getPermissionsId());
+        Directory directory = rootDirectory.createSubDirectory(dirName);
         return directoryRepository.save(directory);
     }
 
