@@ -26,7 +26,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param multipartFile the file object
      */
     @Override
-    public FileInfo uploadFile(Account account, long dirId, MultipartFile multipartFile) {return null; }
+    public FileInfo uploadFile(Account account, long dirId, MultipartFile multipartFile) {
+        return null;
+    }
 
     /**
      * Returns all folders of the parent folder.
