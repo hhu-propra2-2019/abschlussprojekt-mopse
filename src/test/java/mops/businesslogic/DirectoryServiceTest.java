@@ -71,15 +71,13 @@ public class DirectoryServiceTest {
      * Id of the group owner.
      */
     private long groupOwner;
-    /**
-     * Id of the permission object for that folder.
-     */
-    private long permissionsId;
+
     /**
      * MultipartFile Object containing File credentials.
      */
     @Mock
     private MultipartFile multipartFile;
+
 
     /**
      * Creates a user account.
@@ -89,8 +87,6 @@ public class DirectoryServiceTest {
         account = new Account("user", "user@hhu.de", Set.of("studentin"));
         parentId = 1L;
         groupOwner = 1L;
-        DirectoryPermissions directoryPermissions = new DirectoryPermissions();
-        permissionsId = directoryPermissionsRepository.save(directoryPermissions).getId();
     }
 
     /**
@@ -99,7 +95,8 @@ public class DirectoryServiceTest {
     @Test
     public void createGroupRootFolder() {
         String nameFirstDirectory = String.valueOf(groupOwner);
-        Directory expectedDirectory = new Directory(1L, nameFirstDirectory, null, groupOwner, 2L);
+        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
+        Directory expectedDirectory = new Directory(1L, nameFirstDirectory, null, groupOwner, permissionsId + 1L);
 
         Directory directory = directoryService.createRootFolder(account, groupOwner);
 
@@ -111,10 +108,12 @@ public class DirectoryServiceTest {
      */
     @Test
     public void createFolderTest() {
+        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
         Directory root = new Directory("root", null, groupOwner, permissionsId);
         Directory savedRoot = directoryRepository.save(root);
         parentId = savedRoot.getId();
         String nameFirstDirectory = "first";
+
         Directory expectedDirectory = new Directory(2L, nameFirstDirectory, parentId, groupOwner, permissionsId);
 
         Directory folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
@@ -129,6 +128,7 @@ public class DirectoryServiceTest {
     public void getSubFoldersTest() {
         String nameFirstDirectory = "first";
         String nameSecondDirectory = "second";
+        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
 
         Directory firstDirectory = new Directory(nameFirstDirectory, parentId, groupOwner, permissionsId);
         Directory secondDirectory = new Directory(nameSecondDirectory, parentId, groupOwner, permissionsId);
@@ -147,6 +147,8 @@ public class DirectoryServiceTest {
      */
     @Test
     public void uploadFileTest() {
+        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
+
         Directory fisrtDirectory = new Directory("first", parentId, groupOwner, permissionsId);
         FileInfo fileInfo1 = new FileInfo(multipartFile.getName(), fisrtDirectory.getId(),
                 multipartFile.getContentType(), multipartFile.getSize(), account.getName(), Set.of());
