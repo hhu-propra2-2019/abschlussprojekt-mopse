@@ -40,7 +40,6 @@ public class FileRepository {
                 minioClient.makeBucket(configuration.getBucketName());
             }
 
-            System.err.println("SUCCESS");
         } catch (InvalidEndpointException e) {
             System.err.println("MinIO endpoint not found: "
                     + configuration.getHost()
@@ -75,7 +74,6 @@ public class FileRepository {
                     file.getContentType()
             );
         } catch (Exception e) {
-            System.err.println("WTF!?: " + e.getMessage());
             return false;
         }
         return true;
