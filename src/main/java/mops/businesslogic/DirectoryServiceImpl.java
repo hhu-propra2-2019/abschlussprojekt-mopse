@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.security.PermissionService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -17,6 +20,11 @@ public class DirectoryServiceImpl implements DirectoryService {
      * This connects to database related to directory information.
      */
     private final DirectoryRepository directoryRepository;
+
+    /**
+     * API for GruppenFindung which handles permissions.
+     */
+    private final PermissionService permissionService;
 
     /**
      * Uploads a file.
@@ -39,9 +47,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     public List<Directory> getSubFolders(Account account, long dirId) {
-
-
-        return null;
+        Optional<Directory> optionalDirectory = directoryRepository.findById(dirId);
+        Directory directory = optionalDirectory.orElseThrow(() -> new NoSuchElementException("There is no directory with the id: " + dirId + " in the database."));
+        permissionService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
+        return directoryRepository.getAllSubFoldersOfParent(dirId);
     }
 
     /**
