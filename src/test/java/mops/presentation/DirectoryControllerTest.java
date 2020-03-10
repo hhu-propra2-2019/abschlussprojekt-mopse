@@ -4,6 +4,7 @@ import mops.SpringTestContext;
 import mops.businesslogic.*;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.security.exception.WriteAccessPermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -67,7 +68,7 @@ public class DirectoryControllerTest {
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws WriteAccessPermission {
         Directory directory = mock(Directory.class);
         account = new Account("user", "user@mail.de", "studentin");
         given(directory.getId()).willReturn(2L);

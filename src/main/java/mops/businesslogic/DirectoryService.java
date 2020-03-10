@@ -3,6 +3,7 @@ package mops.businesslogic;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.file.FileTag;
+import mops.security.exception.WriteAccessPermission;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public interface DirectoryService {
      * @param dirName     name of the new folder
      * @return id of the new folder
      */
-    Directory createFolder(Account account, Long parentDirId, String dirName);
+    Directory createFolder(Account account, Long parentDirId, String dirName) throws WriteAccessPermission;
 
     /**
      * Deletes a folder.

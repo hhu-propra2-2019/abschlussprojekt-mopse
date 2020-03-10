@@ -6,6 +6,7 @@ import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.security.PermissionService;
+import mops.security.exception.WriteAccessPermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -100,7 +101,7 @@ public class DirectoryServiceTest {
      * Test if folder is created in a given root folder.
      */
     @Test
-    public void createFolderTest() {
+    public void createFolderTest() throws WriteAccessPermission {
         Directory root = directoryService.createRootFolder(account, groupOwner);
         parentId = root.getId();
         long permissionsId = root.getPermissionsId();
@@ -112,7 +113,8 @@ public class DirectoryServiceTest {
                 groupOwner,
                 permissionsId);
 
-        Directory folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
+        Directory folder = null;
+        folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
 
         assertThat(folder).isEqualTo(expectedDirectory);
     }
@@ -121,7 +123,7 @@ public class DirectoryServiceTest {
      * Test if sub folders are correctly returned.
      */
     @Test
-    public void getSubFoldersTest() {
+    public void getSubFoldersTest() throws WriteAccessPermission {
         Directory root = directoryService.createRootFolder(account, groupOwner);
         parentId = root.getId();
         long permissionsId = root.getPermissionsId();

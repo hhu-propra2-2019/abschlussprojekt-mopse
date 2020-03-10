@@ -8,6 +8,7 @@ import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.security.exception.WriteAccessPermission;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -84,7 +85,7 @@ public class DirectoryController {
     public String createSubFolder(KeycloakAuthenticationToken token,
                                   Model model,
                                   @PathVariable("parentDirId") long parentDirId,
-                                  @RequestAttribute("folderName") String folderName) {
+                                  @RequestAttribute("folderName") String folderName) throws WriteAccessPermission {
         Account account = AccountUtil.getAccountFromToken(token);
         Directory directory = directoryService.createFolder(account, parentDirId, folderName);
         return String.format("redirect:/material1/dir/%d", directory.getId());
