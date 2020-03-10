@@ -90,7 +90,20 @@ public class FileControllerTest {
      * Tests if a user can delete a file.
      */
     @Test
-    public void deleteFile() throws Exception {
+    public void deleteNonExistingFile() throws Exception {
+
+        setupSecurityContextMock(account);
+        mvc.perform(delete("/material1/file/3")
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect((redirectedUrl("/material1/dir/0")));
+    }
+
+    /**
+     * Tests if a user can delete a file.
+     */
+    @Test
+    public void deleteExistingFile() throws Exception {
 
         setupSecurityContextMock(account);
         mvc.perform(delete("/material1/file/1")
