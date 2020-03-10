@@ -24,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 @SpringTestContext
 @SpringBootTest
 public class DirectoryServiceTest {
+    public static final String ADMINISTRATOR = "administrator";
     /**
      * Necessary bean, must be removed when file service is implemented.
      */
@@ -55,6 +56,11 @@ public class DirectoryServiceTest {
     private DirectoryPermissionsRepository directoryPermissionsRepository;
 
     /**
+     * Account Object containing user credentials with admin role.
+     */
+    private Account admin;
+
+    /**
      * Account Object containing user credentials.
      */
     private Account account;
@@ -80,6 +86,7 @@ public class DirectoryServiceTest {
     @BeforeEach
     void setUp() {
         account = new Account("user", "user@hhu.de", Set.of("studentin"));
+        admin = new Account("admin", "admin@hhu.de", Set.of(ADMINISTRATOR));
         parentId = 1L;
         groupOwner = 1L;
     }
@@ -93,7 +100,7 @@ public class DirectoryServiceTest {
         long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
         Directory expectedDirectory = new Directory(nameFirstDirectory, null, groupOwner, permissionsId + 1L);
 
-        Directory directory = directoryService.createRootFolder(account, groupOwner);
+        Directory directory = directoryService.createRootFolder(admin, groupOwner);
 
         assertThat(directory).isEqualToIgnoringGivenFields(expectedDirectory, "id");
     }

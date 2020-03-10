@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class DirectoryServiceImpl implements DirectoryService {
 
-    public static final String ADMINISTRATOR = "Administrator";
+    public static final String ADMINISTRATOR = "administrator";
     /**
      * This connects to database related to directory information.
      */
