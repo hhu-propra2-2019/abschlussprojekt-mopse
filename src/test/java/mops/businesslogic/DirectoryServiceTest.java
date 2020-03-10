@@ -87,7 +87,7 @@ public class DirectoryServiceTest {
      * Test if a group folder is correctly created.
      */
     @Test
-    public void createGroupRootFolder() {
+    public void createGroupRootFolder() throws WriteAccessPermission {
         String nameFirstDirectory = String.valueOf(groupOwner);
         long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
         Directory expectedDirectory = new Directory(nameFirstDirectory, null, groupOwner, permissionsId + 1L);

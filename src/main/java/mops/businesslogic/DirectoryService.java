@@ -35,7 +35,7 @@ public interface DirectoryService {
      * @param groupId the group id
      * @return the directory created
      */
-    Directory createRootFolder(Account account, Long groupId);
+    Directory createRootFolder(Account account, Long groupId) throws WriteAccessPermission;
 
     /**
      * Creates a new folder inside a folder.

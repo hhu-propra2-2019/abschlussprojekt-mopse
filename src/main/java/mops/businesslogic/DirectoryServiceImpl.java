@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class DirectoryServiceImpl implements DirectoryService {
 
+    public static final String ADMINISTRATOR = "Administrator";
     /**
      * This connects to database related to directory information.
      */
@@ -87,11 +88,15 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return the directory created
      */
     @Override
-    public Directory createRootFolder(Account account, Long groupId) {
+    public Directory createRootFolder(Account account, Long groupId) throws WriteAccessPermission {
         Directory directory = new Directory();
         directory.setName(groupId.toString());
         directory.setGroupOwner(groupId);
         Set<String> roleNames = permissionService.fetchRoleForUserInGroup(account, directory);
+        if (!roleNames.contains(ADMINISTRATOR)) {
+            String errorMessage = String.format("User is not %s of %d and there for not allowed to create a root folder.", ADMINISTRATOR, groupId);
+            throw new WriteAccessPermission(errorMessage);
+        }
         Set<DirectoryPermissionEntry> permissions = createDefaultPermissions(roleNames);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
