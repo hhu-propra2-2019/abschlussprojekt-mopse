@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringTestContext
 @SpringBootTest
-public class DirectoryServiceImplTest {
+public class DirectoryServiceTest {
     /**
      * Necessary bean, must be removed when file service is implemented.
      */
