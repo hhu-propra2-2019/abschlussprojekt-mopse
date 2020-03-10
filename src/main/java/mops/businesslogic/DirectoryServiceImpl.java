@@ -1,5 +1,7 @@
 package mops.businesslogic;
 
+import lombok.AllArgsConstructor;
+import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
@@ -7,7 +9,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class DirectoryServiceImpl implements DirectoryService {
+
+    /**
+     * This connects to database related to directory information.
+     */
+    private final DirectoryRepository directoryRepository;
+
     /**
      * Uploads a file.
      *
@@ -29,6 +38,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     public List<Directory> getSubFolders(Account account, long dirId) {
+
+
         return null;
     }
 
