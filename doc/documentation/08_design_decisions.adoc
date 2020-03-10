@@ -108,7 +108,7 @@ ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles er
 
 === FileStorage
 
-_Als Schnittstelle für die Datei Speicherung haben wir MinIO gewählt, weil es vorgegeben wurde. Die erforderliche Konfiguration erfolgt über Umgebungsvariablen um möglichst flexiblen Einsatz zu ermöglichen._
+_Als Schnittstelle für die Dateispeicherung haben wir MinIO gewählt, weil es vorgegeben wurde. Die erforderliche Konfiguration erfolgt über Umgebungsvariablen um einen möglichst flexiblen Einsatz zu ermöglichen._
 
 _Die erforderlichen Umgebungsvariablen lauten:_
 
