@@ -5,7 +5,7 @@ package mops.persistence;
  */
 public interface Directory {
     /**
-     * @return  Returns unique directory id.
+     * @return unique directory id
      */
     long getId();
 
