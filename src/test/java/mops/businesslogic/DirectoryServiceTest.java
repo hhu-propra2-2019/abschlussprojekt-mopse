@@ -186,9 +186,6 @@ public class DirectoryServiceTest {
         String nameFirstDirectory = "first";
         String nameSecondDirectory = "second";
 
-        Directory firstDirectory = new Directory(nameFirstDirectory, parentId, groupOwner, permissionsId);
-        Directory secondDirectory = new Directory(nameSecondDirectory, parentId, groupOwner, permissionsId);
-
         assertThatExceptionOfType(ReadAccessPermission.class).isThrownBy(() -> directoryService.getSubFolders(intruder, parentId));
     }
 
