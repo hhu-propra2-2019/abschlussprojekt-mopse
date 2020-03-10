@@ -3,8 +3,8 @@
 
 ****
 Um unerwartete Verzögerung im Entwicklungsablauf zu vermeiden, haben wir in der Planungsphase und während der
-Implementierung der Kernkomponenten berücksichtigt, welche Randbedingungen und technische sowie fachliche Einschränkungen
-den Ablauf der Entwicklung beeinflussen könnten.
+Implementierung der Kernkomponenten berücksichtigt, welche Randbedingungen und technische sowie fachliche
+Einschränkungen den Ablauf der Entwicklung beeinflussen könnten.
 [cols="1,2" options="header"]
 |===
 |Bedingung |Erläuterung
