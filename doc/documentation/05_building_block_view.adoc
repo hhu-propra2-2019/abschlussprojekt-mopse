@@ -2,7 +2,8 @@
 == Bausteinsicht
 
 ****
-Eine Auflistung und Erklärung aller Bausteine des Systems. Das wären zum Beispiel:
+Eine Auflistung und Erklärung aller Bausteine des Systems.
+Das wären zum Beispiel:
 
 * Module
 * Komponenten
@@ -49,6 +50,7 @@ _**<Übersichtsdiagramm>**_
 Begründung:: _<Erläuternder Text>_
 
 Enthaltene Bausteine::
+
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
@@ -66,6 +68,7 @@ _**<Übersichtsdiagramm>**_
 Begründung:: _<Erläuternder Text>_
 
 Enthaltene Bausteine::
+
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
@@ -96,13 +99,15 @@ Enthaltene Bausteine::
 === Ebene 3
 
 ****
-Ebene 3 zeigt die einzelnen Komponenten einer Schicht im Detail und deren Funktionen. Darstellung nach gleichem Schema wie zuvor.
+Ebene 3 zeigt die einzelnen Komponenten einer Schicht im Detail und deren Funktionen.
+Darstellung nach gleichem Schema wie zuvor.
 ****
+
+==== Präsentation
 
 _**<Übersichtsdiagramm>**_
 
 Begründung:: _<Erläuternder Text>_
-
 
 Enthaltene Bausteine::
 
@@ -111,6 +116,10 @@ Enthaltene Bausteine::
 |Komponente |Funktion |
 | GroupsController | Bereitstellung aller Routen, die mit `/groups` beginnen.  | `GET: /material1/groups/`
 | GroupController | Bereitstellung aller Routen, die mit `/group` beginnen. | `GET: /material1/group/{groupId}`
+
+`GET: /material1/group/{groupId}/search`
+
+`GET: /material1/group/{groupId}/url`
 | DirectoryController | Bereitstellung aller Routen, die mit `/dir` beginnen. | `GET: /material1/dir/{dirId}`
 
 `POST: /material1/dir/{dirId}`/create
@@ -120,5 +129,32 @@ Enthaltene Bausteine::
 `POST: /material1/dir/{dirId}`/upload
 
 `DELETE: /material1/dir/{dirId}`
+| FileInfoRepository | Bereitstellung von Zugriffsfunktionen auf das `FileInfo`-Aggregat | ...
+|===
 
+==== Persistenz
+
+Begründung:: Die einzelnen Repositories korrespondieren zu den Aggregaten.
+
+===== Repositories
+
+[cols="1,1,1" options="header"]
+|===
+| Komponente | Funktion |
+| FileInfoRepository | Bereitstellung von Zugriffsfunktionen auf das `FileInfo`-Aggregat | Standardfunktionen von
+CRUDRepository
+| DirectoryRepository | Bereitstellung von Zugriffsfunktionen auf das `Directory`-Aggregat | Standardfunktionen von
+CRUDRepository
+| DirectoryPermissionsRepository | Bereitstellung von Zugriffsfunktionen auf das `DirectoryPermissions`-Aggregat |
+Standardfunktionen von CRUDRepository
+|===
+
+===== Aggregate
+
+[cols="1,1" options="header"]
+|===
+| Aggregat | Funktion
+| `FileInfo` | Repräsentiert eine Datei im System
+| `Directory` | Repräsentiert einen Ordner im System
+| `DirectoryPermissions` | Repräsentiert die Berechtigungen aller Rollen für einen Ordner im System
 |===

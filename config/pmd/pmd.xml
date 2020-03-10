@@ -33,6 +33,14 @@
     <rule ref="category/java/performance.xml"/>
 
     <rule ref="category/java/security.xml"/>
+
+    <rule ref="category/java/codestyle.xml/ShortVariable">
+        <properties>
+            <property name="minimum" value="2"/>
+        </properties>
+    </rule>
+
+
     <rule ref="category/java/documentation.xml/CommentRequired">
         <properties>
             <property name="headerCommentRequirement" value="Ignored"/>
@@ -41,7 +49,7 @@
     <rule ref="category/java/documentation.xml/CommentSize">
         <properties>
             <property name="maxLines" value="8"/>
-            <property name="maxLineLength" value="80"/>
+            <property name="maxLineLength" value="120"/>
         </properties>
     </rule>
 </ruleset>

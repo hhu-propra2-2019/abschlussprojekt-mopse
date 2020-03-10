@@ -1,5 +1,6 @@
 package mops.presentation;
 
+import mops.SpringTestContext;
 import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
@@ -25,7 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringTestContext
+@SpringBootTest
 public class GroupsControllerTest {
 
     /**
@@ -53,13 +55,17 @@ public class GroupsControllerTest {
      * Necessary bean.
      */
     private MockMvc mvc;
+    /**
+     * Wrapper of user credentials.
+     */
+    private Account account;
 
     /**
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
     public void setUp() {
-        Account account = new Account("studi", "bla@bla.de", "studentin");
+        account = new Account("studi", "bla@bla.de", "studentin");
         given(groupService.getAllGroupRootDirectories(account)).willReturn(List.of());
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
@@ -73,7 +79,7 @@ public class GroupsControllerTest {
      */
     @Test
     public void getAllGroups() throws Exception {
-        SecurityContextUtil.setupSecurityContextMock("user", "user@mail.de", "studentin");
+        SecurityContextUtil.setupSecurityContextMock(account);
         mvc.perform(get("/material1/groups/"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("groups"));

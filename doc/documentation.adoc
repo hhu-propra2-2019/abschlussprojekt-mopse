@@ -10,10 +10,6 @@
 
 //additional style for arc42 help callouts
 ifdef::basebackend-html[]
-++++
-<style>
-</style>
-++++
 endif::basebackend-html[]
 
 // configure DE settings for asciidoc

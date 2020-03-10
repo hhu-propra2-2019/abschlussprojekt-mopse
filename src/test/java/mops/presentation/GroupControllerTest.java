@@ -1,5 +1,6 @@
 package mops.presentation;
 
+import mops.SpringTestContext;
 import mops.businesslogic.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,11 +22,11 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringTestContext
+@SpringBootTest
 public class GroupControllerTest {
 
     /**
@@ -53,14 +54,19 @@ public class GroupControllerTest {
      * Necessary bean.
      */
     private MockMvc mvc;
+    /**
+     * Wrapper of user credentials.
+     */
+    private Account account;
 
     /**
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
     void setUp() {
-        Account account = new Account("studi", "bla@bla.de", "studentin");
+        account = new Account("studi", "bla@bla.de", "studentin");
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
+        given(groupService.getGroupUrl(account, 1)).willReturn(new GroupDirUrlWrapper(1L));
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())
@@ -69,11 +75,23 @@ public class GroupControllerTest {
     }
 
     /**
+     * Tests the API for getting the group url.
+     */
+    @Test
+    public void getGroupUrl() throws Exception {
+        setupSecurityContextMock(account);
+        mvc.perform(get("/material1/group/1/url"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$.url").value("/material1/dir/1"))
+                .andExpect(jsonPath("$.group_id").value(1L));
+    }
+
+    /**
      * Tests if all files of the a group are returned.
      */
     @Test
     public void getAllFilesOfDirectory() throws Exception {
-        setupSecurityContextMock("user", "user@mail.de", "studentin");
+        setupSecurityContextMock(account);
         mvc.perform(get("/material1/group/1"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("files"));
@@ -85,7 +103,7 @@ public class GroupControllerTest {
     @Test
     public void searchFile() throws Exception {
         FileQuery fileQuery = mock(FileQuery.class);
-        setupSecurityContextMock("user", "user@mail.de", "studentin");
+        setupSecurityContextMock(account);
         mvc.perform(post("/material1/group/1/search")
                 .requestAttr("searchQuery", fileQuery)
                 .with(csrf()))

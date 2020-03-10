@@ -1,7 +1,7 @@
 package mops.businesslogic;
 
-import mops.persistence.Directory;
-import mops.persistence.FileInfo;
+import mops.persistence.directory.Directory;
+import mops.persistence.file.FileInfo;
 
 import java.util.List;
 
