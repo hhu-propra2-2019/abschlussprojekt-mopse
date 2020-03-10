@@ -1,6 +1,7 @@
 package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
@@ -17,7 +18,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -88,8 +88,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = new Directory();
         directory.setName(groupId.toString());
         directory.setGroupOwner(groupId);
-        List<GroupRole> groupRoles = permissionService.fetchRoleForUserInGroup(account, directory);
-        Set<DirectoryPermissionEntry> permissions = createPermissionEntries(groupRoles);
+        Set<DirectoryPermissionEntry> permissions = (Set<DirectoryPermissionEntry>) permissionService.fetchRoleForUserInGroup(account, directory);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
         directory.setPermission(rootPermissions);
@@ -137,15 +136,6 @@ public class DirectoryServiceImpl implements DirectoryService {
         return null;
     }
 
-    /**
-     * @param groupRoles all roles in the group
-     * @return a set of the default permissions
-     */
-    private Set<DirectoryPermissionEntry> createPermissionEntries(List<GroupRole> groupRoles) {
-        return groupRoles.stream()
-                .map(GroupRole::getPermissionEntry)
-                .collect(Collectors.toSet());
-    }
 
     /**
      * @param parentDirID the id of the parent folder
