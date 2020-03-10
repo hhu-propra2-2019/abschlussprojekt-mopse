@@ -1,9 +1,11 @@
 package mops.persistence;
 
 import io.minio.MinioClient;
+import io.minio.ObjectStat;
 import io.minio.errors.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.InputStream;
 import java.util.HashMap;
 
@@ -96,7 +98,7 @@ public class FileRepository {
             return false;
         }
 
-        return true;
+        return !isFileAvailable(fileId);
     }
     /**
      * Retrieves the bytes of the file.
@@ -115,5 +117,32 @@ public class FileRepository {
             return null;
         }
         return bytes;
+    }
+
+    /**
+     * Checks if a file with a specified ID already exists.
+     * @param fileId the file ID
+     * @return true if found
+     */
+    public boolean isFileAvailable(Long fileId) {
+        ObjectStat objectStat;
+        try {
+            objectStat = minioClient.statObject(configuration.getBucketName(), fileId.toString());
+        } catch (ErrorResponseException e) {
+            // not found
+            return false;
+        } catch (Exception e) {
+            System.err.println(e.getClass()
+                    + ": "
+                    + e.getMessage()
+            );
+            return false;
+        }
+
+        if (objectStat == null) {
+            return false;
+        }
+
+        return objectStat.length() > 0;
     }
 }
