@@ -4,7 +4,8 @@
 
 ****
 .Inhalt
-Dieser Abschnitt beschreibt übergreifende, prinzipielle Regelungen und Lösungsansätze, die an mehreren Stellen (=_querschittlich_) relevant sind.
+Dieser Abschnitt beschreibt übergreifende, prinzipielle Regelungen und Lösungsansätze, die an mehreren Stellen
+(=_querschittlich_) relevant sind.
 
 Solche Konzepte betreffen oft mehrere Bausteine.
 Dazu können vielerlei Themen gehören, beispielsweise:
@@ -15,7 +16,8 @@ Dazu können vielerlei Themen gehören, beispielsweise:
 * prinzipielle -- meist technische -- Festlegungen übergreifender Art,
 * Implementierungsregeln
 
-Eine mögliche (nicht aber notwendige!) Untergliederung dieses Abschnittes könnte wie folgt aussehen (wobei die Zuordnung von Themen zu den Gruppen nicht immer eindeutig ist):
+Eine mögliche (nicht aber notwendige!) Untergliederung dieses Abschnittes könnte wie folgt aussehen (wobei die Zuordnung
+von Themen zu den Gruppen nicht immer eindeutig ist):
 
 * Fachliche Konzepte
 * User Experience (UX)
