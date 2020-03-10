@@ -71,11 +71,11 @@ class FileInfoTest {
 
     @Test
     void loadSave() {
-        Long id = repo.save(file).getId();
+        FileInfo saved = repo.save(file);
 
-        Optional<FileInfo> loaded = repo.findById(id);
+        Optional<FileInfo> loaded = repo.findById(saved.getId());
 
-        assertThat(loaded).get().isEqualToIgnoringNullFields(file);
+        assertThat(loaded).get().isEqualToIgnoringNullFields(saved);
     }
 
     @Test

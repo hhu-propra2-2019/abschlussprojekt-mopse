@@ -5,9 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import mops.utils.AggregateRoot;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Set;
 
 /**
@@ -48,6 +52,16 @@ public class FileInfo {
     @NonNull
     private String owner;
     /**
+     * Creation Time.
+     */
+    @CreatedDate
+    private Timestamp creationTime;
+    /**
+     * Last Modified Time.
+     */
+    @LastModifiedDate
+    private Timestamp lastModifiedTime;
+    /**
      * File tags.
      */
     @NonNull
@@ -72,5 +86,41 @@ public class FileInfo {
         this.size = size;
         this.owner = owner;
         this.tags = tags;
+    }
+
+    /**
+     * Get the creation time.
+     *
+     * @return creation time
+     */
+    public Instant getCreationTime() {
+        return creationTime.toInstant();
+    }
+
+    /**
+     * Set the creation time.
+     *
+     * @param creationTime creation time
+     */
+    public void setCreationTime(Instant creationTime) {
+        this.creationTime = Timestamp.from(creationTime);
+    }
+
+    /**
+     * Get the last modified time.
+     *
+     * @return last modified time
+     */
+    public Instant getLastModifiedTime() {
+        return lastModifiedTime.toInstant();
+    }
+
+    /**
+     * Set the last modified time.
+     *
+     * @param lastModifiedTime last modified time
+     */
+    public void setLastModifiedTime(Instant lastModifiedTime) {
+        this.lastModifiedTime = Timestamp.from(lastModifiedTime);
     }
 }

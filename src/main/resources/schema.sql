@@ -1,5 +1,3 @@
-SET foreign_key_checks = 0;
-
 DROP TABLE IF EXISTS directory_permissions;
 CREATE TABLE directory_permissions
 (
@@ -34,12 +32,14 @@ CREATE TABLE directory
 DROP TABLE IF EXISTS file_info;
 CREATE TABLE file_info
 (
-    id           BIGINT PRIMARY KEY AUTO_INCREMENT,
-    name         VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
-    directory_id BIGINT       NOT NULL,
-    type         VARCHAR(255) NOT NULL CHECK (type NOT LIKE ''),
-    size         BIGINT       NOT NULL,
-    owner        VARCHAR(255) NOT NULL CHECK (owner NOT LIKE ''),
+    id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
+    directory_id       BIGINT       NOT NULL,
+    type               VARCHAR(255) NOT NULL CHECK (type NOT LIKE ''),
+    size               BIGINT       NOT NULL,
+    owner              VARCHAR(255) NOT NULL CHECK (owner NOT LIKE ''),
+    creation_time      TIMESTAMP(9) NOT NULL,
+    last_modified_time TIMESTAMP(9) NOT NULL,
     CONSTRAINT fk_file_dir FOREIGN KEY (directory_id) REFERENCES directory (id),
     CONSTRAINT u_file UNIQUE (name, directory_id)
 );
@@ -52,5 +52,3 @@ CREATE TABLE file_tag
     CONSTRAINT fk_tag_file FOREIGN KEY (file_id) REFERENCES file_info (id),
     CONSTRAINT u_tag UNIQUE (name, file_id)
 );
-
-SET foreign_key_checks = 1;
