@@ -2,7 +2,7 @@ package mops.businesslogic;
 
 import mops.SpringTestContext;
 import mops.persistence.directory.Directory;
-import mops.persistence.file.FileInfo;
+import mops.security.PermissionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -30,6 +30,12 @@ public class DirectoryServiceTest {
      */
     @MockBean
     private GroupService groupService;
+
+    /**
+     * API for getting permission roles from GruppenFindung.
+     */
+    @MockBean
+    PermissionService permissionService;
 
     /**
      * Service for communication related to directories.
