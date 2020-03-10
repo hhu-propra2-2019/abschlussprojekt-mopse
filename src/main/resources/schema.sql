@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS directory_permissions;
 CREATE TABLE directory_permissions
 (
     id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -7,7 +6,6 @@ CREATE TABLE directory_permissions
     last_modified_time TIMESTAMP(9) NOT NULL
 );
 
-DROP TABLE IF EXISTS directory_permission_entry;
 CREATE TABLE directory_permission_entry
 (
     permissions_id BIGINT       NOT NULL,
@@ -18,7 +16,6 @@ CREATE TABLE directory_permission_entry
     CONSTRAINT fk_entry_perm FOREIGN KEY (permissions_id) REFERENCES directory_permissions (id)
 );
 
-DROP TABLE IF EXISTS directory;
 CREATE TABLE directory
 (
     id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -33,7 +30,6 @@ CREATE TABLE directory
     CONSTRAINT u_dir UNIQUE (name, parent_id, group_owner)
 );
 
-DROP TABLE IF EXISTS file_info;
 CREATE TABLE file_info
 (
     id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -48,7 +44,6 @@ CREATE TABLE file_info
     CONSTRAINT u_file UNIQUE (name, directory_id)
 );
 
-DROP TABLE IF EXISTS file_tag;
 CREATE TABLE file_tag
 (
     name    VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
