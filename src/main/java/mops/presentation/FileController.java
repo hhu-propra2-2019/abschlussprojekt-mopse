@@ -17,7 +17,7 @@ public class FileController {
     /**
      * Handles actions on single files: Delete, Preview, Download.
      */
-    private FileService fileService;
+    private final FileService fileService;
 
     /**
      * @param token   a keycloak authentication token
