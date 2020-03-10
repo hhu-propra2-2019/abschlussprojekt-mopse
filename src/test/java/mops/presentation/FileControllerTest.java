@@ -66,6 +66,7 @@ public class FileControllerTest {
         FileInfo f = mock(FileInfo.class);
         given(f.getDirectoryId()).willReturn(2L);
         given(fileService.getFile(account, 1)).willReturn(f);
+        given(fileService.deleteFile(account, 1)).willReturn(2L);
 
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
