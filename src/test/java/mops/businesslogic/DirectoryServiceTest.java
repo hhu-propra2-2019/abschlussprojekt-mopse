@@ -89,11 +89,11 @@ public class DirectoryServiceTest {
     public void createGroupRootFolder() {
         String nameFirstDirectory = String.valueOf(groupOwner);
         long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
-        Directory expectedDirectory = new Directory(1L, nameFirstDirectory, null, groupOwner, permissionsId + 1L);
+        Directory expectedDirectory = new Directory(nameFirstDirectory, null, groupOwner, permissionsId + 1L);
 
         Directory directory = directoryService.createRootFolder(account, groupOwner);
 
-        assertThat(directory).isEqualTo(expectedDirectory);
+        assertThat(directory).isEqualToIgnoringGivenFields(expectedDirectory, "id");
     }
 
     /**
