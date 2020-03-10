@@ -9,6 +9,8 @@
 
     <rule ref="category/java/errorprone.xml">
         <exclude name="AvoidDuplicateLiterals"/>
+        <exclude name="MissingSerialVersionUID"/>
+
     </rule>
 
     <rule ref="category/java/bestpractices.xml"/>
