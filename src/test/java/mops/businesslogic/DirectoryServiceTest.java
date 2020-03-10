@@ -2,6 +2,7 @@ package mops.businesslogic;
 
 import mops.SpringTestContext;
 import mops.persistence.directory.Directory;
+import mops.persistence.file.FileInfo;
 import mops.security.PermissionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
