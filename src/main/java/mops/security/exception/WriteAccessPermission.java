@@ -1,8 +1,8 @@
 package mops.security.exception;
 
-public class WriteAccessPermission extends Exception { //NOPMD serialized is outdated
+public class WriteAccessPermission extends Exception {
     /**
-     * Is thrown when a user tries to write to a directory for which he/she/it does not have writing permissions.
+     * Is thrown when an user tries to write to a directory for which he/she/it does not have writing permissions.
      *
      * @param errorMessage message of the checked exception.
      */
