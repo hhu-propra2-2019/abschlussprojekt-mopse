@@ -26,7 +26,7 @@ public interface FileInfo {
 
    String getContentType();
    /**
-    * @return byte size.
+    * @return size in bytes.
     */
    long getSize();
 }
