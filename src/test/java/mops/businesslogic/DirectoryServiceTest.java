@@ -114,7 +114,11 @@ public class DirectoryServiceTest {
         parentId = savedRoot.getId();
         String nameFirstDirectory = "first";
 
-        Directory expectedDirectory = new Directory(2L, nameFirstDirectory, parentId, groupOwner, permissionsId);
+        Directory expectedDirectory = new Directory(savedRoot.getId() + 1,
+                nameFirstDirectory,
+                parentId,
+                groupOwner,
+                permissionsId);
 
         Directory folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
 
