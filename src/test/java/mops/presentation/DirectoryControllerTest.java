@@ -2,6 +2,7 @@ package mops.presentation;
 
 import mops.SpringTestContext;
 import mops.businesslogic.*;
+import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,9 +67,11 @@ public class DirectoryControllerTest {
      */
     @BeforeEach
     public void setUp() {
+        Directory directory = mock(Directory.class);
         account = new Account("user", "user@mail.de", "studentin");
+        given(directory.getId()).willReturn(2L);
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
-        given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(2L);
+        given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(directory);
         given(directoryService.deleteFolder(account, 1)).willReturn(0L);
         given(directoryService.searchFolder(account, 1, mock(FileQuery.class))).willReturn(List.of());
         doNothing().when(directoryService).uploadFile(account, 1, mock(MultipartFile.class));

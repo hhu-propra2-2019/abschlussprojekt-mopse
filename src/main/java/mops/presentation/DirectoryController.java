@@ -53,9 +53,9 @@ public class DirectoryController {
     /**
      * Uploads a file.
      *
-     * @param token    keycloak auth token
-     * @param model    spring view model
-     * @param dirId    id of the directory id where it will be uploaded
+     * @param token         keycloak auth token
+     * @param model         spring view model
+     * @param dirId         id of the directory id where it will be uploaded
      * @param multipartFile file object
      * @return route after completion
      */
@@ -85,8 +85,8 @@ public class DirectoryController {
                                   @PathVariable("parentDirId") long parentDirId,
                                   @RequestAttribute("folderName") String folderName) {
         Account account = AccountUtil.getAccountFromToken(token);
-        long directoryId = directoryService.createFolder(account, parentDirId, folderName);
-        return String.format("redirect:/material1/dir/%d", directoryId);
+        Directory directory = directoryService.createFolder(account, parentDirId, folderName);
+        return String.format("redirect:/material1/dir/%d", directory.getId());
     }
 
     /**
