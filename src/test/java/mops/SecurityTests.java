@@ -1,5 +1,7 @@
 package mops;
 
+import mops.businesslogic.DirectoryService;
+import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,11 +16,12 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SuppressWarnings("PMD")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringTestContext
+@SpringBootTest
 public class SecurityTests {
 
     /**
@@ -26,6 +29,16 @@ public class SecurityTests {
      */
     @MockBean
     private GroupService groupService;
+    /**
+     * Necessary mock until DirectoryService is implemented.
+     */
+    @MockBean
+    private DirectoryService directoryService;
+    /**
+     * Necessary mock until FileService is implemented.
+     */
+    @MockBean
+    private FileService fileService;
     /**
      * Necessary bean .
      */
@@ -44,10 +57,10 @@ public class SecurityTests {
     public void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
+                .alwaysDo(print())
                 .apply(springSecurity())
                 .build();
     }
-
 
     /**
      * Tests auth needed on index.
@@ -69,8 +82,8 @@ public class SecurityTests {
     @WithMockUser("randomUser")
     public void signedInAsNormalUser() throws Exception {
         mvc.perform(get("/"))
-//                TODO change when route "/" (or similar) exists
-//                .andExpect(status().isOk());
+                // TODO: change when route "/" (or similar) exists
+                // .andExpect(status().isOk());
                 .andExpect(status().isNotFound());
 
         mvc.perform(get("/actuator/"))
@@ -83,7 +96,7 @@ public class SecurityTests {
      * @throws Exception on error
      */
     @Test
-    @WithMockUser(username = "prometheus", roles = {"monitoring"})
+    @WithMockUser(username = "prometheus", roles = { "monitoring" })
     public void prometheusShouldHaveAccess() throws Exception {
         mvc.perform(get("/actuator/"))
                 .andExpect(status().isOk());

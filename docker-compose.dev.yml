@@ -1,7 +1,8 @@
 version: "3.7"
+
 services:
-  minio-dev:
-    image: minio/minio
+  minio_dev:
+    image: minio/minio:latest
     ports:
       - 9000:9000
     volumes:
