@@ -13,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -55,17 +56,17 @@ public class DirectoryController {
      * @param token    keycloak auth token
      * @param model    spring view model
      * @param dirId    id of the directory id where it will be uploaded
-     * @param fileInfo file object
+     * @param multipartFile file object
      * @return route after completion
      */
     @PostMapping("/{dirId}/upload")
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("dirId") long dirId,
-                             @Param("file") FileInfo fileInfo) {
+                             @Param("file") MultipartFile multipartFile) {
         Account account = AccountUtil.getAccountFromToken(token);
         //TODO: exception handling and user error message
-        directoryService.uploadFile(account, dirId, fileInfo);
+        directoryService.uploadFile(account, dirId, multipartFile);
         return String.format("redirect:/material1/dir/%d", dirId);
     }
 

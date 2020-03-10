@@ -2,11 +2,14 @@ package mops.businesslogic;
 
 import mops.SpringTestContext;
 import mops.persistence.directory.Directory;
+import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Set;
@@ -50,6 +53,11 @@ public class DirectoryServiceTest {
      * Id of the permission object for that folder.
      */
     private long permissionsId;
+    /**
+     * MultipartFile Object containing File credentials.
+     */
+    @Mock
+    private MultipartFile multipartFile;
 
     /**
      * Creates a user account.
@@ -80,5 +88,19 @@ public class DirectoryServiceTest {
 
 
         assertThat(subFolders).containsExactlyInAnyOrder(firstDirectory, secondDirectory);
+    }
+
+    /**
+     * Test if returned.
+     */
+    @Test
+    public void uploadFileTest() {
+        Directory fisrtDirectory = new Directory("first", parentId, groupOwner, permissionsId);
+        FileInfo fileInfo1 = new FileInfo(multipartFile.getName(), fisrtDirectory.getId(), multipartFile.getContentType(), multipartFile.getSize(), account.getName(), Set.of());
+
+        FileInfo fileInfo2 = directoryService.uploadFile(account, fisrtDirectory.getId(), multipartFile);
+
+
+        assertThat(fileInfo2).isEqualTo(fileInfo1);
     }
 }
