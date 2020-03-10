@@ -1,6 +1,7 @@
 package mops.businesslogic;
 
 import mops.SpringTestContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -19,4 +20,9 @@ public class DirectoryServiceImplTest {
     @MockBean
     private GroupService groupService;
 
+    /**
+     * Service for communication related to directories.
+     */
+    @Autowired
+    private DirectoryService directoryService;
 }
