@@ -20,14 +20,14 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 
 @SpringTestContext
 @SpringBootTest
 public class DirectoryServiceTest {
     public static final String ADMINISTRATOR = "administrator";
+    public static final String STUDENTIN = "studentin";
     /**
      * Necessary bean, must be removed when file service is implemented.
      */
@@ -88,12 +88,14 @@ public class DirectoryServiceTest {
      */
     @BeforeEach
     void setUp() {
-        account = new Account("user", "user@hhu.de", Set.of("studentin"));
+        account = new Account("user", "user@hhu.de", Set.of(STUDENTIN));
         admin = new Account("admin", "admin@hhu.de", Set.of(ADMINISTRATOR));
         parentId = 1L;
         groupOwner = 1L;
 
         given(permissionService.fetchRoleForUserInGroup(eq(admin), anyLong())).willReturn(ADMINISTRATOR);
+        given(permissionService.fetchRolesInGroup(anyLong())).willReturn(Set.of(ADMINISTRATOR, STUDENTIN));
+        given(permissionService.fetchRoleForUserInDirectory(eq(account), any(Directory.class))).willReturn(STUDENTIN);
     }
 
     /**
@@ -123,7 +125,7 @@ public class DirectoryServiceTest {
      */
     @Test
     public void createFolderTest() throws WriteAccessPermission {
-        Directory root = directoryService.createRootFolder(account, groupOwner);
+        Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
         long permissionsId = root.getPermissionsId();
         String nameFirstDirectory = "first";
@@ -134,8 +136,7 @@ public class DirectoryServiceTest {
                 groupOwner,
                 permissionsId);
 
-        Directory folder = null;
-        folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
+        Directory folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
 
         assertThat(folder).isEqualTo(expectedDirectory);
     }

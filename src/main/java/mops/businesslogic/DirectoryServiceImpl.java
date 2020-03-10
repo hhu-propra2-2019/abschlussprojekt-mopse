@@ -1,7 +1,6 @@
 package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
@@ -164,13 +163,16 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param directory directory object of the permissions requested
      */
     private void checkWritePermission(Account account, Directory directory) throws WriteAccessPermission {
-        Optional<DirectoryPermissions> optionalDirectoryPermissions = directoryPermissionsRepo.findById(directory.getId());
+        Optional<DirectoryPermissions> optionalDirectoryPermissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
         DirectoryPermissions directoryPermissions = optionalDirectoryPermissions.orElseThrow(getNoSuchElementExceptionSupplier(directory.getId()));
-        @NonNull Set<String> userRoles = account.getRoles();
+        if (directoryPermissions.getPermissions().size() == 0) {
+            throw new IllegalArgumentException("Permission are empty.");
+        }
+        String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
 
         boolean allowedToWrite = directoryPermissions.getPermissions()
                 .stream()
-                .anyMatch(permission -> userRoles.contains(permission.getRole()));
+                .anyMatch(permission -> permission.getRole().equals(userRole));
 
         if (!allowedToWrite) {
             throw new WriteAccessPermission(String.format("The user %s doesn't have write access to %s.", account.getName(), directory.getName()));
