@@ -10,7 +10,7 @@ public interface FileInfo {
    long getId();
 
    /**
-    * @return Returns display name of the file.
+    * @return display name
     */
    String getFileName();
 
