@@ -197,13 +197,9 @@ public class DirectoryServiceTest {
     public void getSubFoldersTest() throws MopsException {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
-        long permissionsId = root.getPermissionsId();
 
         String nameFirstDirectory = "first";
         String nameSecondDirectory = "second";
-
-        Directory firstDirectory = new Directory(nameFirstDirectory, parentId, groupOwner, permissionsId);
-        Directory secondDirectory = new Directory(nameSecondDirectory, parentId, groupOwner, permissionsId);
 
         Directory createdFirstDir = directoryService.createFolder(account, parentId, nameFirstDirectory);
         Directory createdSecondDir = directoryService.createFolder(account, parentId, nameSecondDirectory);
