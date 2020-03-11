@@ -1,5 +1,6 @@
 package mops.presentation;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
 import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
@@ -92,7 +93,8 @@ public class DirectoryController {
      * @return object of the folder
      */
     @PostMapping("/{parentDirId}/create")
-    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
+    @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_EXCEPTION")
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock", ""})
     public String createSubFolder(KeycloakAuthenticationToken token,
                                   Model model,
                                   @PathVariable("parentDirId") long parentDirId,
@@ -102,7 +104,8 @@ public class DirectoryController {
         try {
             directory = directoryService.createFolder(account, parentDirId, folderName);
         } catch (MopsException e) {
-            // TODO: Add exception handling, remove PMD warning suppression
+            // TODO: Add exception handling, remove PMD warning suppression and findbugs warning
+//          // TODO: this can be done by replacing Directory directory = null; with Directory directory;
         }
         //there is no other way
         return String.format("redirect:/material1/dir/%d", directory.getId()); //NOPMD
@@ -117,6 +120,7 @@ public class DirectoryController {
      * @return the id of the parent folder
      */
     @DeleteMapping("/{dirId}")
+    @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_EXCEPTION")
     @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
@@ -126,7 +130,8 @@ public class DirectoryController {
         try {
             directory = directoryService.deleteFolder(account, dirId);
         } catch (MopsException e) {
-            // TODO: Add exception handling, remove PMD warning suppression
+            // TODO: Add exception handling, remove PMD warning suppression and findbugs warning
+            // TODO: this can be done by replacing Directory directory = null; with Directory directory;
         }
         //there is no other way
         return String.format("redirect:/material1/dir/%d", directory.getId()); //NOPMD
