@@ -136,7 +136,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             throw new DeleteAccessPermission(String.format("The directory %s is not empty.", directory.getName()));
         }
 
-        Directory parentDirectory = fetchDirectory(directory);
+        Directory parentDirectory = fetchDirectory(directory.getParentId());
 
         directoryRepository.delete(directory);
 
