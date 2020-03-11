@@ -10,8 +10,6 @@ import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.security.PermissionService;
 import mops.security.exception.DeleteAccessPermission;
-import mops.security.exception.ReadAccessPermission;
-import mops.security.exception.WriteAccessPermission;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,6 +43,11 @@ public class DirectoryServiceImpl implements DirectoryService {
     private final FileInfoService fileInfoService;
 
     /**
+     * Handle permission checks for roles.
+     */
+    private final RoleServiceImpl roleService;
+
+    /**
      * This connects to database to handle directory permissions.
      */
     private final DirectoryPermissionsRepository directoryPermissionsRepo;
@@ -56,10 +59,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param dirId   the id of the folder where the file will be uploaded
      */
     @Override
-    public void checkWritePermission(Account account, long dirId) throws WriteAccessPermission {
+    public void checkWritePermission(Account account, long dirId) throws MopsException {
         Directory directory = fetchDirectory(dirId);
 
-        checkWritePermission(account, directory);
+        roleService.checkWritePermission(account, directory);
     }
 
     /**
@@ -70,9 +73,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return list of folders
      */
     @Override
-    public List<Directory> getSubFolders(Account account, long parentDirID) throws ReadAccessPermission {
+    public List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException {
         Directory directory = fetchDirectory(parentDirID);
-        checkReadPermission(account, directory);
+        roleService.checkReadPermission(account, directory);
         return directoryRepository.getAllSubFoldersOfParent(parentDirID);
     }
 
@@ -87,7 +90,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public Directory createRootFolder(Account account, Long groupId) throws MopsException {
 
-        checkIfAdmin(account, groupId);
+        roleService.checkIfRole(account, groupId, ADMINISTRATOR);
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
         Set<DirectoryPermissionEntry> permissions = createDefaultPermissions(roleNames);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
@@ -105,9 +108,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return id of the new folder
      */
     @Override
-    public Directory createFolder(Account account, Long parentDirId, String dirName) throws WriteAccessPermission {
+    public Directory createFolder(Account account, Long parentDirId, String dirName) throws MopsException {
         Directory rootDirectory = fetchDirectory(parentDirId);
-        checkWritePermission(account, rootDirectory);
+        roleService.checkWritePermission(account, rootDirectory);
         Directory directory = rootDirectory.createSubDirectory(dirName); //NOPMD// this is no violation of demeter's law
         return directoryRepository.save(directory);
     }
@@ -123,7 +126,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @SuppressWarnings("PMD.LawOfDemeter") //these are not violations of demeter's law
     public Directory deleteFolder(Account account, long dirId) throws MopsException {
         Directory directory = fetchDirectory(dirId);
-        checkDeletePermission(account, directory);
+        roleService.checkDeletePermission(account, directory);
 
         List<FileInfo> files = fileInfoService.fetchAllFilesInDirectory(dirId);
         List<Directory> subFolders = getSubFolders(account, dirId);
@@ -189,80 +192,15 @@ public class DirectoryServiceImpl implements DirectoryService {
 
     private DirectoryPermissions fetchPermissions(Directory directory) throws DatabaseException {
         Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        return permissions.orElseThrow(() -> {//NOPMD   // this is not a violation of demeter's law
+        return permissions.orElseThrow(() -> { //NOPMD   // this is not a violation of demeter's law
             String errorMessage = "Permission couldn't be fetched.";
             return new DatabaseException(errorMessage);
         });
     }
 
 
-    /**
-     * Checks if the user has permission to write in that folder.
-     *
-     * @param account   user credentials
-     * @param directory directory object of the permissions requested
-     */
-    private void checkWritePermission(Account account, Directory directory) throws WriteAccessPermission {
-        DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
-
-        String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
-
-        boolean allowedToWrite = directoryPermissions.isAllowedToWrite(userRole);
-
-        if (!allowedToWrite) {
-            throw new WriteAccessPermission(String.format("The user %s doesn't have write access to %s.",
-                    account.getName(),
-                    directory.getName()));
-        }
-    }
-
-    private void checkReadPermission(Account account, Directory directory) throws ReadAccessPermission {
-        DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
-
-        String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
-
-        boolean allowedToRead = directoryPermissions.isAllowedToRead(userRole);
-
-        if (!allowedToRead) {
-            throw new ReadAccessPermission(String.format("The user %s doesn't have read access to %s.",
-                    account.getName(),
-                    directory.getName()));
-        }
-
-    }
-
-    private void checkDeletePermission(Account account, Directory directory) throws DeleteAccessPermission {
-        DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
-
-        String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
-
-        boolean allowedToDelete = directoryPermissions.isAllowedToDelete(userRole);
-
-        if (!allowedToDelete) {
-            throw new DeleteAccessPermission(String.format("The user %s doesn't have delete permission in %s.",
-                    account.getName(),
-                    directory.getName()));
-        }
-    }
-
-    private void checkIfAdmin(Account account, Directory directory) throws WriteAccessPermission {
-        checkIfAdmin(account, directory.getId());
-    }
-
-    private void checkIfAdmin(Account account, long groupId) throws WriteAccessPermission {
-        String role = permissionService.fetchRoleForUserInGroup(account, groupId);
-        if (!ADMINISTRATOR.equals(role)) {
-            String errorMessage = String.format(
-                    "User is not %s of %d and there for not allowed to create a root folder.",
-                    ADMINISTRATOR,
-                    groupId);
-            throw new WriteAccessPermission(errorMessage);
-        }
-    }
-
-    private DirectoryPermissions getDirectoryPermissions(Directory directory) {
-        Optional<DirectoryPermissions> optDirPerm = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        return optDirPerm.orElseThrow(getException(directory.getId()));
+    private void checkIfAdmin(Account account, Directory directory) throws MopsException {
+        roleService.checkIfRole(account, directory.getId(), ADMINISTRATOR);
     }
 
 
