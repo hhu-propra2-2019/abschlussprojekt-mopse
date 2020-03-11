@@ -4,6 +4,10 @@ import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTag;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
+import mops.businesslogic.DirectoryService;
+import mops.businesslogic.FileService;
+import mops.businesslogic.GroupService;
+import mops.persistence.FileRepository;
 
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 
@@ -27,5 +31,19 @@ public class LayeredArchitectureTest {
             .whereLayer("mopsPresentation").mayNotBeAccessedByAnyLayer()
             .whereLayer("mopsBusinesslogic").mayOnlyBeAccessedByLayers("mopsPresentation")
             .whereLayer("mopsPersistence").mayOnlyBeAccessedByLayers(
-                    "mopsPresentation", "mopsBusinesslogic");
+                    "mopsPresentation", "mopsBusinesslogic")
+
+            /*
+             * These dependencies are between the Tests and the different layers,
+             * which of course is correct and wanted and should not lead to a failing test.
+             */
+            .ignoreDependency(Material1ApplicationTests.class, DirectoryService.class)
+            .ignoreDependency(Material1ApplicationTests.class, FileRepository.class)
+            .ignoreDependency(Material1ApplicationTests.class, FileService.class)
+            .ignoreDependency(Material1ApplicationTests.class, GroupService.class)
+            .ignoreDependency(SecurityTests.class, DirectoryService.class)
+            .ignoreDependency(SecurityTests.class, FileRepository.class)
+            .ignoreDependency(SecurityTests.class, FileService.class)
+            .ignoreDependency(SecurityTests.class, GroupService.class)
+            ;
 }
