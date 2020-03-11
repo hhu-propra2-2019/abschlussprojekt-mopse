@@ -17,5 +17,11 @@ public interface FileService {
     //TODO: change return to list of FileContainer
     List<FileInfo> getFilesOfDirectory(Account account, long dirId);
 
-    void uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<Object> of);
+    /**
+     * @param account       user credentials
+     * @param dirId         directory id of the future parent folder
+     * @param multipartFile the binary code of the file
+     * @param tags          the file tag
+     */
+    void uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<String> tags);
 }
