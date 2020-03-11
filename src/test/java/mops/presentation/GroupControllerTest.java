@@ -43,7 +43,7 @@ public class GroupControllerTest {
      * Necessary mock until GroupService is implemented.
      */
     @MockBean
-    private FileService fileService;
+    private FileInfoService fileInfoService;
 
     /**
      * Necessary bean.
@@ -65,7 +65,7 @@ public class GroupControllerTest {
     @BeforeEach
     void setUp() {
         account = new Account("studi", "bla@bla.de", "studentin");
-        given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
+        given(fileInfoService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         given(groupService.getGroupUrl(account, 1)).willReturn(new GroupDirUrlWrapper(1L));
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)

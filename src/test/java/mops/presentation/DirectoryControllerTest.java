@@ -43,7 +43,7 @@ public class DirectoryControllerTest {
      * Necessary mock until FileService is implemented.
      */
     @MockBean
-    private FileService fileService;
+    private FileInfoService fileInfoService;
     /**
      * Necessary mock until DirectoryService is implemented.
      */
@@ -72,7 +72,7 @@ public class DirectoryControllerTest {
         Directory directory = mock(Directory.class);
         account = new Account("user", "user@mail.de", "studentin");
         given(directory.getId()).willReturn(2L);
-        given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
+        given(fileInfoService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         given(directoryService.createFolder(account, 1L, "Vorlesungen")).willReturn(directory);
         given(directoryService.deleteFolder(account, 1)).willReturn(0L);
         given(directoryService.searchFolder(account, 1, mock(FileQuery.class))).willReturn(List.of());

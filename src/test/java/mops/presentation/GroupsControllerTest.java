@@ -3,7 +3,7 @@ package mops.presentation;
 import mops.SpringTestContext;
 import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileService;
+import mops.businesslogic.FileInfoService;
 import mops.businesslogic.GroupService;
 import mops.presentation.utils.SecurityContextUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +39,7 @@ public class GroupsControllerTest {
      * Necessary mock until FileService is implemented.
      */
     @MockBean
-    private FileService fileService;
+    private FileInfoService fileInfoService;
     /**
      * Necessary mock until DirectoryService is implemented.
      */

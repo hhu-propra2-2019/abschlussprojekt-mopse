@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileQuery;
-import mops.businesslogic.FileService;
+import mops.businesslogic.FileInfoService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -33,7 +33,7 @@ public class DirectoryController {
     /**
      * Manges all file queries.
      */
-    private final FileService fileService;
+    private final FileInfoService fileInfoService;
 
     /**
      * @param token keycloak auth token
@@ -47,7 +47,7 @@ public class DirectoryController {
                                     @PathVariable("dirId") long dirId) throws ReadAccessPermission {
         Account account = AccountUtil.getAccountFromToken(token);
         List<Directory> directories = directoryService.getSubFolders(account, dirId);
-        List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+        List<FileInfo> files = fileInfoService.getFilesOfDirectory(account, dirId);
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
         return "directory";

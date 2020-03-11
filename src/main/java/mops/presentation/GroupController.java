@@ -20,7 +20,7 @@ public class GroupController {
     /**
      * Retrieves file information for a folder.
      */
-    private FileService fileService;
+    private FileInfoService fileInfoService;
 
     /**
      * Communicator for directory objects.
@@ -38,7 +38,7 @@ public class GroupController {
                                          Model model,
                                          @PathVariable("groupId") long groupId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        List<FileInfo> files = fileService.getAllFilesOfGroup(account, groupId);
+        List<FileInfo> files = fileInfoService.getAllFilesOfGroup(account, groupId);
         model.addAttribute("files", files);
         return "files";
     }
@@ -73,7 +73,7 @@ public class GroupController {
                                      @PathVariable("groupId") long groupId,
                                      @ModelAttribute("searchQuery") FileQuery query) {
         Account account = AccountUtil.getAccountFromToken(token);
-        List<FileInfo> files = fileService.searchFilesInGroup(account, groupId, query);
+        List<FileInfo> files = fileInfoService.searchFilesInGroup(account, groupId, query);
         model.addAttribute("files", files);
         return "files";
     }

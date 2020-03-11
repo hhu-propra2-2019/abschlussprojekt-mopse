@@ -37,7 +37,7 @@ public class DirectoryServiceTest {
      * Necessary bean, must be removed when file service is implemented.
      */
     @MockBean
-    private FileService fileService;
+    private FileInfoService fileInfoService;
 
     /**
      * Necessary bean, must be removed when group service is implemented.
