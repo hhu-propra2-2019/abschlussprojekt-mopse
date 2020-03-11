@@ -1,6 +1,5 @@
 package mops.persistence;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.minio.MinioClient;
 import io.minio.ObjectStat;
 import io.minio.Result;
@@ -110,23 +109,17 @@ public class FileRepository {
      * @throws StorageException on error
      */
     @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
-    @SuppressFBWarnings(value = "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE",
-            justification = "There is no null-check here, maybe SpotBugs sees an implicit null-check in the "
-                    + "try-with-resources?")
-    public byte[] getFileContent(long fileId) throws StorageException {
-        byte[] content;
-        try (InputStream stream = minioClient.getObject(
-                configuration.getBucketName(),
-                String.valueOf(fileId)
-        )) {
-            content = stream.readAllBytes();
+    public InputStream getFileContent(long fileId) throws StorageException {
+        try {
+            return minioClient.getObject(
+                    configuration.getBucketName(),
+                    String.valueOf(fileId)
+            );
         } catch (IOException | InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | InvalidKeyException | NoResponseException | XmlPullParserException | ErrorResponseException
                 | InternalException | InvalidArgumentException | InvalidResponseException e) {
             throw new StorageException("Fehler beim Zugriff auf den Inhalt der Datei.", e);
         }
-
-        return content;
     }
 
     /**
