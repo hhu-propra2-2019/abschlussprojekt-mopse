@@ -1,14 +1,13 @@
 package mops.businesslogic;
 
 import mops.SpringTestContext;
+import mops.businesslogic.exception.ReadAccessPermission;
+import mops.businesslogic.exception.WriteAccessPermission;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.security.PermissionService;
-import mops.security.exception.ReadAccessPermission;
-import mops.security.exception.WriteAccessPermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

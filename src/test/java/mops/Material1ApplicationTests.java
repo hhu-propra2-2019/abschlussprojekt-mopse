@@ -3,6 +3,7 @@ package mops;
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileInfoService;
 import mops.businesslogic.GroupService;
+import mops.businesslogic.PermissionService;
 import mops.persistence.FileRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

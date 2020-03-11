@@ -1,4 +1,4 @@
-package mops.security.exception;
+package mops.businesslogic.exception;
 
 import mops.exception.MopsException;
 

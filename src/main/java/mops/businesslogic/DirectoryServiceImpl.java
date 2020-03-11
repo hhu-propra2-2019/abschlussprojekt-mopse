@@ -1,6 +1,8 @@
 package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
+import mops.businesslogic.exception.DatabaseException;
+import mops.businesslogic.exception.DeleteAccessPermission;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
@@ -8,8 +10,6 @@ import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.security.PermissionService;
-import mops.security.exception.DeleteAccessPermission;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

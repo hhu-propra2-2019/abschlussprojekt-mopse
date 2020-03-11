@@ -1,6 +1,5 @@
-package mops.security;
+package mops.businesslogic;
 
-import mops.businesslogic.Account;
 import mops.persistence.directory.Directory;
 import org.springframework.stereotype.Service;
 
