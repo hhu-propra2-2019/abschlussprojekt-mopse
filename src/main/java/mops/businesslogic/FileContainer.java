@@ -25,6 +25,11 @@ public interface FileContainer {
     String getType();
 
     /**
+     * @return display name of file
+     */
+    String getName();
+
+    /**
      *
      * @return content of file
      */
