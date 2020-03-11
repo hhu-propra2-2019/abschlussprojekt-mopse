@@ -239,19 +239,14 @@ public class DirectoryServiceTest {
     }
 
     /**
-     * Test if returned.
+     * Checks if exception is thrown if the user does not have writing permission.
      */
     @Test
-    public void uploadFileTest() {
-        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
+    public void checkWritePermission() throws WriteAccessPermission{
+        Directory root = directoryService.createRootFolder(admin, groupOwner);
+        parentId = root.getId();
 
-        Directory fisrtDirectory = new Directory("first", parentId, groupOwner, permissionsId);
-        FileInfo fileInfo1 = new FileInfo(multipartFile.getName(), fisrtDirectory.getId(),
-                multipartFile.getContentType(), multipartFile.getSize(), account.getName(), Set.of());
-
-        FileInfo fileInfo2 = directoryService.uploadFile(account, fisrtDirectory.getId(), multipartFile, Set.of());
-
-
-        assertThat(fileInfo2).isEqualTo(fileInfo1);
+        assertThatExceptionOfType(WriteAccessPermission.class).isThrownBy(() ->
+                directoryService.checkWritePermission(intruder, parentId));
     }
 }
