@@ -73,7 +73,14 @@ public class FileControllerTest {
      * Wrapper of user credentials.
      */
     private Account account;
-    byte[] fileContent;
+    /**
+     * File Info for testing.
+     */
+    private FileInfo fileInfo;
+    /**
+     * File Contents for testing.
+     */
+    private byte[] fileContent;
 
     /**
      * Setups the a Mock MVC Builder.
@@ -82,10 +89,12 @@ public class FileControllerTest {
     public void setUp() throws MopsException {
         account = Account.of("user", "user@mail.de", "studentin");
         fileContent = new byte[] { 1, 2, 3 };
-        Resource resource = new InputStreamResource(new ByteArrayInputStream(fileContent));
-        FileInfo info = new FileInfo("file", 2L, MediaType.APPLICATION_OCTET_STREAM_VALUE,
+        fileInfo = new FileInfo("file", 2L, MediaType.APPLICATION_OCTET_STREAM_VALUE,
                 fileContent.length, "", Set.of());
-        FileContainer fileContainer = new FileContainer(info, resource);
+
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(fileContent));
+        FileContainer fileContainer = new FileContainer(fileInfo, resource);
+
         given(fileService.getFile(account, 1)).willReturn(fileContainer);
         given(fileService.deleteFile(account, 1)).willReturn(2L);
 
@@ -100,9 +109,7 @@ public class FileControllerTest {
      * Tests the route for getting a file preview, or downloading if preview is not supported.
      */
     @Test
-    public void getFile() throws Exception {
-
-        //Gibt erstellten FileContainer zurück
+    public void downloadFile() throws Exception {
         setupSecurityContextMock(account);
         MvcResult result = mvc.perform(get("/material1/file/1/download")
                 .with(csrf())
@@ -110,8 +117,9 @@ public class FileControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
+        assertThat(result.getResponse().getContentType()).isEqualTo(fileInfo.getType());
+        assertThat(result.getResponse().getContentLength()).isEqualTo(fileInfo.getSize());
         assertThat(result.getResponse().getContentAsByteArray()).isEqualTo(fileContent);
-
     }
 
     /**
@@ -119,7 +127,6 @@ public class FileControllerTest {
      */
     @Test
     public void deleteFile() throws Exception {
-
         setupSecurityContextMock(account);
         mvc.perform(delete("/material1/file/1")
                 .with(csrf()))
