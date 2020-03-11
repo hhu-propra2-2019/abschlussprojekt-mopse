@@ -128,7 +128,7 @@ public class FileRepository {
      * @param fileId the file ID
      * @return true if found
      */
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn" })
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn"})
     public boolean fileExist(long fileId) throws StorageException {
         ObjectStat objectStat;
         try {
