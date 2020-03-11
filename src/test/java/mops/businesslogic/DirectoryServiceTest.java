@@ -5,9 +5,9 @@ import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.security.DeleteAccessPermission;
 import mops.security.PermissionService;
-import mops.security.ReadAccessPermission;
+import mops.security.exception.DeleteAccessPermission;
+import mops.security.exception.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -106,10 +106,10 @@ public class DirectoryServiceTest {
      */
     @BeforeEach
     void setUp() {
-        account = new Account(USER, "user@hhu.de", Set.of(STUDENTIN));
-        admin = new Account(ADMINISTRATOR, "admin@hhu.de", Set.of(ADMINISTRATOR));
-        intruder = new Account(INTRUDER, "intruder@uni-koeln.de", Set.of(INTRUDER));
-        reader = new Account(READER, "reader@hhu.de", Set.of(STUDENTIN));
+        account = Account.of(USER, "user@hhu.de", Set.of(STUDENTIN));
+        admin = Account.of(ADMINISTRATOR, "admin@hhu.de", Set.of(ADMINISTRATOR));
+        intruder = Account.of(INTRUDER, "intruder@uni-koeln.de", Set.of(INTRUDER));
+        reader = Account.of(READER, "reader@hhu.de", Set.of(STUDENTIN));
         parentId = 1L;
         groupOwner = 1L;
 
@@ -262,7 +262,7 @@ public class DirectoryServiceTest {
      * Checks if exception is thrown if the user does not have writing permission.
      */
     @Test
-    public void checkWritePermission() throws WriteAccessPermission{
+    public void checkWritePermission() throws WriteAccessPermission {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
 
