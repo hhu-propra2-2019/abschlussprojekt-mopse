@@ -9,19 +9,27 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.ByteArrayInputStream;
+
 import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringTestContext
@@ -57,6 +65,7 @@ public class FileControllerTest {
      * Wrapper of user credentials.
      */
     private Account account;
+    private FileContainer fileContainer;
 
     /**
      * Setups the a Mock MVC Builder.
@@ -64,9 +73,11 @@ public class FileControllerTest {
     @BeforeEach
     public void setUp() {
         account = new Account("user", "user@mail.de", "studentin");
-        FileContainer file = mock(FileContainer.class);
-        given(file.getDirectoryId()).willReturn(2L);
-        given(fileService.getFile(account, 1)).willReturn(file);
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(new byte[]{1, 2, 3}));
+        //FileInfo info = new FileInfo()
+        fileContainer = new FileContainer(mock(FileInfo.class), resource);
+        given(fileContainer.getDirectoryId()).willReturn(2L);
+        given(fileService.getFile(account, 1)).willReturn(fileContainer);
         given(fileService.deleteFile(account, 1)).willReturn(2L);
 
         mvc = MockMvcBuilders
@@ -79,13 +90,18 @@ public class FileControllerTest {
     /**
      * Tests the route for getting a file preview, or downloading if preview is not supported.
      */
-    //@Test //TODO: Re-enable
-    public void getFile() throws Exception { //TODO: Implement with file expectation
+    //@Test
+    public void getFile() throws Exception {
 
+        //Gibt erstellten FileContainer zurück
         setupSecurityContextMock(account);
-        mvc.perform(get("/material1/file/1")
-                .with(csrf()));
-        //TODO: Redirection? Status code?
+        MvcResult result = mvc.perform(get("/material1/file/1/download")
+                .with(csrf())
+                .contentType(MediaType.ALL))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        assertThat(result.getResponse().getContentAsByteArray()).isEqualTo(null);
 
     }
 
