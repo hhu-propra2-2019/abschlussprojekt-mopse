@@ -219,6 +219,11 @@ public class DirectoryServiceTest {
         assertThatExceptionOfType(ReadAccessPermission.class).isThrownBy(() -> directoryService.getSubFolders(intruder, parentId));
     }
 
+    /**
+     * Test if a user with read only permission can't create a sub folder.
+     *
+     * @throws WriteAccessPermission user does not have writing permissions
+     */
     @Test
     public void createSubFolderWithReadsOnlyPermissionTest() throws WriteAccessPermission {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
