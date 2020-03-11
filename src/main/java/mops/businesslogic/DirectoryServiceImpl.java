@@ -96,14 +96,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = new Directory();
         directory.setName(groupId.toString());
         directory.setGroupOwner(groupId);
-        String role = permissionService.fetchRoleForUserInGroup(account, groupId);
-        if (!ADMINISTRATOR.equals(role)) {
-            String errorMessage = String.format(
-                    "User is not %s of %d and there for not allowed to create a root folder.",
-                    ADMINISTRATOR,
-                    groupId);
-            throw new WriteAccessPermission(errorMessage);
-        }
+        checkIfAdmin(account, groupId);
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
         Set<DirectoryPermissionEntry> permissions = createDefaultPermissions(roleNames);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
@@ -153,6 +146,26 @@ public class DirectoryServiceImpl implements DirectoryService {
         return null;
     }
 
+    /**
+     * Replaces the permissions for a directory with new ones.
+     *
+     * @param account           user credentials
+     * @param dirId             directory id of whom's permission should be changed
+     * @param permissionEntries new set of permissions
+     * @return the updated directory object
+     */
+    @Override
+    public Directory updatePermission(Account account,
+                                      Long dirId,
+                                      Set<DirectoryPermissionEntry> permissionEntries) throws WriteAccessPermission {
+        Directory directory = fetchDirectory(dirId);
+        long groupId = directory.getGroupOwner();
+        checkIfAdmin(account, groupId);
+        DirectoryPermissions permissions = new DirectoryPermissions(directory.getPermissionsId(), permissionEntries);
+        DirectoryPermissions savedPermissions = directoryPermissionsRepo.save(permissions);
+        directory.setPermission(savedPermissions);
+        return directoryRepository.save(directory);
+    }
 
     /**
      * @param parentDirID the id of the parent folder
@@ -203,6 +216,17 @@ public class DirectoryServiceImpl implements DirectoryService {
                     directory.getName()));
         }
 
+    }
+
+    private void checkIfAdmin(Account account, Long groupId) throws WriteAccessPermission {
+        String role = permissionService.fetchRoleForUserInGroup(account, groupId);
+        if (!ADMINISTRATOR.equals(role)) {
+            String errorMessage = String.format(
+                    "User is not %s of %d and there for not allowed to create a root folder.",
+                    ADMINISTRATOR,
+                    groupId);
+            throw new WriteAccessPermission(errorMessage);
+        }
     }
 
     private DirectoryPermissions getDirectoryPermissions(Directory directory) {

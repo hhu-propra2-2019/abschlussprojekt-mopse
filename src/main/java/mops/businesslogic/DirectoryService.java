@@ -3,6 +3,7 @@ package mops.businesslogic;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.file.FileTag;
+import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,4 +69,14 @@ public interface DirectoryService {
      * @return list of files
      */
     List<FileInfo> searchFolder(Account account, long dirId, FileQuery query);
+
+    /**
+     * Replaces the permissions for a directory with new ones.
+     *
+     * @param account           user credentials
+     * @param dirId             directory id of whom's permission should be changed
+     * @param permissionEntries new set of permissions
+     * @return the updated directory
+     */
+    Directory updatePermission(Account account, Long dirId, Set<DirectoryPermissionEntry> permissionEntries) throws WriteAccessPermission;
 }

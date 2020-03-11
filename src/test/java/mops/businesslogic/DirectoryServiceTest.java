@@ -76,6 +76,12 @@ public class DirectoryServiceTest {
     private Account intruder;
 
     /**
+     * An Account with read-only rights.
+     */
+    private Account reader;
+
+
+    /**
      * Id of the parent folder.
      */
     private long parentId;
@@ -98,6 +104,8 @@ public class DirectoryServiceTest {
     void setUp() {
         account = new Account("user", "user@hhu.de", Set.of(STUDENTIN));
         admin = new Account("admin", "admin@hhu.de", Set.of(ADMINISTRATOR));
+        intruder = new Account("intruder", "intruder@uni-koeln.de", Set.of("intruder"));
+        reader = new Account("reader", "reader@hhu.de", Set.of(STUDENTIN));
         parentId = 1L;
         groupOwner = 1L;
 
@@ -164,7 +172,9 @@ public class DirectoryServiceTest {
         DirectoryPermissionEntry adminEntry = new DirectoryPermissionEntry(ADMINISTRATOR, true, true, true);
         Set<DirectoryPermissionEntry> permissionEntries = Set.of(adminEntry, readerEntry);
 
-        directoryService.updatePermission(admin, groupId, permissionEntries);
+        Directory directory = directoryService.updatePermission(admin, groupId, permissionEntries);
+
+        assertThat(directory).isEqualTo(root);
     }
 
     /**
@@ -207,6 +217,13 @@ public class DirectoryServiceTest {
         parentId = root.getId();
 
         assertThatExceptionOfType(ReadAccessPermission.class).isThrownBy(() -> directoryService.getSubFolders(intruder, parentId));
+    }
+
+    @Test
+    public void createSubFolderWithReadsOnlyPermissionTest() throws WriteAccessPermission {
+        Directory root = directoryService.createRootFolder(admin, groupOwner);
+        Long parentId = root.getId();
+        assertThatExceptionOfType(ReadAccessPermission.class).isThrownBy(() -> directoryService.getSubFolders(reader, parentId));
     }
 
     /**
