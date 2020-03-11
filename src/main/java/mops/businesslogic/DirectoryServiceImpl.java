@@ -3,10 +3,8 @@ package mops.businesslogic;
 import lombok.AllArgsConstructor;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
-import mops.persistence.FileInfoRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
-import mops.persistence.file.FileTag;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.security.DeleteAccessPermission;
@@ -14,7 +12,6 @@ import mops.security.PermissionService;
 import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.NoSuchElementException;
