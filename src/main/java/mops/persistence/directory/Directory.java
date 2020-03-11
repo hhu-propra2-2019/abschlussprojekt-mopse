@@ -45,7 +45,6 @@ public class Directory {
     /**
      * Creation Time.
      */
-    @Setter(AccessLevel.PRIVATE)
     @CreatedDate
     private Timestamp creationTime;
     /**
@@ -65,6 +64,17 @@ public class Directory {
      */
     public Directory(String name, Long parentId, long groupOwner, long permissionsId) {
         this(null, name, parentId, groupOwner, permissionsId, null, null);
+    }
+
+    /**
+     * @param name        Directory name
+     * @param parentId    Id of parent Directory
+     * @param groupOwner  Id of the owning group
+     * @param permissions permissions of the directory
+     * @return a new directory object
+     */
+    public static Directory of(String name, Long parentId, long groupOwner, DirectoryPermissions permissions) {
+        return new Directory(name, parentId, groupOwner, permissions.getId());
     }
 
     /**
