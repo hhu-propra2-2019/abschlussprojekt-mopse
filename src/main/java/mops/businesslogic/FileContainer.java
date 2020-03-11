@@ -9,6 +9,7 @@ public interface FileContainer {
      * @return file info of file
      */
     FileInfo getFileInfo();
+
     /**
      * @return parent directory of file
      */
@@ -30,7 +31,6 @@ public interface FileContainer {
     String getName();
 
     /**
-     *
      * @return content of file
      */
     Resource[] getContent();
