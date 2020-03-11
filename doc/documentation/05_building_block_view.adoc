@@ -47,7 +47,7 @@ Eine Beschreibung des Gesamtsystems als Whitebox nach folgendem Template:
 Es geht um die Abgrenzung unseres Systems zu den Nachbarsystemen anderer Gruppen.
 ****
 
-_**<Übersichtsdiagramm>**_
+image:Gesamtuebersicht.png["Gesamtübersicht"]
 
 Begründung:: _<Erläuternder Text>_
 
@@ -66,7 +66,7 @@ Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), d
 zuvor auch.
 ****
 
-_**<Übersichtsdiagramm>**_
+image:Ebene1.png["Ebene 1"]
 
 Begründung:: _<Erläuternder Text>_
 
@@ -86,7 +86,7 @@ Ebene 2 zeigt die einzelnen Schichten im Detail und deren Komponenten.
 Darstellung nach gleichem Schema wie zuvor.
 ****
 
-_**<Übersichtsdiagramm>**_
+image:Ebene2.png["Ebene 2"]
 
 Begründung:: Jeder Controller repräsentiert einen Routenanfang `/material1/{routenBeginn}`, wodurch zum einen großen
 Controllerklassen vermieden werden und wir es den praktischen Nutzen hat, dass man Routenbeginne an der Klasse selbst
