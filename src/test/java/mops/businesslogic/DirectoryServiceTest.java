@@ -30,6 +30,9 @@ import static org.mockito.BDDMockito.given;
 public class DirectoryServiceTest {
     public static final String ADMINISTRATOR = "administrator";
     public static final String STUDENTIN = "studentin";
+    public static final String READER = "reader";
+    public static final String INTRUDER = "intruder";
+    public static final String USER = "user";
     /**
      * Necessary bean, must be removed when file service is implemented.
      */
@@ -102,18 +105,18 @@ public class DirectoryServiceTest {
      */
     @BeforeEach
     void setUp() {
-        account = new Account("user", "user@hhu.de", Set.of(STUDENTIN));
-        admin = new Account("admin", "admin@hhu.de", Set.of(ADMINISTRATOR));
-        intruder = new Account("intruder", "intruder@uni-koeln.de", Set.of("intruder"));
-        reader = new Account("reader", "reader@hhu.de", Set.of(STUDENTIN));
+        account = new Account(USER, "user@hhu.de", Set.of(STUDENTIN));
+        admin = new Account(ADMINISTRATOR, "admin@hhu.de", Set.of(ADMINISTRATOR));
+        intruder = new Account(INTRUDER, "intruder@uni-koeln.de", Set.of(INTRUDER));
+        reader = new Account(READER, "reader@hhu.de", Set.of(STUDENTIN));
         parentId = 1L;
         groupOwner = 1L;
 
         given(permissionService.fetchRoleForUserInGroup(eq(admin), anyLong())).willReturn(ADMINISTRATOR);
         given(permissionService.fetchRolesInGroup(anyLong())).willReturn(Set.of(ADMINISTRATOR, STUDENTIN));
         given(permissionService.fetchRoleForUserInDirectory(eq(account), any(Directory.class))).willReturn(STUDENTIN);
-        given(permissionService.fetchRoleForUserInDirectory(eq(intruder), any(Directory.class))).willReturn("intruder");
-        given(permissionService.fetchRoleForUserInDirectory(eq(reader), any(Directory.class))).willReturn("reader");
+        given(permissionService.fetchRoleForUserInDirectory(eq(intruder), any(Directory.class))).willReturn(INTRUDER);
+        given(permissionService.fetchRoleForUserInDirectory(eq(reader), any(Directory.class))).willReturn(READER);
     }
 
     /**
@@ -168,7 +171,7 @@ public class DirectoryServiceTest {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         Long groupId = root.getId();
 
-        DirectoryPermissionEntry readerEntry = new DirectoryPermissionEntry("reader", false, true, false);
+        DirectoryPermissionEntry readerEntry = new DirectoryPermissionEntry(READER, false, true, false);
         DirectoryPermissionEntry adminEntry = new DirectoryPermissionEntry(ADMINISTRATOR, true, true, true);
         Set<DirectoryPermissionEntry> permissionEntries = Set.of(adminEntry, readerEntry);
 
@@ -228,7 +231,7 @@ public class DirectoryServiceTest {
     public void createSubFolderWithReadsOnlyPermissionTest() throws WriteAccessPermission {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         Long parentId = root.getId();
-        DirectoryPermissionEntry readerEntry = new DirectoryPermissionEntry("reader", false, true, false);
+        DirectoryPermissionEntry readerEntry = new DirectoryPermissionEntry(READER, false, true, false);
         DirectoryPermissionEntry adminEntry = new DirectoryPermissionEntry(ADMINISTRATOR, true, true, true);
         Set<DirectoryPermissionEntry> permissionEntries = Set.of(adminEntry, readerEntry);
         directoryService.updatePermission(admin, parentId, permissionEntries);
