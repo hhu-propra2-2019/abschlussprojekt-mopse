@@ -109,7 +109,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return id of the new folder
      */
     @Override
-    public Directory createFolder(Account account, Long parentDirId, String dirName) throws MopsException {
+    public Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException {
         Directory rootDirectory = fetchDirectory(parentDirId);
         roleService.checkWritePermission(account, rootDirectory);
         Directory directory = rootDirectory.createSubDirectory(dirName); //NOPMD// this is no violation of demeter's law
