@@ -20,31 +20,28 @@
 
 * Maximal 500 Ordner pro Gruppe (Sicherheit)
 
-=== 4. Vorschau einer Datei
+=== 4. Herunterladen einer Datei
 `GET` Anfrage auf eine Datei (`material1/file/{file_id}`)
 
 * Group ID irrelevant, da Zugriff auf einzelne Datei
 * Content-Type Preview, z.B. PDF (Video player etc. optional)
-* Download-Button führt zu 5.
+* Andere ContentTypes werden direkt heruntergeladen
 
-=== 5. Herunterladen einer Datei
-`GET` Anfrage auf eine Datei (`material1/file/{file_id}/download`)
-
-=== 6. Löschen einer Datei
+=== 5. Löschen einer Datei
 `DELETE` Löschen einer Datei (`material1/file/{file_id}`)
 
-=== 7. Löschen eines Ordners
+=== 6. Löschen eines Ordners
 `DELETE` Löschen eines Ordners (`material1/dir/{dir_id}`)
 
-=== 8. Hochladen einer Datei
+=== 7. Hochladen einer Datei
 `POST` Hochladen (`material1/dir/{dir_id}/upload`)
 
-=== 9. Erstellen eines Ordners
+=== 8. Erstellen eines Ordners
 `POST` Erstellen eines Ordners (`material1/dir/{parent_dir_id}/create`)
 
 * {parent_dir_id} ist ID des Parent Verzeichnis des zu erstellenden Verzeichnis
 
-=== 10. Durchsuchen einer Gruppe
+=== 9. Durchsuchen einer Gruppe
 
 `POST` Durchsuchen einer Gruppe nach einem Dateinamen, Tags oder Inhalt (`material1/group/{group_id}/search`)
 
