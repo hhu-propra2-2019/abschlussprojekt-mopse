@@ -3,7 +3,6 @@ package mops.businesslogic;
 import mops.SpringTestContext;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.directory.Directory;
-import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.security.DeleteAccessPermission;
@@ -262,22 +261,5 @@ public class DirectoryServiceTest {
         Directory directory = directoryService.deleteFolder(admin, subFolder.getId());
 
         assertThat(directory).isEqualTo(root);
-    }
-
-    /**
-     * Test if returned.
-     */
-    @Test
-    public void uploadFileTest() {
-        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
-
-        Directory fisrtDirectory = new Directory("first", parentId, groupOwner, permissionsId);
-        FileInfo fileInfo1 = new FileInfo(multipartFile.getName(), fisrtDirectory.getId(),
-                multipartFile.getContentType(), multipartFile.getSize(), account.getName(), Set.of());
-
-        FileInfo fileInfo2 = directoryService.uploadFile(account, fisrtDirectory.getId(), multipartFile, Set.of());
-
-
-        assertThat(fileInfo2).isEqualTo(fileInfo1);
     }
 }
