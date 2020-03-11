@@ -11,7 +11,7 @@ public interface GroupService {
      * Fetches all root directories (one for each group) of one user.
      *
      * @param account the account the user
-     * @return a list of group ids
+     * @return a list of group root directories
      */
     // TODO: make this Group objects
     List<Directory> getAllGroupRootDirectories(Account account);
