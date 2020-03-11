@@ -67,6 +67,30 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
+     * Checks if user has reading permission.
+     *
+     * @param account user credentials
+     * @param dirId   the id of the folder
+     */
+    @Override
+    public void checkReadPermission(Account account, long dirId) throws MopsException {
+        Directory directory = fetchDirectory(dirId);
+        roleService.checkReadPermission(account, directory);
+    }
+
+    /**
+     * Checks if user has deleting permission.
+     *
+     * @param account user credentials
+     * @param dirId   the id of the folder
+     */
+    @Override
+    public void checkDeletePermission(Account account, long dirId) throws MopsException {
+        Directory directory = fetchDirectory(dirId);
+        roleService.checkDeletePermission(account, directory);
+    }
+
+    /**
      * Returns all folders of the parent folder.
      *
      * @param account     user credentials

@@ -18,6 +18,22 @@ public interface DirectoryService {
     void checkWritePermission(Account account, long dirId) throws MopsException;
 
     /**
+     * Checks if user has reading permission.
+     *
+     * @param account user credentials
+     * @param dirId   the id of the folder
+     */
+    void checkReadPermission(Account account, long dirId) throws MopsException;
+
+    /**
+     * Checks if user has deleting permission.
+     *
+     * @param account user credentials
+     * @param dirId   the id of the folder
+     */
+    void checkDeletePermission(Account account, long dirId) throws MopsException;
+
+    /**
      * Returns all folders of the parent folder.
      *
      * @param account user credentials
