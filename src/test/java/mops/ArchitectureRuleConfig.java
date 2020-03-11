@@ -6,7 +6,7 @@ import com.tngtech.archunit.core.importer.ClassFileImporter;
 public class ArchitectureRuleConfig {
 
     public static final String MOPS_PRESENTATION_BASE = "mops.presentation";
-    public static final String MOPS_PRESENTATION = MOPS_PRESENTATION_BASE +"..";
+    public static final String MOPS_PRESENTATION = MOPS_PRESENTATION_BASE + "..";
     public static final String MOPS_BUSINESSLOGIC = "mops.businesslogic..";
     public static final String MOPS_PERSISTENCE = "mops.persistence..";
 
