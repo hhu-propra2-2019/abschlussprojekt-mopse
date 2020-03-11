@@ -5,7 +5,7 @@ import mops.persistence.file.FileInfo;
 import org.springframework.core.io.Resource;
 
 @Value
-@SuppressWarnings("checkstyle:VisibilityModifier")
+@SuppressWarnings({"checkstyle:VisibilityModifier", "PMD.DefaultPackage"})
 public class FileContainer {
 
     /**
