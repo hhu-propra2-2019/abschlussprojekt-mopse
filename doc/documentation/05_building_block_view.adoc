@@ -2,89 +2,88 @@
 == Bausteinsicht
 
 ****
-Eine Auflistung und Erklärung aller Bausteine des Systems.
-Das wären zum Beispiel:
+_Eine Auflistung und Erklärung aller Bausteine des Systems.
+Das wären zum Beispiel:_
 
-* Module
-* Komponenten
-* Subsysteme
-* Klassen
-* Interfaces
-* Pakete
-* Bibliotheken
-* Frameworks
-* Schichten
-* Funktionen
-* Datenstrukturen
+* _Module_
+* _Komponenten_
+* _Subsysteme_
+* _Klassen_
+* _Interfaces_
+* _Pakete_
+* _Bibliotheken_
+* _Frameworks_
+* _Schichten_
+* _Funktionen_
+* _Datenstrukturen__
 
-Diese Sicht sollte in jeder Architekturdokumentation vorhanden sein.
-In der Analogie zum Hausbau bildet die Bausteinsicht den _Grundrissplan_.
+_Diese Sicht sollte in jeder Architekturdokumentation vorhanden sein.
+In der Analogie zum Hausbau bildet die Bausteinsicht den Grundrissplan._
 
-Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren
-Beschreibungen.
+_Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren
+Beschreibungen._
 
 image:05_building_blocks-DE.png["Baustein Sichten"]
 
-Die *Gesamtabgrenzung* zeigt unser System in Abgrenzung zu Nachbarsystemen.
+_Die *Gesamtabgrenzung* zeigt unser System in Abgrenzung zu Nachbarsystemen._
 
-*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen
-Bausteine (in unserem Fall die einzelnen Schichten).
+_*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen
+Bausteine (in unserem Fall die einzelnen Schichten)._
 
-*Ebene 2* zoomt in die einzelnen Schichten hinein und zeigt die darin enthaltenen Komponenten.
+_*Ebene 2* zoomt in die einzelnen Schichten hinein und zeigt die darin enthaltenen Komponenten._
 
-*Ebene 3* zoomt in die Komponenten hinein und beschreibt deren einzelne Funktionen und Schnittstellen genauer.
+_*Ebene 3* zoomt in die Komponenten hinein und beschreibt deren einzelne Funktionen und Schnittstellen genauer._
 ****
 
 === Gesamtabgrenzung
 
 ****
-Eine Beschreibung des Gesamtsystems als Whitebox nach folgendem Template:
+_Eine Beschreibung des Gesamtsystems als Whitebox nach folgendem Template:_
 
-* Ein Übersichtsdiagramm
-* die Begründung dieser Zerlegung
-* Blackbox-Beschreibungen der hier enthaltenen Bausteine mittels einer Tabelle.
+* _Ein Übersichtsdiagramm_
+* _die Begründung dieser Zerlegung_
+* _Blackbox-Beschreibungen der hier enthaltenen Bausteine mittels einer Tabelle._
 
-Es geht um die Abgrenzung unseres Systems zu den Nachbarsystemen anderer Gruppen.
-****
+_Es geht um die Abgrenzung unseres Systems zu den Nachbarsystemen anderer Gruppen._
 
 image:Gesamtuebersicht.png["Gesamtübersicht"]
 
-Begründung:: _<Erläuternder Text>_
+Begründung:: <Erläuternder Text>
 
 Enthaltene Bausteine::
 
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
-| Keycloak | Authentifizierung und Authentifikation der User. | Wir erzeugen uns dafür ein eigenes Account Objekt.
+| Keycloak | _Authentifizierung und Authentifikation der User._ | _Wir erzeugen uns dafür ein eigenes Account Objekt._
 |===
+****
 
 === Ebene 1
 
 ****
-Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie
-zuvor auch.
-****
+_Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie
+zuvor auch._
 
 image:Ebene1.png["Ebene 1"]
 
-Begründung:: _<Erläuternder Text>_
+Begründung:: <Erläuternder Text>
 
 Enthaltene Bausteine::
 
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
-| _<Komponente-1>_ | _<Funktion-1>_ | _<Schnittstellen-1>_
-| _<Komponente-2>_ | _<Funktion-2>_ | _<Schnittstellen-2>_
+| <Komponente-1> | _<Funktion-1>_ | _<Schnittstellen-1>_
+| <Komponente-2> | _<Funktion-2>_ | _<Schnittstellen-2>_
 |===
+****
 
 === Ebene 2
 
 ****
-Ebene 2 zeigt die einzelnen Schichten im Detail und deren Komponenten.
-Darstellung nach gleichem Schema wie zuvor.
-****
+_Ebene 2 zeigt die einzelnen Schichten im Detail und deren Komponenten.
+Darstellung nach gleichem Schema wie zuvor._
 
 image:Ebene2.png["Ebene 2"]
 
@@ -97,35 +96,31 @@ Enthaltene Bausteine::
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
-| _<Komponente-1>_ | _<Funktion-1>_ | _<Schnittstellen-1>_
-| _<Komponente-2>_ | _<Funktion-2>_ | _<Schnittstellen-2>_
+| <Komponente-1> | _<Funktion-1>_ | _<Schnittstellen-1>_
+| <Komponente-2> | _<Funktion-2>_ | _<Schnittstellen-2>_
 |===
+****
 
 === Ebene 3
 
 ****
-Ebene 3 zeigt die einzelnen Komponenten einer Schicht im Detail und deren Funktionen.
-Darstellung nach gleichem Schema wie zuvor.
-****
+_Ebene 3 zeigt die einzelnen Komponenten einer Schicht im Detail und deren Funktionen.
+Darstellung nach gleichem Schema wie zuvor._
 
-==== Präsentation
+image:Ebene3.png["Ebene 3"]
 
-_**<Übersichtsdiagramm>**_
-
-Begründung:: _<Erläuternder Text>_
+Begründung:: <Erläuternder Text>
 
 Enthaltene Bausteine::
 
 [cols="1,1,1" options="header"]
 |===
-|Komponente |Funktion |
-| GroupsController | Bereitstellung aller Routen, die mit `/groups` beginnen.  | `GET: /material1/groups/`
-| GroupController | Bereitstellung aller Routen, die mit `/group` beginnen. | `GET: /material1/group/{groupId}`
-
+|Komponente |Funktion | Pfad
+| GroupsController | _Bereitstellung aller Routen, die mit `/groups` beginnen._  | `GET: /material1/groups/`
+| GroupController | _Bereitstellung aller Routen, die mit `/group` beginnen._ | `GET: /material1/group/{groupId}`
 `GET: /material1/group/{groupId}/search`
-
 `GET: /material1/group/{groupId}/url`
-| DirectoryController | Bereitstellung aller Routen, die mit `/dir` beginnen. | `GET: /material1/dir/{dirId}`
+| DirectoryController | _Bereitstellung aller Routen, die mit `/dir` beginnen._ | `GET: /material1/dir/{dirId}`
 
 `POST: /material1/dir/{dirId}`/create
 
@@ -134,32 +129,33 @@ Enthaltene Bausteine::
 `POST: /material1/dir/{dirId}`/upload
 
 `DELETE: /material1/dir/{dirId}`
-| FileInfoRepository | Bereitstellung von Zugriffsfunktionen auf das `FileInfo`-Aggregat | ...
+| FileInfoRepository | _Bereitstellung von Zugriffsfunktionen auf das `FileInfo`-Aggregat._ | ...
 |===
 
-==== Persistenz
+Persistenz::
 
 Begründung:: Die einzelnen Repositories korrespondieren zu den Aggregaten.
 
-===== Repositories
+Repositories::
 
 [cols="1,1,1" options="header"]
 |===
 | Komponente | Funktion |
-| FileInfoRepository | Bereitstellung von Zugriffsfunktionen auf das `FileInfo`-Aggregat | Standardfunktionen von
-CRUDRepository
-| DirectoryRepository | Bereitstellung von Zugriffsfunktionen auf das `Directory`-Aggregat | Standardfunktionen von
-CRUDRepository
-| DirectoryPermissionsRepository | Bereitstellung von Zugriffsfunktionen auf das `DirectoryPermissions`-Aggregat |
-Standardfunktionen von CRUDRepository
+| FileInfoRepository | _Bereitstellung von Zugriffsfunktionen auf das `FileInfo`-Aggregat._ | _Standardfunktionen von
+CRUDRepository._
+| DirectoryRepository | _Bereitstellung von Zugriffsfunktionen auf das `Directory`-Aggregat._ | _Standardfunktionen von
+CRUDRepository._
+| DirectoryPermissionsRepository | _Bereitstellung von Zugriffsfunktionen auf das `DirectoryPermissions`-Aggregat._ |
+_Standardfunktionen von CRUDRepository._
 |===
 
-===== Aggregate
+Aggregate::
 
 [cols="1,1" options="header"]
 |===
 | Aggregat | Funktion
-| `FileInfo` | Repräsentiert eine Datei im System
-| `Directory` | Repräsentiert einen Ordner im System
-| `DirectoryPermissions` | Repräsentiert die Berechtigungen aller Rollen für einen Ordner im System
+| `FileInfo` | _Repräsentiert eine Datei im System._
+| `Directory` | _Repräsentiert einen Ordner im System._
+| `DirectoryPermissions` | _Repräsentiert die Berechtigungen aller Rollen für einen Ordner im System._
 |===
+****
