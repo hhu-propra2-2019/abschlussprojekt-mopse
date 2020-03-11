@@ -120,6 +120,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return the parent id of the deleted folder
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter") //these are not violations of demeter's law
     public Directory deleteFolder(Account account, long dirId) throws MopsException {
         Directory directory = fetchDirectory(dirId);
         checkDeletePermission(account, directory);
@@ -164,8 +165,7 @@ public class DirectoryServiceImpl implements DirectoryService {
                                       Long dirId,
                                       Set<DirectoryPermissionEntry> permissionEntries) throws MopsException {
         Directory directory = fetchDirectory(dirId);
-        long groupId = directory.getGroupOwner();
-        checkIfAdmin(account, groupId);
+        checkIfAdmin(account, directory);
         Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
         DirectoryPermissions directoryPermissions = permissions.orElseThrow(() -> {
             String errorMessage = "Permission couldn't be fetched.";
@@ -246,7 +246,11 @@ public class DirectoryServiceImpl implements DirectoryService {
         }
     }
 
-    private void checkIfAdmin(Account account, Long groupId) throws WriteAccessPermission {
+    private void checkIfAdmin(Account account, Directory directory) throws WriteAccessPermission {
+        checkIfAdmin(account, directory.getId());
+    }
+
+    private void checkIfAdmin(Account account, long groupId) throws WriteAccessPermission {
         String role = permissionService.fetchRoleForUserInGroup(account, groupId);
         if (!ADMINISTRATOR.equals(role)) {
             String errorMessage = String.format(
