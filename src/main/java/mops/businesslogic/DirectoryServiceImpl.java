@@ -177,10 +177,6 @@ public class DirectoryServiceImpl implements DirectoryService {
         return directoryRepository.save(directory);
     }
 
-    private Directory fetchDirectory(Directory directory) {
-        return fetchDirectory(directory.getId());
-    }
-
     /**
      * @param parentDirID the id of the parent folder
      * @return a directory object of the request folder
