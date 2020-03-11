@@ -4,6 +4,8 @@ import mops.SpringTestContext;
 import mops.businesslogic.*;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.security.DeleteAccessPermission;
+import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,15 +70,19 @@ public class DirectoryControllerTest {
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
-    public void setUp() throws WriteAccessPermission {
+    public void setUp() throws WriteAccessPermission, ReadAccessPermission, DeleteAccessPermission {
         Directory directory = mock(Directory.class);
+        Directory root = new Directory(1L, "root", 1L, 1L, 1L);
+
         account = new Account("user", "user@mail.de", "studentin");
+
         given(directory.getId()).willReturn(2L);
         given(fileInfoService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         given(directoryService.createFolder(account, 1L, "Vorlesungen")).willReturn(directory);
-        given(directoryService.deleteFolder(account, 1)).willReturn(0L);
+        given(directoryService.deleteFolder(account, 1)).willReturn(root);
         given(directoryService.searchFolder(account, 1, mock(FileQuery.class))).willReturn(List.of());
         doNothing().when(directoryService).uploadFile(account, 1, mock(MultipartFile.class), Set.of());
+
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())

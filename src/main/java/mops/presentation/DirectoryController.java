@@ -8,6 +8,7 @@ import mops.businesslogic.FileInfoService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.security.DeleteAccessPermission;
 import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -103,10 +104,10 @@ public class DirectoryController {
     @DeleteMapping("/{dirId}")
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
-                               @PathVariable("dirId") long dirId) {
+                               @PathVariable("dirId") long dirId) throws DeleteAccessPermission, ReadAccessPermission {
         Account account = AccountUtil.getAccountFromToken(token);
-        long directoryId = directoryService.deleteFolder(account, dirId);
-        return String.format("redirect:/material1/dir/%d", directoryId);
+        Directory directory = directoryService.deleteFolder(account, dirId);
+        return String.format("redirect:/material1/dir/%d", directory.getId());
     }
 
     /**
