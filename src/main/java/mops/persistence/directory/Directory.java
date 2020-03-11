@@ -59,7 +59,7 @@ public class Directory {
      *
      * @param name          Directory name
      * @param parentId      Id of parent Directory
-     * @param groupOwner    Id of the owing group
+     * @param groupOwner    Id of the owning group
      * @param permissionsId Id of the DirectoryPermissions
      */
     public Directory(String name, Long parentId, long groupOwner, long permissionsId) {
