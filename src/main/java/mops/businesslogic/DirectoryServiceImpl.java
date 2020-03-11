@@ -173,7 +173,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private Directory fetchDirectory(long parentDirID) {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
-        return optionalDirectory.orElseThrow(getExecption(parentDirID)); //NOPMD// this is not a violation of demeter's law
+        return optionalDirectory.orElseThrow(getException(parentDirID)); //NOPMD// this is not a violation of demeter's law
     }
 
 
@@ -231,7 +231,7 @@ public class DirectoryServiceImpl implements DirectoryService {
 
     private DirectoryPermissions getDirectoryPermissions(Directory directory) {
         Optional<DirectoryPermissions> optDirPerm = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        return optDirPerm.orElseThrow(getExecption(directory.getId()));
+        return optDirPerm.orElseThrow(getException(directory.getId()));
     }
 
 
@@ -245,7 +245,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param dirId directory id
      * @return a supplier to throw a exception
      */
-    private Supplier<NoSuchElementException> getExecption(long dirId) {
+    private Supplier<NoSuchElementException> getException(long dirId) {
         return () -> { //NOPMD
             String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
             return new NoSuchElementException(errorMessage);
