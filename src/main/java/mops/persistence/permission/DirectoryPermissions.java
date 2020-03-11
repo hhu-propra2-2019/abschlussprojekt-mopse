@@ -108,6 +108,7 @@ public class DirectoryPermissions {
      * @param userRole role of the user in group
      * @return boolean if user is allowed
      */
+    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public boolean isAllowedToWrite(String userRole) {
         return permissions.stream()
                 .filter(DirectoryPermissionEntry::isCanWrite)
@@ -120,6 +121,7 @@ public class DirectoryPermissions {
      * @param userRole role of the user in group
      * @return boolean if user is allowed
      */
+    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public boolean isAllowedToRead(String userRole) {
         return permissions.stream()
                 .filter(DirectoryPermissionEntry::isCanRead)
@@ -132,6 +134,7 @@ public class DirectoryPermissions {
      * @param userRole role of the user in group
      * @return boolean if user is allowed
      */
+    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public boolean isAllowedToDelete(String userRole) {
         return permissions.stream()
                 .filter(DirectoryPermissionEntry::isCanDelete)
