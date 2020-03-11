@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@SuppressWarnings("PMD.TooManyMethods") //this class needs more methods
 public class DirectoryServiceImpl implements DirectoryService {
 
     /**
@@ -172,7 +173,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         DirectoryPermissions directoryPermissions = fetchPermissions(directory);
         DirectoryPermissions updatedPermissions = DirectoryPermissions.of(directoryPermissions, permissionEntries);
         DirectoryPermissions savedPermissions = directoryPermissionsRepo.save(updatedPermissions);
-        directory.setPermission(savedPermissions);
+        directory.setPermission(savedPermissions); //NOPMD demeter's law unable to fix
         return directoryRepository.save(directory);
     }
 
