@@ -36,6 +36,16 @@ public interface DirectoryService {
     Directory createRootFolder(Account account, Long groupId) throws MopsException;
 
     /**
+     * Creates a new folder inside a folder.
+     *
+     * @param account     user credentials
+     * @param parentDirId id of the parent folder
+     * @param dirName     name of the new folder
+     * @return id of the new folder
+     */
+    Directory createFolder(Account account, Long parentDirId, String dirName) throws MopsException;
+
+    /**
      * Deletes a folder.
      *
      * @param account user credential
