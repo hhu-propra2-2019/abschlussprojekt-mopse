@@ -199,10 +199,7 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
 
-        boolean allowedToWrite = directoryPermissions.getPermissions()
-                .stream()
-                .filter(DirectoryPermissionEntry::isCanWrite)
-                .anyMatch(permission -> permission.getRole().equals(userRole));
+        boolean allowedToWrite = directoryPermissions.isAllowedToWrite(userRole);
 
         if (!allowedToWrite) {
             throw new WriteAccessPermission(String.format("The user %s doesn't have write access to %s.",
@@ -216,12 +213,9 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
 
-        boolean allowedToWrite = directoryPermissions.getPermissions()
-                .stream()
-                .filter(DirectoryPermissionEntry::isCanRead)
-                .anyMatch(permission -> permission.getRole().equals(userRole));
+        boolean allowedToRead = directoryPermissions.isAllowedToRead(userRole);
 
-        if (!allowedToWrite) {
+        if (!allowedToRead) {
             throw new ReadAccessPermission(String.format("The user %s doesn't have read access to %s.",
                     account.getName(),
                     directory.getName()));
@@ -234,10 +228,7 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
 
-        boolean allowedToDelete = directoryPermissions.getPermissions()
-                .stream()
-                .filter(DirectoryPermissionEntry::isCanDelete)
-                .anyMatch(permission -> permission.getRole().equals(userRole));
+        boolean allowedToDelete = directoryPermissions.isAllowedToDelete(userRole);
 
         if (!allowedToDelete) {
             throw new DeleteAccessPermission(String.format("The user %s doesn't have delete permission in %s.",

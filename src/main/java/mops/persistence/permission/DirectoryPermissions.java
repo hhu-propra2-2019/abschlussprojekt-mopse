@@ -101,4 +101,40 @@ public class DirectoryPermissions {
     public Instant getLastModifiedTime() {
         return lastModifiedTime == null ? Instant.EPOCH : lastModifiedTime.toInstant();
     }
+
+    /**
+     * Checks if a role has writing access.
+     *
+     * @param userRole role of the user in group
+     * @return boolean if user is allowed
+     */
+    public boolean isAllowedToWrite(String userRole) {
+        return permissions.stream()
+                .filter(DirectoryPermissionEntry::isCanWrite)
+                .anyMatch(permission -> permission.getRole().equals(userRole));
+    }
+
+    /**
+     * Checks if a role has reading access.
+     *
+     * @param userRole role of the user in group
+     * @return boolean if user is allowed
+     */
+    public boolean isAllowedToRead(String userRole) {
+        return permissions.stream()
+                .filter(DirectoryPermissionEntry::isCanRead)
+                .anyMatch(permission -> permission.getRole().equals(userRole));
+    }
+
+    /**
+     * Checks if a role has deleting access.
+     *
+     * @param userRole role of the user in group
+     * @return boolean if user is allowed
+     */
+    public boolean isAllowedToDelete(String userRole) {
+        return permissions.stream()
+                .filter(DirectoryPermissionEntry::isCanDelete)
+                .anyMatch(permission -> permission.getRole().equals(userRole));
+    }
 }
