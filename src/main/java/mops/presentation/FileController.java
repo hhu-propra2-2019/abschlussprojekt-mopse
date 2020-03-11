@@ -44,9 +44,9 @@ public class FileController {
         if (result.getId() == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
                     // FORBIDDEN because otherwise it would be obvious to the user if the file exists
-                    "Zugriff auf Datei mit der ID "
+                    "Access to file with ID "
                             + fileId
-                            + " ist nicht erlaubt.");
+                            + " is forbidden.");
         }
 
         MediaType contentType = MediaType.parseMediaType(result.getType());
