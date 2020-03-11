@@ -49,6 +49,12 @@ public class DirectoryControllerTest {
     private FileInfoService fileInfoService;
 
     /**
+     * Necessary mock until PermissionService is implemented.
+     */
+    @MockBean
+    private PermissionService permissionService;
+
+    /**
      * Necessary mock until FileService is implemented.
      */
     @MockBean

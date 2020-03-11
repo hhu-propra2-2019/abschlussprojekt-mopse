@@ -1,10 +1,11 @@
 package mops;
 
-import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileInfoService;
+import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import mops.businesslogic.PermissionService;
 import mops.persistence.FileRepository;
+import mops.security.PermissionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,16 +26,22 @@ class Material1ApplicationTests {
     private GroupService groupService;
 
     /**
-     * Necessary mock until DirectoryService is implemented.
+     * Necessary mock until FileInfoService is implemented.
      */
     @MockBean
-    private DirectoryService directoryService;
+    private FileInfoService fileInfoService;
 
     /**
      * Necessary mock until FileService is implemented.
      */
     @MockBean
-    private FileInfoService fileInfoService;
+    private FileService fileService;
+
+    /**
+     * Necessary mock until PermissionService is implemented.
+     */
+    @MockBean
+    private PermissionService permissionService;
 
     @Test
     void contextLoads() {

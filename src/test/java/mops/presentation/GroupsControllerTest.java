@@ -1,10 +1,7 @@
 package mops.presentation;
 
 import mops.SpringTestContext;
-import mops.businesslogic.Account;
-import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileInfoService;
-import mops.businesslogic.GroupService;
+import mops.businesslogic.*;
 import mops.exception.MopsException;
 import mops.persistence.FileRepository;
 import mops.presentation.utils.SecurityContextUtil;
@@ -52,6 +49,10 @@ public class GroupsControllerTest {
      */
     @MockBean
     private DirectoryService directoryService;
+    @MockBean
+    private PermissionService permissionService;
+    @MockBean
+    private FileService fileService;
     /**
      * Necessary bean.
      */

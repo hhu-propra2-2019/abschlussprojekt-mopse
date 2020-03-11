@@ -1,8 +1,9 @@
 package mops;
 
-import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileInfoService;
+import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
+import mops.businesslogic.PermissionService;
 import mops.persistence.FileRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,16 +36,22 @@ public class SecurityTests {
      */
     @MockBean
     private GroupService groupService;
-    /**
-     * Necessary mock until DirectoryService is implemented.
-     */
-    @MockBean
-    private DirectoryService directoryService;
+
     /**
      * Necessary mock until FileService is implemented.
      */
     @MockBean
+    private FileService fileService;
+    /**
+     * Necessary mock until FileInfoService is implemented.
+     */
+    @MockBean
     private FileInfoService fileInfoService;
+    /**
+     * Necessary mock until PermissionService is implemented.
+     */
+    @MockBean
+    private PermissionService permissionService;
     /**
      * Necessary bean .
      */
@@ -102,7 +109,7 @@ public class SecurityTests {
      * @throws Exception on error
      */
     @Test
-    @WithMockUser(username = "prometheus", roles = { "monitoring" })
+    @WithMockUser(username = "prometheus", roles = {"monitoring"})
     public void prometheusShouldHaveAccess() throws Exception {
         mvc.perform(get("/actuator/"))
                 .andExpect(status().isOk());

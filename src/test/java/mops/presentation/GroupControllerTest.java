@@ -51,6 +51,10 @@ public class GroupControllerTest {
      */
     @MockBean
     private FileService fileService;
+    @MockBean
+    private PermissionService permissionService;
+    @MockBean
+    private FileInfoService fileInfoService;
 
     /**
      * Necessary bean.

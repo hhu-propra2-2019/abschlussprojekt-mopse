@@ -57,6 +57,10 @@ public class FileControllerTest {
      */
     @MockBean
     private FileRepository fileRepository;
+    @MockBean
+    private PermissionService permissionService;
+    @MockBean
+    FileInfoService fileInfoService;
 
     /**
      * Necessary bean.
@@ -87,7 +91,7 @@ public class FileControllerTest {
     @BeforeEach
     public void setUp() throws MopsException {
         account = Account.of("user", "user@mail.de", "studentin");
-        fileContent = new byte[] { 1, 2, 3 };
+        fileContent = new byte[]{1, 2, 3};
         fileInfo = new FileInfo("file", 2L, MediaType.APPLICATION_OCTET_STREAM_VALUE,
                 fileContent.length, "", Set.of());
 
