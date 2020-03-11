@@ -10,10 +10,10 @@ import java.util.Set;
 
 public interface DirectoryService {
     /**
-     * Uploads a file.
+     * Checks if user has writing permission.
      *
      * @param account user credentials
-     * @param dirId   the id of the folder where the file will be uploaded
+     * @param dirId   the id of the folder
      */
     void checkWritePermission(Account account, long dirId) throws MopsException;
 
