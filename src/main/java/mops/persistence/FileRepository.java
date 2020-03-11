@@ -79,7 +79,7 @@ public class FileRepository {
             );
         } catch (MinioException | IOException | InvalidKeyException
                 | NoSuchAlgorithmException | XmlPullParserException e) {
-            throw new StorageException("Fehler beim Löschen der Datei.", e);
+            throw new StorageException("Fehler beim Speichern der Datei.", e);
         }
     }
 
