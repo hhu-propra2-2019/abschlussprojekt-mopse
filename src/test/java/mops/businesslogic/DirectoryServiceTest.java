@@ -4,6 +4,7 @@ import mops.SpringTestContext;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.security.PermissionService;
 import mops.security.ReadAccessPermission;
@@ -104,7 +105,7 @@ public class DirectoryServiceTest {
         given(permissionService.fetchRolesInGroup(anyLong())).willReturn(Set.of(ADMINISTRATOR, STUDENTIN));
         given(permissionService.fetchRoleForUserInDirectory(eq(account), any(Directory.class))).willReturn(STUDENTIN);
         given(permissionService.fetchRoleForUserInDirectory(eq(intruder), any(Directory.class))).willReturn("intruder");
-        intruder = new Account("intruder", "intruder@uni-koeln.de", Set.of("intruder"));
+        given(permissionService.fetchRoleForUserInDirectory(eq(reader), any(Directory.class))).willReturn("reader");
     }
 
     /**
@@ -152,6 +153,18 @@ public class DirectoryServiceTest {
         Directory folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
 
         assertThat(folder).isEqualTo(expectedDirectory);
+    }
+
+    @Test
+    public void updatePermissionTest() throws WriteAccessPermission {
+        Directory root = directoryService.createRootFolder(admin, groupOwner);
+        Long groupId = root.getId();
+
+        DirectoryPermissionEntry readerEntry = new DirectoryPermissionEntry("reader", false, true, false);
+        DirectoryPermissionEntry adminEntry = new DirectoryPermissionEntry(ADMINISTRATOR, true, true, true);
+        Set<DirectoryPermissionEntry> permissionEntries = Set.of(adminEntry, readerEntry);
+
+        directoryService.updatePermission(admin, groupId, permissionEntries);
     }
 
     /**
