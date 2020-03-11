@@ -71,7 +71,7 @@ public class GroupControllerTest {
      */
     @BeforeEach
     void setUp() throws MopsException {
-        account = new Account("studi", "bla@bla.de", "studentin");
+        account = Account.of("studi", "bla@bla.de", "studentin");
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         given(groupService.getGroupUrl(account, 1)).willReturn(new GroupDirUrlWrapper(1L));
         mvc = MockMvcBuilders

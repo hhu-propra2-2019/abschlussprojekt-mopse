@@ -72,7 +72,7 @@ public class GroupsControllerTest {
      */
     @BeforeEach
     public void setUp() throws MopsException {
-        account = new Account("studi", "bla@bla.de", "studentin");
+        account = Account.of("studi", "bla@bla.de", "studentin");
         given(groupService.getAllGroups(account)).willReturn(List.of());
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)

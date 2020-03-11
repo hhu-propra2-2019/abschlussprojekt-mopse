@@ -72,7 +72,7 @@ public class DirectoryControllerTest {
      */
     @BeforeEach
     public void setUp() throws MopsException {
-        account = new Account("user", "user@mail.de", "studentin");
+        account = Account.of("user", "user@mail.de", "studentin");
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(2L);
         given(directoryService.deleteFolder(account, 1)).willReturn(0L);

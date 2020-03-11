@@ -2,10 +2,10 @@ package mops.presentation;
 
 import lombok.AllArgsConstructor;
 import mops.businesslogic.Account;
+import mops.businesslogic.Group;
 import mops.businesslogic.GroupService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.exception.MopsException;
-import mops.persistence.group.Group;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +40,7 @@ public class GroupsController {
         try {
             groups = groupService.getAllGroups(account);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         model.addAttribute("groups", groups);
         return "groups";

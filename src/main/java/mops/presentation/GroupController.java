@@ -44,7 +44,7 @@ public class GroupController {
         try {
             files = fileService.getAllFilesOfGroup(account, groupId);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         model.addAttribute("files", files);
         return "files";
@@ -67,7 +67,7 @@ public class GroupController {
         try {
             groupUrl = groupService.getGroupUrl(account, groupId);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         return groupUrl;
     }
@@ -92,7 +92,7 @@ public class GroupController {
         try {
             files = fileService.searchFilesInGroup(account, groupId, query);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         model.addAttribute("files", files);
         return "files";

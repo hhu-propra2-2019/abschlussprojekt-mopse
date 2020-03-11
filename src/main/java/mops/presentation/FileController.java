@@ -44,7 +44,7 @@ public class FileController {
         try {
             info = fileService.getFileInfo(account, fileId);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         model.addAttribute("file", info);
         return "file";
@@ -98,7 +98,7 @@ public class FileController {
         try {
             dirId = fileService.deleteFile(account, fileId);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         return String.format("redirect:/material1/dir/%d", dirId);
     }

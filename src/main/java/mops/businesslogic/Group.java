@@ -1,11 +1,8 @@
-package mops.persistence.group;
-
-import mops.utils.AggregateRoot;
+package mops.businesslogic;
 
 /**
  * Represents a group (course, study group, etc.).
  */
-@AggregateRoot
 public interface Group {
 
     /**

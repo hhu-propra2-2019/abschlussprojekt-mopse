@@ -50,7 +50,7 @@ public class DirectoryController {
             directories = directoryService.getSubFolders(account, dirId);
             files = fileService.getFilesOfDirectory(account, dirId);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
@@ -76,7 +76,7 @@ public class DirectoryController {
         try {
             directoryService.uploadFile(account, dirId, fileInfo);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         return String.format("redirect:/material1/dir/%d", dirId);
     }
@@ -101,7 +101,7 @@ public class DirectoryController {
         try {
             directoryId = directoryService.createFolder(account, parentDirId, folderName);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
@@ -124,7 +124,7 @@ public class DirectoryController {
         try {
             directoryId = directoryService.deleteFolder(account, dirId);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
@@ -149,7 +149,7 @@ public class DirectoryController {
         try {
             files = directoryService.searchFolder(account, dirId, query);
         } catch (MopsException e) {
-            //TODO: Exception handling
+            // TODO: Add exception handling, remove PMD warning suppression
         }
         model.addAttribute("files", files);
         return "files";

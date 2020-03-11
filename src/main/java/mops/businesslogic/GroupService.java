@@ -1,7 +1,6 @@
 package mops.businesslogic;
 
 import mops.exception.MopsException;
-import mops.persistence.group.Group;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
