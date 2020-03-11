@@ -42,6 +42,11 @@ public class DirectoryServiceImpl implements DirectoryService {
     private final PermissionService permissionService;
 
     /**
+     * Handles meta data of files.
+     */
+    private final FileInfoService fileInfoService;
+
+    /**
      * This connects to database to handle directory permissions.
      */
     private final DirectoryPermissionsRepository directoryPermissionsRepo;
@@ -119,8 +124,22 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return the parent id of the deleted folder
      */
     @Override
-    public long deleteFolder(Account account, long dirId) {
-        return 0;
+    public Directory deleteFolder(Account account, long dirId) throws DeleteAccessPermission, ReadAccessPermission {
+        Directory directory = fetchDirectory(dirId);
+        checkDeletePermission(account, directory);
+
+        List<FileInfo> files = fileInfoService.fetchAllFilesInDirectory(dirId);
+        List<Directory> subFolders = getSubFolders(account, dirId);
+
+        if (!files.isEmpty() || !subFolders.isEmpty()) {
+            throw new DeleteAccessPermission(String.format("The directory %s is not empty.", directory.getName()));
+        }
+
+        Directory parentDirectory = fetchDirectory(directory.getParentId());
+
+        directoryRepository.delete(directory);
+
+        return parentDirectory;
     }
 
     /**
