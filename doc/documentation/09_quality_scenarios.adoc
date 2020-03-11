@@ -24,16 +24,16 @@ Hier werden die oftmals abstrakten Qualitätsanforderungen mittels anschaulicher
 
 ****
 
-=== _<Szenario 1>_
+==== _<Szenario 1>_
 
 _<Erklärung>_
 
-=== _<Szenario 2>_
+==== _<Szenario 2>_
 
 _<Erklärung>_
 
 ...
 
-=== _<Szenario n>_
+==== _<Szenario n>_
 
 _<Erklärung>_
