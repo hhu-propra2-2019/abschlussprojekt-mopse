@@ -52,7 +52,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param dirId   the id of the folder where the file will be uploaded
      */
     @Override
-    public void checkUploadFile(Account account, long dirId) throws WriteAccessPermission {
+    public void checkWritePermission(Account account, long dirId) throws WriteAccessPermission {
         Directory directory = fetchDirectory(dirId);
 
         checkWritePermission(account, directory);

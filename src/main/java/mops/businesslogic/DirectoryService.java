@@ -19,7 +19,7 @@ public interface DirectoryService {
      * @param dirId         the id of the folder where the file will be uploaded
      * @return the file meta object
      */
-    void checkUploadFile(Account account, long dirId) throws WriteAccessPermission;
+    void checkWritePermission(Account account, long dirId) throws WriteAccessPermission;
 
     /**
      * Returns all folders of the parent folder.
