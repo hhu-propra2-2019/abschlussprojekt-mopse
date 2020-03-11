@@ -33,11 +33,6 @@ public class DirectoryServiceTest {
     public static final String READER = "reader";
     public static final String INTRUDER = "intruder";
     public static final String USER = "user";
-    /**
-     * Necessary bean, must be removed when file service is implemented.
-     */
-    @MockBean
-    private FileInfoService fileInfoService;
 
     /**
      * Necessary bean, must be removed when group service is implemented.
