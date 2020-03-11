@@ -1,37 +1,54 @@
 package mops.businesslogic;
 
+import lombok.Value;
 import mops.persistence.file.FileInfo;
 import org.springframework.core.io.Resource;
 
-public interface FileContainer {
+@Value
+@SuppressWarnings("checkstyle:VisibilityModifier")
+public class FileContainer {
 
     /**
-     * @return file info of file
+     * contains info of file.
      */
-    FileInfo getFileInfo();
+    FileInfo info;
+    /**
+     * contains content stream.
+     */
+    Resource content;
 
     /**
      * @return parent directory of file
      */
-    long getDirectoryId();
+    public long getDirectoryId() {
+        return info.getDirectoryId();
+    }
 
     /**
      * @return file id
      */
-    Long getId();
+    public long getId() {
+        return info.getId();
+    }
 
     /**
      * @return content type of file
      */
-    String getType();
+    public String getType() {
+        return info.getType();
+    }
 
     /**
      * @return display name of file
      */
-    String getName();
+    public String getName() {
+        return info.getName();
+    }
 
     /**
-     * @return content of file
+     * @return size of file in bytes
      */
-    Resource[] getContent();
+    public long getSize() {
+        return info.getSize();
+    }
 }

@@ -5,9 +5,8 @@ import mops.businesslogic.Account;
 import mops.businesslogic.FileContainer;
 import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
-import mops.persistence.file.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.io.IOException;
 
 @Controller
 @RequestMapping("material1/file")
@@ -36,42 +33,29 @@ public class FileController {
      */
     @SuppressWarnings("PMD")
     @ResponseBody
-    @GetMapping("/{fileId}")
-    ResponseEntity getFile(KeycloakAuthenticationToken token,
-                                @PathVariable("fileId") long fileId) {
+    @GetMapping("/{fileId}/download")
+    ResponseEntity<Resource> getFile(KeycloakAuthenticationToken token,
+                                     @PathVariable("fileId") long fileId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        FileContainer result = fileService.getFile(account, fileId);
-
-        if (result.getId() == null) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    // FORBIDDEN because otherwise it would be obvious to the user if the file exists
+        FileContainer result;
+        try {
+            result = fileService.getFile(account, fileId);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Access to file with ID "
                             + fileId
                             + " is forbidden.");
         }
 
         MediaType contentType = MediaType.parseMediaType(result.getType());
-        FileSystemResource resource = new FileSystemResource("material1/file/" + fileId);
-        //TODO: We don't know what kind of Resource we get from FileService
-        // IDEA: Create an empty FileSystemResource to have a path and fill it step by step with all needed informations
-        try {
-            Long contentLength = resource.contentLength();
-
-            return ResponseEntity.ok()
-                    .contentType(contentType)
-                    .contentLength(contentLength)
-                    .header(HttpHeaders.CONTENT_DISPOSITION,
-                            "attachment; filename=\"" + result.getName() + "\"")
-                    .body(resource);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        long contentLength = result.getSize();
 
         return ResponseEntity.ok()
                 .contentType(contentType)
+                .contentLength(contentLength)
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + result.getName() + "\"")
-                .body(resource);
+                .body(result.getContent());
     }
 
     /**
