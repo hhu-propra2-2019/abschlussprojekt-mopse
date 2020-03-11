@@ -16,9 +16,6 @@ import static mops.HaveExactlyOneAggregateRoot.HAVE_EXACTLY_ONE_AGGREGATE_ROOT;
 @ArchTag("checkArchitecture")
 public class ArchitectureRulesTest {
 
-    private static final String MOPS_PRESENTATION_BASE = ArchitectureRuleConfig.MOPS_PRESENTATION_BASE;
-    private static final String MOPS_PERSISTENCE = ArchitectureRuleConfig.MOPS_PERSISTENCE;
-    private static final JavaClasses javaClasses = ArchitectureRuleConfig.JAVA_CLASSES;
     /**
      * This test looks out for public classes that aren't annotated
      * with Aggregate Root but are still public, which stands against
@@ -32,12 +29,12 @@ public class ArchitectureRulesTest {
                 .that()
                 .areNotAnnotatedWith(AggregateRoot.class)
                 .and()
-                .resideInAPackage(".." + MOPS_PERSISTENCE + ".(*)..")
+                .resideInAPackage(".." + ArchitectureRuleConfig.MOPS_PERSISTENCE)
                 .should()
                 .notBePublic()
                 .because("The implementation of an aggregate should be hidden!");
 
-        aggregateRootPublicNothingElse.check(javaClasses);
+        aggregateRootPublicNothingElse.check(ArchitectureRuleConfig.JAVA_CLASSES);
     }
 
     /**
@@ -47,10 +44,10 @@ public class ArchitectureRulesTest {
     @Test
     public void oneAggregateRootPerAggregate() {
         ArchRule oneAggregateRootPerPackage = slices()
-                .matching(".." + MOPS_PERSISTENCE)
+                .matching(".." + ArchitectureRuleConfig.MOPS_PERSISTENCE)
                 .should(HAVE_EXACTLY_ONE_AGGREGATE_ROOT);
 
-        oneAggregateRootPerPackage.check(javaClasses);
+        oneAggregateRootPerPackage.check(ArchitectureRuleConfig.JAVA_CLASSES);
     }
 
     /**
@@ -63,11 +60,11 @@ public class ArchitectureRulesTest {
                 .that()
                 .areAnnotatedWith(Controller.class)
                 .and()
-                .resideOutsideOfPackage(MOPS_PRESENTATION_BASE)
+                .resideOutsideOfPackage(ArchitectureRuleConfig.MOPS_PRESENTATION_BASE)
                 .should()
                 .notBeAnnotatedWith(Controller.class);
 
-        allControllersShouldResideInMopsPresentation.check(javaClasses);
+        allControllersShouldResideInMopsPresentation.check(ArchitectureRuleConfig.JAVA_CLASSES);
     }
 
     /**
@@ -80,13 +77,13 @@ public class ArchitectureRulesTest {
     public void everythingInPresentationShouldBeAController() {
         ArchRule everythingInPresentationShouldBeAController = classes()
                 .that()
-                .resideInAPackage(MOPS_PRESENTATION_BASE)
+                .resideInAPackage(ArchitectureRuleConfig.MOPS_PRESENTATION_BASE)
                 .and()
                 .areNotAnnotatedWith(SpringBootTest.class)
                 .should()
                 .beAnnotatedWith(Controller.class);
 
-        everythingInPresentationShouldBeAController.check(javaClasses);
+        everythingInPresentationShouldBeAController.check(ArchitectureRuleConfig.JAVA_CLASSES);
     }
 
     /**
@@ -99,6 +96,6 @@ public class ArchitectureRulesTest {
                 .should()
                 .beFreeOfCycles();
 
-        areThereAnyCyclesWithinPackages.check(javaClasses);
+        areThereAnyCyclesWithinPackages.check(ArchitectureRuleConfig.JAVA_CLASSES);
     }
 }

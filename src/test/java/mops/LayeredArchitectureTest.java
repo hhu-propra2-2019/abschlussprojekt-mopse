@@ -15,18 +15,15 @@ import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 @AnalyzeClasses(packages = "mops")
 public class LayeredArchitectureTest {
 
-    private static final String MOPS_PRESENTATION = ArchitectureRuleConfig.MOPS_PRESENTATION;
-    private static final String MOPS_BUSINESSLOGIC = ArchitectureRuleConfig.MOPS_BUSINESSLOGIC;
-    private static final String MOPS_PERSISTENCE = ArchitectureRuleConfig.MOPS_PERSISTENCE;
     /**
      * This checks, if the layer is correctly used and
      * no wrong accesses are made.
      */
     @ArchTest
     static final ArchRule checkLayeredArchitecture = layeredArchitecture()
-            .layer("mopsPersistence").definedBy(MOPS_PERSISTENCE)
-            .layer("mopsBusinesslogic").definedBy(MOPS_BUSINESSLOGIC)
-            .layer("mopsPresentation").definedBy(MOPS_PRESENTATION)
+            .layer("mopsPersistence").definedBy(ArchitectureRuleConfig.MOPS_PERSISTENCE)
+            .layer("mopsBusinesslogic").definedBy(ArchitectureRuleConfig.MOPS_BUSINESSLOGIC)
+            .layer("mopsPresentation").definedBy(ArchitectureRuleConfig.MOPS_PRESENTATION)
 
             .whereLayer("mopsPresentation").mayNotBeAccessedByAnyLayer()
             .whereLayer("mopsBusinesslogic").mayOnlyBeAccessedByLayers("mopsPresentation")
