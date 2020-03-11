@@ -170,13 +170,18 @@ Persistence Layer::
 | _Stellt eine Anfrage mit einer DateiID an `MinIO` um die entsprechende Datei zu erhalten._
 |===
 
-Enthaltene Bausteine::
+Database Layer::
 
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
-| <Komponente-1> | _<Funktion-1>_ | _<Schnittstellen-1>_
-| <Komponente-2> | _<Funktion-2>_ | _<Schnittstellen-2>_
+| Datenbank
+| _Stellt sämtliche Datenbankobjekte zur Verfügung._
+| _Es werden ausschließlich Anfragen *an* die Datenbank gestellt._
+
+| MinIO
+| _Stellt benötigte Dateien zur Verfügung._
+| _Es werden ausschließlich Anfragen *an* MinIO gestellt.*_
 |===
 ****
 
