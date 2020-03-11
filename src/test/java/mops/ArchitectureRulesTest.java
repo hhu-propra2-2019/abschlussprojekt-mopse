@@ -2,6 +2,7 @@ package mops;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
+import com.tngtech.archunit.junit.ArchTag;
 import com.tngtech.archunit.lang.ArchRule;
 import mops.utils.AggregateRoot;
 import org.junit.jupiter.api.Disabled;
@@ -13,6 +14,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
 import static mops.HaveExactlyOneAggregateRoot.HAVE_EXACTLY_ONE_AGGREGATE_ROOT;
 
+@ArchTag("checkArchitecture")
 public class ArchitectureRulesTest {
 
     private static final String MOPS_PRESENTATION = "mops.presentation..";
