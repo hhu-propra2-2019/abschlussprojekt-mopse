@@ -68,11 +68,17 @@ public class FileController {
      * @return the route to the parentDir of the deleted file
      */
     @DeleteMapping("/{fileId}")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String deleteFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("fileId") long fileId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        long dirId = fileService.deleteFile(account, fileId);
+        long dirId = 0;
+        try {
+            dirId = fileService.deleteFile(account, fileId);
+        } catch (MopsException e) {
+            //TODO: Exception handling
+        }
         return String.format("redirect:/material1/dir/%d", dirId);
     }
 }

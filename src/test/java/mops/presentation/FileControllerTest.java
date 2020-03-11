@@ -81,7 +81,7 @@ public class FileControllerTest {
     @BeforeEach
     public void setUp() throws MopsException {
         account = new Account("user", "user@mail.de", "studentin");
-        fileContent = new byte[]{1, 2, 3};
+        fileContent = new byte[] { 1, 2, 3 };
         Resource resource = new InputStreamResource(new ByteArrayInputStream(fileContent));
         FileInfo info = new FileInfo("file", 2L, MediaType.APPLICATION_OCTET_STREAM_VALUE,
                 fileContent.length, "", Set.of());

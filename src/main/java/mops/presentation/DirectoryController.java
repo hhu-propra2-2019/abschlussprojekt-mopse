@@ -6,6 +6,7 @@ import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileQuery;
 import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
+import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -38,12 +39,18 @@ public class DirectoryController {
      * @return route to folder
      */
     @GetMapping("/{dirId}")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
                                     @PathVariable("dirId") long dirId) {
         Account account = AccountUtil.getAccountFromToken(token);
         List<Directory> directories = directoryService.getSubFolders(account, dirId);
-        List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+        List<FileInfo> files = null;
+        try {
+            files = fileService.getFilesOfDirectory(account, dirId);
+        } catch (MopsException e) {
+            //TODO: Exception handling
+        }
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
         return "directory";

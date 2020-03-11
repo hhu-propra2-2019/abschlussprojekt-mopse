@@ -2,6 +2,7 @@ package mops.presentation;
 
 import mops.SpringTestContext;
 import mops.businesslogic.*;
+import mops.exception.MopsException;
 import mops.persistence.FileRepository;
 import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,7 +71,7 @@ public class DirectoryControllerTest {
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws MopsException {
         account = new Account("user", "user@mail.de", "studentin");
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         given(directoryService.createFolder(account, 1, "Vorlesungen")).willReturn(2L);
