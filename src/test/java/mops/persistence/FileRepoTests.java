@@ -1,12 +1,16 @@
 package mops.persistence;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.*;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.Duration;
 import java.util.Random;
 
@@ -117,13 +121,18 @@ public class FileRepoTests {
     }
 
     @Test
-    public void shouldReturnOriginalContent() throws StorageException {
+    @SuppressFBWarnings(value = "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE",
+            justification = "There is no null-check here")
+    public void shouldReturnOriginalContent() throws StorageException, IOException {
         long fileId = 1;
         byte[] originalContent = getRandomBytes();
         MultipartFile file = new MockMultipartFile("file.bin", originalContent);
 
         fileRepository.saveFile(file, fileId);
-        byte[] retrievedData = fileRepository.getFileContent(fileId);
+        byte[] retrievedData;
+        try(InputStream stream = fileRepository.getFileContent(fileId)) {
+            retrievedData = stream.readAllBytes();
+        }
 
         assertThat(retrievedData).isEqualTo(originalContent);
     }
