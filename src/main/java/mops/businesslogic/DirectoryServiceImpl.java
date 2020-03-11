@@ -36,11 +36,6 @@ public class DirectoryServiceImpl implements DirectoryService {
     private final DirectoryRepository directoryRepository;
 
     /**
-     * This connects to database related to File information.
-     */
-    private final FileInfoRepository fileInfoRepository;
-
-    /**
      * API for GruppenFindung which handles permissions.
      */
     private final PermissionService permissionService;
@@ -51,22 +46,16 @@ public class DirectoryServiceImpl implements DirectoryService {
     private final DirectoryPermissionsRepository directoryPermissionsRepo;
 
     /**
-     * Uploads a file.
+     * Checks whether the user is authorized to load the file.
      *
      * @param account       user credentials
      * @param dirId         the id of the folder where the file will be uploaded
-     * @param multipartFile the file object
      */
     @Override
-    public FileInfo uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<FileTag> fileTags) {
+    public void checkUploadFile(Account account, long dirId)  throws WriteAccessPermission {
+        Directory directory = fetchDirectory(dirId);
 
-        FileInfo fileInfo = new FileInfo(multipartFile.getName(), dirId, multipartFile.getContentType(),
-                multipartFile.getSize(), account.getName(), fileTags);
-
-        fileInfoRepository.save(fileInfo);
-
-
-        return fileInfo;
+        checkWritePermission(account, directory);
     }
 
     /**
