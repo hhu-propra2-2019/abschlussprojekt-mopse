@@ -101,15 +101,33 @@ Presentation Layer::
 | FileController | _Stellt angefragte Dateien zur Verfügung._ | _Alle Informationen bekommt er vom `FileService`._
 | GroupController | _Stellt den Inhalt einer Gruppe zur Verfügung._ | _Gruppeninformationen werden beim `GroupService` angefragt und die Dateiinformationen bekommt er vom `FileService`._
 | GroupsController | _Stellt alle Gruppen eines Benutzers zur Verfügung._ | _Alle Gruppeninformationen erhält er vom `GroupService`.
+| ExceptionHandler | _Fängt sämtliche Exceptions, die im Projekt geworfen werden und stellt diese bereit._ | _Ein Administrator kann hier alle Exceptions einsehen._
 |===
 
-Enthaltene Bausteine::
+Business Layer::
 
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
-| <Komponente-1> | _<Funktion-1>_ | _<Schnittstellen-1>_
-| <Komponente-2> | _<Funktion-2>_ | _<Schnittstellen-2>_
+| DirectoryService
+| _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner_
+| _Die Informationen über Dateien holt er sich vom `FileInfoService`. Um die Berechtigungen eines einzelnen Benutzers zu überprüfen wird eine Anfrage an den `PermissionService` gestellt, während die Berechtigungen des Ordners vom `DirectoryPermissionRepository` zur Verfügung gestellt werden. Um Operatioen, die andere Ordner involvieren, ausführen zu können wird beim `DirectoryRepository` angefragt._
+
+| FileInfoService
+| _Verwaltet alle Metadaten einer Datei, in Form des Objektes `FileInfo`._
+| _Um die benötigten Daten zu erhalten wird eine Anfrage an das `FileInfoRepository` gestellt._
+
+| FileService
+| _Verwaltet die Funktionen einer Datei. Dabei wird die Datei selbst mit ihren Metadaten verknüpft._
+| _Mittels einer Anfrage an den `FileInfoService` werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das `FileRepository` gestellt werden um die Datei selbst zu erhalten._
+
+| GroupService
+| _Verwaltet alle Inhalte einer einzelnen Gruppe. Ordner sowie Dateien._
+| _Um die Informationen über die Unterordner einer Gruppe zu erhalten wird eine Anfrage an den `DirectoryService` gestellt._
+
+| Permissionservice
+| _Stellt die Berechtigungen eines einzelnen Benutzers zur Verfügung._
+| _Stellt eine Anfrage an das Modul `Gruppenbildung` um die Berechtigungen eines Benutzers zu erhalten._
 |===
 
 Enthaltene Bausteine::
