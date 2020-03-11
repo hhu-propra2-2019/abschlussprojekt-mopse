@@ -1,10 +1,7 @@
 package mops.presentation;
 
 import lombok.AllArgsConstructor;
-import mops.businesslogic.Account;
-import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileQuery;
-import mops.businesslogic.FileInfoService;
+import mops.businesslogic.*;
 import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -32,9 +29,14 @@ public class DirectoryController {
     private final DirectoryService directoryService;
 
     /**
-     * Manges all file queries.
+     * Manges all meta data file queries.
      */
     private final FileInfoService fileInfoService;
+
+    /**
+     * Manges all file queries.
+     */
+    private final FileService fileService;
 
     /**
      * @param token keycloak auth token
@@ -48,7 +50,7 @@ public class DirectoryController {
                                     @PathVariable("dirId") long dirId) throws ReadAccessPermission {
         Account account = AccountUtil.getAccountFromToken(token);
         List<Directory> directories = directoryService.getSubFolders(account, dirId);
-        List<FileInfo> files = fileInfoService.getFilesOfDirectory(account, dirId);
+        List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
         return "directory";
@@ -70,7 +72,7 @@ public class DirectoryController {
                              @Param("file") MultipartFile multipartFile) {
         Account account = AccountUtil.getAccountFromToken(token);
         //TODO: exception handling and user error message
-        directoryService.uploadFile(account, dirId, multipartFile, Set.of());
+        fileService.uploadFile(account, dirId, multipartFile, Set.of());
         return String.format("redirect:/material1/dir/%d", dirId);
     }
 
