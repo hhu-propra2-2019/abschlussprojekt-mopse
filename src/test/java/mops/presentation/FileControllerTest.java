@@ -2,6 +2,8 @@ package mops.presentation;
 
 import mops.SpringTestContext;
 import mops.businesslogic.*;
+import mops.exception.MopsException;
+import mops.persistence.FileRepository;
 import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,11 +20,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.ByteArrayInputStream;
+import java.util.Set;
 
 import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -51,6 +53,12 @@ public class FileControllerTest {
      */
     @MockBean
     private DirectoryService directoryService;
+
+    /**
+     * Necessary mock until FileRepository is implemented.
+     */
+    @MockBean
+    private FileRepository fileRepository;
     /**
      * Necessary bean.
      */
@@ -65,18 +73,19 @@ public class FileControllerTest {
      * Wrapper of user credentials.
      */
     private Account account;
-    private FileContainer fileContainer;
+    byte[] fileContent;
 
     /**
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws MopsException {
         account = new Account("user", "user@mail.de", "studentin");
-        Resource resource = new InputStreamResource(new ByteArrayInputStream(new byte[]{1, 2, 3}));
-        //FileInfo info = new FileInfo()
-        fileContainer = new FileContainer(mock(FileInfo.class), resource);
-        given(fileContainer.getDirectoryId()).willReturn(2L);
+        fileContent = new byte[]{1, 2, 3};
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(fileContent));
+        FileInfo info = new FileInfo("file", 2L, MediaType.APPLICATION_OCTET_STREAM_VALUE,
+                fileContent.length, "", Set.of());
+        FileContainer fileContainer = new FileContainer(info, resource);
         given(fileService.getFile(account, 1)).willReturn(fileContainer);
         given(fileService.deleteFile(account, 1)).willReturn(2L);
 
@@ -90,7 +99,7 @@ public class FileControllerTest {
     /**
      * Tests the route for getting a file preview, or downloading if preview is not supported.
      */
-    //@Test
+    @Test
     public void getFile() throws Exception {
 
         //Gibt erstellten FileContainer zurück
@@ -101,7 +110,7 @@ public class FileControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertThat(result.getResponse().getContentAsByteArray()).isEqualTo(null);
+        assertThat(result.getResponse().getContentAsByteArray()).isEqualTo(fileContent);
 
     }
 
