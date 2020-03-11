@@ -3,9 +3,9 @@ package mops.businesslogic;
 import mops.SpringTestContext;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.directory.Directory;
-import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
+import mops.security.DeleteAccessPermission;
 import mops.security.PermissionService;
 import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
@@ -33,17 +33,18 @@ public class DirectoryServiceTest {
     public static final String READER = "reader";
     public static final String INTRUDER = "intruder";
     public static final String USER = "user";
-    /**
-     * Necessary bean, must be removed when file service is implemented.
-     */
-    @MockBean
-    private FileInfoService fileInfoService;
 
     /**
      * Necessary bean, must be removed when group service is implemented.
      */
     @MockBean
     private GroupService groupService;
+
+    /**
+     * Necessary bean, must be removed when file info service is implemented.
+     */
+    @MockBean
+    private FileInfoService fileInfoService;
 
     /**
      * API for getting permission roles from GruppenFindung.
@@ -114,9 +115,11 @@ public class DirectoryServiceTest {
 
         given(permissionService.fetchRoleForUserInGroup(eq(admin), anyLong())).willReturn(ADMINISTRATOR);
         given(permissionService.fetchRolesInGroup(anyLong())).willReturn(Set.of(ADMINISTRATOR, STUDENTIN));
+        given(permissionService.fetchRoleForUserInDirectory(eq(admin), any(Directory.class))).willReturn(ADMINISTRATOR);
         given(permissionService.fetchRoleForUserInDirectory(eq(account), any(Directory.class))).willReturn(STUDENTIN);
         given(permissionService.fetchRoleForUserInDirectory(eq(intruder), any(Directory.class))).willReturn(INTRUDER);
         given(permissionService.fetchRoleForUserInDirectory(eq(reader), any(Directory.class))).willReturn(READER);
+        given(fileInfoService.fetchAllFilesInDirectory(anyLong())).willReturn(List.of());
     }
 
     /**
@@ -166,6 +169,11 @@ public class DirectoryServiceTest {
         assertThat(folder).isEqualTo(expectedDirectory);
     }
 
+    /**
+     * Test if admin can update the permissions of a directory.
+     *
+     * @throws WriteAccessPermission user does not have write permission
+     */
     @Test
     public void updatePermissionTest() throws WriteAccessPermission {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
@@ -210,7 +218,7 @@ public class DirectoryServiceTest {
     }
 
     /**
-     * Checks if exception is thrown if the user does not have writing permission.
+     * Checks if exception is thrown if the user does not have reading permission.
      *
      * @throws WriteAccessPermission user does not have writing permission
      */
@@ -239,14 +247,14 @@ public class DirectoryServiceTest {
     }
 
     /**
-     * Checks if exception is thrown if the user does not have writing permission.
+     * Tests if a admin can delete subfolder.
      */
     @Test
-    public void checkWritePermission() throws WriteAccessPermission{
+    public void deleteSubFolderTest() throws WriteAccessPermission, DeleteAccessPermission, ReadAccessPermission {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
-        parentId = root.getId();
+        Directory subFolder = directoryService.createFolder(account, root.getId(), "subFolder");
+        Directory directory = directoryService.deleteFolder(admin, subFolder.getId());
 
-        assertThatExceptionOfType(WriteAccessPermission.class).isThrownBy(() ->
-                directoryService.checkWritePermission(intruder, parentId));
+        assertThat(directory).isEqualTo(root);
     }
 }

@@ -9,6 +9,7 @@ import mops.persistence.file.FileInfo;
 import mops.persistence.file.FileTag;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
+import mops.security.DeleteAccessPermission;
 import mops.security.PermissionService;
 import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
@@ -39,6 +40,11 @@ public class DirectoryServiceImpl implements DirectoryService {
      * API for GruppenFindung which handles permissions.
      */
     private final PermissionService permissionService;
+
+    /**
+     * Handles meta data of files.
+     */
+    private final FileInfoService fileInfoService;
 
     /**
      * This connects to database to handle directory permissions.
@@ -118,8 +124,22 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return the parent id of the deleted folder
      */
     @Override
-    public long deleteFolder(Account account, long dirId) {
-        return 0;
+    public Directory deleteFolder(Account account, long dirId) throws DeleteAccessPermission, ReadAccessPermission {
+        Directory directory = fetchDirectory(dirId);
+        checkDeletePermission(account, directory);
+
+        List<FileInfo> files = fileInfoService.fetchAllFilesInDirectory(dirId);
+        List<Directory> subFolders = getSubFolders(account, dirId);
+
+        if (!files.isEmpty() || !subFolders.isEmpty()) {
+            throw new DeleteAccessPermission(String.format("The directory %s is not empty.", directory.getName()));
+        }
+
+        Directory parentDirectory = fetchDirectory(directory.getParentId());
+
+        directoryRepository.delete(directory);
+
+        return parentDirectory;
     }
 
     /**
@@ -207,6 +227,23 @@ public class DirectoryServiceImpl implements DirectoryService {
 
     }
 
+    private void checkDeletePermission(Account account, Directory directory) throws DeleteAccessPermission {
+        DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
+
+        String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
+
+        boolean allowedToDelete = directoryPermissions.getPermissions()
+                .stream()
+                .filter(DirectoryPermissionEntry::isCanDelete)
+                .anyMatch(permission -> permission.getRole().equals(userRole));
+
+        if (!allowedToDelete) {
+            throw new DeleteAccessPermission(String.format("The user %s doesn't have delete permission in %s.",
+                    account.getName(),
+                    directory.getName()));
+        }
+    }
+
     private void checkIfAdmin(Account account, Long groupId) throws WriteAccessPermission {
         String role = permissionService.fetchRoleForUserInGroup(account, groupId);
         if (!ADMINISTRATOR.equals(role)) {
@@ -224,6 +261,13 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
 
+    /**
+     * Creates the default permission set.
+     *
+     * @param roleNames all role names existing in the group
+     * @return a set of directory permission entries
+     */
+    //TODO: this is a template and can only implement when GruppenFindung defined their roles.
     private Set<DirectoryPermissionEntry> createDefaultPermissions(Set<String> roleNames) {
         return roleNames.stream() //NOPMD// this is not a violation of demeter's law
                 .map(role -> new DirectoryPermissionEntry(role, true, true, true))

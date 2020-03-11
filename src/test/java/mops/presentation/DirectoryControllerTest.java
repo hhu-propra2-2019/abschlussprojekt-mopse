@@ -4,6 +4,8 @@ import mops.SpringTestContext;
 import mops.businesslogic.*;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.security.DeleteAccessPermission;
+import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,14 +16,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Set;
 
 import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -40,10 +39,16 @@ public class DirectoryControllerTest {
     @MockBean
     private GroupService groupService;
     /**
-     * Necessary mock until FileService is implemented.
+     * Necessary mock until FileInfoService is implemented.
      */
     @MockBean
     private FileInfoService fileInfoService;
+
+    /**
+     * Necessary mock until FileService is implemented.
+     */
+    @MockBean
+    private FileService fileService;
     /**
      * Necessary mock until DirectoryService is implemented.
      */
@@ -68,15 +73,18 @@ public class DirectoryControllerTest {
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
-    public void setUp() throws WriteAccessPermission {
+    public void setUp() throws WriteAccessPermission, ReadAccessPermission, DeleteAccessPermission {
         Directory directory = mock(Directory.class);
+        Directory root = new Directory(1L, "root", 1L, 1L, 1L);
+
         account = new Account("user", "user@mail.de", "studentin");
+
         given(directory.getId()).willReturn(2L);
-        given(fileInfoService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
+        given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         given(directoryService.createFolder(account, 1L, "Vorlesungen")).willReturn(directory);
-        given(directoryService.deleteFolder(account, 1)).willReturn(0L);
+        given(directoryService.deleteFolder(account, 1)).willReturn(root);
         given(directoryService.searchFolder(account, 1, mock(FileQuery.class))).willReturn(List.of());
-        doNothing().when(directoryService).uploadFile(account, 1, mock(MultipartFile.class), Set.of());
+
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())

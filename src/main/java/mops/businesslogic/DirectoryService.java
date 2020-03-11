@@ -4,6 +4,7 @@ import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.file.FileTag;
 import mops.persistence.permission.DirectoryPermissionEntry;
+import mops.security.DeleteAccessPermission;
 import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,9 +55,9 @@ public interface DirectoryService {
      *
      * @param account user credential
      * @param dirId   id of the folder to be deleted
-     * @return the parent id of the deleted folder
+     * @return parent directory of the deleted folder
      */
-    long deleteFolder(Account account, long dirId);
+    Directory deleteFolder(Account account, long dirId) throws DeleteAccessPermission, ReadAccessPermission;
 
     /**
      * Searches a folder for files.
