@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import mops.businesslogic.Account;
 import mops.businesslogic.GroupService;
 import mops.businesslogic.utils.AccountUtil;
-import mops.persistence.directory.Directory;
+import mops.persistence.group.Group;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +34,7 @@ public class GroupsController {
     @GetMapping
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
         Account account = AccountUtil.getAccountFromToken(token);
-        List<Directory> groups = groupService.getAllGroupRootDirectories(account);
+        List<Group> groups = groupService.getAllGroups(account);
         model.addAttribute("groups", groups);
         return "groups";
     }

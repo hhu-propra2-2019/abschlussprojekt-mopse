@@ -72,7 +72,7 @@ public class GroupsControllerTest {
     @BeforeEach
     public void setUp() {
         account = new Account("studi", "bla@bla.de", "studentin");
-        given(groupService.getAllGroupRootDirectories(account)).willReturn(List.of());
+        given(groupService.getAllGroups(account)).willReturn(List.of());
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .alwaysDo(print())
