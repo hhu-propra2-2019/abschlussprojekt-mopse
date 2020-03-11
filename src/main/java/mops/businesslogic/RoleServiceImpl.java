@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 
 @AllArgsConstructor
 @Service
-public class RoleServiceImpl {
+public class RoleServiceImpl implements RoleService {
     /**
      * API for GruppenFindung which handles permissions.
      */
@@ -34,6 +34,7 @@ public class RoleServiceImpl {
      * @param directory id of the directory to check
      * @throws MopsException checked exception to present to UI
      */
+    @Override
     public void checkWritePermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
 
@@ -56,6 +57,7 @@ public class RoleServiceImpl {
      * @param directory id of the directory to check
      * @throws MopsException checked exception to present to UI
      */
+    @Override
     public void checkReadPermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
 
@@ -78,6 +80,7 @@ public class RoleServiceImpl {
      * @param directory id of the directory to check
      * @throws MopsException checked exception to present to UI
      */
+    @Override
     public void checkDeletePermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
 
@@ -99,6 +102,7 @@ public class RoleServiceImpl {
      * @param allowedRole role which has the right
      * @throws MopsException checked exception to present to UI
      */
+    @Override
     public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {
         String role = permissionService.fetchRoleForUserInGroup(account, groupId);
         if (!allowedRole.equals(role)) {
