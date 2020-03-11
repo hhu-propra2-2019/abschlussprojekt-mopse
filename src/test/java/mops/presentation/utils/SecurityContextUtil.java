@@ -41,9 +41,8 @@ public class SecurityContextUtil {
      * @param userEmail email of the user
      * @param roles     roles of the user
      */
-    @SuppressWarnings("rawtypes")
     public static void setupSecurityContextMock(String userName, String userEmail, Set<String> roles) {
-        KeycloakPrincipal principal = mock(KeycloakPrincipal.class, RETURNS_DEEP_STUBS);
+        KeycloakPrincipal<?> principal = mock(KeycloakPrincipal.class, RETURNS_DEEP_STUBS);
         when(principal.getName()).thenReturn(userName);
         when(principal.getKeycloakSecurityContext().getIdToken().getEmail()).thenReturn(userEmail);
         SimpleKeycloakAccount account = new SimpleKeycloakAccount(principal, roles,
