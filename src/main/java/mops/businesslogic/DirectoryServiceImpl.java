@@ -132,7 +132,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             throw new DeleteAccessPermission(String.format("The directory %s is not empty.", directory.getName()));
         }
 
-        Directory parentDirectory = fetchDirectory(directory.getParentId());
+        Directory parentDirectory = fetchDirectory(directory);
 
         directoryRepository.delete(directory);
 
@@ -166,15 +166,15 @@ public class DirectoryServiceImpl implements DirectoryService {
                                       Set<DirectoryPermissionEntry> permissionEntries) throws MopsException {
         Directory directory = fetchDirectory(dirId);
         checkIfAdmin(account, directory);
-        Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        DirectoryPermissions directoryPermissions = permissions.orElseThrow(() -> {
-            String errorMessage = "Permission couldn't be fetched.";
-            return new DatabaseException(errorMessage);
-        });
-        directoryPermissions.setPermissions(permissionEntries);
-        DirectoryPermissions savedPermissions = directoryPermissionsRepo.save(directoryPermissions);
+        DirectoryPermissions directoryPermissions = fetchPermissions(directory);
+        DirectoryPermissions updatedPermissions = DirectoryPermissions.of(directoryPermissions, permissionEntries);
+        DirectoryPermissions savedPermissions = directoryPermissionsRepo.save(updatedPermissions);
         directory.setPermission(savedPermissions);
         return directoryRepository.save(directory);
+    }
+
+    private Directory fetchDirectory(Directory directory) {
+        return fetchDirectory(directory.getId());
     }
 
     /**
@@ -185,6 +185,14 @@ public class DirectoryServiceImpl implements DirectoryService {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
         // this is not a violation of demeter's law
         return optionalDirectory.orElseThrow(getException(parentDirID)); //NOPMD//
+    }
+
+    private DirectoryPermissions fetchPermissions(Directory directory) throws DatabaseException {
+        Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
+        return permissions.orElseThrow(() -> {//NOPMD   // this is not a violation of demeter's law
+            String errorMessage = "Permission couldn't be fetched.";
+            return new DatabaseException(errorMessage);
+        });
     }
 
 
