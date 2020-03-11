@@ -4,7 +4,7 @@ plugins {
     id 'java'
     id 'checkstyle'
     id 'pmd'
-    id 'com.github.spotbugs' version '4.0.1'
+    id 'com.github.spotbugs' version '4.0.2'
 }
 
 group = 'mops'
@@ -82,7 +82,7 @@ tasks.withType(Pmd) {
     }
 }
 
-check.dependsOn tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
     reports {
         xml.enabled = false
         html.enabled = true

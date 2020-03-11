@@ -128,7 +128,7 @@ public class FileRepository {
      * @param fileId the file ID
      * @return true if found
      */
-    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn"})
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn" })
     public boolean fileExist(long fileId) throws StorageException {
         ObjectStat objectStat;
         try {
@@ -137,7 +137,7 @@ public class FileRepository {
                     String.valueOf(fileId)
             );
         } catch (ErrorResponseException e) {
-            // not found
+            // file not found
             return false;
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | InvalidResponseException
                 | XmlPullParserException | InvalidArgumentException | InsufficientDataException | InternalException
@@ -153,13 +153,15 @@ public class FileRepository {
      *
      * @throws StorageException if an error occurs
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings({ "PMD.DefaultPackage", "PMD.LawOfDemeter" })
     void clearBucket() throws StorageException {
         try {
             for (Result<Item> result : minioClient.listObjects(configuration.getBucketName())) {
                 minioClient.removeObject(configuration.getBucketName(), result.get().objectName());
             }
-        } catch (Exception e) {
+        } catch (ErrorResponseException | InsufficientDataException | InternalException | InvalidArgumentException
+                | InvalidBucketNameException | InvalidResponseException | NoResponseException | IOException
+                | InvalidKeyException | NoSuchAlgorithmException | XmlPullParserException e) {
             throw new StorageException("Bucket konnte nicht geleert werden.", e);
         }
     }
