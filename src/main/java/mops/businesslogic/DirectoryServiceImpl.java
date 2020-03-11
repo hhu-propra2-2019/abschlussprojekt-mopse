@@ -1,15 +1,16 @@
 package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
+import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.security.DeleteAccessPermission;
 import mops.security.PermissionService;
-import mops.security.ReadAccessPermission;
+import mops.security.exception.DeleteAccessPermission;
+import mops.security.exception.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.springframework.stereotype.Service;
 
@@ -84,10 +85,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return the directory created
      */
     @Override
-    public Directory createRootFolder(Account account, Long groupId) throws WriteAccessPermission {
-        Directory directory = new Directory();
-        directory.setName(groupId.toString());
-        directory.setGroupOwner(groupId);
+    public Directory createRootFolder(Account account, Long groupId) throws MopsException {
+
         checkIfAdmin(account, groupId);
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
         Set<DirectoryPermissionEntry> permissions = createDefaultPermissions(roleNames);
@@ -121,7 +120,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return the parent id of the deleted folder
      */
     @Override
-    public Directory deleteFolder(Account account, long dirId) throws DeleteAccessPermission, ReadAccessPermission {
+    public Directory deleteFolder(Account account, long dirId) throws MopsException {
         Directory directory = fetchDirectory(dirId);
         checkDeletePermission(account, directory);
 
@@ -163,7 +162,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public Directory updatePermission(Account account,
                                       Long dirId,
-                                      Set<DirectoryPermissionEntry> permissionEntries) throws WriteAccessPermission {
+                                      Set<DirectoryPermissionEntry> permissionEntries) throws MopsException {
         Directory directory = fetchDirectory(dirId);
         long groupId = directory.getGroupOwner();
         checkIfAdmin(account, groupId);
