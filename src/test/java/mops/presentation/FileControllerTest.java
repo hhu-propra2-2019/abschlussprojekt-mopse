@@ -15,6 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -63,7 +64,7 @@ public class FileControllerTest {
     @BeforeEach
     public void setUp() {
         account = new Account("user", "user@mail.de", "studentin");
-        FileInfo file = mock(FileInfo.class);
+        FileContainer file = mock(FileContainer.class);
         given(file.getDirectoryId()).willReturn(2L);
         given(fileService.getFile(account, 1)).willReturn(file);
         given(fileService.deleteFile(account, 1)).willReturn(2L);
@@ -80,10 +81,12 @@ public class FileControllerTest {
      */
     //@Test //TODO: Re-enable
     public void getFile() throws Exception { //TODO: Implement with file expectation
+
         setupSecurityContextMock(account);
         mvc.perform(get("/material1/file/1")
                 .with(csrf()));
-                //.andExpect(status().)
+        //TODO: Redirection? Status code?
+
     }
 
     /**

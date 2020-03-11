@@ -38,7 +38,7 @@ public interface FileService {
      * @param fileId  file id of needed file
      * @return file
      */
-    FileInfo getFile(Account account, long fileId);
+    FileContainer getFile(Account account, long fileId);
 
     /**
      * @param account user credentials

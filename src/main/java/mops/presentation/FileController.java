@@ -2,6 +2,7 @@ package mops.presentation;
 
 import lombok.AllArgsConstructor;
 import mops.businesslogic.Account;
+import mops.businesslogic.FileContainer;
 import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.persistence.file.FileInfo;
@@ -39,7 +40,7 @@ public class FileController {
     ResponseEntity getFile(KeycloakAuthenticationToken token,
                                 @PathVariable("fileId") long fileId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        FileInfo result = fileService.getFile(account, fileId);
+        FileContainer result = fileService.getFile(account, fileId);
 
         if (result.getId() == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,

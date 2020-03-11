@@ -18,7 +18,7 @@ public interface FileContainer {
     /**
      * @return file id
      */
-    long getId();
+    Long getId();
 
     /**
      * @return content type of file
