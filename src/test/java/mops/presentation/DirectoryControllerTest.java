@@ -20,7 +20,6 @@ import java.util.List;
 
 import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -80,7 +79,7 @@ public class DirectoryControllerTest {
     @BeforeEach
     public void setUp() throws MopsException {
         Directory directory = mock(Directory.class);
-        Directory root = new Directory(1L, "root", 1L, 1L, 1L, null, null);
+        Directory root = mock(Directory.class);
 
         account = Account.of("user", "user@mail.de", "studentin");
 
