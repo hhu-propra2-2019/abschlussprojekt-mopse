@@ -199,47 +199,8 @@ Enthaltene Bausteine::
 
 [cols="1,1,1" options="header"]
 |===
-|Komponente |Funktion | Pfad
-| GroupsController | _Bereitstellung aller Routen, die mit `/groups` beginnen._  | `GET: /material1/groups/`
-| GroupController | _Bereitstellung aller Routen, die mit `/group` beginnen._ | `GET: /material1/group/{groupId}`
-`GET: /material1/group/{groupId}/search`
-`GET: /material1/group/{groupId}/url`
-| DirectoryController | _Bereitstellung aller Routen, die mit `/dir` beginnen._ | `GET: /material1/dir/{dirId}`
-
-`POST: /material1/dir/{dirId}`/create
-
-`POST: /material1/dir/{dirId}`/search
-
-`POST: /material1/dir/{dirId}`/upload
-
-`DELETE: /material1/dir/{dirId}`
-| FileInfoRepository | _Bereitstellung von Zugriffsfunktionen auf das `FileInfo`-Aggregat._ | ...
-|===
-
-Persistenz::
-
-Begründung:: Die einzelnen Repositories korrespondieren zu den Aggregaten.
-
-Repositories::
-
-[cols="1,1,1" options="header"]
-|===
-| Komponente | Funktion |
-| FileInfoRepository | _Bereitstellung von Zugriffsfunktionen auf das `FileInfo`-Aggregat._ | _Standardfunktionen von
-CRUDRepository._
-| DirectoryRepository | _Bereitstellung von Zugriffsfunktionen auf das `Directory`-Aggregat._ | _Standardfunktionen von
-CRUDRepository._
-| DirectoryPermissionsRepository | _Bereitstellung von Zugriffsfunktionen auf das `DirectoryPermissions`-Aggregat._ |
-_Standardfunktionen von CRUDRepository._
-|===
-
-Aggregate::
-
-[cols="1,1" options="header"]
-|===
-| Aggregat | Funktion
-| `FileInfo` | _Repräsentiert eine Datei im System._
-| `Directory` | _Repräsentiert einen Ordner im System._
-| `DirectoryPermissions` | _Repräsentiert die Berechtigungen aller Rollen für einen Ordner im System._
+| Komponente | Funktion | Schnittstellen
+| <Komponente-1> | _<Funktion-1>_ | _<Schnittstelle-1>_
+| <Komponente-2> | _<Funktion-2>_ | _<Schnittstelle-2>_
 |===
 ****
