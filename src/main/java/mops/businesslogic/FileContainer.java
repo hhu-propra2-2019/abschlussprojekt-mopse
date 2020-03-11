@@ -15,6 +15,16 @@ public interface FileContainer {
     long getDirectoryId();
 
     /**
+     * @return file id
+     */
+    long getId();
+
+    /**
+     * @return content type of file
+     */
+    String getType();
+
+    /**
      *
      * @return content of file
      */
