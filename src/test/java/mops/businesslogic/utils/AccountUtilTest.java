@@ -18,13 +18,12 @@ public class AccountUtilTest {
      * Tests if the account is correctly build from token.
      */
     @Test
-    @SuppressWarnings("rawtypes")
     public void getAccountFromToken() {
         String userName = "studi";
         String userEmail = "bla@bla.com";
         Set<String> roles = Set.of("studentin");
 
-        KeycloakPrincipal principal = mock(KeycloakPrincipal.class, RETURNS_DEEP_STUBS);
+        KeycloakPrincipal<?> principal = mock(KeycloakPrincipal.class, RETURNS_DEEP_STUBS);
         when(principal.getName()).thenReturn(userName);
         when(principal.getKeycloakSecurityContext().getIdToken().getEmail()).thenReturn(userEmail);
         SimpleKeycloakAccount keycloakAccount = new SimpleKeycloakAccount(principal, roles,
@@ -32,7 +31,7 @@ public class AccountUtilTest {
         KeycloakAuthenticationToken keycloakAuthenticationToken = new KeycloakAuthenticationToken(keycloakAccount,
                 true);
 
-        Account expectedAccount = new Account(userName, userEmail, roles);
+        Account expectedAccount = Account.of(userName, userEmail, roles);
 
         Account accountFromToken = AccountUtil.getAccountFromToken(keycloakAuthenticationToken);
 
