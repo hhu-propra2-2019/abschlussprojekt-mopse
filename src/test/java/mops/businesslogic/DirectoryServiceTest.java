@@ -228,6 +228,10 @@ public class DirectoryServiceTest {
     public void createSubFolderWithReadsOnlyPermissionTest() throws WriteAccessPermission {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         Long parentId = root.getId();
+        DirectoryPermissionEntry readerEntry = new DirectoryPermissionEntry("reader", false, true, false);
+        DirectoryPermissionEntry adminEntry = new DirectoryPermissionEntry(ADMINISTRATOR, true, true, true);
+        Set<DirectoryPermissionEntry> permissionEntries = Set.of(adminEntry, readerEntry);
+        directoryService.updatePermission(admin, parentId, permissionEntries);
         assertThatExceptionOfType(ReadAccessPermission.class).isThrownBy(() -> directoryService.getSubFolders(reader, parentId));
     }
 
