@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissionEntry;
@@ -11,9 +12,8 @@ public interface DirectoryService {
     /**
      * Uploads a file.
      *
-     * @param account       user credentials
-     * @param dirId         the id of the folder where the file will be uploaded
-     * @return the file meta object
+     * @param account user credentials
+     * @param dirId   the id of the folder where the file will be uploaded
      */
     void checkWritePermission(Account account, long dirId) throws MopsException;
 
@@ -42,7 +42,7 @@ public interface DirectoryService {
      * @param dirId   id of the folder to be deleted
      * @return parent directory of the deleted folder
      */
-    long deleteFolder(Account account, long dirId) throws MopsException;
+    Directory deleteFolder(Account account, long dirId) throws MopsException;
 
     /**
      * Searches a folder for files.
@@ -62,5 +62,5 @@ public interface DirectoryService {
      * @param permissionEntries new set of permissions
      * @return the updated directory
      */
-    Directory updatePermission(Account account, Long dirId, Set<DirectoryPermissionEntry> permissionEntries) throws MopsException
+    Directory updatePermission(Account account, Long dirId, Set<DirectoryPermissionEntry> permissionEntries) throws MopsException;
 }

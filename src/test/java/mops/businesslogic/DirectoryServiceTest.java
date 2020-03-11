@@ -1,12 +1,12 @@
 package mops.businesslogic;
 
 import mops.SpringTestContext;
+import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.security.PermissionService;
-import mops.security.exception.DeleteAccessPermission;
 import mops.security.exception.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
 import org.junit.jupiter.api.BeforeEach;
@@ -124,11 +124,9 @@ public class DirectoryServiceTest {
 
     /**
      * Test if a group folder is correctly created.
-     *
-     * @throws WriteAccessPermission user does not have writing permission
      */
     @Test
-    public void createGroupRootFolder() throws WriteAccessPermission {
+    public void createGroupRootFolder() throws MopsException {
         String nameFirstDirectory = String.valueOf(groupOwner);
         long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
         Directory expectedDirectory = new Directory(nameFirstDirectory, null, groupOwner, permissionsId + 1L);
@@ -148,11 +146,9 @@ public class DirectoryServiceTest {
 
     /**
      * Test if folder is created in a given root folder.
-     *
-     * @throws WriteAccessPermission user does not have writing permission
      */
     @Test
-    public void createFolderTest() throws WriteAccessPermission {
+    public void createFolderTest() throws MopsException {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
         long permissionsId = root.getPermissionsId();
@@ -171,11 +167,9 @@ public class DirectoryServiceTest {
 
     /**
      * Test if admin can update the permissions of a directory.
-     *
-     * @throws WriteAccessPermission user does not have write permission
      */
     @Test
-    public void updatePermissionTest() throws WriteAccessPermission {
+    public void updatePermissionTest() throws MopsException {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         Long groupId = root.getId();
 
@@ -190,12 +184,9 @@ public class DirectoryServiceTest {
 
     /**
      * Test if sub folders are correctly returned.
-     *
-     * @throws WriteAccessPermission user does not have writing permission
-     * @throws ReadAccessPermission  user does not have reading permission
      */
     @Test
-    public void getSubFoldersTest() throws WriteAccessPermission, ReadAccessPermission {
+    public void getSubFoldersTest() throws MopsException {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
         long permissionsId = root.getPermissionsId();
@@ -219,11 +210,9 @@ public class DirectoryServiceTest {
 
     /**
      * Checks if exception is thrown if the user does not have reading permission.
-     *
-     * @throws WriteAccessPermission user does not have writing permission
      */
     @Test
-    public void getSubFoldersWithoutPermissionTest() throws WriteAccessPermission {
+    public void getSubFoldersWithoutPermissionTest() throws MopsException {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
 
@@ -232,11 +221,9 @@ public class DirectoryServiceTest {
 
     /**
      * Test if a user with read only permission can't create a sub folder.
-     *
-     * @throws WriteAccessPermission user does not have writing permissions
      */
     @Test
-    public void createSubFolderWithReadsOnlyPermissionTest() throws WriteAccessPermission {
+    public void createSubFolderWithReadsOnlyPermissionTest() throws MopsException {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         Long parentId = root.getId();
         DirectoryPermissionEntry readerEntry = new DirectoryPermissionEntry(READER, false, true, false);
@@ -250,7 +237,7 @@ public class DirectoryServiceTest {
      * Tests if a admin can delete subfolder.
      */
     @Test
-    public void deleteSubFolderTest() throws WriteAccessPermission, DeleteAccessPermission, ReadAccessPermission {
+    public void deleteSubFolderTest() throws MopsException {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         Directory subFolder = directoryService.createFolder(account, root.getId(), "subFolder");
         Directory directory = directoryService.deleteFolder(admin, subFolder.getId());
@@ -262,7 +249,7 @@ public class DirectoryServiceTest {
      * Checks if exception is thrown if the user does not have writing permission.
      */
     @Test
-    public void checkWritePermission() throws WriteAccessPermission {
+    public void checkWritePermission() throws MopsExceptio {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
 
