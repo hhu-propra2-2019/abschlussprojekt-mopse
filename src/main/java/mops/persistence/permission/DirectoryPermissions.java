@@ -71,6 +71,20 @@ public class DirectoryPermissions {
     }
 
     /**
+     * @param originalPermissions the permissions the directory original had
+     * @param permissionEntries   the new set of permissions
+     * @return a updated version of the permission
+     */
+    public static DirectoryPermissions of(DirectoryPermissions originalPermissions,
+                                          Set<DirectoryPermissionEntry> permissionEntries) {
+        return new DirectoryPermissions(originalPermissions.id,
+                originalPermissions.fixJdbcBug,
+                permissionEntries,
+                originalPermissions.creationTime,
+                null);
+    }
+
+    /**
      * Get the creation time.
      *
      * @return creation time
