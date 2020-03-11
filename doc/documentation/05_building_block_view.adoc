@@ -146,6 +146,10 @@ Business Layer::
 | Permissionservice
 | _Stellt die Berechtigungen eines einzelnen Benutzers zur Verfügung._
 | _Stellt eine Anfrage an das Modul `Gruppenbildung` um die Berechtigungen eines Benutzers zu erhalten._
+
+| RoleService
+| _Checkt die Rolenberechtigung eines Nutzers._
+| _Es stellt Berechtigungsanfragen an den `PermissionService`._
 |===
 
 Persistence Layer::
