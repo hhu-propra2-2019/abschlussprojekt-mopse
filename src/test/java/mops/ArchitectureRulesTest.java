@@ -7,7 +7,7 @@ import com.tngtech.archunit.lang.ArchRule;
 import mops.utils.AggregateRoot;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.stereotype.Controller;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
@@ -104,7 +104,7 @@ public class ArchitectureRulesTest {
                 .that()
                 .resideInAPackage(MOPS_PRESENTATION)
                 .and()
-                .areNotAnnotatedWith(SpringBootTest.class)
+                .areNotAnnotatedWith(WebMvcTest.class)
                 .should()
                 .beAnnotatedWith(Controller.class);
 

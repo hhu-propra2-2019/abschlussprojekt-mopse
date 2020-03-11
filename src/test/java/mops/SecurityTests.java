@@ -1,110 +1,86 @@
 package mops;
 
+import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
+import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import mops.persistence.FileRepository;
+import mops.utils.TestContext;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringTestContext
+@TestContext
 @SpringBootTest
-public class SecurityTests {
+class SecurityTests {
 
-    /**
-     * The server is not available while testing.
-     */
     @MockBean
-    private FileRepository fileRepository;
-    /**
-     * Necessary mock until GroupService is implemented.
-     */
+    FileRepository fileRepository;
     @MockBean
-    private GroupService groupService;
-    /**
-     * Necessary mock until DirectoryService is implemented.
-     */
+    GroupService groupService;
     @MockBean
-    private DirectoryService directoryService;
-    /**
-     * Necessary mock until FileService is implemented.
-     */
+    FileService fileService;
     @MockBean
-    private FileService fileService;
-    /**
-     * Necessary bean .
-     */
+    DirectoryService directoryService;
+
     @Autowired
-    private WebApplicationContext context;
+    WebApplicationContext context;
 
-    /**
-     * Necessary bean.
-     */
-    private MockMvc mvc;
+    MockMvc mvc;
 
     /**
      * Necessary configuration for Spring Security tests.
      */
     @BeforeAll
-    public void setup() {
+    void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
-                .alwaysDo(print())
                 .apply(springSecurity())
                 .build();
     }
 
     /**
      * Tests auth needed on index.
-     *
-     * @throws Exception on error
      */
     @Test
-    public void notSignedIn() throws Exception {
+    void notSignedIn() throws Exception {
         mvc.perform(get("/"))
                 .andExpect(status().is3xxRedirection());
     }
 
     /**
      * Tests get request as authenticated but not right role for monitoring.
-     *
-     * @throws Exception on error
      */
     @Test
-    @WithMockUser("randomUser")
-    public void signedInAsNormalUser() throws Exception {
-        mvc.perform(get("/"))
-                // TODO: change when route "/" (or similar) exists
-                // .andExpect(status().isOk());
-                .andExpect(status().isNotFound());
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void signedInAsNormalUser() throws Exception {
+        mvc.perform(get("/material1/groups"))
+                .andExpect(status().isOk());
 
-        mvc.perform(get("/actuator/"))
+        mvc.perform(get("/actuator"))
                 .andExpect(status().isForbidden());
     }
 
     /**
-     * prometheus should get access to /actuator/.
-     *
-     * @throws Exception on error
+     * prometheus should get access to /actuator.
      */
     @Test
-    @WithMockUser(username = "prometheus", roles = { "monitoring" })
+    @WithMockKeycloackAuth(name = "prometheus", roles = "monitoring", idToken = @WithIDToken(email =
+            "prometheus@mail.de"))
     public void prometheusShouldHaveAccess() throws Exception {
-        mvc.perform(get("/actuator/"))
+        mvc.perform(get("/actuator"))
                 .andExpect(status().isOk());
     }
 }

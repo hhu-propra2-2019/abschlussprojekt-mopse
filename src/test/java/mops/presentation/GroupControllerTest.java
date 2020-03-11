@@ -1,94 +1,59 @@
 package mops.presentation;
 
-import mops.SpringTestContext;
+import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
+import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
+import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.*;
 import mops.exception.MopsException;
 import mops.persistence.FileRepository;
+import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
-import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringTestContext
-@SpringBootTest
-public class GroupControllerTest {
+@KeycloakContext
+@WebMvcTest(GroupController.class)
+public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
+
+    @MockBean
+    FileRepository fileRepository;
+    @MockBean
+    GroupService groupService;
+    @MockBean
+    FileService fileService;
+    @MockBean
+    DirectoryService directoryService;
 
     /**
-     * The server is not available while testing.
-     */
-    @MockBean
-    private FileRepository fileRepository;
-    /**
-     * Necessary mock until GroupService is implemented.
-     */
-    @MockBean
-    private GroupService groupService;
-    /**
-     * Necessary mock until DirectoryService is implemented.
-     */
-    @MockBean
-    private DirectoryService directoryService;
-    /**
-     * Necessary mock until GroupService is implemented.
-     */
-    @MockBean
-    private FileService fileService;
-
-    /**
-     * Necessary bean.
-     */
-    @Autowired
-    private WebApplicationContext context;
-    /**
-     * Necessary bean.
-     */
-    private MockMvc mvc;
-    /**
-     * Wrapper of user credentials.
-     */
-    private Account account;
-
-    /**
-     * Setups the a Mock MVC Builder.
+     * Setup service/repo mocks.
      */
     @BeforeEach
-    void setUp() throws MopsException {
-        account = Account.of("studi", "bla@bla.de", "studentin");
-        given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
-        given(groupService.getGroupUrl(account, 1)).willReturn(new GroupDirUrlWrapper(1L));
-        mvc = MockMvcBuilders
-                .webAppContextSetup(context)
-                .alwaysDo(print())
-                .apply(springSecurity())
-                .build();
+    void setup() throws MopsException {
+        given(fileService.getAllFilesOfGroup(any(), eq(1L))).willReturn(List.of());
+        given(fileService.searchFilesInGroup(any(), eq(1L), any())).willReturn(List.of());
+        given(groupService.getGroupUrl(any(), eq(1L))).willReturn(new GroupDirUrlWrapper(1L));
     }
 
     /**
      * Tests the API for getting the group url.
      */
     @Test
-    public void getGroupUrl() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(get("/material1/group/1/url"))
-                .andExpect(status().is2xxSuccessful())
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void getGroupUrl() throws Exception {
+        mockMvc().perform(get("/material1/group/1/url"))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.url").value("/material1/dir/1"))
                 .andExpect(jsonPath("$.group_id").value(1L));
     }
@@ -97,10 +62,10 @@ public class GroupControllerTest {
      * Tests if all files of the a group are returned.
      */
     @Test
-    public void getAllFilesOfDirectory() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(get("/material1/group/1"))
-                .andExpect(status().is2xxSuccessful())
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void getAllFilesOfDirectory() throws Exception {
+        mockMvc().perform(get("/material1/group/1"))
+                .andExpect(status().isOk())
                 .andExpect(view().name("files"));
     }
 
@@ -108,25 +73,23 @@ public class GroupControllerTest {
      * Tests if the correct view is called upon searching in a group.
      */
     @Test
-    public void searchFile() throws Exception {
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void searchFile() throws Exception {
         FileQuery fileQuery = mock(FileQuery.class);
-        setupSecurityContextMock(account);
-        mvc.perform(post("/material1/group/1/search")
+
+        mockMvc().perform(post("/material1/group/1/search")
                 .requestAttr("searchQuery", fileQuery)
                 .with(csrf()))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(view().name("files"));
     }
 
     /**
-     * Test if route secured.
-     *
-     * @throws Exception on error
+     * Test if route is secured.
      */
     @Test
-    public void notSignedIn() throws Exception {
-        mvc.perform(get("/material1/group/1"))
+    void notSignedIn() throws Exception {
+        mockMvc().perform(get("/material1/group/1"))
                 .andExpect(status().is3xxRedirection());
     }
-
 }

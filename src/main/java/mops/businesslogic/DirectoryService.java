@@ -3,9 +3,11 @@ package mops.businesslogic;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface DirectoryService {
     /**
      * Uploads a file.
