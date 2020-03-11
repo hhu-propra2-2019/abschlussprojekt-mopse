@@ -5,6 +5,9 @@ import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackA
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.*;
 import mops.exception.MopsException;
+import mops.persistence.DirectoryPermissionsRepository;
+import mops.persistence.DirectoryRepository;
+import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,6 +30,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(GroupController.class)
 public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
+    @MockBean
+    DirectoryRepository directoryRepository;
+    @MockBean
+    DirectoryPermissionsRepository directoryPermissionsRepository;
+    @MockBean
+    FileInfoRepository fileInfoRepository;
     @MockBean
     FileRepository fileRepository;
     @MockBean

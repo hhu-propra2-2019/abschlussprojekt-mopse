@@ -8,6 +8,9 @@ import mops.businesslogic.FileContainer;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
+import mops.persistence.DirectoryPermissionsRepository;
+import mops.persistence.DirectoryRepository;
+import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.file.FileInfo;
 import mops.utils.KeycloakContext;
@@ -37,6 +40,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(FileController.class)
 class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
+    @MockBean
+    DirectoryRepository directoryRepository;
+    @MockBean
+    DirectoryPermissionsRepository directoryPermissionsRepository;
+    @MockBean
+    FileInfoRepository fileInfoRepository;
     @MockBean
     FileRepository fileRepository;
     @MockBean

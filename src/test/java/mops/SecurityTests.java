@@ -5,11 +5,13 @@ import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackA
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
+import mops.persistence.DirectoryPermissionsRepository;
+import mops.persistence.DirectoryRepository;
+import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.utils.TestContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,9 +21,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @TestContext
 @SpringBootTest
-@AutoConfigureMockMvc
 class SecurityTests {
 
+    @MockBean
+    DirectoryRepository directoryRepository;
+    @MockBean
+    DirectoryPermissionsRepository directoryPermissionsRepository;
+    @MockBean
+    FileInfoRepository fileInfoRepository;
     @MockBean
     FileRepository fileRepository;
     @MockBean
@@ -39,7 +46,7 @@ class SecurityTests {
      */
     @Test
     void notSignedIn() throws Exception {
-        mvc.perform(get("/"))
+        mvc.perform(get("/material1/groups"))
                 .andExpect(status().is3xxRedirection());
     }
 

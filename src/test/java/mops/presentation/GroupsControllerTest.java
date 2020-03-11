@@ -7,6 +7,9 @@ import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
+import mops.persistence.DirectoryPermissionsRepository;
+import mops.persistence.DirectoryRepository;
+import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +29,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(GroupsController.class)
 class GroupsControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
+    @MockBean
+    DirectoryRepository directoryRepository;
+    @MockBean
+    DirectoryPermissionsRepository directoryPermissionsRepository;
+    @MockBean
+    FileInfoRepository fileInfoRepository;
     @MockBean
     FileRepository fileRepository;
     @MockBean
