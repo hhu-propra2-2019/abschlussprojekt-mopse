@@ -5,6 +5,7 @@ import mops.businesslogic.Account;
 import mops.businesslogic.FileContainer;
 import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
+import mops.exception.MopsException;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -40,7 +41,7 @@ public class FileController {
         FileContainer result;
         try {
             result = fileService.getFile(account, fileId);
-        } catch (Exception e) {
+        } catch (MopsException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Access to file with ID "
                             + fileId

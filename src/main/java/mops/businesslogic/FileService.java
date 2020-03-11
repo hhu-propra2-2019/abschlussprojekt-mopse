@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import mops.exception.MopsException;
 import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public interface FileService {
      * @param fileId  file id of needed file
      * @return file
      */
-    FileContainer getFile(Account account, long fileId);
+    FileContainer getFile(Account account, long fileId) throws MopsException;
 
     /**
      * @param account user credentials
