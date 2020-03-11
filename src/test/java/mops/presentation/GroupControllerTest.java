@@ -29,11 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class GroupControllerTest {
 
-    /**
-     * Necessary mock until GroupService is implemented.
-     */
-    @MockBean
-    private GroupService groupService;
+
     /**
      * Necessary mock until DirectoryService is implemented.
      */
@@ -41,10 +37,16 @@ public class GroupControllerTest {
     private DirectoryService directoryService;
 
     /**
-     * Necessary mock until FileService is implemented.
+     * Handles file storage.
      */
     @MockBean
     private FileService fileService;
+
+    /**
+     * Handles group related requests.
+     */
+    @MockBean
+    private GroupService groupService;
 
     /**
      * Necessary bean.
