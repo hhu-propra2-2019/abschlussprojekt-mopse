@@ -72,5 +72,7 @@ public interface DirectoryService {
      * @param permissionEntries new set of permissions
      * @return the updated directory
      */
-    Directory updatePermission(Account account, Long dirId, Set<DirectoryPermissionEntry> permissionEntries) throws MopsException;
+    Directory updatePermission(Account account,
+                               Long dirId,
+                               Set<DirectoryPermissionEntry> permissionEntries) throws MopsException;
 }

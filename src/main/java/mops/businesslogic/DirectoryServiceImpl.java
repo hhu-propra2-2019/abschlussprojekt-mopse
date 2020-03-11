@@ -167,7 +167,10 @@ public class DirectoryServiceImpl implements DirectoryService {
         long groupId = directory.getGroupOwner();
         checkIfAdmin(account, groupId);
         Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        DirectoryPermissions directoryPermissions = permissions.orElseThrow(() -> new DatabaseException("Permission couldn't be fetched."));
+        DirectoryPermissions directoryPermissions = permissions.orElseThrow(() -> {
+            String errorMessage = "Permission couldn't be fetched.";
+            return new DatabaseException(errorMessage);
+        });
         directoryPermissions.setPermissions(permissionEntries);
         DirectoryPermissions savedPermissions = directoryPermissionsRepo.save(directoryPermissions);
         directory.setPermission(savedPermissions);
@@ -180,7 +183,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private Directory fetchDirectory(long parentDirID) {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
-        return optionalDirectory.orElseThrow(getException(parentDirID)); //NOPMD// this is not a violation of demeter's law
+        // this is not a violation of demeter's law
+        return optionalDirectory.orElseThrow(getException(parentDirID)); //NOPMD//
     }
 
 
