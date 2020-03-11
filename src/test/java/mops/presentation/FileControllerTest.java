@@ -30,8 +30,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringTestContext
@@ -95,6 +94,7 @@ public class FileControllerTest {
         Resource resource = new InputStreamResource(new ByteArrayInputStream(fileContent));
         FileContainer fileContainer = new FileContainer(fileInfo, resource);
 
+        given(fileService.getFileInfo(account, 1)).willReturn(fileInfo);
         given(fileService.getFile(account, 1)).willReturn(fileContainer);
         given(fileService.deleteFile(account, 1)).willReturn(2L);
 
@@ -106,7 +106,19 @@ public class FileControllerTest {
     }
 
     /**
-     * Tests the route for getting a file preview, or downloading if preview is not supported.
+     * Tests the route for getting the file info.
+     */
+    @Test
+    public void getFileInfo() throws Exception {
+        setupSecurityContextMock(account);
+        mvc.perform(get("/material1/file/1")
+                .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("file"));
+    }
+
+    /**
+     * Tests the route for downloading a file preview.
      */
     @Test
     public void downloadFile() throws Exception {
