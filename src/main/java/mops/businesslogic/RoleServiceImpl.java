@@ -2,9 +2,9 @@ package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
 import mops.businesslogic.exception.DatabaseException;
-import mops.businesslogic.exception.DeleteAccessPermission;
-import mops.businesslogic.exception.ReadAccessPermission;
-import mops.businesslogic.exception.WriteAccessPermission;
+import mops.businesslogic.exception.DeleteAccessPermissionException;
+import mops.businesslogic.exception.ReadAccessPermissionException;
+import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.directory.Directory;
@@ -44,7 +44,7 @@ public class RoleServiceImpl implements RoleService {
         boolean allowedToWrite = directoryPermissions.isAllowedToWrite(userRole); //NOPMD
 
         if (!allowedToWrite) {
-            throw new WriteAccessPermission(String.format("The user %s doesn't have write access to %s.",
+            throw new WriteAccessPermissionException(String.format("The user %s doesn't have write access to %s.",
                     account.getName(),
                     directory.getName()));
         }
@@ -66,7 +66,7 @@ public class RoleServiceImpl implements RoleService {
         boolean allowedToRead = directoryPermissions.isAllowedToRead(userRole); //NOPMD
 
         if (!allowedToRead) {
-            throw new ReadAccessPermission(String.format("The user %s doesn't have read access to %s.",
+            throw new ReadAccessPermissionException(String.format("The user %s doesn't have read access to %s.",
                     account.getName(),
                     directory.getName()));
         }
@@ -90,7 +90,7 @@ public class RoleServiceImpl implements RoleService {
         boolean allowedToDelete = directoryPermissions.isAllowedToDelete(userRole); //NOPMD
 
         if (!allowedToDelete) {
-            throw new DeleteAccessPermission(String.format("The user %s doesn't have delete permission in %s.",
+            throw new DeleteAccessPermissionException(String.format("The user %s doesn't have delete permission in %s.",
                     account.getName(),
                     directory.getName()));
         }
@@ -110,7 +110,7 @@ public class RoleServiceImpl implements RoleService {
                     "User is not %s of %d and there for not allowed to create a root folder.",
                     allowedRole,
                     groupId);
-            throw new WriteAccessPermission(errorMessage);
+            throw new WriteAccessPermissionException(errorMessage);
         }
     }
 

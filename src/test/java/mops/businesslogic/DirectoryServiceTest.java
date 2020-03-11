@@ -1,9 +1,9 @@
 package mops.businesslogic;
 
 import mops.SpringTestContext;
-import mops.businesslogic.exception.DeleteAccessPermission;
-import mops.businesslogic.exception.ReadAccessPermission;
-import mops.businesslogic.exception.WriteAccessPermission;
+import mops.businesslogic.exception.DeleteAccessPermissionException;
+import mops.businesslogic.exception.ReadAccessPermissionException;
+import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.FileRepository;
@@ -149,7 +149,7 @@ public class DirectoryServiceTest {
      */
     @Test
     public void createGroupRootFolderWithoutPermission() {
-        assertThatExceptionOfType(WriteAccessPermission.class).isThrownBy(() -> directoryService.createRootFolder(account, groupOwner));
+        assertThatExceptionOfType(WriteAccessPermissionException.class).isThrownBy(() -> directoryService.createRootFolder(account, groupOwner));
     }
 
     /**
@@ -221,7 +221,7 @@ public class DirectoryServiceTest {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
 
-        assertThatExceptionOfType(ReadAccessPermission.class).isThrownBy(() -> directoryService.getSubFolders(intruder, parentId));
+        assertThatExceptionOfType(ReadAccessPermissionException.class).isThrownBy(() -> directoryService.getSubFolders(intruder, parentId));
     }
 
     /**
@@ -235,7 +235,7 @@ public class DirectoryServiceTest {
         DirectoryPermissionEntry adminEntry = new DirectoryPermissionEntry(ADMINISTRATOR, true, true, true);
         Set<DirectoryPermissionEntry> permissionEntries = Set.of(adminEntry, readerEntry);
         directoryService.updatePermission(admin, parentId, permissionEntries);
-        assertThatExceptionOfType(ReadAccessPermission.class).isThrownBy(() -> directoryService.getSubFolders(reader, parentId));
+        assertThatExceptionOfType(ReadAccessPermissionException.class).isThrownBy(() -> directoryService.getSubFolders(reader, parentId));
     }
 
     /**
@@ -258,7 +258,7 @@ public class DirectoryServiceTest {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
 
-        assertThatExceptionOfType(WriteAccessPermission.class).isThrownBy(() ->
+        assertThatExceptionOfType(WriteAccessPermissionException.class).isThrownBy(() ->
                 directoryService.checkWritePermission(intruder, parentId));
     }
 
@@ -270,7 +270,7 @@ public class DirectoryServiceTest {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
 
-        assertThatExceptionOfType(ReadAccessPermission.class).isThrownBy(() ->
+        assertThatExceptionOfType(ReadAccessPermissionException.class).isThrownBy(() ->
                 directoryService.checkReadPermission(intruder, parentId));
     }
 
@@ -282,7 +282,7 @@ public class DirectoryServiceTest {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
 
-        assertThatExceptionOfType(DeleteAccessPermission.class).isThrownBy(() ->
+        assertThatExceptionOfType(DeleteAccessPermissionException.class).isThrownBy(() ->
                 directoryService.checkDeletePermission(intruder, parentId));
     }
 }
