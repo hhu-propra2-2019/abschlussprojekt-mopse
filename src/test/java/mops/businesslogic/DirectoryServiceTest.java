@@ -244,6 +244,18 @@ public class DirectoryServiceTest {
     }
 
     /**
+     * Tests if a admin can delete subfolder.
+     */
+    @Test
+    public void deleteSubFolderTest() throws WriteAccessPermission {
+        Directory root = directoryService.createRootFolder(admin, groupOwner);
+        Directory subFolder = directoryService.createFolder(account, root.getId(), "subFolder");
+        Directory directory = directoryService.deleteFolder(admin, subFolder.getId());
+
+        assertThat(directory).isEqualTo(root);
+    }
+
+    /**
      * Test if returned.
      */
     @Test
