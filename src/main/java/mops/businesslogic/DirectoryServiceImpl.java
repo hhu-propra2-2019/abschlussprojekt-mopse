@@ -166,7 +166,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     public Directory updatePermission(Account account,
-                                      Long dirId,
+                                      long dirId,
                                       Set<DirectoryPermissionEntry> permissionEntries) throws MopsException {
         Directory directory = fetchDirectory(dirId);
         checkIfAdmin(account, directory);

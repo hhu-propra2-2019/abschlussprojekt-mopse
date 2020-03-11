@@ -73,6 +73,6 @@ public interface DirectoryService {
      * @return the updated directory
      */
     Directory updatePermission(Account account,
-                               Long dirId,
+                               long dirId,
                                Set<DirectoryPermissionEntry> permissionEntries) throws MopsException;
 }
