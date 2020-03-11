@@ -157,7 +157,8 @@ public class DirectoryServiceImpl implements DirectoryService {
         List<Directory> subFolders = getSubFolders(account, dirId);
 
         if (!files.isEmpty() || !subFolders.isEmpty()) {
-            throw new DeleteAccessPermissionException(String.format("The directory %s is not empty.", directory.getName()));
+            String errorMessage = String.format("The directory %s is not empty.", directory.getName());
+            throw new DeleteAccessPermissionException(errorMessage);
         }
 
         Directory parentDirectory = fetchDirectory(directory.getParentId());
