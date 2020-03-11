@@ -63,9 +63,9 @@ public class FileControllerTest {
     @BeforeEach
     public void setUp() {
         account = new Account("user", "user@mail.de", "studentin");
-        FileInfo f = mock(FileInfo.class);
-        given(f.getDirectoryId()).willReturn(2L);
-        given(fileService.getFile(account, 1)).willReturn(f);
+        FileInfo file = mock(FileInfo.class);
+        given(file.getDirectoryId()).willReturn(2L);
+        given(fileService.getFile(account, 1)).willReturn(file);
         given(fileService.deleteFile(account, 1)).willReturn(2L);
 
         mvc = MockMvcBuilders
