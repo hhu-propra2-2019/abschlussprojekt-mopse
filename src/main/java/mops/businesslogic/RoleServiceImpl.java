@@ -28,10 +28,11 @@ public class RoleServiceImpl {
     private final DirectoryPermissionsRepository directoryPermissionsRepo;
 
     /**
-     * Checks if the user has permission to write in that folder.
+     * Checks if the user has writing rights.
      *
      * @param account   user credentials
-     * @param directory directory object of the permissions requested
+     * @param directory id of the directory to check
+     * @throws MopsException checked exception to present to UI
      */
     public void checkWritePermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
@@ -47,6 +48,13 @@ public class RoleServiceImpl {
         }
     }
 
+    /**
+     * Checks if the user has reading rights.
+     *
+     * @param account   user credentials
+     * @param directory id of the directory to check
+     * @throws MopsException checked exception to present to UI
+     */
     public void checkReadPermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
 
@@ -62,6 +70,13 @@ public class RoleServiceImpl {
 
     }
 
+    /**
+     * Checks if the user has deleting rights.
+     *
+     * @param account   user credentials
+     * @param directory id of the directory to check
+     * @throws MopsException checked exception to present to UI
+     */
     public void checkDeletePermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
 
@@ -76,6 +91,12 @@ public class RoleServiceImpl {
         }
     }
 
+    /**
+     * @param account     user credentials
+     * @param groupId     id of the group to check
+     * @param allowedRole role which has the right
+     * @throws MopsException checked exception to present to UI
+     */
     public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {
         String role = permissionService.fetchRoleForUserInGroup(account, groupId);
         if (!allowedRole.equals(role)) {
