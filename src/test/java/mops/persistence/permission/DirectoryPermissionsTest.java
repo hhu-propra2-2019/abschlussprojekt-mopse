@@ -46,11 +46,11 @@ class DirectoryPermissionsTest {
 
     @Test
     void loadSave() {
-        Long id = repo.save(perms).getId();
+        DirectoryPermissions saved = repo.save(perms);
 
-        Optional<DirectoryPermissions> loaded = repo.findById(id);
+        Optional<DirectoryPermissions> loaded = repo.findById(saved.getId());
 
-        assertThat(loaded).get().isEqualToIgnoringNullFields(perms);
+        assertThat(loaded).get().isEqualToIgnoringNullFields(saved);
     }
 
     @Test

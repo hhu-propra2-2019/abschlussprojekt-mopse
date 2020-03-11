@@ -10,12 +10,13 @@ import java.util.Set;
 @Service
 public interface FileService {
     /**
+     * Returns all files of a group.
+     *
      * @param account user credentials
-     * @param dirId   directory id
-     * @return a list of files
+     * @param groupId group identification
+     * @return list of all files in that directory
      */
-    //TODO: change return to list of FileContainer
-    List<FileInfo> getFilesOfDirectory(Account account, long dirId);
+    List<FileInfo> getAllFilesOfGroup(Account account, long groupId) throws MopsException;
 
     /**
      * @param account       user credentials
@@ -23,22 +24,43 @@ public interface FileService {
      * @param multipartFile the binary code of the file
      * @param tags          the file tag
      */
-    void uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<String> tags);
+    void uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<String> tags) throws MopsException;
 
     /**
+     * Searches for files in a group.
+     *
      * @param account user credentials
-     * @param groupId directory id
+     * @param groupId group identification for the group to be searched
+     * @param query   a query which specifies the serach
      * @return a list of files
      */
-    //TODO: change return to list of FileContainer
-    List<FileInfo> getAllFilesOfGroup(Account account, long groupId);
+    List<FileInfo> searchFilesInGroup(Account account, long groupId, FileQuery query) throws MopsException;
 
     /**
      * @param account user credentials
-     * @param groupId directory id
-     * @param query   File Query containing search parameter.
-     * @return a list of files.
+     * @param dirId   id of the folder
+     * @return a list of file in that folder
      */
-    //TODO: change return to list of FileContainer
-    List<FileInfo> searchFilesInGroup(Account account, long groupId, FileQuery query);
+    List<FileInfo> getFilesOfDirectory(Account account, long dirId) throws MopsException;
+
+    /**
+     * @param account user credentials
+     * @param fileId  file id of needed file
+     * @return file
+     */
+    FileContainer getFile(Account account, long fileId) throws MopsException;
+
+    /**
+     * @param account user credentials
+     * @param fileId  file id of needed file
+     * @return file info
+     */
+    FileInfo getFileInfo(Account account, long fileId) throws MopsException;
+
+    /**
+     * @param account user credentials
+     * @param fileId  file id of file to be deleted
+     * @return parent directory Id
+     */
+    long deleteFile(Account account, long fileId) throws MopsException;
 }

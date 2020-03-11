@@ -3,6 +3,7 @@ package mops;
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileInfoService;
 import mops.businesslogic.GroupService;
+import mops.persistence.FileRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -24,6 +25,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class SecurityTests {
 
+    /**
+     * The server is not available while testing.
+     */
+    @MockBean
+    private FileRepository fileRepository;
     /**
      * Necessary mock until GroupService is implemented.
      */

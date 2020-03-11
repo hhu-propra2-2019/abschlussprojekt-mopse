@@ -4,7 +4,6 @@ import mops.SpringTestContext;
 import mops.businesslogic.*;
 import mops.exception.MopsException;
 import mops.persistence.FileRepository;
-import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,43 +11,37 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.util.Set;
 
 import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringTestContext
 @SpringBootTest
-public class DirectoryControllerTest {
+public class FileControllerTest {
 
-    /**
-     * The server is not available while testing.
-     */
-    @MockBean
-    private FileRepository fileRepository;
     /**
      * Necessary mock until GroupService is implemented.
      */
     @MockBean
     private GroupService groupService;
-    /**
-     * Necessary mock until FileInfoService is implemented.
-     */
-    @MockBean
-    private FileInfoService fileInfoService;
-
     /**
      * Necessary mock until FileService is implemented.
      */
@@ -59,6 +52,12 @@ public class DirectoryControllerTest {
      */
     @MockBean
     private DirectoryService directoryService;
+    /**
+     * Necessary mock because the storage server is not online and @SpringBootTest is used.
+     */
+    @MockBean
+    private FileRepository fileRepository;
+
     /**
      * Necessary bean.
      */
@@ -73,22 +72,31 @@ public class DirectoryControllerTest {
      * Wrapper of user credentials.
      */
     private Account account;
+    /**
+     * File Info for testing.
+     */
+    private FileInfo fileInfo;
+    /**
+     * File Contents for testing.
+     */
+    private byte[] fileContent;
 
     /**
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
     public void setUp() throws MopsException {
-        Directory directory = mock(Directory.class);
-        Directory root = new Directory(1L, "root", 1L, 1L, 1L, null, null);
-
         account = Account.of("user", "user@mail.de", "studentin");
+        fileContent = new byte[] { 1, 2, 3 };
+        fileInfo = new FileInfo("file", 2L, MediaType.APPLICATION_OCTET_STREAM_VALUE,
+                fileContent.length, "", Set.of());
 
-        given(directory.getId()).willReturn(2L);
-        given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
-        given(directoryService.createFolder(account, 1L, "Vorlesungen")).willReturn(directory);
-        given(directoryService.deleteFolder(account, 1)).willReturn(root);
-        given(directoryService.searchFolder(account, 1, mock(FileQuery.class))).willReturn(List.of());
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(fileContent));
+        FileContainer fileContainer = new FileContainer(fileInfo, resource);
+
+        given(fileService.getFileInfo(account, 1)).willReturn(fileInfo);
+        given(fileService.getFile(account, 1)).willReturn(fileContainer);
+        given(fileService.deleteFile(account, 1)).willReturn(2L);
 
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
@@ -98,66 +106,44 @@ public class DirectoryControllerTest {
     }
 
     /**
-     * Tests if the correct view is returned for showing content of a folder.
+     * Tests the route for getting the file info.
      */
     @Test
-    public void showContent() throws Exception {
+    public void getFileInfo() throws Exception {
         setupSecurityContextMock(account);
-        mvc.perform(get("/material1/dir/1"))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("directory"));
+        mvc.perform(get("/material1/file/1")
+                .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("file"));
     }
 
     /**
-     * Tests the route after uploading a file.
+     * Tests the route for downloading a file preview.
      */
     @Test
-    public void uploadFile() throws Exception {
+    public void downloadFile() throws Exception {
         setupSecurityContextMock(account);
-        mvc.perform(post("/material1/dir/1/upload")
-                .requestAttr("file", mock(FileInfo.class))
+        MvcResult result = mvc.perform(get("/material1/file/1/download")
+                .with(csrf())
+                .contentType(MediaType.ALL))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        assertThat(result.getResponse().getContentType()).isEqualTo(fileInfo.getType());
+        assertThat(result.getResponse().getContentLength()).isEqualTo(fileInfo.getSize());
+        assertThat(result.getResponse().getContentAsByteArray()).isEqualTo(fileContent);
+    }
+
+    /**
+     * Tests if a user can delete a file.
+     */
+    @Test
+    public void deleteFile() throws Exception {
+        setupSecurityContextMock(account);
+        mvc.perform(delete("/material1/file/1")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/material1/dir/1"));
-    }
-
-    /**
-     * Tests the route after creating a sub folder. It should be the new folder.
-     */
-    @Test
-    public void createFolder() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(post("/material1/dir/1/create")
-                .requestAttr("folderName", "Vorlesungen")
-                .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/material1/dir/2"));
-    }
-
-    /**
-     * Tests the route after searching a folder.
-     */
-    @Test
-    public void searchFolder() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(post("/material1/dir/1/search")
-                .requestAttr("searchQuery", mock(FileQuery.class))
-                .with(csrf()))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("files"));
-    }
-
-    /**
-     * Tests if a user can delete a directory.
-     */
-    @Test
-    public void deleteDirectory() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(delete("/material1/dir/1")
-                .requestAttr("dirId", 1)
-                .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/material1/dir/0"));
+                .andExpect((redirectedUrl("/material1/dir/2")));
     }
 
     /**

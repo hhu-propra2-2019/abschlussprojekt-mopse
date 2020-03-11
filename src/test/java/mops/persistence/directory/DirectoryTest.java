@@ -64,11 +64,11 @@ class DirectoryTest {
 
     @Test
     void loadSave() {
-        Long id = repo.save(dir).getId();
+        Directory saved = repo.save(dir);
 
-        Optional<Directory> loaded = repo.findById(id);
+        Optional<Directory> loaded = repo.findById(saved.getId());
 
-        assertThat(loaded).get().isEqualToIgnoringNullFields(dir);
+        assertThat(loaded).get().isEqualToIgnoringNullFields(saved);
     }
 
     @Test

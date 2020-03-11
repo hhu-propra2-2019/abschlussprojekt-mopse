@@ -29,15 +29,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class GroupControllerTest {
 
-
+    /**
+     * The server is not available while testing.
+     */
+    @MockBean
+    private FileRepository fileRepository;
+    /**
+     * Necessary mock until GroupService is implemented.
+     */
+    @MockBean
+    private GroupService groupService;
     /**
      * Necessary mock until DirectoryService is implemented.
      */
     @MockBean
     private DirectoryService directoryService;
-
     /**
-     * Handles file storage.
+     * Necessary mock until GroupService is implemented.
      */
     @MockBean
     private FileService fileService;
@@ -66,8 +74,8 @@ public class GroupControllerTest {
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
-    void setUp() {
-        account = new Account("studi", "bla@bla.de", "studentin");
+    void setUp() throws MopsException {
+        account = Account.of("studi", "bla@bla.de", "studentin");
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         given(groupService.getGroupUrl(account, 1)).willReturn(new GroupDirUrlWrapper(1L));
         mvc = MockMvcBuilders

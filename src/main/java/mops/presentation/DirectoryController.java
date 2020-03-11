@@ -1,15 +1,15 @@
 package mops.presentation;
 
 import lombok.AllArgsConstructor;
-import mops.businesslogic.*;
+import mops.businesslogic.Account;
+import mops.businesslogic.DirectoryService;
+import mops.businesslogic.FileQuery;
+import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
+import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
-import mops.security.DeleteAccessPermission;
-import mops.security.ReadAccessPermission;
-import mops.security.exception.WriteAccessPermission;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +29,6 @@ public class DirectoryController {
     private final DirectoryService directoryService;
 
     /**
-     * Manges all meta data file queries.
-     */
-    private final FileInfoService fileInfoService;
-
-    /**
      * Manges all file queries.
      */
     private final FileService fileService;
@@ -45,12 +40,19 @@ public class DirectoryController {
      * @return route to folder
      */
     @GetMapping("/{dirId}")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
-                                    @PathVariable("dirId") long dirId) throws ReadAccessPermission {
+                                    @PathVariable("dirId") long dirId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        List<Directory> directories = directoryService.getSubFolders(account, dirId);
-        List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+        List<Directory> directories = null;
+        List<FileInfo> files = null;
+        try {
+            directories = directoryService.getSubFolders(account, dirId);
+            files = fileService.getFilesOfDirectory(account, dirId);
+        } catch (MopsException e) {
+            // TODO: Add exception handling, remove PMD warning suppression
+        }
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
         return "directory";
@@ -66,13 +68,17 @@ public class DirectoryController {
      * @return route after completion
      */
     @PostMapping("/{dirId}/upload")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("dirId") long dirId,
-                             @Param("file") MultipartFile multipartFile) {
+                             @RequestAttribute("file") MultipartFile multipartFile) {
         Account account = AccountUtil.getAccountFromToken(token);
-        //TODO: exception handling and user error message
-        fileService.uploadFile(account, dirId, multipartFile, Set.of());
+        try {
+            fileService.uploadFile(account, dirId, multipartFile, Set.of());
+        } catch (MopsException e) {
+            // TODO: Add exception handling, remove PMD warning suppression
+        }
         return String.format("redirect:/material1/dir/%d", dirId);
     }
 
@@ -89,9 +95,14 @@ public class DirectoryController {
     public String createSubFolder(KeycloakAuthenticationToken token,
                                   Model model,
                                   @PathVariable("parentDirId") long parentDirId,
-                                  @RequestAttribute("folderName") String folderName) throws WriteAccessPermission {
+                                  @RequestAttribute("folderName") String folderName) {
         Account account = AccountUtil.getAccountFromToken(token);
-        Directory directory = directoryService.createFolder(account, parentDirId, folderName);
+        Directory directory = null;
+        try {
+            directory = directoryService.createFolder(account, parentDirId, folderName);
+        } catch (MopsException e) {
+            // TODO: Add exception handling, remove PMD warning suppression
+        }
         return String.format("redirect:/material1/dir/%d", directory.getId());
     }
 
@@ -106,9 +117,14 @@ public class DirectoryController {
     @DeleteMapping("/{dirId}")
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
-                               @PathVariable("dirId") long dirId) throws DeleteAccessPermission, ReadAccessPermission {
+                               @PathVariable("dirId") long dirId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        Directory directory = directoryService.deleteFolder(account, dirId);
+        Directory directory = null;
+        try {
+            directory = directoryService.deleteFolder(account, dirId);
+        } catch (MopsException e) {
+            // TODO: Add exception handling, remove PMD warning suppression
+        }
         return String.format("redirect:/material1/dir/%d", directory.getId());
     }
 
@@ -122,12 +138,18 @@ public class DirectoryController {
      * @return route to files view
      */
     @PostMapping("/{dirId}/search")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String searchFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
-                               @ModelAttribute("searchQuery") FileQuery query) {
+                               @RequestAttribute("searchQuery") FileQuery query) {
         Account account = AccountUtil.getAccountFromToken(token);
-        List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
+        List<FileInfo> files = null;
+        try {
+            files = directoryService.searchFolder(account, dirId, query);
+        } catch (MopsException e) {
+            // TODO: Add exception handling, remove PMD warning suppression
+        }
         model.addAttribute("files", files);
         return "files";
     }
