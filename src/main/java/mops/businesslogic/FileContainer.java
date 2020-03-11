@@ -5,6 +5,7 @@ import mops.persistence.file.FileInfo;
 import org.springframework.core.io.Resource;
 
 @Value
+// @Value automatically makes all fields `private final` which CheckStyle and PMD don't see
 @SuppressWarnings({ "checkstyle:VisibilityModifier", "PMD.DefaultPackage" })
 public class FileContainer {
 
