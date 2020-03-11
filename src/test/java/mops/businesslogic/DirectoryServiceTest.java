@@ -257,4 +257,16 @@ public class DirectoryServiceTest {
 
         assertThat(directory).isEqualTo(root);
     }
+
+    /**
+     * Checks if exception is thrown if the user does not have writing permission.
+     */
+    @Test
+    public void checkWritePermission() throws WriteAccessPermission{
+        Directory root = directoryService.createRootFolder(admin, groupOwner);
+        parentId = root.getId();
+
+        assertThatExceptionOfType(WriteAccessPermission.class).isThrownBy(() ->
+                directoryService.checkWritePermission(intruder, parentId));
+    }
 }
