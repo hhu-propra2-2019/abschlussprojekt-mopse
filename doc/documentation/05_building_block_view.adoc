@@ -130,13 +130,26 @@ Business Layer::
 | _Stellt eine Anfrage an das Modul `Gruppenbildung` um die Berechtigungen eines Benutzers zu erhalten._
 |===
 
-Enthaltene Bausteine::
+Persistence Layer::
 
 [cols="1,1,1" options="header"]
 |===
 |Komponente |Funktion | Schnittstellen
-| <Komponente-1> | _<Funktion-1>_ | _<Schnittstellen-1>_
-| <Komponente-2> | _<Funktion-2>_ | _<Schnittstellen-2>_
+| DirectoryPermissionRepository
+| _Stellt die Schnittstelle zur `Datenbank` für die Berechtigungen einen Ordners dar._
+| _Stellt eine Anfrage an die `Datenbank` um ein Berechtigungsobjekt zu erhalten._
+
+| DirectoryRepository
+| _Stellt die Schnittstelle zur `Datenbank` für das Erhalten eines Ordners dar._
+| _Stellt eine Anfrage an die `Datenbank` um ein Ordnerobjekt zu erhalten._
+
+| FileInfoRepository
+| _Stellt die Schnittstelle zur `Datenbank` für die Metadaten einer Datei dar._
+| _Stellt eine Anfrage an die `Datenbank` um ein Dateimetadatenobjekt zu erhalten._
+
+| FileRepository
+| _Stellt die Schnittstelle zu `MinIO` dar._
+| _Stellt eine Anfrage mit einer DateiID an `MinIO` um die entsprechende Datei zu erhalten._
 |===
 
 Enthaltene Bausteine::
