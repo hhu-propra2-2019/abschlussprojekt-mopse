@@ -5,6 +5,7 @@ import mops.businesslogic.exception.ReadAccessPermission;
 import mops.businesslogic.exception.WriteAccessPermission;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
+import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
@@ -38,12 +39,19 @@ public class DirectoryServiceTest {
      */
     @MockBean
     private GroupService groupService;
+    @MockBean
+    private FileRepository fileRepository;
 
     /**
      * Necessary bean, must be removed when file info service is implemented.
      */
     @MockBean
     private FileInfoService fileInfoService;
+    /**
+     * Necessary bean, must be removed when file service is implemented.
+     */
+    @MockBean
+    private FileService fileService;
 
     /**
      * API for getting permission roles from GruppenFindung.
@@ -132,7 +140,7 @@ public class DirectoryServiceTest {
 
         Directory directory = directoryService.createRootFolder(admin, groupOwner);
 
-        assertThat(directory).isEqualToIgnoringGivenFields(expectedDirectory, "id");
+        assertThat(directory).isEqualToIgnoringGivenFields(expectedDirectory, "id", "creationTime", "lastModifiedTime");
     }
 
     /**
@@ -161,7 +169,7 @@ public class DirectoryServiceTest {
 
         Directory folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
 
-        assertThat(folder).isEqualToIgnoringGivenFields(expectedDirectory, "id");
+        assertThat(folder).isEqualToIgnoringGivenFields(expectedDirectory, "id", "creationTime", "lastModifiedTime");
     }
 
     /**
@@ -178,7 +186,7 @@ public class DirectoryServiceTest {
 
         Directory directory = directoryService.updatePermission(admin, groupId, permissionEntries);
 
-        assertThat(directory).isEqualTo(root);
+        assertThat(directory).isEqualToIgnoringGivenFields(root, "creationTime", "lastModifiedTime");
     }
 
     /**
@@ -238,7 +246,7 @@ public class DirectoryServiceTest {
         Directory subFolder = directoryService.createFolder(account, root.getId(), "subFolder");
         Directory directory = directoryService.deleteFolder(admin, subFolder.getId());
 
-        assertThat(directory).isEqualTo(root);
+        assertThat(directory).isEqualToIgnoringGivenFields(root, "creationTime", "lastModifiedTime");
     }
 
     /**
