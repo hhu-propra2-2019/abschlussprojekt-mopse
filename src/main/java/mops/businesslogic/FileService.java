@@ -43,6 +43,13 @@ public interface FileService {
 
     /**
      * @param account user credentials
+     * @param fileId  file id of needed file
+     * @return file info
+     */
+    FileInfo getFileInfo(Account account, long fileId) throws MopsException;
+
+    /**
+     * @param account user credentials
      * @param fileId  file id of file to be deleted
      * @return parent directory Id
      */

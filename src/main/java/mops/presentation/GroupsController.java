@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import mops.businesslogic.Account;
 import mops.businesslogic.GroupService;
 import mops.businesslogic.utils.AccountUtil;
+import mops.exception.MopsException;
 import mops.persistence.group.Group;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -32,9 +33,15 @@ public class GroupsController {
      * @return groups view
      */
     @GetMapping
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
         Account account = AccountUtil.getAccountFromToken(token);
-        List<Group> groups = groupService.getAllGroups(account);
+        List<Group> groups = null;
+        try {
+            groups = groupService.getAllGroups(account);
+        } catch (MopsException e) {
+            //TODO: Exception handling
+        }
         model.addAttribute("groups", groups);
         return "groups";
     }

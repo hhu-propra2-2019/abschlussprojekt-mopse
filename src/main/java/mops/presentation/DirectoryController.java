@@ -44,9 +44,10 @@ public class DirectoryController {
                                     Model model,
                                     @PathVariable("dirId") long dirId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        List<Directory> directories = directoryService.getSubFolders(account, dirId);
+        List<Directory> directories = null;
         List<FileInfo> files = null;
         try {
+            directories = directoryService.getSubFolders(account, dirId);
             files = fileService.getFilesOfDirectory(account, dirId);
         } catch (MopsException e) {
             //TODO: Exception handling
@@ -66,13 +67,17 @@ public class DirectoryController {
      * @return route after completion
      */
     @PostMapping("/{dirId}/upload")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("dirId") long dirId,
                              @Param("file") FileInfo fileInfo) {
         Account account = AccountUtil.getAccountFromToken(token);
-        //TODO: exception handling and user error message
-        directoryService.uploadFile(account, dirId, fileInfo);
+        try {
+            directoryService.uploadFile(account, dirId, fileInfo);
+        } catch (MopsException e) {
+            //TODO: Exception handling
+        }
         return String.format("redirect:/material1/dir/%d", dirId);
     }
 
@@ -86,12 +91,18 @@ public class DirectoryController {
      * @return object of the folder
      */
     @PostMapping("/{parentDirId}/create")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String createSubFolder(KeycloakAuthenticationToken token,
                                   Model model,
                                   @PathVariable("parentDirId") long parentDirId,
                                   @RequestAttribute("folderName") String folderName) {
         Account account = AccountUtil.getAccountFromToken(token);
-        long directoryId = directoryService.createFolder(account, parentDirId, folderName);
+        long directoryId = -1L;
+        try {
+            directoryId = directoryService.createFolder(account, parentDirId, folderName);
+        } catch (MopsException e) {
+            //TODO: Exception handling
+        }
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
@@ -104,11 +115,17 @@ public class DirectoryController {
      * @return the id of the parent folder
      */
     @DeleteMapping("/{dirId}")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        long directoryId = directoryService.deleteFolder(account, dirId);
+        long directoryId = -1L;
+        try {
+            directoryId = directoryService.deleteFolder(account, dirId);
+        } catch (MopsException e) {
+            //TODO: Exception handling
+        }
         return String.format("redirect:/material1/dir/%d", directoryId);
     }
 
@@ -122,14 +139,19 @@ public class DirectoryController {
      * @return route to files view
      */
     @PostMapping("/{dirId}/search")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String searchFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
                                @ModelAttribute("searchQuery") FileQuery query) {
         Account account = AccountUtil.getAccountFromToken(token);
-        List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
+        List<FileInfo> files = null;
+        try {
+            files = directoryService.searchFolder(account, dirId, query);
+        } catch (MopsException e) {
+            //TODO: Exception handling
+        }
         model.addAttribute("files", files);
         return "files";
     }
 }
-

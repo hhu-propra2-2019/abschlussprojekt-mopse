@@ -5,6 +5,7 @@ import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
+import mops.exception.MopsException;
 import mops.persistence.FileRepository;
 import mops.presentation.utils.SecurityContextUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,7 +71,7 @@ public class GroupsControllerTest {
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws MopsException {
         account = new Account("studi", "bla@bla.de", "studentin");
         given(groupService.getAllGroups(account)).willReturn(List.of());
         mvc = MockMvcBuilders

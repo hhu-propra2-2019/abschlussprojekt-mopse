@@ -6,6 +6,7 @@ import mops.businesslogic.FileContainer;
 import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.exception.MopsException;
+import mops.persistence.file.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -29,23 +30,43 @@ public class FileController {
 
     /**
      * @param token  a keycloak authentication token
+     * @param model  model
      * @param fileId the id of the requested file
      * @return the route to template 'file'
      */
-    @SuppressWarnings("PMD")
+    @GetMapping("/{fileId}")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    public String getFile(KeycloakAuthenticationToken token,
+                          Model model,
+                          @PathVariable("fileId") long fileId) {
+        Account account = AccountUtil.getAccountFromToken(token);
+        FileInfo info = null;
+        try {
+            info = fileService.getFileInfo(account, fileId);
+        } catch (MopsException e) {
+            //TODO: Exception handling
+        }
+        model.addAttribute("file", info);
+        return "file";
+    }
+
+    /**
+     * @param token  a keycloak authentication token
+     * @param fileId the id of the requested file
+     * @return the route to template 'file'
+     */
     @ResponseBody
     @GetMapping("/{fileId}/download")
-    ResponseEntity<Resource> getFile(KeycloakAuthenticationToken token,
-                                     @PathVariable("fileId") long fileId) {
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
+    public ResponseEntity<Resource> downloadFile(KeycloakAuthenticationToken token,
+                                                 @PathVariable("fileId") long fileId) {
         Account account = AccountUtil.getAccountFromToken(token);
         FileContainer result;
         try {
             result = fileService.getFile(account, fileId);
         } catch (MopsException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Access to file with ID "
-                            + fileId
-                            + " is forbidden.");
+                    "Die Datei mit der ID " + fileId + " konnte nicht gefunden werden.", e);
         }
 
         MediaType contentType = MediaType.parseMediaType(result.getType());
@@ -73,7 +94,7 @@ public class FileController {
                              Model model,
                              @PathVariable("fileId") long fileId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        long dirId = 0;
+        long dirId = -1L;
         try {
             dirId = fileService.deleteFile(account, fileId);
         } catch (MopsException e) {

@@ -58,11 +58,18 @@ public class GroupController {
      */
     @GetMapping(value = "/{groupId}/url", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public GroupDirUrlWrapper getGroupUrl(KeycloakAuthenticationToken token,
                                           Model model,
                                           @PathVariable("groupId") long groupId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        return groupService.getGroupUrl(account, groupId);
+        GroupDirUrlWrapper groupUrl = null;
+        try {
+            groupUrl = groupService.getGroupUrl(account, groupId);
+        } catch (MopsException e) {
+            //TODO: Exception handling
+        }
+        return groupUrl;
     }
 
     /**
