@@ -2,6 +2,8 @@ package mops.presentation;
 
 import mops.SpringTestContext;
 import mops.businesslogic.*;
+import mops.exception.MopsException;
+import mops.persistence.FileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -49,12 +51,6 @@ public class GroupControllerTest {
      */
     @MockBean
     private FileService fileService;
-
-    /**
-     * Handles group related requests.
-     */
-    @MockBean
-    private GroupService groupService;
 
     /**
      * Necessary bean.
