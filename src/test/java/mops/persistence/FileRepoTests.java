@@ -2,7 +2,6 @@ package mops.persistence;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.*;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.testcontainers.containers.GenericContainer;
@@ -20,9 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FileRepoTests {
 
+    private final Random random = new Random();
     private FileRepository fileRepository;
     private GenericContainer<?> minioServer;
-    private final Random random = new Random();
 
     @BeforeAll
     void setUp() throws StorageException {
@@ -130,7 +129,7 @@ public class FileRepoTests {
 
         fileRepository.saveFile(file, fileId);
         byte[] retrievedData;
-        try(InputStream stream = fileRepository.getFileContent(fileId)) {
+        try (InputStream stream = fileRepository.getFileContent(fileId)) {
             retrievedData = stream.readAllBytes();
         }
 
