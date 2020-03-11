@@ -5,7 +5,6 @@ import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import mops.businesslogic.PermissionService;
 import mops.persistence.FileRepository;
-import mops.security.PermissionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
