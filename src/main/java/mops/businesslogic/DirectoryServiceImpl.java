@@ -224,6 +224,13 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
 
+    /**
+     * Creates the default permission set.
+     *
+     * @param roleNames all role names existing in the group
+     * @return a set of directory permission entries
+     */
+    //TODO: this is a template and can only implement when GruppenFindung defined their roles.
     private Set<DirectoryPermissionEntry> createDefaultPermissions(Set<String> roleNames) {
         return roleNames.stream() //NOPMD// this is not a violation of demeter's law
                 .map(role -> new DirectoryPermissionEntry(role, true, true, true))
