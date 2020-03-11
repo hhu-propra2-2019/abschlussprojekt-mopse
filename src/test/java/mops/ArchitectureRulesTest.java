@@ -17,12 +17,9 @@ import static mops.HaveExactlyOneAggregateRoot.HAVE_EXACTLY_ONE_AGGREGATE_ROOT;
 @ArchTag("checkArchitecture")
 public class ArchitectureRulesTest {
 
-    private static final String MOPS_PRESENTATION = "mops.presentation..";
-    private static final String MOPS_PRESENTATION_BASE = "mops.presentation";
-    private static final String MOPS_BUSINESSLOGIC = "mops.businesslogic..";
-    private static final String MOPS_PERSISTENCE = "mops.persistence..";
-    private static final JavaClasses javaClasses = new ClassFileImporter().importPackagesOf(Material1Application.class);
-
+    private static final String MOPS_PRESENTATION_BASE = ArchitectureRuleConfig.MOPS_PRESENTATION_BASE;
+    private static final String MOPS_PERSISTENCE = ArchitectureRuleConfig.MOPS_PERSISTENCE;
+    private static final JavaClasses javaClasses = ArchitectureRuleConfig.JAVA_CLASSES;
     /**
      * This test looks out for public classes that aren't annotated
      * with Aggregate Root but are still public, which stands against

@@ -15,9 +15,9 @@ import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 @AnalyzeClasses(packages = "mops")
 public class LayeredArchitectureTest {
 
-    private static final String MOPS_PRESENTATION = "mops.presentation..";
-    private static final String MOPS_BUSINESSLOGIC = "mops.businesslogic..";
-    private static final String MOPS_PERSISTENCE = "mops.persistence..";
+    private static final String MOPS_PRESENTATION = ArchitectureRuleConfig.MOPS_PRESENTATION;
+    private static final String MOPS_BUSINESSLOGIC = ArchitectureRuleConfig.MOPS_BUSINESSLOGIC;
+    private static final String MOPS_PERSISTENCE = ArchitectureRuleConfig.MOPS_PERSISTENCE;
     /**
      * This checks, if the layer is correctly used and
      * no wrong accesses are made.
@@ -30,8 +30,7 @@ public class LayeredArchitectureTest {
 
             .whereLayer("mopsPresentation").mayNotBeAccessedByAnyLayer()
             .whereLayer("mopsBusinesslogic").mayOnlyBeAccessedByLayers("mopsPresentation")
-            .whereLayer("mopsPersistence").mayOnlyBeAccessedByLayers(
-                    "mopsPresentation", "mopsBusinesslogic")
+            .whereLayer("mopsPersistence").mayOnlyBeAccessedByLayers("mopsPresentation", "mopsBusinesslogic")
 
             /*
              * These dependencies are between the Tests and the different layers,
@@ -44,6 +43,5 @@ public class LayeredArchitectureTest {
             .ignoreDependency(SecurityTests.class, DirectoryService.class)
             .ignoreDependency(SecurityTests.class, FileRepository.class)
             .ignoreDependency(SecurityTests.class, FileService.class)
-            .ignoreDependency(SecurityTests.class, GroupService.class)
-            ;
+            .ignoreDependency(SecurityTests.class, GroupService.class);
 }
