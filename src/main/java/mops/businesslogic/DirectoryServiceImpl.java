@@ -92,7 +92,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         Set<DirectoryPermissionEntry> permissions = createDefaultPermissions(roleNames);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
-        directory.setPermission(rootPermissions);
+        Directory directory = Directory.of(groupId.toString(), null, groupId, rootPermissions);
         return directoryRepository.save(directory);
     }
 
@@ -166,8 +166,10 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = fetchDirectory(dirId);
         long groupId = directory.getGroupOwner();
         checkIfAdmin(account, groupId);
-        DirectoryPermissions permissions = new DirectoryPermissions(directory.getPermissionsId(), permissionEntries);
-        DirectoryPermissions savedPermissions = directoryPermissionsRepo.save(permissions);
+        Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
+        DirectoryPermissions directoryPermissions = permissions.orElseThrow(() -> new DatabaseException("Permission couldn't be fetched."));
+        directoryPermissions.setPermissions(permissionEntries);
+        DirectoryPermissions savedPermissions = directoryPermissionsRepo.save(directoryPermissions);
         directory.setPermission(savedPermissions);
         return directoryRepository.save(directory);
     }

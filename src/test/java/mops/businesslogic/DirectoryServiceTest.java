@@ -128,7 +128,7 @@ public class DirectoryServiceTest {
     @Test
     public void createGroupRootFolder() throws MopsException {
         String nameFirstDirectory = String.valueOf(groupOwner);
-        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
+        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions(Set.of())).getId();
         Directory expectedDirectory = new Directory(nameFirstDirectory, null, groupOwner, permissionsId + 1L);
 
         Directory directory = directoryService.createRootFolder(admin, groupOwner);
@@ -154,7 +154,7 @@ public class DirectoryServiceTest {
         long permissionsId = root.getPermissionsId();
         String nameFirstDirectory = "first";
 
-        Directory expectedDirectory = new Directory(parentId + 1,
+        Directory expectedDirectory = new Directory(
                 nameFirstDirectory,
                 parentId,
                 groupOwner,
@@ -162,7 +162,7 @@ public class DirectoryServiceTest {
 
         Directory folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
 
-        assertThat(folder).isEqualTo(expectedDirectory);
+        assertThat(folder).isEqualToIgnoringGivenFields(expectedDirectory, "id");
     }
 
     /**
@@ -197,15 +197,12 @@ public class DirectoryServiceTest {
         Directory firstDirectory = new Directory(nameFirstDirectory, parentId, groupOwner, permissionsId);
         Directory secondDirectory = new Directory(nameSecondDirectory, parentId, groupOwner, permissionsId);
 
-        directoryService.createFolder(account, parentId, nameFirstDirectory);
-        directoryService.createFolder(account, parentId, nameSecondDirectory);
+        Directory createdFirstDir = directoryService.createFolder(account, parentId, nameFirstDirectory);
+        Directory createdSecondDir = directoryService.createFolder(account, parentId, nameSecondDirectory);
 
         List<Directory> subFolders = directoryService.getSubFolders(account, parentId);
 
-        firstDirectory.setId(root.getId() + 1L);
-        secondDirectory.setId(root.getId() + 2L);
-
-        assertThat(subFolders).containsExactlyInAnyOrder(firstDirectory, secondDirectory);
+        assertThat(subFolders).containsExactlyInAnyOrder(createdFirstDir, createdSecondDir);
     }
 
     /**
@@ -249,7 +246,7 @@ public class DirectoryServiceTest {
      * Checks if exception is thrown if the user does not have writing permission.
      */
     @Test
-    public void checkWritePermission() throws MopsExceptio {
+    public void checkWritePermission() throws MopsException {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         parentId = root.getId();
 

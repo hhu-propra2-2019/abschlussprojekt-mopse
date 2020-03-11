@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,7 +31,7 @@ public class DirectoryRepositoryTest {
     @Test
     public void getAllSubFoldersOfParent() {
         long groupOwner = 1L;
-        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions()).getId();
+        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions(Set.of())).getId();
         Directory root = new Directory("root", null, groupOwner, permissionsId);
         Directory savedRoot = directoryRepository.save(root);
 
