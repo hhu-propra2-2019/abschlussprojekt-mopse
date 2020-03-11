@@ -39,7 +39,8 @@ public class RoleServiceImpl {
 
         String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
 
-        boolean allowedToWrite = directoryPermissions.isAllowedToWrite(userRole);
+        //this is not a violation of demeter's law
+        boolean allowedToWrite = directoryPermissions.isAllowedToWrite(userRole); //NOPMD
 
         if (!allowedToWrite) {
             throw new WriteAccessPermission(String.format("The user %s doesn't have write access to %s.",
@@ -59,8 +60,8 @@ public class RoleServiceImpl {
         DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
 
         String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
-
-        boolean allowedToRead = directoryPermissions.isAllowedToRead(userRole);
+        //this is not a violation of demeter's law
+        boolean allowedToRead = directoryPermissions.isAllowedToRead(userRole); //NOPMD
 
         if (!allowedToRead) {
             throw new ReadAccessPermission(String.format("The user %s doesn't have read access to %s.",
@@ -82,7 +83,8 @@ public class RoleServiceImpl {
 
         String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
 
-        boolean allowedToDelete = directoryPermissions.isAllowedToDelete(userRole);
+        //this is not a violation of demeter's law
+        boolean allowedToDelete = directoryPermissions.isAllowedToDelete(userRole); //NOPMD
 
         if (!allowedToDelete) {
             throw new DeleteAccessPermission(String.format("The user %s doesn't have delete permission in %s.",
@@ -110,7 +112,8 @@ public class RoleServiceImpl {
 
     private DirectoryPermissions getDirectoryPermissions(Directory directory) throws MopsException {
         Optional<DirectoryPermissions> optDirPerm = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        return optDirPerm.orElseThrow(getException(directory.getId()));
+        //this is not a violation of demeter's law
+        return optDirPerm.orElseThrow(getException(directory.getId())); //NOPMD
     }
 
     /**
