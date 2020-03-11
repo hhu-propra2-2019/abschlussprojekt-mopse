@@ -1,6 +1,8 @@
-package mops.security;
+package mops.security.exception;
 
-public class DeleteAccessPermission extends Throwable {
+import mops.exception.MopsException;
+
+public class DeleteAccessPermission extends MopsException {
     /**
      * Is thrown when an user tries to delete something where he/she/it doesn't have the permission for it.
      *

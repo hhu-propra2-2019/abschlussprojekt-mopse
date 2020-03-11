@@ -1,6 +1,8 @@
 package mops.security.exception;
 
-public class WriteAccessPermission extends Exception {
+import mops.exception.MopsException;
+
+public class WriteAccessPermission extends MopsException {
     /**
      * Is thrown when an user tries to write to a directory for which he/she/it does not have writing permissions.
      *
