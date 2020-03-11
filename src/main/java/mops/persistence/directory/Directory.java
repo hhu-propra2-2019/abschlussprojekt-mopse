@@ -45,6 +45,7 @@ public class Directory {
     /**
      * Creation Time.
      */
+    @Setter(AccessLevel.PRIVATE)
     @CreatedDate
     private Timestamp creationTime;
     /**
