@@ -48,11 +48,11 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Checks whether the user is authorized to load the file.
      *
-     * @param account       user credentials
-     * @param dirId         the id of the folder where the file will be uploaded
+     * @param account user credentials
+     * @param dirId   the id of the folder where the file will be uploaded
      */
     @Override
-    public void checkUploadFile(Account account, long dirId)  throws WriteAccessPermission {
+    public void checkUploadFile(Account account, long dirId) throws WriteAccessPermission {
         Directory directory = fetchDirectory(dirId);
 
         checkWritePermission(account, directory);
