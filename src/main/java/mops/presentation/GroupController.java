@@ -28,6 +28,11 @@ public class GroupController {
     private GroupService groupService;
 
     /**
+     * Get Files from the storage.
+     */
+    private FileService fileService;
+
+    /**
      * @param token   a keycloak authentication token
      * @param model   spring boot view model
      * @param groupId the id of the group which files should be fetched
@@ -38,7 +43,7 @@ public class GroupController {
                                          Model model,
                                          @PathVariable("groupId") long groupId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        List<FileInfo> files = fileInfoService.getAllFilesOfGroup(account, groupId);
+        List<FileInfo> files = fileService.getAllFilesOfGroup(account, groupId);
         model.addAttribute("files", files);
         return "files";
     }
@@ -73,7 +78,7 @@ public class GroupController {
                                      @PathVariable("groupId") long groupId,
                                      @ModelAttribute("searchQuery") FileQuery query) {
         Account account = AccountUtil.getAccountFromToken(token);
-        List<FileInfo> files = fileInfoService.searchFilesInGroup(account, groupId, query);
+        List<FileInfo> files = fileService.searchFilesInGroup(account, groupId, query);
         model.addAttribute("files", files);
         return "files";
     }

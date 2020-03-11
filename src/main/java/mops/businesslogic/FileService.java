@@ -24,4 +24,21 @@ public interface FileService {
      * @param tags          the file tag
      */
     void uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<String> tags);
+
+    /**
+     * @param account user credentials
+     * @param groupId directory id
+     * @return a list of files
+     */
+    //TODO: change return to list of FileContainer
+    List<FileInfo> getAllFilesOfGroup(Account account, long groupId);
+
+    /**
+     * @param account user credentials
+     * @param groupId directory id
+     * @param query   File Query containing search parameter.
+     * @return a list of files.
+     */
+    //TODO: change return to list of FileContainer
+    List<FileInfo> searchFilesInGroup(Account account, long groupId, FileQuery query);
 }
