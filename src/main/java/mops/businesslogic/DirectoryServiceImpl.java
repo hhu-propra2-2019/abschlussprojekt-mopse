@@ -9,6 +9,7 @@ import mops.persistence.file.FileInfo;
 import mops.persistence.file.FileTag;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
+import mops.security.DeleteAccessPermission;
 import mops.security.PermissionService;
 import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
@@ -205,6 +206,23 @@ public class DirectoryServiceImpl implements DirectoryService {
                     directory.getName()));
         }
 
+    }
+
+    private void checkDeletePermission(Account account, Directory directory) throws DeleteAccessPermission {
+        DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
+
+        String userRole = permissionService.fetchRoleForUserInDirectory(account, directory);
+
+        boolean allowedToDelete = directoryPermissions.getPermissions()
+                .stream()
+                .filter(DirectoryPermissionEntry::isCanDelete)
+                .anyMatch(permission -> permission.getRole().equals(userRole));
+
+        if (!allowedToDelete) {
+            throw new DeleteAccessPermission(String.format("The user %s doesn't have delete permission in %s.",
+                    account.getName(),
+                    directory.getName()));
+        }
     }
 
     private void checkIfAdmin(Account account, Long groupId) throws WriteAccessPermission {
