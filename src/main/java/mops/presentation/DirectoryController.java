@@ -40,7 +40,7 @@ public class DirectoryController {
      * @return route to folder
      */
     @GetMapping("/{dirId}")
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
                                     @PathVariable("dirId") long dirId) {
@@ -68,7 +68,7 @@ public class DirectoryController {
      * @return route after completion
      */
     @PostMapping("/{dirId}/upload")
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("dirId") long dirId,
@@ -92,6 +92,7 @@ public class DirectoryController {
      * @return object of the folder
      */
     @PostMapping("/{parentDirId}/create")
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
     public String createSubFolder(KeycloakAuthenticationToken token,
                                   Model model,
                                   @PathVariable("parentDirId") long parentDirId,
@@ -103,7 +104,8 @@ public class DirectoryController {
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
         }
-        return String.format("redirect:/material1/dir/%d", directory.getId());
+        //there is no other way
+        return String.format("redirect:/material1/dir/%d", directory.getId()); //NOPMD
     }
 
     /**
@@ -115,6 +117,7 @@ public class DirectoryController {
      * @return the id of the parent folder
      */
     @DeleteMapping("/{dirId}")
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId) {
@@ -125,7 +128,8 @@ public class DirectoryController {
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
         }
-        return String.format("redirect:/material1/dir/%d", directory.getId());
+        //there is no other way
+        return String.format("redirect:/material1/dir/%d", directory.getId()); //NOPMD
     }
 
     /**
@@ -138,7 +142,7 @@ public class DirectoryController {
      * @return route to files view
      */
     @PostMapping("/{dirId}/search")
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
     public String searchFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
