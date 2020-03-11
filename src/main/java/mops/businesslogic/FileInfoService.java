@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Handles meta data for files.
  */
-@Service 
+@Service
 public interface FileInfoService {
     /**
      * @param dirId directory id
