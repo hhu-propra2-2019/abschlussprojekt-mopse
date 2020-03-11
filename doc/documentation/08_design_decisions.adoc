@@ -106,7 +106,21 @@ Der letzte Test ist ein double-check, ob es keine cycles im Projekt gibt, was ei
 Vorraussetzung ist, aber dies ist ein zusätzlicher Test,
 ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus
 
-...
+=== FileStorage
+
+_Als Schnittstelle für die Dateispeicherung haben wir MinIO gewählt, weil es vorgegeben wurde. Die erforderliche Konfiguration erfolgt über Umgebungsvariablen um einen möglichst flexiblen Einsatz zu ermöglichen._
+
+_Die erforderlichen Umgebungsvariablen lauten:_
+
+- MINIO_HOST
+- MINIO_PORT
+- MINIO_BUCKET_NAME
+- MINIO_ACCESS_KEY
+- MINIO_SECRET_KEY
+
+_Im Entwicklungsprozess sind diese durch Default-Werte (welche im Dev Docker Container gesetzt werden) vorgegeben._
+
+_Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach ersetzt werden, wenn eine andere Lösung zur Speicherung von Dateien genutzt wird._
 
 === _<Entscheidung n>_
 
