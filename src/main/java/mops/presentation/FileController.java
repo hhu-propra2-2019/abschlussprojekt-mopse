@@ -43,7 +43,7 @@ public class FileController {
 
         if (result.getId() == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    // FORBIDDEN because elseway it would be obvious to the user if the file exists
+                    // FORBIDDEN because otherwise it would be obvious to the user if the file exists
                     "Zugriff auf Datei mit der ID "
                             + fileId
                             + " ist nicht erlaubt.");
