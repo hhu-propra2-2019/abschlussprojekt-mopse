@@ -6,6 +6,7 @@ import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
+import mops.security.DeleteAccessPermission;
 import mops.security.PermissionService;
 import mops.security.ReadAccessPermission;
 import mops.security.exception.WriteAccessPermission;
@@ -44,6 +45,12 @@ public class DirectoryServiceTest {
      */
     @MockBean
     private GroupService groupService;
+
+    /**
+     * Necessary bean, must be removed when file info service is implemented.
+     */
+    @MockBean
+    private FileInfoService fileInfoService;
 
     /**
      * API for getting permission roles from GruppenFindung.
@@ -114,9 +121,11 @@ public class DirectoryServiceTest {
 
         given(permissionService.fetchRoleForUserInGroup(eq(admin), anyLong())).willReturn(ADMINISTRATOR);
         given(permissionService.fetchRolesInGroup(anyLong())).willReturn(Set.of(ADMINISTRATOR, STUDENTIN));
+        given(permissionService.fetchRoleForUserInDirectory(eq(admin), any(Directory.class))).willReturn(ADMINISTRATOR);
         given(permissionService.fetchRoleForUserInDirectory(eq(account), any(Directory.class))).willReturn(STUDENTIN);
         given(permissionService.fetchRoleForUserInDirectory(eq(intruder), any(Directory.class))).willReturn(INTRUDER);
         given(permissionService.fetchRoleForUserInDirectory(eq(reader), any(Directory.class))).willReturn(READER);
+        given(fileInfoService.fetchAllFilesInDirectory(anyLong())).willReturn(List.of());
     }
 
     /**
@@ -247,7 +256,7 @@ public class DirectoryServiceTest {
      * Tests if a admin can delete subfolder.
      */
     @Test
-    public void deleteSubFolderTest() throws WriteAccessPermission {
+    public void deleteSubFolderTest() throws WriteAccessPermission, DeleteAccessPermission, ReadAccessPermission {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
         Directory subFolder = directoryService.createFolder(account, root.getId(), "subFolder");
         Directory directory = directoryService.deleteFolder(admin, subFolder.getId());
