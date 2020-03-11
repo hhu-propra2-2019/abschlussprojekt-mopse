@@ -166,6 +166,11 @@ public class DirectoryServiceTest {
         assertThat(folder).isEqualTo(expectedDirectory);
     }
 
+    /**
+     * Test if admin can update the permissions of a directory.
+     *
+     * @throws WriteAccessPermission user does not have write permission
+     */
     @Test
     public void updatePermissionTest() throws WriteAccessPermission {
         Directory root = directoryService.createRootFolder(admin, groupOwner);
