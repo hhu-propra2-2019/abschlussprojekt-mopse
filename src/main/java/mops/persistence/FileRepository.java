@@ -46,7 +46,7 @@ public class FileRepository {
                     configuration.getSecretKey()
             );
         } catch (InvalidEndpointException | InvalidPortException e) {
-            throw new StorageException(e);
+            throw new StorageException("Fehler beim Verbinden zum MinIO Server.", e);
         }
 
         try {
@@ -56,7 +56,7 @@ public class FileRepository {
         } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
                 | ErrorResponseException | InternalException | InvalidResponseException | RegionConflictException e) {
-            throw new StorageException(e);
+            throw new StorageException("Fehler beim Suchen und Erstellen des Buckets.", e);
         }
     }
 
@@ -79,7 +79,7 @@ public class FileRepository {
             );
         } catch (MinioException | IOException | InvalidKeyException
                 | NoSuchAlgorithmException | XmlPullParserException e) {
-            throw new StorageException(e);
+            throw new StorageException("Fehler beim Löschen der Datei.", e);
         }
     }
 
@@ -98,7 +98,7 @@ public class FileRepository {
         } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
                 | ErrorResponseException | InternalException | InvalidArgumentException | InvalidResponseException e) {
-            throw new StorageException(e);
+            throw new StorageException("Fehler beim Löschen der Datei.", e);
         }
     }
 
@@ -123,7 +123,7 @@ public class FileRepository {
         } catch (IOException | InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | InvalidKeyException | NoResponseException | XmlPullParserException | ErrorResponseException
                 | InternalException | InvalidArgumentException | InvalidResponseException e) {
-            throw new StorageException(e);
+            throw new StorageException("Fehler beim Zugriff auf den Inhalt der Datei.", e);
         }
 
         return content;
@@ -149,7 +149,7 @@ public class FileRepository {
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | InvalidResponseException
                 | XmlPullParserException | InvalidArgumentException | InsufficientDataException | InternalException
                 | InvalidBucketNameException | IOException e) {
-            throw new StorageException(e);
+            throw new StorageException("Fehler beim Zugriff auf Datei.", e);
         }
 
         return objectStat != null;
@@ -167,7 +167,7 @@ public class FileRepository {
                 minioClient.removeObject(configuration.getBucketName(), result.get().objectName());
             }
         } catch (Exception e) {
-            throw new StorageException(e);
+            throw new StorageException("Bucket konnte nicht geleert werden.", e);
         }
     }
 }
