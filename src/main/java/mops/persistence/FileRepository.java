@@ -87,10 +87,9 @@ public class FileRepository {
      * Deletes a file permanently.
      *
      * @param fileId the ID of the file that's desired to be deleted.
-     * @return true if successful; false if not.
      * @throws StorageException on error
      */
-    public boolean deleteFile(long fileId) throws StorageException {
+    public void deleteFile(long fileId) throws StorageException {
         try {
             minioClient.removeObject(
                     configuration.getBucketName(),
@@ -101,8 +100,6 @@ public class FileRepository {
                 | ErrorResponseException | InternalException | InvalidArgumentException | InvalidResponseException e) {
             throw new StorageException(e);
         }
-
-        return !fileExist(fileId);
     }
 
     /**

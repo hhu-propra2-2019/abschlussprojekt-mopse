@@ -93,10 +93,9 @@ public class FileRepoTests {
         boolean postExistResult = fileRepository.fileExist(fileId);
         assertThat(postExistResult).isTrue();
 
-        boolean deleteResult = fileRepository.deleteFile(fileId);
+        fileRepository.deleteFile(fileId);
         boolean existResult = fileRepository.fileExist(fileId);
 
-        assertThat(deleteResult).isTrue();
         assertThat(existResult).isFalse();
     }
 
