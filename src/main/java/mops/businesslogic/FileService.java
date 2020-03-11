@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import mops.exception.MopsException;
 import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
