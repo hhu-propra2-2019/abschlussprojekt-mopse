@@ -218,7 +218,7 @@ public class DirectoryServiceTest {
     }
 
     /**
-     * Checks if exception is thrown if the user does not have writing permission.
+     * Checks if exception is thrown if the user does not have reading permission.
      *
      * @throws WriteAccessPermission user does not have writing permission
      */
