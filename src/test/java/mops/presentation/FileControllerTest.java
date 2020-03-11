@@ -53,12 +53,12 @@ public class FileControllerTest {
      */
     @MockBean
     private DirectoryService directoryService;
-
     /**
-     * Necessary mock until FileRepository is implemented.
+     * Necessary mock because the storage server is not online and @SpringBootTest is used.
      */
     @MockBean
     private FileRepository fileRepository;
+
     /**
      * Necessary bean.
      */
