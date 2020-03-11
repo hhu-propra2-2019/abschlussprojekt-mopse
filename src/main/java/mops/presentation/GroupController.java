@@ -19,11 +19,6 @@ import java.util.List;
 public class GroupController {
 
     /**
-     * Retrieves file information for a folder.
-     */
-    private FileInfoService fileInfoService;
-
-    /**
      * Communicator for directory objects.
      */
     private GroupService groupService;
@@ -40,7 +35,7 @@ public class GroupController {
      * @return the route to template 'directory'
      */
     @GetMapping("/{groupId}")
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
     public String getAllFilesOfDirectory(KeycloakAuthenticationToken token,
                                          Model model,
                                          @PathVariable("groupId") long groupId) {
@@ -63,7 +58,7 @@ public class GroupController {
      */
     @GetMapping(value = "/{groupId}/url", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
     public GroupDirUrlWrapper getGroupUrl(KeycloakAuthenticationToken token,
                                           Model model,
                                           @PathVariable("groupId") long groupId) {
@@ -87,7 +82,7 @@ public class GroupController {
      * @return the route to the template 'directory'
      */
     @PostMapping("/{groupId}/search")
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
     public String searchFilesInGroup(KeycloakAuthenticationToken token,
                                      Model model,
                                      @PathVariable("groupId") long groupId,
