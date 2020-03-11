@@ -91,6 +91,36 @@ Begründung:: Jeder Controller repräsentiert einen Routenanfang `/material1/{ro
 Controllerklassen vermieden werden und wir es den praktischen Nutzen hat, dass man Routenbeginne an der Klasse selbst
 annotieren kann.
 
+Presentation Layer::
+
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| HTML Presentation | _UI_ | _Stellt Anfragen an die Controller._
+| DirectoryController | _Stellt den Inhalt eines angefragten Ordners zur Verfügung._ | _Dateiinformation bekommt er vom `FileService` und die Ordnerinformationen vom `DirectoryService`._
+| FileController | _Stellt angefragte Dateien zur Verfügung._ | _Alle Informationen bekommt er vom `FileService`._
+| GroupController | _Stellt den Inhalt einer Gruppe zur Verfügung._ | _Gruppeninformationen werden beim `GroupService` angefragt und die Dateiinformationen bekommt er vom `FileService`._
+| GroupsController | _Stellt alle Gruppen eines Benutzers zur Verfügung._ | _Alle Gruppeninformationen erhält er vom `GroupService`.
+|===
+
+Enthaltene Bausteine::
+
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| <Komponente-1> | _<Funktion-1>_ | _<Schnittstellen-1>_
+| <Komponente-2> | _<Funktion-2>_ | _<Schnittstellen-2>_
+|===
+
+Enthaltene Bausteine::
+
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| <Komponente-1> | _<Funktion-1>_ | _<Schnittstellen-1>_
+| <Komponente-2> | _<Funktion-2>_ | _<Schnittstellen-2>_
+|===
+
 Enthaltene Bausteine::
 
 [cols="1,1,1" options="header"]
