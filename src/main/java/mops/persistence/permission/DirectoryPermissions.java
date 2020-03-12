@@ -52,39 +52,6 @@ public class DirectoryPermissions {
     private Timestamp lastModifiedTime;
 
     /**
-     * Create a new permissions object.
-     *
-     * @param permissions role permissions
-     */
-    public DirectoryPermissions(Set<DirectoryPermissionEntry> permissions) {
-        this(null, permissions);
-    }
-
-    /**
-     * Create a new permissions object.
-     *
-     * @param id          database id
-     * @param permissions role permissions
-     */
-    DirectoryPermissions(Long id, Set<DirectoryPermissionEntry> permissions) {
-        this(id, false, permissions, null, null);
-    }
-
-    /**
-     * @param originalPermissions the permissions the directory original had
-     * @param permissionEntries   the new set of permissions
-     * @return a updated version of the permission
-     */
-    public static DirectoryPermissions of(DirectoryPermissions originalPermissions,
-                                          Set<DirectoryPermissionEntry> permissionEntries) {
-        return new DirectoryPermissions(originalPermissions.id,
-                originalPermissions.fixJdbcBug,
-                permissionEntries,
-                originalPermissions.creationTime,
-                null);
-    }
-
-    /**
      * Get the creation time.
      *
      * @return creation time
@@ -139,5 +106,14 @@ public class DirectoryPermissions {
         return permissions.stream()
                 .filter(DirectoryPermissionEntry::isCanDelete)
                 .anyMatch(permission -> permission.getRole().equals(userRole));
+    }
+
+    /**
+     * Returns DirectoryPermissionsBuilder.
+     *
+     * @return DirectoryPermissionsBuilder
+     */
+    public static DirectoryPermissionsBuilder builder() {
+        return new DirectoryPermissionsBuilder();
     }
 }

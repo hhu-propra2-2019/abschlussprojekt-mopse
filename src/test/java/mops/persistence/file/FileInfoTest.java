@@ -4,7 +4,6 @@ import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.directory.Directory;
-import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.utils.DbContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.Optional;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -34,29 +32,46 @@ class FileInfoTest {
 
     @BeforeEach
     void setup() {
-        DirectoryPermissions rootDirPerms = new DirectoryPermissions(Set.of(new DirectoryPermissionEntry("admin", true,
-                true, true)));
+        DirectoryPermissions rootDirPerms = DirectoryPermissions.builder()
+                .entry("admin", true, true, true)
+                .build();
         rootDirPerms = permRepo.save(rootDirPerms);
 
-        Directory rootDir = new Directory("", null, -1, rootDirPerms.getId());
+        Directory rootDir = Directory.builder()
+                .name("")
+                .groupOwner(0L)
+                .permissions(rootDirPerms)
+                .build();
         rootDir = dirRepo.save(rootDir);
 
-        FileTag t1 = new FileTag("1");
-        FileTag t2 = new FileTag("2");
-        this.file = new FileInfo("a", rootDir.getId(), "txt", 0L, "a", Set.of(t1, t2));
+        this.file = FileInfo.builder()
+                .name("a")
+                .directory(rootDir)
+                .type("txt")
+                .size(0L)
+                .owner("user")
+                .tag("1")
+                .tag("2")
+                .build();
     }
 
     @Test
     void failCreation() {
-        assertThatThrownBy(() -> new FileTag(null))
-                .isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> new FileInfo(null, -1L, null, 0L, null, null))
+        assertThatThrownBy(() -> FileInfo.builder().build())
+                .isInstanceOf(IllegalStateException.class);
+        assertThatThrownBy(() -> FileInfo.builder().name(null))
                 .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void failSave() {
-        FileInfo wrong = new FileInfo("a", -1L, "txt", 0L, "a", Set.of());
+        FileInfo wrong = FileInfo.builder()
+                .name("a")
+                .directoryId(0L)
+                .type("txt")
+                .size(0L)
+                .owner("user")
+                .build();
 
         assertThatThrownBy(() -> repo.save(wrong))
                 .isInstanceOf(DbActionExecutionException.class);

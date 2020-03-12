@@ -56,29 +56,6 @@ public class Directory {
     private Timestamp lastModifiedTime;
 
     /**
-     * Create a new Directory.
-     *
-     * @param name          Directory name
-     * @param parentId      Id of parent Directory
-     * @param groupOwner    Id of the owning group
-     * @param permissionsId Id of the DirectoryPermissions
-     */
-    public Directory(String name, Long parentId, long groupOwner, long permissionsId) {
-        this(null, name, parentId, groupOwner, permissionsId, null, null);
-    }
-
-    /**
-     * @param name        Directory name
-     * @param parentId    Id of parent Directory
-     * @param groupOwner  Id of the owning group
-     * @param permissions permissions of the directory
-     * @return a new directory object
-     */
-    public static Directory of(String name, Long parentId, long groupOwner, DirectoryPermissions permissions) {
-        return new Directory(name, parentId, groupOwner, permissions.getId());
-    }
-
-    /**
      * Get the creation time.
      *
      * @return creation time
@@ -106,10 +83,11 @@ public class Directory {
     }
 
     /**
-     * @param dirName name of new sub folder
-     * @return a directory object which uses the root dir information.
+     * Gives you DirectoryBuilder.
+     *
+     * @return DirectoryBuilder
      */
-    public Directory createSubDirectory(String dirName) {
-        return new Directory(dirName, id, groupOwner, permissionsId);
+    public static DirectoryBuilder builder() {
+        return new DirectoryBuilder();
     }
 }

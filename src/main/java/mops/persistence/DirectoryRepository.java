@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
+@AggregateBuilder
 public interface DirectoryRepository extends CrudRepository<Directory, Long> {
+
     /**
      * @param parentId the id of the parent folder
      * @return a list of level one sub folder of the parent folder
