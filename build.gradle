@@ -6,6 +6,7 @@ plugins {
     id 'pmd'
     id 'com.github.spotbugs' version '4.0.2'
     id "io.franzbecker.gradle-lombok" version "3.3.0"
+    id "org.asciidoctor.convert" version "1.5.9.2"
 }
 
 group = 'mops'
@@ -61,6 +62,9 @@ dependencies {
     testImplementation 'org.testcontainers:testcontainers:1.13.0'
     testImplementation 'org.testcontainers:junit-jupiter:1.13.0'
     testImplementation 'com.c4-soft.springaddons:spring-security-test-keycloack-addons:1.2.0'
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
 }
 
 checkstyle {
@@ -104,6 +108,10 @@ task delombok(type: DelombokTask, dependsOn: compileJava) {
     }
 }
 
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
 javadoc {
     dependsOn delombok
     source = delombok.outputDir
@@ -111,6 +119,12 @@ javadoc {
     failOnError = false
 }
 
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
 test {
     useJUnitPlatform()
+    outputs.dir snippetsDir
 }
