@@ -13,28 +13,37 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
      * @param dirId directory id
      * @return a list of files in that directory
      */
-    List<FileInfo> getAllFileInfoByDirectory(long dirId);
+    default List<FileInfo> getAllFileInfoByDirectory(long dirId) {
+        return List.of();
+    }
 
     /**
      * @param fileId file id
      * @return a FileInfo object
      */
-    FileInfo getFileInfoById(long fileId);
+    default FileInfo getFileInfoById(long fileId) {
+        return null;
+    }
 
     /**
      * @param fileInfo Metadata of a file
      * @return ID the FileInfo was saved under
      */
-    long addFileInfoToDatabase(FileInfo fileInfo);
+    default long addFileInfoToDatabase(FileInfo fileInfo) {
+        return -1L;
+    }
 
     /**
      * @param fileId file id to be deleted
      */
-    void deleteFileInfoFromDatabase(long fileId) throws MopsException;
+    default void deleteFileInfoFromDatabase(long fileId) throws MopsException {
+    }
 
     /**
      * @param fileId file id
      * @return directory id from file id
      */
-    long getDirectoryIdByFileId(long fileId);
+    default long getDirectoryIdByFileId(long fileId) {
+        return -1L;
+    }
 }
