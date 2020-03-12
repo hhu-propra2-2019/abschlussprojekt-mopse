@@ -87,6 +87,42 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
+     * gets all 3 permissions of a user.
+     *
+     * @param account user credentials
+     * @param dirId the id of the folder
+     * @return a permission flag object
+     */
+    @Override
+    public UserPermission getPermissionsOfUser(Account account, long dirId) {
+        Directory directory = fetchDirectory(dirId);
+        boolean write = true;
+        boolean read = true;
+        boolean delete = true;
+
+        try {
+            roleService.checkWritePermission(account, directory);
+        } catch (MopsException e) {
+            write = false;
+        }
+
+        try {
+            roleService.checkReadPermission(account, directory);
+        } catch (MopsException e) {
+            read = false;
+        }
+
+        try {
+            roleService.checkDeletePermission(account, directory);
+        } catch (MopsException e) {
+            delete = false;
+        }
+
+        return new UserPermission(read, write, delete);
+
+    }
+
+    /**
      * Returns all folders of the parent folder.
      *
      * @param account     user credentials

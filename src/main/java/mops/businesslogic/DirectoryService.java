@@ -34,6 +34,15 @@ public interface DirectoryService {
     void checkDeletePermission(Account account, long dirId) throws MopsException;
 
     /**
+     * gets all 3 permissions of a user.
+     *
+     * @param account user credentials
+     * @param dirId the id of the folder
+     * @return a permission flag object
+     */
+    UserPermission getPermissionsOfUser(Account account, long dirId);
+
+    /**
      * Returns all folders of the parent folder.
      *
      * @param account user credentials
