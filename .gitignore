@@ -36,3 +36,4 @@ prod.env
 minio_data/
 !javadoc/
 /build/generated/sources/
+/build/generated/
