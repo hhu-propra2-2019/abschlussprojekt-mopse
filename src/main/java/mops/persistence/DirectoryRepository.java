@@ -20,4 +20,10 @@ public interface DirectoryRepository extends CrudRepository<Directory, Long> {
     @Query("SELECT * FROM directory WHERE parent_id IS NOT NULL AND parent_id = :parentId")
     List<Directory> getAllSubFoldersOfParent(@Param("parentId") long parentId);
 
+    /**
+     * @param groupOwner the group od
+     * @return the number of the folders the group already has
+     */
+    @Query("SELECT COUNT(id) FROM directory WHERE group_owner = :groupOwner")
+    long getGroupFolderCount(@Param("groupOwner") long groupOwner);
 }
