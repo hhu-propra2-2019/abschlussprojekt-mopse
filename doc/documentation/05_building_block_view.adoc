@@ -218,10 +218,10 @@ DirectoryController::
 
 Dieser hat folgende Routen:
 
-include::{snippets}/index/DirectoryController/show-content/path-parameters.adoc[]
-include::{snippets}/index/DirectoryController/create-folder/path-parameters.adoc[]
-include::{snippets}/index/DirectoryController/delete-directory/path-parameters.adoc[]
-include::{snippets}/index/DirectoryController/search-folder/path-parameters.adoc[]
-include::{snippets}/index/DirectoryController/upload-file/path-parameters.adoc[]
+include::../../build/generated-snippets/index/DirectoryController/show-content/path-parameters.adoc[]
+include::../../build/generated-snippets//index/DirectoryController/create-folder/path-parameters.adoc[]
+include::../../build/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
+include::../../build/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
+include::../../build/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]
 
 ****
