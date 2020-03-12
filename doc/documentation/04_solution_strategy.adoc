@@ -16,11 +16,14 @@ Eine *kurze* und *präzise* Darlegung aller relevanten Entscheidungen.
 
 == Controller Tests
 
-Eine Schwierigkeit für die Controller Tests war, dass man die sicherheitsrelevanten Aspekte von `spring-security` und
+Eine Schwierigkeit für die Controller Tests ist, dass man die sicherheitsrelevanten Aspekte von `spring-security` und
 `keycloak` berücksichtigen muss.
-Wir haben uns dafür entschieden diesen Teil zu mocken.
-Jedoch hat es bei uns nicht funktioniert mit `@WithMockUser` den Mock zu machen, daher haben wir den ganzen
-SecurityContext gemockt und stellen diesen mit `SecurityContextUtil` für jeden ControllerTest zur Verfügung.
+Wir hatten uns zunächst dafür entschieden diesen Teil zu mocken.
+Jedoch hatte es bei uns nicht funktioniert den Mock mit `@WithMockUser` zu machen, daher hatten wir den ganzen
+SecurityContext gemockt und stellten diesen mit `SecurityContextUtil` für jeden ControllerTest zur Verfügung.
+Später wurden wir dann auf die Bibliothek `spring-security-test-keycloack-addons` aufmerksam gemacht, die das Testen
+massiv vereinfacht. Nun kann man die Annotation `@WithMockKeycloakAuth` benutzen um Tests mit einer gültigen Keycloak
+Authentifizierung auszustatten.
 
 == Datenbank
 
