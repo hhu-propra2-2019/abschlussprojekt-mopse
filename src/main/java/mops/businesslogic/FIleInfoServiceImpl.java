@@ -12,6 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 public class FIleInfoServiceImpl implements FileInfoService {
 
+    /**
+     * reference to fileInfoRepository.
+     */
     private final FileInfoRepository fileInfoRepository;
 
     /**
