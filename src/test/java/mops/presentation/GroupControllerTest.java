@@ -2,6 +2,7 @@ package mops.presentation;
 
 import mops.SpringTestContext;
 import mops.businesslogic.*;
+import mops.exception.MopsException;
 import mops.persistence.FileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,8 +70,8 @@ public class GroupControllerTest {
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
-    void setUp() {
-        account = new Account("studi", "bla@bla.de", "studentin");
+    void setUp() throws MopsException {
+        account = Account.of("studi", "bla@bla.de", "studentin");
         given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
         given(groupService.getGroupUrl(account, 1)).willReturn(new GroupDirUrlWrapper(1L));
         mvc = MockMvcBuilders

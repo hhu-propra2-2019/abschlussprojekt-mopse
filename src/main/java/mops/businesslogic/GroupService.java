@@ -1,6 +1,6 @@
 package mops.businesslogic;
 
-import mops.persistence.directory.Directory;
+import mops.exception.MopsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,17 +8,17 @@ import java.util.List;
 @Service
 public interface GroupService {
     /**
-     * Fetches all root directories (one for each group) of one user.
+     * Fetches all visible groups of one user.
      *
      * @param account the account the user
-     * @return a list of group ids
+     * @return a list of groups
      */
-    List<Directory> getAllGroupRootDirectories(Account account);
+    List<Group> getAllGroups(Account account) throws MopsException;
 
     /**
      * @param account user account
      * @param groupId the id of the group
      * @return a wrapper for group urls
      */
-    GroupDirUrlWrapper getGroupUrl(Account account, long groupId);
+    GroupDirUrlWrapper getGroupUrl(Account account, long groupId) throws MopsException;
 }

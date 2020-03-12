@@ -43,20 +43,20 @@ class FileInfoTest {
 
         FileTag t1 = new FileTag("1");
         FileTag t2 = new FileTag("2");
-        this.file = new FileInfo("a", rootDir.getId(), "txt", 0, "a", Set.of(t1, t2));
+        this.file = new FileInfo("a", rootDir.getId(), "txt", 0L, "a", Set.of(t1, t2));
     }
 
     @Test
     void failCreation() {
         assertThatThrownBy(() -> new FileTag(null))
                 .isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> new FileInfo(null, -1, null, 0, null, null))
+        assertThatThrownBy(() -> new FileInfo(null, -1L, null, 0L, null, null))
                 .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void failSave() {
-        FileInfo wrong = new FileInfo("a", -1, "txt", 0, "a", Set.of());
+        FileInfo wrong = new FileInfo("a", -1L, "txt", 0L, "a", Set.of());
 
         assertThatThrownBy(() -> repo.save(wrong))
                 .isInstanceOf(DbActionExecutionException.class);
@@ -71,11 +71,11 @@ class FileInfoTest {
 
     @Test
     void loadSave() {
-        Long id = repo.save(file).getId();
+        FileInfo saved = repo.save(file);
 
-        Optional<FileInfo> loaded = repo.findById(id);
+        Optional<FileInfo> loaded = repo.findById(saved.getId());
 
-        assertThat(loaded).get().isEqualToIgnoringNullFields(file);
+        assertThat(loaded).get().isEqualToIgnoringNullFields(saved);
     }
 
     @Test

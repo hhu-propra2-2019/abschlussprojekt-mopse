@@ -23,7 +23,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
-@SuppressWarnings("PMD")
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
@@ -36,11 +35,9 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
      */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
-        KeycloakAuthenticationProvider keycloakAuthenticationProvider
-                = keycloakAuthenticationProvider();
-        keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(
-                new SimpleAuthorityMapper());
-        auth.authenticationProvider(keycloakAuthenticationProvider);
+        KeycloakAuthenticationProvider authProvider = keycloakAuthenticationProvider();
+        authProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
+        auth.authenticationProvider(authProvider);
     }
 
     /**
@@ -61,15 +58,12 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
      * @return Keycloak access token.
      */
     @Bean
-    @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST,
-            proxyMode = ScopedProxyMode.TARGET_CLASS)
+    @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    @SuppressWarnings("PMD.LawOfDemeter")
     public AccessToken getAccessToken() {
         HttpServletRequest request =
-                ((ServletRequestAttributes) RequestContextHolder
-                        .currentRequestAttributes()).getRequest();
-
-        return ((KeycloakPrincipal<?>) request.getUserPrincipal())
-                .getKeycloakSecurityContext().getToken();
+                ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        return ((KeycloakPrincipal<?>) request.getUserPrincipal()).getKeycloakSecurityContext().getToken();
     }
 
     /**
@@ -80,6 +74,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
      * @throws Exception on error
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http.authorizeRequests()
@@ -100,11 +95,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
      * for Role-based authorization
      */
     @Configuration
-    @EnableGlobalMethodSecurity(
-            prePostEnabled = true,
-            securedEnabled = true,
-            jsr250Enabled = true)
-    public static class MethodSecurityConfig
-            extends GlobalMethodSecurityConfiguration {
+    @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+    public static class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
     }
 }
