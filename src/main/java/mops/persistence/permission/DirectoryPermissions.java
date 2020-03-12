@@ -27,12 +27,6 @@ public class DirectoryPermissions {
     @Setter(AccessLevel.PRIVATE)
     private Long id;
     /**
-     * This is necessary because Spring Data JDBC is unable to UPDATE empty objects.
-     */
-    @Getter(AccessLevel.PRIVATE)
-    @Setter(AccessLevel.PRIVATE)
-    private boolean fixJdbcBug;
-    /**
      * The permission entries.
      */
     @NonNull

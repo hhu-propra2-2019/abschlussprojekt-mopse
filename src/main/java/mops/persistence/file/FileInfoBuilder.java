@@ -7,6 +7,8 @@ import mops.persistence.directory.Directory;
 import mops.utils.AggregateBuilder;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +16,7 @@ import java.util.Set;
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
-        "PMD.BeanMembersShouldSerialize" })
+        "PMD.BeanMembersShouldSerialize" }) // this is a builder
 public class FileInfoBuilder {
 
     /**
@@ -45,6 +47,10 @@ public class FileInfoBuilder {
      * File tags.
      */
     private final Set<FileTag> tags = new HashSet<>();
+    /**
+     * Creation Time.
+     */
+    private Instant creationTime;
 
     /**
      * Initialize from existing FileInfo.
@@ -60,6 +66,7 @@ public class FileInfoBuilder {
         this.size = file.getSize();
         this.owner = file.getOwner();
         file.getTags().stream().map(FileTag::getName).forEach(this::tag);
+        this.creationTime = file.getCreationTime();
         return this;
     }
 
@@ -208,6 +215,16 @@ public class FileInfoBuilder {
         if (name == null || directoryId == -1L || type == null || size == -1L || owner == null) {
             throw new IllegalStateException("FileInfo is not complete!");
         }
-        return new FileInfo(id, name, directoryId, type, size, owner, tags, null, null);
+        return new FileInfo(
+                id,
+                name,
+                directoryId,
+                type,
+                size,
+                owner,
+                tags,
+                creationTime == null ? null : Timestamp.from(creationTime),
+                null
+        );
     }
 }

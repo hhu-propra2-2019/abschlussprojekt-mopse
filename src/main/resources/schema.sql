@@ -1,7 +1,6 @@
 CREATE TABLE directory_permissions
 (
     id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
-    fix_jdbc_bug       BOOLEAN      NOT NULL DEFAULT FALSE,
     creation_time      TIMESTAMP(9) NOT NULL,
     last_modified_time TIMESTAMP(9) NOT NULL
 );

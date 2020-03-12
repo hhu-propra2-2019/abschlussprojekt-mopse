@@ -26,7 +26,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Represents the role of an admin.
      */
-    public static final String ADMINISTRATOR = "administrator";
+    public static final String ADMIN = "admin";
 
     /**
      * This connects to database related to directory information.
@@ -110,8 +110,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return the directory created
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Directory createRootFolder(Account account, long groupId) throws MopsException {
-        roleService.checkIfRole(account, groupId, ADMINISTRATOR);
+        roleService.checkIfRole(account, groupId, ADMIN);
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
         DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
         rootPermissions = directoryPermissionsRepo.save(rootPermissions);
@@ -119,7 +120,7 @@ public class DirectoryServiceImpl implements DirectoryService {
                 .name("")
                 .groupOwner(groupId)
                 .permissions(rootPermissions)
-                .build();
+                .build(); // no demeter violation here
         return directoryRepository.save(directory);
     }
 
@@ -201,6 +202,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return the updated directory object
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     public DirectoryPermissions updatePermission(Account account,
                                                  long dirId,
                                                  DirectoryPermissions permissions) throws MopsException {
@@ -209,7 +211,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         DirectoryPermissions updatedPermissions = DirectoryPermissions.builder()
                 .from(permissions)
                 .id(directory.getPermissionsId())
-                .build();
+                .build(); // no demeter violation here
         return directoryPermissionsRepo.save(updatedPermissions);
     }
 
@@ -224,7 +226,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         return optionalDirectory.orElseThrow(getException(parentDirID)); //this is not a violation of demeter's law
     }
 
-    @SuppressWarnings("PMD.LawOfDemeter")
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.UnusedPrivateMethod" })
     private DirectoryPermissions fetchPermissions(Directory directory) throws DatabaseException {
         Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
         return permissions.orElseThrow(() -> { // this is not a violation of demeter's law
@@ -234,7 +236,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     private void checkIfAdmin(Account account, Directory directory) throws MopsException {
-        roleService.checkIfRole(account, directory.getId(), ADMINISTRATOR);
+        roleService.checkIfRole(account, directory.getGroupOwner(), ADMIN);
     }
 
     /**

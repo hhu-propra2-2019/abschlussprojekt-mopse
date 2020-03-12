@@ -6,10 +6,13 @@ import lombok.NonNull;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.utils.AggregateBuilder;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
-        "PMD.BeanMembersShouldSerialize" })
+        "PMD.BeanMembersShouldSerialize" }) // this is a builder
 public class DirectoryBuilder {
 
     /**
@@ -32,6 +35,10 @@ public class DirectoryBuilder {
      * Id of the DirectoryPermissions object which stores the access permission for this Directory tree.
      */
     private long permissionsId = -1L;
+    /**
+     * Creation Time.
+     */
+    private Instant creationTime;
 
     /**
      * Initialize from existing Directory.
@@ -45,6 +52,7 @@ public class DirectoryBuilder {
         this.parentId = directory.getParentId();
         this.groupOwner = directory.getGroupOwner();
         this.permissionsId = directory.getPermissionsId();
+        this.creationTime = directory.getCreationTime();
         return this;
     }
 
@@ -55,7 +63,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder fromParent(@NonNull Directory parent) {
-        this.parentId = parent.getParentId();
+        this.parentId = parent.getId();
         this.groupOwner = parent.getGroupOwner();
         this.permissionsId = parent.getPermissionsId();
         return this;
@@ -159,6 +167,14 @@ public class DirectoryBuilder {
         if (name == null || groupOwner == -1L || permissionsId == -1L) {
             throw new IllegalStateException("Directory is not complete!");
         }
-        return new Directory(id, name, parentId, groupOwner, permissionsId, null, null);
+        return new Directory(
+                id,
+                name,
+                parentId,
+                groupOwner,
+                permissionsId,
+                creationTime == null ? null : Timestamp.from(creationTime),
+                null
+        );
     }
 }

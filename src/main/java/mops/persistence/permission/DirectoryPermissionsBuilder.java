@@ -5,13 +5,15 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import mops.utils.AggregateBuilder;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
-        "PMD.BeanMembersShouldSerialize" })
+        "PMD.BeanMembersShouldSerialize" }) // this is a builder
 public class DirectoryPermissionsBuilder {
 
     /**
@@ -22,6 +24,10 @@ public class DirectoryPermissionsBuilder {
      * Permissions.
      */
     private final Set<DirectoryPermissionEntry> entries = new HashSet<>();
+    /**
+     * Creation Time.
+     */
+    private Instant creationTime;
 
     /**
      * Initialize from existing DirectoryPermissions.
@@ -32,6 +38,7 @@ public class DirectoryPermissionsBuilder {
     public DirectoryPermissionsBuilder from(DirectoryPermissions permissions) {
         this.id = permissions.getId();
         permissions.getPermissions().forEach(e -> entry(e.getRole(), e.isCanRead(), e.isCanWrite(), e.isCanDelete()));
+        this.creationTime = permissions.getCreationTime();
         return this;
     }
 
@@ -81,6 +88,11 @@ public class DirectoryPermissionsBuilder {
      * @return composed DirectoryPermissions
      */
     public DirectoryPermissions build() {
-        return new DirectoryPermissions(id, false, entries, null, null);
+        return new DirectoryPermissions(
+                id,
+                entries,
+                creationTime == null ? null : Timestamp.from(creationTime),
+                null
+        );
     }
 }

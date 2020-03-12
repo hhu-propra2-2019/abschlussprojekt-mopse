@@ -105,7 +105,7 @@ public class DirectoryController {
             directory = directoryService.createFolder(account, parentDirId, folderName);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression and findbugs warning
-            //          // TODO: this can be done by replacing Directory directory = null; with Directory directory;
+            // TODO: this can be done by replacing Directory directory = null; with Directory directory;
         }
         //there is no other way
         return String.format("redirect:/material1/dir/%d", directory.getId()); //NOPMD

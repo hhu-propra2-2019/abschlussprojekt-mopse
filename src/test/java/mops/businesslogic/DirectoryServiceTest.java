@@ -8,7 +8,7 @@ import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.utils.DbContext;
+import mops.utils.TestContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@DbContext
+@TestContext
 @SpringBootTest
 class DirectoryServiceTest {
 
@@ -74,13 +74,14 @@ class DirectoryServiceTest {
         editor = Account.of(EDITOR, "editor@hhu.de", STUDENTIN);
         admin = Account.of(ADMIN, "admin@hhu.de", STUDENTIN);
 
-        root = directoryService.createRootFolder(admin, GROUP_ID);
-
         given(permissionService.fetchRolesInGroup(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, USER));
         given(permissionService.fetchRoleForUserInGroup(admin, GROUP_ID)).willReturn(ADMIN);
         given(permissionService.fetchRoleForUserInGroup(editor, GROUP_ID)).willReturn(EDITOR);
         given(permissionService.fetchRoleForUserInGroup(user, GROUP_ID)).willReturn(USER);
         given(permissionService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
+
+        root = directoryService.createRootFolder(admin, GROUP_ID);
+
         given(fileInfoService.fetchAllFilesInDirectory(root.getId())).willReturn(List.of());
     }
 
@@ -95,7 +96,7 @@ class DirectoryServiceTest {
                 .permissions(root.getPermissionsId())
                 .build();
 
-        assertThat(root).isEqualToIgnoringNullFields(expected);
+        assertThat(root).isEqualToIgnoringGivenFields(expected, "id", "creationTime", "lastModifiedTime");
     }
 
     /**
@@ -114,14 +115,14 @@ class DirectoryServiceTest {
     void createFolderTest() throws MopsException {
         String subDirName = "a";
 
-        Directory expectedDirectory = Directory.builder()
+        Directory expected = Directory.builder()
                 .fromParent(root)
                 .name(subDirName)
                 .build();
 
         Directory subDir = directoryService.createFolder(user, root.getId(), subDirName);
 
-        assertThat(subDir).isEqualToIgnoringNullFields(expectedDirectory);
+        assertThat(subDir).isEqualToIgnoringGivenFields(expected, "id", "creationTime", "lastModifiedTime");
     }
 
     /**
@@ -130,13 +131,14 @@ class DirectoryServiceTest {
     @Test
     void updatePermissionTest() throws MopsException {
         DirectoryPermissions permissions = DirectoryPermissions.builder()
+                .entry(USER, true, false, false)
                 .entry(EDITOR, true, false, false)
                 .entry(ADMIN, true, true, true)
                 .build();
 
         DirectoryPermissions newPermissions = directoryService.updatePermission(admin, root.getId(), permissions);
 
-        assertThat(newPermissions).isEqualToIgnoringNullFields(permissions);
+        assertThat(newPermissions).isEqualToIgnoringGivenFields(permissions, "id", "creationTime", "lastModifiedTime");
     }
 
     /**
@@ -170,14 +172,15 @@ class DirectoryServiceTest {
     @Test
     void createSubFolderWithReadsOnlyPermissionTest() throws MopsException {
         DirectoryPermissions permissions = DirectoryPermissions.builder()
-                .entry(EDITOR, false, true, true)
+                .entry(USER, false, false, false)
+                .entry(EDITOR, true, false, false)
                 .entry(ADMIN, true, true, true)
                 .build();
 
         directoryService.updatePermission(admin, root.getId(), permissions);
 
         assertThatExceptionOfType(ReadAccessPermissionException.class)
-                .isThrownBy(() -> directoryService.getSubFolders(editor, root.getId()));
+                .isThrownBy(() -> directoryService.getSubFolders(user, root.getId()));
     }
 
     /**
