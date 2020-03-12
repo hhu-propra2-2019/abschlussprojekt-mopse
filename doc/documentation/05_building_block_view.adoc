@@ -87,9 +87,19 @@ Darstellung nach gleichem Schema wie zuvor._
 
 image:Ebene2.png["Ebene 2"]
 
-Begründung:: Jeder Controller repräsentiert einen Routenanfang `/material1/{routenBeginn}`, wodurch zum einen großen
-Controllerklassen vermieden werden und wir es den praktischen Nutzen hat, dass man Routenbeginne an der Klasse selbst
-annotieren kann.
+Begründung:: Von der HTML Presentation aus wird je nach Route ein bestimmter Controller in der Presentation Layer
+angesteuert. Jeder Controller repräsentiert damit einen Routenanfang `/material1/{routenBeginn}`. Hierdurch werden zu
+große Controller vermieden und Übersicht geschaffen.
+
+Die Services der Business Layer bearbeiten die Anfragen der Controller und stellen diese die angefragten Daten zur
+Verfügung. Die von ihnen benötigten Daten holen sie sich wiederum von der Persitence Layer.
+
+In der Persistence Layer liegen die Repositorys, die im Prinzip direkte Schnittstellen zwischen den Anfragen der
+Services und der Database Layer darstellen. Sie verarbeiten also deren Anfragen und leiten sie an die Database Layer
+weiter.
+
+Die Database Layer wiederum beinhaltet alle Daten, die bei uns gespeichert werden. Sie stellen diese ja nach Anfrage
+der Repositorys zur Verfügung.
 
 Presentation Layer::
 
