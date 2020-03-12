@@ -60,14 +60,17 @@ class DirectoryRepositoryTest {
     @Test
     public void groupFolderCountTest() {
         long groupOwner = 2L;
-        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions(Set.of())).getId();
-        Directory root = new Directory("root", null, groupOwner, permissionsId);
-        Directory savedRoot = directoryRepository.save(root);
+        DirectoryPermissions permissions = directoryPermissionsRepository.save(DirectoryPermissions.builder().build());
+        Directory root = Directory.builder()
+                .name("root")
+                .groupOwner(groupOwner)
+                .permissions(permissions).build();
+        directoryRepository.save(root);
 
-        Directory first = new Directory("first", savedRoot.getId(), groupOwner, permissionsId);
-        Directory second = new Directory("second", savedRoot.getId(), groupOwner, permissionsId);
+        Directory first = Directory.builder().fromParent(root).name("first").build();
+        Directory second = Directory.builder().fromParent(root).name("second").build();
 
-        List<Directory> savedDirectories = (List<Directory>) directoryRepository.saveAll(List.of(first, second));
+        directoryRepository.saveAll(List.of(first, second));
 
         long groupFolderCount = directoryRepository.getGroupFolderCount(groupOwner);
 
