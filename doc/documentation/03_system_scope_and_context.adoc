@@ -28,3 +28,4 @@ Nutzers in einer bestimmten Gruppe._  | _Wir erhalten ein Datenobjekt (.json) zu
 |Gruppenurl |`/material1/group/{groupId}/url | Gibt ein JSON-Objekt zurück, das die Attribute `group_id` und `url` hat.
 Letzteres ist der relative Pfad, wo der Rootordner der Gruppe aufgerufen werden kann.
 |===
+****
