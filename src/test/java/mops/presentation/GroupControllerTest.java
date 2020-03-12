@@ -87,9 +87,14 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void getAllFilesOfDirectory() throws Exception {
-        mockMvc().perform(get("/material1/group/1"))
+        mockMvc().perform(get("/material1/group/{groupId}", 1))
                 .andExpect(status().isOk())
-                .andExpect(view().name("files"));
+                .andExpect(view().name("files"))
+                .andDo(document("index/GroupController/{method-name}",
+                        pathParameters(
+                                parameterWithName("groupId").description("The group id.")
+                        )));
+        ;
     }
 
     /**
@@ -100,11 +105,17 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     void searchFile() throws Exception {
         FileQuery fileQuery = mock(FileQuery.class);
 
-        mockMvc().perform(post("/material1/group/1/search")
+        mockMvc().perform(post("/material1/group/{groupId}/search", 1)
                 .requestAttr("searchQuery", fileQuery)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("files"));
+                .andExpect(view().name("files"))
+                .andDo(document("index/GroupController/{method-name}",
+                        pathParameters(
+                                parameterWithName("groupId").description("The group id.")
+                        )));
+        ;
+        ;
     }
 
     /**
