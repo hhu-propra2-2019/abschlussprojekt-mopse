@@ -56,6 +56,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return a permission flag object
      */
     @Override
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //this is normal behaviour
     public UserPermission getPermissionsOfUser(Account account, long dirId) {
         Directory directory = fetchDirectory(dirId);
         boolean write = true;
