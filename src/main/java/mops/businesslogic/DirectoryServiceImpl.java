@@ -172,12 +172,13 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return list of files
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     public List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) throws MopsException {
         Directory directory = fetchDirectory(dirId);
         roleService.checkReadPermission(account, directory);
         List<FileInfo> fileInfos = fileInfoService.fetchAllFilesInDirectory(dirId);
 
-        return fileInfos.stream()
+        return fileInfos.stream() //this is a stream not violation of demeter's law
                 .filter(query::checkMatch)
                 .collect(Collectors.toList());
     }
