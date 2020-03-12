@@ -18,29 +18,25 @@ public interface FileInfoService {
     List<FileInfo> fetchAllFilesInDirectory(long dirId);
 
     /**
-     *
      * @param fileId file id
      * @return a FileInfo object
      */
     FileInfo fetchFileInfo(long fileId);
 
     /**
-     *
      * @param fileInfo Metadata of a file
      * @return ID the FileInfo was saved under
      */
-    long saveFileInfo (FileInfo fileInfo);
+    long saveFileInfo(FileInfo fileInfo);
 
     /**
-     *
      * @param fileId file id
      */
-    void deleteFileInfo (long fileId) throws MopsException;
+    void deleteFileInfo(long fileId) throws MopsException;
 
     /**
-     *
      * @param fileId file id
      * @return dir id
      */
-    long fetchDirectoryId (long fileId);
+    long fetchDirectoryId(long fileId);
 }

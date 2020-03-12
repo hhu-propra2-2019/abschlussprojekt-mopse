@@ -34,14 +34,14 @@ public class FIleInfoServiceImpl implements FileInfoService {
      * @param fileInfo Metadata of a file
      * @return ID the FileInfo was saved under
      */
-    public long saveFileInfo (FileInfo fileInfo) {
+    public long saveFileInfo(FileInfo fileInfo) {
         return fileInfoRepository.addFileInfoToDatabase(fileInfo);
     }
 
     /**
      * @param fileId file id
      */
-    public void deleteFileInfo (long fileId) throws MopsException {
+    public void deleteFileInfo(long fileId) throws MopsException {
         fileInfoRepository.deleteFileInfoFromDatabase(fileId);
     }
 
@@ -49,7 +49,7 @@ public class FIleInfoServiceImpl implements FileInfoService {
      * @param fileId file id
      * @return dir id
      */
-    public long fetchDirectoryId (long fileId) {
+    public long fetchDirectoryId(long fileId) {
         return fileInfoRepository.getDirectoryIdByFileId(fileId);
     }
 }
