@@ -1,0 +1,20 @@
+****
+Anfrage Gruppenurl::
+
+Anfrage:
+
+include::../build/generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
+
+Antwort:
+
+include::../build/generated-snippets/index/GroupController/get-group-url/response-fields.adoc[]
+
+Beispielrequest:
+
+include::../build/generated-snippets/index/GroupController/get-group-url/httpie-request.adoc[]
+
+Beispielantwort:
+
+include::../build/generated-snippets/index/GroupController/get-group-url/response-body.adoc[]
+
+****
