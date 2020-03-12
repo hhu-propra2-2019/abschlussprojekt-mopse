@@ -173,8 +173,14 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return list of files
      */
     @Override
-    public List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) {
-        return null;
+    public List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) throws MopsException {
+        Directory directory = fetchDirectory(dirId);
+        roleService.checkReadPermission(account, directory);
+        List<FileInfo> fileInfos = fileInfoService.fetchAllFilesInDirectory(dirId);
+
+        return fileInfos.stream()
+                .filter(query::checkMatch)
+                .collect(Collectors.toList());
     }
 
     /**
