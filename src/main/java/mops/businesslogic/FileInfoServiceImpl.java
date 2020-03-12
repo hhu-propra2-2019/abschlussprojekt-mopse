@@ -22,7 +22,7 @@ public class FileInfoServiceImpl implements FileInfoService {
      * @return a list of files in that directory
      */
     @Override
-    public List<FileInfo> fetchAllFilesInDirectory(long dirId) {
+    public List<FileInfo> fetchAllFilesInDirectory(long dirId) throws MopsException {
         return fileInfoRepo.getAllFileInfoByDirectory(dirId);
     }
 
@@ -31,7 +31,7 @@ public class FileInfoServiceImpl implements FileInfoService {
      * @return a FileInfo object
      */
     @Override
-    public FileInfo fetchFileInfo(long fileId) {
+    public FileInfo fetchFileInfo(long fileId) throws MopsException {
         return fileInfoRepo.getFileInfoById(fileId);
     }
 
@@ -51,14 +51,4 @@ public class FileInfoServiceImpl implements FileInfoService {
     public void deleteFileInfo(long fileId) throws MopsException {
         fileInfoRepo.deleteFileInfoFromDatabase(fileId);
     }
-
-    /**
-     * @param fileId file id
-     * @return dir id
-     */
-    @Override
-    public long fetchDirectoryId(long fileId) {
-        return fileInfoRepo.getDirectoryIdByFileId(fileId);
-    }
-
 }

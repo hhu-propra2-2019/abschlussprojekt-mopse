@@ -15,13 +15,13 @@ public interface FileInfoService {
      * @param dirId directory id
      * @return a list of files in that directory
      */
-    List<FileInfo> fetchAllFilesInDirectory(long dirId);
+    List<FileInfo> fetchAllFilesInDirectory(long dirId) throws MopsException;
 
     /**
      * @param fileId file id
      * @return a FileInfo object
      */
-    FileInfo fetchFileInfo(long fileId);
+    FileInfo fetchFileInfo(long fileId) throws MopsException;
 
     /**
      * @param fileInfo Metadata of a file
@@ -33,10 +33,4 @@ public interface FileInfoService {
      * @param fileId file id
      */
     void deleteFileInfo(long fileId) throws MopsException;
-
-    /**
-     * @param fileId file id
-     * @return dir id
-     */
-    long fetchDirectoryId(long fileId);
 }
