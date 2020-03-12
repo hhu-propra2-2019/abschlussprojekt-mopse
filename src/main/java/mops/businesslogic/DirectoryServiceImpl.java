@@ -37,7 +37,6 @@ public class DirectoryServiceImpl implements DirectoryService {
      * This connects to database related to directory information.
      */
     private final DirectoryRepository directoryRepository;
-
     /**
      * Handles meta data of files.
      */
@@ -264,12 +263,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param dirId directory id
      * @return a supplier to throw a exception
      */
-    @SuppressWarnings("PMD.LawOfDemeter")
     private Supplier<NoSuchElementException> getException(long dirId) {
         return () -> { //this is not a violation of the demeter's law
             String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
             return new NoSuchElementException(errorMessage);
         };
     }
-
 }

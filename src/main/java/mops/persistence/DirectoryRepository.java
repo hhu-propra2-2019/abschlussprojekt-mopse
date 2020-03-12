@@ -24,6 +24,7 @@ public interface DirectoryRepository extends CrudRepository<Directory, Long> {
      * @param groupOwner the group od
      * @return the number of the folders the group already has
      */
-    @Query("SELECT COUNT(id) FROM directory WHERE group_owner = :groupOwner")
+    @Query("SELECT COUNT(*) FROM directory WHERE group_owner = :groupOwner")
     long getGroupFolderCount(@Param("groupOwner") long groupOwner);
+
 }

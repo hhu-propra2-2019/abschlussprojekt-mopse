@@ -6,7 +6,6 @@ import mops.exception.MopsException;
  * Custom Exception for errors in the MinIO File Storage.
  */
 @SuppressWarnings("PMD.MissingSerialVersionUID")
-public
 class StorageException extends MopsException {
 
     /**
@@ -14,7 +13,7 @@ class StorageException extends MopsException {
      *
      * @param message message
      */
-    public StorageException(String message) {
+    StorageException(String message) {
         super(message);
     }
 

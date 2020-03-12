@@ -31,9 +31,7 @@ class DirectoryRepositoryTest {
      */
     @Test
     void getAllSubFoldersOfParent() {
-        DirectoryPermissions empty = DirectoryPermissions.builder()
-                .build();
-        empty = directoryPermissionsRepository.save(empty);
+        DirectoryPermissions empty = directoryPermissionsRepository.save(DirectoryPermissions.builder().build());
         Directory root = Directory.builder()
                 .name("")
                 .groupOwner(0L)
@@ -60,21 +58,21 @@ class DirectoryRepositoryTest {
     @Test
     public void groupFolderCountTest() {
         long groupOwner = 2L;
-        DirectoryPermissions permissions = directoryPermissionsRepository.save(DirectoryPermissions.builder().build());
+        DirectoryPermissions empty = directoryPermissionsRepository.save(DirectoryPermissions.builder().build());
         Directory root = Directory.builder()
-                .name("root")
+                .name("")
                 .groupOwner(groupOwner)
-                .permissions(permissions).build();
+                .permissions(empty)
+                .build();
         directoryRepository.save(root);
 
-        Directory first = Directory.builder().fromParent(root).name("first").build();
-        Directory second = Directory.builder().fromParent(root).name("second").build();
+        Directory a = Directory.builder().fromParent(root).name("a").build();
+        Directory b = Directory.builder().fromParent(root).name("b").build();
 
-        directoryRepository.saveAll(List.of(first, second));
+        directoryRepository.saveAll(List.of(a, b));
 
         long groupFolderCount = directoryRepository.getGroupFolderCount(groupOwner);
 
         assertThat(groupFolderCount).isEqualTo(3L);
-
     }
 }
