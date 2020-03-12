@@ -52,25 +52,6 @@ public class DirectoryPermissions {
     private Timestamp lastModifiedTime;
 
     /**
-     * Create a new permissions object.
-     *
-     * @param permissions role permissions
-     */
-    public DirectoryPermissions(Set<DirectoryPermissionEntry> permissions) {
-        this(null, permissions);
-    }
-
-    /**
-     * Create a new permissions object.
-     *
-     * @param id          database id
-     * @param permissions role permissions
-     */
-    DirectoryPermissions(Long id, Set<DirectoryPermissionEntry> permissions) {
-        this(id, false, permissions, null, null);
-    }
-
-    /**
      * Get the creation time.
      *
      * @return creation time
@@ -86,5 +67,14 @@ public class DirectoryPermissions {
      */
     public Instant getLastModifiedTime() {
         return lastModifiedTime == null ? Instant.EPOCH : lastModifiedTime.toInstant();
+    }
+
+    /**
+     * Returns DirectoryPermissionsBuilder.
+     *
+     * @return DirectoryPermissionsBuilder
+     */
+    public static DirectoryPermissionsBuilder builder() {
+        return new DirectoryPermissionsBuilder();
     }
 }

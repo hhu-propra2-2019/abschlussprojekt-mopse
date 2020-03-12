@@ -9,7 +9,7 @@ import lombok.NonNull;
  */
 @Data
 @AllArgsConstructor
-public class DirectoryPermissionEntry {
+class DirectoryPermissionEntry {
 
     /**
      * The role this belongs to.
