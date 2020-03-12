@@ -1,121 +1,93 @@
 package mops.presentation;
 
-import mops.SpringTestContext;
-import mops.businesslogic.*;
+import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
+import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
+import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
+import mops.businesslogic.DirectoryService;
+import mops.businesslogic.FileContainer;
+import mops.businesslogic.FileService;
+import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
+import mops.persistence.DirectoryPermissionsRepository;
+import mops.persistence.DirectoryRepository;
+import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.file.FileInfo;
+import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 
-import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringTestContext
-@SpringBootTest
-public class FileControllerTest {
+@KeycloakContext
+@WebMvcTest(FileController.class)
+class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
-    /**
-     * Necessary mock until GroupService is implemented.
-     */
     @MockBean
-    private GroupService groupService;
-    /**
-     * Necessary mock until FileService is implemented.
-     */
+    DirectoryRepository directoryRepository;
     @MockBean
-    private FileService fileService;
-    /**
-     * Necessary mock until DirectoryService is implemented.
-     */
+    DirectoryPermissionsRepository directoryPermissionsRepository;
     @MockBean
-    private DirectoryService directoryService;
-    /**
-     * Necessary mock because the storage server is not online and @SpringBootTest is used.
-     */
+    FileInfoRepository fileInfoRepository;
     @MockBean
-    private FileRepository fileRepository;
+    FileRepository fileRepository;
     @MockBean
-    private PermissionService permissionService;
+    GroupService groupService;
     @MockBean
-    FileInfoService fileInfoService;
+    FileService fileService;
+    @MockBean
+    DirectoryService directoryService;
 
-    /**
-     * Necessary bean.
-     */
-    @Autowired
-    private WebApplicationContext context;
-
-    /**
-     * Necessary bean.
-     */
-    private MockMvc mvc;
-    /**
-     * Wrapper of user credentials.
-     */
-    private Account account;
     /**
      * File Info for testing.
      */
-    private FileInfo fileInfo;
+    FileInfo fileInfo;
     /**
      * File Contents for testing.
      */
-    private byte[] fileContent;
+    byte[] fileContent;
 
     /**
-     * Setups the a Mock MVC Builder.
+     * Setup service/repo mocks.
      */
     @BeforeEach
-    public void setUp() throws MopsException {
-        account = Account.of("user", "user@mail.de", "studentin");
-        fileContent = new byte[]{1, 2, 3};
+    void setup() throws MopsException {
+        fileContent = "test".getBytes(StandardCharsets.UTF_8);
         fileInfo = new FileInfo("file", 2L, MediaType.APPLICATION_OCTET_STREAM_VALUE,
                 fileContent.length, "", Set.of());
 
         Resource resource = new InputStreamResource(new ByteArrayInputStream(fileContent));
         FileContainer fileContainer = new FileContainer(fileInfo, resource);
 
-        given(fileService.getFileInfo(account, 1)).willReturn(fileInfo);
-        given(fileService.getFile(account, 1)).willReturn(fileContainer);
-        given(fileService.deleteFile(account, 1)).willReturn(2L);
-
-        mvc = MockMvcBuilders
-                .webAppContextSetup(context)
-                .alwaysDo(print())
-                .apply(springSecurity())
-                .build();
+        given(fileService.getFileInfo(any(), eq(1L))).willReturn(fileInfo);
+        given(fileService.getFile(any(), eq(1L))).willReturn(fileContainer);
+        given(fileService.deleteFile(any(), eq(1L))).willReturn(2L);
     }
 
     /**
      * Tests the route for getting the file info.
      */
     @Test
-    public void getFileInfo() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(get("/material1/file/1")
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void getFileInfo() throws Exception {
+        mockMvc().perform(get("/material1/file/1")
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("file"));
@@ -125,9 +97,9 @@ public class FileControllerTest {
      * Tests the route for downloading a file preview.
      */
     @Test
-    public void downloadFile() throws Exception {
-        setupSecurityContextMock(account);
-        MvcResult result = mvc.perform(get("/material1/file/1/download")
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void downloadFile() throws Exception {
+        MvcResult result = mockMvc().perform(get("/material1/file/1/download")
                 .with(csrf())
                 .contentType(MediaType.ALL))
                 .andExpect(status().isOk())
@@ -142,9 +114,9 @@ public class FileControllerTest {
      * Tests if a user can delete a file.
      */
     @Test
-    public void deleteFile() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(delete("/material1/file/1")
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void deleteFile() throws Exception {
+        mockMvc().perform(delete("/material1/file/1")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect((redirectedUrl("/material1/dir/2")));
@@ -152,12 +124,10 @@ public class FileControllerTest {
 
     /**
      * Test if route secured.
-     *
-     * @throws Exception on error
      */
     @Test
-    public void notSignedIn() throws Exception {
-        mvc.perform(get("/material1/dir/"))
+    void notSignedIn() throws Exception {
+        mockMvc().perform(get("/material1/file/1"))
                 .andExpect(status().is3xxRedirection());
     }
 }

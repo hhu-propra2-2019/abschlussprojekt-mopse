@@ -1,115 +1,79 @@
 package mops.presentation;
 
-import mops.SpringTestContext;
-import mops.businesslogic.*;
+import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
+import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
+import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
+import mops.businesslogic.DirectoryService;
+import mops.businesslogic.FileQuery;
+import mops.businesslogic.FileService;
+import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
+import mops.persistence.DirectoryPermissionsRepository;
+import mops.persistence.DirectoryRepository;
+import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
-import static mops.presentation.utils.SecurityContextUtil.setupSecurityContextMock;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringTestContext
-@SpringBootTest
-public class DirectoryControllerTest {
+@KeycloakContext
+@WebMvcTest(DirectoryController.class)
+class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
-    /**
-     * The server is not available while testing.
-     */
     @MockBean
-    private FileRepository fileRepository;
-    /**
-     * Necessary mock until GroupService is implemented.
-     */
+    DirectoryRepository directoryRepository;
     @MockBean
-    private GroupService groupService;
-    /**
-     * Necessary mock until FileInfoService is implemented.
-     */
+    DirectoryPermissionsRepository directoryPermissionsRepository;
     @MockBean
-    private FileInfoService fileInfoService;
-
-    /**
-     * Necessary mock until PermissionService is implemented.
-     */
+    FileInfoRepository fileInfoRepository;
     @MockBean
-    private PermissionService permissionService;
-
-    /**
-     * Necessary mock until FileService is implemented.
-     */
+    FileRepository fileRepository;
     @MockBean
-    private FileService fileService;
-    /**
-     * Necessary mock until DirectoryService is implemented.
-     */
+    GroupService groupService;
     @MockBean
-    private DirectoryService directoryService;
-    /**
-     * Necessary bean.
-     */
-    @Autowired
-    private WebApplicationContext context;
-
-    /**
-     * Necessary bean.
-     */
-    private MockMvc mvc;
-    /**
-     * Wrapper of user credentials.
-     */
-    private Account account;
+    FileService fileService;
+    @MockBean
+    DirectoryService directoryService;
 
     /**
      * Setups the a Mock MVC Builder.
      */
     @BeforeEach
-    public void setUp() throws MopsException {
+    void setup() throws MopsException {
         Directory directory = mock(Directory.class);
         Directory root = mock(Directory.class);
 
-        account = Account.of("user", "user@mail.de", "studentin");
-
         given(directory.getId()).willReturn(2L);
-        given(fileService.getAllFilesOfGroup(account, 1)).willReturn(List.of());
-        given(directoryService.createFolder(account, 1L, "Vorlesungen")).willReturn(directory);
-        given(directoryService.deleteFolder(account, 1)).willReturn(root);
-        given(directoryService.searchFolder(account, 1, mock(FileQuery.class))).willReturn(List.of());
-
-        mvc = MockMvcBuilders
-                .webAppContextSetup(context)
-                .alwaysDo(print())
-                .apply(springSecurity())
-                .build();
+        given(directoryService.getSubFolders(any(), eq(1L))).willReturn(List.of());
+        given(fileService.getFilesOfDirectory(any(), eq(1L))).willReturn(List.of());
+        given(directoryService.createFolder(any(), eq(1L), any())).willReturn(directory);
+        given(directoryService.deleteFolder(any(), eq(1L))).willReturn(root);
+        given(directoryService.searchFolder(any(), eq(1L), any())).willReturn(List.of());
     }
 
     /**
      * Tests if the correct view is returned for showing content of a folder.
      */
     @Test
-    public void showContent() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(get("/material1/dir/1"))
-                .andExpect(status().is2xxSuccessful())
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void showContent() throws Exception {
+        mockMvc().perform(get("/material1/dir/1"))
+                .andExpect(status().isOk())
                 .andExpect(view().name("directory"));
     }
 
@@ -117,9 +81,9 @@ public class DirectoryControllerTest {
      * Tests the route after uploading a file.
      */
     @Test
-    public void uploadFile() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(post("/material1/dir/1/upload")
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void uploadFile() throws Exception {
+        mockMvc().perform(post("/material1/dir/1/upload")
                 .requestAttr("file", mock(FileInfo.class))
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -130,9 +94,9 @@ public class DirectoryControllerTest {
      * Tests the route after creating a sub folder. It should be the new folder.
      */
     @Test
-    public void createFolder() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(post("/material1/dir/1/create")
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void createFolder() throws Exception {
+        mockMvc().perform(post("/material1/dir/1/create")
                 .requestAttr("folderName", "Vorlesungen")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -143,12 +107,12 @@ public class DirectoryControllerTest {
      * Tests the route after searching a folder.
      */
     @Test
-    public void searchFolder() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(post("/material1/dir/1/search")
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void searchFolder() throws Exception {
+        mockMvc().perform(post("/material1/dir/1/search")
                 .requestAttr("searchQuery", mock(FileQuery.class))
                 .with(csrf()))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(view().name("files"));
     }
 
@@ -156,9 +120,9 @@ public class DirectoryControllerTest {
      * Tests if a user can delete a directory.
      */
     @Test
-    public void deleteDirectory() throws Exception {
-        setupSecurityContextMock(account);
-        mvc.perform(delete("/material1/dir/1")
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void deleteDirectory() throws Exception {
+        mockMvc().perform(delete("/material1/dir/1")
                 .requestAttr("dirId", 1)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -166,13 +130,11 @@ public class DirectoryControllerTest {
     }
 
     /**
-     * Test if route secured.
-     *
-     * @throws Exception on error
+     * Test if route is secured.
      */
     @Test
-    public void notSignedIn() throws Exception {
-        mvc.perform(get("/material1/dir/"))
+    void notSignedIn() throws Exception {
+        mockMvc().perform(get("/material1/dir/1"))
                 .andExpect(status().is3xxRedirection());
     }
 }

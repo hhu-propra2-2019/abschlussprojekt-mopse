@@ -1,7 +1,7 @@
 package mops.persistence.permission;
 
-import mops.SpringTestContext;
 import mops.persistence.DirectoryPermissionsRepository;
+import mops.utils.DbContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +13,14 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@SpringTestContext
+@DbContext
 @DataJdbcTest
 class DirectoryPermissionsTest {
 
     @Autowired
-    private DirectoryPermissionsRepository repo;
+    DirectoryPermissionsRepository repo;
 
-    private DirectoryPermissions perms;
+    DirectoryPermissions perms;
 
     @BeforeEach
     void setup() {

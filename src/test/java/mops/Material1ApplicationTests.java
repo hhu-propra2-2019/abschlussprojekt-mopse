@@ -1,46 +1,26 @@
 package mops;
 
-import mops.businesslogic.FileInfoService;
+import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
-import mops.businesslogic.PermissionService;
 import mops.persistence.FileRepository;
+import mops.utils.TestContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@SpringTestContext
+@TestContext
 @SpringBootTest
 class Material1ApplicationTests {
 
-    /**
-     * The server is not available while testing.
-     */
     @MockBean
-    private FileRepository fileRepository;
-    /**
-     * Necessary mock until GroupService is implemented.
-     */
+    FileRepository fileRepository;
     @MockBean
-    private GroupService groupService;
-
-    /**
-     * Necessary mock until FileInfoService is implemented.
-     */
+    GroupService groupService;
     @MockBean
-    private FileInfoService fileInfoService;
-
-    /**
-     * Necessary mock until FileService is implemented.
-     */
+    FileService fileService;
     @MockBean
-    private FileService fileService;
-
-    /**
-     * Necessary mock until PermissionService is implemented.
-     */
-    @MockBean
-    private PermissionService permissionService;
+    DirectoryService directoryService;
 
     @Test
     void contextLoads() {

@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers(disabledWithoutDocker = true)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class FileRepoTests {
+public class FileRepositoryTests {
 
     private final Random random = new Random();
     private FileRepository fileRepository;
@@ -58,19 +58,8 @@ public class FileRepoTests {
         minioServer.stop();
     }
 
-    private byte[] getRandomBytes() {
-        int fileLength = random.nextInt(10000) + 1;
-        byte[] bytes = new byte[fileLength];
-        random.nextBytes(bytes);
-        return bytes;
-    }
-
-    private MultipartFile getRandomMultipartFile() {
-        return new MockMultipartFile("file.bin", getRandomBytes());
-    }
-
     @Test
-    public void shouldSaveAFile() throws StorageException {
+    void shouldSaveAFile() throws StorageException {
         long fileId = 1;
         MultipartFile file = getRandomMultipartFile();
 
@@ -84,7 +73,7 @@ public class FileRepoTests {
     }
 
     @Test
-    public void fileGetsDeleted() throws StorageException {
+    void fileGetsDeleted() throws StorageException {
         long fileId = 1;
         MultipartFile file = getRandomMultipartFile();
 
@@ -103,7 +92,7 @@ public class FileRepoTests {
     }
 
     @Test
-    public void deleteShouldOnlyDeleteOneFile() throws StorageException {
+    void deleteShouldOnlyDeleteOneFile() throws StorageException {
         long fileId1 = 1;
         long fileId2 = 2;
 
@@ -122,7 +111,7 @@ public class FileRepoTests {
     @Test
     @SuppressFBWarnings(value = "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE",
             justification = "There is no null-check here")
-    public void shouldReturnOriginalContent() throws StorageException, IOException {
+    void shouldReturnOriginalContent() throws StorageException, IOException {
         long fileId = 1;
         byte[] originalContent = getRandomBytes();
         MultipartFile file = new MockMultipartFile("file.bin", originalContent);
@@ -135,4 +124,16 @@ public class FileRepoTests {
 
         assertThat(retrievedData).isEqualTo(originalContent);
     }
+
+    private byte[] getRandomBytes() {
+        int fileLength = random.nextInt(10000) + 1;
+        byte[] bytes = new byte[fileLength];
+        random.nextBytes(bytes);
+        return bytes;
+    }
+
+    private MultipartFile getRandomMultipartFile() {
+        return new MockMultipartFile("file.bin", getRandomBytes());
+    }
+
 }
