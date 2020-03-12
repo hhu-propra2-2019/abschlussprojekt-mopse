@@ -106,7 +106,7 @@ public class DirectoryPermissions {
      * Checks if a role has writing access.
      *
      * @param userRole role of the user in group
-     * @return boolean if user is allowed
+     * @return boolean if user is allowed to write
      */
     @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public boolean isAllowedToWrite(String userRole) {
@@ -132,7 +132,7 @@ public class DirectoryPermissions {
      * Checks if a role has deleting access.
      *
      * @param userRole role of the user in group
-     * @return boolean if user is allowed
+     * @return boolean if user is allowed to delete
      */
     @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public boolean isAllowedToDelete(String userRole) {

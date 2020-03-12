@@ -69,7 +69,7 @@ public class DirectoryController {
      * @return route after completion
      */
     @PostMapping("/{dirId}/upload")
-    @SuppressWarnings({"PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock"})
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("dirId") long dirId,
@@ -163,4 +163,3 @@ public class DirectoryController {
         return "files";
     }
 }
-
