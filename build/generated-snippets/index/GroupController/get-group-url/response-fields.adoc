@@ -1,0 +1,12 @@
+|===
+|Path|Type|Description
+
+|`+.group_id+`
+|`+Number+`
+|The id of the group.
+
+|`+.url+`
+|`+String+`
+|The url of the group.
+
+|===

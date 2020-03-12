@@ -1,0 +1,8 @@
+.+/material1/group/{groupId}/url+
+|===
+|Parameter|Description
+
+|`+groupId+`
+|The group id.
+
+|===
