@@ -39,6 +39,8 @@ public class FileInfoBuilder {
     private final Set<FileTag> tags = new HashSet<>();
 
     /**
+     * Initialize from existing FileInfo.
+     *
      * @param file existing FileInfo
      * @return this
      */
@@ -53,6 +55,8 @@ public class FileInfoBuilder {
     }
 
     /**
+     * Initialize from existing MultipartFile.
+     *
      * @param file existing MultipartFile
      * @return this
      */
@@ -172,6 +176,6 @@ public class FileInfoBuilder {
         if (name == null || directoryId == -1L || type == null || size == -1L || owner == null) {
             throw new IllegalStateException("FileInfoBuilder is not complete!");
         }
-        return new FileInfo(name, directoryId, type, size, owner, Set.copyOf(tags));
+        return new FileInfo(null, name, directoryId, type, size, owner, tags, null, null);
     }
 }
