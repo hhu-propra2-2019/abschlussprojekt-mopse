@@ -21,9 +21,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @KeycloakContext
@@ -61,10 +66,19 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void getGroupUrl() throws Exception {
-        mockMvc().perform(get("/material1/group/1/url"))
+        mockMvc().perform(get("/material1/group/{groupId}/url", 1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.url").value("/material1/dir/1"))
-                .andExpect(jsonPath("$.group_id").value(1L));
+                .andExpect(jsonPath("$.group_id").value(1L))
+                .andDo(document("index/GroupController/{method-name}",
+                        pathParameters(
+                                parameterWithName("groupId").description("The group id.")
+                        ),
+                        responseFields(
+                                fieldWithPath(".group_id").description("The id of the group."),
+                                fieldWithPath(".url").description("The url of the group.")
+                        )));
+        ;
     }
 
     /**
