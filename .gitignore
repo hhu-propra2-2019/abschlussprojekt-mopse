@@ -35,3 +35,4 @@ out/
 prod.env
 minio_data/
 !javadoc/
+/build/generated/sources/
