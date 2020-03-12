@@ -22,7 +22,6 @@ public class RoleServiceImpl implements RoleService {
      * API for GruppenFindung which handles permissions.
      */
     private final PermissionService permissionService;
-
     /**
      * This connects to database to handle directory permissions.
      */

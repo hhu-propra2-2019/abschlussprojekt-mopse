@@ -1,22 +1,23 @@
 package mops.businesslogic;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Value;
 
-@Getter
-@RequiredArgsConstructor
+@Value
+// @Value automatically makes all fields `private final` which CheckStyle and PMD don't see
+@SuppressWarnings({ "checkstyle:VisibilityModifier", "PMD.DefaultPackage" })
 public class UserPermission {
 
     /**
      * read permission flag.
      */
-    private final boolean read;
+    boolean read;
     /**
      * write permission flag.
      */
-    private final boolean write;
+    boolean write;
     /**
      * delete permission flag.
      */
-    private final boolean delete;
+    boolean delete;
+
 }

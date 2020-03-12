@@ -32,12 +32,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      * This connects to database related to directory information.
      */
     private final DirectoryRepository directoryRepository;
-
     /**
      * Handles meta data of files.
      */
     private final FileInfoService fileInfoService;
-
     /**
      * Handle permission checks for roles.
      */
@@ -46,14 +44,13 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Handle permission checks for roles.
      */
     private final PermissionService permissionService;
-
     /**
      * This connects to database to handle directory permissions.
      */
     private final DirectoryPermissionsRepository directoryPermissionsRepo;
 
     /**
-     * gets all 3 permissions of a user.
+     * Gets all 3 permissions of a user.
      *
      * @param account user credentials
      * @param dirId   the id of the folder

@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Service
 public interface FileService {
+
     /**
      * Returns all files of a group.
      *
@@ -64,4 +65,5 @@ public interface FileService {
      * @return parent directory Id
      */
     long deleteFile(Account account, long fileId) throws MopsException;
+
 }

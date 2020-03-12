@@ -12,4 +12,5 @@ public interface FileQuery {
      * @return if the file meta data matches the query request
      */
     boolean checkMatch(FileInfo file);
+
 }

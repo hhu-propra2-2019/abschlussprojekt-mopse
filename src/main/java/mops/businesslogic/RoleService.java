@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface RoleService {
+
     /**
      * Checks if the user has writing rights.
      *

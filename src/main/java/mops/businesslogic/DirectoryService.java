@@ -78,4 +78,5 @@ public interface DirectoryService {
     DirectoryPermissions updatePermission(Account account,
                                           long dirId,
                                           DirectoryPermissions permissions) throws MopsException;
+
 }

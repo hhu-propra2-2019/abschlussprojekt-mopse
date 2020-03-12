@@ -19,4 +19,5 @@ public interface DirectoryRepository extends CrudRepository<Directory, Long> {
      */
     @Query("SELECT * FROM directory WHERE parent_id IS NOT NULL AND parent_id = :parentId")
     List<Directory> getAllSubFoldersOfParent(@Param("parentId") long parentId);
+
 }
