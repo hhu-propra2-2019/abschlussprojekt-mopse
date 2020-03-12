@@ -180,7 +180,7 @@ Persistence Layer::
 | _Stellt eine Anfrage an die `Datenbank` um ein Dateimetadatenobjekt zu erhalten._
 
 | FileRepository
-| _Stellt die Schnittstelle zu `MinIO` dar._
+| _Ist die Schnittstelle zu `MinIO`._
 | _Stellt eine Anfrage mit einer DateiID an `MinIO` um die entsprechende Datei zu erhalten._
 |===
 
