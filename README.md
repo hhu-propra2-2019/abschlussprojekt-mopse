@@ -24,4 +24,4 @@ Es ist aufwendig für Lerngruppen oder Kurse Dateien miteinander zu teilen, wenn
 
 Hier kann die Dokumentation gefunden werden: [Dokumentation](/doc/documentation.adoc)
 
-Java Doc kann hier aufgerufen werden: [java doc](https://hhu-propra2.github.io/abschlussprojekt-mopse/javadoc/)
+Javadoc kann hier aufgerufen werden: [Javadoc](https://hhu-propra2.github.io/abschlussprojekt-mopse/javadoc/)
