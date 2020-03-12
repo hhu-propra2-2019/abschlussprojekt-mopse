@@ -28,11 +28,7 @@ public class RoleServiceImpl implements RoleService {
     private final DirectoryPermissionsRepository directoryPermissionsRepo;
 
     /**
-     * Checks if the user has writing rights.
-     *
-     * @param account   user credentials
-     * @param directory id of the directory to check
-     * @throws MopsException checked exception to present to UI
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
@@ -52,11 +48,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
-     * Checks if the user has reading rights.
-     *
-     * @param account   user credentials
-     * @param directory id of the directory to check
-     * @throws MopsException checked exception to present to UI
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
@@ -76,11 +68,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
-     * Checks if the user has deleting rights.
-     *
-     * @param account   user credentials
-     * @param directory id of the directory to check
-     * @throws MopsException checked exception to present to UI
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
@@ -100,10 +88,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
-     * @param account     user credentials
-     * @param groupId     id of the group to check
-     * @param allowedRole role which has the right
-     * @throws MopsException checked exception to present to UI
+     * {@inheritDoc}
      */
     @Override
     public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {

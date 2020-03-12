@@ -55,11 +55,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     private final DirectoryPermissionsRepository directoryPermissionsRepo;
 
     /**
-     * Gets all 3 permissions of a user.
-     *
-     * @param account user credentials
-     * @param dirId   the id of the folder
-     * @return a permission flag object
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //this is normal behaviour
@@ -91,11 +87,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
-     * Returns all folders of the parent folder.
-     *
-     * @param account     user credentials
-     * @param parentDirID id of the parent folder
-     * @return list of folders
+     * {@inheritDoc}
      */
     @Override
     public List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException {
@@ -105,11 +97,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
-     * Creates the group root directory.
-     *
-     * @param account user credentials
-     * @param groupId the group id
-     * @return the directory created
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
@@ -127,12 +115,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
-     * Creates a new folder inside a folder.
-     *
-     * @param account     user credentials
-     * @param parentDirId id of the parent folder
-     * @param dirName     name of the new folder
-     * @return id of the new folder
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
@@ -153,11 +136,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
-     * Deletes a folder.
-     *
-     * @param account user credential
-     * @param dirId   id of the folder to be deleted
-     * @return the parent id of the deleted folder
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter") //these are not violations of demeter's law
@@ -181,12 +160,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
-     * Searches a folder for files.
-     *
-     * @param account user credentials
-     * @param dirId   id of the folder to be searched
-     * @param query   wrapper object of the query parameter
-     * @return list of files
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
@@ -201,12 +175,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
-     * Replaces the permissions for a directory with new ones.
-     *
-     * @param account     user credentials
-     * @param dirId       directory id of whom's permission should be changed
-     * @param permissions new permissions
-     * @return the updated directory object
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")

@@ -12,7 +12,7 @@ import java.util.List;
 public interface DirectoryService {
 
     /**
-     * gets all 3 permissions of a user.
+     * Gets all 3 permissions of a user.
      *
      * @param account user credentials
      * @param dirId   the id of the folder
@@ -23,11 +23,11 @@ public interface DirectoryService {
     /**
      * Returns all folders of the parent folder.
      *
-     * @param account user credentials
-     * @param dirId   id of the folder
+     * @param account     user credentials
+     * @param parentDirID id of the parent folder
      * @return list of folders
      */
-    List<Directory> getSubFolders(Account account, long dirId) throws MopsException;
+    List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException;
 
     /**
      * Creates the group root directory.
