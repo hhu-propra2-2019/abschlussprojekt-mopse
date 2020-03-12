@@ -3,11 +3,10 @@ package mops.businesslogic;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
-import mops.persistence.permission.DirectoryPermissionEntry;
+import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public interface DirectoryService {
@@ -71,12 +70,12 @@ public interface DirectoryService {
     /**
      * Replaces the permissions for a directory with new ones.
      *
-     * @param account           user credentials
-     * @param dirId             directory id of whom's permission should be changed
-     * @param permissionEntries new set of permissions
+     * @param account     user credentials
+     * @param dirId       directory id of whom's permission should be changed
+     * @param permissions new permissions
      * @return the updated directory
      */
     Directory updatePermission(Account account,
                                long dirId,
-                               Set<DirectoryPermissionEntry> permissionEntries) throws MopsException;
+                               DirectoryPermissions permissions) throws MopsException;
 }

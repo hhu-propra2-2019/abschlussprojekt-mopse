@@ -7,7 +7,6 @@ import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
-import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.utils.TestContext;
 import org.junit.jupiter.api.BeforeEach;

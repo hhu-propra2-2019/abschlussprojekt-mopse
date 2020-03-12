@@ -4,7 +4,6 @@ import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileInfoService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import mops.exception.MopsException;

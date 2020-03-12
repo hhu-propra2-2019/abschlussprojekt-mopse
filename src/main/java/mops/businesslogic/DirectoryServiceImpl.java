@@ -8,7 +8,6 @@ import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
-import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.stereotype.Service;
 
@@ -111,10 +110,13 @@ public class DirectoryServiceImpl implements DirectoryService {
     public Directory createRootFolder(Account account, long groupId) throws MopsException {
         roleService.checkIfRole(account, groupId, ADMINISTRATOR);
         Set<String> roleNames = roleService.fetchRolesInGroup(groupId);
-        Set<DirectoryPermissionEntry> permissions = createDefaultPermissions(roleNames);
-        DirectoryPermissions permission = new DirectoryPermissions(permissions);
-        DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
-        Directory directory = Directory.of(String.valueOf(groupId), null, groupId, rootPermissions);
+        DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
+        rootPermissions = directoryPermissionsRepo.save(rootPermissions);
+        Directory directory = Directory.builder()
+                .name("")
+                .groupOwner(groupId)
+                .permissions(rootPermissions)
+                .build();
         return directoryRepository.save(directory);
     }
 
@@ -131,7 +133,11 @@ public class DirectoryServiceImpl implements DirectoryService {
     public Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException {
         Directory rootDirectory = fetchDirectory(parentDirId);
         roleService.checkWritePermission(account, rootDirectory);
-        Directory directory = rootDirectory.createSubDirectory(dirName); //this is no violation of demeter's law
+
+        Directory directory = Directory.builder() //this is no violation of demeter's law
+                .fromParent(rootDirectory)
+                .name(dirName)
+                .build();
         return directoryRepository.save(directory);
     }
 
@@ -186,20 +192,22 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Replaces the permissions for a directory with new ones.
      *
-     * @param account           user credentials
-     * @param dirId             directory id of whom's permission should be changed
-     * @param permissionEntries new set of permissions
+     * @param account     user credentials
+     * @param dirId       directory id of whom's permission should be changed
+     * @param permissions new permissions
      * @return the updated directory object
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public Directory updatePermission(Account account,
                                       long dirId,
-                                      Set<DirectoryPermissionEntry> permissionEntries) throws MopsException {
+                                      DirectoryPermissions permissions) throws MopsException {
         Directory directory = fetchDirectory(dirId);
         checkIfAdmin(account, directory);
+        // TODO: keep same id
         DirectoryPermissions directoryPermissions = fetchPermissions(directory);
-        DirectoryPermissions updatedPermissions = DirectoryPermissions.of(directoryPermissions, permissionEntries);
+        DirectoryPermissions updatedPermissions = directoryPermissions;
+        //DirectoryPermissions.of(directoryPermissions, permissionEntries);
         DirectoryPermissions savedPermissions = directoryPermissionsRepo.save(updatedPermissions);
         directory.setPermission(savedPermissions); //demeter's law unable to fix
         return directoryRepository.save(directory);
@@ -232,17 +240,19 @@ public class DirectoryServiceImpl implements DirectoryService {
 
 
     /**
-     * Creates the default permission set.
+     * Creates the default permissions.
      *
      * @param roleNames all role names existing in the group
-     * @return a set of directory permission entries
+     * @return default directory permissions
      */
     //TODO: this is a template and can only implement when GruppenFindung defined their roles.
     @SuppressWarnings("PMD.LawOfDemeter")
-    private Set<DirectoryPermissionEntry> createDefaultPermissions(Set<String> roleNames) {
-        return roleNames.stream() //this is not a violation of demeter's law
+    private DirectoryPermissions createDefaultPermissions(Set<String> roleNames) {
+        return DirectoryPermissions.builder().build();
+        // TODO: use builder
+        /*roleNames.stream() //this is not a violation of demeter's law
                 .map(role -> new DirectoryPermissionEntry(role, true, true, true))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toSet());*/
     }
 
     /**
