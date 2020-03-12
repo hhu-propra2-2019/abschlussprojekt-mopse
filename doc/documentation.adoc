@@ -19,11 +19,12 @@ include::documentation/config.adoc[]
 == Formatierung
 
 ****
+Überschriften jetweder Form werden automatisch zur Nummerierung der einzelnen Punkte genutzt und sollten somit nicht leichtfertig genutzt werden.
+Unterhalb einer Überschrift beginnt der Inhalt zu dieser Überschrift. Dieser Inhalt muss in einen "Container" verpackt werden (der natürlich auch wieder geschlossen werden muss).
+
 Normale Schrift stellt Text dar, der auch so in der fertigen Dokumentation stehen sollen, und somit prkatisch die "Lösung" der "Aufgabenstellung" darstellt.
 
 _Kursiver Text ist die "Aufgabenstellung", die wir erfüllen müssen. Diese sollte in der fertigen Dokumentation nicht mehr enthalten sein._
-
-Überschriften jetweder Form werden automatisch zur Nummerierung der einzelnen Punkte genutzt und sollten somit nicht leichtfertig genutzt werden.
 
 [cols="1,2" options="header"]
 |===
