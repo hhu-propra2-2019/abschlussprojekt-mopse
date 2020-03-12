@@ -26,8 +26,11 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @KeycloakContext
@@ -68,9 +71,13 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void showContent() throws Exception {
-        mockMvc().perform(get("/material1/dir/1"))
+        mockMvc().perform(get("/material1/dir/{dir}", 1))
                 .andExpect(status().isOk())
-                .andExpect(view().name("directory"));
+                .andExpect(view().name("directory"))
+                .andDo(document("index/DirectoryController/{method-name}",
+                        pathParameters(
+                                parameterWithName("dir").description("The directory id.")
+                        )));
     }
 
     /**
@@ -79,11 +86,15 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void uploadFile() throws Exception {
-        mockMvc().perform(post("/material1/dir/1/upload")
+        mockMvc().perform(post("/material1/dir/{dir}/upload", 1)
                 .requestAttr("file", mock(FileInfo.class))
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/material1/dir/1"));
+                .andExpect(redirectedUrl("/material1/dir/1"))
+                .andDo(document("index/DirectoryController/{method-name}",
+                        pathParameters(
+                                parameterWithName("dir").description("The directory id.")
+                        )));
     }
 
     /**
@@ -92,11 +103,16 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void createFolder() throws Exception {
-        mockMvc().perform(post("/material1/dir/1/create")
+        mockMvc().perform(post("/material1/dir/{dir}/create", 1)
                 .requestAttr("folderName", "Vorlesungen")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/material1/dir/2"));
+                .andExpect(redirectedUrl("/material1/dir/2"))
+                .andDo(document("index/DirectoryController/{method-name}",
+                        pathParameters(
+                                parameterWithName("dir").description("The directory id.")
+                        )));
+        ;
     }
 
     /**
@@ -105,11 +121,16 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void searchFolder() throws Exception {
-        mockMvc().perform(post("/material1/dir/1/search")
+        mockMvc().perform(post("/material1/dir/{dir}/search", 1)
                 .requestAttr("searchQuery", mock(FileQuery.class))
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("files"));
+                .andExpect(view().name("files"))
+                .andDo(document("index/DirectoryController/{method-name}",
+                        pathParameters(
+                                parameterWithName("dir").description("The directory id.")
+                        )));
+        ;
     }
 
     /**
@@ -118,11 +139,16 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void deleteDirectory() throws Exception {
-        mockMvc().perform(delete("/material1/dir/1")
+        mockMvc().perform(delete("/material1/dir/{dir}", 1)
                 .requestAttr("dirId", 1)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/material1/dir/0"));
+                .andExpect(redirectedUrl("/material1/dir/0"))
+                .andDo(document("index/DirectoryController/{method-name}",
+                        pathParameters(
+                                parameterWithName("dir").description("The directory id.")
+                        )));
+        ;
     }
 
     /**
