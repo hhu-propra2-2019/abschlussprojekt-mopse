@@ -104,7 +104,7 @@ task delombok(type: DelombokTask, dependsOn: compileJava) {
 javadoc {
     dependsOn delombok
     source = delombok.outputDir
-    destinationDir = file("$rootProject.rootDir/doc/javadoc")
+    destinationDir = file("$rootProject.rootDir/javadoc")
     failOnError = false
 }
 
