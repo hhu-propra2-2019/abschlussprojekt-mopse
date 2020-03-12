@@ -3,10 +3,10 @@ package mops.businesslogic;
 import lombok.AllArgsConstructor;
 import mops.businesslogic.exception.DatabaseException;
 import mops.businesslogic.exception.DeleteAccessPermissionException;
+import mops.businesslogic.exception.StorageLimitationException;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
-import mops.persistence.StorageException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
@@ -141,7 +141,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory rootDirectory = fetchDirectory(parentDirId);
         long groupFolderCount = directoryRepository.getGroupFolderCount(rootDirectory.getGroupOwner());
         if (groupFolderCount >= MAX_FOLDER_PER_GROUP) {
-            throw new StorageException("Your group has max allowed amount of folders. You can't create any more.");
+            throw new StorageLimitationException("Your group has max allowed amount of folders. You can't create any more.");
         }
         roleService.checkWritePermission(account, rootDirectory);
 
