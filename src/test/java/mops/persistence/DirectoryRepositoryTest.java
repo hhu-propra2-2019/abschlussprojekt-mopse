@@ -2,6 +2,7 @@ package mops.persistence;
 
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissions;
+import mops.utils.DbContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DbContext
 @DataJdbcTest
 public class DirectoryRepositoryTest {
 

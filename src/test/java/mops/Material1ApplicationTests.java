@@ -3,6 +3,7 @@ package mops;
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
+import mops.businesslogic.PermissionService;
 import mops.persistence.FileRepository;
 import mops.utils.TestContext;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,8 @@ class Material1ApplicationTests {
     FileService fileService;
     @MockBean
     DirectoryService directoryService;
+    @MockBean
+    PermissionService permissionService;
 
     @Test
     void contextLoads() {

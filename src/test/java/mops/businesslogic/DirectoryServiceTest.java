@@ -1,6 +1,5 @@
 package mops.businesslogic;
 
-import mops.SpringTestContext;
 import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.exception.MopsException;
@@ -10,6 +9,7 @@ import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
+import mops.utils.TestContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,7 +28,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@SpringTestContext
+@TestContext
 @SpringBootTest
 public class DirectoryServiceTest {
     public static final String ADMINISTRATOR = "administrator";

@@ -5,6 +5,7 @@ import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackA
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
+import mops.businesslogic.PermissionService;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
@@ -37,6 +38,8 @@ class SecurityTests {
     FileService fileService;
     @MockBean
     DirectoryService directoryService;
+    @MockBean
+    PermissionService permissionService;
 
     @Autowired
     MockMvc mvc;
