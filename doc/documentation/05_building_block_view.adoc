@@ -138,24 +138,24 @@ Business Layer::
 |===
 |Komponente |Funktion | Schnittstellen
 | DirectoryService
-| _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner_
-| _Die Informationen über Dateien holt er sich vom `FileInfoService`. Um die Berechtigungen eines einzelnen Benutzers zu überprüfen wird eine Anfrage an den `PermissionService` gestellt, während die Berechtigungen des Ordners vom `DirectoryPermissionRepository` zur Verfügung gestellt werden. Um Operatioen, die andere Ordner involvieren, ausführen zu können wird beim `DirectoryRepository` angefragt._
+| _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner._
+| _Die Informationen über die Dateien holt er sich vom `FileInfoService`. Um die Berechtigungen eines einzelnen Benutzers zu überprüfen, wird eine Anfrage an den `PermissionService` gestellt, während die Berechtigungen des Ordners vom `DirectoryPermissionRepository` zur Verfügung gestellt werden. Um Operatioen, die andere Ordner involvieren, ausführen zu können, wird beim `DirectoryRepository` angefragt._
 
 | FileInfoService
-| _Verwaltet alle Metadaten einer Datei, in Form des Objektes `FileInfo`._
+| _Verwaltet alle Metadaten einer Datei in Form des Objektes `FileInfo`._
 | _Um die benötigten Daten zu erhalten wird eine Anfrage an das `FileInfoRepository` gestellt._
 
 | FileService
 | _Verwaltet die Funktionen einer Datei. Dabei wird die Datei selbst mit ihren Metadaten verknüpft._
-| _Mittels einer Anfrage an den `FileInfoService` werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das `FileRepository` gestellt werden um die Datei selbst zu erhalten._
+| _Mittels einer Anfrage an den `FileInfoService` werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten._
 
 | GroupService
 | _Verwaltet alle Inhalte einer einzelnen Gruppe. Ordner sowie Dateien._
-| _Um die Informationen über die Unterordner einer Gruppe zu erhalten wird eine Anfrage an den `DirectoryService` gestellt._
+| _Um die Informationen über die Unterordner einer Gruppe zu erhalten, wird eine Anfrage an den `DirectoryService` gestellt._
 
 | Permissionservice
 | _Stellt die Berechtigungen eines einzelnen Benutzers zur Verfügung._
-| _Stellt eine Anfrage an das Modul `Gruppenbildung` um die Berechtigungen eines Benutzers zu erhalten._
+| _Stellt eine Anfrage an das Modul `Gruppenbildung`, um die Berechtigungen eines Benutzers zu erhalten._
 
 | RoleService
 | _Checkt die Rolenberechtigung eines Nutzers._
@@ -168,20 +168,20 @@ Persistence Layer::
 |===
 |Komponente |Funktion | Schnittstellen
 | DirectoryPermissionRepository
-| _Stellt die Schnittstelle zur `Datenbank` für die Berechtigungen einen Ordners dar._
-| _Stellt eine Anfrage an die `Datenbank` um ein Berechtigungsobjekt zu erhalten._
+| _Ist die Schnittstelle zur `Datenbank` für die Berechtigungen einen Ordners._
+| _Stellt eine Anfrage an die `Datenbank`, um ein Berechtigungsobjekt zu erhalten._
 
 | DirectoryRepository
-| _Stellt die Schnittstelle zur `Datenbank` für das Erhalten eines Ordners dar._
-| _Stellt eine Anfrage an die `Datenbank` um ein Ordnerobjekt zu erhalten._
+| _Ist die Schnittstelle zur `Datenbank` für das Erhalten eines Ordners._
+| _Stellt eine Anfrage an die `Datenbank`, um ein Ordnerobjekt zu erhalten._
 
 | FileInfoRepository
-| _Stellt die Schnittstelle zur `Datenbank` für die Metadaten einer Datei dar._
-| _Stellt eine Anfrage an die `Datenbank` um ein Dateimetadatenobjekt zu erhalten._
+| _Ist die Schnittstelle zur `Datenbank` für die Metadaten einer Datei._
+| _Stellt eine Anfrage an die `Datenbank`, um ein Dateimetadatenobjekt zu erhalten._
 
 | FileRepository
 | _Stellt die Schnittstelle zu `MinIO` dar._
-| _Stellt eine Anfrage mit einer DateiID an `MinIO` um die entsprechende Datei zu erhalten._
+| _Stellt eine Anfrage mit einer DateiID an `MinIO`, um die entsprechende Datei zu erhalten._
 |===
 
 Database Layer::
