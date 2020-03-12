@@ -2,7 +2,6 @@ package mops.persistence.directory;
 
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
-import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.utils.DbContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.Optional;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -30,8 +28,9 @@ class DirectoryTest {
 
     @BeforeEach
     void setup() {
-        DirectoryPermissions rootDirPerms = new DirectoryPermissions(Set.of(new DirectoryPermissionEntry("admin", true,
-                true, true)));
+        DirectoryPermissions rootDirPerms = DirectoryPermissions.builder()
+                .entry("admin", true, true, true)
+                .build();
         rootDirPerms = permRepo.save(rootDirPerms);
 
         Directory rootDir = new Directory("", null, -1, rootDirPerms.getId());

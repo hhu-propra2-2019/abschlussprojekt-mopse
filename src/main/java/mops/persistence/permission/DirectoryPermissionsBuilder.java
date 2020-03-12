@@ -1,11 +1,14 @@
 package mops.persistence.permission;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import mops.utils.AggregateBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @AggregateBuilder
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
         "PMD.BeanMembersShouldSerialize" })
 public class DirectoryPermissionsBuilder {

@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -70,8 +69,13 @@ class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @BeforeEach
     void setup() throws MopsException {
         fileContent = "test".getBytes(StandardCharsets.UTF_8);
-        fileInfo = new FileInfo("file", 2L, MediaType.APPLICATION_OCTET_STREAM_VALUE,
-                fileContent.length, "", Set.of());
+        fileInfo = FileInfo.builder()
+                .name("file")
+                .directoryId(2L)
+                .type(MediaType.APPLICATION_OCTET_STREAM_VALUE)
+                .size(fileContent.length)
+                .owner("")
+                .build();
 
         Resource resource = new InputStreamResource(new ByteArrayInputStream(fileContent));
         FileContainer fileContainer = new FileContainer(fileInfo, resource);

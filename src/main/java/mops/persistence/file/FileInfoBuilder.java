@@ -1,5 +1,8 @@
 package mops.persistence.file;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import mops.persistence.directory.Directory;
 import mops.utils.AggregateBuilder;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @AggregateBuilder
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
         "PMD.BeanMembersShouldSerialize" })
 public class FileInfoBuilder {
@@ -44,7 +48,7 @@ public class FileInfoBuilder {
      * @param file existing FileInfo
      * @return this
      */
-    public FileInfoBuilder from(FileInfo file) {
+    public FileInfoBuilder from(@NonNull FileInfo file) {
         this.name = file.getName();
         this.directoryId = file.getDirectoryId();
         this.type = file.getType();
@@ -60,7 +64,7 @@ public class FileInfoBuilder {
      * @param file existing MultipartFile
      * @return this
      */
-    public FileInfoBuilder from(MultipartFile file) {
+    public FileInfoBuilder from(@NonNull MultipartFile file) {
         this.name = file.getName();
         this.type = file.getContentType();
         this.size = file.getSize();
@@ -73,7 +77,7 @@ public class FileInfoBuilder {
      * @param name name
      * @return this
      */
-    public FileInfoBuilder name(String name) {
+    public FileInfoBuilder name(@NonNull String name) {
         this.name = name;
         return this;
     }
@@ -95,7 +99,7 @@ public class FileInfoBuilder {
      * @param directory directory
      * @return this
      */
-    public FileInfoBuilder directory(Directory directory) {
+    public FileInfoBuilder directory(@NonNull Directory directory) {
         this.directoryId = directory.getId();
         return this;
     }
@@ -106,7 +110,7 @@ public class FileInfoBuilder {
      * @param type type
      * @return this
      */
-    public FileInfoBuilder type(String type) {
+    public FileInfoBuilder type(@NonNull String type) {
         this.type = type;
         return this;
     }
@@ -128,7 +132,7 @@ public class FileInfoBuilder {
      * @param owner owner
      * @return this
      */
-    public FileInfoBuilder owner(String owner) {
+    public FileInfoBuilder owner(@NonNull String owner) {
         this.owner = owner;
         return this;
     }
@@ -139,7 +143,7 @@ public class FileInfoBuilder {
      * @param tag tag
      * @return this
      */
-    public FileInfoBuilder tag(String tag) {
+    public FileInfoBuilder tag(@NonNull String tag) {
         this.tags.add(new FileTag(tag));
         return this;
     }
@@ -150,7 +154,7 @@ public class FileInfoBuilder {
      * @param tags tags
      * @return this
      */
-    public FileInfoBuilder tags(String... tags) {
+    public FileInfoBuilder tags(@NonNull String... tags) {
         Arrays.stream(tags).forEach(this::tag);
         return this;
     }
@@ -161,7 +165,7 @@ public class FileInfoBuilder {
      * @param tags tags
      * @return this
      */
-    public FileInfoBuilder tags(Iterable<String> tags) {
+    public FileInfoBuilder tags(@NonNull Iterable<String> tags) {
         tags.forEach(this::tag);
         return this;
     }
