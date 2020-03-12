@@ -64,7 +64,6 @@ dependencies {
     testImplementation 'com.c4-soft.springaddons:spring-security-test-keycloack-addons:1.2.0'
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-
 }
 
 checkstyle {
