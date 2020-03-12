@@ -5,6 +5,7 @@ plugins {
     id 'checkstyle'
     id 'pmd'
     id 'com.github.spotbugs' version '4.0.2'
+    id "io.franzbecker.gradle-lombok" version "3.3.0"
 }
 
 group = 'mops'
@@ -90,6 +91,24 @@ tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
         xml.enabled = false
         html.enabled = true
     }
+}
+
+import io.franzbecker.gradle.lombok.task.DelombokTask
+
+task delombok(type: DelombokTask, dependsOn: compileJava) {
+    ext.outputDir = file("$buildDir/delombok")
+    outputs.dir(outputDir)
+    sourceSets.main.java.srcDirs.each {
+        inputs.dir(it)
+        args(it, "-d", outputDir)
+    }
+}
+
+javadoc {
+    dependsOn delombok
+    source = delombok.outputDir
+    destinationDir = file("$rootProject.rootDir/javadoc")
+    failOnError = false
 }
 
 test {
