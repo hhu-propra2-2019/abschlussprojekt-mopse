@@ -25,3 +25,5 @@ Es ist aufwendig für Lerngruppen oder Kurse Dateien miteinander zu teilen, wenn
 Hier kann die Dokumentation gefunden werden: [Dokumentation](/doc/documentation.adoc)
 
 Javadoc kann hier aufgerufen werden: [Javadoc](https://hhu-propra2.github.io/abschlussprojekt-mopse/javadoc/)
+
+Die REST API Documentation befindet sich hier: [REST API](https://hhu-propra2.github.io/abschlussprojekt-mopse/api/html5/external-api.html)
