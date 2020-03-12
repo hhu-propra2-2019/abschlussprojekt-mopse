@@ -1,9 +1,12 @@
 package mops;
 
+import com.tngtech.archunit.core.importer.ImportOption;
+import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTag;
+import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
+import mops.utils.AggregateBuilder;
 import mops.utils.AggregateRoot;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.sli
 import static mops.HaveExactlyOneAggregateRoot.HAVE_EXACTLY_ONE_AGGREGATE_ROOT;
 
 @ArchTag("checkArchitecture")
+@AnalyzeClasses(importOptions = ImportOption.DoNotIncludeTests.class, packages = "mops")
 public class ArchitectureRulesTest {
 
     /**
@@ -20,21 +24,17 @@ public class ArchitectureRulesTest {
      * with Aggregate Root but are still public, which stands against
      * having only one @AggregateRoot per class/package.
      */
-    @Test
-    // TODO: find solution
-    @Disabled("We need to instantiate Aggregate members other than the root in tests and possibly other code")
-    public void onlyAggregateRootsArePublic() {
-        ArchRule aggregateRootPublicNothingElse = classes()
-                .that()
-                .areNotAnnotatedWith(AggregateRoot.class)
-                .and()
-                .resideInAPackage(".." + ArchitectureRuleConfig.MOPS_PERSISTENCE)
-                .should()
-                .notBePublic()
-                .because("The implementation of an aggregate should be hidden!");
-
-        aggregateRootPublicNothingElse.check(ArchitectureRuleConfig.JAVA_CLASSES);
-    }
+    @ArchTest
+    static final ArchRule aggregateRootPublicNothingElse = classes()
+            .that()
+            .areNotAnnotatedWith(AggregateRoot.class)
+            .and()
+            .areNotAnnotatedWith(AggregateBuilder.class)
+            .and()
+            .resideInAPackage(".." + ArchitectureRuleConfig.MOPS_PERSISTENCE)
+            .should()
+            .notBePublic()
+            .because("The implementation of an aggregate should be hidden!");
 
     /**
      * Tests if there is only one Aggregate Root per package
