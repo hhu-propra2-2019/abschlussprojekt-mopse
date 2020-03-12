@@ -79,7 +79,8 @@ public class DirectoryPermissions {
     public boolean isAllowedToWrite(String userRole) {
         return permissions.stream()
                 .filter(DirectoryPermissionEntry::isCanWrite)
-                .anyMatch(permission -> permission.getRole().equals(userRole));
+                .map(DirectoryPermissionEntry::getRole)
+                .anyMatch(userRole::equals);
     }
 
     /**
@@ -92,7 +93,8 @@ public class DirectoryPermissions {
     public boolean isAllowedToRead(String userRole) {
         return permissions.stream()
                 .filter(DirectoryPermissionEntry::isCanRead)
-                .anyMatch(permission -> permission.getRole().equals(userRole));
+                .map(DirectoryPermissionEntry::getRole)
+                .anyMatch(userRole::equals);
     }
 
     /**
@@ -105,7 +107,8 @@ public class DirectoryPermissions {
     public boolean isAllowedToDelete(String userRole) {
         return permissions.stream()
                 .filter(DirectoryPermissionEntry::isCanDelete)
-                .anyMatch(permission -> permission.getRole().equals(userRole));
+                .map(DirectoryPermissionEntry::getRole)
+                .anyMatch(userRole::equals);
     }
 
     /**

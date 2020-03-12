@@ -18,6 +18,10 @@ import java.util.Set;
 public class FileInfoBuilder {
 
     /**
+     * Database Id.
+     */
+    private Long id;
+    /**
      * File name.
      */
     private String name;
@@ -49,6 +53,7 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder from(@NonNull FileInfo file) {
+        this.id = file.getId();
         this.name = file.getName();
         this.directoryId = file.getDirectoryId();
         this.type = file.getType();
@@ -72,6 +77,17 @@ public class FileInfoBuilder {
     }
 
     /**
+     * Set id.
+     *
+     * @param id id
+     * @return this
+     */
+    public FileInfoBuilder id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
      * Set name.
      *
      * @param name name
@@ -91,7 +107,7 @@ public class FileInfoBuilder {
      * @param directoryId is the directoryId
      * @return this
      */
-    public FileInfoBuilder directoryId(long directoryId) {
+    public FileInfoBuilder directory(long directoryId) {
         this.directoryId = directoryId;
         return this;
     }
@@ -186,12 +202,12 @@ public class FileInfoBuilder {
      * Builds the FileInfo.
      *
      * @return composed FileInfo
-     * @throws IllegalStateException if FileInfoBuilder is not complete
+     * @throws IllegalStateException if FileInfo is not complete
      */
     public FileInfo build() {
         if (name == null || directoryId == -1L || type == null || size == -1L || owner == null) {
-            throw new IllegalStateException("FileInfoBuilder is not complete!");
+            throw new IllegalStateException("FileInfo is not complete!");
         }
-        return new FileInfo(null, name, directoryId, type, size, owner, tags, null, null);
+        return new FileInfo(id, name, directoryId, type, size, owner, tags, null, null);
     }
 }

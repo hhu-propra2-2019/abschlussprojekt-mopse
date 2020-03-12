@@ -8,42 +8,52 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DbContext
 @DataJdbcTest
-public class DirectoryRepositoryTest {
+class DirectoryRepositoryTest {
 
     /**
      * Handles db communication for directories.
      */
     @Autowired
-    private DirectoryRepository directoryRepository;
+    DirectoryRepository directoryRepository;
     /**
      * Handles db communication for directory permissions.
      */
     @Autowired
-    private DirectoryPermissionsRepository directoryPermissionsRepository;
+    DirectoryPermissionsRepository directoryPermissionsRepository;
 
     /**
      * Tests if sub folders are correctly returned.
      */
     @Test
-    public void getAllSubFoldersOfParent() {
-        long groupOwner = 1L;
-        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions(Set.of())).getId();
-        Directory root = new Directory("root", null, groupOwner, permissionsId);
-        Directory savedRoot = directoryRepository.save(root);
+    void getAllSubFoldersOfParent() {
+        DirectoryPermissions empty = DirectoryPermissions.builder()
+                .build();
+        empty = directoryPermissionsRepository.save(empty);
+        Directory root = Directory.builder()
+                .name("")
+                .groupOwner(0L)
+                .permissions(empty)
+                .build();
+        root = directoryRepository.save(root);
 
-        Directory first = new Directory("first", savedRoot.getId(), groupOwner, permissionsId);
-        Directory second = new Directory("second", savedRoot.getId(), groupOwner, permissionsId);
+        Directory a = Directory.builder()
+                .fromParent(root)
+                .name("a")
+                .build();
+        a = directoryRepository.save(a);
+        Directory b = Directory.builder()
+                .fromParent(root)
+                .name("b")
+                .build();
+        b = directoryRepository.save(b);
 
-        List<Directory> savedDirectories = (List<Directory>) directoryRepository.saveAll(List.of(first, second));
+        List<Directory> allSubFoldersOfParent = directoryRepository.getAllSubFoldersOfParent(root.getId());
 
-        List<Directory> allSubFoldersOfParent = directoryRepository.getAllSubFoldersOfParent(savedRoot.getId());
-
-        assertThat(allSubFoldersOfParent).isEqualTo(savedDirectories);
+        assertThat(allSubFoldersOfParent).containsExactlyInAnyOrder(a, b);
     }
 }

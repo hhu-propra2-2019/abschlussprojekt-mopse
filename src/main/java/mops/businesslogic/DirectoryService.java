@@ -73,9 +73,9 @@ public interface DirectoryService {
      * @param account     user credentials
      * @param dirId       directory id of whom's permission should be changed
      * @param permissions new permissions
-     * @return the updated directory
+     * @return the updated directory permissions
      */
-    Directory updatePermission(Account account,
-                               long dirId,
-                               DirectoryPermissions permissions) throws MopsException;
+    DirectoryPermissions updatePermission(Account account,
+                                          long dirId,
+                                          DirectoryPermissions permissions) throws MopsException;
 }

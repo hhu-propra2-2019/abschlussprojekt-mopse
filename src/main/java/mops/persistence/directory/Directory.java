@@ -1,7 +1,6 @@
 package mops.persistence.directory;
 
 import lombok.*;
-import mops.persistence.permission.DirectoryPermissions;
 import mops.utils.AggregateRoot;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -71,15 +70,6 @@ public class Directory {
      */
     public Instant getLastModifiedTime() {
         return lastModifiedTime == null ? Instant.EPOCH : lastModifiedTime.toInstant();
-    }
-
-    /**
-     * Sets the permission id of the directory.
-     *
-     * @param permissions directory permissions
-     */
-    public void setPermission(DirectoryPermissions permissions) {
-        permissionsId = permissions.getId();
     }
 
     /**

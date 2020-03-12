@@ -71,7 +71,7 @@ class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         fileContent = "test".getBytes(StandardCharsets.UTF_8);
         fileInfo = FileInfo.builder()
                 .name("file")
-                .directoryId(2L)
+                .directory(2L)
                 .type(MediaType.APPLICATION_OCTET_STREAM_VALUE)
                 .size(fileContent.length)
                 .owner("user")

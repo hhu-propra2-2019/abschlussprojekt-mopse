@@ -15,6 +15,10 @@ import java.util.Set;
 public class DirectoryPermissionsBuilder {
 
     /**
+     * Database Id.
+     */
+    private Long id;
+    /**
      * Permissions.
      */
     private final Set<DirectoryPermissionEntry> entries = new HashSet<>();
@@ -26,7 +30,30 @@ public class DirectoryPermissionsBuilder {
      * @return this
      */
     public DirectoryPermissionsBuilder from(DirectoryPermissions permissions) {
+        this.id = permissions.getId();
         permissions.getPermissions().forEach(e -> entry(e.getRole(), e.isCanRead(), e.isCanWrite(), e.isCanDelete()));
+        return this;
+    }
+
+    /**
+     * Set id.
+     *
+     * @param id id
+     * @return this
+     */
+    public DirectoryPermissionsBuilder id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Set id from permissions.
+     *
+     * @param permissions permissions
+     * @return this
+     */
+    public DirectoryPermissionsBuilder id(DirectoryPermissions permissions) {
+        this.id = permissions == null ? null : permissions.getId();
         return this;
     }
 
@@ -49,12 +76,11 @@ public class DirectoryPermissionsBuilder {
     }
 
     /**
-     * Builds the FileInfo.
+     * Builds the DirectoryPermissions.
      *
-     * @return composed FileInfo
-     * @throws IllegalStateException if DirectoryPermissionsBuilder is not complete
+     * @return composed DirectoryPermissions
      */
     public DirectoryPermissions build() {
-        return new DirectoryPermissions(null, false, entries, null, null);
+        return new DirectoryPermissions(id, false, entries, null, null);
     }
 }

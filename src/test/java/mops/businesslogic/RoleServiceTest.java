@@ -16,96 +16,106 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.mock;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class RoleServiceTest {
-    public static final long GROUP_ID = 1L;
+class RoleServiceTest {
+
+    static final String STUDENTIN = "studentin";
+    static final String ADMIN = "admin";
+    static final String EDITOR = "editor";
+    static final String USER = "user";
+    static final String INTRUDER = "intruder";
+    static final long GROUP_ID = 0L;
+    static final long PERMISSIONS_ID = 0L;
+    static final long ROOT_DIR_ID = 0L;
+
     @Mock
     PermissionService permissionService;
     @Mock
     DirectoryPermissionsRepository directoryPermissionsRepository;
-    private RoleServiceImpl roleService;
-    private Account account;
-    private Directory root;
-    private Account admin;
-    private Account editor;
-    private Account intruder;
 
+    RoleService roleService;
+
+    Directory root;
+    Account admin;
+    Account editor;
+    Account user;
+    Account intruder;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         roleService = new RoleServiceImpl(permissionService, directoryPermissionsRepository);
-        account = Account.of("user", "user@hhu.de", "studentin");
-        admin = Account.of("admin", "user@hhu.de", "admin");
-        editor = Account.of("editor", "user@hhu.de", "editor");
-        intruder = Account.of("intruder", "user@hhu.de", "intruder");
 
-        DirectoryPermissionEntry userRole = new DirectoryPermissionEntry("user", true, false, false);
-        DirectoryPermissionEntry adminRole = new DirectoryPermissionEntry("admin", true, true, true);
-        DirectoryPermissionEntry editorRole = new DirectoryPermissionEntry("editor", true, true, false);
-        Set<DirectoryPermissionEntry> permissionEntries = Set.of(userRole, adminRole, editorRole);
-        DirectoryPermissions permissions = mock(DirectoryPermissions.class);
-        root = mock(Directory.class);
+        admin = Account.of(ADMIN, ADMIN + "@hhu.de", STUDENTIN);
+        editor = Account.of(EDITOR, EDITOR + "@hhu.de", STUDENTIN);
+        user = Account.of(USER, USER + "@hhu.de", STUDENTIN);
+        intruder = Account.of(INTRUDER, INTRUDER + "@hhu.de", STUDENTIN);
 
-        lenient().when(root.getId()).thenReturn(GROUP_ID);
+        DirectoryPermissions permissions = DirectoryPermissions.builder()
+                .id(PERMISSIONS_ID)
+                .entry(ADMIN, true, true, true)
+                .entry(EDITOR, true, true, false)
+                .entry(USER, true, false, false)
+                .build();
+        root = Directory.builder()
+                .id(ROOT_DIR_ID)
+                .name("")
+                .groupOwner(GROUP_ID)
+                .permissions(PERMISSIONS_ID)
+                .build();
 
-        lenient().when(permissions.getId()).thenReturn(1L);
-        lenient().when(permissions.getPermissions()).thenReturn(permissionEntries);
-        lenient().when(permissions.isAllowedToWrite("user")).thenReturn(false);
-        lenient().when(permissions.isAllowedToWrite("editor")).thenReturn(true);
-        lenient().when(permissions.isAllowedToRead("editor")).thenReturn(true);
-        lenient().when(permissions.isAllowedToDelete("admin")).thenReturn(true);
-        lenient().when(permissions.isAllowedToDelete("intruder")).thenReturn(true);
+        given(directoryPermissionsRepository.findById(PERMISSIONS_ID)).willReturn(Optional.of(permissions));
 
-        lenient().when(directoryPermissionsRepository.findById(anyLong())).thenReturn(Optional.of(permissions));
-
-        lenient().when(permissionService.fetchRoleForUserInDirectory(account, root)).thenReturn("user");
-        lenient().when(permissionService.fetchRoleForUserInGroup(account, GROUP_ID)).thenReturn("user");
-        lenient().when(permissionService.fetchRoleForUserInDirectory(editor, root)).thenReturn("editor");
-        lenient().when(permissionService.fetchRoleForUserInDirectory(admin, root)).thenReturn("admin");
+        given(permissionService.fetchRolesInGroup(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, USER));
+        given(permissionService.fetchRoleForUserInGroup(admin, GROUP_ID)).willReturn(ADMIN);
+        given(permissionService.fetchRoleForUserInGroup(editor, GROUP_ID)).willReturn(EDITOR);
+        given(permissionService.fetchRoleForUserInGroup(user, GROUP_ID)).willReturn(USER);
+        given(permissionService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
     }
 
     @Test
-    public void checkWritePermission() {
-        assertThatCode(() -> roleService.checkWritePermission(editor, root)).doesNotThrowAnyException();
+    void checkReadPermission() {
+        assertThatCode(() -> roleService.checkReadPermission(admin, root))
+                .doesNotThrowAnyException();
+        assertThatCode(() -> roleService.checkReadPermission(editor, root))
+                .doesNotThrowAnyException();
+        assertThatCode(() -> roleService.checkReadPermission(user, root))
+                .doesNotThrowAnyException();
+        assertThatThrownBy(() -> roleService.checkReadPermission(intruder, root))
+                .isInstanceOf(ReadAccessPermissionException.class);
     }
 
     @Test
-    public void checkWritePermissionWithOutPermission() {
-        assertThatExceptionOfType(WriteAccessPermissionException.class).isThrownBy(() -> roleService.checkWritePermission(account, root));
+    void checkWritePermission() {
+        assertThatCode(() -> roleService.checkWritePermission(admin, root))
+                .doesNotThrowAnyException();
+        assertThatCode(() -> roleService.checkWritePermission(editor, root))
+                .doesNotThrowAnyException();
+        assertThatThrownBy(() -> roleService.checkWritePermission(user, root))
+                .isInstanceOf(WriteAccessPermissionException.class);
+        assertThatThrownBy(() -> roleService.checkWritePermission(intruder, root))
+                .isInstanceOf(WriteAccessPermissionException.class);
     }
 
     @Test
-    public void checkReadPermission() {
-        assertThatCode(() -> roleService.checkReadPermission(editor, root)).doesNotThrowAnyException();
+    void checkDeletePermission() {
+        assertThatCode(() -> roleService.checkDeletePermission(admin, root))
+                .doesNotThrowAnyException();
+        assertThatThrownBy(() -> roleService.checkDeletePermission(editor, root))
+                .isInstanceOf(DeleteAccessPermissionException.class);
+        assertThatThrownBy(() -> roleService.checkDeletePermission(user, root))
+                .isInstanceOf(DeleteAccessPermissionException.class);
+        assertThatThrownBy(() -> roleService.checkDeletePermission(intruder, root))
+                .isInstanceOf(DeleteAccessPermissionException.class);
     }
 
     @Test
-    public void checkReadPermissionWithOutPermission() {
-        assertThatExceptionOfType(ReadAccessPermissionException.class).isThrownBy(() -> roleService.checkReadPermission(intruder, root));
-    }
-
-    @Test
-    public void checkDeletePermission() {
-        assertThatCode(() -> roleService.checkDeletePermission(admin, root)).doesNotThrowAnyException();
-    }
-
-    @Test
-    public void checkDeletePermissionWithOutPermission() {
-        assertThatExceptionOfType(DeleteAccessPermissionException.class).isThrownBy(() -> roleService.checkDeletePermission(account, root));
-    }
-
-    @Test
-    public void checkIfRole() {
-        assertThatCode(() -> roleService.checkIfRole(account, GROUP_ID, "user")).doesNotThrowAnyException();
-    }
-
-    @Test
-    public void checkIfRoleIsNot() {
-        assertThatExceptionOfType(WriteAccessPermissionException.class).isThrownBy(() -> roleService.checkIfRole(intruder, GROUP_ID, "user"));
+    void checkIfRole() {
+        assertThatCode(() -> roleService.checkIfRole(user, GROUP_ID, USER))
+                .doesNotThrowAnyException();
+        assertThatThrownBy(() -> roleService.checkIfRole(user, GROUP_ID, ADMIN))
+                .isInstanceOf(WriteAccessPermissionException.class);
     }
 }

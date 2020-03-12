@@ -8,204 +8,149 @@ import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.utils.TestContext;
+import mops.utils.DbContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@TestContext
+@DbContext
 @SpringBootTest
-public class DirectoryServiceTest {
-    public static final String ADMINISTRATOR = "administrator";
-    public static final String STUDENTIN = "studentin";
-    public static final String READER = "reader";
-    public static final String INTRUDER = "intruder";
-    public static final String USER = "user";
+class DirectoryServiceTest {
 
-    /**
-     * Necessary bean, must be removed when group service is implemented.
-     */
-    @MockBean
-    private GroupService groupService;
-    @MockBean
-    private FileRepository fileRepository;
+    static final String STUDENTIN = "studentin";
+    static final String ADMIN = "admin";
+    static final String EDITOR = "editor";
+    static final String USER = "user";
+    static final String INTRUDER = "intruder";
+    static final long GROUP_ID = 0L;
 
-    /**
-     * Necessary bean, must be removed when file info service is implemented.
-     */
     @MockBean
-    private FileInfoService fileInfoService;
-    /**
-     * Necessary bean, must be removed when file service is implemented.
-     */
+    GroupService groupService;
     @MockBean
-    private FileService fileService;
-
-    /**
-     * API for getting permission roles from GruppenFindung.
-     */
+    FileRepository fileRepository;
     @MockBean
-    private PermissionService permissionService;
+    FileInfoService fileInfoService;
+    @MockBean
+    FileService fileService;
+    @MockBean
+    PermissionService permissionService;
 
     /**
      * Service for communication related to directories.
      */
     @Autowired
-    private DirectoryService directoryService;
-
+    DirectoryService directoryService;
     /**
      * Repository for directory permissions.
      */
     @Autowired
-    private DirectoryPermissionsRepository directoryPermissionsRepository;
+    DirectoryPermissionsRepository directoryPermissionsRepository;
+
+    Directory root;
+    Account admin;
+    Account editor;
+    Account user;
+    Account intruder;
 
     /**
-     * Account Object containing user credentials with admin role.
-     */
-    private Account admin;
-
-    /**
-     * Account Object containing user credentials.
-     */
-    private Account account;
-
-    /**
-     * An Account with no rights what so ever.
-     */
-    private Account intruder;
-
-    /**
-     * An Account with read-only rights.
-     */
-    private Account reader;
-
-
-    /**
-     * Id of the parent folder.
-     */
-    private long parentId;
-    /**
-     * Id of the group owner.
-     */
-    private long groupOwner;
-
-    /**
-     * MultipartFile Object containing File credentials.
-     */
-    @Mock
-    private MultipartFile multipartFile;
-
-
-    /**
-     * Creates a user account.
+     * Prepares user accounts.
      */
     @BeforeEach
-    void setUp() {
-        account = Account.of(USER, "user@hhu.de", Set.of(STUDENTIN));
-        admin = Account.of(ADMINISTRATOR, "admin@hhu.de", Set.of(ADMINISTRATOR));
-        intruder = Account.of(INTRUDER, "intruder@uni-koeln.de", Set.of(INTRUDER));
-        reader = Account.of(READER, "reader@hhu.de", Set.of(STUDENTIN));
-        parentId = 1L;
-        groupOwner = 1L;
+    void setup() throws MopsException {
+        intruder = Account.of(INTRUDER, "intruder@uni-koeln.de", STUDENTIN);
+        user = Account.of(USER, "user@hhu.de", STUDENTIN);
+        editor = Account.of(EDITOR, "editor@hhu.de", STUDENTIN);
+        admin = Account.of(ADMIN, "admin@hhu.de", STUDENTIN);
 
-        given(permissionService.fetchRoleForUserInGroup(eq(admin), anyLong())).willReturn(ADMINISTRATOR);
-        given(permissionService.fetchRolesInGroup(anyLong())).willReturn(Set.of(ADMINISTRATOR, STUDENTIN));
-        given(permissionService.fetchRoleForUserInDirectory(eq(admin), any(Directory.class))).willReturn(ADMINISTRATOR);
-        given(permissionService.fetchRoleForUserInDirectory(eq(account), any(Directory.class))).willReturn(STUDENTIN);
-        given(permissionService.fetchRoleForUserInDirectory(eq(intruder), any(Directory.class))).willReturn(INTRUDER);
-        given(permissionService.fetchRoleForUserInDirectory(eq(reader), any(Directory.class))).willReturn(READER);
-        given(fileInfoService.fetchAllFilesInDirectory(anyLong())).willReturn(List.of());
+        root = directoryService.createRootFolder(admin, GROUP_ID);
+
+        given(permissionService.fetchRolesInGroup(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, USER));
+        given(permissionService.fetchRoleForUserInGroup(admin, GROUP_ID)).willReturn(ADMIN);
+        given(permissionService.fetchRoleForUserInGroup(editor, GROUP_ID)).willReturn(EDITOR);
+        given(permissionService.fetchRoleForUserInGroup(user, GROUP_ID)).willReturn(USER);
+        given(permissionService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
+        given(fileInfoService.fetchAllFilesInDirectory(root.getId())).willReturn(List.of());
     }
 
     /**
      * Test if a group folder is correctly created.
      */
     @Test
-    public void createGroupRootFolder() throws MopsException {
-        String nameFirstDirectory = String.valueOf(groupOwner);
-        long permissionsId = directoryPermissionsRepository.save(new DirectoryPermissions(Set.of())).getId();
-        Directory expectedDirectory = new Directory(nameFirstDirectory, null, groupOwner, permissionsId + 1L);
+    void createGroupRootFolder() {
+        Directory expected = Directory.builder()
+                .name("")
+                .groupOwner(GROUP_ID)
+                .permissions(root.getPermissionsId())
+                .build();
 
-        Directory directory = directoryService.createRootFolder(admin, groupOwner);
-
-        assertThat(directory).isEqualToIgnoringGivenFields(expectedDirectory, "id", "creationTime", "lastModifiedTime");
+        assertThat(root).isEqualToIgnoringNullFields(expected);
     }
 
     /**
      * Test if a group folder is not created when the user does not have permission.
      */
     @Test
-    public void createGroupRootFolderWithoutPermission() {
-        assertThatExceptionOfType(WriteAccessPermissionException.class).isThrownBy(() -> directoryService.createRootFolder(account, groupOwner));
+    void createGroupRootFolderWithoutPermission() {
+        assertThatExceptionOfType(WriteAccessPermissionException.class)
+                .isThrownBy(() -> directoryService.createRootFolder(user, GROUP_ID + 1L));
     }
 
     /**
      * Test if folder is created in a given root folder.
      */
     @Test
-    public void createFolderTest() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
-        parentId = root.getId();
-        long permissionsId = root.getPermissionsId();
-        String nameFirstDirectory = "first";
+    void createFolderTest() throws MopsException {
+        String subDirName = "a";
 
-        Directory expectedDirectory = new Directory(
-                nameFirstDirectory,
-                parentId,
-                groupOwner,
-                permissionsId);
+        Directory expectedDirectory = Directory.builder()
+                .fromParent(root)
+                .name(subDirName)
+                .build();
 
-        Directory folder = directoryService.createFolder(account, parentId, nameFirstDirectory);
+        Directory subDir = directoryService.createFolder(user, root.getId(), subDirName);
 
-        assertThat(folder).isEqualToIgnoringGivenFields(expectedDirectory, "id", "creationTime", "lastModifiedTime");
+        assertThat(subDir).isEqualToIgnoringNullFields(expectedDirectory);
     }
 
     /**
      * Test if admin can update the permissions of a directory.
      */
     @Test
-    public void updatePermissionTest() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
-        Long groupId = root.getId();
+    void updatePermissionTest() throws MopsException {
+        DirectoryPermissions permissions = DirectoryPermissions.builder()
+                .entry(EDITOR, true, false, false)
+                .entry(ADMIN, true, true, true)
+                .build();
 
-        DirectoryPermissionEntry readerEntry = new DirectoryPermissionEntry(READER, false, true, false);
-        DirectoryPermissionEntry adminEntry = new DirectoryPermissionEntry(ADMINISTRATOR, true, true, true);
-        Set<DirectoryPermissionEntry> permissionEntries = Set.of(adminEntry, readerEntry);
+        DirectoryPermissions newPermissions = directoryService.updatePermission(admin, root.getId(), permissions);
 
-        Directory directory = directoryService.updatePermission(admin, groupId, permissionEntries);
-
-        assertThat(directory).isEqualToIgnoringGivenFields(root, "creationTime", "lastModifiedTime");
+        assertThat(newPermissions).isEqualToIgnoringNullFields(permissions);
     }
 
     /**
      * Test if sub folders are correctly returned.
      */
     @Test
-    public void getSubFoldersTest() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
-        parentId = root.getId();
+    void getSubFoldersTest() throws MopsException {
+        String subDirName1 = "a";
+        String subDirName2 = "b";
 
-        String nameFirstDirectory = "first";
-        String nameSecondDirectory = "second";
+        Directory createdFirstDir = directoryService.createFolder(user, root.getId(), subDirName1);
+        Directory createdSecondDir = directoryService.createFolder(user, root.getId(), subDirName2);
 
-        Directory createdFirstDir = directoryService.createFolder(account, parentId, nameFirstDirectory);
-        Directory createdSecondDir = directoryService.createFolder(account, parentId, nameSecondDirectory);
-
-        List<Directory> subFolders = directoryService.getSubFolders(account, parentId);
+        List<Directory> subFolders = directoryService.getSubFolders(user, root.getId());
 
         assertThat(subFolders).containsExactlyInAnyOrder(createdFirstDir, createdSecondDir);
     }
@@ -214,62 +159,63 @@ public class DirectoryServiceTest {
      * Checks if exception is thrown if the user does not have reading permission.
      */
     @Test
-    public void getSubFoldersWithoutPermissionTest() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
-        parentId = root.getId();
-
-        assertThatExceptionOfType(ReadAccessPermissionException.class).isThrownBy(() -> directoryService.getSubFolders(intruder, parentId));
+    void getSubFoldersWithoutPermissionTest() {
+        assertThatExceptionOfType(ReadAccessPermissionException.class)
+                .isThrownBy(() -> directoryService.getSubFolders(intruder, root.getId()));
     }
 
     /**
      * Test if a user with read only permission can't create a sub folder.
      */
     @Test
-    public void createSubFolderWithReadsOnlyPermissionTest() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
-        Long parentId = root.getId();
-        DirectoryPermissionEntry readerEntry = new DirectoryPermissionEntry(READER, false, true, false);
-        DirectoryPermissionEntry adminEntry = new DirectoryPermissionEntry(ADMINISTRATOR, true, true, true);
-        Set<DirectoryPermissionEntry> permissionEntries = Set.of(adminEntry, readerEntry);
-        directoryService.updatePermission(admin, parentId, permissionEntries);
-        assertThatExceptionOfType(ReadAccessPermissionException.class).isThrownBy(() -> directoryService.getSubFolders(reader, parentId));
+    void createSubFolderWithReadsOnlyPermissionTest() throws MopsException {
+        DirectoryPermissions permissions = DirectoryPermissions.builder()
+                .entry(EDITOR, false, true, true)
+                .entry(ADMIN, true, true, true)
+                .build();
+
+        directoryService.updatePermission(admin, root.getId(), permissions);
+
+        assertThatExceptionOfType(ReadAccessPermissionException.class)
+                .isThrownBy(() -> directoryService.getSubFolders(editor, root.getId()));
     }
 
     /**
      * Tests if a admin can delete subfolder.
      */
     @Test
-    public void deleteSubFolderTest() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
-        Directory subFolder = directoryService.createFolder(account, root.getId(), "subFolder");
-        Directory directory = directoryService.deleteFolder(admin, subFolder.getId());
+    void deleteSubFolderTest() throws MopsException {
+        Directory subFolder = directoryService.createFolder(user, root.getId(), "a");
 
-        assertThat(directory).isEqualToIgnoringGivenFields(root, "creationTime", "lastModifiedTime");
+        Directory parent = directoryService.deleteFolder(admin, subFolder.getId());
+
+        List<Directory> subFolders = directoryService.getSubFolders(admin, root.getId());
+
+        assertThat(parent).isEqualTo(root);
+        assertThat(subFolders).isEmpty();
     }
 
     @Test
-    public void searchFolderTest() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
-
+    void searchFolderTest() throws MopsException {
         FileQuery query = mock(FileQuery.class);
         FileInfo matchingFile = mock(FileInfo.class);
         FileInfo notMatchingFile = mock(FileInfo.class);
         List<FileInfo> expectedFileInfos = List.of(matchingFile);
 
-
         when(fileInfoService.fetchAllFilesInDirectory(anyLong())).thenReturn(List.of(matchingFile, notMatchingFile));
         when(query.checkMatch(matchingFile)).thenReturn(true);
         when(query.checkMatch(notMatchingFile)).thenReturn(false);
 
-        List<FileInfo> fileInfos = directoryService.searchFolder(account, root.getId(), query);
+        List<FileInfo> fileInfos = directoryService.searchFolder(user, root.getId(), query);
 
         assertThat(fileInfos).isEqualTo(expectedFileInfos);
     }
 
     @Test
-    public void searchFolderWithoutPermissionTest() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
+    void searchFolderWithoutPermissionTest() throws MopsException {
+        Directory root = directoryService.createRootFolder(admin, GROUP_ID);
 
-        assertThatExceptionOfType(ReadAccessPermissionException.class).isThrownBy(() -> directoryService.searchFolder(intruder, root.getId(), mock(FileQuery.class)));
+        assertThatExceptionOfType(ReadAccessPermissionException.class)
+                .isThrownBy(() -> directoryService.searchFolder(intruder, root.getId(), mock(FileQuery.class)));
     }
 }

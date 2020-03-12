@@ -13,6 +13,10 @@ import mops.utils.AggregateBuilder;
 public class DirectoryBuilder {
 
     /**
+     * Database Id.
+     */
+    private Long id;
+    /**
      * Directory name.
      */
     private String name;
@@ -36,6 +40,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder from(@NonNull Directory directory) {
+        this.id = directory.getId();
         this.name = directory.getName();
         this.parentId = directory.getParentId();
         this.groupOwner = directory.getGroupOwner();
@@ -57,6 +62,28 @@ public class DirectoryBuilder {
     }
 
     /**
+     * Set id.
+     *
+     * @param id id
+     * @return this
+     */
+    public DirectoryBuilder id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Set id from directory.
+     *
+     * @param directory directory
+     * @return this
+     */
+    public DirectoryBuilder id(Directory directory) {
+        this.id = directory == null ? null : directory.getId();
+        return this;
+    }
+
+    /**
      * Set name.
      *
      * @param name name
@@ -73,7 +100,7 @@ public class DirectoryBuilder {
      * @param parentId is the parent directory id
      * @return this
      */
-    public DirectoryBuilder parentId(long parentId) {
+    public DirectoryBuilder parent(long parentId) {
         this.parentId = parentId;
         return this;
     }
@@ -106,7 +133,7 @@ public class DirectoryBuilder {
      * @param permissionsId permissions id
      * @return this
      */
-    public DirectoryBuilder permissionsId(long permissionsId) {
+    public DirectoryBuilder permissions(long permissionsId) {
         this.permissionsId = permissionsId;
         return this;
     }
@@ -126,12 +153,12 @@ public class DirectoryBuilder {
      * Builds the Directory.
      *
      * @return composed Directory
-     * @throws IllegalStateException if DirectoryBuilder is not complete
+     * @throws IllegalStateException if Directory is not complete
      */
     public Directory build() {
         if (name == null || groupOwner == -1L || permissionsId == -1L) {
             throw new IllegalStateException("Directory is not complete!");
         }
-        return new Directory(null, name, parentId, groupOwner, permissionsId, null, null);
+        return new Directory(id, name, parentId, groupOwner, permissionsId, null, null);
     }
 }
