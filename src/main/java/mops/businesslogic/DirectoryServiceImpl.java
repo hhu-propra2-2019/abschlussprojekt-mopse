@@ -128,10 +128,11 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return id of the new folder
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException {
         Directory rootDirectory = fetchDirectory(parentDirId);
         roleService.checkWritePermission(account, rootDirectory);
-        Directory directory = rootDirectory.createSubDirectory(dirName); //NOPMD// this is no violation of demeter's law
+        Directory directory = rootDirectory.createSubDirectory(dirName); //this is no violation of demeter's law
         return directoryRepository.save(directory);
     }
 
@@ -185,6 +186,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return the updated directory object
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Directory updatePermission(Account account,
                                       long dirId,
                                       Set<DirectoryPermissionEntry> permissionEntries) throws MopsException {
@@ -193,7 +195,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         DirectoryPermissions directoryPermissions = fetchPermissions(directory);
         DirectoryPermissions updatedPermissions = DirectoryPermissions.of(directoryPermissions, permissionEntries);
         DirectoryPermissions savedPermissions = directoryPermissionsRepo.save(updatedPermissions);
-        directory.setPermission(savedPermissions); //NOPMD demeter's law unable to fix
+        directory.setPermission(savedPermissions); //demeter's law unable to fix
         return directoryRepository.save(directory);
     }
 
@@ -201,15 +203,17 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param parentDirID the id of the parent folder
      * @return a directory object of the request folder
      */
+    @SuppressWarnings("PMD.LawOfDemeter")
     private Directory fetchDirectory(long parentDirID) {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
         // this is not a violation of demeter's law
-        return optionalDirectory.orElseThrow(getException(parentDirID)); //NOPMD//
+        return optionalDirectory.orElseThrow(getException(parentDirID)); //this is not a violation of demeter's law
     }
 
+    @SuppressWarnings("PMD.LawOfDemeter")
     private DirectoryPermissions fetchPermissions(Directory directory) throws DatabaseException {
         Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        return permissions.orElseThrow(() -> { //NOPMD   // this is not a violation of demeter's law
+        return permissions.orElseThrow(() -> { // this is not a violation of demeter's law
             String errorMessage = "Permission couldn't be fetched.";
             return new DatabaseException(errorMessage);
         });
@@ -228,8 +232,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return a set of directory permission entries
      */
     //TODO: this is a template and can only implement when GruppenFindung defined their roles.
+    @SuppressWarnings("PMD.LawOfDemeter")
     private Set<DirectoryPermissionEntry> createDefaultPermissions(Set<String> roleNames) {
-        return roleNames.stream() //NOPMD// this is not a violation of demeter's law
+        return roleNames.stream() //this is not a violation of demeter's law
                 .map(role -> new DirectoryPermissionEntry(role, true, true, true))
                 .collect(Collectors.toSet());
     }
@@ -238,8 +243,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param dirId directory id
      * @return a supplier to throw a exception
      */
+    @SuppressWarnings("PMD.LawOfDemeter")
     private Supplier<NoSuchElementException> getException(long dirId) {
-        return () -> { //NOPMD
+        return () -> { //this is not a violation of the demeter's law
             String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
             return new NoSuchElementException(errorMessage);
         };
