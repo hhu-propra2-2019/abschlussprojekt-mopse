@@ -22,10 +22,22 @@ Nutzers in einer bestimmten Gruppe._  | _Wir erhalten ein Datenobjekt (.json) zu
 |===
 
 ****
-[cols="1,1,1" options="header"]
-|===
-|Anfrage |Route |Erläuterung
-|Gruppenurl |`/material1/group/{groupId}/url | Gibt ein JSON-Objekt zurück, das die Attribute `group_id` und `url` hat.
-Letzteres ist der relative Pfad, wo der Rootordner der Gruppe aufgerufen werden kann.
-|===
+Anfrage Gruppenurl::
+
+Anfrage:
+
+include::../../build/generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
+
+Antwort:
+
+include::../../build/generated-snippets/index/GroupController/get-group-url/response-fields.adoc[]
+
+Beispielrequest:
+
+include::../../build/generated-snippets/index/GroupController/get-group-url/httpie-request.adoc[]
+
+Beispielantwort:
+
+include::../../build/generated-snippets/index/GroupController/get-group-url/response-body.adoc[]
+
 ****
