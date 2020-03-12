@@ -20,15 +20,13 @@ Das wären zum Beispiel:_
 _Diese Sicht sollte in jeder Architekturdokumentation vorhanden sein.
 In der Analogie zum Hausbau bildet die Bausteinsicht den Grundrissplan._
 
-_Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren
-Beschreibungen._
+_Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren Beschreibungen._
 
 image:05_building_blocks-DE.png["Baustein Sichten"]
 
 _Die *Gesamtabgrenzung* zeigt unser System in Abgrenzung zu Nachbarsystemen._
 
-_*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen
-Bausteine (in unserem Fall die einzelnen Schichten)._
+_*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen Bausteine (in unserem Fall die einzelnen Schichten)._
 
 _*Ebene 2* zoomt in die einzelnen Schichten hinein und zeigt die darin enthaltenen Komponenten._
 
@@ -62,8 +60,7 @@ Enthaltene Bausteine::
 === Ebene 1
 
 ****
-_Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie
-zuvor auch._
+_Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie zuvor auch._
 
 image:Ebene1.png["Ebene 1"]
 
@@ -87,19 +84,18 @@ Darstellung nach gleichem Schema wie zuvor._
 
 image:Ebene2.png["Ebene 2"]
 
-Begründung:: Von der HTML Presentation aus wird je nach Route ein bestimmter Controller in der Presentation Layer
-angesteuert. Jeder Controller repräsentiert damit einen Routenanfang `/material1/{routenBeginn}`. Hierdurch werden zu
-große Controller vermieden und Übersicht geschaffen.
+Begründung:: Von der HTML Presentation aus wird je nach Route ein bestimmter Controller in der Presentation Layer angesteuert.
+Jeder Controller repräsentiert damit einen Routenanfang `/material1/{routenBeginn}`.
+Hierdurch werden zu große Controller vermieden und Übersicht geschaffen.
 
-Die Services der Business Layer bearbeiten die Anfragen der Controller und stellen diese die angefragten Daten zur
-Verfügung. Die von ihnen benötigten Daten holen sie sich wiederum von der Persitence Layer.
+Die Services der Business Layer bearbeiten die Anfragen der Controller und stellen diese die angefragten Daten zur Verfügung.
+Die von ihnen benötigten Daten holen sie sich wiederum von der Persitence Layer.
 
-In der Persistence Layer liegen die Repositorys, die im Prinzip direkte Schnittstellen zwischen den Anfragen der
-Services und der Database Layer darstellen. Sie verarbeiten also deren Anfragen und leiten sie an die Database Layer
-weiter.
+In der Persistence Layer liegen die Repositorys, die im Prinzip direkte Schnittstellen zwischen den Anfragen der Services und der Database Layer darstellen.
+Sie verarbeiten also deren Anfragen und leiten sie an die Database Layer weiter.
 
-Die Database Layer wiederum beinhaltet alle Daten, die bei uns gespeichert werden. Sie stellen diese ja nach Anfrage
-der Repositorys zur Verfügung.
+Die Database Layer wiederum beinhaltet alle Daten, die bei uns gespeichert werden.
+Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.
 
 Presentation Layer::
 
@@ -214,7 +210,18 @@ Enthaltene Bausteine::
 [cols="1,1,1" options="header"]
 |===
 | Komponente | Funktion | Schnittstellen
-| <Komponente-1> | _<Funktion-1>_ | _<Schnittstelle-1>_
+| DirectoryController | _Nimmt Anfragen mit der Routen beginnend mit `dir` entgegen._ |
 | <Komponente-2> | _<Funktion-2>_ | _<Schnittstelle-2>_
 |===
+
+DirectoryController::
+
+Dieser hat folgende Routen:
+
+include::{snippets}/index/DirectoryController/show-content/path-parameters.adoc[]
+include::{snippets}/index/DirectoryController/create-folder/path-parameters.adoc[]
+include::{snippets}/index/DirectoryController/delete-directory/path-parameters.adoc[]
+include::{snippets}/index/DirectoryController/search-folder/path-parameters.adoc[]
+include::{snippets}/index/DirectoryController/upload-file/path-parameters.adoc[]
+
 ****
