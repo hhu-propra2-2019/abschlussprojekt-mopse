@@ -15,6 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJdbcTest
 class DirectoryRepositoryTest {
 
+    static final long GROUP_ID = 0L;
+
     /**
      * Handles db communication for directories.
      */
@@ -34,7 +36,7 @@ class DirectoryRepositoryTest {
         DirectoryPermissions empty = directoryPermissionsRepository.save(DirectoryPermissions.builder().build());
         Directory root = Directory.builder()
                 .name("")
-                .groupOwner(0L)
+                .groupOwner(GROUP_ID)
                 .permissions(empty)
                 .build();
         root = directoryRepository.save(root);
@@ -57,21 +59,26 @@ class DirectoryRepositoryTest {
 
     @Test
     public void groupFolderCountTest() {
-        long groupOwner = 2L;
         DirectoryPermissions empty = directoryPermissionsRepository.save(DirectoryPermissions.builder().build());
         Directory root = Directory.builder()
                 .name("")
-                .groupOwner(groupOwner)
+                .groupOwner(GROUP_ID)
                 .permissions(empty)
                 .build();
         directoryRepository.save(root);
 
-        Directory a = Directory.builder().fromParent(root).name("a").build();
-        Directory b = Directory.builder().fromParent(root).name("b").build();
+        Directory a = Directory.builder()
+                .fromParent(root)
+                .name("a")
+                .build();
+        Directory b = Directory.builder()
+                .fromParent(root)
+                .name("b")
+                .build();
 
         directoryRepository.saveAll(List.of(a, b));
 
-        long groupFolderCount = directoryRepository.getGroupFolderCount(groupOwner);
+        long groupFolderCount = directoryRepository.getGroupFolderCount(GROUP_ID);
 
         assertThat(groupFolderCount).isEqualTo(3L);
     }

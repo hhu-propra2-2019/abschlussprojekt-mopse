@@ -10,9 +10,9 @@ Einschränkungen den Ablauf der Entwicklung beeinflussen könnten.
 |Bedingung |Erläuterung
 | Zusammenarbeit mit anderen Gruppen | _Schnittstellen mit anderen Gruppen beeinflussen unsere Implementierung. Vor
 allem, wenn diese Gruppen selbst noch keine abgeschlossenen Konzepte entworfen haben._
-| Fehlende Ordnerstruktur in MinIO | _Da MinOS keine Ordnerstruktur unterstützt, ist die Anlegung einer virtuellen
-Ordnerstruktur in einer externen Datenbank notwendig._
-| Keycloak erschwert UnitTest| _Aufgrund der Sicherheitskomponenten werden die Controller-Tests stark verkompliziert,
+| Fehlende Ordnerstruktur in MinIO | _Da MinIO nur eine virtuelle Ordnerstruktur unterstützt, ist die Anlegung einer
+eigenen Ordnerstruktur in einer externen Datenbank notwendig._
+| Keycloak erschwert UnitTests| _Aufgrund der Sicherheitskomponenten werden die Controller-Tests stark verkompliziert,
 da die Sicherheitsfeatures gemockt werden müssen._
 |===
 ****
