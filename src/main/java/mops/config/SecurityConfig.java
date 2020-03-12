@@ -1,4 +1,4 @@
-package mops.security;
+package mops.config;
 
 
 import org.keycloak.KeycloakPrincipal;
