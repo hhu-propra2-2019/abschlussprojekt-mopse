@@ -10,49 +10,55 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class FIleInfoServiceImpl implements FileInfoService {
+public class FileInfoServiceImpl implements FileInfoService {
 
     /**
      * reference to fileInfoRepository.
      */
-    private final FileInfoRepository fileInfoRepository;
+    private final FileInfoRepository fileInfoRepo;
 
     /**
      * @param dirId directory id
      * @return a list of files in that directory
      */
+    @Override
     public List<FileInfo> fetchAllFilesInDirectory(long dirId) {
-        return fileInfoRepository.getAllFileInfoByDirectory(dirId);
+        return fileInfoRepo.getAllFileInfoByDirectory(dirId);
     }
 
     /**
      * @param fileId file id
      * @return a FileInfo object
      */
+    @Override
     public FileInfo fetchFileInfo(long fileId) {
-        return fileInfoRepository.getFileInfoById(fileId);
+        return fileInfoRepo.getFileInfoById(fileId);
     }
 
     /**
      * @param fileInfo Metadata of a file
      * @return ID the FileInfo was saved under
      */
+    @Override
     public long saveFileInfo(FileInfo fileInfo) {
-        return fileInfoRepository.addFileInfoToDatabase(fileInfo);
+        return fileInfoRepo.addFileInfoToDatabase(fileInfo);
     }
 
     /**
      * @param fileId file id
      */
+    @Override
     public void deleteFileInfo(long fileId) throws MopsException {
-        fileInfoRepository.deleteFileInfoFromDatabase(fileId);
+        fileInfoRepo.deleteFileInfoFromDatabase(fileId);
     }
 
     /**
      * @param fileId file id
      * @return dir id
      */
+    @Override
     public long fetchDirectoryId(long fileId) {
-        return fileInfoRepository.getDirectoryIdByFileId(fileId);
+        return fileInfoRepo.getDirectoryIdByFileId(fileId);
     }
+
 }
