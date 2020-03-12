@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@SuppressWarnings("PMD.TooManyMethods") //this class needs more methods
 public class DirectoryServiceImpl implements DirectoryService {
 
     /**
