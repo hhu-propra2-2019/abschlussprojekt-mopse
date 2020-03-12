@@ -50,47 +50,10 @@ public class DirectoryServiceImpl implements DirectoryService {
     private final DirectoryPermissionsRepository directoryPermissionsRepo;
 
     /**
-     * Checks whether the user is authorized to load the file.
-     *
-     * @param account user credentials
-     * @param dirId   the id of the folder where the file will be uploaded
-     */
-    @Override
-    public void checkWritePermission(Account account, long dirId) throws MopsException {
-        Directory directory = fetchDirectory(dirId);
-
-        roleService.checkWritePermission(account, directory);
-    }
-
-    /**
-     * Checks if user has reading permission.
-     *
-     * @param account user credentials
-     * @param dirId   the id of the folder
-     */
-    @Override
-    public void checkReadPermission(Account account, long dirId) throws MopsException {
-        Directory directory = fetchDirectory(dirId);
-        roleService.checkReadPermission(account, directory);
-    }
-
-    /**
-     * Checks if user has deleting permission.
-     *
-     * @param account user credentials
-     * @param dirId   the id of the folder
-     */
-    @Override
-    public void checkDeletePermission(Account account, long dirId) throws MopsException {
-        Directory directory = fetchDirectory(dirId);
-        roleService.checkDeletePermission(account, directory);
-    }
-
-    /**
      * gets all 3 permissions of a user.
      *
      * @param account user credentials
-     * @param dirId the id of the folder
+     * @param dirId   the id of the folder
      * @return a permission flag object
      */
     @Override

@@ -9,35 +9,12 @@ import java.util.List;
 import java.util.Set;
 
 public interface DirectoryService {
-    /**
-     * Checks if user has writing permission.
-     *
-     * @param account user credentials
-     * @param dirId   the id of the folder
-     */
-    void checkWritePermission(Account account, long dirId) throws MopsException;
-
-    /**
-     * Checks if user has reading permission.
-     *
-     * @param account user credentials
-     * @param dirId   the id of the folder
-     */
-    void checkReadPermission(Account account, long dirId) throws MopsException;
-
-    /**
-     * Checks if user has deleting permission.
-     *
-     * @param account user credentials
-     * @param dirId   the id of the folder
-     */
-    void checkDeletePermission(Account account, long dirId) throws MopsException;
 
     /**
      * gets all 3 permissions of a user.
      *
      * @param account user credentials
-     * @param dirId the id of the folder
+     * @param dirId   the id of the folder
      * @return a permission flag object
      */
     UserPermission getPermissionsOfUser(Account account, long dirId);

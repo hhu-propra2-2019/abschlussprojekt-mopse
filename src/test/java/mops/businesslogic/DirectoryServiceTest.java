@@ -1,7 +1,6 @@
 package mops.businesslogic;
 
 import mops.SpringTestContext;
-import mops.businesslogic.exception.DeleteAccessPermissionException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.exception.MopsException;
@@ -247,42 +246,6 @@ public class DirectoryServiceTest {
         Directory directory = directoryService.deleteFolder(admin, subFolder.getId());
 
         assertThat(directory).isEqualToIgnoringGivenFields(root, "creationTime", "lastModifiedTime");
-    }
-
-    /**
-     * Checks if exception is thrown if the user does not have writing permission.
-     */
-    @Test
-    public void checkWritePermission() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
-        parentId = root.getId();
-
-        assertThatExceptionOfType(WriteAccessPermissionException.class).isThrownBy(() ->
-                directoryService.checkWritePermission(intruder, parentId));
-    }
-
-    /**
-     * Checks if exception is thrown if the user does not have reading permission.
-     */
-    @Test
-    public void checkReadPermission() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
-        parentId = root.getId();
-
-        assertThatExceptionOfType(ReadAccessPermissionException.class).isThrownBy(() ->
-                directoryService.checkReadPermission(intruder, parentId));
-    }
-
-    /**
-     * Checks if exception is thrown if the user does not have deleting permission.
-     */
-    @Test
-    public void checkDeletePermission() throws MopsException {
-        Directory root = directoryService.createRootFolder(admin, groupOwner);
-        parentId = root.getId();
-
-        assertThatExceptionOfType(DeleteAccessPermissionException.class).isThrownBy(() ->
-                directoryService.checkDeletePermission(intruder, parentId));
     }
 
     @Test
