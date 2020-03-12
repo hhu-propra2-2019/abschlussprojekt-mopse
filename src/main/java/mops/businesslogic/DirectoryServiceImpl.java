@@ -28,7 +28,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Represents the role of an admin.
      */
     public static final String ADMINISTRATOR = "administrator";
-    
+
     /**
      * This connects to database related to directory information.
      */
@@ -145,13 +145,13 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return the directory created
      */
     @Override
-    public Directory createRootFolder(Account account, Long groupId) throws MopsException {
+    public Directory createRootFolder(Account account, long groupId) throws MopsException {
         roleService.checkIfRole(account, groupId, ADMINISTRATOR);
         Set<String> roleNames = roleService.fetchRolesInGroup(groupId);
         Set<DirectoryPermissionEntry> permissions = createDefaultPermissions(roleNames);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
-        Directory directory = Directory.of(groupId.toString(), null, groupId, rootPermissions);
+        Directory directory = Directory.of(String.valueOf(groupId), null, groupId, rootPermissions);
         return directoryRepository.save(directory);
     }
 
