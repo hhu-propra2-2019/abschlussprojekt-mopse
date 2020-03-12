@@ -8,6 +8,7 @@ import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
+import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissionEntry;
 import mops.persistence.permission.DirectoryPermissions;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SpringTestContext
 @SpringBootTest
@@ -280,5 +283,24 @@ public class DirectoryServiceTest {
 
         assertThatExceptionOfType(DeleteAccessPermissionException.class).isThrownBy(() ->
                 directoryService.checkDeletePermission(intruder, parentId));
+    }
+
+    @Test
+    public void searchFolderTest() throws MopsException {
+        Directory root = directoryService.createRootFolder(admin, groupOwner);
+
+        FileQuery query = mock(FileQuery.class);
+        FileInfo matchingFile = mock(FileInfo.class);
+        FileInfo notMatchingFile = mock(FileInfo.class);
+        List<FileInfo> expectedFileInfos = List.of(matchingFile);
+
+
+        when(fileInfoService.fetchAllFilesInDirectory(anyLong())).thenReturn(List.of(matchingFile, notMatchingFile));
+        when(query.checkMatch(matchingFile)).thenReturn(true);
+        when(query.checkMatch(notMatchingFile)).thenReturn(false);
+
+        List<FileInfo> fileInfos = directoryService.searchFolder(account, root.getId(), query);
+
+        assertThat(fileInfos).isEqualTo(expectedFileInfos);
     }
 }
