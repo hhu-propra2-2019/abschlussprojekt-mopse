@@ -5,6 +5,7 @@ import io.minio.ObjectStat;
 import io.minio.Result;
 import io.minio.errors.*;
 import io.minio.messages.Item;
+import mops.utils.AggregateBuilder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import org.xmlpull.v1.XmlPullParserException;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 
 
 @Repository
+@AggregateBuilder
 public class FileRepository {
 
     /**

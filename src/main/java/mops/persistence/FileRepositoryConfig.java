@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "material1.mops.storage.minio")
 @Getter
 @Setter
-public class FileRepositoryConfig {
+class FileRepositoryConfig {
 
     /**
      * Host of the MinIO server.

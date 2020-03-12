@@ -71,13 +71,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li><a href="mops/package-tree.html">mops</a>, </li>
 <li><a href="mops/businesslogic/package-tree.html">mops.businesslogic</a>, </li>
 <li><a href="mops/businesslogic/utils/package-tree.html">mops.businesslogic.utils</a>, </li>
+<li><a href="mops/config/package-tree.html">mops.config</a>, </li>
 <li><a href="mops/exception/package-tree.html">mops.exception</a>, </li>
 <li><a href="mops/persistence/package-tree.html">mops.persistence</a>, </li>
 <li><a href="mops/persistence/directory/package-tree.html">mops.persistence.directory</a>, </li>
 <li><a href="mops/persistence/file/package-tree.html">mops.persistence.file</a>, </li>
 <li><a href="mops/persistence/permission/package-tree.html">mops.persistence.permission</a>, </li>
 <li><a href="mops/presentation/package-tree.html">mops.presentation</a>, </li>
-<li><a href="mops/security/package-tree.html">mops.security</a>, </li>
 <li><a href="mops/utils/package-tree.html">mops.utils</a></li>
 </ul>
 </div>
@@ -89,35 +89,32 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul>
 <li class="circle">mops.businesslogic.<a href="mops/businesslogic/Account.html" title="class in mops.businesslogic"><span class="typeNameLink">Account</span></a></li>
 <li class="circle">mops.businesslogic.utils.<a href="mops/businesslogic/utils/AccountUtil.html" title="class in mops.businesslogic.utils"><span class="typeNameLink">AccountUtil</span></a></li>
+<li class="circle">mops.config.<a href="mops/config/DatabaseConfig.html" title="class in mops.config"><span class="typeNameLink">DatabaseConfig</span></a></li>
 <li class="circle">mops.persistence.directory.<a href="mops/persistence/directory/Directory.html" title="class in mops.persistence.directory"><span class="typeNameLink">Directory</span></a></li>
+<li class="circle">mops.persistence.directory.<a href="mops/persistence/directory/DirectoryBuilder.html" title="class in mops.persistence.directory"><span class="typeNameLink">DirectoryBuilder</span></a></li>
 <li class="circle">mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation"><span class="typeNameLink">DirectoryController</span></a></li>
-<li class="circle">mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissionEntry.html" title="class in mops.persistence.permission"><span class="typeNameLink">DirectoryPermissionEntry</span></a></li>
 <li class="circle">mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission"><span class="typeNameLink">DirectoryPermissions</span></a></li>
+<li class="circle">mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissionsBuilder.html" title="class in mops.persistence.permission"><span class="typeNameLink">DirectoryPermissionsBuilder</span></a></li>
 <li class="circle">mops.businesslogic.<a href="mops/businesslogic/FileContainer.html" title="class in mops.businesslogic"><span class="typeNameLink">FileContainer</span></a></li>
 <li class="circle">mops.presentation.<a href="mops/presentation/FileController.html" title="class in mops.presentation"><span class="typeNameLink">FileController</span></a></li>
 <li class="circle">mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file"><span class="typeNameLink">FileInfo</span></a></li>
+<li class="circle">mops.persistence.file.<a href="mops/persistence/file/FileInfoBuilder.html" title="class in mops.persistence.file"><span class="typeNameLink">FileInfoBuilder</span></a></li>
 <li class="circle">mops.persistence.<a href="mops/persistence/FileRepository.html" title="class in mops.persistence"><span class="typeNameLink">FileRepository</span></a></li>
-<li class="circle">mops.persistence.<a href="mops/persistence/FileRepositoryConfig.html" title="class in mops.persistence"><span class="typeNameLink">FileRepositoryConfig</span></a></li>
-<li class="circle">mops.persistence.file.<a href="mops/persistence/file/FileTag.html" title="class in mops.persistence.file"><span class="typeNameLink">FileTag</span></a></li>
 <li class="circle">org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration (implements org.springframework.beans.factory.BeanFactoryAware, org.springframework.context.annotation.ImportAware, org.springframework.beans.factory.SmartInitializingSingleton)
 <ul>
-<li class="circle">mops.security.<a href="mops/security/SecurityConfig.MethodSecurityConfig.html" title="class in mops.security"><span class="typeNameLink">SecurityConfig.MethodSecurityConfig</span></a></li>
+<li class="circle">mops.config.<a href="mops/config/SecurityConfig.MethodSecurityConfig.html" title="class in mops.config"><span class="typeNameLink">SecurityConfig.MethodSecurityConfig</span></a></li>
 </ul>
 </li>
 <li class="circle">mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation"><span class="typeNameLink">GroupController</span></a></li>
 <li class="circle">mops.businesslogic.<a href="mops/businesslogic/GroupDirUrlWrapper.html" title="class in mops.businesslogic"><span class="typeNameLink">GroupDirUrlWrapper</span></a></li>
 <li class="circle">mops.presentation.<a href="mops/presentation/GroupsController.html" title="class in mops.presentation"><span class="typeNameLink">GroupsController</span></a></li>
-<li class="circle">mops.security.<a href="mops/security/KeycloakConfig.html" title="class in mops.security"><span class="typeNameLink">KeycloakConfig</span></a></li>
+<li class="circle">mops.config.<a href="mops/config/KeycloakConfig.html" title="class in mops.config"><span class="typeNameLink">KeycloakConfig</span></a></li>
 <li class="circle">mops.<a href="mops/Material1Application.html" title="class in mops"><span class="typeNameLink">Material1Application</span></a></li>
 <li class="circle">java.lang.Throwable (implements java.io.Serializable)
 <ul>
 <li class="circle">java.lang.Exception
 <ul>
-<li class="circle">mops.exception.<a href="mops/exception/MopsException.html" title="class in mops.exception"><span class="typeNameLink">MopsException</span></a>
-<ul>
-<li class="circle">mops.persistence.<a href="mops/persistence/StorageException.html" title="class in mops.persistence"><span class="typeNameLink">StorageException</span></a></li>
-</ul>
-</li>
+<li class="circle">mops.exception.<a href="mops/exception/MopsException.html" title="class in mops.exception"><span class="typeNameLink">MopsException</span></a></li>
 </ul>
 </li>
 </ul>
@@ -126,7 +123,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul>
 <li class="circle">org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter (implements org.springframework.security.config.annotation.web.WebSecurityConfigurer&lt;T&gt;)
 <ul>
-<li class="circle">mops.security.<a href="mops/security/SecurityConfig.html" title="class in mops.security"><span class="typeNameLink">SecurityConfig</span></a></li>
+<li class="circle">mops.config.<a href="mops/config/SecurityConfig.html" title="class in mops.config"><span class="typeNameLink">SecurityConfig</span></a></li>
 </ul>
 </li>
 </ul>
@@ -159,6 +156,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <section class="hierarchy">
 <h2 title="Annotation Type Hierarchy">Annotation Type Hierarchy</h2>
 <ul>
+<li class="circle">mops.utils.<a href="mops/utils/AggregateBuilder.html" title="annotation in mops.utils"><span class="typeNameLink">AggregateBuilder</span></a> (implements java.lang.annotation.Annotation)</li>
 <li class="circle">mops.utils.<a href="mops/utils/AggregateRoot.html" title="annotation in mops.utils"><span class="typeNameLink">AggregateRoot</span></a> (implements java.lang.annotation.Annotation)</li>
 </ul>
 </section>

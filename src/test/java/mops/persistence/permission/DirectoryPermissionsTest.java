@@ -24,16 +24,16 @@ class DirectoryPermissionsTest {
 
     @BeforeEach
     void setup() {
-        DirectoryPermissionEntry e1 = new DirectoryPermissionEntry("admin", true, true, true);
-        DirectoryPermissionEntry e2 = new DirectoryPermissionEntry("user", true, false, false);
-        this.perms = new DirectoryPermissions(Set.of(e1, e2));
+        this.perms = DirectoryPermissions.builder()
+                .entry("admin", true, true, true)
+                .entry("user", true, false, false)
+                .build();
     }
 
     @Test
     void failCreation() {
-        assertThatThrownBy(() -> new DirectoryPermissionEntry(null, false, false, false))
-                .isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> new DirectoryPermissions(null))
+        assertThatThrownBy(() -> DirectoryPermissions.builder()
+                .entry(null, false, false, false))
                 .isInstanceOf(NullPointerException.class);
     }
 
