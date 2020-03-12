@@ -141,7 +141,8 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory rootDirectory = fetchDirectory(parentDirId);
         long groupFolderCount = directoryRepository.getGroupFolderCount(rootDirectory.getGroupOwner());
         if (groupFolderCount >= MAX_FOLDER_PER_GROUP) {
-            throw new StorageLimitationException("Your group has max allowed amount of folders. You can't create any more.");
+            String error = "Your group has max allowed amount of folders. You can't create any more.";
+            throw new StorageLimitationException(error);
         }
         roleService.checkWritePermission(account, rootDirectory);
 
