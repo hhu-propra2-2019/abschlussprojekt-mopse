@@ -6,6 +6,7 @@ import mops.businesslogic.exception.DeleteAccessPermissionException;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
+import mops.persistence.StorageException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
@@ -27,11 +28,16 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Represents the role of an admin.
      */
     public static final String ADMIN = "admin";
+    /**
+     * The max amount of folders per group.
+     */
+    public static final long MAX_FOLDER_PER_GROUP = 200L;
 
     /**
      * This connects to database related to directory information.
      */
     private final DirectoryRepository directoryRepository;
+
     /**
      * Handles meta data of files.
      */
@@ -133,6 +139,10 @@ public class DirectoryServiceImpl implements DirectoryService {
     @SuppressWarnings("PMD.LawOfDemeter")
     public Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException {
         Directory rootDirectory = fetchDirectory(parentDirId);
+        long groupFolderCount = directoryRepository.getGroupFolderCount(rootDirectory.getGroupOwner());
+        if (groupFolderCount >= MAX_FOLDER_PER_GROUP) {
+            throw new StorageException("Your group has max allowed amount of folders. You can't create any more.");
+        }
         roleService.checkWritePermission(account, rootDirectory);
 
         Directory directory = Directory.builder() //this is no violation of demeter's law
@@ -253,6 +263,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param dirId directory id
      * @return a supplier to throw a exception
      */
+    @SuppressWarnings("PMD.LawOfDemeter")
     private Supplier<NoSuchElementException> getException(long dirId) {
         return () -> { //this is not a violation of the demeter's law
             String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
