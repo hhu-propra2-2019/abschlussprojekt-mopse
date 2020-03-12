@@ -303,4 +303,11 @@ public class DirectoryServiceTest {
 
         assertThat(fileInfos).isEqualTo(expectedFileInfos);
     }
+
+    @Test
+    public void searchFolderWithoutPermissionTest() throws MopsException {
+        Directory root = directoryService.createRootFolder(admin, groupOwner);
+
+        assertThatExceptionOfType(ReadAccessPermissionException.class).isThrownBy(() -> directoryService.searchFolder(intruder, root.getId(), mock(FileQuery.class)));
+    }
 }
