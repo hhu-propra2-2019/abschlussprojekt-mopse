@@ -32,10 +32,9 @@ class DirectoryPermissionsTest {
 
     @Test
     void failCreation() {
-        assertThatThrownBy(() -> new DirectoryPermissionEntry(null, false, false, false))
+        assertThatThrownBy(() -> DirectoryPermissions.builder()
+                .entry(null, false, false, false))
                 .isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> DirectoryPermissions.builder().build())
-                .isInstanceOf(IllegalStateException.class);
     }
 
     @Test

@@ -55,18 +55,6 @@ public class Directory {
     private Timestamp lastModifiedTime;
 
     /**
-     * Create a new Directory.
-     *
-     * @param name          Directory name
-     * @param parentId      Id of parent Directory
-     * @param groupOwner    Id of the owning group
-     * @param permissionsId Id of the DirectoryPermissions
-     */
-    public Directory(String name, Long parentId, long groupOwner, long permissionsId) {
-        this(null, name, parentId, groupOwner, permissionsId, null, null);
-    }
-
-    /**
      * Get the creation time.
      *
      * @return creation time
@@ -82,5 +70,14 @@ public class Directory {
      */
     public Instant getLastModifiedTime() {
         return lastModifiedTime == null ? Instant.EPOCH : lastModifiedTime.toInstant();
+    }
+
+    /**
+     * Gives you DirectoryBuilder.
+     *
+     * @return DirectoryBuilder
+     */
+    public static DirectoryBuilder builder() {
+        return new DirectoryBuilder();
     }
 }

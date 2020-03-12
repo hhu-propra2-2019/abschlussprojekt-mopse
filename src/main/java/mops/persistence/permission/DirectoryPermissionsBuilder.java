@@ -2,6 +2,7 @@ package mops.persistence.permission;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import mops.utils.AggregateBuilder;
 
 import java.util.HashSet;
@@ -38,7 +39,11 @@ public class DirectoryPermissionsBuilder {
      * @param canDelete can delete
      * @return this
      */
-    public DirectoryPermissionsBuilder entry(String role, boolean canRead, boolean canWrite, boolean canDelete) {
+    public DirectoryPermissionsBuilder entry(@NonNull String role, boolean canRead, boolean canWrite,
+                                             boolean canDelete) {
+        if (role.isEmpty()) {
+            throw new IllegalArgumentException("role must not be empty");
+        }
         this.entries.add(new DirectoryPermissionEntry(role, canRead, canWrite, canDelete));
         return this;
     }

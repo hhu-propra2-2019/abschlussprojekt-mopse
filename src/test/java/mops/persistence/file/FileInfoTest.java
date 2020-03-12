@@ -37,7 +37,11 @@ class FileInfoTest {
                 .build();
         rootDirPerms = permRepo.save(rootDirPerms);
 
-        Directory rootDir = new Directory("", null, -1, rootDirPerms.getId());
+        Directory rootDir = Directory.builder()
+                .name("")
+                .groupOwner(0L)
+                .permissions(rootDirPerms)
+                .build();
         rootDir = dirRepo.save(rootDir);
 
         this.file = FileInfo.builder()
@@ -45,6 +49,7 @@ class FileInfoTest {
                 .directory(rootDir)
                 .type("txt")
                 .size(0L)
+                .owner("user")
                 .tag("1")
                 .tag("2")
                 .build();
@@ -65,6 +70,7 @@ class FileInfoTest {
                 .directoryId(0L)
                 .type("txt")
                 .size(0L)
+                .owner("user")
                 .build();
 
         assertThatThrownBy(() -> repo.save(wrong))

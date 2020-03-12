@@ -33,22 +33,35 @@ class DirectoryTest {
                 .build();
         rootDirPerms = permRepo.save(rootDirPerms);
 
-        Directory rootDir = new Directory("", null, -1, rootDirPerms.getId());
+        Directory rootDir = Directory.builder()
+                .name("")
+                .groupOwner(0L)
+                .permissions(rootDirPerms)
+                .build();
         rootDir = repo.save(rootDir);
 
-        this.dir = new Directory("a", rootDir.getParentId(), -1, rootDirPerms.getId());
+        this.dir = Directory.builder()
+                .fromParent(rootDir)
+                .name("a")
+                .build();
     }
 
     @Test
     void failCreation() {
-        assertThatThrownBy(() -> new Directory(null, -1L, -1, -1L))
-                .isInstanceOf(NullPointerException.class)
-                .hasNoCause();
+        assertThatThrownBy(() -> Directory.builder().build())
+                .isInstanceOf(IllegalStateException.class);
+        assertThatThrownBy(() -> Directory.builder().name(null))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void failSave() {
-        Directory wrong = new Directory("a", -1L, -1, -1L);
+        Directory wrong = Directory.builder()
+                .name("")
+                .parentId(0L)
+                .groupOwner(0L)
+                .permissionsId(0L)
+                .build();
 
         assertThatThrownBy(() -> repo.save(wrong))
                 .isInstanceOf(DbActionExecutionException.class);

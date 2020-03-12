@@ -78,6 +78,9 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder name(@NonNull String name) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("name must not be empty");
+        }
         this.name = name;
         return this;
     }
@@ -111,6 +114,9 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder type(@NonNull String type) {
+        if (type.isEmpty()) {
+            throw new IllegalArgumentException("type must not be empty");
+        }
         this.type = type;
         return this;
     }
@@ -133,6 +139,9 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder owner(@NonNull String owner) {
+        if (owner.isEmpty()) {
+            throw new IllegalArgumentException("owner must not be empty");
+        }
         this.owner = owner;
         return this;
     }
@@ -144,6 +153,9 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder tag(@NonNull String tag) {
+        if (tag.isEmpty()) {
+            throw new IllegalArgumentException("tag must not be empty");
+        }
         this.tags.add(new FileTag(tag));
         return this;
     }
