@@ -224,6 +224,13 @@ include::../../build/generated-snippets//index/DirectoryController/delete-direct
 include::../../build/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
 include::../../build/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]
 
+FileController::
+
+Dieser hat folgende Routen:
+
+include::../../build/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
+include::../../build/generated-snippets/index/FileController/download-file/path-parameters.adoc[]
+
 GroupController::
 
 Dieser hat folgende Routen:
@@ -237,13 +244,4 @@ GroupsController::
 Dieser hat folgende Routen:
 
 include::../../build/generated-snippets/index/GroupsController/get-all-groups/httpie-request.adoc[]
-
-FileController::
-
-Dieser hat folgende Routen:
-
-include::../../build/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
-include::../../build/generated-snippets/index/FileController/download-file/path-parameters.adoc[]
-
-
 ****
