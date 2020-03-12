@@ -3,6 +3,8 @@ package mops.businesslogic;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 
+import java.util.Set;
+
 public interface RoleService {
     /**
      * Checks if the user has writing rights.
@@ -38,4 +40,12 @@ public interface RoleService {
      * @throws MopsException checked exception to present to UI
      */
     void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException;
+
+    /**
+     * Get all roles in that group.
+     *
+     * @param groupId id of the group
+     * @return the set of role names in that group
+     */
+    Set<String> fetchRolesInGroup(Long groupId);
 }

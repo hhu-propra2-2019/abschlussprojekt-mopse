@@ -12,6 +12,7 @@ import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 
 @AllArgsConstructor
@@ -112,6 +113,17 @@ public class RoleServiceImpl implements RoleService {
                     groupId);
             throw new WriteAccessPermissionException(errorMessage);
         }
+    }
+
+    /**
+     * Get all roles in that group.
+     *
+     * @param groupId id of the group
+     * @return the set of role names in that group
+     */
+    @Override
+    public Set<String> fetchRolesInGroup(Long groupId) {
+        return permissionService.fetchRolesInGroup(groupId);
     }
 
     private DirectoryPermissions getDirectoryPermissions(Directory directory) throws MopsException {

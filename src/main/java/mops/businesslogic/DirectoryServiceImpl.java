@@ -34,11 +34,6 @@ public class DirectoryServiceImpl implements DirectoryService {
     private final DirectoryRepository directoryRepository;
 
     /**
-     * API for GruppenFindung which handles permissions.
-     */
-    private final PermissionService permissionService;
-
-    /**
      * Handles meta data of files.
      */
     private final FileInfoService fileInfoService;
@@ -116,7 +111,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public Directory createRootFolder(Account account, Long groupId) throws MopsException {
 
         roleService.checkIfRole(account, groupId, ADMINISTRATOR);
-        Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
+        Set<String> roleNames = roleService.fetchRolesInGroup(groupId);
         Set<DirectoryPermissionEntry> permissions = createDefaultPermissions(roleNames);
         DirectoryPermissions permission = new DirectoryPermissions(permissions);
         DirectoryPermissions rootPermissions = directoryPermissionsRepo.save(permission);
