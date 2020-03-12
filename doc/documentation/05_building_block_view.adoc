@@ -232,4 +232,18 @@ include::../../build/generated-snippets/index/GroupController/get-all-files-of-d
 include::../../build/generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
 include::../../build/generated-snippets/index/GroupController/search-file/path-parameters.adoc[]
 
+GroupsController::
+
+Dieser hat folgende Routen:
+
+include::../../build/generated-snippets/index/GroupsController/get-all-groups/httpie-request.adoc[]
+
+FileController::
+
+Dieser hat folgende Routen:
+
+include::../../build/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
+include::../../build/generated-snippets/index/FileController/download-file/path-parameters.adoc[]
+
+
 ****

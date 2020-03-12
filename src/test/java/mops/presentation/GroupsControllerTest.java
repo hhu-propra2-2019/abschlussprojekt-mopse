@@ -21,7 +21,8 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -60,7 +61,9 @@ class GroupsControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     void getAllGroups() throws Exception {
         mockMvc().perform(get("/material1/groups"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("groups"));
+                .andExpect(view().name("groups"))
+                .andDo(document("index/GroupsController/{method-name}"));
+        ;
     }
 
     /**
