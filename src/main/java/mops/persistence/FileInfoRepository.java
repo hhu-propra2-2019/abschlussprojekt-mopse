@@ -36,6 +36,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
     /**
      * @param fileId file id to be deleted
      */
+    @SuppressWarnings("PMD")
     default void deleteFileInfoFromDatabase(long fileId) throws MopsException {
     }
 
