@@ -14,7 +14,6 @@ public class FileQueryBuilder {
      * List of owner to search for.
      */
     private List<String> owners = new ArrayList<>();
-
     /**
      * Names of files to search for.
      */
@@ -82,7 +81,7 @@ public class FileQueryBuilder {
      */
     public FileQueryBuilder fileName(@NonNull String fileName) {
         if (fileName.isEmpty()) {
-            throw new IllegalArgumentException("File name must be empty.");
+            throw new IllegalArgumentException("File name must not be empty.");
         }
         fileNames.add(fileName);
         return this;
