@@ -44,7 +44,7 @@ public class FileQueryBuilder {
         if (tags == null) {
             tags = List.of();
         }
-        return new FileQueryImpl(
+        return new FileQuery(
                 fileNames,
                 owners,
                 types,
