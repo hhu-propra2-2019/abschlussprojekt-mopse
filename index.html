@@ -443,17 +443,62 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Inhaltsverzeichnis</div>
 <ul class="sectlevel1">
 <li><a href="#_formatierung">Formatierung</a></li>
+<li><a href="#section-introduction-and-goals">1. Einführung und Ziele</a>
+<ul class="sectlevel2">
+<li><a href="#_aufgabenstellung">1.1. Aufgabenstellung</a></li>
+<li><a href="#_qualitätsziele">1.2. Qualitätsziele</a></li>
+<li><a href="#_involvierte_gruppen">1.3. Involvierte Gruppen</a></li>
+</ul>
+</li>
+<li><a href="#section-architecture-constraints">2. Randbedingungen</a></li>
+<li><a href="#section-system-scope-and-context">3. Kontextabgrenzung</a></li>
+<li><a href="#section-solution-strategy">4. Lösungsstrategie</a>
+<ul class="sectlevel2">
+<li><a href="#_controller_tests">4.1. Controller Tests</a></li>
+<li><a href="#_datenbank">4.2. Datenbank</a></li>
+</ul>
+</li>
+<li><a href="#section-building-block-view">5. Bausteinsicht</a>
+<ul class="sectlevel2">
+<li><a href="#_gesamtabgrenzung">5.1. Gesamtabgrenzung</a></li>
+<li><a href="#_ebene_1">5.2. Ebene 1</a></li>
+<li><a href="#_ebene_2">5.3. Ebene 2</a></li>
+<li><a href="#_ebene_3">5.4. Ebene 3</a></li>
+</ul>
+</li>
+<li><a href="#section-runtime-view">6. Laufzeitsicht</a>
+<ul class="sectlevel2">
+<li><a href="#_bezeichnung_laufzeitszenario_1">6.1. <em>&lt;Bezeichnung Laufzeitszenario 1&gt;</em></a></li>
+<li><a href="#_bezeichnung_laufzeitszenario_2">6.2. <em>&lt;Bezeichnung Laufzeitszenario 2&gt;</em></a></li>
+<li><a href="#_bezeichnung_laufzeitszenario_n">6.3. <em>&lt;Bezeichnung Laufzeitszenario n&gt;</em></a></li>
+</ul>
+</li>
+<li><a href="#section-concepts">7. Querschnittliche Konzepte</a>
+<ul class="sectlevel2">
+<li><a href="#_konzept_1">7.1. <em>&lt;Konzept 1&gt;</em></a></li>
+<li><a href="#_konzept_2">7.2. <em>&lt;Konzept 2&gt;</em></a></li>
+<li><a href="#_konzept_n">7.3. <em>&lt;Konzept n&gt;</em></a></li>
+</ul>
+</li>
+<li><a href="#section-design-decisions">8. Entwurfsentscheidungen</a>
+<ul class="sectlevel2">
+<li><a href="#_aufbau_der_datenbank">8.1. Aufbau der Datenbank</a></li>
+<li><a href="#_archunit_tests">8.2. ArchUnit Tests</a></li>
+<li><a href="#_filestorage">8.3. FileStorage</a></li>
+<li><a href="#_entscheidung_n">8.4. <em>&lt;Entscheidung n&gt;</em></a></li>
+</ul>
+</li>
+<li><a href="#section-quality-scenarios">9. Qualitätsanforderungen</a>
+<ul class="sectlevel2">
+<li><a href="#_qualitätsbaum">9.1. Qualitätsbaum</a></li>
+<li><a href="#_qualitätsszenarien">9.2. Qualitätsszenarien</a></li>
+</ul>
+</li>
+<li><a href="#section-glossary">10. Glossar</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/config.adoc[]</p>
-</div>
-</div>
-</div>
 <div class="sect1">
 <h2 id="_formatierung">Formatierung</h2>
 <div class="sectionbody">
@@ -461,13 +506,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <div class="paragraph">
 <p>Überschriften jetweder Form werden automatisch zur Nummerierung der einzelnen Punkte genutzt und sollten somit nicht leichtfertig genutzt werden.
-Unterhalb einer Überschrift beginnt der Inhalt zu dieser Überschrift. Dieser Inhalt muss in einen "Container" verpackt werden (der natürlich auch wieder geschlossen werden muss).</p>
+Unterhalb einer Überschrift beginnt der Inhalt zu dieser Überschrift.
+Dieser Inhalt muss in einen "Container" verpackt werden (der natürlich auch wieder geschlossen werden muss).</p>
 </div>
 <div class="paragraph">
 <p>Normale Schrift stellt Text dar, der auch so in der fertigen Dokumentation stehen sollen, und somit prkatisch die "Lösung" der "Aufgabenstellung" darstellt.</p>
 </div>
 <div class="paragraph">
-<p><em>Kursiver Text ist die "Aufgabenstellung", die wir erfüllen müssen. Diese sollte in der fertigen Dokumentation nicht mehr enthalten sein.</em></p>
+<p><em>Kursiver Text ist die "Aufgabenstellung", die wir erfüllen müssen.
+Diese sollte in der fertigen Dokumentation nicht mehr enthalten sein.</em></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -498,51 +545,1257 @@ Unterhalb einer Überschrift beginnt der Inhalt zu dieser Überschrift. Dieser I
 </div>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-introduction-and-goals">1. Einführung und Ziele</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_aufgabenstellung">1.1. Aufgabenstellung</h3>
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/01_introduction_and_goals.adoc[]</p>
+<p>Das Ziel dieses Systems ist es, eine Materialsammlung für die "Modulare Online Plattform für Studierende"
+(kurz: "MOPS"), bereit zu stellen.
+Dabei verwalten wir sämtliche Dateien, die Studierende, Korrektoren und Organisatoren benötigen, in einem File-System.
+Das System basiert dabei auf einer Gruppenstruktur. Solche Gruppen können sowohl Veranstaltungen als auch Lerngruppen
+repräsentieren.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mögliche Anwendungsszenarien:</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Szenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ein Mitglied möchte eine Datei einsehen.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Das Mitglied navigiert zur Gruppendateiübersicht. Dort navigiert es in den gewünschten Ordner in dem die
+entsprechende Datei liegt.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ein Administrator lädt einzelne Datei hoch.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Der Administrator einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann er mit einem
+Upload-Button den Dateiupload beginnen.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ein Mitglied möchte Verzeichnis erstellen.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit den "Neuer Ordner"-Button
+einen neues Verzeichnis anlegen.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ein Organisator möchte Verzeichnis mit Dateien löschen.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Der Organisator navigiert zur Gruppendateiübersicht. Dort klickt er das gesuchte Verzeichnis an
+und wählt "Verzeichnis löschen". Er bestätigt die Löschaktion und das Verzeichnis wird gelöscht</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_qualitätsziele">1.2. Qualitätsziele</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Unsere Entwicklung haben wir an folgender Prioritätssetzung orientiert, um eine bestmögliche Lernumgebung für alle
+Nutzergruppen zu gewährleisten.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Qualitätsziel</th>
+<th class="tableblock halign-left valign-top">Erläuterung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Jeder Request muss in kürzester Zeit bearbeitet werden um dem Benutzer ein möglichst flüssiges
+Nutzungserlebnis zu bieten.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zuverlässigkeit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Das System muss zu jedem Zeitpunkt erreichbar und voll funktionsfähig sein, um Nutzer nicht in
+Problemlagen durch fehlenden Zugriff zu bringen. Außerdem soll der Wartungsaufwand durch modulare Aufbauweise minimiert
+werden.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sicherheit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>In jedem Fall werden die Daten der Nutzer vertraulich behandelt und Fremdzugriff verhindert.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_involvierte_gruppen">1.3. Involvierte Gruppen</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Um die Erwartungen und Anforderungen der Nutzergruppen unserer Plattform zu erfüllen, haben wir im Folgenden eine
+Aufstellung der Erwartungshaltungen zusammengefasst, um diese in unserer Entwicklung zu berücksichtigen.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Nutzergruppe</th>
+<th class="tableblock halign-left valign-top">Erwartungshaltung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Studierende</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Studierende brauchen eine Plattform, die einfachen Zugriff auf die Inhalte ihrer Lernveranstaltungen
+ermöglicht. Sie möchten sich mit ihren Mitstudierenden organisieren können und erwarten eine zuverlässige und nach
+heutigem Stand der Technik performante Plattform. Ausfälle durch Wartungsarbeiten und ungeplante Systemausfälle müssen
+minimiert werden, um eine vertrauenswürdige Umgebung zu schaffen.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Organisatoren</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Organisatoren legen wert auf eine intuitive Plattform, der es trotzdem nicht an Funktionalität
+mangelt. Hierbei spielt ein übersichtliches Layout eine entscheidende Rolle. Die Verlässlichkeit und Zuverlässigkeit
+des Systems hat weiterhin Priorität, um verlängerte Arbeitszeiten zu vermeiden. Organisatoren möchten viele
+Veranstaltungen einfach verwalten können, Materialien einsehen und organisieren, sowie Aktivitäten von Kursteilnehmern
+einsehen.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Systemadministratoren</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Systemadministratoren legen Wert auf eine hohe Wartbarkeit und Zuverlässigkeit des Systems.
+Im Idealfall muss das System zur Wartung/Datensicherung nicht ganz abgeschaltet werden, es reichen vorübergehende
+Modulabschaltungen oder gar keine Funktionsreduktion. Eindeutige Modularisierung, ausführliche aber sinnvolle
+Laufzeitanalyse, sowie verständliche Dokumentation sind hierbei besonders hilfreich für die Überprüfung, Systemwartung
+und Erweiterbarkeit.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-architecture-constraints">2. Randbedingungen</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/02_architecture_constraints.adoc[]</p>
+<p>Um unerwartete Verzögerung im Entwicklungsablauf zu vermeiden, haben wir in der Planungsphase und während der
+Implementierung der Kernkomponenten berücksichtigt, welche Randbedingungen und technische sowie fachliche
+Einschränkungen den Ablauf der Entwicklung beeinflussen könnten.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Bedingung</th>
+<th class="tableblock halign-left valign-top">Erläuterung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zusammenarbeit mit anderen Gruppen</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Schnittstellen mit anderen Gruppen beeinflussen unsere Implementierung. Vor
+allem, wenn diese Gruppen selbst noch keine abgeschlossenen Konzepte entworfen haben.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fehlende Ordnerstruktur in MinIO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Da MinIO nur eine virtuelle Ordnerstruktur unterstützt, ist die Anlegung einer
+eigenen Ordnerstruktur in einer externen Datenbank notwendig.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keycloak erschwert UnitTests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Aufgrund der Sicherheitskomponenten werden die Controller-Tests stark verkompliziert,
+da die Sicherheitsfeatures gemockt werden müssen.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-system-scope-and-context">3. Kontextabgrenzung</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/03_system_scope_and_context.adoc[]</p>
+<p><em>Die (technische) Abgrenzung gegenüber allen Kommunikationsbeziehungen (Nachbarsysteme und Benutzerrollen).
+Somit werden die externen Schnittstellen festgelegt.</em></p>
+</div>
+<div class="paragraph">
+<p><em>Festlegung <strong>aller</strong> Kommunikationsbeziehungen mit Erklärung der <strong>fachlichen</strong> Ein- und Ausgabedaten.</em></p>
+</div>
+<div class="paragraph">
+<p><em>Kontextdiagramme, Listen von Kommunikationsbeziehungen aber auch plain text wären denkbar.</em></p>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Kommunikationsbeziehung</th>
+<th class="tableblock halign-left valign-top">Eingabe</th>
+<th class="tableblock halign-left valign-top">Ausgabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requests vom Gruppensystem</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wir erhalten Requests für die Ordner-/Dateierstellung oder Löschung und den Erhalt von
+Dateien aus unserer Datenbank.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wir liefern eine Bestätigung des betreffenden Requests (eventuell inklusive der
+gewollten Datei) zurück, wenn die entsprechenden Berechtigungen vorhanden waren. Ansonsten bearbeiten wir den Request
+nicht.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Erfragen von Berechtigungen</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wir erfragen mit einer Gruppen ID und dem Benutzernamen die Berechtigungen eines
+Nutzers in einer bestimmten Gruppe.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wir erhalten ein Datenobjekt (.json) zurück, dass alle Berechtigungen (Rollen) des betreffenden Nutzers beinhaltet.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Anfrage Gruppenurl</dt>
+<dd>
+<p>Anfrage:</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Unresolved directive in ../api/external-api.adoc - include::{snippets}/index/GroupController/get-group-url/path-parameters.adoc[]</p>
+</div>
+<div class="paragraph">
+<p>Antwort:</p>
+</div>
+<div class="paragraph">
+<p>Unresolved directive in ../api/external-api.adoc - include::{snippets}/index/GroupController/get-group-url/response-fields.adoc[]</p>
+</div>
+<div class="paragraph">
+<p>Beispielrequest:</p>
+</div>
+<div class="paragraph">
+<p>Unresolved directive in ../api/external-api.adoc - include::{snippets}/index/GroupController/get-group-url/httpie-request.adoc[]</p>
+</div>
+<div class="paragraph">
+<p>Beispielantwort:</p>
+</div>
+<div class="paragraph">
+<p>Unresolved directive in ../api/external-api.adoc - include::{snippets}/index/GroupController/get-group-url/response-body.adoc[]</p>
+</div>
+</div>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-solution-strategy">4. Lösungsstrategie</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/04_solution_strategy.adoc[]</p>
+<p>Kurzer Überblick über die grundlegenden Entscheidungen und Lösungsansätze, die Entwurf und Implementierung des Systems
+prägen.
+Hierzu gehören:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Technologieentscheidungen</p>
+</li>
+<li>
+<p>Entscheidungen über die Top-Level-Zerlegung des Systems, beispielsweise die Verwendung gesamthaft prägender Entwurfs-
+oder Architekturmuster,</p>
+</li>
+<li>
+<p>Entscheidungen zur Erreichung der wichtigsten Qualitätsanforderungen sowie</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Eine <strong>kurze</strong> und <strong>präzise</strong> Darlegung aller relevanten Entscheidungen.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_controller_tests">4.1. Controller Tests</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Eine Schwierigkeit für die Controller Tests ist, dass man die sicherheitsrelevanten Aspekte von <code>spring-security</code> und
+<code>keycloak</code> berücksichtigen muss.
+Wir hatten uns zunächst dafür entschieden diesen Teil zu mocken.
+Jedoch hatte es bei uns nicht funktioniert den Mock mit <code>@WithMockUser</code> zu machen, daher hatten wir den ganzen
+SecurityContext gemockt und stellten diesen mit <code>SecurityContextUtil</code> für jeden ControllerTest zur Verfügung.
+Später wurden wir dann auf die Bibliothek <code>spring-security-test-keycloack-addons</code> aufmerksam gemacht, die das Testen
+massiv vereinfacht. Nun kann man die Annotation <code>@WithMockKeycloakAuth</code> benutzen um Tests mit einer gültigen Keycloak
+Authentifizierung auszustatten.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_datenbank">4.2. Datenbank</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Zur Auswahl standen hier MySQL, MariaDB und PostgreSQL, da wir damit bereits Erfahrungen gesammelt haben.
+Wir haben uns nach einer kurzen Diskussion für MariaDB entschieden.
+Und zwar weil MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, womit wir am meisten Erfahrung haben.</p>
+</div>
+<div class="paragraph">
+<p>Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist
+umständlich immer diesen Docker-Container laufen zu lassen. Also haben wir uns entschieden in der Entwicklung und zum
+Testen H2 zu benutzen. Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir bereits kennen
+gelernt haben.</p>
+</div>
+</div>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-building-block-view">5. Bausteinsicht</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/05_building_block_view.adoc[]</p>
+<p><em>Eine Auflistung und Erklärung aller Bausteine des Systems.
+Das wären zum Beispiel:</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Module</em></p>
+</li>
+<li>
+<p><em>Komponenten</em></p>
+</li>
+<li>
+<p><em>Subsysteme</em></p>
+</li>
+<li>
+<p><em>Klassen</em></p>
+</li>
+<li>
+<p><em>Interfaces</em></p>
+</li>
+<li>
+<p><em>Pakete</em></p>
+</li>
+<li>
+<p><em>Bibliotheken</em></p>
+</li>
+<li>
+<p><em>Frameworks</em></p>
+</li>
+<li>
+<p><em>Schichten</em></p>
+</li>
+<li>
+<p><em>Funktionen</em></p>
+</li>
+<li>
+<p><em>Datenstrukturen_</em></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Diese Sicht sollte in jeder Architekturdokumentation vorhanden sein.
+In der Analogie zum Hausbau bildet die Bausteinsicht den Grundrissplan.</em></p>
+</div>
+<div class="paragraph">
+<p><em>Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren Beschreibungen.</em></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./documentation/images/05_building_blocks-DE.png" alt="Baustein Sichten"></span></p>
+</div>
+<div class="paragraph">
+<p><em>Die <strong>Gesamtabgrenzung</strong> zeigt unser System in Abgrenzung zu Nachbarsystemen.</em></p>
+</div>
+<div class="paragraph">
+<p><em>*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen Bausteine (in unserem Fall die einzelnen Schichten).</em></p>
+</div>
+<div class="paragraph">
+<p><em>*Ebene 2* zoomt in die einzelnen Schichten hinein und zeigt die darin enthaltenen Komponenten.</em></p>
+</div>
+<div class="paragraph">
+<p><em>*Ebene 3* zoomt in die Komponenten hinein und beschreibt deren einzelne Funktionen und Schnittstellen genauer.</em></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gesamtabgrenzung">5.1. Gesamtabgrenzung</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><em>Eine Beschreibung des Gesamtsystems als Whitebox nach folgendem Template:</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Ein Übersichtsdiagramm</em></p>
+</li>
+<li>
+<p><em>die Begründung dieser Zerlegung</em></p>
+</li>
+<li>
+<p><em>Blackbox-Beschreibungen der hier enthaltenen Bausteine mittels einer Tabelle.</em></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Es geht um die Abgrenzung unseres Systems zu den Nachbarsystemen anderer Gruppen.</em></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./documentation/images/Gesamtuebersicht.png" alt="Gesamtübersicht"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Begründung</dt>
+<dd>
+<p>&lt;Erläuternder Text&gt;</p>
+</dd>
+<dt class="hdlist1">Enthaltene Bausteine</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Komponente</th>
+<th class="tableblock halign-left valign-top">Funktion</th>
+<th class="tableblock halign-left valign-top">Schnittstellen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keycloak</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Authentifizierung und Authentifikation der User.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wir erzeugen uns dafür ein eigenes Account Objekt.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ebene_1">5.2. Ebene 1</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><em>Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie zuvor auch.</em></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./documentation/images/Ebene1.png" alt="Ebene 1"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Begründung</dt>
+<dd>
+<p>&lt;Erläuternder Text&gt;</p>
+</dd>
+<dt class="hdlist1">Enthaltene Bausteine</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Komponente</th>
+<th class="tableblock halign-left valign-top">Funktion</th>
+<th class="tableblock halign-left valign-top">Schnittstellen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;Komponente-1&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Funktion-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Schnittstellen-1&gt;</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;Komponente-2&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Funktion-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Schnittstellen-2&gt;</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ebene_2">5.3. Ebene 2</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><em>Ebene 2 zeigt die einzelnen Schichten im Detail und deren Komponenten.
+Darstellung nach gleichem Schema wie zuvor.</em></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./documentation/images/Ebene2.png" alt="Ebene 2"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Begründung</dt>
+<dd>
+<p>Von der HTML Presentation aus wird je nach Route ein bestimmter Controller in der Presentation Layer angesteuert.
+Jeder Controller repräsentiert damit einen Routenanfang <code>/material1/{routenBeginn}</code>.
+Hierdurch werden zu große Controller vermieden und Übersicht geschaffen.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Die Services der Business Layer bearbeiten die Anfragen der Controller und stellen diese die angefragten Daten zur Verfügung.
+Die von ihnen benötigten Daten holen sie sich wiederum von der Persitence Layer.</p>
+</div>
+<div class="paragraph">
+<p>In der Persistence Layer liegen die Repositorys, die im Prinzip direkte Schnittstellen zwischen den Anfragen der Services und der Database Layer darstellen.
+Sie verarbeiten also deren Anfragen und leiten sie an die Database Layer weiter.</p>
+</div>
+<div class="paragraph">
+<p>Die Database Layer wiederum beinhaltet alle Daten, die bei uns gespeichert werden.
+Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Presentation Layer</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Komponente</th>
+<th class="tableblock halign-left valign-top">Funktion</th>
+<th class="tableblock halign-left valign-top">Schnittstellen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DirectoryController</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt den Inhalt eines angefragten Ordners zur Verfügung.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Dateiinformation bekommt er vom <code>FileService</code> und die Ordnerinformationen vom <code>DirectoryService</code>.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ExceptionHandler</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Fängt sämtliche Exceptions, die im Projekt geworfen werden und stellt diese bereit.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ein Administrator kann hier alle Exceptions einsehen.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileController</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt angefragte Dateien zur Verfügung.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Alle Informationen bekommt er vom <code>FileService</code>.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GroupController</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt den Inhalt einer Gruppe zur Verfügung.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Gruppeninformationen werden beim <code>GroupService</code> angefragt und die Dateiinformationen bekommt er vom <code>FileService</code>.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GroupsController</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt alle Gruppen eines Benutzers zur Verfügung.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">_Alle Gruppeninformationen erhält er vom <code>GroupService</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTML Presentation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>UI</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt Anfragen an die Controller.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Business Layer</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Komponente</th>
+<th class="tableblock halign-left valign-top">Funktion</th>
+<th class="tableblock halign-left valign-top">Schnittstellen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DirectoryService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Die Informationen über die Dateien holt er sich vom <code>FileInfoService</code>. Um die Berechtigungen eines einzelnen Benutzers zu überprüfen, wird eine Anfrage an den <code>PermissionService</code> gestellt, während die Berechtigungen des Ordners vom <code>DirectoryPermissionRepository</code> zur Verfügung gestellt werden. Um Operatioen, die andere Ordner involvieren, ausführen zu können, wird beim <code>DirectoryRepository</code> angefragt.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileInfoService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Verwaltet alle Metadaten einer Datei in Form des Objektes <code>FileInfo</code>.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Um die benötigten Daten zu erhalten wird eine Anfrage an das <code>FileInfoRepository</code> gestellt.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Verwaltet die Funktionen einer Datei. Dabei wird die Datei selbst mit ihren Metadaten verknüpft.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Mittels einer Anfrage an den <code>FileInfoService</code> werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das <code>FileRepository</code> gestellt werden, um die Datei selbst zu erhalten.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GroupService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Verwaltet alle Inhalte einer einzelnen Gruppe. Ordner sowie Dateien.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Um die Informationen über die Unterordner einer Gruppe zu erhalten, wird eine Anfrage an den <code>DirectoryService</code> gestellt.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PermissionService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt die Berechtigungen eines einzelnen Benutzers zur Verfügung.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage an das Modul <code>Gruppenbildung</code>, um die Berechtigungen eines Benutzers in einer Gruppe zu erhalten.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RoleService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Checkt die Rolenberechtigung eines Nutzers.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es stellt Berechtigungsanfragen an den <code>PermissionService</code>.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Persistence Layer</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Komponente</th>
+<th class="tableblock halign-left valign-top">Funktion</th>
+<th class="tableblock halign-left valign-top">Schnittstellen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DirectoryPermissionRepository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ist die Schnittstelle zur <code>Datenbank</code> für die Berechtigungen einen Ordners.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage an die <code>Datenbank</code>, um ein Berechtigungsobjekt zu erhalten.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DirectoryRepository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ist die Schnittstelle zur <code>Datenbank</code> für das Erhalten eines Ordners.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage an die <code>Datenbank</code>, um ein Ordnerobjekt zu erhalten.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileInfoRepository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ist die Schnittstelle zur <code>Datenbank</code> für die Metadaten einer Datei.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage an die <code>Datenbank</code>, um ein Dateimetadatenobjekt zu erhalten.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileRepository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ist die Schnittstelle zu <code>MinIO</code>.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage mit einer DateiID an <code>MinIO</code> um die entsprechende Datei zu erhalten.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Database Layer</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Komponente</th>
+<th class="tableblock halign-left valign-top">Funktion</th>
+<th class="tableblock halign-left valign-top">Schnittstellen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Datenbank</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt sämtliche Datenbankobjekte zur Verfügung.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es werden ausschließlich Anfragen an die <strong>Datenbank</strong> gestellt.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MinIO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt benötigte Dateien zur Verfügung.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es werden ausschließlich Anfragen an <strong>MinIO</strong> gestellt.*</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ebene_3">5.4. Ebene 3</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><em>Ebene 3 zeigt die einzelnen Komponenten einer Schicht im Detail und deren Funktionen.
+Darstellung nach gleichem Schema wie zuvor.</em></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./documentation/images/Ebene3.png" alt="Ebene 3"></span></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Begründung</dt>
+<dd>
+<p>&lt;Erläuternder Text&gt;</p>
+</dd>
+<dt class="hdlist1">Enthaltene Bausteine</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Komponente</th>
+<th class="tableblock halign-left valign-top">Funktion</th>
+<th class="tableblock halign-left valign-top">Schnittstellen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DirectoryController</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Nimmt Anfragen mit der Routen beginnend mit <code>dir</code> entgegen.</em></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;Komponente-2&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Funktion-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Schnittstelle-2&gt;</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">DirectoryController</dt>
+<dd>
+<p>Dieser hat folgende Routen:</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/DirectoryController/show-content/path-parameters.adoc[]
+Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets//index/DirectoryController/create-folder/path-parameters.adoc[]
+Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
+Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
+Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">FileController</dt>
+<dd>
+<p>Dieser hat folgende Routen:</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
+Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/FileController/download-file/path-parameters.adoc[]</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">GroupController</dt>
+<dd>
+<p>Dieser hat folgende Routen:</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/GroupController/get-all-files-of-directory/path-parameters.adoc[]
+Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
+Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/GroupController/search-file/path-parameters.adoc[]</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">GroupsController</dt>
+<dd>
+<p>Dieser hat folgende Routen:</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/GroupsController/get-all-groups/httpie-request.adoc[]</p>
+</div>
+</div>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-runtime-view">6. Laufzeitsicht</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/06_runtime_view.adoc[]</p>
+<p>Hier geht es darum, wie einzelne Abläufe funktionieren und wie sich die Beziehungen zwischen Bausteinen und externen
+Schnittstellen in bestimmten Szenarien ausspielen.
+Dabei spielen auch Fehler- und Ausnahmeszenarien sowie Inbetriebnahme, Start und Stop eine Rolle.</p>
+</div>
+<div class="paragraph">
+<p>Mögliche Darstellungsformen wären ein Flussdiagramm oder nummerierte Abläufe mit spezifischen Erklärungen.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bezeichnung_laufzeitszenario_1">6.1. <em>&lt;Bezeichnung Laufzeitszenario 1&gt;</em></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>&lt;hier Laufzeitdiagramm oder Ablaufbeschreibung einfügen&gt;</p>
+</li>
+<li>
+<p>&lt;hier Besonderheiten bei dem Zusammenspiel der Bausteine in diesem Szenario erläutern&gt;</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bezeichnung_laufzeitszenario_2">6.2. <em>&lt;Bezeichnung Laufzeitszenario 2&gt;</em></h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bezeichnung_laufzeitszenario_n">6.3. <em>&lt;Bezeichnung Laufzeitszenario n&gt;</em></h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-concepts">7. Querschnittliche Konzepte</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/07_concepts.adoc[]</p>
+<div class="title">Inhalt</div>
+<p>Dieser Abschnitt beschreibt übergreifende, prinzipielle Regelungen und Lösungsansätze, die an mehreren Stellen
+(=<em>querschittlich</em>) relevant sind.</p>
+</div>
+<div class="paragraph">
+<p>Solche Konzepte betreffen oft mehrere Bausteine.
+Dazu können vielerlei Themen gehören, beispielsweise:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>fachliche Modelle,</p>
+</li>
+<li>
+<p>eingesetzte Architektur- oder Entwurfsmuster,</p>
+</li>
+<li>
+<p>Regeln für den konkreten Einsatz von Technologien,</p>
+</li>
+<li>
+<p>prinzipielle&#8201;&#8212;&#8201;meist technische&#8201;&#8212;&#8201;Festlegungen übergreifender Art,</p>
+</li>
+<li>
+<p>Implementierungsregeln</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Eine mögliche (nicht aber notwendige!) Untergliederung dieses Abschnittes könnte wie folgt aussehen (wobei die Zuordnung
+von Themen zu den Gruppen nicht immer eindeutig ist):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fachliche Konzepte</p>
+</li>
+<li>
+<p>User Experience (UX)</p>
+</li>
+<li>
+<p>Sicherheitskonzepte (Safety und Security)</p>
+</li>
+<li>
+<p>Architektur- und Entwurfsmuster</p>
+</li>
+<li>
+<p>Unter-der-Haube</p>
+</li>
+<li>
+<p>Entwicklungskonzepte</p>
+</li>
+<li>
+<p>Betriebskonzepte</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./documentation/images/08-Crosscutting-Concepts-Structure-DE.png" alt="Possible topics for crosscutting concepts"></span></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_konzept_1">7.1. <em>&lt;Konzept 1&gt;</em></h3>
+<div class="paragraph">
+<p><em>&lt;Erklärung&gt;</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_konzept_2">7.2. <em>&lt;Konzept 2&gt;</em></h3>
+<div class="paragraph">
+<p><em>&lt;Erklärung&gt;</em></p>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_konzept_n">7.3. <em>&lt;Konzept n&gt;</em></h3>
+<div class="paragraph">
+<p><em>&lt;Erklärung&gt;</em></p>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-design-decisions">8. Entwurfsentscheidungen</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/08_design_decisions.adoc[]</p>
+<p><em>Dieser Abschnitt ist möglichweise zu vernachlässigen.</em></p>
+</div>
+<div class="paragraph">
+<p>Es geht hier darum große und wichtige Entscheidungen die während des Entwicklungsprozesses entstehen zu erklären und zu
+begründen.
+Es werden also Alternativen miteinader verglichen, abgewogen und die Beste ausgewählt.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aufbau_der_datenbank">8.1. Aufbau der Datenbank</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./documentation/images/ER-Modell.png" alt="ER Modell">
+</div>
+</div>
+<div class="sect3">
+<h4 id="_directory">8.1.1. Directory</h4>
+<div class="paragraph">
+<p>Das Datenobjekt 'Directory' stellt einen Ordner dar.
+'Directory' hat ein Attribut 'name'. Dies stellt den Namen des Ordners dar.</p>
+</div>
+<div class="paragraph">
+<p>Außerdem hat der Entity 'Directory' ein Attribut 'group'.
+Im Attribut 'group' wird eine ID gespeichert, welche die Gruppe des Ordners identifiziert.
+Zusätzlich hat ein Ordner eine eindeutige 'ID'.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_permissions">8.1.2. Permissions</h4>
+<div class="paragraph">
+<p>Das Datenbankobjekt 'DirectoryPermissions' stellt die Berechtigungen für die erstellten Ordner dar.
+Die 'DirectoryPermissions haben eine eindeutige 'ID'.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_permissionentry">8.1.3. PermissionEntry</h4>
+<div class="paragraph">
+<p>Das Datenbankobjekt 'DirectoryPermissionsEntry' stellt Berechtigungsinformationen dar.
+'DirectoryPermissionsEntry' hat eine eindeutige ID.
+Außerdem hat 'DirectoryPermissionsEntry' ein Attribut 'role'. 'role' stellt die Rolle (Student, Organisator) in der
+Gruppe dar. Für die Rolle gibt es Informationen, ob der Benutzer lesen, schreiben oder löschen darf. Deswegen haben
+wir 3 boolean Attribute für lesen, schreiben und löschen erstellt ('canRead', 'canWrite', 'canDelete').</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_fileinfo">8.1.4. FileInfo</h4>
+<div class="paragraph">
+<p>In dem Datenbankobjekt 'FileInfo' sind Informationen einer Datei dargestellt.</p>
+</div>
+<div class="paragraph">
+<p>Das Attribut 'owner' speichert den Namen des Inhabers der Datei.
+Außerdem speichern wir die Größe ('size'), den Namen ('name') und den Typ der Datei ('type').
+Zusätzlich hat jede 'FileInfo' eine eindeutige 'ID'.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_file_tag">8.1.5. File_tag</h4>
+<div class="paragraph">
+<p>Hier speichern wir Tags für die Files (Dateien). Das Attribut 'name' speichert den Namen des Tags.
+Außerdem hat jeder Tag eine eindeutige 'ID'.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_beziehungen">8.1.6. Beziehungen</h4>
+<div class="sect4">
+<h5 id="_directory_hat_fileinfo">Directory hat FileInfo</h5>
+<div class="paragraph">
+<p>Hier haben wir eine 1 zu N Beziehung weil ein Ordner('Directory') mehrere Dateien('FileInfo') enthalten kann.
+Wiederum kann ein File genau in einem Ordner liegen. Entweder es liegt im Root-Directory oder in einem Unterordner.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_directory_parent_directory">Directory parent Directory</h5>
+<div class="paragraph">
+<p>'Directory' hat eine rekursive Beziehung mit sich selbst. Denn ein Ordner kann mehrere Unterordner haben und jeder
+Ordner liegt in höchstens einem Ordner. Ein Ordner kann auch in keinem Ordner liegen, da wir beschlossen haben, dass
+ein Kurs auch ein Ordner und somit der Stammordner (Root-Directory) ist.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_fileinfo_hat_filetag">FileInfo hat FileTag</h5>
+<div class="paragraph">
+<p>Hier haben wir eine 1 zu N Beziehung. Logischerweise kann ein File mehrere Tags haben aber immer wenn ein Tag erstellt
+wird, wird es genau zu einem File zugeordnet.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_directory_hat_directorypermissions">Directory hat DirectoryPermissions</h5>
+<div class="paragraph">
+<p>Jedem Ordner wird genau eine Berechtigung zugeteilt. Somit wissen wir welche Zugriffe die Rollen haben. Eine
+Berechtigung ('DirectoryPermissions') kann mehreren Ordnern zugeteilt werden da wir beschlossen haben, dass nur die
+one-level Ordner eine Berechtigung haben.
+Alle Unterordner erben von deren one-Level Ordner. Außerdem hat die Root-directory auch eine eigene Berechtigung
+('DirectoryPermissions'), denn hier können auch Dateien gespeichert werden.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_directorypermissions_hat_directorypermissionsentry">DirectoryPermissions hat DirectoryPermissionsEntry</h5>
+<div class="paragraph">
+<p>Hier haben wir eine 1 zu N Beziehung.
+Das Datenbankobjekt 'DirectoryPermissions' nimmt Berechtigungsinformationen von 'DirectoryPermissionsEntry'. Somit kann
+eine 'Permission' mehrere Berechtigungsinformationen für bestimmte Rollen haben.
+Wiederum wird immer eine 'DirectoryPermissionsEntry' zu genau einer 'DirectoryPermissions' zugeordnet.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_archunit_tests">8.2. ArchUnit Tests</h3>
+<div class="paragraph">
+<p>_Als erstes haben wir uns die Vorlesung zu ArchUnit <code>Vorlesung 14 PP2</code> durchgelesen und bearbeitet. Danach haben wir die
+Tests <code>onlyAggregateRootsArePublic</code>, <code>oneAggregateRootPerAggregate</code> und <code>checkIfLayeredArchitectureIsNotViolated</code>
+geschrieben und dazu eine Hilfsannotation <code>AggregateRoot</code> geschrieben.
+Der erste Test ist dafür da, um zu schauen, ob nur AggregateRoots Public sind und ob alle anderen Klassen privat sind.
+Der zweite Test ist dafür da, um zu sehen, ob es nur eine einzige AggregateRoot pro Package gibt, welche mit anderen
+Packages kommunizieren kann.
+Der dritte Test überprüft, ob die Schicht-Architektur eingehalten wird.
+Die zusätzliche Annotation ist dafür da, um die AggregateRoot zu markieren, damit die Überprüfung zu erleichtern und
+auch die Lesbarkeit und Verständlichkeit der Klassen und Packages zu verbessern. Hier haben wir am 09.03. drei neue
+Tests hinzugefügt&#8230;&#8203;
+Der vierte Test, also <code>allControllersShouldResideInMopsPresentation</code> sorgt dafür, dass alle Controller im
+Presentation-Layer liegen müssen, da es bei der Schicht-Architektur so gehört.
+Der fünfte Test, <code>everythingInPresentationShouldBeAController</code> ist eine Ergänzung des vorherigen und schaut, ob alle
+Controller im Presentation-Package sind, da man sie ja eigentlich nur da brauchen würde.
+Der letzte Test ist ein double-check, ob es keine cycles im Projekt gibt, was eigentlich durch die Schicht-Architektur
+Vorraussetzung ist, aber dies ist ein zusätzlicher Test,
+ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_filestorage">8.3. FileStorage</h3>
+<div class="paragraph">
+<p><em>Als Schnittstelle für die Dateispeicherung haben wir MinIO gewählt, weil es vorgegeben wurde. Die erforderliche Konfiguration erfolgt über Umgebungsvariablen um einen möglichst flexiblen Einsatz zu ermöglichen.</em></p>
+</div>
+<div class="paragraph">
+<p><em>Die erforderlichen Umgebungsvariablen lauten:</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>MINIO_HOST</p>
+</li>
+<li>
+<p>MINIO_PORT</p>
+</li>
+<li>
+<p>MINIO_BUCKET_NAME</p>
+</li>
+<li>
+<p>MINIO_ACCESS_KEY</p>
+</li>
+<li>
+<p>MINIO_SECRET_KEY</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Im Entwicklungsprozess sind diese durch Default-Werte (welche im Dev Docker Container gesetzt werden) vorgegeben.</em></p>
+</div>
+<div class="paragraph">
+<p><em>Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach ersetzt werden, wenn eine andere Lösung zur Speicherung von Dateien genutzt wird.</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_entscheidung_n">8.4. <em>&lt;Entscheidung n&gt;</em></h3>
+<div class="paragraph">
+<p><em>&lt;Erklärung&gt;</em></p>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-quality-scenarios">9. Qualitätsanforderungen</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/09_quality_scenarios.adoc[]</p>
+<p><em>Dieser Abschnitt ist möglicherweise zu vernachlässigen.</em></p>
+</div>
+<div class="paragraph">
+<p>Der Abschnitt ist im Prinzip eine genauere Variante des in 1.2 beschriebenen.
+Er ist nur dann relevant, wenn abgesehen von ven dort erläuterten Anforderungen noch mehrere, kleinere Anforderungen
+existieren, die nicht relevant genug für die dortigen Auflistung waren.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_qualitätsbaum">9.1. Qualitätsbaum</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Die einzelnen Qualitätsanforderungen werden hier in einem Baum dargestellt. Geordnet nach ihrer Priorität.
+Die einzelnen Forderungen verweisen dabei auf die jeweiligen Qualitätsszenarien.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_qualitätsszenarien">9.2. Qualitätsszenarien</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Hier werden die oftmals abstrakten Qualitätsanforderungen mittels anschaulicher Szenarien genauer präzisiert.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_szenario_1">9.2.1. <em>&lt;Szenario 1&gt;</em></h4>
+<div class="paragraph">
+<p><em>&lt;Erklärung&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_szenario_2">9.2.2. <em>&lt;Szenario 2&gt;</em></h4>
+<div class="paragraph">
+<p><em>&lt;Erklärung&gt;</em></p>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_szenario_n">9.2.3. <em>&lt;Szenario n&gt;</em></h4>
+<div class="paragraph">
+<p><em>&lt;Erklärung&gt;</em></p>
 </div>
 <div style="page-break-after: always;"></div>
-<div class="paragraph">
-<p>Unresolved directive in documentation.adoc - include::doc/documentation/10_glossary.adoc[]</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-glossary">10. Glossar</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Eine klare Definition aller Begriffe, die möglicherweise dem Team oder auch außenstehenden nicht einheitlich klar sind.
+Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskussionen vorzubeugen.</p>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Begriff</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rolle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Die Berechtigungsstufe eines Nutzers im System; je nach Kontext entweder global oder lokal in einem Kurs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileInfo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Die Metadaten einer Datei im System</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Directory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ein (virtueller) Ordner im System</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DirectoryPermissions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Die Berechtigungen (Lesen, Hochladen, Löschen) die jede Rolle hat; einem Ordner zugeordnet</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-13 20:56:04 UTC
+Last updated 2020-03-13 21:07:51 UTC
 </div>
 </div>
 </body>
