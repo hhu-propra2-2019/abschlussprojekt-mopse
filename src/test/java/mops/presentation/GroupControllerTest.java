@@ -52,7 +52,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     void setup() throws MopsException {
         given(fileService.getAllFilesOfGroup(any(), eq(1L))).willReturn(List.of());
         given(fileService.searchFilesInGroup(any(), eq(1L), any())).willReturn(List.of());
-        given(groupService.getGroupUrl(any(), eq(1L))).willReturn(new GroupDirUrlWrapper(1L));
+        given(groupService.getGroupUrl(any(), eq(1L))).willReturn(new GroupRootDirWrapper(1L, 2L));
     }
 
     /**
@@ -63,8 +63,9 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     void getGroupUrl() throws Exception {
         mockMvc().perform(get("/material1/group/1/url"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.url").value("/material1/dir/1"))
-                .andExpect(jsonPath("$.group_id").value(1L));
+                .andExpect(jsonPath("$.group_id").value(1L))
+                .andExpect(jsonPath("$.root_dir_id").value(2L))
+                .andExpect(jsonPath("$.root_dir_url").value("/material1/dir/2"));
     }
 
     /**
@@ -72,8 +73,19 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      */
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
-    void getAllFilesOfDirectory() throws Exception {
+    void getRootDirectory() throws Exception {
         mockMvc().perform(get("/material1/group/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/material1/dir/2"));
+    }
+
+    /**
+     * Tests if the redirect to the group's root directory works.
+     */
+    @Test
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void getAllFilesOfDirectory() throws Exception {
+        mockMvc().perform(get("/material1/group/1/files"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("files"));
     }
