@@ -94,6 +94,10 @@ class ArchitectureRulesTest {
             .should()
             .beAnnotatedWith(Service.class);
 
+    /**
+     * This tests if all classes that are annotated with @Service
+     * also have Service in their name, because otherwise it would be confusing.
+     */
     @ArchTest
     static final ArchRule EVERYTHING_ANNOTATED_WITH_SERVICE_SHOULD_HAVE_SERVICE_IN_NAME = classes()
             .that()
