@@ -1,0 +1,24 @@
+= Role Permissions
+
+* Ersetzen von Dateien erfordert Berechtigungen für `Löschen` _und_ `Hochladen`
+
+* Besitzer der Datei hat Vollzugriff
+** [x] `Lesen`
+** [x] `Löschen`
+
+* Ansonsten Berechtigungen für die Ordner direkt unter dem Root-Verzeichnis, die sich auf die darunterliegenden Dateien
+vererben
+** Mitglied
+*** [x] `Lesen`
+*** [ ] `Löschen`
+*** [ ] `Hochladen`
+
+** Administrator
+*** [x] `Lesen`
+*** [x] `Löschen`
+*** [x] `Hochladen`
+
+** Außenstehender
+*** [ ] `Lesen`
+*** [ ] `Löschen`
+*** [ ] `Hochladen`

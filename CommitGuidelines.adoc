@@ -1,0 +1,14 @@
+= Commit Guidelines
+
+
+== Präfix
+
+* ADD:
+* UPDATE:
+* REMOVE:
+* FIX:
+* REFACTOR:
+
+== Nachricht
+
+Kurzer Header, wenn nötig ganze Sätze in den Nachrichtenkörper.

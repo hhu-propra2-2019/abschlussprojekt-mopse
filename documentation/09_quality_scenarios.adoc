@@ -1,0 +1,39 @@
+[[section-quality-scenarios]]
+== Qualitätsanforderungen
+
+****
+_Dieser Abschnitt ist möglicherweise zu vernachlässigen._
+
+Der Abschnitt ist im Prinzip eine genauere Variante des in 1.2 beschriebenen.
+Er ist nur dann relevant, wenn abgesehen von ven dort erläuterten Anforderungen noch mehrere, kleinere Anforderungen
+existieren, die nicht relevant genug für die dortigen Auflistung waren.
+
+****
+
+=== Qualitätsbaum
+
+****
+Die einzelnen Qualitätsanforderungen werden hier in einem Baum dargestellt. Geordnet nach ihrer Priorität.
+Die einzelnen Forderungen verweisen dabei auf die jeweiligen Qualitätsszenarien.
+****
+
+=== Qualitätsszenarien
+
+****
+Hier werden die oftmals abstrakten Qualitätsanforderungen mittels anschaulicher Szenarien genauer präzisiert.
+
+****
+
+==== _<Szenario 1>_
+
+_<Erklärung>_
+
+==== _<Szenario 2>_
+
+_<Erklärung>_
+
+...
+
+==== _<Szenario n>_
+
+_<Erklärung>_

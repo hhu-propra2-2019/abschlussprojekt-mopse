@@ -1,0 +1,21 @@
+= Use Case Guidelines
+
+
+== Name
+
+- Benutzer_Funktion_Spezifikation
+- Rollenname originial (deutsch), rest Englisch
+
+=== Beispiel
+- Benutzer_Download_Single
+- Administrator_Upload_3Files
+
+=== Format
+
+* Überschrift
+- Ausgangslage
+* Überschrift 1
+** Schritt 1.1
+** Schritt 1.X
+* Überschrift X
+

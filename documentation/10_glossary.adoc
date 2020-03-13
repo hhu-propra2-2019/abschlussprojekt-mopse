@@ -1,0 +1,26 @@
+[[section-glossary]]
+== Glossar
+
+****
+Eine klare Definition aller Begriffe, die möglicherweise dem Team oder auch außenstehenden nicht einheitlich klar sind.
+Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskussionen vorzubeugen.
+****
+
+[cols="1,2" options="header"]
+|===
+|Begriff
+|Definition
+
+|Rolle
+|Die Berechtigungsstufe eines Nutzers im System; je nach Kontext entweder global oder lokal in einem Kurs
+
+|FileInfo
+|Die Metadaten einer Datei im System
+
+
+|Directory
+|Ein (virtueller) Ordner im System
+
+|DirectoryPermissions
+|Die Berechtigungen (Lesen, Hochladen, Löschen) die jede Rolle hat; einem Ordner zugeordnet
+|===

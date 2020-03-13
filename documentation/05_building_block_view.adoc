@@ -1,0 +1,247 @@
+[[section-building-block-view]]
+== Bausteinsicht
+
+****
+_Eine Auflistung und Erklärung aller Bausteine des Systems.
+Das wären zum Beispiel:_
+
+* _Module_
+* _Komponenten_
+* _Subsysteme_
+* _Klassen_
+* _Interfaces_
+* _Pakete_
+* _Bibliotheken_
+* _Frameworks_
+* _Schichten_
+* _Funktionen_
+* _Datenstrukturen__
+
+_Diese Sicht sollte in jeder Architekturdokumentation vorhanden sein.
+In der Analogie zum Hausbau bildet die Bausteinsicht den Grundrissplan._
+
+_Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren Beschreibungen._
+
+image:05_building_blocks-DE.png["Baustein Sichten"]
+
+_Die *Gesamtabgrenzung* zeigt unser System in Abgrenzung zu Nachbarsystemen._
+
+_*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen Bausteine (in unserem Fall die einzelnen Schichten)._
+
+_*Ebene 2* zoomt in die einzelnen Schichten hinein und zeigt die darin enthaltenen Komponenten._
+
+_*Ebene 3* zoomt in die Komponenten hinein und beschreibt deren einzelne Funktionen und Schnittstellen genauer._
+****
+
+=== Gesamtabgrenzung
+
+****
+_Eine Beschreibung des Gesamtsystems als Whitebox nach folgendem Template:_
+
+* _Ein Übersichtsdiagramm_
+* _die Begründung dieser Zerlegung_
+* _Blackbox-Beschreibungen der hier enthaltenen Bausteine mittels einer Tabelle._
+
+_Es geht um die Abgrenzung unseres Systems zu den Nachbarsystemen anderer Gruppen._
+
+image:Gesamtuebersicht.png["Gesamtübersicht"]
+
+Begründung:: <Erläuternder Text>
+
+Enthaltene Bausteine::
+
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| Keycloak | _Authentifizierung und Authentifikation der User._ | _Wir erzeugen uns dafür ein eigenes Account Objekt._
+|===
+****
+
+=== Ebene 1
+
+****
+_Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie zuvor auch._
+
+image:Ebene1.png["Ebene 1"]
+
+Begründung:: <Erläuternder Text>
+
+Enthaltene Bausteine::
+
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| <Komponente-1> | _<Funktion-1>_ | _<Schnittstellen-1>_
+| <Komponente-2> | _<Funktion-2>_ | _<Schnittstellen-2>_
+|===
+****
+
+=== Ebene 2
+
+****
+_Ebene 2 zeigt die einzelnen Schichten im Detail und deren Komponenten.
+Darstellung nach gleichem Schema wie zuvor._
+
+image:Ebene2.png["Ebene 2"]
+
+Begründung:: Von der HTML Presentation aus wird je nach Route ein bestimmter Controller in der Presentation Layer angesteuert.
+Jeder Controller repräsentiert damit einen Routenanfang `/material1/{routenBeginn}`.
+Hierdurch werden zu große Controller vermieden und Übersicht geschaffen.
+
+Die Services der Business Layer bearbeiten die Anfragen der Controller und stellen diese die angefragten Daten zur Verfügung.
+Die von ihnen benötigten Daten holen sie sich wiederum von der Persitence Layer.
+
+In der Persistence Layer liegen die Repositorys, die im Prinzip direkte Schnittstellen zwischen den Anfragen der Services und der Database Layer darstellen.
+Sie verarbeiten also deren Anfragen und leiten sie an die Database Layer weiter.
+
+Die Database Layer wiederum beinhaltet alle Daten, die bei uns gespeichert werden.
+Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.
+
+Presentation Layer::
+
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+
+| DirectoryController
+| _Stellt den Inhalt eines angefragten Ordners zur Verfügung._
+| _Dateiinformation bekommt er vom `FileService` und die Ordnerinformationen vom `DirectoryService`._
+
+| ExceptionHandler
+| _Fängt sämtliche Exceptions, die im Projekt geworfen werden und stellt diese bereit._
+| _Ein Administrator kann hier alle Exceptions einsehen._
+
+| FileController
+| _Stellt angefragte Dateien zur Verfügung._
+| _Alle Informationen bekommt er vom `FileService`._
+
+| GroupController
+| _Stellt den Inhalt einer Gruppe zur Verfügung._
+| _Gruppeninformationen werden beim `GroupService` angefragt und die Dateiinformationen bekommt er vom `FileService`._
+
+| GroupsController
+| _Stellt alle Gruppen eines Benutzers zur Verfügung._
+| _Alle Gruppeninformationen erhält er vom `GroupService`.
+
+| HTML Presentation
+| _UI_
+| _Stellt Anfragen an die Controller._
+|===
+
+Business Layer::
+
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| DirectoryService
+| _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner._
+| _Die Informationen über die Dateien holt er sich vom `FileInfoService`. Um die Berechtigungen eines einzelnen Benutzers zu überprüfen, wird eine Anfrage an den `PermissionService` gestellt, während die Berechtigungen des Ordners vom `DirectoryPermissionRepository` zur Verfügung gestellt werden. Um Operatioen, die andere Ordner involvieren, ausführen zu können, wird beim `DirectoryRepository` angefragt._
+
+| FileInfoService
+| _Verwaltet alle Metadaten einer Datei in Form des Objektes `FileInfo`._
+| _Um die benötigten Daten zu erhalten wird eine Anfrage an das `FileInfoRepository` gestellt._
+
+| FileService
+| _Verwaltet die Funktionen einer Datei. Dabei wird die Datei selbst mit ihren Metadaten verknüpft._
+| _Mittels einer Anfrage an den `FileInfoService` werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten._
+
+| GroupService
+| _Verwaltet alle Inhalte einer einzelnen Gruppe. Ordner sowie Dateien._
+| _Um die Informationen über die Unterordner einer Gruppe zu erhalten, wird eine Anfrage an den `DirectoryService` gestellt._
+
+| PermissionService
+| _Stellt die Berechtigungen eines einzelnen Benutzers zur Verfügung._
+| _Stellt eine Anfrage an das Modul `Gruppenbildung`, um die Berechtigungen eines Benutzers in einer Gruppe zu erhalten._
+
+| RoleService
+| _Checkt die Rolenberechtigung eines Nutzers._
+| _Es stellt Berechtigungsanfragen an den `PermissionService`._
+|===
+
+Persistence Layer::
+
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| DirectoryPermissionRepository
+| _Ist die Schnittstelle zur `Datenbank` für die Berechtigungen einen Ordners._
+| _Stellt eine Anfrage an die `Datenbank`, um ein Berechtigungsobjekt zu erhalten._
+
+| DirectoryRepository
+| _Ist die Schnittstelle zur `Datenbank` für das Erhalten eines Ordners._
+| _Stellt eine Anfrage an die `Datenbank`, um ein Ordnerobjekt zu erhalten._
+
+| FileInfoRepository
+| _Ist die Schnittstelle zur `Datenbank` für die Metadaten einer Datei._
+| _Stellt eine Anfrage an die `Datenbank`, um ein Dateimetadatenobjekt zu erhalten._
+
+| FileRepository
+| _Ist die Schnittstelle zu `MinIO`._
+| _Stellt eine Anfrage mit einer DateiID an `MinIO` um die entsprechende Datei zu erhalten._
+|===
+
+Database Layer::
+
+[cols="1,1,1" options="header"]
+|===
+|Komponente |Funktion | Schnittstellen
+| Datenbank
+| _Stellt sämtliche Datenbankobjekte zur Verfügung._
+| _Es werden ausschließlich Anfragen an die *Datenbank* gestellt._
+
+| MinIO
+| _Stellt benötigte Dateien zur Verfügung._
+| _Es werden ausschließlich Anfragen an *MinIO* gestellt.*_
+|===
+****
+
+=== Ebene 3
+
+****
+_Ebene 3 zeigt die einzelnen Komponenten einer Schicht im Detail und deren Funktionen.
+Darstellung nach gleichem Schema wie zuvor._
+
+image:Ebene3.png["Ebene 3"]
+
+Begründung:: <Erläuternder Text>
+
+Enthaltene Bausteine::
+
+[cols="1,1,1" options="header"]
+|===
+| Komponente | Funktion | Schnittstellen
+| DirectoryController | _Nimmt Anfragen mit der Routen beginnend mit `dir` entgegen._ |
+| <Komponente-2> | _<Funktion-2>_ | _<Schnittstelle-2>_
+|===
+
+DirectoryController::
+
+Dieser hat folgende Routen:
+
+include::../../build/generated-snippets/index/DirectoryController/show-content/path-parameters.adoc[]
+include::../../build/generated-snippets//index/DirectoryController/create-folder/path-parameters.adoc[]
+include::../../build/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
+include::../../build/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
+include::../../build/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]
+
+FileController::
+
+Dieser hat folgende Routen:
+
+include::../../build/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
+include::../../build/generated-snippets/index/FileController/download-file/path-parameters.adoc[]
+
+GroupController::
+
+Dieser hat folgende Routen:
+
+include::../../build/generated-snippets/index/GroupController/get-all-files-of-directory/path-parameters.adoc[]
+include::../../build/generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
+include::../../build/generated-snippets/index/GroupController/search-file/path-parameters.adoc[]
+
+GroupsController::
+
+Dieser hat folgende Routen:
+
+include::../../build/generated-snippets/index/GroupsController/get-all-groups/httpie-request.adoc[]
+****
