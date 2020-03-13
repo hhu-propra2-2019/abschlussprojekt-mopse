@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import mops.exception.MopsException;
 import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,22 @@ public interface FileInfoService {
      * @param dirId directory id
      * @return a list of files in that directory
      */
-    List<FileInfo> fetchAllFilesInDirectory(long dirId);
+    List<FileInfo> fetchAllFilesInDirectory(long dirId) throws MopsException;
 
+    /**
+     * @param fileId file id
+     * @return a FileInfo object
+     */
+    FileInfo fetchFileInfo(long fileId) throws MopsException;
+
+    /**
+     * @param fileInfo Metadata of a file
+     * @return the freshly saved FileInfo
+     */
+    FileInfo saveFileInfo(FileInfo fileInfo) throws MopsException;
+
+    /**
+     * @param fileId file id
+     */
+    void deleteFileInfo(long fileId) throws MopsException;
 }
