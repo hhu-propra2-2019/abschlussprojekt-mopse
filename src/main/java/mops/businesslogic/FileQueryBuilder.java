@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
+@SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
 public class FileQueryBuilder {
     /**
      * List of owner to search for.
