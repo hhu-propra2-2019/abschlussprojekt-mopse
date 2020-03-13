@@ -12,13 +12,13 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class AccountUtilTest {
+class AccountUtilTest {
 
     /**
      * Tests if the account is correctly build from token.
      */
     @Test
-    public void getAccountFromToken() {
+    void getAccountFromToken() {
         String userName = "studi";
         String userEmail = "bla@bla.com";
         Set<String> roles = Set.of("studentin");

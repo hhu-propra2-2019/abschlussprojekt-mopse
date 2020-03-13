@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class KeycloakConfig {
+
     /**
      * Necessary keycloak config.
      *
@@ -20,4 +21,5 @@ public class KeycloakConfig {
     public KeycloakSpringBootConfigResolver keycloakConfigResolver() {
         return new KeycloakSpringBootConfigResolver();
     }
+
 }

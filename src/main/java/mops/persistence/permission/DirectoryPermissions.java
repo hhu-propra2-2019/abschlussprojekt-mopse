@@ -27,12 +27,6 @@ public class DirectoryPermissions {
     @Setter(AccessLevel.PRIVATE)
     private Long id;
     /**
-     * This is necessary because Spring Data JDBC is unable to UPDATE empty objects.
-     */
-    @Getter(AccessLevel.PRIVATE)
-    @Setter(AccessLevel.PRIVATE)
-    private boolean fixJdbcBug;
-    /**
      * The permission entries.
      */
     @NonNull
@@ -67,6 +61,48 @@ public class DirectoryPermissions {
      */
     public Instant getLastModifiedTime() {
         return lastModifiedTime == null ? Instant.EPOCH : lastModifiedTime.toInstant();
+    }
+
+    /**
+     * Checks if a role has writing access.
+     *
+     * @param userRole role of the user in group
+     * @return boolean if user is allowed to write
+     */
+    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
+    public boolean isAllowedToWrite(String userRole) {
+        return permissions.stream()
+                .filter(DirectoryPermissionEntry::isCanWrite)
+                .map(DirectoryPermissionEntry::getRole)
+                .anyMatch(userRole::equals);
+    }
+
+    /**
+     * Checks if a role has reading access.
+     *
+     * @param userRole role of the user in group
+     * @return boolean if user is allowed
+     */
+    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
+    public boolean isAllowedToRead(String userRole) {
+        return permissions.stream()
+                .filter(DirectoryPermissionEntry::isCanRead)
+                .map(DirectoryPermissionEntry::getRole)
+                .anyMatch(userRole::equals);
+    }
+
+    /**
+     * Checks if a role has deleting access.
+     *
+     * @param userRole role of the user in group
+     * @return boolean if user is allowed to delete
+     */
+    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
+    public boolean isAllowedToDelete(String userRole) {
+        return permissions.stream()
+                .filter(DirectoryPermissionEntry::isCanDelete)
+                .map(DirectoryPermissionEntry::getRole)
+                .anyMatch(userRole::equals);
     }
 
     /**

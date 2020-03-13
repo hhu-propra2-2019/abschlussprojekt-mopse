@@ -3,11 +3,14 @@ package mops.businesslogic;
 import mops.exception.MopsException;
 import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public interface FileService {
+
     /**
      * Returns all files of a group.
      *
@@ -16,6 +19,14 @@ public interface FileService {
      * @return list of all files in that directory
      */
     List<FileInfo> getAllFilesOfGroup(Account account, long groupId) throws MopsException;
+
+    /**
+     * @param account       user credentials
+     * @param dirId         directory id of the future parent folder
+     * @param multipartFile the binary code of the file
+     * @param tags          the file tag
+     */
+    void uploadFile(Account account, long dirId, MultipartFile multipartFile, Set<String> tags) throws MopsException;
 
     /**
      * Searches for files in a group.
@@ -54,4 +65,5 @@ public interface FileService {
      * @return parent directory Id
      */
     long deleteFile(Account account, long fileId) throws MopsException;
+
 }

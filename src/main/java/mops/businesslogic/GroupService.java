@@ -7,6 +7,7 @@ import java.util.List;
 
 @Service
 public interface GroupService {
+
     /**
      * Fetches all visible groups of one user.
      *
@@ -21,4 +22,5 @@ public interface GroupService {
      * @return a wrapper for group urls
      */
     GroupDirUrlWrapper getGroupUrl(Account account, long groupId) throws MopsException;
+
 }

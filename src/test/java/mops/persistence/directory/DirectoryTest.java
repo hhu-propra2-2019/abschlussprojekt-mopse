@@ -58,9 +58,9 @@ class DirectoryTest {
     void failSave() {
         Directory wrong = Directory.builder()
                 .name("")
-                .parentId(0L)
+                .parent(0L)
                 .groupOwner(0L)
-                .permissionsId(0L)
+                .permissions(0L)
                 .build();
 
         assertThatThrownBy(() -> repo.save(wrong))

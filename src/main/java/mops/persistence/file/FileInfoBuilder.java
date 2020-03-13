@@ -7,6 +7,8 @@ import mops.persistence.directory.Directory;
 import mops.utils.AggregateBuilder;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,9 +16,13 @@ import java.util.Set;
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
-        "PMD.BeanMembersShouldSerialize" })
+        "PMD.BeanMembersShouldSerialize" }) // this is a builder
 public class FileInfoBuilder {
 
+    /**
+     * Database Id.
+     */
+    private Long id;
     /**
      * File name.
      */
@@ -41,6 +47,10 @@ public class FileInfoBuilder {
      * File tags.
      */
     private final Set<FileTag> tags = new HashSet<>();
+    /**
+     * Creation Time.
+     */
+    private Instant creationTime;
 
     /**
      * Initialize from existing FileInfo.
@@ -49,12 +59,14 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder from(@NonNull FileInfo file) {
+        this.id = file.getId();
         this.name = file.getName();
         this.directoryId = file.getDirectoryId();
         this.type = file.getType();
         this.size = file.getSize();
         this.owner = file.getOwner();
         file.getTags().stream().map(FileTag::getName).forEach(this::tag);
+        this.creationTime = file.getCreationTime();
         return this;
     }
 
@@ -68,6 +80,17 @@ public class FileInfoBuilder {
         this.name = file.getName();
         this.type = file.getContentType();
         this.size = file.getSize();
+        return this;
+    }
+
+    /**
+     * Set id.
+     *
+     * @param id id
+     * @return this
+     */
+    public FileInfoBuilder id(Long id) {
+        this.id = id;
         return this;
     }
 
@@ -91,7 +114,7 @@ public class FileInfoBuilder {
      * @param directoryId is the directoryId
      * @return this
      */
-    public FileInfoBuilder directoryId(long directoryId) {
+    public FileInfoBuilder directory(long directoryId) {
         this.directoryId = directoryId;
         return this;
     }
@@ -186,12 +209,22 @@ public class FileInfoBuilder {
      * Builds the FileInfo.
      *
      * @return composed FileInfo
-     * @throws IllegalStateException if FileInfoBuilder is not complete
+     * @throws IllegalStateException if FileInfo is not complete
      */
     public FileInfo build() {
         if (name == null || directoryId == -1L || type == null || size == -1L || owner == null) {
-            throw new IllegalStateException("FileInfoBuilder is not complete!");
+            throw new IllegalStateException("FileInfo is not complete!");
         }
-        return new FileInfo(null, name, directoryId, type, size, owner, tags, null, null);
+        return new FileInfo(
+                id,
+                name,
+                directoryId,
+                type,
+                size,
+                owner,
+                tags,
+                creationTime == null ? null : Timestamp.from(creationTime),
+                null
+        );
     }
 }

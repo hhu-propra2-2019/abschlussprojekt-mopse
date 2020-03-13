@@ -1,8 +1,7 @@
-package mops;
+package mops.architecture;
 
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
-import com.tngtech.archunit.junit.ArchTag;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 import mops.utils.AggregateBuilder;
@@ -12,11 +11,11 @@ import org.springframework.stereotype.Controller;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
-import static mops.HaveExactlyOneAggregateRoot.HAVE_EXACTLY_ONE_AGGREGATE_ROOT;
+import static mops.architecture.ArchitectureRuleConfig.*;
+import static mops.architecture.HaveExactlyOneAggregateRoot.HAVE_EXACTLY_ONE_AGGREGATE_ROOT;
 
-@ArchTag("checkArchitecture")
 @AnalyzeClasses(importOptions = ImportOption.DoNotIncludeTests.class, packages = "mops")
-public class ArchitectureRulesTest {
+class ArchitectureRulesTest {
 
     /**
      * This test looks out for public classes that aren't annotated
@@ -30,7 +29,7 @@ public class ArchitectureRulesTest {
             .and()
             .areNotAnnotatedWith(AggregateBuilder.class)
             .and()
-            .resideInAPackage(".." + ArchitectureRuleConfig.MOPS_PERSISTENCE)
+            .resideInAPackage(".." + MOPS_PERSISTENCE)
             .should()
             .notBePublic()
             .because("The implementation of an aggregate should be hidden!");
@@ -41,7 +40,7 @@ public class ArchitectureRulesTest {
      */
     @ArchTest
     static final ArchRule ONE_AGGREGATE_ROOT_PER_PACKAGE = slices()
-            .matching(".." + ArchitectureRuleConfig.MOPS_PERSISTENCE)
+            .matching(".." + MOPS_PERSISTENCE)
             .should(HAVE_EXACTLY_ONE_AGGREGATE_ROOT);
 
     /**
@@ -53,7 +52,7 @@ public class ArchitectureRulesTest {
             .that()
             .areAnnotatedWith(Controller.class)
             .and()
-            .resideOutsideOfPackage(ArchitectureRuleConfig.MOPS_PRESENTATION_BASE)
+            .resideOutsideOfPackage(MOPS_PRESENTATION_BASE)
             .should()
             .notBeAnnotatedWith(Controller.class);
 
@@ -66,7 +65,7 @@ public class ArchitectureRulesTest {
     @ArchTest
     static final ArchRule EVERYTHING_IN_PRESENTATION_SHOULD_BE_A_CONTROLLER = classes()
             .that()
-            .resideInAPackage(ArchitectureRuleConfig.MOPS_PRESENTATION_BASE)
+            .resideInAPackage(MOPS_PRESENTATION_BASE)
             .and()
             .areNotAnnotatedWith(WebMvcTest.class)
             .should()
@@ -77,7 +76,7 @@ public class ArchitectureRulesTest {
      */
     @ArchTest
     static final ArchRule ARE_THERE_ANY_CYCLES_WITHIN_PACKAGES = slices()
-            .matching("mops.(*)..")
+            .matching(MOPS + "..")
             .should()
             .beFreeOfCycles();
 

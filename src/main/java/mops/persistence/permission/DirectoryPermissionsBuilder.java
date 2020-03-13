@@ -5,19 +5,29 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import mops.utils.AggregateBuilder;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
-        "PMD.BeanMembersShouldSerialize" })
+        "PMD.BeanMembersShouldSerialize" }) // this is a builder
 public class DirectoryPermissionsBuilder {
 
+    /**
+     * Database Id.
+     */
+    private Long id;
     /**
      * Permissions.
      */
     private final Set<DirectoryPermissionEntry> entries = new HashSet<>();
+    /**
+     * Creation Time.
+     */
+    private Instant creationTime;
 
     /**
      * Initialize from existing DirectoryPermissions.
@@ -26,7 +36,31 @@ public class DirectoryPermissionsBuilder {
      * @return this
      */
     public DirectoryPermissionsBuilder from(DirectoryPermissions permissions) {
+        this.id = permissions.getId();
         permissions.getPermissions().forEach(e -> entry(e.getRole(), e.isCanRead(), e.isCanWrite(), e.isCanDelete()));
+        this.creationTime = permissions.getCreationTime();
+        return this;
+    }
+
+    /**
+     * Set id.
+     *
+     * @param id id
+     * @return this
+     */
+    public DirectoryPermissionsBuilder id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Set id from permissions.
+     *
+     * @param permissions permissions
+     * @return this
+     */
+    public DirectoryPermissionsBuilder id(DirectoryPermissions permissions) {
+        this.id = permissions == null ? null : permissions.getId();
         return this;
     }
 
@@ -49,12 +83,16 @@ public class DirectoryPermissionsBuilder {
     }
 
     /**
-     * Builds the FileInfo.
+     * Builds the DirectoryPermissions.
      *
-     * @return composed FileInfo
-     * @throws IllegalStateException if DirectoryPermissionsBuilder is not complete
+     * @return composed DirectoryPermissions
      */
     public DirectoryPermissions build() {
-        return new DirectoryPermissions(null, false, entries, null, null);
+        return new DirectoryPermissions(
+                id,
+                entries,
+                creationTime == null ? null : Timestamp.from(creationTime),
+                null
+        );
     }
 }
