@@ -21,6 +21,10 @@ public class FileQueryBuilder {
      * File types to search for.
      */
     private List<String> types;
+    /**
+     * File tags to search for;
+     */
+    private List<String> tags;
 
     /**
      * Builds the object from it's information.
@@ -37,10 +41,14 @@ public class FileQueryBuilder {
         if (types == null) {
             types = List.of();
         }
+        if (tags == null) {
+            tags = List.of();
+        }
         return new FileQueryImpl(
                 fileNames,
                 owners,
-                types
+                types,
+                tags
         );
     }
 
@@ -69,6 +77,15 @@ public class FileQueryBuilder {
      */
     public FileQueryBuilder types(List<String> types) {
         this.types = types;
+        return this;
+    }
+
+    /**
+     * @param tags what the file should be tagged with
+     * @return this
+     */
+    public FileQueryBuilder tags(List<String> tags) {
+        this.tags = tags;
         return this;
     }
 }
