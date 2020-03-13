@@ -1327,13 +1327,101 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/DirectoryController/show-content/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets//index/DirectoryController/create-folder/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 1. /material1/dir/{dir}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 2. /material1/dir/{dir}/create</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 3. /material1/dir/{dir}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 4. /material1/dir/{dir}/search</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 5. /material1/dir/{dir}/upload</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">FileController</dt>
@@ -1342,10 +1430,44 @@ Unresolved directive in documentation/05_building_block_view.adoc - include::../
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/FileController/download-file/path-parameters.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 6. /material1/file/{fileId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fileId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 7. /material1/file/{fileId}/download</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fileId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file id.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">GroupController</dt>
@@ -1354,11 +1476,63 @@ Unresolved directive in documentation/05_building_block_view.adoc - include::../
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/GroupController/get-all-files-of-directory/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/GroupController/search-file/path-parameters.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 8. /material1/group/{groupId}/files</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>groupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 9. /material1/group/{groupId}/url</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>groupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 10. /material1/group/{groupId}/search</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>groupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group id.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">GroupsController</dt>
@@ -1367,8 +1541,10 @@ Unresolved directive in documentation/05_building_block_view.adoc - include::../
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../../build/generated-snippets/index/GroupsController/get-all-groups/httpie-request.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ http GET 'http://localhost:8080/material1/groups'</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1795,7 +1971,7 @@ Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskuss
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-13 21:16:49 UTC
+Last updated 2020-03-13 21:21:02 UTC
 </div>
 </div>
 </body>
