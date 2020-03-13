@@ -32,7 +32,7 @@ public class FileInfoServiceImpl implements FileInfoService {
     @SuppressWarnings("PMD.LawOfDemeter")
     @Override
     public FileInfo fetchFileInfo(long fileId) throws MopsException {
-        return fileInfoRepo.findById(fileId).orElseThrow(() -> new MopsException("..."));
+        return fileInfoRepo.findById(fileId).orElseThrow(() -> new MopsException("Couldn't find File Info!"));
     }
 
     /**
@@ -41,12 +41,12 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
-    public FileInfo saveFileInfo(FileInfo fileInfo) throws MopsException {
+    public FileInfo saveFileInfo(FileInfo fileInfo) throws MopsException{
         try {
             return fileInfoRepo.save(fileInfo);
         } catch (Exception e) {
             //TODO: better exception
-            throw new MopsException("...", e);
+            throw new MopsException("File Info couldn't be saved!", e);
         }
     }
 
@@ -60,7 +60,7 @@ public class FileInfoServiceImpl implements FileInfoService {
             fileInfoRepo.deleteById(fileId);
         } catch (Exception e) {
             //TODO: better exception
-            throw new MopsException("...", e);
+            throw new MopsException("File Info couldn't be deleted!", e);
         }
     }
 }
