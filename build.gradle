@@ -118,7 +118,6 @@ javadoc {
     failOnError = false
 }
 
-
 test {
     useJUnitPlatform()
     outputs.dir snippetsDir
