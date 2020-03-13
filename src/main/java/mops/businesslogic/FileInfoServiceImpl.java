@@ -1,6 +1,7 @@
 package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
+import mops.businesslogic.exception.DatabaseException;
 import mops.exception.MopsException;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.file.FileInfo;
@@ -13,31 +14,38 @@ import java.util.List;
 public class FileInfoServiceImpl implements FileInfoService {
 
     /**
-     * reference to fileInfoRepository.
+     * Access to the FileInfo database.
      */
     private final FileInfoRepository fileInfoRepo;
 
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public List<FileInfo> fetchAllFilesInDirectory(long dirId) throws MopsException {
-        return fileInfoRepo.getAllFileInfoByDirectory(dirId);
+        try {
+            return fileInfoRepo.findAllInDirectory(dirId);
+        } catch (Exception e) {
+            throw new DatabaseException("Couldn't find all files in directory!", e);
+        }
     }
 
     /**
-     * @param fileId file id
-     * @return a FileInfo object
+     * {@inheritDoc}
      */
-    @SuppressWarnings("PMD.LawOfDemeter")
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
     @Override
     public FileInfo fetchFileInfo(long fileId) throws MopsException {
-        return fileInfoRepo.findById(fileId).orElseThrow(() -> new MopsException("Couldn't find File Info!"));
+        try {
+            return fileInfoRepo.findById(fileId).orElseThrow();
+        } catch (Exception e) {
+            throw new DatabaseException("Couldn't find File Info!", e);
+        }
     }
 
     /**
-     * @param fileInfo Metadata of a file
-     * @return ID the FileInfo was saved under
+     * {@inheritDoc}
      */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
@@ -45,13 +53,12 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.save(fileInfo);
         } catch (Exception e) {
-            //TODO: better exception
-            throw new MopsException("File Info couldn't be saved!", e);
+            throw new DatabaseException("File Info couldn't be saved!", e);
         }
     }
 
     /**
-     * @param fileId file id
+     * {@inheritDoc}
      */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
@@ -59,8 +66,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             fileInfoRepo.deleteById(fileId);
         } catch (Exception e) {
-            //TODO: better exception
-            throw new MopsException("File Info couldn't be deleted!", e);
+            throw new DatabaseException("File Info couldn't be deleted!", e);
         }
     }
 }
