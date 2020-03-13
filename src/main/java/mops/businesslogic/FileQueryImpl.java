@@ -7,6 +7,7 @@ import mops.persistence.file.FileInfo;
 import java.util.List;
 import java.util.function.Function;
 
+@SuppressWarnings("PMD.LawOfDemeter") //these are a streams or database objects
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class FileQueryImpl implements FileQuery {
     /**
