@@ -69,7 +69,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     }
 
     /**
-     * Tests if all files of the a group are returned.
+     * Tests if the redirect to the group's root directory works.
      */
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
@@ -80,7 +80,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     }
 
     /**
-     * Tests if the redirect to the group's root directory works.
+     * Tests if all files of the a group are returned.
      */
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
