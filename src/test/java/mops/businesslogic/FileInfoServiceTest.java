@@ -47,6 +47,7 @@ class FileInfoServiceTest {
         fileInfoList.add(fileInfo1);
 
         given(fileInfoRepository.getAllFileInfoByDirectory(1L)).willReturn(fileInfoList);
+        given(fileInfoRepository.getFileInfoById(3L)).willReturn(fileInfo1);
     }
 
     @Test
@@ -55,8 +56,10 @@ class FileInfoServiceTest {
         assertThat(result).isEqualTo(fileInfoList);
     }
 
-    void fetchFileInfo() {
-
+    @Test
+    void fetchFileInfo() throws MopsException {
+        FileInfo  result = fileInfoService.fetchFileInfo(3L);
+        assertThat(result).isEqualTo(fileInfo1);
     }
 
     void saveFileInfo() {
