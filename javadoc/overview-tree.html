@@ -70,6 +70,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="horizontal">
 <li><a href="mops/package-tree.html">mops</a>, </li>
 <li><a href="mops/businesslogic/package-tree.html">mops.businesslogic</a>, </li>
+<li><a href="mops/businesslogic/exception/package-tree.html">mops.businesslogic.exception</a>, </li>
 <li><a href="mops/businesslogic/utils/package-tree.html">mops.businesslogic.utils</a>, </li>
 <li><a href="mops/config/package-tree.html">mops.config</a>, </li>
 <li><a href="mops/exception/package-tree.html">mops.exception</a>, </li>
@@ -95,6 +96,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="circle">mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation"><span class="typeNameLink">DirectoryController</span></a></li>
 <li class="circle">mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission"><span class="typeNameLink">DirectoryPermissions</span></a></li>
 <li class="circle">mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissionsBuilder.html" title="class in mops.persistence.permission"><span class="typeNameLink">DirectoryPermissionsBuilder</span></a></li>
+<li class="circle">mops.businesslogic.<a href="mops/businesslogic/DirectoryServiceImpl.html" title="class in mops.businesslogic"><span class="typeNameLink">DirectoryServiceImpl</span></a> (implements mops.businesslogic.<a href="mops/businesslogic/DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a>)</li>
 <li class="circle">mops.businesslogic.<a href="mops/businesslogic/FileContainer.html" title="class in mops.businesslogic"><span class="typeNameLink">FileContainer</span></a></li>
 <li class="circle">mops.presentation.<a href="mops/presentation/FileController.html" title="class in mops.presentation"><span class="typeNameLink">FileController</span></a></li>
 <li class="circle">mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file"><span class="typeNameLink">FileInfo</span></a></li>
@@ -106,19 +108,29 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </ul>
 </li>
 <li class="circle">mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation"><span class="typeNameLink">GroupController</span></a></li>
-<li class="circle">mops.businesslogic.<a href="mops/businesslogic/GroupDirUrlWrapper.html" title="class in mops.businesslogic"><span class="typeNameLink">GroupDirUrlWrapper</span></a></li>
+<li class="circle">mops.businesslogic.<a href="mops/businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic"><span class="typeNameLink">GroupRootDirWrapper</span></a></li>
 <li class="circle">mops.presentation.<a href="mops/presentation/GroupsController.html" title="class in mops.presentation"><span class="typeNameLink">GroupsController</span></a></li>
 <li class="circle">mops.config.<a href="mops/config/KeycloakConfig.html" title="class in mops.config"><span class="typeNameLink">KeycloakConfig</span></a></li>
 <li class="circle">mops.<a href="mops/Material1Application.html" title="class in mops"><span class="typeNameLink">Material1Application</span></a></li>
+<li class="circle">mops.businesslogic.<a href="mops/businesslogic/RoleServiceImpl.html" title="class in mops.businesslogic"><span class="typeNameLink">RoleServiceImpl</span></a> (implements mops.businesslogic.<a href="mops/businesslogic/RoleService.html" title="interface in mops.businesslogic">RoleService</a>)</li>
 <li class="circle">java.lang.Throwable (implements java.io.Serializable)
 <ul>
 <li class="circle">java.lang.Exception
 <ul>
-<li class="circle">mops.exception.<a href="mops/exception/MopsException.html" title="class in mops.exception"><span class="typeNameLink">MopsException</span></a></li>
+<li class="circle">mops.exception.<a href="mops/exception/MopsException.html" title="class in mops.exception"><span class="typeNameLink">MopsException</span></a>
+<ul>
+<li class="circle">mops.businesslogic.exception.<a href="mops/businesslogic/exception/DatabaseException.html" title="class in mops.businesslogic.exception"><span class="typeNameLink">DatabaseException</span></a></li>
+<li class="circle">mops.businesslogic.exception.<a href="mops/businesslogic/exception/DeleteAccessPermissionException.html" title="class in mops.businesslogic.exception"><span class="typeNameLink">DeleteAccessPermissionException</span></a></li>
+<li class="circle">mops.businesslogic.exception.<a href="mops/businesslogic/exception/ReadAccessPermissionException.html" title="class in mops.businesslogic.exception"><span class="typeNameLink">ReadAccessPermissionException</span></a></li>
+<li class="circle">mops.businesslogic.exception.<a href="mops/businesslogic/exception/StorageLimitationException.html" title="class in mops.businesslogic.exception"><span class="typeNameLink">StorageLimitationException</span></a></li>
+<li class="circle">mops.businesslogic.exception.<a href="mops/businesslogic/exception/WriteAccessPermissionException.html" title="class in mops.businesslogic.exception"><span class="typeNameLink">WriteAccessPermissionException</span></a></li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="circle">mops.businesslogic.<a href="mops/businesslogic/UserPermission.html" title="class in mops.businesslogic"><span class="typeNameLink">UserPermission</span></a></li>
 <li class="circle">org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter (implements org.springframework.security.config.annotation.web.WebSecurityConfigurer&lt;T&gt;)
 <ul>
 <li class="circle">org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter (implements org.springframework.security.config.annotation.web.WebSecurityConfigurer&lt;T&gt;)
@@ -136,10 +148,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
 <li class="circle">mops.businesslogic.<a href="mops/businesslogic/DirectoryService.html" title="interface in mops.businesslogic"><span class="typeNameLink">DirectoryService</span></a></li>
+<li class="circle">mops.businesslogic.<a href="mops/businesslogic/FileInfoService.html" title="interface in mops.businesslogic"><span class="typeNameLink">FileInfoService</span></a></li>
 <li class="circle">mops.businesslogic.<a href="mops/businesslogic/FileQuery.html" title="interface in mops.businesslogic"><span class="typeNameLink">FileQuery</span></a></li>
 <li class="circle">mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic"><span class="typeNameLink">FileService</span></a></li>
 <li class="circle">mops.businesslogic.<a href="mops/businesslogic/Group.html" title="interface in mops.businesslogic"><span class="typeNameLink">Group</span></a></li>
 <li class="circle">mops.businesslogic.<a href="mops/businesslogic/GroupService.html" title="interface in mops.businesslogic"><span class="typeNameLink">GroupService</span></a></li>
+<li class="circle">mops.businesslogic.<a href="mops/businesslogic/PermissionService.html" title="interface in mops.businesslogic"><span class="typeNameLink">PermissionService</span></a></li>
 <li class="circle">org.springframework.data.repository.Repository&lt;T,&#8203;ID&gt;
 <ul>
 <li class="circle">org.springframework.data.repository.CrudRepository&lt;T,&#8203;ID&gt;
@@ -151,6 +165,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </li>
 </ul>
 </li>
+<li class="circle">mops.businesslogic.<a href="mops/businesslogic/RoleService.html" title="interface in mops.businesslogic"><span class="typeNameLink">RoleService</span></a></li>
 </ul>
 </section>
 <section class="hierarchy">

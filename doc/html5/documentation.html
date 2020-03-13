@@ -713,11 +713,11 @@ allem, wenn diese Gruppen selbst noch keine abgeschlossenen Konzepte entworfen h
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Fehlende Ordnerstruktur in MinIO</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Da MinOS keine Ordnerstruktur unterstützt, ist die Anlegung einer virtuellen
-Ordnerstruktur in einer externen Datenbank notwendig.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Da MinIO nur eine virtuelle Ordnerstruktur unterstützt, ist die Anlegung einer
+eigenen Ordnerstruktur in einer externen Datenbank notwendig.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Keycloak erschwert UnitTest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keycloak erschwert UnitTests</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Aufgrund der Sicherheitskomponenten werden die Controller-Tests stark verkompliziert,
 da die Sicherheitsfeatures gemockt werden müssen.</em></p></td>
 </tr>
@@ -827,9 +827,14 @@ Nutzers in einer bestimmten Gruppe.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The id of the group.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.root_dir_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The id of the group&#8217;s root directory.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.root_dir_url</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The url of the group.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The url of the group&#8217;s root directory.</p></td>
 </tr>
 </tbody>
 </table>
@@ -846,7 +851,7 @@ Nutzers in einer bestimmten Gruppe.</em></p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>{"group_id":1,"url":"/material1/dir/1"}</code></pre>
+<pre class="highlight nowrap"><code>{"group_id":1,"root_dir_id":2,"root_dir_url":"/material1/dir/2"}</code></pre>
 </div>
 </div>
 </div>
@@ -1222,9 +1227,9 @@ Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Um die Informationen über die Unterordner einer Gruppe zu erhalten, wird eine Anfrage an den <code>DirectoryService</code> gestellt.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Permissionservice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PermissionService</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt die Berechtigungen eines einzelnen Benutzers zur Verfügung.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage an das Modul <code>Gruppenbildung</code>, um die Berechtigungen eines Benutzers zu erhalten.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage an das Modul <code>Gruppenbildung</code>, um die Berechtigungen eines Benutzers in einer Gruppe zu erhalten.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RoleService</p></td>
@@ -1296,12 +1301,12 @@ Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Datenbank</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt sämtliche Datenbankobjekte zur Verfügung.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es werden ausschließlich Anfragen <strong>an</strong> die Datenbank gestellt.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es werden ausschließlich Anfragen an die <strong>Datenbank</strong> gestellt.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MinIO</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt benötigte Dateien zur Verfügung.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es werden ausschließlich Anfragen <strong>an</strong> MinIO gestellt.*</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es werden ausschließlich Anfragen an <strong>MinIO</strong> gestellt.*</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -1512,7 +1517,7 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </dl>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabelle 9. /material1/group/{groupId}</caption>
+<caption class="title">Tabelle 9. /material1/group/{groupId}/files</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1744,43 +1749,43 @@ Es werden also Alternativen miteinader verglichen, abgewogen und die Beste ausge
 </div>
 </div>
 <div class="sect3">
-<h4 id="_dir">8.1.1. Dir</h4>
+<h4 id="_directory">8.1.1. Directory</h4>
 <div class="paragraph">
-<p>Das Datenobjekt 'Dir' stellt einen Ordner dar.
-'Dir' hat ein Attribut 'name'. Dies stellt den Namen des Ordners dar.</p>
+<p>Das Datenobjekt 'Directory' stellt einen Ordner dar.
+'Directory' hat ein Attribut 'name'. Dies stellt den Namen des Ordners dar.</p>
 </div>
 <div class="paragraph">
-<p>Außerdem hat das Entity 'dir' ein Attribut 'group'.
+<p>Außerdem hat der Entity 'Directory' ein Attribut 'group'.
 Im Attribut 'group' wird eine ID gespeichert, welche die Gruppe des Ordners identifiziert.
 Zusätzlich hat ein Ordner eine eindeutige 'ID'.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_permission">8.1.2. Permission</h4>
+<h4 id="_permissions">8.1.2. Permissions</h4>
 <div class="paragraph">
-<p>Das Datenbankobjekt 'Permission' stellt Berechtigungen für die erstellten Ordner dar.
-Die Permission hat eine eindeutige 'ID'.</p>
+<p>Das Datenbankobjekt 'DirectoryPermissions' stellt die Berechtigungen für die erstellten Ordner dar.
+Die 'DirectoryPermissions haben eine eindeutige 'ID'.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_permissionentry">8.1.3. PermissionEntry</h4>
 <div class="paragraph">
-<p>Das Datenbankobjekt 'PermissionEntry' stellt Berechtigungsinformationen dar.
-PermissionEntry hat eine eindeutige ID.
-Außerdem hat 'PermissionEntry' einen Attribut 'role'. 'role' stellt die Rolle (Student, Organisator) dar.
-Für die Rolle gibt es Informationen ob der Benutzer lesen, schreiben oder löschen darf. Deswegen haben wir 3 boolean
-Attribute für lesen, schreiben und löschen erstellt ('canRead', 'canWrite', 'canDelete').</p>
+<p>Das Datenbankobjekt 'DirectoryPermissionsEntry' stellt Berechtigungsinformationen dar.
+'DirectoryPermissionsEntry' hat eine eindeutige ID.
+Außerdem hat 'DirectoryPermissionsEntry' ein Attribut 'role'. 'role' stellt die Rolle (Student, Organisator) in der
+Gruppe dar. Für die Rolle gibt es Informationen, ob der Benutzer lesen, schreiben oder löschen darf. Deswegen haben
+wir 3 boolean Attribute für lesen, schreiben und löschen erstellt ('canRead', 'canWrite', 'canDelete').</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_file_info">8.1.4. File_info</h4>
+<h4 id="_fileinfo">8.1.4. FileInfo</h4>
 <div class="paragraph">
-<p>In dem Datenbankobjekt 'File_info' sind Informationen einer Datei dargestellt.</p>
+<p>In dem Datenbankobjekt 'FileInfo' sind Informationen einer Datei dargestellt.</p>
 </div>
 <div class="paragraph">
 <p>Das Attribut 'owner' speichert den Namen des Inhabers der Datei.
-Außerdem speichern wir die Größe ('size'), den Namen ('name') und den Typ der Datei ('contentTyp').
-Zusätzlich hat jede 'File_info' eine eindeutige 'ID'.</p>
+Außerdem speichern wir die Größe ('size'), den Namen ('name') und den Typ der Datei ('type').
+Zusätzlich hat jede 'FileInfo' eine eindeutige 'ID'.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1793,45 +1798,44 @@ Außerdem hat jeder Tag eine eindeutige 'ID'.</p>
 <div class="sect3">
 <h4 id="_beziehungen">8.1.6. Beziehungen</h4>
 <div class="sect4">
-<h5 id="_dir_hat_file_info">Dir hat File_info</h5>
+<h5 id="_directory_hat_fileinfo">Directory hat FileInfo</h5>
 <div class="paragraph">
-<p>Hier haben wir eine 1 zu N Beziehung weil ein Ordner('Dir') mehrere Dateien('File_info') enthalten kann. Wiederum kann
-ein File genau in einem Ordner liegen. Entweder es liegt im Root-Directory oder in einem Unterordner.</p>
+<p>Hier haben wir eine 1 zu N Beziehung weil ein Ordner('Directory') mehrere Dateien('FileInfo') enthalten kann.
+Wiederum kann ein File genau in einem Ordner liegen. Entweder es liegt im Root-Directory oder in einem Unterordner.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_dir_parent_dir">Dir parent Dir</h5>
+<h5 id="_directory_parent_directory">Directory parent Directory</h5>
 <div class="paragraph">
-<p>'Dir' hat eine rekursive Beziehung mit sich selbst. Denn ein Ordner kann mehrere Unterordner haben und jeder Ordner
-liegt in höchstens einem Ordner.
-Ein Ordner kann auch in keinem Ordner liegen da wir beschlossen haben das ein Kurs auch ein Ordner
-und somit der Stammordner (Root-directory) ist.</p>
+<p>'Directory' hat eine rekursive Beziehung mit sich selbst. Denn ein Ordner kann mehrere Unterordner haben und jeder
+Ordner liegt in höchstens einem Ordner. Ein Ordner kann auch in keinem Ordner liegen, da wir beschlossen haben, dass
+ein Kurs auch ein Ordner und somit der Stammordner (Root-Directory) ist.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_file_info_hat_file_tag">File_info hat File_Tag</h5>
+<h5 id="_fileinfo_hat_filetag">FileInfo hat FileTag</h5>
 <div class="paragraph">
 <p>Hier haben wir eine 1 zu N Beziehung. Logischerweise kann ein File mehrere Tags haben aber immer wenn ein Tag erstellt
 wird, wird es genau zu einem File zugeordnet.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_dir_hat_permission">Dir hat Permission</h5>
+<h5 id="_directory_hat_directorypermissions">Directory hat DirectoryPermissions</h5>
 <div class="paragraph">
 <p>Jedem Ordner wird genau eine Berechtigung zugeteilt. Somit wissen wir welche Zugriffe die Rollen haben. Eine
-Berechtigung ('Permission') kann mehreren Ordnern zugeteilt werden da wir beschlossen haben, dass nur die one-level
-Ordner eine Berechtigung haben.
+Berechtigung ('DirectoryPermissions') kann mehreren Ordnern zugeteilt werden da wir beschlossen haben, dass nur die
+one-level Ordner eine Berechtigung haben.
 Alle Unterordner erben von deren one-Level Ordner. Außerdem hat die Root-directory auch eine eigene Berechtigung
-('Permission'), denn hier können auch Dateien gespeichert werden.</p>
+('DirectoryPermissions'), denn hier können auch Dateien gespeichert werden.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_permission_hat_permissionentry">Permission hat PermissionEntry</h5>
+<h5 id="_directorypermissions_hat_directorypermissionsentry">DirectoryPermissions hat DirectoryPermissionsEntry</h5>
 <div class="paragraph">
 <p>Hier haben wir eine 1 zu N Beziehung.
-Das Datenbankobjekt 'Permission' nimmt Berechtigungsinformationen von 'PermissionEntry'. Somit kann eine 'Permission'
-mehrere Berechtigungsinformationen für bestimmte Rollen haben.
-Wiederum wird immer eine 'PermissionEntry' zu genau einer 'Permission' zugeordnet.</p>
+Das Datenbankobjekt 'DirectoryPermissions' nimmt Berechtigungsinformationen von 'DirectoryPermissionsEntry'. Somit kann
+eine 'Permission' mehrere Berechtigungsinformationen für bestimmte Rollen haben.
+Wiederum wird immer eine 'DirectoryPermissionsEntry' zu genau einer 'DirectoryPermissions' zugeordnet.</p>
 </div>
 </div>
 </div>
@@ -2007,7 +2011,7 @@ Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskuss
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-12 19:09:15 +0100
+Last updated 2020-03-12 12:31:41 +0100
 </div>
 </div>
 </body>
