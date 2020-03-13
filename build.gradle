@@ -106,7 +106,7 @@ task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: c
 }
 
 ext {
-    snippetsDir = file('build/generated-snippets')
+    snippetsDir = file 'build/generated-snippets'
 }
 
 javadoc {
