@@ -5,8 +5,8 @@ plugins {
     id 'checkstyle'
     id 'pmd'
     id 'com.github.spotbugs' version '4.0.2'
-    id "io.franzbecker.gradle-lombok" version "3.3.0"
-    id "org.asciidoctor.convert" version "1.5.9.2"
+    id 'io.franzbecker.gradle-lombok' version '3.3.0'
+    id 'org.asciidoctor.convert' version '1.5.9.2'
 }
 
 group = 'mops'
@@ -125,7 +125,7 @@ javadoc {
 }
 
 task docToHtml(type: AsciidoctorTask) {
-    sourceDir = file("$rootDir/doc")
+    sourceDir = file "$rootDir/doc"
     sources {
         include 'documentation.adoc'
     }
@@ -135,16 +135,16 @@ task docToHtml(type: AsciidoctorTask) {
         }
         into '.'
     }
-    outputDir = file("doc")
+    outputDir = file 'doc'
     backends = ['html5']
 }
 
 task apiDoc(type: AsciidoctorTask) {
-    sourceDir = file("$rootDir/api")
+    sourceDir = file "$rootDir/api"
     sources {
         include 'external-api.adoc'
     }
-    outputDir = file("api")
+    outputDir = file 'api'
     backends = ['html5']
 }
 
