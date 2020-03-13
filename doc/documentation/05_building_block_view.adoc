@@ -218,30 +218,30 @@ DirectoryController::
 
 Dieser hat folgende Routen:
 
-include::../../build/generated-snippets/index/DirectoryController/show-content/path-parameters.adoc[]
-include::../../build/generated-snippets//index/DirectoryController/create-folder/path-parameters.adoc[]
-include::../../build/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
-include::../../build/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
-include::../../build/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]
+include::../api/generated-snippets/index/DirectoryController/show-content/path-parameters.adoc[]
+include::../api/generated-snippets//index/DirectoryController/create-folder/path-parameters.adoc[]
+include::../api/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
+include::../api/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
+include::../api/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]
 
 FileController::
 
 Dieser hat folgende Routen:
 
-include::../../build/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
-include::../../build/generated-snippets/index/FileController/download-file/path-parameters.adoc[]
+include::../api/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
+include::../api/generated-snippets/index/FileController/download-file/path-parameters.adoc[]
 
 GroupController::
 
 Dieser hat folgende Routen:
 
-include::../../build/generated-snippets/index/GroupController/get-all-files-of-directory/path-parameters.adoc[]
-include::../../build/generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
-include::../../build/generated-snippets/index/GroupController/search-file/path-parameters.adoc[]
+include::../api/generated-snippets/index/GroupController/get-all-files-of-directory/path-parameters.adoc[]
+include::../api/generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
+include::../api/generated-snippets/index/GroupController/search-file/path-parameters.adoc[]
 
 GroupsController::
 
 Dieser hat folgende Routen:
 
-include::../../build/generated-snippets/index/GroupsController/get-all-groups/httpie-request.adoc[]
+include::../api/generated-snippets/index/GroupsController/get-all-groups/httpie-request.adoc[]
 ****
