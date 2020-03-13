@@ -117,6 +117,7 @@ javadoc {
 }
 
 task docToHtml(type: org.asciidoctor.gradle.AsciidoctorTask) {
+    dependsOn test
     sourceDir = file "$rootDir/doc"
     sources {
         include 'documentation.adoc'
