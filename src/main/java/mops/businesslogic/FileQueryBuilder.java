@@ -38,7 +38,8 @@ public class FileQueryBuilder {
         }
         return new FileQueryImpl(
                 fileNames,
-                owners
+                owners,
+                types
         );
     }
 
