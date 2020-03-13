@@ -30,23 +30,14 @@ public class FileQueryImpl implements FileQuery {
     }
 
     private boolean checkTypes(FileInfo file) {
-        if (types.isEmpty()) {
-            return true;
-        }
-        return types.contains(file.getType());
+        return types.isEmpty() || types.contains(file.getType());
     }
 
     private boolean checkNames(FileInfo file) {
-        if (fileNames.isEmpty()) {
-            return true;
-        }
-        return fileNames.contains(file.getName());
+        return fileNames.isEmpty() || fileNames.contains(file.getName());
     }
 
     private boolean checkOwners(FileInfo file) {
-        if (owners.isEmpty()) {
-            return true;
-        }
-        return owners.contains(file.getOwner());
+        return owners.isEmpty() || owners.contains(file.getOwner());
     }
 }
