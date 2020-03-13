@@ -139,7 +139,7 @@ task apiDoc(type: org.asciidoctor.gradle.jvm.AsciidoctorTask) {
     dependsOn test
     configurations 'asciidoctorExt'
     inputs.dir snippetsDir
-    sourceDir = file "$rootDir/api"
+    sourceDir = file "doc/api"
     sources {
         include 'external-api.adoc'
     }
