@@ -119,6 +119,15 @@ javadoc {
     failOnError = false
 }
 
+task docToHtml(type: AsciidoctorTask) {
+    sourceDir = file("$rootDir/doc")
+    sources {
+        include 'documentation.adoc'
+    }
+    outputDir = file("doc")
+    backends = ['html5']
+}
+
 task apiDoc(type: AsciidoctorTask) {
     sourceDir = file("$rootDir/api")
     sources {
@@ -131,6 +140,7 @@ task apiDoc(type: AsciidoctorTask) {
 task documentation {
     dependsOn javadoc
     dependsOn apiDoc
+    dependsOn docToHtml
 }
 
 asciidoctor {
