@@ -1,0 +1,4 @@
+[source,bash]
+----
+$ http --form DELETE 'http://localhost:8080/material1/dir/1'
+----

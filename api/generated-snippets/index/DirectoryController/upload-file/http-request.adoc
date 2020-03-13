@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+POST /material1/dir/1/upload HTTP/1.1
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded
+
+_csrf=efc999cf-6dde-4d97-b9e0-92462e68318e
+----

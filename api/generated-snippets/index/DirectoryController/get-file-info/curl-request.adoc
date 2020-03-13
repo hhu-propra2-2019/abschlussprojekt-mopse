@@ -1,0 +1,4 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/material1/file/1?_csrf=ee586f7d-4650-4165-8e8e-66f13e4fadc2' -i -X GET
+----

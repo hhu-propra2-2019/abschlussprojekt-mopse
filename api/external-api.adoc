@@ -3,18 +3,18 @@ Anfrage Gruppenurl::
 
 Anfrage:
 
-include::{snippets}/index/GroupController/get-group-url/path-parameters.adoc[]
+include::generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
 
 Antwort:
 
-include::{snippets}/index/GroupController/get-group-url/response-fields.adoc[]
+include::generated-snippets/index/GroupController/get-group-url/response-fields.adoc[]
 
 Beispielrequest:
 
-include::{snippets}/index/GroupController/get-group-url/httpie-request.adoc[]
+include::generated-snippets/index/GroupController/get-group-url/httpie-request.adoc[]
 
 Beispielantwort:
 
-include::{snippets}/index/GroupController/get-group-url/response-body.adoc[]
+include::generated-snippets/index/GroupController/get-group-url/response-body.adoc[]
 
 ****

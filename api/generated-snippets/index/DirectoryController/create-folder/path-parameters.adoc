@@ -1,0 +1,8 @@
+.+/material1/dir/{dir}/create+
+|===
+|Parameter|Description
+
+|`+dir+`
+|The directory id.
+
+|===

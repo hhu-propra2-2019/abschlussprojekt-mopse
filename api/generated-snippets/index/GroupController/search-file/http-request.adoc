@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+POST /material1/group/1/search HTTP/1.1
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded
+
+_csrf=abe73c6f-725d-4d10-949d-bdfe572607dc
+----
