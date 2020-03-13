@@ -29,7 +29,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
 
     /**
      * @param fileInfo Metadata of a file
-     * @return ID the FileInfo was saved under
+     * @return freshly saved FileInfo
      */
     default FileInfo addFileInfoToDatabase(FileInfo fileInfo) {
         return null;
