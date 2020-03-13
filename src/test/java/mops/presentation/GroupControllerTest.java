@@ -21,9 +21,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @KeycloakContext
@@ -52,7 +57,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     void setup() throws MopsException {
         given(fileService.getAllFilesOfGroup(any(), eq(1L))).willReturn(List.of());
         given(fileService.searchFilesInGroup(any(), eq(1L), any())).willReturn(List.of());
-        given(groupService.getGroupUrl(any(), eq(1L))).willReturn(new GroupDirUrlWrapper(1L));
+        given(groupService.getGroupUrl(any(), eq(1L))).willReturn(new GroupRootDirWrapper(1L, 2L));
     }
 
     /**
@@ -61,10 +66,35 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void getGroupUrl() throws Exception {
-        mockMvc().perform(get("/material1/group/1/url"))
+        mockMvc().perform(get("/material1/group/{groupId}/url", 1L))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.url").value("/material1/dir/1"))
-                .andExpect(jsonPath("$.group_id").value(1L));
+                .andExpect(jsonPath("$.group_id").value(1L))
+                .andExpect(jsonPath("$.root_dir_id").value(2L))
+                .andExpect(jsonPath("$.root_dir_url").value("/material1/dir/2"))
+                .andDo(document("index/GroupController/{method-name}",
+                        pathParameters(
+                                parameterWithName("groupId").description("The group id.")
+                        ),
+                        responseFields(
+                                fieldWithPath(".group_id").description("The id of the group."),
+                                fieldWithPath(".root_dir_id").description("The id of the group's root directory."),
+                                fieldWithPath(".root_dir_url").description("The url of the group's root directory.")
+                        )));
+    }
+
+    /**
+     * Tests if the redirect to the group's root directory works.
+     */
+    @Test
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void getRootDirectory() throws Exception {
+        mockMvc().perform(get("/material1/group/{groupId}", 1L))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlTemplate("/material1/dir/{dirId}", 2L))
+                .andDo(document("index/GroupController/{method-name}",
+                        pathParameters(
+                                parameterWithName("groupId").description("The group id.")
+                        )));
     }
 
     /**
@@ -73,9 +103,13 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void getAllFilesOfDirectory() throws Exception {
-        mockMvc().perform(get("/material1/group/1"))
+        mockMvc().perform(get("/material1/group/{groupId}/files", 1L))
                 .andExpect(status().isOk())
-                .andExpect(view().name("files"));
+                .andExpect(view().name("files"))
+                .andDo(document("index/GroupController/{method-name}",
+                        pathParameters(
+                                parameterWithName("groupId").description("The group id.")
+                        )));
     }
 
     /**
@@ -86,11 +120,15 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     void searchFile() throws Exception {
         FileQuery fileQuery = mock(FileQuery.class);
 
-        mockMvc().perform(post("/material1/group/1/search")
+        mockMvc().perform(post("/material1/group/{groupId}/search", 1)
                 .requestAttr("searchQuery", fileQuery)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("files"));
+                .andExpect(view().name("files"))
+                .andDo(document("index/GroupController/{method-name}",
+                        pathParameters(
+                                parameterWithName("groupId").description("The group id.")
+                        )));
     }
 
     /**

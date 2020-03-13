@@ -19,7 +19,13 @@
 <script type="text/javascript" src="../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var pathtoroot = "../../";
+<script type="text/javascript">var data = {"i0":6,"i1":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
+var pathtoroot = "../../";
 loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -58,7 +64,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <div class="navListSearch"><label for="search">SEARCH:</label>
@@ -104,11 +110,79 @@ extends org.springframework.data.repository.CrudRepository&lt;<a href="directory
 <!--   -->
 </a>
 <h2>Method Summary</h2>
+<div class="memberSummary">
+<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t3" class="tableTab" onclick="show(4);">Abstract Methods</button></div>
+<div id="memberSummary_tabpanel" role="tabpanel">
+<table aria-labelledby="t0">
+<thead>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="altColor" id="i0">
+<td class="colFirst"><code>java.util.List&lt;<a href="directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllSubFoldersOfParent(long)">getAllSubFoldersOfParent</a></span>&#8203;(long&nbsp;parentId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i1">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupFolderCount(long)">getGroupFolderCount</a></span>&#8203;(long&nbsp;groupOwner)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="inheritedList">
 <h3>Methods inherited from interface&nbsp;org.springframework.data.repository.CrudRepository</h3>
 <a id="methods.inherited.from.class.org.springframework.data.repository.CrudRepository">
 <!--   -->
 </a><code>count, delete, deleteAll, deleteAll, deleteById, existsById, findAll, findAllById, findById, save, saveAll</code></div>
+</section>
+</li>
+</ul>
+</section>
+<section class="details">
+<ul class="blockList">
+<!-- ============ METHOD DETAIL ========== -->
+<li class="blockList">
+<section class="methodDetails"><a id="method.detail">
+<!--   -->
+</a>
+<h2>Method Details</h2>
+<ul class="blockList">
+<li class="blockList">
+<section class="detail">
+<h3><a id="getAllSubFoldersOfParent(long)">getAllSubFoldersOfParent</a></h3>
+<div class="memberSignature"><span class="annotations">@Query("SELECT * FROM directory WHERE parent_id IS NOT NULL AND parent_id = :parentId")
+</span><span class="returnType">java.util.List&lt;<a href="directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;</span>&nbsp;<span class="memberName">getAllSubFoldersOfParent</span>&#8203;(<span class="arguments">@Param("parentId")
+long&nbsp;parentId)</span></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>parentId</code> - the id of the parent folder</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a list of level one sub folder of the parent folder</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getGroupFolderCount(long)">getGroupFolderCount</a></h3>
+<div class="memberSignature"><span class="annotations">@Query("SELECT COUNT(*) FROM directory WHERE group_owner = :groupOwner")
+</span><span class="returnType">long</span>&nbsp;<span class="memberName">getGroupFolderCount</span>&#8203;(<span class="arguments">@Param("groupOwner")
+long&nbsp;groupOwner)</span></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupOwner</code> - the group od</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the number of the folders the group already has</dd>
+</dl>
+</section>
+</li>
+</ul>
 </section>
 </li>
 </ul>
@@ -149,7 +223,7 @@ extends org.springframework.data.repository.CrudRepository&lt;<a href="directory
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 </div>

@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
+<script type="text/javascript">var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -92,6 +92,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </div>
 <div class="contentContainer">
 <section class="description">
+<dl>
+<dt>All Known Implementing Classes:</dt>
+<dd><code><a href="DirectoryServiceImpl.html" title="class in mops.businesslogic">DirectoryServiceImpl</a></code></dd>
+</dl>
 <hr>
 <pre>@Service
 public interface <span class="typeNameLabel">DirectoryService</span></pre>
@@ -117,7 +121,7 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
-<td class="colFirst"><code>long</code></td>
+<td class="colFirst"><code><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createFolder(mops.businesslogic.Account,long,java.lang.String)">createFolder</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
 long&nbsp;parentDirId,
 java.lang.String&nbsp;dirName)</code></th>
@@ -126,22 +130,38 @@ java.lang.String&nbsp;dirName)</code></th>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
-<td class="colFirst"><code>long</code></td>
+<td class="colFirst"><code><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createRootFolder(mops.businesslogic.Account,long)">createRootFolder</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Creates the group root directory.</div>
+</td>
+</tr>
+<tr class="altColor" id="i2">
+<td class="colFirst"><code><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteFolder(mops.businesslogic.Account,long)">deleteFolder</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
 long&nbsp;dirId)</code></th>
 <td class="colLast">
 <div class="block">Deletes a folder.</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i3">
+<td class="colFirst"><code><a href="UserPermission.html" title="class in mops.businesslogic">UserPermission</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPermissionsOfUser(mops.businesslogic.Account,long)">getPermissionsOfUser</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+long&nbsp;dirId)</code></th>
+<td class="colLast">
+<div class="block">Gets all 3 permissions of a user.</div>
+</td>
+</tr>
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>java.util.List&lt;<a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSubFolders(mops.businesslogic.Account,long)">getSubFolders</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
-long&nbsp;dirId)</code></th>
+long&nbsp;parentDirID)</code></th>
 <td class="colLast">
 <div class="block">Returns all folders of the parent folder.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>java.util.List&lt;<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(mops.businesslogic.Account,long,mops.businesslogic.FileQuery)">searchFolder</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
 long&nbsp;dirId,
@@ -150,13 +170,13 @@ long&nbsp;dirId,
 <div class="block">Searches a folder for files.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uploadFile(mops.businesslogic.Account,long,mops.persistence.file.FileInfo)">uploadFile</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+<tr class="altColor" id="i6">
+<td class="colFirst"><code><a href="../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updatePermission(mops.businesslogic.Account,long,mops.persistence.permission.DirectoryPermissions)">updatePermission</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
 long&nbsp;dirId,
-<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&nbsp;fileInfo)</code></th>
+<a href="../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)</code></th>
 <td class="colLast">
-<div class="block">Uploads a file.</div>
+<div class="block">Replaces the permissions for a directory with new ones.</div>
 </td>
 </tr>
 </tbody>
@@ -178,19 +198,16 @@ long&nbsp;dirId,
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="uploadFile(mops.businesslogic.Account,long,mops.persistence.file.FileInfo)">uploadFile</a></h3>
-<div class="memberSignature"><span class="returnType">void</span>&nbsp;<span class="memberName">uploadFile</span>&#8203;(<span class="arguments"><a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
-long&nbsp;dirId,
-<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&nbsp;fileInfo)</span>
-         throws <span class="exceptions"><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></span></div>
-<div class="block">Uploads a file.</div>
+<h3><a id="getPermissionsOfUser(mops.businesslogic.Account,long)">getPermissionsOfUser</a></h3>
+<div class="memberSignature"><span class="returnType"><a href="UserPermission.html" title="class in mops.businesslogic">UserPermission</a></span>&nbsp;<span class="memberName">getPermissionsOfUser</span>&#8203;(<span class="arguments"><a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+long&nbsp;dirId)</span></div>
+<div class="block">Gets all 3 permissions of a user.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>account</code> - user credentials</dd>
-<dd><code>dirId</code> - the id of the folder where the file will be uploaded</dd>
-<dd><code>fileInfo</code> - the file object</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+<dd><code>dirId</code> - the id of the folder</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a permission flag object</dd>
 </dl>
 </section>
 </li>
@@ -198,13 +215,13 @@ long&nbsp;dirId,
 <section class="detail">
 <h3><a id="getSubFolders(mops.businesslogic.Account,long)">getSubFolders</a></h3>
 <div class="memberSignature"><span class="returnType">java.util.List&lt;<a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;</span>&nbsp;<span class="memberName">getSubFolders</span>&#8203;(<span class="arguments"><a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
-long&nbsp;dirId)</span>
+long&nbsp;parentDirID)</span>
                                  throws <span class="exceptions"><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></span></div>
 <div class="block">Returns all folders of the parent folder.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>account</code> - user credentials</dd>
-<dd><code>dirId</code> - id of the folder</dd>
+<dd><code>parentDirID</code> - id of the parent folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>list of folders</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -214,11 +231,29 @@ long&nbsp;dirId)</span>
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="createRootFolder(mops.businesslogic.Account,long)">createRootFolder</a></h3>
+<div class="memberSignature"><span class="returnType"><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></span>&nbsp;<span class="memberName">createRootFolder</span>&#8203;(<span class="arguments"><a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+long&nbsp;groupId)</span>
+                    throws <span class="exceptions"><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></span></div>
+<div class="block">Creates the group root directory.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>account</code> - user credentials</dd>
+<dd><code>groupId</code> - the group id</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the directory created</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="createFolder(mops.businesslogic.Account,long,java.lang.String)">createFolder</a></h3>
-<div class="memberSignature"><span class="returnType">long</span>&nbsp;<span class="memberName">createFolder</span>&#8203;(<span class="arguments"><a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+<div class="memberSignature"><span class="returnType"><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></span>&nbsp;<span class="memberName">createFolder</span>&#8203;(<span class="arguments"><a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
 long&nbsp;parentDirId,
 java.lang.String&nbsp;dirName)</span>
-           throws <span class="exceptions"><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></span></div>
+                throws <span class="exceptions"><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></span></div>
 <div class="block">Creates a new folder inside a folder.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -235,16 +270,16 @@ java.lang.String&nbsp;dirName)</span>
 <li class="blockList">
 <section class="detail">
 <h3><a id="deleteFolder(mops.businesslogic.Account,long)">deleteFolder</a></h3>
-<div class="memberSignature"><span class="returnType">long</span>&nbsp;<span class="memberName">deleteFolder</span>&#8203;(<span class="arguments"><a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+<div class="memberSignature"><span class="returnType"><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></span>&nbsp;<span class="memberName">deleteFolder</span>&#8203;(<span class="arguments"><a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
 long&nbsp;dirId)</span>
-           throws <span class="exceptions"><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></span></div>
+                throws <span class="exceptions"><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></span></div>
 <div class="block">Deletes a folder.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>account</code> - user credential</dd>
 <dd><code>dirId</code> - id of the folder to be deleted</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the parent id of the deleted folder</dd>
+<dd>parent directory of the deleted folder</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>
@@ -265,6 +300,26 @@ long&nbsp;dirId,
 <dd><code>query</code> - wrapper object of the query parameter</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>list of files</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="updatePermission(mops.businesslogic.Account,long,mops.persistence.permission.DirectoryPermissions)">updatePermission</a></h3>
+<div class="memberSignature"><span class="returnType"><a href="../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></span>&nbsp;<span class="memberName">updatePermission</span>&#8203;(<span class="arguments"><a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+long&nbsp;dirId,
+<a href="../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)</span>
+                               throws <span class="exceptions"><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></span></div>
+<div class="block">Replaces the permissions for a directory with new ones.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>account</code> - user credentials</dd>
+<dd><code>dirId</code> - directory id of whom's permission should be changed</dd>
+<dd><code>permissions</code> - new permissions</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the updated directory permissions</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>

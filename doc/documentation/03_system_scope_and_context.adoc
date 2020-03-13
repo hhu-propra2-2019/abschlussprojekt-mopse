@@ -21,11 +21,4 @@ nicht._
 Nutzers in einer bestimmten Gruppe._  | _Wir erhalten ein Datenobjekt (.json) zurück, dass alle Berechtigungen (Rollen) des betreffenden Nutzers beinhaltet._
 |===
 
-****
-[cols="1,1,1" options="header"]
-|===
-|Anfrage |Route |Erläuterung
-|Gruppenurl |`/material1/group/{groupId}/url | Gibt ein JSON-Objekt zurück, das die Attribute `group_id` und `url` hat.
-Letzteres ist der relative Pfad, wo der Rootordner der Gruppe aufgerufen werden kann.
-|===
-****
+include::../../api/external-api.adoc[]
