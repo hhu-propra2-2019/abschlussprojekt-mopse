@@ -104,7 +104,6 @@ test {
     useJUnitPlatform()
 }
 
-
 task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: compileJava) {
     ext.outputDir = file "$buildDir/delombok"
     outputs.dir(outputDir)

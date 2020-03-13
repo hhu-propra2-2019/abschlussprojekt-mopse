@@ -63,7 +63,6 @@ class GroupsControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                 .andExpect(status().isOk())
                 .andExpect(view().name("groups"))
                 .andDo(document("index/GroupsController/{method-name}"));
-        ;
     }
 
     /**

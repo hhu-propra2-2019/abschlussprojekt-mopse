@@ -115,7 +115,6 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                         pathParameters(
                                 parameterWithName("dir").description("The directory id.")
                         )));
-        ;
     }
 
     /**
@@ -133,7 +132,6 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                         pathParameters(
                                 parameterWithName("dir").description("The directory id.")
                         )));
-        ;
     }
 
     /**
@@ -151,7 +149,6 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                         pathParameters(
                                 parameterWithName("dir").description("The directory id.")
                         )));
-        ;
     }
 
     /**

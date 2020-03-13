@@ -78,7 +78,6 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                                 fieldWithPath(".group_id").description("The id of the group."),
                                 fieldWithPath(".url").description("The url of the group.")
                         )));
-        ;
     }
 
     /**
@@ -94,7 +93,6 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                         pathParameters(
                                 parameterWithName("groupId").description("The group id.")
                         )));
-        ;
     }
 
     /**
@@ -114,8 +112,6 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                         pathParameters(
                                 parameterWithName("groupId").description("The group id.")
                         )));
-        ;
-        ;
     }
 
     /**
