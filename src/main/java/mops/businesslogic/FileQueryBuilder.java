@@ -2,7 +2,6 @@ package mops.businesslogic;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import mops.persistence.file.FileTag;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class FileQueryBuilder {
     /**
      * File tags to search for;
      */
-    private List<FileTag> tags;
+    private List<String> tags;
 
     /**
      * Builds the object from it's information.
@@ -85,7 +84,7 @@ public class FileQueryBuilder {
      * @param tags what the file should be tagged with
      * @return this
      */
-    public FileQueryBuilder tags(List<FileTag> tags) {
+    public FileQueryBuilder tags(List<String> tags) {
         this.tags = tags;
         return this;
     }

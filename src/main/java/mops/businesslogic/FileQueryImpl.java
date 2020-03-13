@@ -3,7 +3,6 @@ package mops.businesslogic;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import mops.persistence.file.FileInfo;
-import mops.persistence.file.FileTag;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class FileQueryImpl implements FileQuery {
     /**
      * List of file tags to search for.
      */
-    private List<FileTag> tags;
+    private List<String> tags;
 
     /**
      * {@inheritDoc}
@@ -40,7 +39,7 @@ public class FileQueryImpl implements FileQuery {
 
     private boolean checkTags(FileInfo file) {
         boolean anyMatch = tags.stream()
-                .anyMatch(tag -> file.getTags().contains(tag));
+                .anyMatch(file::hasTag);
         return tags.isEmpty() || anyMatch;
     }
 
