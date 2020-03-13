@@ -34,18 +34,6 @@ public class FileQueryBuilder {
      * @return file query object
      */
     public FileQuery build() {
-        if (fileNames == null) {
-            fileNames = List.of();
-        }
-        if (owners == null) {
-            owners = List.of();
-        }
-        if (types == null) {
-            types = List.of();
-        }
-        if (tags == null) {
-            tags = List.of();
-        }
         return new FileQuery(
                 fileNames,
                 owners,
