@@ -29,13 +29,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-            - name: Set up JDK
-              uses: actions/setup-java@v1.3.0
-              with:
-                java-version: ${{ matrix.java }}
+      - name: Set up JDK
+        uses: actions/setup-java@v1.3.0
+        with:
+          java-version: ${{ matrix.java }}
 
-            - name: Run Gradle Tests
-              run: ./gradlew test
+      - name: Run Gradle Tests
+        run: ./gradlew test
 
       - name: Get build container
         id: adocbuild
