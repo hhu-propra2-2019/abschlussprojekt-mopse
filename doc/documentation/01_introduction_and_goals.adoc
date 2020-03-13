@@ -16,7 +16,7 @@ repräsentieren.
 |Name |Szenario
 
 |Ein Mitglied möchte eine Datei einsehen.
-|_Das Mitglied navigiert zur Gruppendateiübersicht. Dort navigiert es in den gewünschten Ordner in dem die
+|_Das Mitglied navigiert zur Gruppendateiübersicht. Dort navigiert es in den gewünschten Ordner, in dem die
 entsprechende Datei liegt._
 
 |Ein Administrator lädt einzelne Datei hoch.
@@ -24,7 +24,7 @@ entsprechende Datei liegt._
 Upload-Button den Dateiupload beginnen._
 
 |Ein Mitglied möchte Verzeichnis erstellen.
-|_Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit den "Neuer Ordner"-Button
+|_Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit dem "Neuer Ordner"-Button
 einen neues Verzeichnis anlegen._
 
 |Ein Organisator möchte Verzeichnis mit Dateien löschen.
@@ -44,7 +44,7 @@ Nutzergruppen zu gewährleisten.
 [cols="1,2" options="header"]
 |===
 |Qualitätsziel |Erläuterung
-| Performance | _Jeder Request muss in kürzester Zeit bearbeitet werden um dem Benutzer ein möglichst flüssiges
+| Performance | _Jeder Request muss in kürzester Zeit bearbeitet werden, um dem Benutzer ein möglichst flüssiges
 Nutzungserlebnis zu bieten._
 | Zuverlässigkeit | _Das System muss zu jedem Zeitpunkt erreichbar und voll funktionsfähig sein, um Nutzer nicht in
 Problemlagen durch fehlenden Zugriff zu bringen. Außerdem soll der Wartungsaufwand durch modulare Aufbauweise minimiert
