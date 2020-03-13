@@ -69,6 +69,18 @@ public class FileInfo {
     private Timestamp lastModifiedTime;
 
     /**
+     * Checks if the file is tagged with a specific tag.
+     *
+     * @param otherTag tag to check for
+     * @return boolean
+     */
+    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
+    public boolean hasTag(String otherTag) {
+        return tags.stream()
+                .anyMatch(tag -> otherTag.equals(tag.getName()));
+    }
+
+    /**
      * Get the creation time.
      *
      * @return creation time
