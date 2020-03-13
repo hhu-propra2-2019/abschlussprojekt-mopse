@@ -9,6 +9,10 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class FileQueryImpl implements FileQuery {
     /**
+     * List of file names to search for.
+     */
+    private List<String> fileNames;
+    /**
      * List of user names of file owners to search for.
      */
     private List<String> owners;
@@ -21,10 +25,23 @@ public class FileQueryImpl implements FileQuery {
         if (!checkOwners(file)) {
             return false;
         }
+        if (!checkNames(file)) {
+            return false;
+        }
         return true;
     }
 
+    private boolean checkNames(FileInfo file) {
+        if (fileNames.isEmpty()) {
+            return true;
+        }
+        return fileNames.contains(file.getName());
+    }
+
     private boolean checkOwners(FileInfo file) {
+        if (owners.isEmpty()) {
+            return true;
+        }
         return owners.contains(file.getOwner());
     }
 }
