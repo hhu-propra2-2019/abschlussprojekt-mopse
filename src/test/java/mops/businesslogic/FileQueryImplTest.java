@@ -41,4 +41,12 @@ public class FileQueryImplTest {
 
         assertThat(fileQuery.checkMatch(fileInfo));
     }
+
+    @Test
+    public void findTypeTest() {
+        FileQuery fileQuery = FileQuery.builder()
+                .types(List.of("pdf"))
+                .build();
+        assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
+    }
 }
