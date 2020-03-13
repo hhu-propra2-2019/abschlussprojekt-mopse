@@ -8,6 +8,15 @@ import mops.persistence.file.FileInfo;
 public interface FileQuery {
 
     /**
+     * Returns a builder for file queries.
+     *
+     * @return a file query builder
+     */
+    static FileQueryBuilder builder() {
+        return new FileQueryBuilder();
+    }
+
+    /**
      * @param file a file information object
      * @return if the file meta data matches the query request
      */
