@@ -1,6 +1,5 @@
 package mops.persistence;
 
-import mops.exception.MopsException;
 import mops.persistence.file.FileInfo;
 import mops.utils.AggregateBuilder;
 import org.springframework.data.repository.CrudRepository;
