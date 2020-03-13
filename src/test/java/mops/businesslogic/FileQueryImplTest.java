@@ -1,6 +1,7 @@
 package mops.businesslogic;
 
 import mops.persistence.file.FileInfo;
+import mops.persistence.file.FileTag;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -80,7 +81,7 @@ public class FileQueryImplTest {
     @Test
     public void findTagTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .tags(List.of("Hausaufgaben"))
+                .tags(List.of(new FileTag("Hausaufgaben")))
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
     }
@@ -88,7 +89,7 @@ public class FileQueryImplTest {
     @Test
     public void noMatchingTagTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .tags(List.of("lösungen"))
+                .tags(List.of(new FileTag("lösungen")))
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
     }

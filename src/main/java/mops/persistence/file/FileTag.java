@@ -9,6 +9,7 @@ import lombok.NonNull;
  */
 @Data
 @AllArgsConstructor
+public
 class FileTag {
 
     /**
