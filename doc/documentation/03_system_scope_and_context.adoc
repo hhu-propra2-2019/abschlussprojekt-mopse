@@ -21,4 +21,4 @@ nicht._
 Nutzers in einer bestimmten Gruppe._  | _Wir erhalten ein Datenobjekt (.json) zurück, dass alle Berechtigungen (Rollen) des betreffenden Nutzers beinhaltet._
 |===
 
-include::../api/external-api.adoc
+include::../api/external-api.adoc[]
