@@ -34,7 +34,7 @@ public class FileQuery {
      *
      * @return a file query builder
      */
-    static FileQueryBuilder builder() {
+    public static FileQueryBuilder builder() {
         return new FileQueryBuilder();
     }
 
