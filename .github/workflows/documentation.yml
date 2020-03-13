@@ -16,7 +16,7 @@ jobs:
       matrix:
         os: [ubuntu-18.04]
         java: [11]
-      runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     name: asciidoctor to html
     steps:
       - name: Checkout code
