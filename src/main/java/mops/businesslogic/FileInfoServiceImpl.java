@@ -40,7 +40,7 @@ public class FileInfoServiceImpl implements FileInfoService {
      * @return ID the FileInfo was saved under
      */
     @Override
-    public long saveFileInfo(FileInfo fileInfo) {
+    public FileInfo saveFileInfo(FileInfo fileInfo) {
         return fileInfoRepo.addFileInfoToDatabase(fileInfo);
     }
 

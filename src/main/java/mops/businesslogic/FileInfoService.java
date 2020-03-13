@@ -28,7 +28,7 @@ public interface FileInfoService {
      * @param fileInfo Metadata of a file
      * @return ID the FileInfo was saved under
      */
-    long saveFileInfo(FileInfo fileInfo);
+    FileInfo saveFileInfo(FileInfo fileInfo) throws MopsException;
 
     /**
      * @param fileId file id
