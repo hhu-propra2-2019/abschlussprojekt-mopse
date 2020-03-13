@@ -26,16 +26,7 @@ public class FileQueryImpl implements FileQuery {
      */
     @Override
     public boolean checkMatch(FileInfo file) {
-        if (!checkOwners(file)) {
-            return false;
-        }
-        if (!checkNames(file)) {
-            return false;
-        }
-        if (!checkTypes(file)) {
-            return false;
-        }
-        return true;
+        return checkNames(file) && checkOwners(file) && checkTypes(file);
     }
 
     private boolean checkTypes(FileInfo file) {
