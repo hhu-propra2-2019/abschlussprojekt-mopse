@@ -8,6 +8,7 @@ import mops.utils.AggregateBuilder;
 import mops.utils.AggregateRoot;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
@@ -80,4 +81,29 @@ class ArchitectureRulesTest {
             .should()
             .beFreeOfCycles();
 
+    /**
+     * This tests if all Classes that have Service in their name
+     * are annotated with @Service.
+     */
+    @ArchTest
+    static final ArchRule SERVICES_ARE_ANNOTATED_WITH_SERVICE = classes()
+            .that()
+            .haveSimpleNameContaining("Service")
+            .and()
+            .resideInAPackage(MOPS_BUSINESSLOGIC)
+            .should()
+            .beAnnotatedWith(Service.class);
+
+    /**
+     * This tests if all classes that are annotated with @Service
+     * also have Service in their name, because otherwise it would be confusing.
+     */
+    @ArchTest
+    static final ArchRule EVERYTHING_ANNOTATED_WITH_SERVICE_SHOULD_HAVE_SERVICE_IN_NAME = classes()
+            .that()
+            .areAnnotatedWith(Service.class)
+            .and()
+            .resideInAPackage(MOPS_BUSINESSLOGIC)
+            .should()
+            .haveSimpleNameContaining("Service");
 }
