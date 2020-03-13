@@ -37,3 +37,4 @@ minio_data/
 !javadoc/
 build/
 !build/generated-snippes/
+/api/external-api.adoc
