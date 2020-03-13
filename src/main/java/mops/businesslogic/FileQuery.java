@@ -27,8 +27,6 @@ public class FileQuery {
      * List of file tags to search for.
      */
     private List<String> tags;
-
-
     /**
      * Returns a builder for file queries.
      *

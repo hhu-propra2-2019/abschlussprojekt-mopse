@@ -66,8 +66,6 @@ public class FileQueryBuilder {
         return this;
 
     }
-
-
     /**
      * @param fileNames names of files to search for
      * @return this
