@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 @AggregateBuilder
 public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
+
     /**
      * @param dirId directory id
      * @return a list of files in that directory
@@ -19,26 +20,4 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
         return List.of();
     }
 
-    /**
-     * @param fileId file id
-     * @return a FileInfo object
-     */
-    default FileInfo getFileInfoById(long fileId) {
-        return null;
-    }
-
-    /**
-     * @param fileInfo Metadata of a file
-     * @return freshly saved FileInfo
-     */
-    default FileInfo addFileInfoToDatabase(FileInfo fileInfo) {
-        return null;
-    }
-
-    /**
-     * @param fileId file id to be deleted
-     */
-    @SuppressWarnings("PMD")
-    default void deleteFileInfoFromDatabase(long fileId) throws MopsException {
-    }
 }

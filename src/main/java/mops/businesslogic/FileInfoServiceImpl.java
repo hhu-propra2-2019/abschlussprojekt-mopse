@@ -32,7 +32,7 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @Override
     public FileInfo fetchFileInfo(long fileId) throws MopsException {
-        return fileInfoRepo.getFileInfoById(fileId);
+        return fileInfoRepo.findById(fileId).orElseThrow(() -> new MopsException("..."));
     }
 
     /**
@@ -40,8 +40,13 @@ public class FileInfoServiceImpl implements FileInfoService {
      * @return ID the FileInfo was saved under
      */
     @Override
-    public FileInfo saveFileInfo(FileInfo fileInfo) {
-        return fileInfoRepo.addFileInfoToDatabase(fileInfo);
+    public FileInfo saveFileInfo(FileInfo fileInfo) throws MopsException {
+        try {
+            return fileInfoRepo.save(fileInfo);
+        } catch (Exception e) {
+            //TODO: better exception
+            throw new MopsException("...", e);
+        }
     }
 
     /**
@@ -49,6 +54,11 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @Override
     public void deleteFileInfo(long fileId) throws MopsException {
-        fileInfoRepo.deleteFileInfoFromDatabase(fileId);
+        try {
+            fileInfoRepo.deleteById(fileId);
+        } catch (Exception e) {
+            //TODO: better exception
+            throw new MopsException("...", e);
+        }
     }
 }

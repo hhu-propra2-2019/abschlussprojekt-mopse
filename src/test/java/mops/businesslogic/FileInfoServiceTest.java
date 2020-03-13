@@ -5,26 +5,29 @@ import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.file.FileInfo;
 import mops.utils.TestContext;
-
+import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.mock;
 
 @TestContext
 @SpringBootTest
 class FileInfoServiceTest {
 
-    @MockBean
-    FileInfoRepository fileInfoRepository;
+    @Rule
+    public final ExpectedException mopsEx = ExpectedException.none();
+
     @MockBean
     GroupService groupService;
     @MockBean
@@ -33,6 +36,8 @@ class FileInfoServiceTest {
     FileService fileService;
     @MockBean
     PermissionService permissionService;
+    @MockBean
+    FileInfoRepository fileInfoRepository;
 
     @Autowired
     FileInfoService fileInfoService;
@@ -47,6 +52,10 @@ class FileInfoServiceTest {
         fileInfoList.add(fileInfo1);
 
         given(fileInfoRepository.getAllFileInfoByDirectory(1L)).willReturn(fileInfoList);
+        given(fileInfoRepository.save(fileInfo1)).willReturn(fileInfo1);
+
+        willDoNothing().given(fileInfoRepository).deleteById(1L);
+        willThrow(DbActionExecutionException.class).given(fileInfoRepository).deleteById(2L);
     }
 
     @Test
@@ -59,11 +68,20 @@ class FileInfoServiceTest {
 
     }
 
-    void saveFileInfo() {
-
+    @Test
+    void saveFileInfo() throws MopsException {
+        assertThat(fileInfoService.saveFileInfo(fileInfo1)).isEqualTo(fileInfo1);
     }
 
+    @Test
     void deleteFileInfo() {
+        assertThatCode(() -> fileInfoService.deleteFileInfo(1L))
+                .doesNotThrowAnyException();
+    }
 
+    @Test
+    void deleteFileInfoThatDoesntExist() {
+        assertThatExceptionOfType(MopsException.class)
+                .isThrownBy(() -> fileInfoService.deleteFileInfo(2L));
     }
 }
