@@ -34,8 +34,10 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
 
-      - name: Run Gradle Tests
-        run: ./gradlew test
+      - name: Run Gradle API Doc
+        run: ./gradlew apiDoc
+
+      - name:
 
       - name: Get build container
         id: adocbuild
