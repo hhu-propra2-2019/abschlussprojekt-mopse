@@ -118,11 +118,6 @@ javadoc {
     failOnError = false
 }
 
-task documentation {
-    dependsOn javadoc
-    dependsOn apiDoc
-    dependsOn docToHtml
-}
 
 test {
     useJUnitPlatform()
