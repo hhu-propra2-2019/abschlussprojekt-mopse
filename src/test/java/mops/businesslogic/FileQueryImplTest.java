@@ -21,6 +21,7 @@ public class FileQueryImplTest {
                 .type("pdf")
                 .size(80L)
                 .owner("iTitus")
+                .tag("Hausaufgaben")
                 .build();
     }
 
@@ -72,6 +73,22 @@ public class FileQueryImplTest {
     public void noMatchingTypeTest() {
         FileQuery fileQuery = FileQuery.builder()
                 .types(List.of("png"))
+                .build();
+        assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
+    }
+
+    @Test
+    public void findTagTest() {
+        FileQuery fileQuery = FileQuery.builder()
+                .tags(List.of("Hausaufgaben"))
+                .build();
+        assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
+    }
+
+    @Test
+    public void noMatchingTagTest() {
+        FileQuery fileQuery = FileQuery.builder()
+                .tags(List.of("lösungen"))
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
     }
