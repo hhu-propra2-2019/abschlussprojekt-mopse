@@ -37,7 +37,7 @@ public class FileQueryImpl implements FileQuery {
                 this::checkOwners,
                 this::checkTags,
                 this::checkTypes);
-        return runChecks.stream().allMatch(fileInfoBooleanFunction -> fileInfoBooleanFunction.apply(file));
+        return runChecks.stream().allMatch(checkFunction -> checkFunction.apply(file));
     }
 
     private boolean checkTags(FileInfo file) {
