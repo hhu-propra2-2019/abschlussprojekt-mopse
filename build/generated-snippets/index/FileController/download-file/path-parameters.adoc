@@ -1,8 +1,0 @@
-.+/material1/file/{fileId}/download+
-|===
-|Parameter|Description
-
-|`+fileId+`
-|The file id.
-
-|===
