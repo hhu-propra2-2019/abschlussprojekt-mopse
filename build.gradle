@@ -6,7 +6,7 @@ plugins {
     id 'pmd'
     id 'com.github.spotbugs' version '4.0.2'
     id 'io.franzbecker.gradle-lombok' version '3.3.0'
-    id 'org.asciidoctor.convert' version '1.5.9.2'
+    id 'org.asciidoctor.jvm.convert' version '3.1.0'
 }
 
 group = 'mops'
@@ -21,6 +21,7 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    asciidoctorExt
 }
 
 repositories {
@@ -62,8 +63,9 @@ dependencies {
     testImplementation 'org.testcontainers:testcontainers:1.13.0'
     testImplementation 'org.testcontainers:junit-jupiter:1.13.0'
     testImplementation 'com.c4-soft.springaddons:spring-security-test-keycloack-addons:1.2.0'
-    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
 checkstyle {
@@ -116,8 +118,10 @@ javadoc {
     failOnError = false
 }
 
-task docToHtml(type: org.asciidoctor.gradle.AsciidoctorTask) {
+task docToHtml(type: org.asciidoctor.gradle.jvm.AsciidoctorTask) {
     dependsOn test
+    configurations 'asciidoctorExt'
+    inputs.dir snippetsDir
     sourceDir = file "$rootDir/doc"
     sources {
         include 'documentation.adoc'
@@ -129,27 +133,23 @@ task docToHtml(type: org.asciidoctor.gradle.AsciidoctorTask) {
         into '.'
     }
     outputDir = file 'doc'
-    backends = ['html5']
 }
 
-task apiDoc(type: org.asciidoctor.gradle.AsciidoctorTask) {
+task apiDoc(type: org.asciidoctor.gradle.jvm.AsciidoctorTask) {
+    dependsOn test
+    configurations 'asciidoctorExt'
+    inputs.dir snippetsDir
     sourceDir = file "$rootDir/api"
     sources {
         include 'external-api.adoc'
     }
     outputDir = file 'api'
-    backends = ['html5']
 }
 
 task documentation {
     dependsOn javadoc
     dependsOn apiDoc
     dependsOn docToHtml
-}
-
-asciidoctor {
-    inputs.dir snippetsDir
-    dependsOn test
 }
 
 test {
