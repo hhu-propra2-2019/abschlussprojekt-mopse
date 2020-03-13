@@ -2,6 +2,7 @@ package mops.utils;
 
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -18,6 +19,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
+@AutoConfigureRestDocs("build/generated-snippets")
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public @interface TestContext {
 }

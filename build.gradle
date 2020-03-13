@@ -6,6 +6,7 @@ plugins {
     id 'pmd'
     id 'com.github.spotbugs' version '4.0.2'
     id 'io.franzbecker.gradle-lombok' version '3.3.0'
+    id 'org.asciidoctor.jvm.convert' version '3.1.0'
 }
 
 group = 'mops'
@@ -20,6 +21,7 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    asciidoctorExt
 }
 
 repositories {
@@ -61,6 +63,9 @@ dependencies {
     testImplementation 'org.testcontainers:testcontainers:1.13.0'
     testImplementation 'org.testcontainers:junit-jupiter:1.13.0'
     testImplementation 'com.c4-soft.springaddons:spring-security-test-keycloack-addons:1.2.0'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
 checkstyle {
@@ -93,10 +98,6 @@ tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
     }
 }
 
-test {
-    useJUnitPlatform()
-}
-
 task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: compileJava) {
     ext.outputDir = file "$buildDir/delombok"
     outputs.dir(outputDir)
@@ -106,9 +107,52 @@ task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: c
     }
 }
 
+ext {
+    snippetsDir = file 'build/generated-snippets'
+}
+
 javadoc {
     dependsOn delombok
     source = delombok.outputDir
     destinationDir = file "$rootProject.rootDir/javadoc"
     failOnError = false
+}
+
+task docToHtml(type: org.asciidoctor.gradle.jvm.AsciidoctorTask) {
+    dependsOn test
+    configurations 'asciidoctorExt'
+    inputs.dir snippetsDir
+    sourceDir = file "$rootDir/doc"
+    sources {
+        include 'documentation.adoc'
+    }
+    resources {
+        from(sourceDir) {
+            include 'documentation/images/**'
+        }
+        into '.'
+    }
+    outputDir = file 'doc'
+}
+
+task apiDoc(type: org.asciidoctor.gradle.jvm.AsciidoctorTask) {
+    dependsOn test
+    configurations 'asciidoctorExt'
+    inputs.dir snippetsDir
+    sourceDir = file "$rootDir/api"
+    sources {
+        include 'external-api.adoc'
+    }
+    outputDir = file 'api'
+}
+
+task documentation {
+    dependsOn javadoc
+    dependsOn apiDoc
+    dependsOn docToHtml
+}
+
+test {
+    useJUnitPlatform()
+    outputs.dir snippetsDir
 }

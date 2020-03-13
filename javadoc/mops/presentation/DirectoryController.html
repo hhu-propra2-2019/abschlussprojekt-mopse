@@ -185,10 +185,10 @@ long&nbsp;dirId)</code></th>
 </tr>
 <tr class="altColor" id="i4">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.persistence.file.FileInfo)">uploadFile</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,org.springframework.web.multipart.MultipartFile)">uploadFile</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
 org.springframework.ui.Model&nbsp;model,
 long&nbsp;dirId,
-<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&nbsp;fileInfo)</code></th>
+org.springframework.web.multipart.MultipartFile&nbsp;multipartFile)</code></th>
 <td class="colLast">
 <div class="block">Uploads a file.</div>
 </td>
@@ -252,21 +252,21 @@ long&nbsp;dirId)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.persistence.file.FileInfo)">uploadFile</a></h3>
+<h3><a id="uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,org.springframework.web.multipart.MultipartFile)">uploadFile</a></h3>
 <div class="memberSignature"><span class="annotations">@PostMapping("/{dirId}/upload")
 </span><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String</span>&nbsp;<span class="memberName">uploadFile</span>&#8203;(<span class="arguments">org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
 org.springframework.ui.Model&nbsp;model,
 @PathVariable("dirId")
 long&nbsp;dirId,
 @RequestAttribute("file")
-<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&nbsp;fileInfo)</span></div>
+org.springframework.web.multipart.MultipartFile&nbsp;multipartFile)</span></div>
 <div class="block">Uploads a file.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>token</code> - keycloak auth token</dd>
 <dd><code>model</code> - spring view model</dd>
 <dd><code>dirId</code> - id of the directory id where it will be uploaded</dd>
-<dd><code>fileInfo</code> - file object</dd>
+<dd><code>multipartFile</code> - file object</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>route after completion</dd>
 </dl>

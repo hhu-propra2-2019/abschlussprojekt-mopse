@@ -34,4 +34,3 @@ out/
 
 prod.env
 minio_data/
-!javadoc/
