@@ -18,8 +18,7 @@ public class FileInfoServiceImpl implements FileInfoService {
     private final FileInfoRepository fileInfoRepo;
 
     /**
-     * @param dirId directory id
-     * @return a list of files in that directory
+     * {@inheritDoc}
      */
     @Override
     public List<FileInfo> fetchAllFilesInDirectory(long dirId) throws MopsException {
