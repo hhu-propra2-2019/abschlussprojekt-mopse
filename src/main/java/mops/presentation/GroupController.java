@@ -1,5 +1,6 @@
 package mops.presentation;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
 import mops.businesslogic.*;
 import mops.businesslogic.utils.AccountUtil;
@@ -34,7 +35,7 @@ public class GroupController {
      * @param groupId the id of the group which files should be fetched
      * @return the route to template 'directory'
      */
-    @GetMapping("/{groupId}")
+    @GetMapping("/{groupId}/files")
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String getAllFilesOfDirectory(KeycloakAuthenticationToken token,
                                          Model model,
@@ -53,23 +54,45 @@ public class GroupController {
     /**
      * @param token   a keycloak authentication token
      * @param model   spring boot view model
+     * @param groupId the id of the group which files should be fetched
+     * @return redirect to root dir
+     */
+    @GetMapping("/{groupId}")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock", "PMD.LawOfDemeter" })
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_EXCEPTION", justification = "Remove with exception handling")
+    public String getRootDirectory(KeycloakAuthenticationToken token,
+                                   Model model,
+                                   @PathVariable("groupId") long groupId) {
+        Account account = AccountUtil.getAccountFromToken(token);
+        GroupRootDirWrapper groupRootDir = null;
+        try {
+            groupRootDir = groupService.getGroupUrl(account, groupId);
+        } catch (MopsException e) {
+            // TODO: Add exception handling, remove PMD warning suppression
+        }
+        return String.format("redirect:%s", groupRootDir.getRootDirUrl()); // no demeter violation here
+    }
+
+    /**
+     * @param token   a keycloak authentication token
+     * @param model   spring boot view model
      * @param groupId the id of the group of the requested url
      * @return a wrapper for the url string
      */
     @GetMapping(value = "/{groupId}/url", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
-    public GroupDirUrlWrapper getGroupUrl(KeycloakAuthenticationToken token,
-                                          Model model,
-                                          @PathVariable("groupId") long groupId) {
+    public GroupRootDirWrapper getGroupUrl(KeycloakAuthenticationToken token,
+                                           Model model,
+                                           @PathVariable("groupId") long groupId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        GroupDirUrlWrapper groupUrl = null;
+        GroupRootDirWrapper groupRootDir = null;
         try {
-            groupUrl = groupService.getGroupUrl(account, groupId);
+            groupRootDir = groupService.getGroupUrl(account, groupId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
         }
-        return groupUrl;
+        return groupRootDir;
     }
 
     /**
