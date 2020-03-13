@@ -118,40 +118,6 @@ javadoc {
     failOnError = false
 }
 
-task docToHtml(type: org.asciidoctor.gradle.jvm.AsciidoctorTask) {
-    dependsOn test
-    configurations 'asciidoctorExt'
-    inputs.dir snippetsDir
-    sourceDir = file "$rootDir/doc"
-    sources {
-        include 'documentation.adoc'
-    }
-    resources {
-        from(sourceDir) {
-            include 'documentation/images/**'
-        }
-        into '.'
-    }
-    outputDir = file 'doc'
-}
-
-task apiDoc(type: org.asciidoctor.gradle.jvm.AsciidoctorTask) {
-    dependsOn test
-    configurations 'asciidoctorExt'
-    inputs.dir snippetsDir
-    sourceDir = file "doc/api"
-    sources {
-        include 'external-api.adoc'
-    }
-    resources {
-        from(sourceDir) {
-            include 'documentation/images/**'
-        }
-        into '.'
-    }
-    outputDir = file 'api'
-}
-
 task documentation {
     dependsOn javadoc
     dependsOn apiDoc
