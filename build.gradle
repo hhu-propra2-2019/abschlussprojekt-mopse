@@ -108,7 +108,7 @@ task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: c
 }
 
 ext {
-    snippetsDir = file 'build/generated-snippets'
+    snippetsDir = file 'doc/api/generated-snippets'
 }
 
 javadoc {
@@ -142,6 +142,12 @@ task apiDoc(type: org.asciidoctor.gradle.jvm.AsciidoctorTask) {
     sourceDir = file "doc/api"
     sources {
         include 'external-api.adoc'
+    }
+    resources {
+        from(sourceDir) {
+            include 'documentation/images/**'
+        }
+        into '.'
     }
     outputDir = file 'api'
 }
