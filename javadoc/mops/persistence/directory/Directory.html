@@ -19,8 +19,8 @@
 <script type="text/javascript" src="../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+<script type="text/javascript">var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -57,13 +57,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -103,36 +103,6 @@ extends java.lang.Object</pre>
 </section>
 <section class="summary">
 <ul class="blockList">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<li class="blockList">
-<section class="constructorSummary"><a id="constructor.summary">
-<!--   -->
-</a>
-<h2>Constructor Summary</h2>
-<div class="memberSummary">
-<table>
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
-<thead>
-<tr>
-<th class="colFirst" scope="col">Constructor</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.lang.Long,long,long)">Directory</a></span>&#8203;(java.lang.String&nbsp;name,
-java.lang.Long&nbsp;parentId,
-long&nbsp;groupOwner,
-long&nbsp;permissionsId)</code></th>
-<td class="colLast">
-<div class="block">Create a new Directory.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li class="blockList">
 <section class="methodSummary"><a id="method.summary">
@@ -140,7 +110,7 @@ long&nbsp;permissionsId)</code></th>
 </a>
 <h2>Method Summary</h2>
 <div class="memberSummary">
-<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
+<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t1" class="tableTab" onclick="show(1);">Static Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
 <div id="memberSummary_tabpanel" role="tabpanel">
 <table aria-labelledby="t0">
 <thead>
@@ -152,98 +122,105 @@ long&nbsp;permissionsId)</code></th>
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
+<td class="colFirst"><code>static <a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#builder()">builder</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gives you DirectoryBuilder.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i1">
 <td class="colFirst"><code>protected boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i1">
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>java.time.Instant</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreationTime()">getCreationTime</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get the creation time.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupOwner()">getGroupOwner</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Id of the group which this Directory belongs to.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>java.lang.Long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getId()">getId</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Database Id.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>java.time.Instant</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastModifiedTime()">getLastModifiedTime</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get the last modified time.</div>
 </td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>@NonNull java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getName()">getName</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Directory name.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i7">
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>java.lang.Long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParentId()">getParentId</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Id of the Directory above this one.</div>
 </td>
 </tr>
-<tr class="altColor" id="i8">
+<tr class="rowColor" id="i9">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPermissionsId()">getPermissionsId</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Id of the DirectoryPermissions object which stores the access permission for this Directory tree.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i9">
+<tr class="altColor" id="i10">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i10">
+<tr class="rowColor" id="i11">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGroupOwner(long)">setGroupOwner</a></span>&#8203;(long&nbsp;groupOwner)</code></th>
 <td class="colLast">
 <div class="block">Id of the group which this Directory belongs to.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i11">
+<tr class="altColor" id="i12">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(@NonNull java.lang.String&nbsp;name)</code></th>
 <td class="colLast">
 <div class="block">Directory name.</div>
 </td>
 </tr>
-<tr class="altColor" id="i12">
+<tr class="rowColor" id="i13">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParentId(java.lang.Long)">setParentId</a></span>&#8203;(java.lang.Long&nbsp;parentId)</code></th>
 <td class="colLast">
 <div class="block">Id of the Directory above this one.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i13">
+<tr class="altColor" id="i14">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPermissionsId(long)">setPermissionsId</a></span>&#8203;(long&nbsp;permissionsId)</code></th>
 <td class="colLast">
 <div class="block">Id of the DirectoryPermissions object which stores the access permission for this Directory tree.</div>
 </td>
 </tr>
-<tr class="altColor" id="i14">
+<tr class="rowColor" id="i15">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -263,33 +240,6 @@ long&nbsp;permissionsId)</code></th>
 </section>
 <section class="details">
 <ul class="blockList">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<li class="blockList">
-<section class="constructorDetails"><a id="constructor.detail">
-<!--   -->
-</a>
-<h2>Constructor Details</h2>
-<ul class="blockList">
-<li class="blockList">
-<section class="detail">
-<h3><a id="&lt;init&gt;(java.lang.String,java.lang.Long,long,long)">Directory</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">Directory</span>&#8203;(<span class="arguments">java.lang.String&nbsp;name,
-java.lang.Long&nbsp;parentId,
-long&nbsp;groupOwner,
-long&nbsp;permissionsId)</span></div>
-<div class="block">Create a new Directory.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>name</code> - Directory name</dd>
-<dd><code>parentId</code> - Id of parent Directory</dd>
-<dd><code>groupOwner</code> - Id of the owning group</dd>
-<dd><code>permissionsId</code> - Id of the DirectoryPermissions</dd>
-</dl>
-</section>
-</li>
-</ul>
-</section>
-</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li class="blockList">
 <section class="methodDetails"><a id="method.detail">
@@ -316,6 +266,17 @@ long&nbsp;permissionsId)</span></div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>last modified time</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="builder()">builder</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></span>&nbsp;<span class="memberName">builder</span>()</div>
+<div class="block">Gives you DirectoryBuilder.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>DirectoryBuilder</dd>
 </dl>
 </section>
 </li>
@@ -454,13 +415,13 @@ long&nbsp;permissionsId)</span></div>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>

@@ -97,6 +97,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <section class="description">
 <hr>
 <pre>@Repository
+<a href="../utils/AggregateBuilder.html" title="annotation in mops.utils">@AggregateBuilder</a>
 public class <span class="typeNameLabel">FileRepository</span>
 extends java.lang.Object</pre>
 </section>
@@ -119,7 +120,7 @@ extends java.lang.Object</pre>
 </thead>
 <tbody>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.persistence.FileRepositoryConfig)">FileRepository</a></span>&#8203;(<a href="FileRepositoryConfig.html" title="class in mops.persistence">FileRepositoryConfig</a>&nbsp;configuration)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.persistence.FileRepositoryConfig)">FileRepository</a></span>&#8203;(mops.persistence.FileRepositoryConfig&nbsp;configuration)</code></th>
 <td class="colLast">
 <div class="block">Connects to MinIO Server and checks if the bucket exists.</div>
 </td>
@@ -201,14 +202,14 @@ long&nbsp;fileId)</code></th>
 <li class="blockList">
 <section class="detail">
 <h3><a id="&lt;init&gt;(mops.persistence.FileRepositoryConfig)">FileRepository</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">FileRepository</span>&#8203;(<span class="arguments"><a href="FileRepositoryConfig.html" title="class in mops.persistence">FileRepositoryConfig</a>&nbsp;configuration)</span>
-               throws <span class="exceptions"><a href="StorageException.html" title="class in mops.persistence">StorageException</a></span></div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">FileRepository</span>&#8203;(<span class="arguments">mops.persistence.FileRepositoryConfig&nbsp;configuration)</span>
+               throws <span class="exceptions">mops.persistence.StorageException</span></div>
 <div class="block">Connects to MinIO Server and checks if the bucket exists.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>configuration</code> - the injected Config.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="StorageException.html" title="class in mops.persistence">StorageException</a></code> - on Error</dd>
+<dd><code>mops.persistence.StorageException</code> - on Error</dd>
 </dl>
 </section>
 </li>
@@ -227,14 +228,14 @@ long&nbsp;fileId)</code></th>
 <h3><a id="saveFile(org.springframework.web.multipart.MultipartFile,long)">saveFile</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">saveFile</span>&#8203;(<span class="arguments">org.springframework.web.multipart.MultipartFile&nbsp;file,
 long&nbsp;fileId)</span>
-              throws <span class="exceptions"><a href="StorageException.html" title="class in mops.persistence">StorageException</a></span></div>
+              throws <span class="exceptions">mops.persistence.StorageException</span></div>
 <div class="block">Saves a file.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>file</code> - the file that should get saved permanently.</dd>
 <dd><code>fileId</code> - the File ID given by the FileInfo database.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="StorageException.html" title="class in mops.persistence">StorageException</a></code> - on Error</dd>
+<dd><code>mops.persistence.StorageException</code> - on Error</dd>
 </dl>
 </section>
 </li>
@@ -242,13 +243,13 @@ long&nbsp;fileId)</span>
 <section class="detail">
 <h3><a id="deleteFile(long)">deleteFile</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">deleteFile</span>&#8203;(<span class="arguments">long&nbsp;fileId)</span>
-                throws <span class="exceptions"><a href="StorageException.html" title="class in mops.persistence">StorageException</a></span></div>
+                throws <span class="exceptions">mops.persistence.StorageException</span></div>
 <div class="block">Deletes a file permanently.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>fileId</code> - the ID of the file that's desired to be deleted.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="StorageException.html" title="class in mops.persistence">StorageException</a></code> - on error</dd>
+<dd><code>mops.persistence.StorageException</code> - on error</dd>
 </dl>
 </section>
 </li>
@@ -256,7 +257,7 @@ long&nbsp;fileId)</span>
 <section class="detail">
 <h3><a id="getFileContent(long)">getFileContent</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.io.InputStream</span>&nbsp;<span class="memberName">getFileContent</span>&#8203;(<span class="arguments">long&nbsp;fileId)</span>
-                                   throws <span class="exceptions"><a href="StorageException.html" title="class in mops.persistence">StorageException</a></span></div>
+                                   throws <span class="exceptions">mops.persistence.StorageException</span></div>
 <div class="block">Retrieves the bytes of the file.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -264,7 +265,7 @@ long&nbsp;fileId)</span>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>file content as byte array</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="StorageException.html" title="class in mops.persistence">StorageException</a></code> - on error</dd>
+<dd><code>mops.persistence.StorageException</code> - on error</dd>
 </dl>
 </section>
 </li>
@@ -272,7 +273,7 @@ long&nbsp;fileId)</span>
 <section class="detail">
 <h3><a id="fileExist(long)">fileExist</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">fileExist</span>&#8203;(<span class="arguments">long&nbsp;fileId)</span>
-                  throws <span class="exceptions"><a href="StorageException.html" title="class in mops.persistence">StorageException</a></span></div>
+                  throws <span class="exceptions">mops.persistence.StorageException</span></div>
 <div class="block">Checks if a file with a specified ID already exists.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -280,7 +281,7 @@ long&nbsp;fileId)</span>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if found</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="StorageException.html" title="class in mops.persistence">StorageException</a></code></dd>
+<dd><code>mops.persistence.StorageException</code></dd>
 </dl>
 </section>
 </li>

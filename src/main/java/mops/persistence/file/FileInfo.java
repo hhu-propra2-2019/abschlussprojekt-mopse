@@ -69,20 +69,6 @@ public class FileInfo {
     private Timestamp lastModifiedTime;
 
     /**
-     * Create a new File.
-     *
-     * @param name        file name
-     * @param directoryId id of directory this file is in
-     * @param type        file type
-     * @param size        file size
-     * @param owner       file owner
-     * @param tags        file tags
-     */
-    public FileInfo(String name, long directoryId, String type, long size, String owner, Set<FileTag> tags) {
-        this(null, name, directoryId, type, size, owner, tags, null, null);
-    }
-
-    /**
      * Get the creation time.
      *
      * @return creation time
@@ -98,5 +84,14 @@ public class FileInfo {
      */
     public Instant getLastModifiedTime() {
         return lastModifiedTime == null ? Instant.EPOCH : lastModifiedTime.toInstant();
+    }
+
+    /**
+     * Gives you FileInfoBuilder.
+     *
+     * @return FileInfoBuilder
+     */
+    public static FileInfoBuilder builder() {
+        return new FileInfoBuilder();
     }
 }

@@ -2,12 +2,14 @@ package mops.persistence;
 
 import mops.exception.MopsException;
 import mops.persistence.file.FileInfo;
+import mops.utils.AggregateBuilder;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@AggregateBuilder
 public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
     /**
      * @param dirId directory id
