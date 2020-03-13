@@ -1,5 +1,6 @@
 package mops.presentation;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
 import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
@@ -13,8 +14,10 @@ import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/material1/dir")
@@ -59,10 +62,10 @@ public class DirectoryController {
     /**
      * Uploads a file.
      *
-     * @param token    keycloak auth token
-     * @param model    spring view model
-     * @param dirId    id of the directory id where it will be uploaded
-     * @param fileInfo file object
+     * @param token         keycloak auth token
+     * @param model         spring view model
+     * @param dirId         id of the directory id where it will be uploaded
+     * @param multipartFile file object
      * @return route after completion
      */
     @PostMapping("/{dirId}/upload")
@@ -70,10 +73,10 @@ public class DirectoryController {
     public String uploadFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("dirId") long dirId,
-                             @RequestAttribute("file") FileInfo fileInfo) {
+                             @RequestAttribute("file") MultipartFile multipartFile) {
         Account account = AccountUtil.getAccountFromToken(token);
         try {
-            directoryService.uploadFile(account, dirId, fileInfo);
+            fileService.uploadFile(account, dirId, multipartFile, Set.of());
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
         }
@@ -90,19 +93,22 @@ public class DirectoryController {
      * @return object of the folder
      */
     @PostMapping("/{parentDirId}/create")
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_EXCEPTION")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock", "" })
     public String createSubFolder(KeycloakAuthenticationToken token,
                                   Model model,
                                   @PathVariable("parentDirId") long parentDirId,
                                   @RequestAttribute("folderName") String folderName) {
         Account account = AccountUtil.getAccountFromToken(token);
-        long directoryId = -1L;
+        Directory directory = null;
         try {
-            directoryId = directoryService.createFolder(account, parentDirId, folderName);
+            directory = directoryService.createFolder(account, parentDirId, folderName);
         } catch (MopsException e) {
-            // TODO: Add exception handling, remove PMD warning suppression
+            // TODO: Add exception handling, remove PMD warning suppression and findbugs warning
+            // TODO: this can be done by replacing Directory directory = null; with Directory directory;
         }
-        return String.format("redirect:/material1/dir/%d", directoryId);
+        //there is no other way
+        return String.format("redirect:/material1/dir/%d", directory.getId()); //NOPMD
     }
 
     /**
@@ -114,18 +120,21 @@ public class DirectoryController {
      * @return the id of the parent folder
      */
     @DeleteMapping("/{dirId}")
+    @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_EXCEPTION")
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId) {
         Account account = AccountUtil.getAccountFromToken(token);
-        long directoryId = -1L;
+        Directory directory = null;
         try {
-            directoryId = directoryService.deleteFolder(account, dirId);
+            directory = directoryService.deleteFolder(account, dirId);
         } catch (MopsException e) {
-            // TODO: Add exception handling, remove PMD warning suppression
+            // TODO: Add exception handling, remove PMD warning suppression and findbugs warning
+            // TODO: this can be done by replacing Directory directory = null; with Directory directory;
         }
-        return String.format("redirect:/material1/dir/%d", directoryId);
+        //there is no other way
+        return String.format("redirect:/material1/dir/%d", directory.getId()); //NOPMD
     }
 
     /**

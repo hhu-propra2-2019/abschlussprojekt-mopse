@@ -149,9 +149,9 @@ Business Layer::
 | _Verwaltet alle Inhalte einer einzelnen Gruppe. Ordner sowie Dateien._
 | _Um die Informationen über die Unterordner einer Gruppe zu erhalten, wird eine Anfrage an den `DirectoryService` gestellt._
 
-| Permissionservice
+| PermissionService
 | _Stellt die Berechtigungen eines einzelnen Benutzers zur Verfügung._
-| _Stellt eine Anfrage an das Modul `Gruppenbildung`, um die Berechtigungen eines Benutzers zu erhalten._
+| _Stellt eine Anfrage an das Modul `Gruppenbildung`, um die Berechtigungen eines Benutzers in einer Gruppe zu erhalten._
 
 | RoleService
 | _Checkt die Rolenberechtigung eines Nutzers._
@@ -187,11 +187,11 @@ Database Layer::
 |Komponente |Funktion | Schnittstellen
 | Datenbank
 | _Stellt sämtliche Datenbankobjekte zur Verfügung._
-| _Es werden ausschließlich Anfragen *an* die Datenbank gestellt._
+| _Es werden ausschließlich Anfragen an die *Datenbank* gestellt._
 
 | MinIO
 | _Stellt benötigte Dateien zur Verfügung._
-| _Es werden ausschließlich Anfragen *an* MinIO gestellt.*_
+| _Es werden ausschließlich Anfragen an *MinIO* gestellt.*_
 |===
 ****
 

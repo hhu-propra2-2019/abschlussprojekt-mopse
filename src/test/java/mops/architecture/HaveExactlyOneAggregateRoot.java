@@ -1,4 +1,4 @@
-package mops;
+package mops.architecture;
 
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.lang.ArchCondition;
@@ -17,9 +17,9 @@ import static java.util.stream.Collectors.toList;
  * This is a class that helps the tests to find out
  * whether every package has only one Aggregate Root or not.
  */
-public class HaveExactlyOneAggregateRoot extends ArchCondition<Slice> {
+class HaveExactlyOneAggregateRoot extends ArchCondition<Slice> {
 
-    public static final HaveExactlyOneAggregateRoot HAVE_EXACTLY_ONE_AGGREGATE_ROOT = new HaveExactlyOneAggregateRoot();
+    static final HaveExactlyOneAggregateRoot HAVE_EXACTLY_ONE_AGGREGATE_ROOT = new HaveExactlyOneAggregateRoot();
 
     private HaveExactlyOneAggregateRoot() {
         super("have exactly one aggregate root");
