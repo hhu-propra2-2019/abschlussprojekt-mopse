@@ -12,6 +12,7 @@ import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
+import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +25,6 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -54,11 +54,14 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      */
     @BeforeEach
     void setup() throws MopsException {
+        Directory directory = mock(Directory.class);
+        Directory root = mock(Directory.class);
+
+        given(directory.getId()).willReturn(2L);
         given(directoryService.getSubFolders(any(), eq(1L))).willReturn(List.of());
         given(fileService.getFilesOfDirectory(any(), eq(1L))).willReturn(List.of());
-        doNothing().when(directoryService).uploadFile(any(), eq(1L), any());
-        given(directoryService.createFolder(any(), eq(1L), any())).willReturn(2L);
-        given(directoryService.deleteFolder(any(), eq(1L))).willReturn(0L);
+        given(directoryService.createFolder(any(), eq(1L), any())).willReturn(directory);
+        given(directoryService.deleteFolder(any(), eq(1L))).willReturn(root);
         given(directoryService.searchFolder(any(), eq(1L), any())).willReturn(List.of());
     }
 

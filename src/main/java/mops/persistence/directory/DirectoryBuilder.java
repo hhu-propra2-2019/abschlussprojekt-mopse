@@ -6,12 +6,19 @@ import lombok.NonNull;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.utils.AggregateBuilder;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
-        "PMD.BeanMembersShouldSerialize" })
+        "PMD.BeanMembersShouldSerialize" }) // this is a builder
 public class DirectoryBuilder {
 
+    /**
+     * Database Id.
+     */
+    private Long id;
     /**
      * Directory name.
      */
@@ -28,6 +35,10 @@ public class DirectoryBuilder {
      * Id of the DirectoryPermissions object which stores the access permission for this Directory tree.
      */
     private long permissionsId = -1L;
+    /**
+     * Creation Time.
+     */
+    private Instant creationTime;
 
     /**
      * Initialize from existing Directory.
@@ -36,10 +47,12 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder from(@NonNull Directory directory) {
+        this.id = directory.getId();
         this.name = directory.getName();
         this.parentId = directory.getParentId();
         this.groupOwner = directory.getGroupOwner();
         this.permissionsId = directory.getPermissionsId();
+        this.creationTime = directory.getCreationTime();
         return this;
     }
 
@@ -50,9 +63,31 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder fromParent(@NonNull Directory parent) {
-        this.parentId = parent.getParentId();
+        this.parentId = parent.getId();
         this.groupOwner = parent.getGroupOwner();
         this.permissionsId = parent.getPermissionsId();
+        return this;
+    }
+
+    /**
+     * Set id.
+     *
+     * @param id id
+     * @return this
+     */
+    public DirectoryBuilder id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Set id from directory.
+     *
+     * @param directory directory
+     * @return this
+     */
+    public DirectoryBuilder id(Directory directory) {
+        this.id = directory == null ? null : directory.getId();
         return this;
     }
 
@@ -73,7 +108,7 @@ public class DirectoryBuilder {
      * @param parentId is the parent directory id
      * @return this
      */
-    public DirectoryBuilder parentId(long parentId) {
+    public DirectoryBuilder parent(long parentId) {
         this.parentId = parentId;
         return this;
     }
@@ -106,7 +141,7 @@ public class DirectoryBuilder {
      * @param permissionsId permissions id
      * @return this
      */
-    public DirectoryBuilder permissionsId(long permissionsId) {
+    public DirectoryBuilder permissions(long permissionsId) {
         this.permissionsId = permissionsId;
         return this;
     }
@@ -126,12 +161,20 @@ public class DirectoryBuilder {
      * Builds the Directory.
      *
      * @return composed Directory
-     * @throws IllegalStateException if DirectoryBuilder is not complete
+     * @throws IllegalStateException if Directory is not complete
      */
     public Directory build() {
         if (name == null || groupOwner == -1L || permissionsId == -1L) {
             throw new IllegalStateException("Directory is not complete!");
         }
-        return new Directory(null, name, parentId, groupOwner, permissionsId, null, null);
+        return new Directory(
+                id,
+                name,
+                parentId,
+                groupOwner,
+                permissionsId,
+                creationTime == null ? null : Timestamp.from(creationTime),
+                null
+        );
     }
 }

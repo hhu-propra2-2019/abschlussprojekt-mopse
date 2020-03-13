@@ -67,7 +67,7 @@ class FileInfoTest {
     void failSave() {
         FileInfo wrong = FileInfo.builder()
                 .name("a")
-                .directoryId(0L)
+                .directory(0L)
                 .type("txt")
                 .size(0L)
                 .owner("user")

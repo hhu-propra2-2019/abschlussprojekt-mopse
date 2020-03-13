@@ -17,14 +17,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers(disabledWithoutDocker = true)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class FileRepositoryTests {
+class FileRepositoryTests {
 
-    private final Random random = new Random();
-    private FileRepository fileRepository;
-    private GenericContainer<?> minioServer;
+    final Random random = new Random();
+    FileRepository fileRepository;
+    GenericContainer<?> minioServer;
 
     @BeforeAll
-    void setUp() throws StorageException {
+    void setup() throws StorageException {
         FileRepositoryConfig fileRepoConfig = new FileRepositoryConfig();
         fileRepoConfig.setAccessKey("access_key");
         fileRepoConfig.setSecretKey("secret_key");
@@ -135,5 +135,4 @@ public class FileRepositoryTests {
     private MultipartFile getRandomMultipartFile() {
         return new MockMultipartFile("file.bin", getRandomBytes());
     }
-
 }

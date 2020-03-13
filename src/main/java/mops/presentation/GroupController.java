@@ -19,14 +19,14 @@ import java.util.List;
 public class GroupController {
 
     /**
-     * Retrieves file information for a folder.
-     */
-    private FileService fileService;
-
-    /**
      * Communicator for directory objects.
      */
     private GroupService groupService;
+
+    /**
+     * Get Files from the storage.
+     */
+    private FileService fileService;
 
     /**
      * @param token   a keycloak authentication token
