@@ -1,5 +1,6 @@
 mops
 mops.businesslogic
+mops.businesslogic.exception
 mops.businesslogic.utils
 mops.config
 mops.exception

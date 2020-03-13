@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6};
+<script type="text/javascript">var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -157,6 +157,14 @@ long&nbsp;groupId,
 <div class="block">Searches for files in a group.</div>
 </td>
 </tr>
+<tr class="altColor" id="i6">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uploadFile(mops.businesslogic.Account,long,org.springframework.web.multipart.MultipartFile,java.util.Set)">uploadFile</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+long&nbsp;dirId,
+org.springframework.web.multipart.MultipartFile&nbsp;multipartFile,
+java.util.Set&lt;java.lang.String&gt;&nbsp;tags)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -187,6 +195,25 @@ long&nbsp;groupId)</span>
 <dd><code>groupId</code> - group identification</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>list of all files in that directory</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="uploadFile(mops.businesslogic.Account,long,org.springframework.web.multipart.MultipartFile,java.util.Set)">uploadFile</a></h3>
+<div class="memberSignature"><span class="returnType">void</span>&nbsp;<span class="memberName">uploadFile</span>&#8203;(<span class="arguments"><a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+long&nbsp;dirId,
+org.springframework.web.multipart.MultipartFile&nbsp;multipartFile,
+java.util.Set&lt;java.lang.String&gt;&nbsp;tags)</span>
+         throws <span class="exceptions"><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></span></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>account</code> - user credentials</dd>
+<dd><code>dirId</code> - directory id of the future parent folder</dd>
+<dd><code>multipartFile</code> - the binary code of the file</dd>
+<dd><code>tags</code> - the file tag</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>

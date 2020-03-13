@@ -13,7 +13,7 @@ ifdef::basebackend-html[]
 endif::basebackend-html[]
 
 // configure DE settings for asciidoc
-include::documentation/config.adoc[]
+include::doc/documentation/config.adoc[]
 
 // short explanation about formatting, can be deleted later
 == Formatierung
@@ -40,40 +40,40 @@ _Kursiver Text ist die "Aufgabenstellung", die wir erfüllen müssen. Diese soll
 
 <<<<
 // 1. Anforderungen und Ziele
-include::documentation/01_introduction_and_goals.adoc[]
+include::doc/documentation/01_introduction_and_goals.adoc[]
 
 <<<<
 // 2. Randbedingungen
-include::documentation/02_architecture_constraints.adoc[]
+include::doc/documentation/02_architecture_constraints.adoc[]
 
 <<<<
 // 3. Kontextabgrenzung
-include::documentation/03_system_scope_and_context.adoc[]
+include::doc/documentation/03_system_scope_and_context.adoc[]
 
 <<<<
 // 4. Lösungsstrategie
-include::documentation/04_solution_strategy.adoc[]
+include::doc/documentation/04_solution_strategy.adoc[]
 
 <<<<
 // 5. Bausteinsicht
-include::documentation/05_building_block_view.adoc[]
+include::doc/documentation/05_building_block_view.adoc[]
 
 <<<<
 // 6. Laufzeitsicht
-include::documentation/06_runtime_view.adoc[]
+include::doc/documentation/06_runtime_view.adoc[]
 
 <<<<
 // 7. Querschnittliche Konzepte
-include::documentation/07_concepts.adoc[]
+include::doc/documentation/07_concepts.adoc[]
 
 <<<<
 // 8. Entscheidungen
-include::documentation/08_design_decisions.adoc[]
+include::doc/documentation/08_design_decisions.adoc[]
 
 <<<<
 // 9. Qualität...
-include::documentation/09_quality_scenarios.adoc[]
+include::doc/documentation/09_quality_scenarios.adoc[]
 
 <<<<
 // 10. Glossar
-include::documentation/10_glossary.adoc[]
+include::doc/documentation/10_glossary.adoc[]

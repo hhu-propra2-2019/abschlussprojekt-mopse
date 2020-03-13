@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+<script type="text/javascript">var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -172,13 +172,34 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i8">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isAllowedToDelete(java.lang.String)">isAllowedToDelete</a></span>&#8203;(java.lang.String&nbsp;userRole)</code></th>
+<td class="colLast">
+<div class="block">Checks if a role has deleting access.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isAllowedToRead(java.lang.String)">isAllowedToRead</a></span>&#8203;(java.lang.String&nbsp;userRole)</code></th>
+<td class="colLast">
+<div class="block">Checks if a role has reading access.</div>
+</td>
+</tr>
+<tr class="altColor" id="i10">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isAllowedToWrite(java.lang.String)">isAllowedToWrite</a></span>&#8203;(java.lang.String&nbsp;userRole)</code></th>
+<td class="colLast">
+<div class="block">Checks if a role has writing access.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i11">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPermissions(java.util.Set)">setPermissions</a></span>&#8203;(@NonNull java.util.Set&lt;mops.persistence.permission.DirectoryPermissionEntry&gt;&nbsp;permissions)</code></th>
 <td class="colLast">
 <div class="block">The permission entries.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i9">
+<tr class="altColor" id="i12">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -224,6 +245,45 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>last modified time</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="isAllowedToWrite(java.lang.String)">isAllowedToWrite</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isAllowedToWrite</span>&#8203;(<span class="arguments">java.lang.String&nbsp;userRole)</span></div>
+<div class="block">Checks if a role has writing access.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>userRole</code> - role of the user in group</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>boolean if user is allowed to write</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="isAllowedToRead(java.lang.String)">isAllowedToRead</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isAllowedToRead</span>&#8203;(<span class="arguments">java.lang.String&nbsp;userRole)</span></div>
+<div class="block">Checks if a role has reading access.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>userRole</code> - role of the user in group</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>boolean if user is allowed</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="isAllowedToDelete(java.lang.String)">isAllowedToDelete</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isAllowedToDelete</span>&#8203;(<span class="arguments">java.lang.String&nbsp;userRole)</span></div>
+<div class="block">Checks if a role has deleting access.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>userRole</code> - role of the user in group</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>boolean if user is allowed to delete</dd>
 </dl>
 </section>
 </li>

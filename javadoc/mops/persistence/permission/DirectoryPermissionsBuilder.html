@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -124,7 +124,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code><a href="DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#build()">build</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Builds the FileInfo.</div>
+<div class="block">Builds the DirectoryPermissions.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
@@ -142,6 +142,20 @@ boolean&nbsp;canDelete)</code></th>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#from(mops.persistence.permission.DirectoryPermissions)">from</a></span>&#8203;(<a href="DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)</code></th>
 <td class="colLast">
 <div class="block">Initialize from existing DirectoryPermissions.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
+<td class="colFirst"><code><a href="DirectoryPermissionsBuilder.html" title="class in mops.persistence.permission">DirectoryPermissionsBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#id(java.lang.Long)">id</a></span>&#8203;(java.lang.Long&nbsp;id)</code></th>
+<td class="colLast">
+<div class="block">Set id.</div>
+</td>
+</tr>
+<tr class="altColor" id="i4">
+<td class="colFirst"><code><a href="DirectoryPermissionsBuilder.html" title="class in mops.persistence.permission">DirectoryPermissionsBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#id(mops.persistence.permission.DirectoryPermissions)">id</a></span>&#8203;(<a href="DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)</code></th>
+<td class="colLast">
+<div class="block">Set id from permissions.</div>
 </td>
 </tr>
 </tbody>
@@ -181,6 +195,32 @@ boolean&nbsp;canDelete)</code></th>
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="id(java.lang.Long)">id</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="DirectoryPermissionsBuilder.html" title="class in mops.persistence.permission">DirectoryPermissionsBuilder</a></span>&nbsp;<span class="memberName">id</span>&#8203;(<span class="arguments">java.lang.Long&nbsp;id)</span></div>
+<div class="block">Set id.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - id</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="id(mops.persistence.permission.DirectoryPermissions)">id</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="DirectoryPermissionsBuilder.html" title="class in mops.persistence.permission">DirectoryPermissionsBuilder</a></span>&nbsp;<span class="memberName">id</span>&#8203;(<span class="arguments"><a href="DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)</span></div>
+<div class="block">Set id from permissions.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>permissions</code> - permissions</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="entry(java.lang.String,boolean,boolean,boolean)">entry</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="DirectoryPermissionsBuilder.html" title="class in mops.persistence.permission">DirectoryPermissionsBuilder</a></span>&nbsp;<span class="memberName">entry</span>&#8203;(<span class="arguments">@NonNull
 @NonNull java.lang.String&nbsp;role,
@@ -203,12 +243,10 @@ boolean&nbsp;canDelete)</span></div>
 <section class="detail">
 <h3><a id="build()">build</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></span>&nbsp;<span class="memberName">build</span>()</div>
-<div class="block">Builds the FileInfo.</div>
+<div class="block">Builds the DirectoryPermissions.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>composed FileInfo</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.lang.IllegalStateException</code> - if DirectoryPermissionsBuilder is not complete</dd>
+<dd>composed DirectoryPermissions</dd>
 </dl>
 </section>
 </li>
