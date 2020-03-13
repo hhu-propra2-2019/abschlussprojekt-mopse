@@ -2,85 +2,107 @@ package mops.businesslogic;
 
 import mops.exception.MopsException;
 import mops.persistence.FileInfoRepository;
-import mops.persistence.FileRepository;
 import mops.persistence.file.FileInfo;
-import mops.utils.TestContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.mock;
 
-@TestContext
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class FileInfoServiceTest {
 
-    @MockBean
-    GroupService groupService;
-    @MockBean
-    FileRepository fileRepository;
-    @MockBean
-    FileService fileService;
-    @MockBean
-    PermissionService permissionService;
-    @MockBean
+    @Mock
     FileInfoRepository fileInfoRepository;
 
-    @Autowired
     FileInfoService fileInfoService;
 
-    List<FileInfo> fileInfoList;
-    FileInfo fileInfo1;
+    FileInfo file1;
 
     @BeforeEach
     void setup() {
-        fileInfoList = new ArrayList<FileInfo>();
-        fileInfo1 = mock(FileInfo.class);
-        fileInfoList.add(fileInfo1);
+        fileInfoService = new FileInfoServiceImpl(fileInfoRepository);
 
-        given(fileInfoRepository.getAllFileInfoByDirectory(1L)).willReturn(fileInfoList);
-        given(fileInfoRepository.findById(3L)).willReturn(Optional.of(fileInfo1));
-        given(fileInfoRepository.save(fileInfo1)).willReturn(fileInfo1);
-
-        willDoNothing().given(fileInfoRepository).deleteById(1L);
-        willThrow(DbActionExecutionException.class).given(fileInfoRepository).deleteById(2L);
+        file1 = FileInfo.builder()
+                .name("file")
+                .directory(1L)
+                .type("type")
+                .size(0)
+                .owner("user")
+                .build();
     }
 
     @Test
-    public void fetchAllFilesInDirectory() throws MopsException {
+    void fetchAllFilesInDirectory() throws MopsException {
+        given(fileInfoRepository.findAllInDirectory(1L)).willReturn(List.of(file1));
+
         List<FileInfo> result = fileInfoService.fetchAllFilesInDirectory(1L);
-        assertThat(result).isEqualTo(fileInfoList);
+
+        assertThat(result).containsExactlyInAnyOrder(file1);
+    }
+
+    @Test
+    void fetchAllFilesInDirectoryError() {
+        given(fileInfoRepository.findAllInDirectory(2L)).willThrow(DbActionExecutionException.class);
+
+        assertThatThrownBy(() -> fileInfoService.fetchAllFilesInDirectory(2L))
+                .isInstanceOf(MopsException.class);
     }
 
     @Test
     void fetchFileInfo() throws MopsException {
-        FileInfo result = fileInfoService.fetchFileInfo(3L);
-        assertThat(result).isEqualTo(fileInfo1);
+        given(fileInfoRepository.findById(1L)).willReturn(Optional.of(file1));
+
+        FileInfo result = fileInfoService.fetchFileInfo(1L);
+
+        assertThat(result).isEqualTo(file1);
+    }
+
+    @Test
+    void fetchFileInfoError() {
+        given(fileInfoRepository.findById(2L)).willThrow(DbActionExecutionException.class);
+
+        assertThatThrownBy(() -> fileInfoService.fetchFileInfo(2L))
+                .isInstanceOf(MopsException.class);
     }
 
     @Test
     void saveFileInfo() throws MopsException {
-        assertThat(fileInfoService.saveFileInfo(fileInfo1)).isEqualTo(fileInfo1);
+        given(fileInfoRepository.save(file1)).willReturn(file1);
+
+        FileInfo result = fileInfoService.saveFileInfo(file1);
+
+        assertThat(result).isEqualTo(file1);
+    }
+
+    @Test
+    void saveFileInfoError() {
+        given(fileInfoRepository.save(file1)).willThrow(DbActionExecutionException.class);
+
+        assertThatThrownBy(() -> fileInfoService.saveFileInfo(file1))
+                .isInstanceOf(MopsException.class);
     }
 
     @Test
     void deleteFileInfo() {
+        willDoNothing().given(fileInfoRepository).deleteById(1L);
+
         assertThatCode(() -> fileInfoService.deleteFileInfo(1L))
                 .doesNotThrowAnyException();
     }
 
     @Test
-    void deleteFileInfoThatDoesntExist() {
-        assertThatExceptionOfType(MopsException.class)
-                .isThrownBy(() -> fileInfoService.deleteFileInfo(2L));
+    void deleteFileInfoError() {
+        willThrow(DbActionExecutionException.class).given(fileInfoRepository).deleteById(2L);
+
+        assertThatThrownBy(() -> fileInfoService.deleteFileInfo(2L))
+                .isInstanceOf(MopsException.class);
     }
 }
