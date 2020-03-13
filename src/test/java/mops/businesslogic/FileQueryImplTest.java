@@ -32,4 +32,13 @@ public class FileQueryImplTest {
 
         assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
     }
+
+    @Test
+    public void findFileNameTest() {
+        FileQuery fileQuery = FileQuery.builder()
+                .names(List.of("cv"))
+                .build();
+
+        assertThat(fileQuery.checkMatch(fileInfo));
+    }
 }
