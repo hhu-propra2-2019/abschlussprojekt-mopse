@@ -8,14 +8,18 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class FileQueryBuilder {
     /**
-     * list of owner to search for
+     * List of owner to search for.
      */
     private List<String> owners;
 
     /**
-     * names of files to search for
+     * Names of files to search for.
      */
     private List<String> fileNames;
+    /**
+     * File types to search for.
+     */
+    private List<String> types;
 
     /**
      * Builds the object from it's information.
@@ -28,6 +32,9 @@ public class FileQueryBuilder {
         }
         if (owners == null) {
             owners = List.of();
+        }
+        if (types == null) {
+            types = List.of();
         }
         return new FileQueryImpl(
                 fileNames,
@@ -51,6 +58,11 @@ public class FileQueryBuilder {
      */
     public FileQueryBuilder names(List<String> fileNames) {
         this.fileNames = fileNames;
+        return this;
+    }
+
+    public FileQueryBuilder types(List<String> types) {
+        this.types = types;
         return this;
     }
 }
