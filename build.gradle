@@ -96,9 +96,6 @@ tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
     }
 }
 
-
-import org.asciidoctor.gradle.AsciidoctorTask
-
 task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: compileJava) {
     ext.outputDir = file "$buildDir/delombok"
     outputs.dir(outputDir)
@@ -119,7 +116,7 @@ javadoc {
     failOnError = false
 }
 
-task docToHtml(type: AsciidoctorTask) {
+task docToHtml(type: org.asciidoctor.gradle.AsciidoctorTask) {
     sourceDir = file "$rootDir/doc"
     sources {
         include 'documentation.adoc'
@@ -134,7 +131,7 @@ task docToHtml(type: AsciidoctorTask) {
     backends = ['html5']
 }
 
-task apiDoc(type: AsciidoctorTask) {
+task apiDoc(type: org.asciidoctor.gradle.AsciidoctorTask) {
     sourceDir = file "$rootDir/api"
     sources {
         include 'external-api.adoc'
