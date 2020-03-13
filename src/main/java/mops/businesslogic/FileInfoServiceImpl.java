@@ -41,7 +41,7 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
-    public FileInfo saveFileInfo(FileInfo fileInfo) throws MopsException{
+    public FileInfo saveFileInfo(FileInfo fileInfo) throws MopsException {
         try {
             return fileInfoRepo.save(fileInfo);
         } catch (Exception e) {
