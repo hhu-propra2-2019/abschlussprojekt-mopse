@@ -22,7 +22,7 @@ public class FileQueryBuilder {
      */
     private List<String> types;
     /**
-     * File tags to search for;
+     * File tags to search for.
      */
     private List<String> tags;
 
