@@ -62,6 +62,10 @@ public class FileQueryBuilder {
         return this;
     }
 
+    /**
+     * @param types file types to search for
+     * @return this
+     */
     public FileQueryBuilder types(List<String> types) {
         this.types = types;
         return this;
