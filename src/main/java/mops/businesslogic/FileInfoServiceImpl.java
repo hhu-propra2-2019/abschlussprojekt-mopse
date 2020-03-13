@@ -29,7 +29,7 @@ public class FileInfoServiceImpl implements FileInfoService {
      * @param fileId file id
      * @return a FileInfo object
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.LawOfDemeter")
     @Override
     public FileInfo fetchFileInfo(long fileId) throws MopsException {
         return fileInfoRepo.findById(fileId).orElseThrow(() -> new MopsException("..."));
@@ -39,7 +39,7 @@ public class FileInfoServiceImpl implements FileInfoService {
      * @param fileInfo Metadata of a file
      * @return ID the FileInfo was saved under
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public FileInfo saveFileInfo(FileInfo fileInfo) throws MopsException {
         try {
@@ -53,7 +53,7 @@ public class FileInfoServiceImpl implements FileInfoService {
     /**
      * @param fileId file id
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void deleteFileInfo(long fileId) throws MopsException {
         try {
