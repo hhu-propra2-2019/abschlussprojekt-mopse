@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import mops.persistence.file.FileInfo;
 
 import java.util.List;
+import java.util.function.Function;
 
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class FileQueryImpl implements FileQuery {
@@ -26,15 +27,17 @@ public class FileQueryImpl implements FileQuery {
      */
     private List<String> tags;
 
+
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean checkMatch(FileInfo file) {
-        return checkNames(file) &&
-                checkOwners(file) &&
-                checkTypes(file) &&
-                checkTags(file);
+        List<Function<FileInfo, Boolean>> runChecks = List.of(this::checkNames,
+                this::checkOwners,
+                this::checkTags,
+                this::checkTypes);
+        return runChecks.stream().allMatch(fileInfoBooleanFunction -> fileInfoBooleanFunction.apply(file));
     }
 
     private boolean checkTags(FileInfo file) {
