@@ -38,7 +38,7 @@ jobs:
         run: ./gradlew test
 
       - name: Run Gradle Java Doc
-        run: ./gradle javadoc
+        run: ./gradlew javadoc
 
       - name: Get build container
         id: adocbuild
