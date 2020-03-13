@@ -21,6 +21,6 @@ public interface GroupService {
      * @param groupId the id of the group
      * @return a wrapper for group urls
      */
-    GroupDirUrlWrapper getGroupUrl(Account account, long groupId) throws MopsException;
+    GroupRootDirWrapper getGroupUrl(Account account, long groupId) throws MopsException;
 
 }
