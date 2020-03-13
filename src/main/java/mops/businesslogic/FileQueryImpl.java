@@ -3,6 +3,7 @@ package mops.businesslogic;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import mops.persistence.file.FileInfo;
+import mops.persistence.file.FileTag;
 
 import java.util.List;
 
@@ -22,11 +23,25 @@ public class FileQueryImpl implements FileQuery {
     private List<String> types;
 
     /**
+     * List of file tags to search for.
+     */
+    private List<FileTag> tags;
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public boolean checkMatch(FileInfo file) {
-        return checkNames(file) && checkOwners(file) && checkTypes(file);
+        return checkNames(file) &&
+                checkOwners(file) &&
+                checkTypes(file) &&
+                checkTags(file);
+    }
+
+    private boolean checkTags(FileInfo file) {
+        boolean anyMatch = tags.stream()
+                .anyMatch(tag -> file.getTags().contains(tag));
+        return tags.isEmpty() || anyMatch;
     }
 
     private boolean checkTypes(FileInfo file) {
