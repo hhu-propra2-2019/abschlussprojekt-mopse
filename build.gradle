@@ -124,6 +124,12 @@ task docToHtml(type: AsciidoctorTask) {
     sources {
         include 'documentation.adoc'
     }
+    resources {
+        from(sourceDir) {
+            include 'documentation/images/**'
+        }
+        into '.'
+    }
     outputDir = file("doc")
     backends = ['html5']
 }
