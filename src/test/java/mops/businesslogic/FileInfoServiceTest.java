@@ -5,10 +5,8 @@ import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.file.FileInfo;
 import mops.utils.TestContext;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,6 +14,7 @@ import org.springframework.data.relational.core.conversion.DbActionExecutionExce
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
@@ -24,9 +23,6 @@ import static org.mockito.Mockito.mock;
 @TestContext
 @SpringBootTest
 class FileInfoServiceTest {
-
-    @Rule
-    public final ExpectedException mopsEx = ExpectedException.none();
 
     @MockBean
     GroupService groupService;
@@ -52,6 +48,7 @@ class FileInfoServiceTest {
         fileInfoList.add(fileInfo1);
 
         given(fileInfoRepository.getAllFileInfoByDirectory(1L)).willReturn(fileInfoList);
+        given(fileInfoRepository.findById(3L)).willReturn(Optional.of(fileInfo1));
         given(fileInfoRepository.save(fileInfo1)).willReturn(fileInfo1);
 
         willDoNothing().given(fileInfoRepository).deleteById(1L);
@@ -64,8 +61,10 @@ class FileInfoServiceTest {
         assertThat(result).isEqualTo(fileInfoList);
     }
 
-    void fetchFileInfo() {
-
+    @Test
+    void fetchFileInfo() throws MopsException {
+        FileInfo result = fileInfoService.fetchFileInfo(3L);
+        assertThat(result).isEqualTo(fileInfo1);
     }
 
     @Test
