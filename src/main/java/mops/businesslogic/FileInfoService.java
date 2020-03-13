@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Service
 public interface FileInfoService {
-	
+
     /**
      * @param dirId directory id
      * @return a list of files in that directory
