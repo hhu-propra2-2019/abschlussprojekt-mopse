@@ -34,12 +34,30 @@ public class FileQueryImplTest {
     }
 
     @Test
+    public void noMatchingOwnerTest() {
+        FileQuery fileQuery = FileQuery.builder()
+                .owners(List.of("Segelzwerg"))
+                .build();
+
+        assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
+    }
+
+    @Test
     public void findFileNameTest() {
         FileQuery fileQuery = FileQuery.builder()
                 .names(List.of("cv"))
                 .build();
 
-        assertThat(fileQuery.checkMatch(fileInfo));
+        assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
+    }
+
+    @Test
+    public void noMatchingFileNameTest() {
+        FileQuery fileQuery = FileQuery.builder()
+                .names(List.of("Lebenslauf"))
+                .build();
+
+        assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
     }
 
     @Test
@@ -48,5 +66,13 @@ public class FileQueryImplTest {
                 .types(List.of("pdf"))
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
+    }
+
+    @Test
+    public void noMatchingTypeTest() {
+        FileQuery fileQuery = FileQuery.builder()
+                .types(List.of("png"))
+                .build();
+        assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
     }
 }
