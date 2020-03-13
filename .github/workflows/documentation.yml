@@ -37,6 +37,9 @@ jobs:
       - name: Run Gradle test
         run: ./gradlew test
 
+      - name: Run Gradle Java Doc
+        run: ./gradle javadoc
+
       - name: Get build container
         id: adocbuild
         uses: avattathil/asciidoctor-action@master
