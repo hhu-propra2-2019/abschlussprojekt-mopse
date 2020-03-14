@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   gen_doc:
     strategy:
@@ -34,7 +35,7 @@ jobs:
       - name: Run Gradle test
         run: ./gradlew test
 
-      - name: Run Gradle Java Doc
+      - name: Run Gradle Javadoc
         run: ./gradlew javadoc
 
       - name: Run Asciidoctor
