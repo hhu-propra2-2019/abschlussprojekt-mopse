@@ -1,26 +1,26 @@
-HELP.md
-.gradle
-build/
+/HELP.md
+/.gradle/
+/build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
 
 ### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+/.apt_generated
+/.classpath
+/.factorypath
+/.project
+/.settings/
+/.springBeans
+/.sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
-!.idea/runConfigurations/*.xml
+/.idea/*
+!/.idea/runConfigurations/
 *.iws
 *.iml
 *.ipr
-out/
+/out/
 
 ### NetBeans ###
 /nbproject/private/
@@ -30,9 +30,9 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-.vscode/
+/.vscode/
 
-prod.env
-minio_data/
+/prod.env
+/minio_data/
 /doc/api/generated-snippets/
 /doc/javadoc/
