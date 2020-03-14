@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - master
-      - feature/AutomaticDocDeployment # this will be removed once it's working
 jobs:
   # This workflow contains a single job called "build"
   gen_doc:
@@ -17,7 +16,7 @@ jobs:
         os: [ubuntu-18.04]
         java: [11]
     runs-on: ${{ matrix.os }}
-    name: asciidoctor to html
+    name: Deploy Documentation
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -40,14 +39,14 @@ jobs:
       - name: Run Gradle Java Doc
         run: ./gradlew javadoc
 
-      - name: Get build container
+      - name: Run Asciidoctor
         id: adocbuild
         uses: avattathil/asciidoctor-action@master
         with:
           program: "asciidoctor -D doc -a data-uri --backend=html5 -o index.html doc/documentation.adoc"
       - name: Print execution time
         run: echo "Time ${{ steps.adocbuild.outputs.time }}"
-      - name: Deploy docs to ghpages
+      - name: Deploy docs to github pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
