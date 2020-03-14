@@ -34,3 +34,5 @@ out/
 
 prod.env
 minio_data/
+/doc/api/generated-snippets/
+/doc/javadoc/

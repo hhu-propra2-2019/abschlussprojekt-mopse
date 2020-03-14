@@ -108,48 +108,14 @@ task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: c
 }
 
 ext {
-    snippetsDir = file 'build/generated-snippets'
+    snippetsDir = file 'doc/api/generated-snippets'
 }
 
 javadoc {
     dependsOn delombok
     source = delombok.outputDir
-    destinationDir = file "$rootProject.rootDir/javadoc"
+    destinationDir = file "doc/javadoc"
     failOnError = false
-}
-
-task docToHtml(type: org.asciidoctor.gradle.jvm.AsciidoctorTask) {
-    dependsOn test
-    configurations 'asciidoctorExt'
-    inputs.dir snippetsDir
-    sourceDir = file "$rootDir/doc"
-    sources {
-        include 'documentation.adoc'
-    }
-    resources {
-        from(sourceDir) {
-            include 'documentation/images/**'
-        }
-        into '.'
-    }
-    outputDir = file 'doc'
-}
-
-task apiDoc(type: org.asciidoctor.gradle.jvm.AsciidoctorTask) {
-    dependsOn test
-    configurations 'asciidoctorExt'
-    inputs.dir snippetsDir
-    sourceDir = file "$rootDir/api"
-    sources {
-        include 'external-api.adoc'
-    }
-    outputDir = file 'api'
-}
-
-task documentation {
-    dependsOn javadoc
-    dependsOn apiDoc
-    dependsOn docToHtml
 }
 
 test {

@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-@AutoConfigureRestDocs("build/generated-snippets")
+@AutoConfigureRestDocs("doc/api/generated-snippets")
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public @interface TestContext {
 }
