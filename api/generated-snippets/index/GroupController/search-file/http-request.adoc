@@ -4,5 +4,5 @@ POST /material1/group/1/search HTTP/1.1
 Host: localhost:8080
 Content-Type: application/x-www-form-urlencoded
 
-_csrf=b78210b0-b5e3-4929-99f5-7875fb956137
+_csrf=24cfabb9-fe6b-4c79-bbaa-6c31122058e4
 ----
