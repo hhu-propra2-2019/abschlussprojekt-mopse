@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Load Cache
         uses: actions/cache@v1.1.2
         with:
@@ -32,6 +32,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
 
+        # necessary for the automatic generation of the rest api documentation snippets
       - name: Run Gradle test
         run: ./gradlew test
 
@@ -43,10 +44,10 @@ jobs:
         uses: avattathil/asciidoctor-action@master
         with:
           program: "asciidoctor -D doc -a data-uri --backend=html5 -o index.html doc/documentation.adoc"
-          
+
       - name: Print execution time
         run: echo "Time ${{ steps.adocbuild.outputs.time }}"
-      
+
       - name: Deploy docs to github pages
         uses: peaceiris/actions-gh-pages@v3
         with:
