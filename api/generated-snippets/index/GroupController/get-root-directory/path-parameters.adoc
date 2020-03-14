@@ -1,8 +1,0 @@
-.+/material1/group/{groupId}+
-|===
-|Parameter|Description
-
-|`+groupId+`
-|The group id.
-
-|===

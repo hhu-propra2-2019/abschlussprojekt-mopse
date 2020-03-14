@@ -1,6 +1,0 @@
-[source,http,options="nowrap"]
-----
-DELETE /material1/file/1 HTTP/1.1
-Host: localhost:8080
-
-----
