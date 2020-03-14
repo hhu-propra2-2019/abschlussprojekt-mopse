@@ -1,0 +1,4 @@
+[source,options="nowrap"]
+----
+{"group_id":1,"root_dir_id":2,"root_dir_url":"/material1/dir/2"}
+----

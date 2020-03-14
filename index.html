@@ -793,26 +793,74 @@ Nutzers in einer bestimmten Gruppe.</em></p></td>
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in api/external-api.adoc - include::generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 1. /material1/group/{groupId}/url</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>groupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group id.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>Antwort:</p>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in api/external-api.adoc - include::generated-snippets/index/GroupController/get-group-url/response-fields.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.group_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The id of the group.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.root_dir_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The id of the group&#8217;s root directory.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.root_dir_url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The url of the group&#8217;s root directory.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>Beispielrequest:</p>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in api/external-api.adoc - include::generated-snippets/index/GroupController/get-group-url/httpie-request.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ http GET 'http://localhost:8080/material1/group/1/url'</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Beispielantwort:</p>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in api/external-api.adoc - include::generated-snippets/index/GroupController/get-group-url/response-body.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>{"group_id":1,"root_dir_id":2,"root_dir_url":"/material1/dir/2"}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1327,13 +1375,101 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets/index/DirectoryController/show-content/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets//index/DirectoryController/create-folder/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 2. /material1/dir/{dir}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 3. /material1/dir/{dir}/create</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 4. /material1/dir/{dir}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 5. /material1/dir/{dir}/search</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 6. /material1/dir/{dir}/upload</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">FileController</dt>
@@ -1342,10 +1478,44 @@ Unresolved directive in documentation/05_building_block_view.adoc - include::../
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets/index/FileController/download-file/path-parameters.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 7. /material1/file/{fileId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fileId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 8. /material1/file/{fileId}/download</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fileId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file id.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">GroupController</dt>
@@ -1354,11 +1524,63 @@ Unresolved directive in documentation/05_building_block_view.adoc - include::../
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets/index/GroupController/get-all-files-of-directory/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
-Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets/index/GroupController/search-file/path-parameters.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 9. /material1/group/{groupId}/files</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>groupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 10. /material1/group/{groupId}/url</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>groupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 11. /material1/group/{groupId}/search</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>groupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group id.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">GroupsController</dt>
@@ -1367,8 +1589,10 @@ Unresolved directive in documentation/05_building_block_view.adoc - include::../
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in documentation/05_building_block_view.adoc - include::../api/generated-snippets/index/GroupsController/get-all-groups/httpie-request.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ http GET 'http://localhost:8080/material1/groups'</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1795,7 +2019,7 @@ Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskuss
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-14 10:30:24 UTC
+Last updated 2020-03-14 10:59:39 UTC
 </div>
 </div>
 </body>
