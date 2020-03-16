@@ -54,6 +54,12 @@
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen"> <!-- TODO: Add a complete upload form -->
     </form>
+    <form action="#" th:action="@{/search}" th:method="post">
+        <input type="text" name="fileNames">
+        <input type="text" name="owners">
+        <input type="text" name="types">
+        <input type="text" name="tags">
+    </form>
 </main>
 </body>
 </html>
