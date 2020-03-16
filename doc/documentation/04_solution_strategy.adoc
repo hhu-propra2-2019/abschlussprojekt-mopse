@@ -17,13 +17,13 @@ Eine *kurze* und *präzise* Darlegung aller relevanten Entscheidungen.
 === Controller Tests
 
 ****
-Eine Schwierigkeit für die Controller Tests ist, dass man die sicherheitsrelevanten Aspekte von `spring-security` und
-`keycloak` berücksichtigen muss.
+Eine Schwierigkeit der Controller-Tests liegt in der Berücksichtigung der sicherheitsrelevanten Aspekte von
+`spring-security` und `keycloak`.
 Wir hatten uns zunächst dafür entschieden diesen Teil zu mocken.
-Jedoch hatte es bei uns nicht funktioniert den Mock mit `@WithMockUser` zu machen, daher hatten wir den ganzen
-SecurityContext gemockt und stellten diesen mit `SecurityContextUtil` für jeden ControllerTest zur Verfügung.
-Später wurden wir dann auf die Bibliothek `spring-security-test-keycloack-addons` aufmerksam gemacht, die das Testen
-massiv vereinfacht. Nun kann man die Annotation `@WithMockKeycloakAuth` benutzen um Tests mit einer gültigen Keycloak
+Anfangs hatten wir Probleme, `@WithMockUser` zu verwenden, daher entschieden wir uns für das Mocken des gesamten
+SecurityContext. Durch  `SecurityContextUtil` wird dieser jedem ControllerTest zur Verfügung gestellt.
+Später wurden wir dann auf die Bibliothek `spring-security-test-keycloack-addons` aufmerksam, die das Testen
+massiv vereinfacht. Nun kann man die Annotation `@WithMockKeycloakAuth` benutzen, um Tests mit einer gültigen Keycloak
 Authentifizierung auszustatten.
 ****
 
@@ -33,6 +33,9 @@ Authentifizierung auszustatten.
 Zur Auswahl standen hier MySQL, MariaDB und PostgreSQL, da wir damit bereits Erfahrungen gesammelt haben.
 Wir haben uns nach einer kurzen Diskussion für MariaDB entschieden.
 Und zwar weil MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, womit wir am meisten Erfahrung haben.
+
+Der Großteil unserer Erfahrungen beruhte bisher auf MySQL. Da MariaDB die aktive Open-Source-Weiterentwicklung von MySQL
+ist, haben wir uns für die Verwendung von MariaDB entschieden.
 
 Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist
 umständlich immer diesen Docker-Container laufen zu lassen. Also haben wir uns entschieden in der Entwicklung und zum

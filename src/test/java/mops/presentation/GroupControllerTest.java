@@ -12,10 +12,9 @@ import mops.persistence.FileRepository;
 import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -49,14 +48,14 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     FileService fileService;
     @MockBean
     DirectoryService directoryService;
+    @MockBean
+    FileInfoService fileInfoService;
 
     /**
      * Setup service/repo mocks.
      */
     @BeforeEach
     void setup() throws MopsException {
-        given(fileService.getAllFilesOfGroup(any(), eq(1L))).willReturn(List.of());
-        given(fileService.searchFilesInGroup(any(), eq(1L), any())).willReturn(List.of());
         given(groupService.getGroupUrl(any(), eq(1L))).willReturn(new GroupRootDirWrapper(1L, 2L));
     }
 
@@ -91,21 +90,6 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         mockMvc().perform(get("/material1/group/{groupId}", 1L))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlTemplate("/material1/dir/{dirId}", 2L))
-                .andDo(document("index/GroupController/{method-name}",
-                        pathParameters(
-                                parameterWithName("groupId").description("The group id.")
-                        )));
-    }
-
-    /**
-     * Tests if all files of the a group are returned.
-     */
-    @Test
-    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
-    void getAllFilesOfDirectory() throws Exception {
-        mockMvc().perform(get("/material1/group/{groupId}/files", 1L))
-                .andExpect(status().isOk())
-                .andExpect(view().name("files"))
                 .andDo(document("index/GroupController/{method-name}",
                         pathParameters(
                                 parameterWithName("groupId").description("The group id.")

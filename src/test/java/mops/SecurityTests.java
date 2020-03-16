@@ -2,10 +2,7 @@ package mops;
 
 import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
-import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileService;
-import mops.businesslogic.GroupService;
-import mops.businesslogic.PermissionService;
+import mops.businesslogic.*;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
@@ -40,6 +37,8 @@ class SecurityTests {
     DirectoryService directoryService;
     @MockBean
     PermissionService permissionService;
+    @MockBean
+    FileInfoService fileInfoService;
 
     @Autowired
     MockMvc mvc;
