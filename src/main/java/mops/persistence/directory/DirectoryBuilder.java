@@ -164,9 +164,16 @@ public class DirectoryBuilder {
      * @throws IllegalStateException if Directory is not complete
      */
     public Directory build() {
-        if (name == null || groupOwner == -1L || permissionsId == -1L) {
-            throw new IllegalStateException("Directory is not complete!");
+        if (name == null) {
+            throw new IllegalStateException("Directory incomplete: name must be set");
         }
+        if (groupOwner == -1L) {
+            throw new IllegalStateException("Directory incomplete: group owner must be set");
+        }
+        if (permissionsId == -1L) {
+            throw new IllegalStateException("Directory incomplete: permissions id must be set");
+        }
+
         return new Directory(
                 id,
                 name,
