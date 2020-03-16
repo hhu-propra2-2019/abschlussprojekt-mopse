@@ -6,7 +6,8 @@ import lombok.Value;
 import mops.persistence.file.FileInfo;
 
 import java.util.List;
-import java.util.function.Function;
+import java.util.Set;
+import java.util.function.Predicate;
 
 @Value
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
@@ -18,20 +19,19 @@ public class FileQuery {
     /**
      * List of file names to search for.
      */
-    List<String> fileNames;
+    Set<String> names;
     /**
      * List of user names of file owners to search for.
      */
-    List<String> owners;
+    Set<String> owners;
     /**
      * List of file types to search for.
      */
-    List<String> types;
-
+    Set<String> types;
     /**
      * List of file tags to search for.
      */
-    List<String> tags;
+    Set<String> tags;
 
     /**
      * Returns a builder for file queries.
@@ -47,16 +47,15 @@ public class FileQuery {
      * @return if the file meta data matches the query request
      */
     public boolean checkMatch(FileInfo file) {
-        List<Function<FileInfo, Boolean>> runChecks = List.of(this::checkNames,
+        List<Predicate<FileInfo>> runChecks = List.of(this::checkNames,
                 this::checkOwners,
                 this::checkTags,
                 this::checkTypes);
-        return runChecks.stream().allMatch(checkFunction -> checkFunction.apply(file));
+        return runChecks.stream().allMatch(check -> check.test(file));
     }
 
     private boolean checkTags(FileInfo file) {
-        boolean anyMatch = tags.stream()
-                .anyMatch(file::hasTag);
+        boolean anyMatch = tags.stream().anyMatch(file::hasTag);
         return tags.isEmpty() || anyMatch;
     }
 
@@ -65,7 +64,7 @@ public class FileQuery {
     }
 
     private boolean checkNames(FileInfo file) {
-        return fileNames.isEmpty() || fileNames.contains(file.getName());
+        return names.isEmpty() || names.contains(file.getName());
     }
 
     private boolean checkOwners(FileInfo file) {

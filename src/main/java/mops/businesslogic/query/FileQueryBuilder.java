@@ -4,10 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
@@ -21,7 +18,7 @@ public class FileQueryBuilder {
     /**
      * Keys for file names.
      */
-    private static final Set<String> FILE_NAMES = Set.of("filename", "filenames", "name", "names");
+    private static final Set<String> NAMES = Set.of("name", "names");
     /**
      * Keys for types.
      */
@@ -42,19 +39,19 @@ public class FileQueryBuilder {
     /**
      * List of owner to search for.
      */
-    private final List<String> owners = new ArrayList<>();
+    private final Set<String> owners = new HashSet<>();
     /**
      * Names of files to search for.
      */
-    private final List<String> fileNames = new ArrayList<>();
+    private final Set<String> names = new HashSet<>();
     /**
      * File types to search for.
      */
-    private final List<String> types = new ArrayList<>();
+    private final Set<String> types = new HashSet<>();
     /**
      * File tags to search for.
      */
-    private final List<String> tags = new ArrayList<>();
+    private final Set<String> tags = new HashSet<>();
 
     /**
      * Create FileQuery from search string.
@@ -75,14 +72,14 @@ public class FileQueryBuilder {
 
             if (OWNERS.contains(token) && index + 1 < length) {
                 owner(tokens.get(++index));
-            } else if (FILE_NAMES.contains(token) && index + 1 < length) {
-                fileName(tokens.get(++index));
+            } else if (NAMES.contains(token) && index + 1 < length) {
+                name(tokens.get(++index));
             } else if (TYPES.contains(token) && index + 1 < length) {
                 type(tokens.get(++index));
             } else if (TAGS.contains(token) && index + 1 < length) {
                 tag(tokens.get(++index));
             } else { // values without keys are file names
-                fileName(oldToken);
+                name(oldToken);
             }
 
             index++;
@@ -149,6 +146,8 @@ public class FileQueryBuilder {
     }
 
     /**
+     * Add all owners.
+     *
      * @param owners list of owner to search for
      * @return this
      */
@@ -158,7 +157,7 @@ public class FileQueryBuilder {
     }
 
     /**
-     * Adds one owner to search for.
+     * Add an owner.
      *
      * @param owner one Owner
      * @return this
@@ -167,33 +166,39 @@ public class FileQueryBuilder {
         if (owner.isEmpty()) {
             throw new IllegalArgumentException("owner must not be empty!");
         }
-        owners.add(owner);
+        owners.add(owner.toLowerCase(Locale.ROOT));
         return this;
 
     }
 
     /**
-     * @param fileNames names of files to search for
+     * Add all file names.
+     *
+     * @param names names of files to search for
      * @return this
      */
-    public FileQueryBuilder names(@NonNull Iterable<String> fileNames) {
-        fileNames.forEach(this::fileName);
+    public FileQueryBuilder names(@NonNull Iterable<String> names) {
+        names.forEach(this::name);
         return this;
     }
 
     /**
-     * @param fileName new file name to search for
+     * Add a file name.
+     *
+     * @param name new file name to search for
      * @return this
      */
-    public FileQueryBuilder fileName(@NonNull String fileName) {
-        if (fileName.isEmpty()) {
-            throw new IllegalArgumentException("fileName must not be empty!");
+    public FileQueryBuilder name(@NonNull String name) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("name must not be empty!");
         }
-        fileNames.add(fileName);
+        names.add(name.toLowerCase(Locale.ROOT));
         return this;
     }
 
     /**
+     * Add all file types.
+     *
      * @param types file types to search for
      * @return this
      */
@@ -203,18 +208,22 @@ public class FileQueryBuilder {
     }
 
     /**
+     * Add a file type.
+     *
      * @param type new type to search for
      * @return this
      */
-    private FileQueryBuilder type(@NonNull String type) {
+    public FileQueryBuilder type(@NonNull String type) {
         if (type.isEmpty()) {
             throw new IllegalArgumentException("type must not be empty!");
         }
-        types.add(type);
+        types.add(type.toLowerCase(Locale.ROOT));
         return this;
     }
 
     /**
+     * Add all tags.
+     *
      * @param tags what the file should be tagged with
      * @return this
      */
@@ -223,11 +232,17 @@ public class FileQueryBuilder {
         return this;
     }
 
-    private FileQueryBuilder tag(@NonNull String tag) {
+    /**
+     * Add a tag.
+     *
+     * @param tag what the file should be tagged with
+     * @return this
+     */
+    public FileQueryBuilder tag(@NonNull String tag) {
         if (tag.isEmpty()) {
             throw new IllegalArgumentException("tag must not be empty!");
         }
-        tags.add(tag);
+        tags.add(tag.toLowerCase(Locale.ROOT));
         return this;
     }
 
@@ -238,10 +253,10 @@ public class FileQueryBuilder {
      */
     public FileQuery build() {
         return new FileQuery(
-                List.copyOf(fileNames),
-                List.copyOf(owners),
-                List.copyOf(types),
-                List.copyOf(tags)
+                Set.copyOf(names),
+                Set.copyOf(owners),
+                Set.copyOf(types),
+                Set.copyOf(tags)
         );
     }
 }

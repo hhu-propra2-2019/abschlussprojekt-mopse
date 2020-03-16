@@ -20,7 +20,7 @@ class FileQueryParserTest {
     @Test
     void valueWithoutKey() {
         FileQuery expected = FileQuery.builder()
-                .fileName("foo")
+                .name("foo")
                 .build();
 
         FileQuery actual = INSTANCE.convert("foo");

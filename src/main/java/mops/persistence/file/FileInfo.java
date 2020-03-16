@@ -76,8 +76,7 @@ public class FileInfo {
      */
     @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public boolean hasTag(String otherTag) {
-        return tags.stream()
-                .anyMatch(tag -> otherTag.equals(tag.getName()));
+        return tags.stream().anyMatch(tag -> otherTag.equals(tag.getName()));
     }
 
     /**
