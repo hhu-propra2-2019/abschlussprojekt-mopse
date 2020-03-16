@@ -6,8 +6,8 @@ import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Set;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -40,7 +40,7 @@ public interface FileService {
      * Retrieves file meta data.
      *
      * @param account the account object.
-     * @param fileId the file ID
+     * @param fileId  the file ID
      * @return the meta info.
      * @throws MopsException on error.
      */
@@ -50,7 +50,7 @@ public interface FileService {
      * Retrieves file meta data of all files in a directory.
      *
      * @param account the account object.
-     * @param dirId the file ID
+     * @param dirId   the file ID
      * @return the meta info.
      * @throws MopsException on error.
      */
