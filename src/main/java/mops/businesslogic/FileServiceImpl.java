@@ -5,7 +5,6 @@ import mops.businesslogic.exception.FileNotFoundException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.exception.MopsException;
-import mops.persistence.DirectoryRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -15,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -27,16 +25,15 @@ public class FileServiceImpl implements FileService {
     /**
      * Service for permission checks.
      */
-    private final DirectoryService directoryService;
+    private final transient DirectoryService directoryService;
     /**
      * Service for saving and retrieving file meta data.
      */
-    private final FileInfoService fileInfoService;
+    private final transient FileInfoService fileInfoService;
     /**
      * File content repository.
      */
-    private final FileRepository fileRepository;
-
+    private final transient FileRepository fileRepository;
 
     /**
      * Constructor.
@@ -56,6 +53,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     @Transactional(rollbackFor = MopsException.class)
     public void saveFile(Account account, long dirId, MultipartFile multipartFile,
                          Set<String> tags) throws MopsException {
@@ -65,7 +63,7 @@ public class FileServiceImpl implements FileService {
         if (!userPermission.isWrite()) {
             throw new WriteAccessPermissionException("No write permission");
         }
-
+        //no Law of demeter violation
         FileInfo meta = FileInfo.builder()
                 .from(multipartFile)
                 .directory(dirId)
@@ -86,6 +84,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
     public FileContainer getFile(Account account, long fileId) throws MopsException {
 
         FileInfo fileInfo;
@@ -105,7 +104,7 @@ public class FileServiceImpl implements FileService {
             ByteArrayResource byteArrayResource = new ByteArrayResource(stream.readAllBytes());
             return new FileContainer(fileInfo, byteArrayResource);
         } catch (MopsException | IOException e) {
-            throw new MopsException("Error while retrieving");
+            throw new MopsException("Error while retrieving", e);
         }
     }
 
@@ -113,6 +112,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
     @Transactional(rollbackFor = MopsException.class)
     public Directory deleteFile(Account account, long fileId) throws MopsException {
         FileInfo fileInfo;
@@ -125,10 +125,8 @@ public class FileServiceImpl implements FileService {
         UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
         String owner = fileInfo.getOwner();
         boolean isOwner = owner.equals(account.getName());
-        if (!isOwner) {
-            if (!userPermission.isDelete()) {
+        if (!isOwner && !userPermission.isDelete()) {
                 throw new DeleteAccessPermissionException("No delete permission");
-            }
         }
 
         try {
