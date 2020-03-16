@@ -15,8 +15,8 @@ import java.util.Set;
 
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@SuppressWarnings({"PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
-        "PMD.BeanMembersShouldSerialize"}) // this is a builder
+@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
+        "PMD.BeanMembersShouldSerialize" }) // this is a builder
 public class FileInfoBuilder {
 
     /**
