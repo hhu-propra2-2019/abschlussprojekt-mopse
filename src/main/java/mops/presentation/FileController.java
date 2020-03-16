@@ -1,6 +1,7 @@
 package mops.presentation;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.Account;
 import mops.businesslogic.FileContainer;
 import mops.businesslogic.FileService;
@@ -21,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Controller
 @RequestMapping("material1/file")
 @AllArgsConstructor
+@Slf4j
 public class FileController {
 
     /**
@@ -39,12 +41,14 @@ public class FileController {
     public String getFile(KeycloakAuthenticationToken token,
                           Model model,
                           @PathVariable("fileId") long fileId) {
+        log.info(String.format("File with id %d requested.", fileId));
         Account account = AccountUtil.getAccountFromToken(token);
         FileInfo info = null;
         try {
             info = fileService.getFileInfo(account, fileId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
+            log.error(String.format("Failed to retrieve file with id: %d.", fileId));
         }
         model.addAttribute("file", info);
         return "file";
@@ -60,11 +64,13 @@ public class FileController {
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     public ResponseEntity<Resource> downloadFile(KeycloakAuthenticationToken token,
                                                  @PathVariable("fileId") long fileId) {
+        log.info(String.format("File with id %d requested for download.", fileId));
         Account account = AccountUtil.getAccountFromToken(token);
         FileContainer result;
         try {
             result = fileService.getFile(account, fileId);
         } catch (MopsException e) {
+            log.error(String.format("Failed to retrieve file with id: %d.", fileId));
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Die Datei mit der ID " + fileId + " konnte nicht gefunden werden.", e);
         }
@@ -93,11 +99,13 @@ public class FileController {
     public String deleteFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("fileId") long fileId) {
+        log.info(String.format("File with id %d requested to delete.", fileId));
         Account account = AccountUtil.getAccountFromToken(token);
         long dirId = -1L;
         try {
             dirId = fileService.deleteFile(account, fileId);
         } catch (MopsException e) {
+            log.error(String.format("Failed to delete file with id: %d.", fileId));
             // TODO: Add exception handling, remove PMD warning suppression
         }
         return String.format("redirect:/material1/dir/%d", dirId);
