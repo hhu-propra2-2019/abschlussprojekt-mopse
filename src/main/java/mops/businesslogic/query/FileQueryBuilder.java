@@ -89,7 +89,7 @@ public class FileQueryBuilder {
     }
 
     // pmd doesn't like tokenizers
-    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.DataflowAnomalyAnalysis" })
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity", "PMD.DataflowAnomalyAnalysis" })
     private List<String> tokenize(String search) {
         int length = search.length();
 
