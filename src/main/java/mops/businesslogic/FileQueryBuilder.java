@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
+@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
+        "PMD.BeanMembersShouldSerialize" }) // this is a builder
 public class FileQueryBuilder {
+
     /**
      * List of owner to search for.
      */
@@ -28,24 +30,9 @@ public class FileQueryBuilder {
     private List<String> tags = new ArrayList<>();
 
     /**
-     * Builds the object from it's information.
-     *
-     * @return file query object
-     */
-    public FileQuery build() {
-        return new FileQuery(
-                fileNames,
-                owners,
-                types,
-                tags
-        );
-    }
-
-    /**
      * @param owners list of owner to search for
      * @return this
      */
-    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public FileQueryBuilder owners(@NonNull Iterable<String> owners) {
         owners.forEach(this::owner);
         return this;
@@ -59,17 +46,17 @@ public class FileQueryBuilder {
      */
     public FileQueryBuilder owner(@NonNull String owner) {
         if (owner.isEmpty()) {
-            throw new IllegalArgumentException("Owner must not be empty.");
+            throw new IllegalArgumentException("owner must not be empty!");
         }
         owners.add(owner);
         return this;
 
     }
+
     /**
      * @param fileNames names of files to search for
      * @return this
      */
-    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public FileQueryBuilder names(@NonNull Iterable<String> fileNames) {
         fileNames.forEach(this::fileName);
         return this;
@@ -81,7 +68,7 @@ public class FileQueryBuilder {
      */
     public FileQueryBuilder fileName(@NonNull String fileName) {
         if (fileName.isEmpty()) {
-            throw new IllegalArgumentException("File name must not be empty.");
+            throw new IllegalArgumentException("fileName must not be empty!");
         }
         fileNames.add(fileName);
         return this;
@@ -91,8 +78,6 @@ public class FileQueryBuilder {
      * @param types file types to search for
      * @return this
      */
-    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
-
     public FileQueryBuilder types(@NonNull Iterable<String> types) {
         types.forEach(this::type);
         return this;
@@ -104,7 +89,7 @@ public class FileQueryBuilder {
      */
     private FileQueryBuilder type(@NonNull String type) {
         if (type.isEmpty()) {
-            throw new IllegalArgumentException("Type must not be empty.");
+            throw new IllegalArgumentException("type must not be empty!");
         }
         types.add(type);
         return this;
@@ -114,7 +99,6 @@ public class FileQueryBuilder {
      * @param tags what the file should be tagged with
      * @return this
      */
-    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public FileQueryBuilder tags(@NonNull Iterable<String> tags) {
         tags.forEach(this::tag);
         return this;
@@ -122,9 +106,23 @@ public class FileQueryBuilder {
 
     private FileQueryBuilder tag(@NonNull String tag) {
         if (tag.isEmpty()) {
-            throw new IllegalArgumentException("Tag must not be empty.");
+            throw new IllegalArgumentException("tag must not be empty!");
         }
         tags.add(tag);
         return this;
+    }
+
+    /**
+     * Builds the object from it's information.
+     *
+     * @return file query object
+     */
+    public FileQuery build() {
+        return new FileQuery(
+                fileNames,
+                owners,
+                types,
+                tags
+        );
     }
 }
