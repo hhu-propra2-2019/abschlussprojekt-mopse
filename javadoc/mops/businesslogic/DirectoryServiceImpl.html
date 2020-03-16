@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -242,6 +242,14 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirectory(long)">getDirectory</a></span>&#8203;(long&nbsp;dirId)</code></th>
+<td class="colLast">
+<div class="block">Internal use only: possible security flaw!
+ Check permission before fetching!</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="UserPermission.html" title="class in mops.businesslogic">UserPermission</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPermissionsOfUser(mops.businesslogic.Account,long)">getPermissionsOfUser</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
                     long&nbsp;dirId)</code></th>
@@ -249,7 +257,7 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <div class="block">Gets all 3 permissions of a user.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSubFolders(mops.businesslogic.Account,long)">getSubFolders</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
              long&nbsp;parentDirID)</code></th>
@@ -257,7 +265,7 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <div class="block">Returns all folders of the parent folder.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(mops.businesslogic.Account,long,mops.businesslogic.FileQuery)">searchFolder</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
             long&nbsp;dirId,
@@ -266,7 +274,7 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <div class="block">Searches a folder for files.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updatePermission(mops.businesslogic.Account,long,mops.persistence.permission.DirectoryPermissions)">updatePermission</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
                 long&nbsp;dirId,
@@ -502,7 +510,7 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <a id="updatePermission(mops.businesslogic.Account,long,mops.persistence.permission.DirectoryPermissions)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>updatePermission</h4>
 <pre class="methodSignature">public&nbsp;<a href="../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;updatePermission&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
@@ -521,6 +529,28 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <dd>the updated directory permissions</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="getDirectory(long)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getDirectory</h4>
+<pre class="methodSignature">public&nbsp;<a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;getDirectory&#8203;(long&nbsp;dirId)
+                       throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Internal use only: possible security flaw!
+ Check permission before fetching!</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="DirectoryService.html#getDirectory(long)">getDirectory</a></code>&nbsp;in interface&nbsp;<code><a href="DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>dirId</code> - the id of the parent folder</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>directory object of the requested folder</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
 </dl>
 </li>
 </ul>
