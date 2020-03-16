@@ -28,6 +28,11 @@
             <td></td>
             <td>Dateiordner</td>
             <td></td>
+            <td>
+                <form action="#" th:action="@{}" th:method="delete">
+                    <input type="button" name="deleteFolder" value="Ordner löschen">
+                </form>
+            </td>
         </tr>
         <tr th:each="file : ${files}" th:href="@{/file/${file.id}}">
             <td th:text="${file.name}">%Name%</td>
