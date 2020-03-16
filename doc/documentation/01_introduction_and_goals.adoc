@@ -5,7 +5,7 @@
 
 ****
 Das Ziel dieses Systems ist es, eine Materialsammlung für die "Modulare Online Plattform für Studierende"
-(kurz: "MOPS"), bereit zu stellen.
+(kurz: "MOPS"), bereitzustellen.
 Dabei verwalten wir sämtliche Dateien, die Studierende, Korrektoren und Organisatoren benötigen, in einem File-System.
 Das System basiert dabei auf einer Gruppenstruktur. Solche Gruppen können sowohl Veranstaltungen als auch Lerngruppen
 repräsentieren.
@@ -16,7 +16,7 @@ repräsentieren.
 |Name |Szenario
 
 |Ein Mitglied möchte eine Datei einsehen.
-|_Das Mitglied navigiert zur Gruppendateiübersicht. Dort navigiert es in den gewünschten Ordner in dem die
+|_Das Mitglied navigiert zur Gruppendateiübersicht. Dort navigiert es in den gewünschten Ordner, in dem die
 entsprechende Datei liegt._
 
 |Ein Administrator lädt einzelne Datei hoch.
@@ -24,7 +24,7 @@ entsprechende Datei liegt._
 Upload-Button den Dateiupload beginnen._
 
 |Ein Mitglied möchte Verzeichnis erstellen.
-|_Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit den "Neuer Ordner"-Button
+|_Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit dem "Neuer Ordner"-Button
 einen neues Verzeichnis anlegen._
 
 |Ein Organisator möchte Verzeichnis mit Dateien löschen.
@@ -38,14 +38,14 @@ und wählt "Verzeichnis löschen". Er bestätigt die Löschaktion und das Verzei
 === Qualitätsziele
 
 ****
-Unsere Entwicklung haben wir an folgender Prioritätssetzung orientiert, um eine bestmögliche Lernumgebung für alle
+Unsere Entwicklung haben wir an folgender Prioritätensetzung orientiert, um eine bestmögliche Lernumgebung für alle
 Nutzergruppen zu gewährleisten.
 
 [cols="1,2" options="header"]
 |===
 |Qualitätsziel |Erläuterung
-| Performance | _Jeder Request muss in kürzester Zeit bearbeitet werden um dem Benutzer ein möglichst flüssiges
-Nutzungserlebnis zu bieten._
+| Performance | _Jeder Request muss in kürzester Zeit bearbeitet werden, um dem Benutzer ein möglichst flüssige
+                 Nutzungserlebnis zu bieten._
 | Zuverlässigkeit | _Das System muss zu jedem Zeitpunkt erreichbar und voll funktionsfähig sein, um Nutzer nicht in
 Problemlagen durch fehlenden Zugriff zu bringen. Außerdem soll der Wartungsaufwand durch modulare Aufbauweise minimiert
 werden._
@@ -67,7 +67,7 @@ ermöglicht. Sie möchten sich mit ihren Mitstudierenden organisieren können un
 heutigem Stand der Technik performante Plattform. Ausfälle durch Wartungsarbeiten und ungeplante Systemausfälle müssen
 minimiert werden, um eine vertrauenswürdige Umgebung zu schaffen._
 
-| Organisatoren | _Organisatoren legen wert auf eine intuitive Plattform, der es trotzdem nicht an Funktionalität
+| Organisatoren | _Organisatoren legen Wert auf eine intuitive Plattform, der es trotzdem nicht an Funktionalität
 mangelt. Hierbei spielt ein übersichtliches Layout eine entscheidende Rolle. Die Verlässlichkeit und Zuverlässigkeit
 des Systems hat weiterhin Priorität, um verlängerte Arbeitszeiten zu vermeiden. Organisatoren möchten viele
 Veranstaltungen einfach verwalten können, Materialien einsehen und organisieren, sowie Aktivitäten von Kursteilnehmern
