@@ -59,12 +59,13 @@ public class FileQueryBuilder {
      */
     public FileQueryBuilder owner(@NonNull String owner) {
         if (owner.isEmpty()) {
-            throw new IllegalArgumentException("Owner must not be empty.");
+            throw new IllegalArgumentException("owner must not be empty!");
         }
         owners.add(owner);
         return this;
 
     }
+
     /**
      * @param fileNames names of files to search for
      * @return this
@@ -81,7 +82,7 @@ public class FileQueryBuilder {
      */
     public FileQueryBuilder fileName(@NonNull String fileName) {
         if (fileName.isEmpty()) {
-            throw new IllegalArgumentException("File name must not be empty.");
+            throw new IllegalArgumentException("fileName must not be empty!");
         }
         fileNames.add(fileName);
         return this;
@@ -104,7 +105,7 @@ public class FileQueryBuilder {
      */
     private FileQueryBuilder type(@NonNull String type) {
         if (type.isEmpty()) {
-            throw new IllegalArgumentException("Type must not be empty.");
+            throw new IllegalArgumentException("type must not be empty!");
         }
         types.add(type);
         return this;
@@ -122,7 +123,7 @@ public class FileQueryBuilder {
 
     private FileQueryBuilder tag(@NonNull String tag) {
         if (tag.isEmpty()) {
-            throw new IllegalArgumentException("Tag must not be empty.");
+            throw new IllegalArgumentException("tag must not be empty!");
         }
         tags.add(tag);
         return this;

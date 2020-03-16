@@ -76,7 +76,7 @@ public class DirectoryPermissionsBuilder {
     public DirectoryPermissionsBuilder entry(@NonNull String role, boolean canRead, boolean canWrite,
                                              boolean canDelete) {
         if (role.isEmpty()) {
-            throw new IllegalArgumentException("role must not be empty");
+            throw new IllegalArgumentException("role must not be empty!");
         }
         this.entries.add(new DirectoryPermissionEntry(role, canRead, canWrite, canDelete));
         return this;

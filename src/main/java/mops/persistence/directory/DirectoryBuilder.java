@@ -11,8 +11,8 @@ import java.time.Instant;
 
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
-        "PMD.BeanMembersShouldSerialize" }) // this is a builder
+@SuppressWarnings({"PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
+        "PMD.BeanMembersShouldSerialize"}) // this is a builder
 public class DirectoryBuilder {
 
     /**
@@ -165,13 +165,13 @@ public class DirectoryBuilder {
      */
     public Directory build() {
         if (name == null) {
-            throw new IllegalStateException("Directory incomplete: name must be set");
+            throw new IllegalStateException("Directory incomplete: name must be set!");
         }
         if (groupOwner == -1L) {
-            throw new IllegalStateException("Directory incomplete: group owner must be set");
+            throw new IllegalStateException("Directory incomplete: groupOwner must be set!");
         }
         if (permissionsId == -1L) {
-            throw new IllegalStateException("Directory incomplete: permissions id must be set");
+            throw new IllegalStateException("Directory incomplete: permissionsId must be set!");
         }
 
         return new Directory(
