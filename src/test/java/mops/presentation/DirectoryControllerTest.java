@@ -123,8 +123,11 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void searchFolder() throws Exception {
+        FileQuery fileQuery = FileQuery.builder()
+                .build();
+
         mockMvc().perform(post("/material1/dir/{dir}/search", 1)
-                .requestAttr("search", mock(FileQuery.class))
+                .requestAttr("search", fileQuery)
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("files"))

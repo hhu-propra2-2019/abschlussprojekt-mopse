@@ -23,7 +23,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @TestContext
@@ -201,25 +200,39 @@ class DirectoryServiceTest {
 
     @Test
     void searchFolderTest() throws MopsException {
-        FileQuery query = mock(FileQuery.class);
-        FileInfo matchingFile = mock(FileInfo.class);
-        FileInfo notMatchingFile = mock(FileInfo.class);
-        List<FileInfo> expectedFileInfos = List.of(matchingFile);
+        FileQuery query = FileQuery.builder()
+                .name("a")
+                .build();
+        FileInfo matchingFile = FileInfo.builder()
+                .name("a")
+                .directory(root)
+                .type("txt")
+                .size(0L)
+                .owner(USER)
+                .build();
+        FileInfo notMatchingFile = FileInfo.builder()
+                .name("b")
+                .directory(root)
+                .type("txt")
+                .size(0L)
+                .owner(USER)
+                .build();
 
         when(fileInfoService.fetchAllFilesInDirectory(anyLong())).thenReturn(List.of(matchingFile, notMatchingFile));
-        when(query.checkMatch(matchingFile)).thenReturn(true);
-        when(query.checkMatch(notMatchingFile)).thenReturn(false);
 
         List<FileInfo> fileInfos = directoryService.searchFolder(user, root.getId(), query);
 
-        assertThat(fileInfos).isEqualTo(expectedFileInfos);
+        assertThat(fileInfos).containsExactlyInAnyOrder(matchingFile);
     }
 
     @Test
     void searchFolderWithoutPermissionTest() throws MopsException {
+        FileQuery fileQuery = FileQuery.builder()
+                .build();
+
         Directory root = directoryService.createRootFolder(admin, GROUP_ID);
 
         assertThatExceptionOfType(ReadAccessPermissionException.class)
-                .isThrownBy(() -> directoryService.searchFolder(intruder, root.getId(), mock(FileQuery.class)));
+                .isThrownBy(() -> directoryService.searchFolder(intruder, root.getId(), fileQuery));
     }
 }

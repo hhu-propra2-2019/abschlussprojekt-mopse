@@ -6,6 +6,7 @@ import lombok.Value;
 import mops.persistence.file.FileInfo;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -60,14 +61,14 @@ public class FileQuery {
     }
 
     private boolean checkTypes(FileInfo file) {
-        return types.isEmpty() || types.contains(file.getType());
+        return types.isEmpty() || types.contains(file.getType().toLowerCase(Locale.ROOT));
     }
 
     private boolean checkNames(FileInfo file) {
-        return names.isEmpty() || names.contains(file.getName());
+        return names.isEmpty() || names.contains(file.getName().toLowerCase(Locale.ROOT));
     }
 
     private boolean checkOwners(FileInfo file) {
-        return owners.isEmpty() || owners.contains(file.getOwner());
+        return owners.isEmpty() || owners.contains(file.getOwner().toLowerCase(Locale.ROOT));
     }
 }
