@@ -6,6 +6,7 @@ import mops.businesslogic.FileContainer;
 import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.exception.MopsException;
+import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.core.io.Resource;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("material1/file")
@@ -86,20 +89,26 @@ public class FileController {
      * @param token  keycloak auth token
      * @param model  spring view model
      * @param fileId the id of the file to be deleted
+     * @param request the Http request
      * @return the route to the parentDir of the deleted file
      */
     @DeleteMapping("/{fileId}")
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String deleteFile(KeycloakAuthenticationToken token,
                              Model model,
-                             @PathVariable("fileId") long fileId) {
+                             @PathVariable("fileId") long fileId,
+                             HttpServletRequest request) {
         Account account = AccountUtil.getAccountFromToken(token);
-        long dirId = -1L;
+        Directory dir = null;
+        String url;
         try {
-            dirId = fileService.deleteFile(account, fileId);
+            dir = fileService.deleteFile(account, fileId);
+            url = String.format("redirect:/material1/dir/%d", dir.getId());
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
+            String referer = request.getHeader("Referer");
+            url =  "redirect:" + referer;
         }
-        return String.format("redirect:/material1/dir/%d", dirId);
+        return url;
     }
 }

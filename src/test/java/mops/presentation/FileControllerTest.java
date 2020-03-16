@@ -12,6 +12,7 @@ import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
+import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -85,7 +88,9 @@ class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
         given(fileService.getFileInfo(any(), eq(1L))).willReturn(fileInfo);
         given(fileService.getFile(any(), eq(1L))).willReturn(fileContainer);
-        given(fileService.deleteFile(any(), eq(1L))).willReturn(2L);
+        Directory dir = mock(Directory.class);
+        when(dir.getId()).thenReturn(2L);
+        given(fileService.deleteFile(any(), eq(1L))).willReturn(dir);
     }
 
     /**
