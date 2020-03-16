@@ -2,32 +2,36 @@ package mops.businesslogic.query;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Value;
 import mops.persistence.file.FileInfo;
 
 import java.util.List;
 import java.util.function.Function;
 
-@SuppressWarnings("PMD.LawOfDemeter") //these are streams or builders
+@Value
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
+// @Value automatically makes all fields `private final` which CheckStyle and PMD don't see
+// there are no demeter violations as these are builders and streams
+@SuppressWarnings({ "checkstyle:VisibilityModifier", "PMD.DefaultPackage", "PMD.LawOfDemeter" })
 public class FileQuery {
 
     /**
      * List of file names to search for.
      */
-    private List<String> fileNames;
+    List<String> fileNames;
     /**
      * List of user names of file owners to search for.
      */
-    private List<String> owners;
+    List<String> owners;
     /**
      * List of file types to search for.
      */
-    private List<String> types;
+    List<String> types;
 
     /**
      * List of file tags to search for.
      */
-    private List<String> tags;
+    List<String> tags;
 
     /**
      * Returns a builder for file queries.
