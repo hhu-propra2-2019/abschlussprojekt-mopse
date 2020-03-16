@@ -1,4 +1,4 @@
-package mops.businesslogic;
+package mops.businesslogic.query;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,6 +10,7 @@ import java.util.function.Function;
 @SuppressWarnings("PMD.LawOfDemeter") //these are streams or builders
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class FileQuery {
+
     /**
      * List of file names to search for.
      */

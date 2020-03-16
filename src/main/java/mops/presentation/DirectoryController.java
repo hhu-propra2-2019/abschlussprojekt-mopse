@@ -4,7 +4,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
 import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileQuery;
+import mops.businesslogic.query.FileQuery;
 import mops.businesslogic.FileService;
 import mops.businesslogic.utils.AccountUtil;
 import mops.exception.MopsException;
@@ -151,7 +151,7 @@ public class DirectoryController {
     public String searchFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
-                               @RequestAttribute("searchQuery") FileQuery query) {
+                               @RequestAttribute("search") FileQuery query) {
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
         try {

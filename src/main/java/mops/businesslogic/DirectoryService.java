@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;

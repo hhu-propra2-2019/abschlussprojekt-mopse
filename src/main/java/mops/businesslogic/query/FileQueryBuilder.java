@@ -1,4 +1,4 @@
-package mops.businesslogic;
+package mops.businesslogic.query;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -28,6 +28,17 @@ public class FileQueryBuilder {
      * File tags to search for.
      */
     private List<String> tags = new ArrayList<>();
+
+    /**
+     * Create FileQuery from search string.
+     *
+     * @param search search string
+     * @return this
+     */
+    public FileQueryBuilder from(@NonNull String search) {
+        // TODO: implement
+        return this;
+    }
 
     /**
      * @param owners list of owner to search for

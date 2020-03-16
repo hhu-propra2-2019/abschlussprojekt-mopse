@@ -4,6 +4,7 @@ import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.*;
+import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
@@ -12,7 +13,6 @@ import mops.persistence.FileRepository;
 import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -105,7 +105,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         FileQuery fileQuery = mock(FileQuery.class);
 
         mockMvc().perform(post("/material1/group/{groupId}/search", 1)
-                .requestAttr("searchQuery", fileQuery)
+                .requestAttr("search", fileQuery)
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("files"))
