@@ -3,12 +3,14 @@ package mops.persistence.directory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.utils.AggregateBuilder;
 
 import java.sql.Timestamp;
 import java.time.Instant;
 
+@Slf4j
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
@@ -47,12 +49,12 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder from(@NonNull Directory directory) {
-        this.id = directory.getId();
-        this.name = directory.getName();
-        this.parentId = directory.getParentId();
-        this.groupOwner = directory.getGroupOwner();
-        this.permissionsId = directory.getPermissionsId();
-        this.creationTime = directory.getCreationTime();
+        id = directory.getId();
+        name = directory.getName();
+        parentId = directory.getParentId();
+        groupOwner = directory.getGroupOwner();
+        permissionsId = directory.getPermissionsId();
+        creationTime = directory.getCreationTime();
         return this;
     }
 
@@ -63,9 +65,9 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder fromParent(@NonNull Directory parent) {
-        this.parentId = parent.getId();
-        this.groupOwner = parent.getGroupOwner();
-        this.permissionsId = parent.getPermissionsId();
+        parentId = parent.getId();
+        groupOwner = parent.getGroupOwner();
+        permissionsId = parent.getPermissionsId();
         return this;
     }
 
@@ -87,7 +89,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder id(Directory directory) {
-        this.id = directory == null ? null : directory.getId();
+        id = directory == null ? null : directory.getId();
         return this;
     }
 
@@ -120,7 +122,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder parent(@NonNull Directory parent) {
-        this.parentId = parent.getId();
+        parentId = parent.getId();
         return this;
     }
 
@@ -153,7 +155,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder permissions(@NonNull DirectoryPermissions permissions) {
-        this.permissionsId = permissions.getId();
+        permissionsId = permissions.getId();
         return this;
     }
 
@@ -165,6 +167,7 @@ public class DirectoryBuilder {
      */
     public Directory build() {
         if (name == null || groupOwner == -1L || permissionsId == -1L) {
+            log.error("Directory is not completely setup.");
             throw new IllegalStateException("Directory is not complete!");
         }
         return new Directory(
