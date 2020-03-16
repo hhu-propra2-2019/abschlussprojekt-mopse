@@ -138,7 +138,7 @@ public class FileServiceImpl implements FileService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new MopsException("Error while deleting", e);
         }
-        return  directoryService.fetchDirectory(fileInfo.getDirectoryId());
+        return  directoryService.getDirectory(fileInfo.getDirectoryId());
     }
 
     /**
