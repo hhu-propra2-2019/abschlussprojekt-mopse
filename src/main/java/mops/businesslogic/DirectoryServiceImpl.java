@@ -202,6 +202,19 @@ public class DirectoryServiceImpl implements DirectoryService {
         return optionalDirectory.orElseThrow(getException(parentDirID)); //this is not a violation of demeter's law
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
+    public Directory getDirectory(long parentDirID) throws MopsException {
+        try {
+            return fetchDirectory(parentDirID);
+        } catch (NoSuchElementException e) {
+            throw new MopsException("Error on retrieving Directory", e);
+        }
+    }
+
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.UnusedPrivateMethod" })
     private DirectoryPermissions fetchPermissions(Directory directory) throws DatabaseException {
         Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());

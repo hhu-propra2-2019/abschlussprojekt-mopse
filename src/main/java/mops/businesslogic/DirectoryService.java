@@ -79,4 +79,11 @@ public interface DirectoryService {
                                           long dirId,
                                           DirectoryPermissions permissions) throws MopsException;
 
+    /**
+     * @param parentDirID the id of the parent folder
+     * @return a directory object of the request folder
+     * @throws MopsException on error
+     */
+    Directory getDirectory(long parentDirID) throws MopsException;
+
 }
