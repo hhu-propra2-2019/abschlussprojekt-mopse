@@ -80,6 +80,9 @@ public interface DirectoryService {
                                           DirectoryPermissions permissions) throws MopsException;
 
     /**
+     * Internal use only: possible security flaw!
+     * Check permission before fetching!
+     *
      * @param parentDirID the id of the parent folder
      * @return a directory object of the request folder
      * @throws MopsException on error
