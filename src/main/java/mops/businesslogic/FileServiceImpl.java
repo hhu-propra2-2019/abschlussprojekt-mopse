@@ -1,15 +1,23 @@
 package mops.businesslogic;
 
+import mops.businesslogic.exception.DeleteAccessPermissionException;
+import mops.businesslogic.exception.FileNotFoundException;
+import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.exception.MopsException;
+import mops.persistence.DirectoryRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
@@ -29,12 +37,13 @@ public class FileServiceImpl implements FileService {
      */
     private final FileRepository fileRepository;
 
+
     /**
-     *  Constructor.
+     * Constructor.
      *
      * @param directoryService Service for permission checks.
-     * @param fileInfoService Service for saving and retrieving file meta data.
-     * @param fileRepository File content repository.
+     * @param fileInfoService  Service for saving and retrieving file meta data.
+     * @param fileRepository   File content repository.
      */
     public FileServiceImpl(DirectoryService directoryService, FileInfoService fileInfoService,
                            FileRepository fileRepository) {
@@ -54,7 +63,7 @@ public class FileServiceImpl implements FileService {
         UserPermission userPermission = directoryService.getPermissionsOfUser(account, dirId);
 
         if (!userPermission.isWrite()) {
-            throw new WriteAccessPermissionException("Keine Schreibberechtigung");
+            throw new WriteAccessPermissionException("No write permission");
         }
 
         FileInfo meta = FileInfo.builder()
@@ -64,14 +73,12 @@ public class FileServiceImpl implements FileService {
                 .tags(tags)
                 .build();
 
-        long fileId;
-
         try {
             FileInfo fileInfo = fileInfoService.saveFileInfo(meta);
             fileRepository.saveFile(multipartFile, fileInfo.getId());
         } catch (MopsException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            throw new MopsException("Fehler beim speichern.", e);
+            throw new MopsException("Error while saving", e);
         }
     }
 
@@ -80,15 +87,58 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public FileContainer getFile(Account account, long fileId) throws MopsException {
-        return null;
+
+        FileInfo fileInfo;
+        try {
+            fileInfo = fileInfoService.fetchFileInfo(fileId);
+        } catch (MopsException e) {
+            throw new FileNotFoundException("File not found", e);
+        }
+
+        UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
+
+        if (!userPermission.isRead()) {
+            throw new ReadAccessPermissionException("No read permission");
+        }
+
+        try (InputStream stream = fileRepository.getFileContent(fileId)) {
+            ByteArrayResource byteArrayResource = new ByteArrayResource(stream.readAllBytes());
+            return new FileContainer(fileInfo, byteArrayResource);
+        } catch (MopsException | IOException e) {
+            throw new MopsException("Error while retrieving");
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
+    @Transactional(rollbackFor = MopsException.class)
     public Directory deleteFile(Account account, long fileId) throws MopsException {
-        return null;
+        FileInfo fileInfo;
+        try {
+            fileInfo = fileInfoService.fetchFileInfo(fileId);
+        } catch (MopsException e) {
+            throw new FileNotFoundException("File not found", e);
+        }
+
+        UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
+        String owner = fileInfo.getOwner();
+        boolean isOwner = owner.equals(account.getName());
+        if (!isOwner) {
+            if (!userPermission.isDelete()) {
+                throw new DeleteAccessPermissionException("No delete permission");
+            }
+        }
+
+        try {
+            fileInfoService.deleteFileInfo(fileId);
+            fileRepository.deleteFile(fileId);
+        } catch (MopsException e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            throw new MopsException("Error while deleting", e);
+        }
+        return  directoryService.fetchDirectory(fileInfo.getDirectoryId());
     }
 
     /**
