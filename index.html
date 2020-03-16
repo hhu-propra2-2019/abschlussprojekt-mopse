@@ -556,7 +556,7 @@ Diese sollte in der fertigen Dokumentation nicht mehr enthalten sein.</em></p>
 <div class="content">
 <div class="paragraph">
 <p>Das Ziel dieses Systems ist es, eine Materialsammlung für die "Modulare Online Plattform für Studierende"
-(kurz: "MOPS"), bereit zu stellen.
+(kurz: "MOPS"), bereitzustellen.
 Dabei verwalten wir sämtliche Dateien, die Studierende, Korrektoren und Organisatoren benötigen, in einem File-System.
 Das System basiert dabei auf einer Gruppenstruktur. Solche Gruppen können sowohl Veranstaltungen als auch Lerngruppen
 repräsentieren.</p>
@@ -578,7 +578,7 @@ repräsentieren.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ein Mitglied möchte eine Datei einsehen.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Das Mitglied navigiert zur Gruppendateiübersicht. Dort navigiert es in den gewünschten Ordner in dem die
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Das Mitglied navigiert zur Gruppendateiübersicht. Dort navigiert es in den gewünschten Ordner, in dem die
 entsprechende Datei liegt.</em></p></td>
 </tr>
 <tr>
@@ -588,7 +588,7 @@ Upload-Button den Dateiupload beginnen.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ein Mitglied möchte Verzeichnis erstellen.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit den "Neuer Ordner"-Button
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit dem "Neuer Ordner"-Button
 einen neues Verzeichnis anlegen.</em></p></td>
 </tr>
 <tr>
@@ -606,7 +606,7 @@ und wählt "Verzeichnis löschen". Er bestätigt die Löschaktion und das Verzei
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>Unsere Entwicklung haben wir an folgender Prioritätssetzung orientiert, um eine bestmögliche Lernumgebung für alle
+<p>Unsere Entwicklung haben wir an folgender Prioritätensetzung orientiert, um eine bestmögliche Lernumgebung für alle
 Nutzergruppen zu gewährleisten.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -623,8 +623,8 @@ Nutzergruppen zu gewährleisten.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Jeder Request muss in kürzester Zeit bearbeitet werden um dem Benutzer ein möglichst flüssiges
-Nutzungserlebnis zu bieten.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Jeder Request muss in kürzester Zeit bearbeitet werden, um dem Benutzer ein möglichst flüssige
+                 Nutzungserlebnis zu bieten.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Zuverlässigkeit</p></td>
@@ -670,7 +670,7 @@ minimiert werden, um eine vertrauenswürdige Umgebung zu schaffen.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Organisatoren</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Organisatoren legen wert auf eine intuitive Plattform, der es trotzdem nicht an Funktionalität
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Organisatoren legen Wert auf eine intuitive Plattform, der es trotzdem nicht an Funktionalität
 mangelt. Hierbei spielt ein übersichtliches Layout eine entscheidende Rolle. Die Verlässlichkeit und Zuverlässigkeit
 des Systems hat weiterhin Priorität, um verlängerte Arbeitszeiten zu vermeiden. Organisatoren möchten viele
 Veranstaltungen einfach verwalten können, Materialien einsehen und organisieren, sowie Aktivitäten von Kursteilnehmern
@@ -901,13 +901,13 @@ oder Architekturmuster,</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>Eine Schwierigkeit für die Controller Tests ist, dass man die sicherheitsrelevanten Aspekte von <code>spring-security</code> und
-<code>keycloak</code> berücksichtigen muss.
+<p>Eine Schwierigkeit der Controller-Tests liegt in der Berücksichtigung der sicherheitsrelevanten Aspekte von
+<code>spring-security</code> und <code>keycloak</code>.
 Wir hatten uns zunächst dafür entschieden diesen Teil zu mocken.
-Jedoch hatte es bei uns nicht funktioniert den Mock mit <code>@WithMockUser</code> zu machen, daher hatten wir den ganzen
-SecurityContext gemockt und stellten diesen mit <code>SecurityContextUtil</code> für jeden ControllerTest zur Verfügung.
-Später wurden wir dann auf die Bibliothek <code>spring-security-test-keycloack-addons</code> aufmerksam gemacht, die das Testen
-massiv vereinfacht. Nun kann man die Annotation <code>@WithMockKeycloakAuth</code> benutzen um Tests mit einer gültigen Keycloak
+Anfangs hatten wir Probleme, <code>@WithMockUser</code> zu verwenden, daher entschieden wir uns für das Mocken des gesamten
+SecurityContext. Durch  <code>SecurityContextUtil</code> wird dieser jedem ControllerTest zur Verfügung gestellt.
+Später wurden wir dann auf die Bibliothek <code>spring-security-test-keycloack-addons</code> aufmerksam, die das Testen
+massiv vereinfacht. Nun kann man die Annotation <code>@WithMockKeycloakAuth</code> benutzen, um Tests mit einer gültigen Keycloak
 Authentifizierung auszustatten.</p>
 </div>
 </div>
@@ -921,6 +921,10 @@ Authentifizierung auszustatten.</p>
 <p>Zur Auswahl standen hier MySQL, MariaDB und PostgreSQL, da wir damit bereits Erfahrungen gesammelt haben.
 Wir haben uns nach einer kurzen Diskussion für MariaDB entschieden.
 Und zwar weil MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, womit wir am meisten Erfahrung haben.</p>
+</div>
+<div class="paragraph">
+<p>Der Großteil unserer Erfahrungen beruhte bisher auf MySQL. Da MariaDB die aktive Open-Source-Weiterentwicklung von MySQL
+ist, haben wir uns für die Verwendung von MariaDB entschieden.</p>
 </div>
 <div class="paragraph">
 <p>Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist
@@ -1743,48 +1747,49 @@ Es werden also Alternativen miteinader verglichen, abgewogen und die Beste ausge
 <div class="sect3">
 <h4 id="_directory">8.1.1. Directory</h4>
 <div class="paragraph">
-<p>Das Datenobjekt 'Directory' stellt einen Ordner dar.
-'Directory' hat ein Attribut 'name'. Dies stellt den Namen des Ordners dar.</p>
+<p>Das Datenobjekt <code>Directory</code> stellt einen Ordner dar.
+<code>Directory</code> hat ein Attribut <code>name</code>. Dieses stellt den Namen des Ordners dar.</p>
 </div>
 <div class="paragraph">
-<p>Außerdem hat der Entity 'Directory' ein Attribut 'group'.
-Im Attribut 'group' wird eine ID gespeichert, welche die Gruppe des Ordners identifiziert.
-Zusätzlich hat ein Ordner eine eindeutige 'ID'.</p>
+<p>Außerdem hat der Entity <code>Directory</code> ein Attribut <code>group</code>.
+Dort wird eine ID gespeichert, welche die Gruppe des Ordners identifiziert.
+Zusätzlich hat ein Ordner eine eindeutige <code>ID</code>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_permissions">8.1.2. Permissions</h4>
 <div class="paragraph">
-<p>Das Datenbankobjekt 'DirectoryPermissions' stellt die Berechtigungen für die erstellten Ordner dar.
-Die 'DirectoryPermissions haben eine eindeutige 'ID'.</p>
+<p>Das Datenbankobjekt <code>DirectoryPermissions</code> stellt die Berechtigungen für die erstellten Ordner dar.
+Die <code>DirectoryPermissions</code> haben eine eindeutige <code>ID</code>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_permissionentry">8.1.3. PermissionEntry</h4>
 <div class="paragraph">
-<p>Das Datenbankobjekt 'DirectoryPermissionsEntry' stellt Berechtigungsinformationen dar.
-'DirectoryPermissionsEntry' hat eine eindeutige ID.
-Außerdem hat 'DirectoryPermissionsEntry' ein Attribut 'role'. 'role' stellt die Rolle (Student, Organisator) in der
-Gruppe dar. Für die Rolle gibt es Informationen, ob der Benutzer lesen, schreiben oder löschen darf. Deswegen haben
-wir 3 boolean Attribute für lesen, schreiben und löschen erstellt ('canRead', 'canWrite', 'canDelete').</p>
+<p>Das Datenbankobjekt <code>DirectoryPermissionsEntry</code> stellt Berechtigungsinformationen dar.
+<code>DirectoryPermissionsEntry</code> hat eine eindeutige <code>ID</code>.
+Außerdem hat <code>DirectoryPermissionsEntry</code> ein Attribut <code>role</code>. <code>role</code> stellt die Rolle (Student, Organisator) in der
+Gruppe dar. Für die Rolle gibt es Informationen, ob der Benutzer lesen, schreiben oder löschen darf. Aus diesem Grund haben
+wir 3 <code>boolean</code> Attribute für Lesen, Schreiben und Löschen erstellt (<code>canRead</code>, <code>canWrite</code>, <code>canDelete</code>).</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_fileinfo">8.1.4. FileInfo</h4>
 <div class="paragraph">
-<p>In dem Datenbankobjekt 'FileInfo' sind Informationen einer Datei dargestellt.</p>
+<p>In dem Datenbankobjekt <code>FileInfo</code> sind Informationen einer Datei dargestellt.</p>
 </div>
 <div class="paragraph">
-<p>Das Attribut 'owner' speichert den Namen des Inhabers der Datei.
-Außerdem speichern wir die Größe ('size'), den Namen ('name') und den Typ der Datei ('type').
-Zusätzlich hat jede 'FileInfo' eine eindeutige 'ID'.</p>
+<p>Das Attribut <code>owner</code> speichert den Namen des Inhabers der Datei.
+Außerdem speichern wir die Größe (<code>size</code>), den Namen (<code>name</code>) und den Typ der Datei (<code>type</code>).
+Zusätzlich hat jede <code>FileInfo</code> eine eindeutige <code>ID</code>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_file_tag">8.1.5. File_tag</h4>
 <div class="paragraph">
-<p>Hier speichern wir Tags für die Files (Dateien). Das Attribut 'name' speichert den Namen des Tags.
-Außerdem hat jeder Tag eine eindeutige 'ID'.</p>
+<p>Hier speichern wir Tags für die Files (Dateien). Tags sind Kategorien oder Etiketten, die zur Suche und Filterung von
+Dateien nützlich sind. Das Attribut <code>name</code> speichert den Namen des Tags.
+Außerdem hat jeder Tag eine eindeutige <code>ID</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1792,42 +1797,43 @@ Außerdem hat jeder Tag eine eindeutige 'ID'.</p>
 <div class="sect4">
 <h5 id="_directory_hat_fileinfo">Directory hat FileInfo</h5>
 <div class="paragraph">
-<p>Hier haben wir eine 1 zu N Beziehung weil ein Ordner('Directory') mehrere Dateien('FileInfo') enthalten kann.
-Wiederum kann ein File genau in einem Ordner liegen. Entweder es liegt im Root-Directory oder in einem Unterordner.</p>
+<p>Hier haben wir eine <code>1 zu N</code> Beziehung, da ein Ordner (<code>Directory</code>) mehrere Dateien (<code>FileInfo</code>) enthalten kann.
+Im Gegenzug kann eine Datei in genau einem Ordner liegen. Entweder sie liegt im Root-Directory, oder in einem
+Unterordner.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_directory_parent_directory">Directory parent Directory</h5>
 <div class="paragraph">
-<p>'Directory' hat eine rekursive Beziehung mit sich selbst. Denn ein Ordner kann mehrere Unterordner haben und jeder
+<p><code>Directory</code> hat eine rekursive Beziehung mit sich selbst. Ein Ordner kann mehrere Unterordner haben und jeder
 Ordner liegt in höchstens einem Ordner. Ein Ordner kann auch in keinem Ordner liegen, da wir beschlossen haben, dass
-ein Kurs auch ein Ordner und somit der Stammordner (Root-Directory) ist.</p>
+eine Gruppe auch ein Ordner ist. Dies wird als Stammordner (<code>Root-Directory</code>) der Gruppe bezeichnet.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_fileinfo_hat_filetag">FileInfo hat FileTag</h5>
 <div class="paragraph">
-<p>Hier haben wir eine 1 zu N Beziehung. Logischerweise kann ein File mehrere Tags haben aber immer wenn ein Tag erstellt
-wird, wird es genau zu einem File zugeordnet.</p>
+<p>Hier haben wir eine <code>1 zu N</code> Beziehung. Logischerweise kann eine Datei mehrere Tags haben, aber immer wenn ein Tag
+erstellt wird, wird er genau zu einer Datei zugeordnet.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_directory_hat_directorypermissions">Directory hat DirectoryPermissions</h5>
 <div class="paragraph">
-<p>Jedem Ordner wird genau eine Berechtigung zugeteilt. Somit wissen wir welche Zugriffe die Rollen haben. Eine
-Berechtigung ('DirectoryPermissions') kann mehreren Ordnern zugeteilt werden da wir beschlossen haben, dass nur die
-one-level Ordner eine Berechtigung haben.
-Alle Unterordner erben von deren one-Level Ordner. Außerdem hat die Root-directory auch eine eigene Berechtigung
-('DirectoryPermissions'), denn hier können auch Dateien gespeichert werden.</p>
+<p>Jedem Ordner wird genau eine Berechtigung zugeteilt. Dadurch wissen wir, welche Zugriffsberechtigungen die Rollen haben.
+Eine Berechtigung (<code>DirectoryPermissions</code>) kann mehreren Ordnern zugeteilt werden, da wir beschlossen haben, dass nur
+die one-level Ordner eine Berechtigung haben.
+Alle Unterordner erben die Berechtigungen der one-Level Ordner. Außerdem hat das Root-directory auch eine eigene
+Berechtigung (<code>DirectoryPermissions</code>), denn hier können auch Dateien gespeichert werden.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_directorypermissions_hat_directorypermissionsentry">DirectoryPermissions hat DirectoryPermissionsEntry</h5>
 <div class="paragraph">
-<p>Hier haben wir eine 1 zu N Beziehung.
-Das Datenbankobjekt 'DirectoryPermissions' nimmt Berechtigungsinformationen von 'DirectoryPermissionsEntry'. Somit kann
-eine 'Permission' mehrere Berechtigungsinformationen für bestimmte Rollen haben.
-Wiederum wird immer eine 'DirectoryPermissionsEntry' zu genau einer 'DirectoryPermissions' zugeordnet.</p>
+<p>Hier haben wir eine <code>1 zu N</code> Beziehung.
+Das Datenbankobjekt <code>DirectoryPermissions</code> erhält Berechtigungsinformationen von
+<code>DirectoryPermissionsEntry</code>. Somit kann eine <code>Permission</code> mehrere Berechtigungsinformationen für bestimmte Rollen haben.
+Wiederum wird immer eine <code>DirectoryPermissionsEntry</code> zu genau einer <code>DirectoryPermissions</code> zugeordnet.</p>
 </div>
 </div>
 </div>
@@ -1835,22 +1841,33 @@ Wiederum wird immer eine 'DirectoryPermissionsEntry' zu genau einer 'DirectoryPe
 <div class="sect2">
 <h3 id="_archunit_tests">8.2. ArchUnit Tests</h3>
 <div class="paragraph">
-<p>_Als erstes haben wir uns die Vorlesung zu ArchUnit <code>Vorlesung 14 PP2</code> durchgelesen und bearbeitet. Danach haben wir die
-Tests <code>onlyAggregateRootsArePublic</code>, <code>oneAggregateRootPerAggregate</code> und <code>checkIfLayeredArchitectureIsNotViolated</code>
-geschrieben und dazu eine Hilfsannotation <code>AggregateRoot</code> geschrieben.
-Der erste Test ist dafür da, um zu schauen, ob nur AggregateRoots Public sind und ob alle anderen Klassen privat sind.
-Der zweite Test ist dafür da, um zu sehen, ob es nur eine einzige AggregateRoot pro Package gibt, welche mit anderen
-Packages kommunizieren kann.
-Der dritte Test überprüft, ob die Schicht-Architektur eingehalten wird.
-Die zusätzliche Annotation ist dafür da, um die AggregateRoot zu markieren, damit die Überprüfung zu erleichtern und
-auch die Lesbarkeit und Verständlichkeit der Klassen und Packages zu verbessern. Hier haben wir am 09.03. drei neue
-Tests hinzugefügt&#8230;&#8203;
-Der vierte Test, also <code>allControllersShouldResideInMopsPresentation</code> sorgt dafür, dass alle Controller im
-Presentation-Layer liegen müssen, da es bei der Schicht-Architektur so gehört.
-Der fünfte Test, <code>everythingInPresentationShouldBeAController</code> ist eine Ergänzung des vorherigen und schaut, ob alle
-Controller im Presentation-Package sind, da man sie ja eigentlich nur da brauchen würde.
-Der letzte Test ist ein double-check, ob es keine cycles im Projekt gibt, was eigentlich durch die Schicht-Architektur
-Vorraussetzung ist, aber dies ist ein zusätzlicher Test,
+<p>Zur Vorbereitung haben wir uns die Vorlesung zu ArchUnit <code>Vorlesung 14 PP2</code> durchgelesen und bearbeitet. Danach haben
+wir die Tests <code>onlyAggregateRootsArePublic</code>, <code>oneAggregateRootPerAggregate</code> und <code>checkIfLayeredArchitectureIsNotViolated</code>
+geschrieben und dazu eine Hilfsannotation <code>AggregateRoot</code> erstellt.
+Die Funktion des ersten Tests ist die Überprüfung dass nur <code>AggregateRoots</code> <code>public</code> und alle anderen Klassen <code>private</code>
+sind.</p>
+</div>
+<div class="paragraph">
+<p>Der zweite Test stellt sicher, dass es nur eine einzige <code>AggregateRoot</code> pro Package gibt, welche mit anderen
+Packages kommunizieren kann.</p>
+</div>
+<div class="paragraph">
+<p>Der dritte Test überprüft, ob die Schicht-Architektur eingehalten wird.
+Die zusätzliche Annotation ermöglicht es, die <code>AggregateRoot</code> zu markieren, um die Überprüfung zu erleichtern. Die
+Lesbarkeit und Verständlichkeit der Klassen und Packages wird dadurch auch verbessert. Hier haben wir am 09.03. drei
+neue Tests hinzugefügt.</p>
+</div>
+<div class="paragraph">
+<p>Der vierte Test <code>allControllersShouldResideInMopsPresentation</code> sorgt dafür, dass alle Controller im
+Presentation-Layer liegen, da dies bei der Schicht-Architektur eine wichtige Vorgabe ist.</p>
+</div>
+<div class="paragraph">
+<p>Der fünfte Test <code>everythingInPresentationShouldBeAController</code> ist eine Ergänzung des vorherigen Test und stellt sicher,
+dass sich alle Controller im <code>Presentation</code>-Package befinden, da sie nur von dort erreichbar sein sollen.</p>
+</div>
+<div class="paragraph">
+<p>Der letzte Test ist eine Überprüfung, dass keine <code>cycles</code> im Projekt auftreten. Dies wird durch die Schicht-Architektur
+vorausgesetzt ist, aber dies ist ein zusätzlicher Test zur Sicherstellung.
 ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus</p>
 </div>
 </div>
@@ -2003,7 +2020,7 @@ Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskuss
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-16 09:16:40 UTC
+Last updated 2020-03-16 09:54:57 UTC
 </div>
 </div>
 </body>
