@@ -30,7 +30,7 @@
             <td></td>
             <td>
                 <form action="#" th:action="@{/${dir.id}}" th:method="delete">
-                    <input type="button" name="deleteFolder" value="Ordner löschen">
+                    <input type="submit" name="deleteFolder" value="Ordner löschen">
                 </form>
             </td>
         </tr>
@@ -41,16 +41,16 @@
             <td th:text="${file.size}">%Größe%</td>
             <td>
                 <form action="#" th:action="@{../file/${file.id}}" th:method="delete">
-                    <input type="button" name="deleteFile" value="Datei löschen">
+                    <input type="submit" name="deleteFile" value="Datei löschen">
                 </form>
             </td>
         </tr>
     </table>
     <form action="#" th:action="@{/create}" th:method="post">
-        <input type="button" name="newFolder" value="Neuer Ordner">
+        <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
     <form action="#" th:action="@{/upload}" th:method="post">
-        <input type="button" name="uploadFile" value="Datei Hochladen"> <!-- TODO: Add a complete upload form -->
+        <input type="submit" name="uploadFile" value="Datei Hochladen"> <!-- TODO: Add a complete upload form -->
     </form>
 </main>
 </body>
