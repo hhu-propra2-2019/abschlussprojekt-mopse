@@ -76,7 +76,7 @@ public class DirectoryController {
                              @RequestAttribute("file") MultipartFile multipartFile) {
         Account account = AccountUtil.getAccountFromToken(token);
         try {
-            fileService.uploadFile(account, dirId, multipartFile, Set.of());
+            fileService.saveFile(account, dirId, multipartFile, Set.of());
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
         }
