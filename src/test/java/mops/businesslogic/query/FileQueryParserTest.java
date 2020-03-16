@@ -27,4 +27,20 @@ class FileQueryParserTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void full() {
+        FileQuery expected = FileQuery.builder()
+                .name("foo")
+                .name("bar")
+                .owner("jens")
+                .owner("chris")
+                .type("application/pdf")
+                .tag("skript")
+                .build();
+
+        FileQuery actual = INSTANCE.convert("owner:jens owner:chris tag:skript type:application/pdf name:bar foo");
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }
