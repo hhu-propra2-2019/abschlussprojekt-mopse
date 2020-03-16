@@ -14,89 +14,25 @@ Es werden also Alternativen miteinader verglichen, abgewogen und die Beste ausge
 
 image::ER-Modell.png[]
 
-
-==== Directory
-
-Das Datenobjekt 'Directory' stellt einen Ordner dar.
-'Directory' hat ein Attribut 'name'. Dies stellt den Namen des Ordners dar.
-
-Außerdem hat der Entity 'Directory' ein Attribut 'group'.
-Im Attribut 'group' wird eine ID gespeichert, welche die Gruppe des Ordners identifiziert.
-Zusätzlich hat ein Ordner eine eindeutige 'ID'.
-
-==== Permissions
-
-Das Datenbankobjekt 'DirectoryPermissions' stellt die Berechtigungen für die erstellten Ordner dar.
-Die 'DirectoryPermissions haben eine eindeutige 'ID'.
-
-==== PermissionEntry
-
-Das Datenbankobjekt 'DirectoryPermissionsEntry' stellt Berechtigungsinformationen dar.
-'DirectoryPermissionsEntry' hat eine eindeutige ID.
-Außerdem hat 'DirectoryPermissionsEntry' ein Attribut 'role'. 'role' stellt die Rolle (Student, Organisator) in der
-Gruppe dar. Für die Rolle gibt es Informationen, ob der Benutzer lesen, schreiben oder löschen darf. Deswegen haben
-wir 3 boolean Attribute für lesen, schreiben und löschen erstellt ('canRead', 'canWrite', 'canDelete').
-
-==== FileInfo
-
-In dem Datenbankobjekt 'FileInfo' sind Informationen einer Datei dargestellt.
-
-Das Attribut 'owner' speichert den Namen des Inhabers der Datei.
-Außerdem speichern wir die Größe ('size'), den Namen ('name') und den Typ der Datei ('type').
-Zusätzlich hat jede 'FileInfo' eine eindeutige 'ID'.
-
-==== File_tag
-
-Hier speichern wir Tags für die Files (Dateien). Das Attribut 'name' speichert den Namen des Tags.
-Außerdem hat jeder Tag eine eindeutige 'ID'.
-
-==== Beziehungen
-
-===== Directory hat FileInfo
-
-Hier haben wir eine 1 zu N Beziehung weil ein Ordner('Directory') mehrere Dateien('FileInfo') enthalten kann.
-Wiederum kann ein File genau in einem Ordner liegen. Entweder es liegt im Root-Directory oder in einem Unterordner.
-
-===== Directory parent Directory
-
-'Directory' hat eine rekursive Beziehung mit sich selbst. Denn ein Ordner kann mehrere Unterordner haben und jeder
-Ordner liegt in höchstens einem Ordner. Ein Ordner kann auch in keinem Ordner liegen, da wir beschlossen haben, dass
-ein Kurs auch ein Ordner und somit der Stammordner (Root-Directory) ist.
-
-===== FileInfo hat FileTag
-
-Hier haben wir eine 1 zu N Beziehung. Logischerweise kann ein File mehrere Tags haben aber immer wenn ein Tag erstellt
-wird, wird es genau zu einem File zugeordnet.
-
-===== Directory hat DirectoryPermissions
-
-Jedem Ordner wird genau eine Berechtigung zugeteilt. Somit wissen wir welche Zugriffe die Rollen haben. Eine
-Berechtigung ('DirectoryPermissions') kann mehreren Ordnern zugeteilt werden da wir beschlossen haben, dass nur die
-one-level Ordner eine Berechtigung haben.
-Alle Unterordner erben von deren one-Level Ordner. Außerdem hat die Root-directory auch eine eigene Berechtigung
-('DirectoryPermissions'), denn hier können auch Dateien gespeichert werden.
-
-===== DirectoryPermissions hat DirectoryPermissionsEntry
-
-Hier haben wir eine 1 zu N Beziehung.
-Das Datenbankobjekt 'DirectoryPermissions' nimmt Berechtigungsinformationen von 'DirectoryPermissionsEntry'. Somit kann
-eine 'Permission' mehrere Berechtigungsinformationen für bestimmte Rollen haben.
-Wiederum wird immer eine 'DirectoryPermissionsEntry' zu genau einer 'DirectoryPermissions' zugeordnet.
-
-
+_<Erklärung>_
 
 === ArchUnit Tests
 
-_Als erstes haben wir uns die Vorlesung zu ArchUnit `Vorlesung 14 PP2` durchgelesen und bearbeitet. Danach haben wir die
-Tests `onlyAggregateRootsArePublic`, `oneAggregateRootPerAggregate` und `checkIfLayeredArchitectureIsNotViolated`
+_Als erstes haben wir uns die Vorlesung zu ArchUnit `Vorlesung 14 PP2` durchgelesen und bearbeitet. Danach haben wir
+die Tests `onlyAggregateRootsArePublic`, `oneAggregateRootPerAggregate` und `checkIfLayeredArchitectureIsNotViolated`
 geschrieben und dazu eine Hilfsannotation `AggregateRoot` geschrieben.
 Der erste Test ist dafür da, um zu schauen, ob nur AggregateRoots Public sind und ob alle anderen Klassen privat sind. 
+<<<<<<< Updated upstream
+Der zweite Test ist dafür da, um zu sehen, ob es nur eine einzige AggregateRoot pro Package gibt, welche mit anderen Packages kommunizieren kann.
+Der dritte Test überprüft, ob die Schicht-Archtitektur eingehalten wird.
+Die zusätzliche Annotation ist dafür da, um die AggregateRoot zu markieren, damit die Überprüfung zu erleichtern und auch die Lesbarkeit und Verständlichkeit der Klassen und Packages zu verbessern._
+=======
 Der zweite Test ist dafür da, um zu sehen, ob es nur eine einzige AggregateRoot pro Package gibt, welche mit anderen
 Packages kommunizieren kann.
 Der dritte Test überprüft, ob die Schicht-Architektur eingehalten wird.
 Die zusätzliche Annotation ist dafür da, um die AggregateRoot zu markieren, damit die Überprüfung zu erleichtern und
-auch die Lesbarkeit und Verständlichkeit der Klassen und Packages zu verbessern. Hier haben wir am 09.03. drei neue
-Tests hinzugefügt...
+auch die Lesbarkeit und Verständlichkeit der Klassen und Packages zu verbessern.
+Hier haben wir am 09.03. drei neue Tests hinzugefügt...
 Der vierte Test, also `allControllersShouldResideInMopsPresentation` sorgt dafür, dass alle Controller im
 Presentation-Layer liegen müssen, da es bei der Schicht-Architektur so gehört.
 Der fünfte Test, `everythingInPresentationShouldBeAController` ist eine Ergänzung des vorherigen und schaut, ob alle
@@ -104,22 +40,10 @@ Controller im Presentation-Package sind, da man sie ja eigentlich nur da brauche
 Der letzte Test ist ein double-check, ob es keine cycles im Projekt gibt, was eigentlich durch die Schicht-Architektur
 Vorraussetzung ist, aber dies ist ein zusätzlicher Test,
 ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus
+sein, der dies dann doch noch herausfindet._
+>>>>>>> Stashed changes
 
-=== FileStorage
-
-_Als Schnittstelle für die Dateispeicherung haben wir MinIO gewählt, weil es vorgegeben wurde. Die erforderliche Konfiguration erfolgt über Umgebungsvariablen um einen möglichst flexiblen Einsatz zu ermöglichen._
-
-_Die erforderlichen Umgebungsvariablen lauten:_
-
-- MINIO_HOST
-- MINIO_PORT
-- MINIO_BUCKET_NAME
-- MINIO_ACCESS_KEY
-- MINIO_SECRET_KEY
-
-_Im Entwicklungsprozess sind diese durch Default-Werte (welche im Dev Docker Container gesetzt werden) vorgegeben._
-
-_Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach ersetzt werden, wenn eine andere Lösung zur Speicherung von Dateien genutzt wird._
+...
 
 === _<Entscheidung n>_
 

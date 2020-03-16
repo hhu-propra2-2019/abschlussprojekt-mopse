@@ -9,16 +9,28 @@ _Festlegung *aller* Kommunikationsbeziehungen mit Erklärung der *fachlichen* Ei
 
 _Kontextdiagramme, Listen von Kommunikationsbeziehungen aber auch plain text wären denkbar._
 ****
-
 [cols="1,1,1" options="header"]
 |===
 |Kommunikationsbeziehung |Eingabe | Ausgabe
+<<<<<<< Updated upstream
+| Requests vom Gruppensystem | _Wir erhalten Requests für die Ordner-/Dateierstellung oder Löschung und den Erhalt von Dateien aus unserer Datenbank._ | _Wir liefern eine Bestätigung des betreffenden Requests (eventuell inklusive der gewollten Datei) zurück, wenn die entsprechenden Berechtigungen vorhanden waren. Ansonsten bearbeiten wir den Request nicht._
+| Erfragen von Berechtigungen | _Wir erfragen mit einer ID die Berechtigungen einer bestimmten Gruppe oder eines Benutzers._ | _Wir erhalten ein Datenobjekt (.json) zurück, dass alle Berechtigungen (Rollen) des betreffenden Nutzers beinhaltet._
+|===
+=======
 | Requests vom Gruppensystem | _Wir erhalten Requests für die Ordner-/Dateierstellung oder Löschung und den Erhalt von
 Dateien aus unserer Datenbank._ | _Wir liefern eine Bestätigung des betreffenden Requests (eventuell inklusive der
 gewollten Datei) zurück, wenn die entsprechenden Berechtigungen vorhanden waren. Ansonsten bearbeiten wir den Request
 nicht._
 | Erfragen von Berechtigungen | _Wir erfragen mit einer Gruppen ID und dem Benutzernamen die Berechtigungen eines
-Nutzers in einer bestimmten Gruppe._  | _Wir erhalten ein Datenobjekt (.json) zurück, dass alle Berechtigungen (Rollen) des betreffenden Nutzers beinhaltet._
+Nutzers in einer bestimmten Gruppe._  | _Wir erhalten ein Datenobjekt (.json) zurück, dass alle Berechtigungen (Rollen)
+des betreffenden Nutzers beinhaltet._
 |===
 
-include::../api/external-api.adoc[]
+****
+[cols="1,1,1" options="header"]
+|===
+|Anfrage |Route |Erläuterung
+|Gruppenurl |`/material1/group/{groupId}/url` | Gibt ein JSON-Objekt zurück, das die Attribute `group_id` und `url` hat.
+Letzteres ist der relative Pfad, wo der Rootordner der Gruppe aufgerufen werden kann.
+|===
+>>>>>>> Stashed changes

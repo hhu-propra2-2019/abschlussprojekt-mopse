@@ -24,7 +24,7 @@ entsprechende Datei liegt._
 Upload-Button den Dateiupload beginnen._
 
 |Ein Mitglied möchte Verzeichnis erstellen.
-|_Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit den "Neuer Ordner"-Button
+|_Ein Mitglied einer Gruppe navigiert zur Gruppendateiübersicht. Dort kann es mit dem "Neuer Ordner"-Button
 einen neues Verzeichnis anlegen._
 
 |Ein Organisator möchte Verzeichnis mit Dateien löschen.
