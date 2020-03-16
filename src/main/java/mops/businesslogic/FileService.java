@@ -1,6 +1,7 @@
 package mops.businesslogic;
 
 import mops.exception.MopsException;
+import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +33,7 @@ public interface FileService {
      * @param fileId  file id of file to be deleted
      * @return parent directory Id
      */
-    long deleteFile(Account account, long fileId) throws MopsException;
+    Directory deleteFile(Account account, long fileId) throws MopsException;
 
 
     /**
