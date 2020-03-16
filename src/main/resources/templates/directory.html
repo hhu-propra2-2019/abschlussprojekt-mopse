@@ -46,7 +46,8 @@
             </td>
         </tr>
     </table>
-    <form action="#" th:action="@{/create}" th:method="post">
+    <form action="#" th:action="@{/create}" th:object="" th:method="post">
+        <input type="text" name="folderName" >
         <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
     <form action="#" th:action="@{/upload}" th:method="post">
