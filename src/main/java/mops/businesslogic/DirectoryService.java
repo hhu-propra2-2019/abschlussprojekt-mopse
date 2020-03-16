@@ -83,10 +83,10 @@ public interface DirectoryService {
      * Internal use only: possible security flaw!
      * Check permission before fetching!
      *
-     * @param parentDirID the id of the parent folder
-     * @return a directory object of the request folder
+     * @param dirId the id of the parent folder
+     * @return directory object of the requested folder
      * @throws MopsException on error
      */
-    Directory getDirectory(long parentDirID) throws MopsException;
+    Directory getDirectory(long dirId) throws MopsException;
 
 }

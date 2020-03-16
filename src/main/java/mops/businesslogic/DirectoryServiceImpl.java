@@ -207,9 +207,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
-    public Directory getDirectory(long parentDirID) throws MopsException {
+    public Directory getDirectory(long dirId) throws MopsException {
         try {
-            return fetchDirectory(parentDirID);
+            return fetchDirectory(dirId);
         } catch (NoSuchElementException e) {
             throw new MopsException("Error on retrieving Directory", e);
         }
