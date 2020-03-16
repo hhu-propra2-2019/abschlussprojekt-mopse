@@ -42,19 +42,19 @@ public class FileQueryBuilder {
     /**
      * List of owner to search for.
      */
-    private List<String> owners = new ArrayList<>();
+    private final List<String> owners = new ArrayList<>();
     /**
      * Names of files to search for.
      */
-    private List<String> fileNames = new ArrayList<>();
+    private final List<String> fileNames = new ArrayList<>();
     /**
      * File types to search for.
      */
-    private List<String> types = new ArrayList<>();
+    private final List<String> types = new ArrayList<>();
     /**
      * File tags to search for.
      */
-    private List<String> tags = new ArrayList<>();
+    private final List<String> tags = new ArrayList<>();
 
     /**
      * Create FileQuery from search string.
@@ -137,6 +137,12 @@ public class FileQueryBuilder {
             }
 
             tokenBuilder.append(current);
+        }
+
+        if (isToken) {
+            String token = tokenBuilder.toString();
+            tokenBuilder.setLength(0);
+            tokens.add(token);
         }
 
         return List.copyOf(tokens);
@@ -232,10 +238,10 @@ public class FileQueryBuilder {
      */
     public FileQuery build() {
         return new FileQuery(
-                fileNames,
-                owners,
-                types,
-                tags
+                List.copyOf(fileNames),
+                List.copyOf(owners),
+                List.copyOf(types),
+                List.copyOf(tags)
         );
     }
 }
