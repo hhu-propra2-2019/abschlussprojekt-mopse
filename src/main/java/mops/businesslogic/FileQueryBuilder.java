@@ -3,10 +3,12 @@ package mops.businesslogic;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
 public class FileQueryBuilder {
@@ -59,12 +61,14 @@ public class FileQueryBuilder {
      */
     public FileQueryBuilder owner(@NonNull String owner) {
         if (owner.isEmpty()) {
+            log.error("Search parameter owner was an empty string.");
             throw new IllegalArgumentException("Owner must not be empty.");
         }
         owners.add(owner);
         return this;
 
     }
+
     /**
      * @param fileNames names of files to search for
      * @return this
@@ -81,6 +85,7 @@ public class FileQueryBuilder {
      */
     public FileQueryBuilder fileName(@NonNull String fileName) {
         if (fileName.isEmpty()) {
+            log.error("Search parameter file name was an empty string.");
             throw new IllegalArgumentException("File name must not be empty.");
         }
         fileNames.add(fileName);
@@ -104,6 +109,7 @@ public class FileQueryBuilder {
      */
     private FileQueryBuilder type(@NonNull String type) {
         if (type.isEmpty()) {
+            log.error("Search parameter type was an empty string.");
             throw new IllegalArgumentException("Type must not be empty.");
         }
         types.add(type);
@@ -122,6 +128,7 @@ public class FileQueryBuilder {
 
     private FileQueryBuilder tag(@NonNull String tag) {
         if (tag.isEmpty()) {
+            log.error("Search parameter tag was an empty string.");
             throw new IllegalArgumentException("Tag must not be empty.");
         }
         tags.add(tag);
