@@ -34,7 +34,7 @@
                 </form>
             </td>
         </tr>
-        <tr th:each="file : ${files}" th:href="@{/file/${file.id}}">
+        <tr th:each="file : ${files}" th:href="@{../file/${file.id}}">
             <td th:text="${file.name}">%Name%</td>
             <td th:text="TBD">%Datum%</td>
             <td th:text="${file.type}">%Typ%</td>
