@@ -51,6 +51,7 @@
         <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
     <form action="#" th:action="@{/upload}" th:method="post">
+        <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen"> <!-- TODO: Add a complete upload form -->
     </form>
 </main>
