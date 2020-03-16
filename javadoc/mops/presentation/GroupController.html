@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -155,8 +155,8 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.GroupService,mops.businesslogic.FileService)">GroupController</a></span>&#8203;(<a href="../businesslogic/GroupService.html" title="interface in mops.businesslogic">GroupService</a>&nbsp;groupService,
-               <a href="../businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a>&nbsp;fileService)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.GroupService,mops.businesslogic.DirectoryService)">GroupController</a></span>&#8203;(<a href="../businesslogic/GroupService.html" title="interface in mops.businesslogic">GroupService</a>&nbsp;groupService,
+               <a href="../businesslogic/DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a>&nbsp;directoryService)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -178,27 +178,20 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllFilesOfDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getAllFilesOfDirectory</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                      org.springframework.ui.Model&nbsp;model,
-                      long&nbsp;groupId)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupUrl(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getGroupUrl</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
            org.springframework.ui.Model&nbsp;model,
            long&nbsp;groupId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getRootDirectory</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                 org.springframework.ui.Model&nbsp;model,
                 long&nbsp;groupId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFilesInGroup(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQuery)">searchFilesInGroup</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                   org.springframework.ui.Model&nbsp;model,
@@ -232,14 +225,14 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(mops.businesslogic.GroupService,mops.businesslogic.FileService)">
+<a id="&lt;init&gt;(mops.businesslogic.GroupService,mops.businesslogic.DirectoryService)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>GroupController</h4>
 <pre>public&nbsp;GroupController&#8203;(<a href="../businesslogic/GroupService.html" title="interface in mops.businesslogic">GroupService</a>&nbsp;groupService,
-                       <a href="../businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a>&nbsp;fileService)</pre>
+                       <a href="../businesslogic/DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a>&nbsp;directoryService)</pre>
 </li>
 </ul>
 </li>
@@ -252,27 +245,6 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getAllFilesOfDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getAllFilesOfDirectory</h4>
-<pre class="methodSignature">@GetMapping("/{groupId}/files")
-public&nbsp;java.lang.String&nbsp;getAllFilesOfDirectory&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                                               org.springframework.ui.Model&nbsp;model,
-                                               @PathVariable("groupId")
-                                               long&nbsp;groupId)</pre>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>token</code> - a keycloak authentication token</dd>
-<dd><code>model</code> - spring boot view model</dd>
-<dd><code>groupId</code> - the id of the group which files should be fetched</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the route to template 'directory'</dd>
-</dl>
-</li>
-</ul>
 <a id="getRootDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">
 <!--   -->
 </a>

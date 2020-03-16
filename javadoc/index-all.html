@@ -258,7 +258,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#deleteFile(mops.businesslogic.Account,long)">deleteFile(Account, long)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/FileController.html#deleteFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">deleteFile(KeycloakAuthenticationToken, Model, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/FileController.html" title="class in mops.presentation">FileController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/FileController.html#deleteFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,javax.servlet.http.HttpServletRequest)">deleteFile(KeycloakAuthenticationToken, Model, long, HttpServletRequest)</a></span> - Method in class mops.presentation.<a href="mops/presentation/FileController.html" title="class in mops.presentation">FileController</a></dt>
 <dd>
 <div class="block">Deletes a file.</div>
 </dd>
@@ -446,12 +446,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates an Account Object from a token.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#getAllFilesOfDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getAllFilesOfDirectory(KeycloakAuthenticationToken, Model, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#getAllFilesOfGroup(mops.businesslogic.Account,long)">getAllFilesOfGroup(Account, long)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
-<dd>
-<div class="block">Returns all files of a group.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/GroupService.html#getAllGroups(mops.businesslogic.Account)">getAllGroups(Account)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/GroupService.html" title="interface in mops.businesslogic">GroupService</a></dt>
 <dd>
 <div class="block">Fetches all visible groups of one user.</div>
@@ -495,9 +489,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Retrieves the bytes of the file.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#getFileInfo(mops.businesslogic.Account,long)">getFileInfo(Account, long)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Retrieves file meta data.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#getFilesOfDirectory(mops.businesslogic.Account,long)">getFilesOfDirectory(Account, long)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Retrieves file meta data of all files in a directory.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/DirectoryRepository.html#getGroupFolderCount(long)">getGroupFolderCount(long)</a></span> - Method in interface mops.persistence.<a href="mops/persistence/DirectoryRepository.html" title="interface in mops.persistence">DirectoryRepository</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/GroupRootDirWrapper.html#getGroupId()">getGroupId()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></dt>
@@ -632,7 +630,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="mops/presentation/GroupController.html" title="class in mops.presentation"><span class="typeNameLink">GroupController</span></a> - Class in <a href="mops/presentation/package-summary.html">mops.presentation</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#%3Cinit%3E(mops.businesslogic.GroupService,mops.businesslogic.FileService)">GroupController(GroupService, FileService)</a></span> - Constructor for class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#%3Cinit%3E(mops.businesslogic.GroupService,mops.businesslogic.DirectoryService)">GroupController(GroupService, DirectoryService)</a></span> - Constructor for class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/directory/DirectoryBuilder.html#groupOwner(long)">groupOwner(long)</a></span> - Method in class mops.persistence.directory.<a href="mops/persistence/directory/DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></dt>
 <dd>
@@ -888,6 +886,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">S</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#saveFile(mops.businesslogic.Account,long,org.springframework.web.multipart.MultipartFile,java.util.Set)">saveFile(Account, long, MultipartFile, Set&lt;String&gt;)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/FileRepository.html#saveFile(org.springframework.web.multipart.MultipartFile,long)">saveFile(MultipartFile, long)</a></span> - Method in class mops.persistence.<a href="mops/persistence/FileRepository.html" title="class in mops.persistence">FileRepository</a></dt>
 <dd>
 <div class="block">Saves a file.</div>
@@ -899,10 +899,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileInfoServiceImpl.html#saveFileInfo(mops.persistence.file.FileInfo)">saveFileInfo(FileInfo)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileInfoServiceImpl.html" title="class in mops.businesslogic">FileInfoServiceImpl</a></dt>
 <dd>
 <div class="block">Save file to database.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#searchFilesInGroup(mops.businesslogic.Account,long,mops.businesslogic.FileQuery)">searchFilesInGroup(Account, long, FileQuery)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
-<dd>
-<div class="block">Searches for files in a group.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#searchFilesInGroup(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQuery)">searchFilesInGroup(KeycloakAuthenticationToken, Model, long, FileQuery)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
 <dd>
@@ -1042,8 +1038,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Replaces the permissions for a directory with new ones.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#uploadFile(mops.businesslogic.Account,long,org.springframework.web.multipart.MultipartFile,java.util.Set)">uploadFile(Account, long, MultipartFile, Set&lt;String&gt;)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,org.springframework.web.multipart.MultipartFile)">uploadFile(KeycloakAuthenticationToken, Model, long, MultipartFile)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>
 <div class="block">Uploads a file.</div>
