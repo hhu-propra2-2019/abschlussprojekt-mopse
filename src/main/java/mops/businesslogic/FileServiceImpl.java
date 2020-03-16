@@ -138,7 +138,7 @@ public class FileServiceImpl implements FileService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new MopsException("Error while deleting", e);
         }
-        return  directoryService.getDirectory(fileInfo.getDirectoryId());
+        return directoryService.getDirectory(fileInfo.getDirectoryId());
     }
 
     /**
@@ -146,7 +146,18 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public FileInfo getFileInfo(Account account, long fileId) throws MopsException {
-        return null;
+        FileInfo fileInfo;
+        try {
+            fileInfo = fileInfoService.fetchFileInfo(fileId);
+        } catch (MopsException e) {
+            throw new FileNotFoundException("File not found", e);
+        }
+        UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
+
+        if (!userPermission.isRead()) {
+            throw new ReadAccessPermissionException("No read permission");
+        }
+        return fileInfoService.fetchFileInfo(fileId);
     }
 
     /**
@@ -154,6 +165,10 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public List<FileInfo> getFilesOfDirectory(Account account, long dirId) throws MopsException {
-        return null;
+        UserPermission userPermission = directoryService.getPermissionsOfUser(account, dirId);
+        if (!userPermission.isRead()) {
+            throw new ReadAccessPermissionException("No read permission");
+        }
+        return fileInfoService.fetchAllFilesInDirectory(dirId);
     }
 }
