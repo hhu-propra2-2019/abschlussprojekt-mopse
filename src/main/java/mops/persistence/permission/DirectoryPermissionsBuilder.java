@@ -54,9 +54,9 @@ public class DirectoryPermissionsBuilder {
     }
 
     /**
-     * Set id from permissions.
+     * Set id from existing DirectoryPermissions.
      *
-     * @param permissions permissions
+     * @param permissions existing DirectoryPermissions
      * @return this
      */
     public DirectoryPermissionsBuilder id(DirectoryPermissions permissions) {

@@ -95,9 +95,9 @@ public class FileInfoBuilder {
     }
 
     /**
-     * Set id.
+     * Set id from existing FileInfo.
      *
-     * @param fileInfo gives you the id through fileInfo
+     * @param fileInfo existing FileInfo
      * @return this
      */
     public FileInfoBuilder id(FileInfo fileInfo) {
@@ -222,6 +222,7 @@ public class FileInfoBuilder {
      * @return composed FileInfo
      * @throws IllegalStateException if FileInfo is not complete
      */
+    @SuppressWarnings("PMD.CyclomaticComplexity") //if-else chain necessary for fine grained exception messages
     public FileInfo build() {
         if (name == null) {
             throw new IllegalStateException("FileInfo incomplete: name must be set!");
