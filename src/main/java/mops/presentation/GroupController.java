@@ -2,6 +2,7 @@ package mops.presentation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.*;
 import mops.businesslogic.utils.AccountUtil;
 import mops.exception.MopsException;
@@ -17,6 +18,7 @@ import java.util.List;
 @Controller
 @RequestMapping("material1/group")
 @AllArgsConstructor
+@Slf4j
 public class GroupController {
 
     /**
@@ -41,12 +43,14 @@ public class GroupController {
     public String getRootDirectory(KeycloakAuthenticationToken token,
                                    Model model,
                                    @PathVariable("groupId") long groupId) {
+        log.info(String.format("Root directory of group with id %d requested.", groupId));
         Account account = AccountUtil.getAccountFromToken(token);
         GroupRootDirWrapper groupRootDir = null;
         try {
             groupRootDir = groupService.getGroupUrl(account, groupId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
+            log.error(String.format("Failed to retrieve root directory for group with id: %d", groupId));
         }
         return String.format("redirect:%s", groupRootDir.getRootDirUrl()); // no demeter violation here
     }
@@ -63,12 +67,14 @@ public class GroupController {
     public GroupRootDirWrapper getGroupUrl(KeycloakAuthenticationToken token,
                                            Model model,
                                            @PathVariable("groupId") long groupId) {
+        log.info(String.format("Group url for group with id: %d requested.", groupId));
         Account account = AccountUtil.getAccountFromToken(token);
         GroupRootDirWrapper groupRootDir = null;
         try {
             groupRootDir = groupService.getGroupUrl(account, groupId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
+            log.error(String.format("Failed to retrieve group url for group with id: %d", groupId));
         }
         return groupRootDir;
     }
@@ -88,12 +94,14 @@ public class GroupController {
                                      Model model,
                                      @PathVariable("groupId") long groupId,
                                      @RequestAttribute("searchQuery") FileQuery query) {
+        log.info(String.format("Search files in group with id: %d requested.", groupId));
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
         try {
             files = directoryService.searchFolder(account, groupId, query);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
+            log.error(String.format("Failed to search for files in group with id: %d", groupId));
         }
         model.addAttribute("files", files);
         return "files";
