@@ -81,9 +81,9 @@ public class DirectoryBuilder {
     }
 
     /**
-     * Set id from directory.
+     * Set id from existing Directory.
      *
-     * @param directory directory
+     * @param directory existing Directory
      * @return this
      */
     public DirectoryBuilder id(Directory directory) {
@@ -164,9 +164,14 @@ public class DirectoryBuilder {
      * @throws IllegalStateException if Directory is not complete
      */
     public Directory build() {
-        if (name == null || groupOwner == -1L || permissionsId == -1L) {
-            throw new IllegalStateException("Directory is not complete!");
+        if (name == null) {
+            throw new IllegalStateException("Directory incomplete: name must be set!");
+        } else if (groupOwner == -1L) {
+            throw new IllegalStateException("Directory incomplete: groupOwner must be set!");
+        } else if (permissionsId == -1L) {
+            throw new IllegalStateException("Directory incomplete: permissionsId must be set!");
         }
+
         return new Directory(
                 id,
                 name,
