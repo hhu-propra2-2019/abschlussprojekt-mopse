@@ -25,31 +25,9 @@ public class GroupController {
     private GroupService groupService;
 
     /**
-     * Get Files from the storage.
+     * For searching.
      */
-    private FileService fileService;
-
-    /**
-     * @param token   a keycloak authentication token
-     * @param model   spring boot view model
-     * @param groupId the id of the group which files should be fetched
-     * @return the route to template 'directory'
-     */
-    @GetMapping("/{groupId}/files")
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
-    public String getAllFilesOfDirectory(KeycloakAuthenticationToken token,
-                                         Model model,
-                                         @PathVariable("groupId") long groupId) {
-        Account account = AccountUtil.getAccountFromToken(token);
-        List<FileInfo> files = null;
-        try {
-            files = fileService.getAllFilesOfGroup(account, groupId);
-        } catch (MopsException e) {
-            // TODO: Add exception handling, remove PMD warning suppression
-        }
-        model.addAttribute("files", files);
-        return "files";
-    }
+    private DirectoryService directoryService;
 
     /**
      * @param token   a keycloak authentication token
@@ -113,7 +91,7 @@ public class GroupController {
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
         try {
-            files = fileService.searchFilesInGroup(account, groupId, query);
+            files = directoryService.searchFolder(account, groupId, query);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
         }
