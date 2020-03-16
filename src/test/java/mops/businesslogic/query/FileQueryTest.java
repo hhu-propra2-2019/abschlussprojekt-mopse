@@ -1,6 +1,5 @@
-package mops.businesslogic;
+package mops.businesslogic.query;
 
-import mops.businesslogic.query.FileQuery;
 import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
