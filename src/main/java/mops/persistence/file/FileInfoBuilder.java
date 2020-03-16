@@ -97,6 +97,17 @@ public class FileInfoBuilder {
     }
 
     /**
+     * Set id from existing FileInfo.
+     *
+     * @param fileInfo existing FileInfo
+     * @return this
+     */
+    public FileInfoBuilder id(FileInfo fileInfo) {
+        this.id = fileInfo == null ? null : fileInfo.getId();
+        return this;
+    }
+
+    /**
      * Set name.
      *
      * @param name name
@@ -105,7 +116,7 @@ public class FileInfoBuilder {
     public FileInfoBuilder name(@NonNull String name) {
         if (name.isEmpty()) {
             log.error("Failed to add tag name as it was empty.");
-            throw new IllegalArgumentException("name must not be empty");
+            throw new IllegalArgumentException("name must not be empty!");
         }
         this.name = name;
         return this;
@@ -142,7 +153,7 @@ public class FileInfoBuilder {
     public FileInfoBuilder type(@NonNull String type) {
         if (type.isEmpty()) {
             log.error("Failed to add type as it was empty.");
-            throw new IllegalArgumentException("type must not be empty");
+            throw new IllegalArgumentException("type must not be empty!");
         }
         this.type = type;
         return this;
@@ -168,7 +179,7 @@ public class FileInfoBuilder {
     public FileInfoBuilder owner(@NonNull String owner) {
         if (owner.isEmpty()) {
             log.error("Failed to add owner as it was empty.");
-            throw new IllegalArgumentException("owner must not be empty");
+            throw new IllegalArgumentException("owner must not be empty!");
         }
         this.owner = owner;
         return this;
@@ -183,7 +194,7 @@ public class FileInfoBuilder {
     public FileInfoBuilder tag(@NonNull String tag) {
         if (tag.isEmpty()) {
             log.error("Failed to add tag as it was empty.");
-            throw new IllegalArgumentException("tag must not be empty");
+            throw new IllegalArgumentException("tag must not be empty!");
         }
         tags.add(new FileTag(tag));
         return this;
@@ -217,10 +228,23 @@ public class FileInfoBuilder {
      * @return composed FileInfo
      * @throws IllegalStateException if FileInfo is not complete
      */
+    @SuppressWarnings("PMD.CyclomaticComplexity") //if-else chain necessary for fine grained exception messages
     public FileInfo build() {
-        if (name == null || directoryId == -1L || type == null || size == -1L || owner == null) {
-            log.error("Failed to create FileInfo as it is not complete.");
-            throw new IllegalStateException("FileInfo is not complete!");
+        if (name == null) {
+            log.error("Directory is not completely setup name was not set.");
+            throw new IllegalStateException("FileInfo incomplete: name must be set!");
+        } else if (directoryId == -1L) {
+            log.error("Directory is not completely setup directory id not set.");
+            throw new IllegalStateException("FileInfo incomplete: directoryId must be set!");
+        } else if (type == null) {
+            log.error("Directory is not completely setup type was not set.");
+            throw new IllegalStateException("FileInfo incomplete: type must be set!");
+        } else if (size == -1L) {
+            log.error("Directory is not completely setup size was not set.");
+            throw new IllegalStateException("FileInfo incomplete: size must be set!");
+        } else if (owner == null) {
+            log.error("Directory is not completely setup owner was not set.");
+            throw new IllegalStateException("FileInfo incomplete: owner must be set!");
         }
         return new FileInfo(
                 id,
