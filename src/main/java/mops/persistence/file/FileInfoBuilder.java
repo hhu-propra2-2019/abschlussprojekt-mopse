@@ -3,6 +3,7 @@ package mops.persistence.file;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import mops.persistence.directory.Directory;
 import mops.utils.AggregateBuilder;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
@@ -59,14 +61,14 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder from(@NonNull FileInfo file) {
-        this.id = file.getId();
-        this.name = file.getName();
-        this.directoryId = file.getDirectoryId();
-        this.type = file.getType();
-        this.size = file.getSize();
-        this.owner = file.getOwner();
+        id = file.getId();
+        name = file.getName();
+        directoryId = file.getDirectoryId();
+        type = file.getType();
+        size = file.getSize();
+        owner = file.getOwner();
         file.getTags().stream().map(FileTag::getName).forEach(this::tag);
-        this.creationTime = file.getCreationTime();
+        creationTime = file.getCreationTime();
         return this;
     }
 
@@ -77,9 +79,9 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder from(@NonNull MultipartFile file) {
-        this.name = file.getName();
-        this.type = file.getContentType();
-        this.size = file.getSize();
+        name = file.getName();
+        type = file.getContentType();
+        size = file.getSize();
         return this;
     }
 
@@ -102,6 +104,7 @@ public class FileInfoBuilder {
      */
     public FileInfoBuilder name(@NonNull String name) {
         if (name.isEmpty()) {
+            log.error("Failed to add tag name as it was empty.");
             throw new IllegalArgumentException("name must not be empty");
         }
         this.name = name;
@@ -126,7 +129,7 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder directory(@NonNull Directory directory) {
-        this.directoryId = directory.getId();
+        directoryId = directory.getId();
         return this;
     }
 
@@ -138,6 +141,7 @@ public class FileInfoBuilder {
      */
     public FileInfoBuilder type(@NonNull String type) {
         if (type.isEmpty()) {
+            log.error("Failed to add type as it was empty.");
             throw new IllegalArgumentException("type must not be empty");
         }
         this.type = type;
@@ -163,6 +167,7 @@ public class FileInfoBuilder {
      */
     public FileInfoBuilder owner(@NonNull String owner) {
         if (owner.isEmpty()) {
+            log.error("Failed to add owner as it was empty.");
             throw new IllegalArgumentException("owner must not be empty");
         }
         this.owner = owner;
@@ -177,9 +182,10 @@ public class FileInfoBuilder {
      */
     public FileInfoBuilder tag(@NonNull String tag) {
         if (tag.isEmpty()) {
+            log.error("Failed to add tag as it was empty.");
             throw new IllegalArgumentException("tag must not be empty");
         }
-        this.tags.add(new FileTag(tag));
+        tags.add(new FileTag(tag));
         return this;
     }
 
@@ -213,6 +219,7 @@ public class FileInfoBuilder {
      */
     public FileInfo build() {
         if (name == null || directoryId == -1L || type == null || size == -1L || owner == null) {
+            log.error("Failed to create FileInfo as it is not complete.");
             throw new IllegalStateException("FileInfo is not complete!");
         }
         return new FileInfo(
