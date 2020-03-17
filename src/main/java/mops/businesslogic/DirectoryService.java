@@ -79,4 +79,14 @@ public interface DirectoryService {
                                           long dirId,
                                           DirectoryPermissions permissions) throws MopsException;
 
+    /**
+     * Internal use only: possible security flaw!
+     * Check permission before fetching!
+     *
+     * @param dirId the id of the parent folder
+     * @return directory object of the requested folder
+     * @throws MopsException on error
+     */
+    Directory getDirectory(long dirId) throws MopsException;
+
 }
