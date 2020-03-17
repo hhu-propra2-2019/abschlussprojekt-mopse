@@ -5,6 +5,7 @@ import io.minio.ObjectStat;
 import io.minio.Result;
 import io.minio.errors.*;
 import io.minio.messages.Item;
+import lombok.extern.slf4j.Slf4j;
 import mops.utils.AggregateBuilder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +17,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
-
+@Slf4j
 @Repository
 @AggregateBuilder
 public class FileRepository {
@@ -40,13 +41,14 @@ public class FileRepository {
     public FileRepository(FileRepositoryConfig configuration) throws StorageException {
         this.configuration = configuration;
         try {
-            this.minioClient = new MinioClient(
+            minioClient = new MinioClient(
                     configuration.getHost(),
                     configuration.getPort(),
                     configuration.getAccessKey(),
                     configuration.getSecretKey()
             );
         } catch (InvalidEndpointException | InvalidPortException e) {
+            log.error("The connection to the MinIO server failed.");
             throw new StorageException("Fehler beim Verbinden zum MinIO Server.", e);
         }
 
@@ -57,6 +59,7 @@ public class FileRepository {
         } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
                 | ErrorResponseException | InternalException | InvalidResponseException | RegionConflictException e) {
+            log.error("Failed to find and create the bucket '{}'.", configuration.getBucketName());
             throw new StorageException("Fehler beim Suchen und Erstellen des Buckets.", e);
         }
     }
@@ -80,6 +83,7 @@ public class FileRepository {
             );
         } catch (MinioException | IOException | InvalidKeyException
                 | NoSuchAlgorithmException | XmlPullParserException e) {
+            log.error("Failed so save file {} to MinIO server.", file.getName());
             throw new StorageException("Fehler beim Speichern der Datei.", e);
         }
     }
@@ -99,6 +103,7 @@ public class FileRepository {
         } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
                 | ErrorResponseException | InternalException | InvalidArgumentException | InvalidResponseException e) {
+            log.error("Failed to delete file with id {} from MinIO Server.", fileId);
             throw new StorageException("Fehler beim Löschen der Datei.", e);
         }
     }
@@ -120,6 +125,7 @@ public class FileRepository {
         } catch (IOException | InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | InvalidKeyException | NoResponseException | XmlPullParserException | ErrorResponseException
                 | InternalException | InvalidArgumentException | InvalidResponseException e) {
+            log.error("Failed to get content of file with id {}.", fileId);
             throw new StorageException("Fehler beim Zugriff auf den Inhalt der Datei.", e);
         }
     }
@@ -144,6 +150,7 @@ public class FileRepository {
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | InvalidResponseException
                 | XmlPullParserException | InvalidArgumentException | InsufficientDataException | InternalException
                 | InvalidBucketNameException | IOException e) {
+            log.error("Failed to check file existence for id {}.", fileId);
             throw new StorageException("Fehler beim Zugriff auf Datei.", e);
         }
 
@@ -164,6 +171,7 @@ public class FileRepository {
         } catch (ErrorResponseException | InsufficientDataException | InternalException | InvalidArgumentException
                 | InvalidBucketNameException | InvalidResponseException | NoResponseException | IOException
                 | InvalidKeyException | NoSuchAlgorithmException | XmlPullParserException e) {
+            log.error("Failed to clear bucket.");
             throw new StorageException("Bucket konnte nicht geleert werden.", e);
         }
     }

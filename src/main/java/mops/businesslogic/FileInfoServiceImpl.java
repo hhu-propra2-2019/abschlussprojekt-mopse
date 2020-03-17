@@ -1,6 +1,7 @@
 package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.exception.DatabaseException;
 import mops.exception.MopsException;
 import mops.persistence.FileInfoRepository;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class FileInfoServiceImpl implements FileInfoService {
 
     /**
@@ -27,6 +29,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.findAllInDirectory(dirId);
         } catch (Exception e) {
+            log.error("Failed to retrieve all files in directory with id {} from the database.", dirId);
             throw new DatabaseException("Couldn't find all files in directory!", e);
         }
     }
@@ -40,6 +43,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.findById(fileId).orElseThrow();
         } catch (Exception e) {
+            log.error("Failed to retrieve file info for file with id {} from the database.", fileId);
             throw new DatabaseException("Couldn't find File Info!", e);
         }
     }
@@ -53,6 +57,10 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.save(fileInfo);
         } catch (Exception e) {
+            log.error("Failed to save file '{}' of type '{}' with size '{}' bytes to database.",
+                    fileInfo.getName(),
+                    fileInfo.getType(),
+                    fileInfo.getSize());
             throw new DatabaseException("File Info couldn't be saved!", e);
         }
     }
@@ -66,6 +74,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             fileInfoRepo.deleteById(fileId);
         } catch (Exception e) {
+            log.error("Failed to delete file with id {}", fileId);
             throw new DatabaseException("File Info couldn't be deleted!", e);
         }
     }

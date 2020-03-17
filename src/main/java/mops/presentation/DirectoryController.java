@@ -2,6 +2,7 @@ package mops.presentation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileQueryForm;
@@ -24,6 +25,7 @@ import java.util.Set;
 @Controller
 @RequestMapping("/material1/dir")
 @AllArgsConstructor
+@Slf4j
 public class DirectoryController {
 
     /**
@@ -47,6 +49,7 @@ public class DirectoryController {
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
                                     @PathVariable("dirId") long dirId) {
+        log.info("Folder content for folder with id {} requested.", dirId);
         Account account = AccountUtil.getAccountFromToken(token);
         List<Directory> directories = null;
         List<FileInfo> files = null;
@@ -55,6 +58,7 @@ public class DirectoryController {
             files = fileService.getFilesOfDirectory(account, dirId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
+            log.error("Failed to retrieve the folder content for directory with id {}", dirId);
         }
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
@@ -77,11 +81,13 @@ public class DirectoryController {
                              Model model,
                              @PathVariable("dirId") long dirId,
                              @RequestAttribute("file") MultipartFile multipartFile) {
+        log.info("Upload of a file in directory with id {} requested.", dirId);
         Account account = AccountUtil.getAccountFromToken(token);
         try {
             fileService.saveFile(account, dirId, multipartFile, Set.of());
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
+            log.error("Failed to upload file in directory with id {}", dirId);
         }
         return String.format("redirect:/material1/dir/%d", dirId);
     }
@@ -102,6 +108,7 @@ public class DirectoryController {
                                   Model model,
                                   @PathVariable("parentDirId") long parentDirId,
                                   @RequestAttribute("folderName") String folderName) {
+        log.info("Sub folder creation requested in parent folder with id {}", parentDirId);
         Account account = AccountUtil.getAccountFromToken(token);
         Directory directory = null;
         try {
@@ -109,6 +116,7 @@ public class DirectoryController {
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression and findbugs warning
             // TODO: this can be done by replacing Directory directory = null; with Directory directory;
+            log.error("Failed to create folder in parent directory with id {}", parentDirId);
         }
         //there is no other way
         return String.format("redirect:/material1/dir/%d", directory.getId()); //NOPMD
@@ -128,6 +136,7 @@ public class DirectoryController {
     public String deleteFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId) {
+        log.info("Deletion of folder with id {} requested", dirId);
         Account account = AccountUtil.getAccountFromToken(token);
         Directory directory = null;
         try {
@@ -135,6 +144,7 @@ public class DirectoryController {
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression and findbugs warning
             // TODO: this can be done by replacing Directory directory = null; with Directory directory;
+            log.error("Failed to delete folder with id {}", dirId);
         }
         //there is no other way
         return String.format("redirect:/material1/dir/%d", directory.getId()); //NOPMD
@@ -155,6 +165,7 @@ public class DirectoryController {
                                Model model,
                                @PathVariable("dirId") long dirId,
                                @RequestAttribute("fileQueryForm") FileQueryForm queryForm) {
+        log.info("Search in for file in the folder with the id {}.", dirId);
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
 
@@ -174,6 +185,7 @@ public class DirectoryController {
             files = directoryService.searchFolder(account, dirId, query);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
+            log.error("Failed to search in folder with id {}", dirId);
         }
         model.addAttribute("files", files);
         return "files";
