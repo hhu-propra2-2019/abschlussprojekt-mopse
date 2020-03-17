@@ -101,4 +101,14 @@ public class FileQueryTest {
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
     }
+
+    @Test
+    public void twoMatches() {
+        FileQuery fileQuery = FileQuery.builder()
+                .owners(List.of("iTitus"))
+                .names(List.of("cv"))
+                .build();
+        assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
+
+    }
 }
