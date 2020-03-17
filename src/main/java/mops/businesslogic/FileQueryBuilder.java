@@ -35,7 +35,6 @@ public class FileQueryBuilder {
      * @param owners list of owner to search for
      * @return this
      */
-    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public FileQueryBuilder owners(@NonNull Iterable<String> owners) {
         owners.forEach(this::owner);
         return this;
