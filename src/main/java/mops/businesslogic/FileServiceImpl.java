@@ -43,7 +43,8 @@ public class FileServiceImpl implements FileService {
      * @param fileInfoService  Service for saving and retrieving file meta data.
      * @param fileRepository   File content repository.
      */
-    public FileServiceImpl(DirectoryService directoryService, FileInfoService fileInfoService,
+    public FileServiceImpl(DirectoryService directoryService,
+                           FileInfoService fileInfoService,
                            FileRepository fileRepository) {
         this.directoryService = directoryService;
         this.fileInfoService = fileInfoService;
