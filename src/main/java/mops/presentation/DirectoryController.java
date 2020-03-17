@@ -47,7 +47,7 @@ public class DirectoryController {
     public String showFolderContent(KeycloakAuthenticationToken token,
                                     Model model,
                                     @PathVariable("dirId") long dirId) {
-        log.info("Folder content for folder with id %d requested.", dirId);
+        log.info("Folder content for folder with id {} requested.", dirId);
         Account account = AccountUtil.getAccountFromToken(token);
         List<Directory> directories = null;
         List<FileInfo> files = null;
@@ -113,7 +113,7 @@ public class DirectoryController {
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression and findbugs warning
             // TODO: this can be done by replacing Directory directory = null; with Directory directory;
-            log.error("Failed to create folder in parent directory with id %d", parentDirId);
+            log.error("Failed to create folder in parent directory with id {}", parentDirId);
         }
         //there is no other way
         return String.format("redirect:/material1/dir/%d", directory.getId()); //NOPMD

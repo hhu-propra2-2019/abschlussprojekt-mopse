@@ -131,7 +131,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory rootDirectory = fetchDirectory(parentDirId);
         long groupFolderCount = directoryRepository.getGroupFolderCount(rootDirectory.getGroupOwner());
         if (groupFolderCount >= MAX_FOLDER_PER_GROUP) {
-            log.error("The user '%s' tried to create another sub folder for the group with the id %d, "
+            log.error("The user '{}' tried to create another sub folder for the group with the id {}, "
                             + "but they already reached their max allowed folder count.",
                     account.getName(),
                     parentDirId);
@@ -160,7 +160,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         List<Directory> subFolders = getSubFolders(account, dirId);
 
         if (!files.isEmpty() || !subFolders.isEmpty()) {
-            log.error("The user '%s' tried to delete the folder with id %d, but the folder was not empty.",
+            log.error("The user '{}' tried to delete the folder with id {}, but the folder was not empty.",
                     account.getName(),
                     dirId);
             String errorMessage = String.format("The directory %s is not empty.", directory.getName());
@@ -234,7 +234,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     private DirectoryPermissions fetchPermissions(Directory directory) throws DatabaseException {
         Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
         return permissions.orElseThrow(() -> { // this is not a violation of demeter's law
-            log.error("The permission for directory with the id %d could not be fetched.",
+            log.error("The permission for directory with the id {} could not be fetched.",
                     directory.getId());
             String errorMessage = "Permission couldn't be fetched.";
             return new DatabaseException(errorMessage);
@@ -264,9 +264,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private Supplier<NoSuchElementException> getException(long dirId) {
         return () -> { //this is not a violation of the demeter's law
-            log.error("The directory with the id %d was requested, but was not found in the database.",
+            log.error("The directory with the id {} was requested, but was not found in the database.",
                     dirId);
-            String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
+            String errorMessage = String.format("There is no directory with the id: {} in the database.", dirId);
             return new NoSuchElementException(errorMessage);
         };
     }
