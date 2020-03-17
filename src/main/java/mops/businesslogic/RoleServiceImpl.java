@@ -43,7 +43,7 @@ public class RoleServiceImpl implements RoleService {
         boolean allowedToWrite = directoryPermissions.isAllowedToWrite(userRole);
 
         if (!allowedToWrite) {
-            log.error("The user '{}' tried to write to '{}' where has no writing permissions.",
+            log.error("The user '{}' tried to write '{}' where they has no writing permissions.",
                     account.getName(),
                     directory.getName());
             throw new WriteAccessPermissionException(String.format("The user %s doesn't have write access to {}.",
@@ -65,7 +65,7 @@ public class RoleServiceImpl implements RoleService {
         boolean allowedToRead = directoryPermissions.isAllowedToRead(userRole);
 
         if (!allowedToRead) {
-            log.error("The user '{}' tried to read to '{}' where has no reading permissions.",
+            log.error("The user '{}' tried to read to '{}' where they has no reading permissions.",
                     account.getName(),
                     directory.getName());
             throw new ReadAccessPermissionException(String.format("The user %s doesn't have read access to %s.",
@@ -89,7 +89,7 @@ public class RoleServiceImpl implements RoleService {
         boolean allowedToDelete = directoryPermissions.isAllowedToDelete(userRole);
 
         if (!allowedToDelete) {
-            log.error("The user '{}' tried to delete to '{}' where has no deleting permissions.",
+            log.error("The user '{}' tried to delete '{}' where they has no deleting permissions.",
                     account.getName(),
                     directory.getName());
             throw new DeleteAccessPermissionException(String.format("The user %s doesn't have delete permission in %s.",
