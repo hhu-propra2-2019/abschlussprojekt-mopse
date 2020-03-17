@@ -36,7 +36,7 @@ public class FileQueryBuilder {
      */
     private static final char STRING_MARKER = '"';
     /**
-     * Marker for a backslash. (key:"value_\_"")
+     * Marker for the escape character. (key:"valueA_\_valueB"")
      */
     private static final char ESCAPE_CHAR = '\\';
 
