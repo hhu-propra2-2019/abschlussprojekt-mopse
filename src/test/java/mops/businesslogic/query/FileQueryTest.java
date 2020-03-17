@@ -1,4 +1,4 @@
-package mops.businesslogic;
+package mops.businesslogic.query;
 
 import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +28,7 @@ public class FileQueryTest {
     @Test
     public void findOwnerTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .owners(List.of("iTitus"))
+                .owner("iTitus")
                 .build();
 
         assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
@@ -37,7 +37,7 @@ public class FileQueryTest {
     @Test
     public void noMatchingOwnerTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .owners(List.of("Segelzwerg"))
+                .owner("Segelzwerg")
                 .build();
 
         assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
@@ -46,7 +46,7 @@ public class FileQueryTest {
     @Test
     public void findFileNameTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .names(List.of("cv"))
+                .name("cv")
                 .build();
 
         assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
@@ -55,7 +55,7 @@ public class FileQueryTest {
     @Test
     public void noMatchingFileNameTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .names(List.of("Lebenslauf"))
+                .name("Lebenslauf")
                 .build();
 
         assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
@@ -64,7 +64,7 @@ public class FileQueryTest {
     @Test
     public void findTypeTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .types(List.of("pdf"))
+                .type("pdf")
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
     }
@@ -72,7 +72,7 @@ public class FileQueryTest {
     @Test
     public void noMatchingTypeTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .types(List.of("png"))
+                .type("png")
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
     }
@@ -106,7 +106,7 @@ public class FileQueryTest {
     public void twoMatches() {
         FileQuery fileQuery = FileQuery.builder()
                 .owner("iTitus")
-                .fileName("cv")
+                .name("cv")
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
     }

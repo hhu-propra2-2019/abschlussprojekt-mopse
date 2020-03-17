@@ -2,6 +2,7 @@ package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
 import mops.businesslogic.exception.*;
+import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;

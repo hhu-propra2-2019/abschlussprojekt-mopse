@@ -6,22 +6,19 @@ import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.exception.MopsException;
 import mops.persistence.FileRepository;
 import mops.persistence.file.FileInfo;
-import org.junit.jupiter.api.*;
-import org.springframework.core.io.ByteArrayResource;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
-import org.testcontainers.shaded.org.apache.commons.io.IOUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -65,7 +62,7 @@ class FileServiceTest {
                 .when(directoryServiceMock)
                 .getPermissionsOfUser(account, dirId);
 
-        FileInfo fileInfoStub =  FileInfo.builder()
+        FileInfo fileInfoStub = FileInfo.builder()
                 .from(file)
                 .id(fileId)
                 .directory(dirId)
@@ -92,7 +89,7 @@ class FileServiceTest {
                 .when(directoryServiceMock)
                 .getPermissionsOfUser(account, dirId);
 
-        FileInfo fileInfoStub =  FileInfo.builder()
+        FileInfo fileInfoStub = FileInfo.builder()
                 .from(file)
                 .id(fileId)
                 .directory(dirId)
@@ -121,7 +118,7 @@ class FileServiceTest {
                 .when(directoryServiceMock)
                 .getPermissionsOfUser(account, dirId);
 
-        FileInfo fileInfoStub =  FileInfo.builder()
+        FileInfo fileInfoStub = FileInfo.builder()
                 .from(file)
                 .id(fileId)
                 .directory(dirId)
@@ -149,7 +146,7 @@ class FileServiceTest {
                 .when(directoryServiceMock)
                 .getPermissionsOfUser(account, dirId);
 
-        FileInfo fileInfoStub =  FileInfo.builder()
+        FileInfo fileInfoStub = FileInfo.builder()
                 .from(file)
                 .id(fileId)
                 .directory(dirId)
@@ -178,7 +175,7 @@ class FileServiceTest {
                 .when(directoryServiceMock)
                 .getPermissionsOfUser(account, dirId);
 
-        FileInfo fileInfoStub =  FileInfo.builder()
+        FileInfo fileInfoStub = FileInfo.builder()
                 .from(file)
                 .id(fileId)
                 .directory(dirId)
@@ -205,7 +202,7 @@ class FileServiceTest {
                 .when(directoryServiceMock)
                 .getPermissionsOfUser(account, dirId);
 
-        FileInfo fileInfoStub =  FileInfo.builder()
+        FileInfo fileInfoStub = FileInfo.builder()
                 .from(file)
                 .id(fileId)
                 .directory(dirId)
@@ -234,7 +231,7 @@ class FileServiceTest {
                 .when(directoryServiceMock)
                 .getPermissionsOfUser(account, dirId);
 
-        FileInfo fileInfoStub =  FileInfo.builder()
+        FileInfo fileInfoStub = FileInfo.builder()
                 .from(file)
                 .id(fileId)
                 .directory(dirId)
