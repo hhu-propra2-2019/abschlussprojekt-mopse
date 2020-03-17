@@ -91,7 +91,7 @@ public class FileQueryBuilder {
      * @param type new type to search for
      * @return this
      */
-    private FileQueryBuilder type(@NonNull String type) {
+    public FileQueryBuilder type(@NonNull String type) {
         if (type.isEmpty()) {
             log.error("Search parameter type was an empty string.");
             throw new IllegalArgumentException("type must not be empty!");
@@ -109,7 +109,11 @@ public class FileQueryBuilder {
         return this;
     }
 
-    private FileQueryBuilder tag(@NonNull String tag) {
+    /**
+     * @param tag what the file should be tagged with
+     * @return this
+     */
+    public FileQueryBuilder tag(@NonNull String tag) {
         if (tag.isEmpty()) {
             log.error("Search parameter tag was an empty string.");
             throw new IllegalArgumentException("tag must not be empty!");

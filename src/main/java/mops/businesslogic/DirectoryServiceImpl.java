@@ -2,9 +2,7 @@ package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.exception.DatabaseException;
-import mops.businesslogic.exception.DeleteAccessPermissionException;
-import mops.businesslogic.exception.StorageLimitationException;
+import mops.businesslogic.exception.*;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
@@ -60,8 +58,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //this is normal behaviour
-    public UserPermission getPermissionsOfUser(Account account, long dirId) {
+    //this is normal behaviour
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.CyclomaticComplexity", "PMD.PrematureDeclaration" })
+    public UserPermission getPermissionsOfUser(Account account, long dirId) throws MopsException {
         Directory directory = fetchDirectory(dirId);
         boolean write = true;
         boolean read = true;
@@ -69,20 +68,26 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         try {
             roleService.checkWritePermission(account, directory);
-        } catch (MopsException e) {
+        } catch (WriteAccessPermissionException e) {
             write = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Schreiben möglich", e);
         }
 
         try {
             roleService.checkReadPermission(account, directory);
-        } catch (MopsException e) {
+        } catch (ReadAccessPermissionException e) {
             read = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Lesen möglich", e);
         }
 
         try {
             roleService.checkDeletePermission(account, directory);
-        } catch (MopsException e) {
+        } catch (DeleteAccessPermissionException e) {
             delete = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Löschen möglich", e);
         }
 
         return new UserPermission(read, write, delete);
