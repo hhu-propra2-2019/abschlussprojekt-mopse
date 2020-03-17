@@ -26,6 +26,7 @@
                 text.type = "text";
                 text.name = type + "[" + counter + "]";
                 text.placeholder = placeholder;
+                text.setAttribute("th:field", type + "[" + counter + "]");
                 button.type = "button";
                 button.value = "+";
                 button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', '" + placeholder + "');");
@@ -86,28 +87,28 @@
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
-    <form action="#" th:action="@{/search}" th:method="post">
+    <form action="#" th:action="@{/search}" th:method="post" th:object="${fileQueryForm}">
         <div id="fileNames">
             <div>
-                <div><input type="text" name="fileNames[0]" placeholder="Dateiname"></div>
+                <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{fileNames[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('fileNames', 'Dateiname')"></div>
             </div>
         </div>
         <div id="owners">
             <div>
-                <div><input type="text" name="owners[0]" placeholder="Besitzer"></div>
+                <div><input type="text" name="owners[0]" placeholder="Besitzer" th:field="*{owners[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('owners', 'Besitzer')"></div>
             </div>
         </div>
         <div id="types">
             <div>
-                <div><input type="text" name="types[0]" placeholder="Dateityp"></div>
+                <div><input type="text" name="types[0]" placeholder="Dateityp" th:field="*{types[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('types', 'Dateityp')"></div>
             </div>
         </div>
         <div id="tags">
             <div>
-                <div><input type="text" name="tags[0]" placeholder="Tags"></div>
+                <div><input type="text" name="tags[0]" placeholder="Tags" th:field="*{tags[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('tags', 'Tags')"></div>
             </div>
         </div>
