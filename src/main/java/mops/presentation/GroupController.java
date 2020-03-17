@@ -93,15 +93,15 @@ public class GroupController {
     public String searchFilesInGroup(KeycloakAuthenticationToken token,
                                      Model model,
                                      @PathVariable("groupId") long groupId,
-                                     @RequestAttribute("searchQuery") FileQuery query) {
-        log.info("Search files in group with id: %d requested.", groupId);
+                                     @RequestAttribute("search") FileQuery query) {
+        log.info("Search files in group with id: {} requested.", groupId);
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
         try {
             files = directoryService.searchFolder(account, groupId, query);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
-            log.error("Failed to search for files in group with id: %d", groupId);
+            log.error("Failed to search for files in group with id: {}", groupId);
         }
         model.addAttribute("files", files);
         return "files";

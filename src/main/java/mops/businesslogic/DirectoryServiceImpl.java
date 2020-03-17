@@ -3,6 +3,7 @@ package mops.businesslogic;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.exception.*;
+import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;

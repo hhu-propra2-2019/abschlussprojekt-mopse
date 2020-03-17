@@ -4,9 +4,9 @@ import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileQuery;
 import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
+import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
@@ -123,8 +123,11 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void searchFolder() throws Exception {
+        FileQuery fileQuery = FileQuery.builder()
+                .build();
+
         mockMvc().perform(post("/material1/dir/{dir}/search", 1)
-                .requestAttr("searchQuery", mock(FileQuery.class))
+                .requestAttr("search", fileQuery)
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("files"))
