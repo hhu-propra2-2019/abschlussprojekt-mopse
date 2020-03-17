@@ -4,6 +4,7 @@ import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.*;
+import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
@@ -12,14 +13,12 @@ import mops.persistence.FileRepository;
 import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -102,10 +101,11 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void searchFile() throws Exception {
-        FileQuery fileQuery = mock(FileQuery.class);
+        FileQuery fileQuery = FileQuery.builder()
+                .build();
 
         mockMvc().perform(post("/material1/group/{groupId}/search", 1)
-                .requestAttr("searchQuery", fileQuery)
+                .requestAttr("search", fileQuery)
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("files"))

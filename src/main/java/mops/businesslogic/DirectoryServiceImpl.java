@@ -1,9 +1,9 @@
 package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
-import mops.businesslogic.exception.DatabaseException;
-import mops.businesslogic.exception.DeleteAccessPermissionException;
-import mops.businesslogic.exception.StorageLimitationException;
+import lombok.extern.slf4j.Slf4j;
+import mops.businesslogic.exception.*;
+import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class DirectoryServiceImpl implements DirectoryService {
 
     /**
@@ -58,8 +59,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //this is normal behaviour
-    public UserPermission getPermissionsOfUser(Account account, long dirId) {
+    //this is normal behaviour
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.CyclomaticComplexity", "PMD.PrematureDeclaration" })
+    public UserPermission getPermissionsOfUser(Account account, long dirId) throws MopsException {
         Directory directory = fetchDirectory(dirId);
         boolean write = true;
         boolean read = true;
@@ -67,20 +69,26 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         try {
             roleService.checkWritePermission(account, directory);
-        } catch (MopsException e) {
+        } catch (WriteAccessPermissionException e) {
             write = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Schreiben möglich", e);
         }
 
         try {
             roleService.checkReadPermission(account, directory);
-        } catch (MopsException e) {
+        } catch (ReadAccessPermissionException e) {
             read = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Lesen möglich", e);
         }
 
         try {
             roleService.checkDeletePermission(account, directory);
-        } catch (MopsException e) {
+        } catch (DeleteAccessPermissionException e) {
             delete = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Löschen möglich", e);
         }
 
         return new UserPermission(read, write, delete);
@@ -123,6 +131,10 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory rootDirectory = fetchDirectory(parentDirId);
         long groupFolderCount = directoryRepository.getGroupFolderCount(rootDirectory.getGroupOwner());
         if (groupFolderCount >= MAX_FOLDER_PER_GROUP) {
+            log.error("The user '{}' tried to create another sub folder for the group with the id {}, "
+                            + "but they already reached their max allowed folder count.",
+                    account.getName(),
+                    parentDirId);
             String error = "Your group has max allowed amount of folders. You can't create any more.";
             throw new StorageLimitationException(error);
         }
@@ -148,6 +160,9 @@ public class DirectoryServiceImpl implements DirectoryService {
         List<Directory> subFolders = getSubFolders(account, dirId);
 
         if (!files.isEmpty() || !subFolders.isEmpty()) {
+            log.error("The user '{}' tried to delete the folder with id {}, but the folder was not empty.",
+                    account.getName(),
+                    dirId);
             String errorMessage = String.format("The directory %s is not empty.", directory.getName());
             throw new DeleteAccessPermissionException(errorMessage);
         }
@@ -219,6 +234,8 @@ public class DirectoryServiceImpl implements DirectoryService {
     private DirectoryPermissions fetchPermissions(Directory directory) throws DatabaseException {
         Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
         return permissions.orElseThrow(() -> { // this is not a violation of demeter's law
+            log.error("The permission for directory with the id {} could not be fetched.",
+                    directory.getId());
             String errorMessage = "Permission couldn't be fetched.";
             return new DatabaseException(errorMessage);
         });
@@ -247,7 +264,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private Supplier<NoSuchElementException> getException(long dirId) {
         return () -> { //this is not a violation of the demeter's law
-            String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
+            log.error("The directory with the id {} was requested, but was not found in the database.",
+                    dirId);
+            String errorMessage = String.format("There is no directory with the id: {} in the database.", dirId);
             return new NoSuchElementException(errorMessage);
         };
     }

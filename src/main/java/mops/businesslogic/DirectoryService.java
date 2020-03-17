@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -18,7 +19,7 @@ public interface DirectoryService {
      * @param dirId   the id of the folder
      * @return a permission flag object
      */
-    UserPermission getPermissionsOfUser(Account account, long dirId);
+    UserPermission getPermissionsOfUser(Account account, long dirId) throws MopsException;
 
     /**
      * Returns all folders of the parent folder.
