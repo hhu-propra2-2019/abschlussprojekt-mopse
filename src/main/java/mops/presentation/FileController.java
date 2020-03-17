@@ -86,9 +86,9 @@ public class FileController {
     /**
      * Deletes a file.
      *
-     * @param token  keycloak auth token
-     * @param model  spring view model
-     * @param fileId the id of the file to be deleted
+     * @param token   keycloak auth token
+     * @param model   spring view model
+     * @param fileId  the id of the file to be deleted
      * @param request the Http request
      * @return the route to the parentDir of the deleted file
      */
@@ -107,7 +107,7 @@ public class FileController {
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
             String referer = request.getHeader("Referer");
-            url =  "redirect:" + referer;
+            url = "redirect:" + referer;
         }
         return url;
     }
