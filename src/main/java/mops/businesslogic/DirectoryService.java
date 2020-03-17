@@ -19,7 +19,7 @@ public interface DirectoryService {
      * @param dirId   the id of the folder
      * @return a permission flag object
      */
-    UserPermission getPermissionsOfUser(Account account, long dirId);
+    UserPermission getPermissionsOfUser(Account account, long dirId) throws MopsException;
 
     /**
      * Returns all folders of the parent folder.
