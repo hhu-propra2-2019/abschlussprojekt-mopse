@@ -2,7 +2,11 @@ package mops.presentation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
-import mops.businesslogic.*;
+import mops.businesslogic.Account;
+import mops.businesslogic.DirectoryService;
+import mops.businesslogic.GroupRootDirWrapper;
+import mops.businesslogic.GroupService;
+import mops.businesslogic.query.FileQuery;
 import mops.businesslogic.utils.AccountUtil;
 import mops.exception.MopsException;
 import mops.persistence.file.FileInfo;
@@ -87,7 +91,7 @@ public class GroupController {
     public String searchFilesInGroup(KeycloakAuthenticationToken token,
                                      Model model,
                                      @PathVariable("groupId") long groupId,
-                                     @RequestAttribute("searchQuery") FileQuery query) {
+                                     @RequestAttribute("search") FileQuery query) {
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
         try {
