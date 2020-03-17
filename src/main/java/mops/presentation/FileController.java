@@ -73,7 +73,7 @@ public class FileController {
         try {
             result = fileService.getFile(account, fileId);
         } catch (MopsException e) {
-            log.error("Failed to retrieve file with id: {}.", fileId);
+            log.error("Failed to retrieve file with id '{}'.", fileId);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Die Datei mit der ID " + fileId + " konnte nicht gefunden werden.", e);
         }
