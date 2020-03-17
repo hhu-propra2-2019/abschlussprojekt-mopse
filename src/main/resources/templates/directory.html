@@ -7,6 +7,37 @@
     <title>Ordner</title>
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
+        <script>
+            var fileNamesCounter = "1";
+            var ownersCounter = "1";
+            var typesCounter = "1";
+            var tagsCounter = "1";
+            function addNewInputLine(type) {
+                var counter = window[type + "Counter"];
+                console.log(counter);
+
+                var parent = document.getElementById(type);
+                var div1 = document.createElement("div");
+                var div2 = document.createElement("div");
+                var div3 = document.createElement("div");
+                var text = document.createElement("input");
+                var button = document.createElement("input");
+
+                text.type = "text";
+                text.name = type + "[" + counter + "]";
+                button.type = "button";
+                button.value = "+";
+                button.setAttribute( "onClick", "javascript: addNewInputLine('" + type + "', " + counter + ");" );
+
+                div2.appendChild(text);
+                div3.appendChild(button);
+                div1.appendChild(div2);
+                div1.appendChild(div3);
+                parent.appendChild(div1);
+
+                window[type + "Counter"]++;
+            }
+        </script>
     </th:block>
 </head>
 <body>
@@ -46,19 +77,36 @@
             </td>
         </tr>
     </table>
-    <form action="#" th:action="@{/create}"th:method="post">
-        <input type="text" name="folderName" >
+    <form action="#" th:action="@{/create}" th:method="post">
+        <input type="text" name="folderName">
         <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
     <form action="#" th:action="@{/upload}" th:method="post">
         <input type="file" name="file">
-        <input type="submit" name="uploadFile" value="Datei Hochladen"> <!-- TODO: Add a complete upload form -->
+        <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
-    <form action="#" th:action="@{/search}" th:method="post">
-        <input type="text" name="fileNames">
-        <input type="text" name="owners">
-        <input type="text" name="types">
-        <input type="text" name="tags">
+    <form action="#" th:action="@{/search}" th:method="post" th:object="FileQuery">
+        <div id="fileNames">
+            <div>
+                <div><input type="text" name="fileNames[0]" value="Suchfeld"></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('fileNames')"></div>
+            </div>
+        </div>
+        <div>
+            <div><input type="text" name="owners[0]" value="Besitzer"></div>
+            <div><input type="button" value="+" onclick=""></div>
+        </div>
+        <div>
+            <div><input type="text" name="types[0]" value="Typen"></div>
+            <div><input type="button" value="+" onclick=""></div>
+        </div>
+        <div>
+            <div><input type="text" name="tags[0]" value="Tags"></div>
+            <div><input type="button" value="+" onclick=""></div>
+        </div>
+        <div>
+            <div><input type="submit" name="searchFile" value="Datei suchen"></div>
+        </div>
     </form>
 </main>
 </body>
