@@ -46,11 +46,13 @@ Zum einen `info` und `error`.
 Die `info` werden ausschließlich in den Controller geschrieben, da es sonst zu redundanten Lognachrichten kommen würde.
 Dies ist ausreichend, da jede Aktion unserer Applikation von einem Controller gestartet wird.
 
-Die `error`s werden an jeder Stelle geschrieben, wo auch eine `Exception` geschmissen wird.
+Die `error`-Nachrichten werden an jeder Stelle geschrieben, wo auch eine `Exception` geschmissen wird.
 Dies soll es einfach im Log machen den `Stacktrace` nach zu verfolgen.
 
 Als Technologie benutzen wir `SLF4J` (Simple Logging Face for Java).
 Dies ist nativ in `Spring-Boot 2.x` und lässt sich mit einer einfachen Annotation (`SLF4J`) jeder Klasse hinzufügen.
+
+Wir haben `SLF4J` nicht konfiguriert, also wird standardmäßig `Logback` benutzt.
 
 Wir haben uns dafür entschieden, weil unsere Internetrecherche die meisten Treffer dazu ergeben hat und unser Tutor uns unabhängig davon zu geraten hat.
 Die Einfachheit des Tools ist ebenfalls ein Entscheidungsgrund gewesen.
