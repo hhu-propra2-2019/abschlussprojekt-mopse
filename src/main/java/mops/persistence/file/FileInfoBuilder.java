@@ -68,7 +68,7 @@ public class FileInfoBuilder {
         this.size = file.getSize();
         this.owner = file.getOwner();
         file.getTags().stream().map(FileTag::getName).forEach(this::tag);
-        creationTime = file.getCreationTime();
+        this.creationTime = file.getCreationTime();
         return this;
     }
 
