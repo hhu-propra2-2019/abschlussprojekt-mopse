@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mops.businesslogic.exception.DeleteAccessPermissionException;
 import mops.businesslogic.exception.FileNotFoundException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
@@ -85,6 +86,8 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
+    @SuppressFBWarnings(value = "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE",
+            justification = "There's no nullcheck here.")
     public FileContainer getFile(Account account, long fileId) throws MopsException {
 
         FileInfo fileInfo;
@@ -126,7 +129,7 @@ public class FileServiceImpl implements FileService {
         String owner = fileInfo.getOwner();
         boolean isOwner = owner.equals(account.getName());
         if (!isOwner && !userPermission.isDelete()) {
-                throw new DeleteAccessPermissionException("No delete permission");
+            throw new DeleteAccessPermissionException("No delete permission");
         }
 
         try {
@@ -143,6 +146,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
     public FileInfo getFileInfo(Account account, long fileId) throws MopsException {
         FileInfo fileInfo;
         try {
@@ -162,6 +166,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     public List<FileInfo> getFilesOfDirectory(Account account, long dirId) throws MopsException {
         UserPermission userPermission = directoryService.getPermissionsOfUser(account, dirId);
         if (!userPermission.isRead()) {
