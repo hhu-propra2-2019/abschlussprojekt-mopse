@@ -186,9 +186,9 @@ public class FileServiceImpl implements FileService {
         if (!userPermission.isRead()) {
             log.error("User {} tried to read file {} without permission.",
                     account.getName(),
-                    fileId,
-                    new ReadAccessPermissionException("No read permission")
+                    fileId
             );
+            throw new ReadAccessPermissionException("No read permission");
         }
         return fileInfoService.fetchFileInfo(fileId);
     }
@@ -203,9 +203,10 @@ public class FileServiceImpl implements FileService {
         if (!userPermission.isRead()) {
             log.error("User {} tried to read files in directory with ID {} without permission.",
                     account.getName(),
-                    dirId,
-                    new ReadAccessPermissionException("No read permission")
+                    dirId
             );
+            throw new ReadAccessPermissionException("No read permission");
+
         }
         return fileInfoService.fetchAllFilesInDirectory(dirId);
     }
