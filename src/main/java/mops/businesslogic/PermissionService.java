@@ -15,7 +15,7 @@ public interface PermissionService {
      * @param groupId the id of the group
      * @return the role of the user in that group
      */
-    String fetchRoleForUserInGroup(Account account, long groupId);
+    String fetchRoleForUserInGroup(Account account, long groupId) throws GruppenFindungException;
 
     /**
      * @param groupId the id of the group

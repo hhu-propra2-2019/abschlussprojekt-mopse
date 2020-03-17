@@ -48,7 +48,7 @@ class RoleServiceTest {
     Account intruder;
 
     @BeforeEach
-    void setup() {
+    void setup() throws GruppenFindungException {
         roleService = new RoleServiceImpl(permissionService, directoryPermissionsRepository);
 
         admin = Account.of(ADMIN, ADMIN + "@hhu.de", STUDENTIN);
