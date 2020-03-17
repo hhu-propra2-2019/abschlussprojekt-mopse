@@ -43,9 +43,9 @@ public class RoleServiceImpl implements RoleService {
         boolean allowedToWrite = directoryPermissions.isAllowedToWrite(userRole);
 
         if (!allowedToWrite) {
-            log.error(String.format("The user '%s' tried to write to '%s' where has no writing permissions.",
+            log.error("The user '%s' tried to write to '%s' where has no writing permissions.",
                     account.getName(),
-                    directory.getName()));
+                    directory.getName());
             throw new WriteAccessPermissionException(String.format("The user %s doesn't have write access to %s.",
                     account.getName(),
                     directory.getName()));
@@ -65,9 +65,9 @@ public class RoleServiceImpl implements RoleService {
         boolean allowedToRead = directoryPermissions.isAllowedToRead(userRole);
 
         if (!allowedToRead) {
-            log.error(String.format("The user '%s' tried to read to '%s' where has no reading permissions.",
+            log.error("The user '%s' tried to read to '%s' where has no reading permissions.",
                     account.getName(),
-                    directory.getName()));
+                    directory.getName());
             throw new ReadAccessPermissionException(String.format("The user %s doesn't have read access to %s.",
                     account.getName(),
                     directory.getName()));
@@ -89,9 +89,9 @@ public class RoleServiceImpl implements RoleService {
         boolean allowedToDelete = directoryPermissions.isAllowedToDelete(userRole);
 
         if (!allowedToDelete) {
-            log.error(String.format("The user '%s' tried to delete to '%s' where has no deleting permissions.",
+            log.error("The user '%s' tried to delete to '%s' where has no deleting permissions.",
                     account.getName(),
-                    directory.getName()));
+                    directory.getName());
             throw new DeleteAccessPermissionException(String.format("The user %s doesn't have delete permission in %s.",
                     account.getName(),
                     directory.getName()));
@@ -105,10 +105,10 @@ public class RoleServiceImpl implements RoleService {
     public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {
         String role = permissionService.fetchRoleForUserInGroup(account, groupId);
         if (!allowedRole.equals(role)) {
-            log.error(String.format("The user '%s' has not the required role '%s' in group with id %d.",
+            log.error("The user '%s' has not the required role '%s' in group with id %d.",
                     account.getName(),
                     allowedRole,
-                    groupId));
+                    groupId);
             String errorMessage = String.format(
                     "User is not %s of %d and therefore not allowed to do this action.",
                     allowedRole,
@@ -130,7 +130,7 @@ public class RoleServiceImpl implements RoleService {
      */
     private Supplier<MopsException> getException(long dirId) {
         return () -> {
-            log.error(String.format("There is no directory with the id: %d in the database.", dirId));
+            log.error("There is no directory with the id: %d in the database.", dirId);
             String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
             return new DatabaseException(errorMessage);
         };
