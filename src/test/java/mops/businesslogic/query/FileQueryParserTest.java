@@ -43,4 +43,38 @@ class FileQueryParserTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void stringsWithSpaces() {
+        FileQuery expected = FileQuery.builder()
+                .owner("Jens Bendisposto")
+                .build();
+
+        FileQuery actual = INSTANCE.convert("owner:\"jens bendisposto\"");
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void testUnnecessaryQuotationmarks() {
+        FileQuery expected = FileQuery.builder()
+                .name("name")
+                .owner("Jens Bendisposto")
+                .build();
+
+        FileQuery actual = INSTANCE.convert("\"owner\":\"jens bendisposto\" \"name\"");
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void testEscaping() {
+        FileQuery expected = FileQuery.builder()
+                .owner("Jens\"Bendisposto")
+                .build();
+
+        FileQuery actual = INSTANCE.convert("\"owner\":\"jens\\\"bendisposto\"");
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }

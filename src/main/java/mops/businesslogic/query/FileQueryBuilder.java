@@ -35,6 +35,10 @@ public class FileQueryBuilder {
      * Marker for strings. (key:_"_value with spaces_"_)
      */
     private static final char STRING_MARKER = '"';
+    /**
+     * Marker for a backslash. (key:"value_\_"")
+     */
+    private static final char ESCAPE_CHAR = '\\';
 
     /**
      * List of owner to search for.
@@ -95,6 +99,7 @@ public class FileQueryBuilder {
 
         boolean isToken = false;
         boolean isString = false;
+        boolean isEscape = false;
         StringBuilder tokenBuilder = new StringBuilder();
         List<String> tokens = new ArrayList<>();
 
@@ -102,6 +107,10 @@ public class FileQueryBuilder {
             char current = search.charAt(index);
 
             if (!isToken && Character.isWhitespace(current)) {
+                continue;
+            }
+
+            if (!isToken && current == KEY_SEPARATOR) {
                 continue;
             }
 
@@ -113,7 +122,12 @@ public class FileQueryBuilder {
                 continue;
             }
 
-            if (current == STRING_MARKER) {
+            if (isString && current == ESCAPE_CHAR && !isEscape) {
+                isEscape = true;
+                continue;
+            }
+
+            if (current == STRING_MARKER && !isEscape) {
                 if (!isToken) {
                     isToken = true;
                     isString = true;
@@ -131,6 +145,10 @@ public class FileQueryBuilder {
 
             if (!isToken) {
                 isToken = true;
+            }
+
+            if (isEscape) {
+                isEscape = false;
             }
 
             tokenBuilder.append(current);
