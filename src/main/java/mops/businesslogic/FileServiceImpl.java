@@ -1,6 +1,7 @@
 package mops.businesslogic;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import lombok.AllArgsConstructor;
 import mops.businesslogic.exception.DeleteAccessPermissionException;
 import mops.businesslogic.exception.FileNotFoundException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
@@ -21,35 +22,21 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@AllArgsConstructor
 public class FileServiceImpl implements FileService {
 
     /**
      * Service for permission checks.
      */
-    private final transient DirectoryService directoryService;
+    private final DirectoryService directoryService;
     /**
      * Service for saving and retrieving file meta data.
      */
-    private final transient FileInfoService fileInfoService;
+    private final FileInfoService fileInfoService;
     /**
      * File content repository.
      */
-    private final transient FileRepository fileRepository;
-
-    /**
-     * Constructor.
-     *
-     * @param directoryService Service for permission checks.
-     * @param fileInfoService  Service for saving and retrieving file meta data.
-     * @param fileRepository   File content repository.
-     */
-    public FileServiceImpl(DirectoryService directoryService,
-                           FileInfoService fileInfoService,
-                           FileRepository fileRepository) {
-        this.directoryService = directoryService;
-        this.fileInfoService = fileInfoService;
-        this.fileRepository = fileRepository;
-    }
+    private final FileRepository fileRepository;
 
     /**
      * {@inheritDoc}
@@ -59,7 +46,6 @@ public class FileServiceImpl implements FileService {
     @Transactional(rollbackFor = MopsException.class)
     public void saveFile(Account account, long dirId, MultipartFile multipartFile,
                          Set<String> tags) throws MopsException {
-
         UserPermission userPermission = directoryService.getPermissionsOfUser(account, dirId);
 
         if (!userPermission.isWrite()) {
@@ -86,7 +72,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     @SuppressFBWarnings(value = "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE",
             justification = "There's no nullcheck here.")
     public FileContainer getFile(Account account, long fileId) throws MopsException {
@@ -111,12 +97,11 @@ public class FileServiceImpl implements FileService {
             throw new MopsException("Error while retrieving", e);
         }
     }
-
     /**
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     @Transactional(rollbackFor = MopsException.class)
     public Directory deleteFile(Account account, long fileId) throws MopsException {
         FileInfo fileInfo;
@@ -148,7 +133,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     public FileInfo getFileInfo(Account account, long fileId) throws MopsException {
         FileInfo fileInfo;
         try {

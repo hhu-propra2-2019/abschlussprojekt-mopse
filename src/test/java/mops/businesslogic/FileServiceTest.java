@@ -20,20 +20,20 @@ import java.util.Random;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-//@ExtendWith(MockitoExtension.class)
-public class FileServiceTest {
+class FileServiceTest {
 
-    private FileService fileService;
-    private DirectoryService directoryServiceMock;
-    private FileInfoService fileInfoServiceMock;
-    private FileRepository fileRepositoryMock;
-    private Random random;
-    private MultipartFile file;
-    private Account account;
+    FileService fileService;
+    DirectoryService directoryServiceMock;
+    FileInfoService fileInfoServiceMock;
+    FileRepository fileRepositoryMock;
+    Random random;
+    MultipartFile file;
+    Account account;
 
     @BeforeEach
     void prepareTest() {
@@ -51,14 +51,12 @@ public class FileServiceTest {
                 "text/plain",
                 getRandomBytes()
         );
-        account = Account.of("user1234", "mail", new HashSet<>());
-
+        account = Account.of("user1234", "mail", Set.of());
     }
 
     @Test
     void canSaveAFile() throws MopsException {
-
-        Set<String> tags = new HashSet<>();
+        Set<String> tags = Set.of();
         long dirId = 1;
         long fileId = 17;
 
@@ -85,7 +83,7 @@ public class FileServiceTest {
 
     @Test
     void NoPermissionToSaveAFile() throws MopsException {
-        Set<String> tags = new HashSet<>();
+        Set<String> tags = Set.of();
         long dirId = 1;
         long fileId = 17;
 
@@ -105,9 +103,9 @@ public class FileServiceTest {
                 .when(fileInfoServiceMock)
                 .saveFileInfo(any());
 
-        assertThrows(WriteAccessPermissionException.class, () -> {
+        assertThatThrownBy(() -> {
             fileService.saveFile(account, dirId, file, tags);
-        });
+        }).isInstanceOf(WriteAccessPermissionException.class);
 
         verify(fileRepositoryMock, never()).saveFile(file, fileId);
     }
@@ -162,9 +160,9 @@ public class FileServiceTest {
                 .when(fileInfoServiceMock)
                 .fetchFileInfo(fileId);
 
-        assertThrows(DeleteAccessPermissionException.class, () -> {
+        assertThatThrownBy(() -> {
             fileService.deleteFile(account, fileId);
-        });
+        }).isInstanceOf(DeleteAccessPermissionException.class);
 
         verify(fileInfoServiceMock, never()).deleteFileInfo(fileId);
         verify(fileRepositoryMock, never()).deleteFile(fileId);
@@ -218,9 +216,9 @@ public class FileServiceTest {
                 .when(fileInfoServiceMock)
                 .fetchFileInfo(fileId);
 
-        assertThrows(ReadAccessPermissionException.class, () -> {
+        assertThatThrownBy(() -> {
             fileService.getFile(account, fileId);
-        });
+        }).isInstanceOf(ReadAccessPermissionException.class);
 
         verify(fileInfoServiceMock, atLeastOnce()).fetchFileInfo(fileId);
         verify(fileRepositoryMock, never()).getFileContent(fileId);
@@ -268,5 +266,4 @@ public class FileServiceTest {
         random.nextBytes(bytes);
         return bytes;
     }
-
 }
