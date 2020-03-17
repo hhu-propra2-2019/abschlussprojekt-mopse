@@ -49,12 +49,12 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder from(@NonNull Directory directory) {
-        id = directory.getId();
-        name = directory.getName();
-        parentId = directory.getParentId();
-        groupOwner = directory.getGroupOwner();
-        permissionsId = directory.getPermissionsId();
-        creationTime = directory.getCreationTime();
+        this.id = directory.getId();
+        this.name = directory.getName();
+        this.parentId = directory.getParentId();
+        this.groupOwner = directory.getGroupOwner();
+        this.permissionsId = directory.getPermissionsId();
+        this.creationTime = directory.getCreationTime();
         return this;
     }
 
@@ -65,9 +65,9 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder fromParent(@NonNull Directory parent) {
-        parentId = parent.getId();
-        groupOwner = parent.getGroupOwner();
-        permissionsId = parent.getPermissionsId();
+        this.parentId = parent.getId();
+        this.groupOwner = parent.getGroupOwner();
+        this.permissionsId = parent.getPermissionsId();
         return this;
     }
 
@@ -89,7 +89,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder id(Directory directory) {
-        id = directory == null ? null : directory.getId();
+        this.id = directory == null ? null : directory.getId();
         return this;
     }
 
@@ -122,7 +122,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder parent(@NonNull Directory parent) {
-        parentId = parent.getId();
+        this.parentId = parent.getId();
         return this;
     }
 
@@ -155,7 +155,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder permissions(@NonNull DirectoryPermissions permissions) {
-        permissionsId = permissions.getId();
+        this.permissionsId = permissions.getId();
         return this;
     }
 

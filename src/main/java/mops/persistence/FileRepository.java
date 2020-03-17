@@ -41,7 +41,7 @@ public class FileRepository {
     public FileRepository(FileRepositoryConfig configuration) throws StorageException {
         this.configuration = configuration;
         try {
-            minioClient = new MinioClient(
+            this.minioClient = new MinioClient(
                     configuration.getHost(),
                     configuration.getPort(),
                     configuration.getAccessKey(),
