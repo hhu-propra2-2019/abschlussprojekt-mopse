@@ -96,8 +96,8 @@ public class FileQueryTest {
     @Test
     public void oneMatchesOneDoesNotTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .types(List.of("pdf"))
-                .tags(List.of("lösungen"))
+                .type("pdf")
+                .tag("lösungen")
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
     }
@@ -105,10 +105,9 @@ public class FileQueryTest {
     @Test
     public void twoMatches() {
         FileQuery fileQuery = FileQuery.builder()
-                .owners(List.of("iTitus"))
-                .names(List.of("cv"))
+                .owner("iTitus")
+                .fileName("cv")
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
-
     }
 }
