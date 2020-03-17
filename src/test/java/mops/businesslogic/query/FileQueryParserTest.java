@@ -77,4 +77,15 @@ class FileQueryParserTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void testNoEscapingAndStringsInRawLiterals() {
+        FileQuery expected = FileQuery.builder()
+                .owner("Jens\\B\"endis\"posto")
+                .build();
+
+        FileQuery actual = INSTANCE.convert("owner:jens\\b\"endis\"posto");
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }
