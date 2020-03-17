@@ -92,4 +92,13 @@ public class FileQueryTest {
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
     }
+
+    @Test
+    public void oneMatchesOneDoesNotTest() {
+        FileQuery fileQuery = FileQuery.builder()
+                .types(List.of("pdf"))
+                .tags(List.of("lösungen"))
+                .build();
+        assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
+    }
 }
