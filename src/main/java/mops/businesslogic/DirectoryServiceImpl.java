@@ -126,7 +126,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         long groupFolderCount = directoryRepository.getGroupFolderCount(rootDirectory.getGroupOwner());
         if (groupFolderCount >= MAX_FOLDER_PER_GROUP) {
             log.error("The user '%s' tried to create another sub folder for the group with the id %d, "
-                            + "but the already reached the max allowed folder count.",
+                            + "but they already reached their max allowed folder count.",
                     account.getName(),
                     parentDirId);
             String error = "Your group has max allowed amount of folders. You can't create any more.";

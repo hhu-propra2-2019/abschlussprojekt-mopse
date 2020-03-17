@@ -103,7 +103,7 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder id(FileInfo fileInfo) {
-        this.id = fileInfo == null ? null : fileInfo.getId();
+        id = fileInfo == null ? null : fileInfo.getId();
         return this;
     }
 
@@ -231,21 +231,22 @@ public class FileInfoBuilder {
     @SuppressWarnings("PMD.CyclomaticComplexity") //if-else chain necessary for fine grained exception messages
     public FileInfo build() {
         if (name == null) {
-            log.error("Directory is not completely setup name was not set.");
+            log.error("Directory is not complete: name was not set.");
             throw new IllegalStateException("FileInfo incomplete: name must be set!");
         } else if (directoryId == -1L) {
-            log.error("Directory is not completely setup directory id not set.");
+            log.error("Directory is not complete: directory id not set.");
             throw new IllegalStateException("FileInfo incomplete: directoryId must be set!");
         } else if (type == null) {
-            log.error("Directory is not completely setup type was not set.");
+            log.error("Directory is not complete: type was not set.");
             throw new IllegalStateException("FileInfo incomplete: type must be set!");
         } else if (size == -1L) {
-            log.error("Directory is not completely setup size was not set.");
+            log.error("Directory is not complete: size was not set.");
             throw new IllegalStateException("FileInfo incomplete: size must be set!");
         } else if (owner == null) {
-            log.error("Directory is not completely setup owner was not set.");
+            log.error("Directory is not complete: owner was not set.");
             throw new IllegalStateException("FileInfo incomplete: owner must be set!");
         }
+
         return new FileInfo(
                 id,
                 name,

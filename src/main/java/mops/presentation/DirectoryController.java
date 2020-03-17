@@ -162,7 +162,7 @@ public class DirectoryController {
                                Model model,
                                @PathVariable("dirId") long dirId,
                                @RequestAttribute("searchQuery") FileQuery query) {
-        log.info("Search for folder with id %d requested.", dirId);
+        log.info("Search in for file in the folder with the id %d.", dirId);
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
         try {
