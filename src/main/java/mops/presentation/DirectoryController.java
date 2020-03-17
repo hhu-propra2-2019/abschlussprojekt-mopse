@@ -84,7 +84,7 @@ public class DirectoryController {
             fileService.saveFile(account, dirId, multipartFile, Set.of());
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
-            log.error("Failed to upload file to directory with id {}", dirId);
+            log.error("Failed to upload file in directory with id {}", dirId);
         }
         return String.format("redirect:/material1/dir/%d", dirId);
     }

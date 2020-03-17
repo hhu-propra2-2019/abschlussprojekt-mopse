@@ -51,7 +51,7 @@ public class FileController {
             info = fileService.getFileInfo(account, fileId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
-            log.error("Failed to retrieve file with id: {}.", fileId);
+            log.error("Failed to retrieve file with id '{}'.", fileId);
         }
         model.addAttribute("file", info);
         return "file";
@@ -113,7 +113,7 @@ public class FileController {
             dir = fileService.deleteFile(account, fileId);
             url = String.format("redirect:/material1/dir/%d", dir.getId());
         } catch (MopsException e) {
-            log.error("Failed to delete file with id: {}.", fileId);
+            log.error("Failed to delete file with id '{}'.", fileId);
             // TODO: Add exception handling, remove PMD warning suppression
             String referer = request.getHeader("Referer");
             url = "redirect:" + referer;

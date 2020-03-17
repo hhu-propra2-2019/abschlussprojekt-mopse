@@ -54,7 +54,7 @@ public class GroupController {
             groupRootDir = groupService.getGroupUrl(account, groupId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
-            log.error("Failed to retrieve root directory for group with id: {}", groupId);
+            log.error("Failed to retrieve root directory for group with id '{}'", groupId);
         }
         return String.format("redirect:%s", groupRootDir.getRootDirUrl()); // no demeter violation here
     }
@@ -71,14 +71,14 @@ public class GroupController {
     public GroupRootDirWrapper getGroupUrl(KeycloakAuthenticationToken token,
                                            Model model,
                                            @PathVariable("groupId") long groupId) {
-        log.info("Group url for group with id: {} requested.", groupId);
+        log.info("Group url for group with id '{}' requested.", groupId);
         Account account = AccountUtil.getAccountFromToken(token);
         GroupRootDirWrapper groupRootDir = null;
         try {
             groupRootDir = groupService.getGroupUrl(account, groupId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
-            log.error("Failed to retrieve group url for group with id: {}", groupId);
+            log.error("Failed to retrieve group url for group with id '{}'.", groupId);
         }
         return groupRootDir;
     }
@@ -98,14 +98,14 @@ public class GroupController {
                                      Model model,
                                      @PathVariable("groupId") long groupId,
                                      @RequestAttribute("search") FileQuery query) {
-        log.info("Search files in group with id: {} requested.", groupId);
+        log.info("Search files in group with id '{}' requested.", groupId);
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
         try {
             files = directoryService.searchFolder(account, groupId, query);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
-            log.error("Failed to search for files in group with id: {}", groupId);
+            log.error("Failed to search for files in group with id '{}'.", groupId);
         }
         model.addAttribute("files", files);
         return "files";

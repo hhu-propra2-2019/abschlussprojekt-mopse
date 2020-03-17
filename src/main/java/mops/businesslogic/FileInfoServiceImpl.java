@@ -29,7 +29,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.findAllInDirectory(dirId);
         } catch (Exception e) {
-            log.error("Failed to retrieve all file in directory with id {} from the database.", dirId);
+            log.error("Failed to retrieve all files in directory with id {} from the database.", dirId);
             throw new DatabaseException("Couldn't find all files in directory!", e);
         }
     }

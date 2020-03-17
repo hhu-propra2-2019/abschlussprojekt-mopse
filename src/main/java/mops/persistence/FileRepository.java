@@ -59,7 +59,7 @@ public class FileRepository {
         } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
                 | ErrorResponseException | InternalException | InvalidResponseException | RegionConflictException e) {
-            log.error("Failed to find and create the bucket.");
+            log.error("Failed to find and create the bucket '{}'.", configuration.getBucketName());
             throw new StorageException("Fehler beim Suchen und Erstellen des Buckets.", e);
         }
     }
