@@ -44,14 +44,14 @@ public class FileController {
     public String getFile(KeycloakAuthenticationToken token,
                           Model model,
                           @PathVariable("fileId") long fileId) {
-        log.info(String.format("File with id %d requested.", fileId));
+        log.info("File with id %d requested.", fileId);
         Account account = AccountUtil.getAccountFromToken(token);
         FileInfo info = null;
         try {
             info = fileService.getFileInfo(account, fileId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
-            log.error(String.format("Failed to retrieve file with id: %d.", fileId));
+            log.error("Failed to retrieve file with id: %d.", fileId);
         }
         model.addAttribute("file", info);
         return "file";
@@ -67,13 +67,13 @@ public class FileController {
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     public ResponseEntity<Resource> downloadFile(KeycloakAuthenticationToken token,
                                                  @PathVariable("fileId") long fileId) {
-        log.info(String.format("File with id %d requested for download.", fileId));
+        log.info("File with id %d requested for download.", fileId);
         Account account = AccountUtil.getAccountFromToken(token);
         FileContainer result;
         try {
             result = fileService.getFile(account, fileId);
         } catch (MopsException e) {
-            log.error(String.format("Failed to retrieve file with id: %d.", fileId));
+            log.error("Failed to retrieve file with id: %d.", fileId);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Die Datei mit der ID " + fileId + " konnte nicht gefunden werden.", e);
         }
@@ -92,9 +92,9 @@ public class FileController {
     /**
      * Deletes a file.
      *
-     * @param token  keycloak auth token
-     * @param model  spring view model
-     * @param fileId the id of the file to be deleted
+     * @param token   keycloak auth token
+     * @param model   spring view model
+     * @param fileId  the id of the file to be deleted
      * @param request the Http request
      * @return the route to the parentDir of the deleted file
      */
@@ -104,18 +104,19 @@ public class FileController {
                              Model model,
                              @PathVariable("fileId") long fileId,
                              HttpServletRequest request) {
-        //this is okay because it is logging
         Account account = AccountUtil.getAccountFromToken(token);
+        //this is okay because it is logging
+        log.info("User '%s' requested to delete file with id %d.", account.getName(), fileId);
         Directory dir = null;
         String url;
         try {
             dir = fileService.deleteFile(account, fileId);
             url = String.format("redirect:/material1/dir/%d", dir.getId());
         } catch (MopsException e) {
-            log.error(String.format("Failed to delete file with id: %d.", fileId));
+            log.error("Failed to delete file with id: %d.", fileId);
             // TODO: Add exception handling, remove PMD warning suppression
             String referer = request.getHeader("Referer");
-            url =  "redirect:" + referer;
+            url = "redirect:" + referer;
         }
         return url;
     }

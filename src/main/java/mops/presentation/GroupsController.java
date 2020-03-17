@@ -39,13 +39,13 @@ public class GroupsController {
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
         Account account = AccountUtil.getAccountFromToken(token);
         //this is okay because it is logging
-        log.info(String.format("All groups are requested for user '%s'", account.getName()));
+        log.info("All groups are requested for user '%s'", account.getName());
         List<Group> groups = null;
         try {
             groups = groupService.getAllGroups(account);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
-            log.error(String.format("Failed to retrieve user groups for %s", account.getName()));
+            log.error("Failed to retrieve user groups for %s", account.getName());
         }
         model.addAttribute("groups", groups);
         return "groups";

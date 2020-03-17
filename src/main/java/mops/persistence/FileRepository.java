@@ -83,7 +83,7 @@ public class FileRepository {
             );
         } catch (MinioException | IOException | InvalidKeyException
                 | NoSuchAlgorithmException | XmlPullParserException e) {
-            log.error(String.format("Failed so save file %s to MinIO server.", file.getName()));
+            log.error("Failed so save file %s to MinIO server.", file.getName());
             throw new StorageException("Fehler beim Speichern der Datei.", e);
         }
     }
@@ -103,7 +103,7 @@ public class FileRepository {
         } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
                 | ErrorResponseException | InternalException | InvalidArgumentException | InvalidResponseException e) {
-            log.error(String.format("Failed to delete file with id %d from MinIO Server.", fileId));
+            log.error("Failed to delete file with id %d from MinIO Server.", fileId);
             throw new StorageException("Fehler beim Löschen der Datei.", e);
         }
     }
@@ -125,7 +125,7 @@ public class FileRepository {
         } catch (IOException | InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | InvalidKeyException | NoResponseException | XmlPullParserException | ErrorResponseException
                 | InternalException | InvalidArgumentException | InvalidResponseException e) {
-            log.error(String.format("Failed to get content of file with id %d.", fileId));
+            log.error("Failed to get content of file with id %d.", fileId);
             throw new StorageException("Fehler beim Zugriff auf den Inhalt der Datei.", e);
         }
     }
@@ -150,7 +150,7 @@ public class FileRepository {
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | InvalidResponseException
                 | XmlPullParserException | InvalidArgumentException | InsufficientDataException | InternalException
                 | InvalidBucketNameException | IOException e) {
-            log.error(String.format("Failed to check file existence for id %d.", fileId));
+            log.error("Failed to check file existence for id %d.", fileId);
             throw new StorageException("Fehler beim Zugriff auf Datei.", e);
         }
 
