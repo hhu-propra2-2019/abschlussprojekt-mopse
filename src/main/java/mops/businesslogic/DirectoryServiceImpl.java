@@ -1,6 +1,7 @@
 package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.exception.*;
 import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class DirectoryServiceImpl implements DirectoryService {
 
     /**
@@ -129,6 +131,10 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory rootDirectory = fetchDirectory(parentDirId);
         long groupFolderCount = directoryRepository.getGroupFolderCount(rootDirectory.getGroupOwner());
         if (groupFolderCount >= MAX_FOLDER_PER_GROUP) {
+            log.error("The user '{}' tried to create another sub folder for the group with the id {}, "
+                            + "but they already reached their max allowed folder count.",
+                    account.getName(),
+                    parentDirId);
             String error = "Your group has max allowed amount of folders. You can't create any more.";
             throw new StorageLimitationException(error);
         }
@@ -154,6 +160,9 @@ public class DirectoryServiceImpl implements DirectoryService {
         List<Directory> subFolders = getSubFolders(account, dirId);
 
         if (!files.isEmpty() || !subFolders.isEmpty()) {
+            log.error("The user '{}' tried to delete the folder with id {}, but the folder was not empty.",
+                    account.getName(),
+                    dirId);
             String errorMessage = String.format("The directory %s is not empty.", directory.getName());
             throw new DeleteAccessPermissionException(errorMessage);
         }
@@ -225,6 +234,8 @@ public class DirectoryServiceImpl implements DirectoryService {
     private DirectoryPermissions fetchPermissions(Directory directory) throws DatabaseException {
         Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
         return permissions.orElseThrow(() -> { // this is not a violation of demeter's law
+            log.error("The permission for directory with the id {} could not be fetched.",
+                    directory.getId());
             String errorMessage = "Permission couldn't be fetched.";
             return new DatabaseException(errorMessage);
         });
@@ -253,7 +264,9 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private Supplier<NoSuchElementException> getException(long dirId) {
         return () -> { //this is not a violation of the demeter's law
-            String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
+            log.error("The directory with the id {} was requested, but was not found in the database.",
+                    dirId);
+            String errorMessage = String.format("There is no directory with the id: {} in the database.", dirId);
             return new NoSuchElementException(errorMessage);
         };
     }
