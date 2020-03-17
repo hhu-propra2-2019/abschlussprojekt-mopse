@@ -1,5 +1,5 @@
 [source,bash]
 ----
 $ http --form POST 'http://localhost:8080/material1/dir/1/create' \
-    '_csrf=2c9a1616-eee6-4318-aecd-d1cc11b788f4'
+    '_csrf=a0147456-92ec-4a61-824f-8b8804a06941'
 ----

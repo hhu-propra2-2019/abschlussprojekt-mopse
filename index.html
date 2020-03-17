@@ -456,6 +456,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_controller_tests">4.1. Controller Tests</a></li>
 <li><a href="#_datenbank">4.2. Datenbank</a></li>
+<li><a href="#_logging">4.3. Logging</a></li>
 </ul>
 </li>
 <li><a href="#section-building-block-view">5. Bausteinsicht</a>
@@ -873,8 +874,7 @@ Nutzers in einer bestimmten Gruppe.</em></p></td>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>Kurzer Überblick über die grundlegenden Entscheidungen und Lösungsansätze, die Entwurf und Implementierung des Systems
-prägen.
+<p>Kurzer Überblick über die grundlegenden Entscheidungen und Lösungsansätze, die Entwurf und Implementierung des Systems prägen.
 Hierzu gehören:</p>
 </div>
 <div class="ulist">
@@ -883,8 +883,7 @@ Hierzu gehören:</p>
 <p>Technologieentscheidungen</p>
 </li>
 <li>
-<p>Entscheidungen über die Top-Level-Zerlegung des Systems, beispielsweise die Verwendung gesamthaft prägender Entwurfs-
-oder Architekturmuster,</p>
+<p>Entscheidungen über die Top-Level-Zerlegung des Systems, beispielsweise die Verwendung gesamthaft prägender Entwurfs- oder Architekturmuster,</p>
 </li>
 <li>
 <p>Entscheidungen zur Erreichung der wichtigsten Qualitätsanforderungen sowie</p>
@@ -904,11 +903,10 @@ oder Architekturmuster,</p>
 <p>Eine Schwierigkeit der Controller-Tests liegt in der Berücksichtigung der sicherheitsrelevanten Aspekte von
 <code>spring-security</code> und <code>keycloak</code>.
 Wir hatten uns zunächst dafür entschieden diesen Teil zu mocken.
-Anfangs hatten wir Probleme, <code>@WithMockUser</code> zu verwenden, daher entschieden wir uns für das Mocken des gesamten
-SecurityContext. Durch  <code>SecurityContextUtil</code> wird dieser jedem ControllerTest zur Verfügung gestellt.
-Später wurden wir dann auf die Bibliothek <code>spring-security-test-keycloack-addons</code> aufmerksam, die das Testen
-massiv vereinfacht. Nun kann man die Annotation <code>@WithMockKeycloakAuth</code> benutzen, um Tests mit einer gültigen Keycloak
-Authentifizierung auszustatten.</p>
+Anfangs hatten wir Probleme, <code>@WithMockUser</code> zu verwenden, daher entschieden wir uns für das Mocken des gesamten SecurityContext.
+Durch  <code>SecurityContextUtil</code> wird dieser jedem ControllerTest zur Verfügung gestellt.
+Später wurden wir dann auf die Bibliothek <code>spring-security-test-keycloack-addons</code> aufmerksam, die das Testen massiv vereinfacht.
+Nun kann man die Annotation <code>@WithMockKeycloakAuth</code> benutzen, um Tests mit einer gültigen Keycloak Authentifizierung auszustatten.</p>
 </div>
 </div>
 </div>
@@ -923,14 +921,40 @@ Wir haben uns nach einer kurzen Diskussion für MariaDB entschieden.
 Und zwar weil MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, womit wir am meisten Erfahrung haben.</p>
 </div>
 <div class="paragraph">
-<p>Der Großteil unserer Erfahrungen beruhte bisher auf MySQL. Da MariaDB die aktive Open-Source-Weiterentwicklung von MySQL
-ist, haben wir uns für die Verwendung von MariaDB entschieden.</p>
+<p>Der Großteil unserer Erfahrungen beruhte bisher auf MySQL. Da MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, haben wir uns für die Verwendung von MariaDB entschieden.</p>
 </div>
 <div class="paragraph">
-<p>Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist
-umständlich immer diesen Docker-Container laufen zu lassen. Also haben wir uns entschieden in der Entwicklung und zum
-Testen H2 zu benutzen. Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir bereits kennen
-gelernt haben.</p>
+<p>Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist umständlich immer diesen Docker-Container laufen zu lassen.
+Also haben wir uns entschieden in der Entwicklung und zum Testen H2 zu benutzen.
+Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir bereits kennen gelernt haben.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_logging">4.3. Logging</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Für das Logging haben wir uns zunächst auf zwei Fälle beschränkt.
+Zum einen <code>info</code> und <code>error</code>.
+Die <code>info</code> werden ausschließlich in den Controller geschrieben, da es sonst zu redundanten Lognachrichten kommen würde.
+Dies ist ausreichend, da jede Aktion unserer Applikation von einem Controller gestartet wird.</p>
+</div>
+<div class="paragraph">
+<p>Die <code>error</code>-Nachrichten werden an jeder Stelle geschrieben, wo auch eine <code>Exception</code> geschmissen wird.
+Dies soll es einfach im Log machen den <code>Stacktrace</code> nach zu verfolgen.</p>
+</div>
+<div class="paragraph">
+<p>Als Technologie benutzen wir <code>SLF4J</code> (Simple Logging Face for Java).
+Dies ist nativ in <code>Spring-Boot 2.x</code> und lässt sich mit einer einfachen Annotation (<code>SLF4J</code>) jeder Klasse hinzufügen.</p>
+</div>
+<div class="paragraph">
+<p>Wir haben <code>SLF4J</code> nicht konfiguriert, also wird standardmäßig <code>Logback</code> benutzt.</p>
+</div>
+<div class="paragraph">
+<p>Wir haben uns dafür entschieden, weil unsere Internetrecherche die meisten Treffer dazu ergeben hat und unser Tutor uns unabhängig davon zu geraten hat.
+Die Einfachheit des Tools ist ebenfalls ein Entscheidungsgrund gewesen.</p>
 </div>
 </div>
 </div>
@@ -2020,7 +2044,7 @@ Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskuss
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-17 11:29:48 UTC
+Last updated 2020-03-17 12:16:40 UTC
 </div>
 </div>
 </body>
