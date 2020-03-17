@@ -48,7 +48,7 @@ public class FileRepository {
                     configuration.getSecretKey()
             );
         } catch (InvalidEndpointException | InvalidPortException e) {
-            log.error("Failed to connect to MinIO server.");
+            log.error("The connection to the MinIO server failed.");
             throw new StorageException("Fehler beim Verbinden zum MinIO Server.", e);
         }
 
@@ -59,7 +59,7 @@ public class FileRepository {
         } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
                 | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
                 | ErrorResponseException | InternalException | InvalidResponseException | RegionConflictException e) {
-            log.error("Failed to search or create inside the bucket.");
+            log.error("Failed to find and create the bucket.");
             throw new StorageException("Fehler beim Suchen und Erstellen des Buckets.", e);
         }
     }
