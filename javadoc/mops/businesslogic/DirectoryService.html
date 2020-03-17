@@ -240,7 +240,8 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 <li class="blockList">
 <h4>getPermissionsOfUser</h4>
 <pre class="methodSignature"><a href="UserPermission.html" title="class in mops.businesslogic">UserPermission</a>&nbsp;getPermissionsOfUser&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
-                                    long&nbsp;dirId)</pre>
+                                    long&nbsp;dirId)
+                             throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
 <div class="block">Gets all 3 permissions of a user.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -248,6 +249,8 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 <dd><code>dirId</code> - the id of the folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a permission flag object</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>
 </li>
 </ul>
