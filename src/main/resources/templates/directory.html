@@ -13,7 +13,7 @@
             var typesCounter = "1";
             var tagsCounter = "1";
 
-            function addNewInputLine(type) {
+            function addNewInputLine(type, placeholder) {
                 var counter = window[type + "Counter"];
                 console.log(counter);
 
@@ -26,9 +26,10 @@
 
                 text.type = "text";
                 text.name = type + "[" + counter + "]";
+                text.placeholder = placeholder;
                 button.type = "button";
                 button.value = "+";
-                button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', " + counter + ");");
+                button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', '" + placeholder + "');");
 
                 div2.appendChild(text);
                 div3.appendChild(button);
@@ -89,26 +90,26 @@
     <form action="#" th:action="@{/search}" th:method="post" th:object="FileQuery">
         <div id="fileNames">
             <div>
-                <div><input type="text" name="fileNames[0]" placeholder="Suchfeld"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('fileNames')"></div>
+                <div><input type="text" name="fileNames[0]" placeholder="Dateiname"></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('fileNames', 'Dateiname')"></div>
             </div>
         </div>
         <div id="owners">
             <div>
                 <div><input type="text" name="owners[0]" placeholder="Besitzer"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('owners')"></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('owners', 'Besitzer')"></div>
             </div>
         </div>
         <div id="types">
             <div>
-                <div><input type="text" name="types[0]" placeholder="Typen"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('types')"></div>
+                <div><input type="text" name="types[0]" placeholder="Dateityp"></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('types', 'Dateityp')"></div>
             </div>
         </div>
         <div id="tags">
             <div>
                 <div><input type="text" name="tags[0]" placeholder="Tags"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('tags')"></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('tags', 'Tags')"></div>
             </div>
         </div>
         <div>
