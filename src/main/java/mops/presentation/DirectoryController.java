@@ -139,9 +139,9 @@ public class DirectoryController {
     /**
      * Searches a folder for files.
      *
-     * @param token user credentials
-     * @param model spring view model
-     * @param dirId id of the folder to be searched
+     * @param token     user credentials
+     * @param model     spring view model
+     * @param dirId     id of the folder to be searched
      * @param queryForm wrapper object of the query form parameter
      * @return route to files view
      */
@@ -150,7 +150,7 @@ public class DirectoryController {
     public String searchFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
-                               @ModelAttribute("fileQueryForm") FileQueryForm queryForm) {
+                               @RequestAttribute("fileQueryForm") FileQueryForm queryForm) {
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
 

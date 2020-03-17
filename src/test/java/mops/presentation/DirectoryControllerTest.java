@@ -3,7 +3,10 @@ package mops.presentation;
 import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
-import mops.businesslogic.*;
+import mops.businesslogic.DirectoryService;
+import mops.businesslogic.FileQueryForm;
+import mops.businesslogic.FileService;
+import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
@@ -120,8 +123,13 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void searchFolder() throws Exception {
+        FileQueryForm fileQueryForm = new FileQueryForm();
+        fileQueryForm.setFileNames(new String[] { "cv" });
+        fileQueryForm.setOwners(new String[] { "Thabb" });
+        fileQueryForm.setTypes(new String[] { "pdf" });
+        fileQueryForm.setTags(new String[] { "awesome" });
         mockMvc().perform(post("/material1/dir/{dir}/search", 1)
-                .requestAttr("fileQueryForm", mock(FileQueryForm.class))
+                .requestAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("files"))
