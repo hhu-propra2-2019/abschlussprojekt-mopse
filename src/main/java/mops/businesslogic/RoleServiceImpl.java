@@ -46,7 +46,7 @@ public class RoleServiceImpl implements RoleService {
             log.error("The user '{}' tried to write '{}' where they have no writing permissions.",
                     account.getName(),
                     directory.getName());
-            throw new WriteAccessPermissionException(String.format("The user %s doesn't have write access to {}.",
+            throw new WriteAccessPermissionException(String.format("The user %s doesn't have write access in {}.",
                     account.getName(),
                     directory.getName()));
         }
@@ -68,7 +68,7 @@ public class RoleServiceImpl implements RoleService {
             log.error("The user '{}' tried to read to '{}' where they have no reading permissions.",
                     account.getName(),
                     directory.getName());
-            throw new ReadAccessPermissionException(String.format("The user %s doesn't have read access to %s.",
+            throw new ReadAccessPermissionException(String.format("The user %s doesn't have read access in %s.",
                     account.getName(),
                     directory.getName()));
         }
