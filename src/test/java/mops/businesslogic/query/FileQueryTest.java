@@ -92,4 +92,22 @@ public class FileQueryTest {
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
     }
+
+    @Test
+    public void oneMatchesOneDoesNotTest() {
+        FileQuery fileQuery = FileQuery.builder()
+                .type("pdf")
+                .tag("lösungen")
+                .build();
+        assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
+    }
+
+    @Test
+    public void twoMatches() {
+        FileQuery fileQuery = FileQuery.builder()
+                .owner("iTitus")
+                .fileName("cv")
+                .build();
+        assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
+    }
 }
