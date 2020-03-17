@@ -52,9 +52,9 @@ public class FileServiceImpl implements FileService {
 
         if (!userPermission.isWrite()) {
             log.error("User {} tried to save a file without write permission.",
-                    account.getName(),
-                    new WriteAccessPermissionException("No write permission")
+                    account.getName()
             );
+            throw new WriteAccessPermissionException("No write permission");
         }
         //no Law of demeter violation
         FileInfo meta = FileInfo.builder()
@@ -72,9 +72,9 @@ public class FileServiceImpl implements FileService {
             log.error("Error while saving file {} by user {}. Error: {}",
                     meta.getName(),
                     account.getName(),
-                    e.getMessage(),
-                    new MopsException("Error while saving", e)
+                    e.getMessage()
             );
+            throw new MopsException("Error while saving", e);
         }
     }
 
@@ -95,7 +95,6 @@ public class FileServiceImpl implements FileService {
                     fileId,
                     e.getMessage()
             );
-            // has to be extra thrown here, else there will be an initialization error
             throw new FileNotFoundException("File with ID " + fileId + " not found", e);
         }
 
@@ -104,9 +103,9 @@ public class FileServiceImpl implements FileService {
         if (!userPermission.isRead()) {
             log.error("User {} tried to read file {} without permission.",
                     account.getName(),
-                    fileId,
-                    new ReadAccessPermissionException("No read permission")
+                    fileId
             );
+            throw new ReadAccessPermissionException("No read permission");
         }
 
         try (InputStream stream = fileRepository.getFileContent(fileId)) {
