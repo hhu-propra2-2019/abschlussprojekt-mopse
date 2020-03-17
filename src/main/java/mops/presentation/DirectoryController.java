@@ -2,10 +2,7 @@ package mops.presentation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
-import mops.businesslogic.Account;
-import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileQuery;
-import mops.businesslogic.FileService;
+import mops.businesslogic.*;
 import mops.businesslogic.utils.AccountUtil;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
@@ -16,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -56,6 +54,7 @@ public class DirectoryController {
         }
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
+        model.addAttribute("fileQueryForm", new FileQueryForm());
         return "directory";
     }
 
@@ -143,17 +142,30 @@ public class DirectoryController {
      * @param token user credentials
      * @param model spring view model
      * @param dirId id of the folder to be searched
-     * @param query wrapper object of the query parameter
+     * @param queryForm wrapper object of the query form parameter
      * @return route to files view
      */
     @PostMapping("/{dirId}/search")
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock", "PMD.LawOfDemeter" })
     public String searchFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
-                               @RequestAttribute("searchQuery") FileQuery query) {
+                               @ModelAttribute("fileQueryForm") FileQueryForm queryForm) {
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
+
+        // convert FileQueryForm to FileQuery
+        Iterable<String> nameList = Arrays.asList(queryForm.getFileNames());
+        Iterable<String> ownerList = Arrays.asList(queryForm.getOwners());
+        Iterable<String> typeList = Arrays.asList(queryForm.getTypes());
+        Iterable<String> tagList = Arrays.asList(queryForm.getTags());
+        FileQuery query = FileQuery.builder()
+                .names(nameList)
+                .owners(ownerList)
+                .types(typeList)
+                .tags(tagList)
+                .build();
+
         try {
             files = directoryService.searchFolder(account, dirId, query);
         } catch (MopsException e) {
