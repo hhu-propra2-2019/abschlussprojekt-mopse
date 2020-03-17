@@ -129,6 +129,7 @@ public class FileServiceImpl implements FileService {
         UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
         String owner = fileInfo.getOwner();
         boolean isOwner = owner.equals(account.getName());
+        // Only true if user is not the owner and has no delete permission
         if (!isOwner && !userPermission.isDelete()) {
             throw new DeleteAccessPermissionException("No delete permission");
         }
