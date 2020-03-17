@@ -9,15 +9,13 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Set;
 
+import static mops.businesslogic.PermissionServiceImpl.URL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PermissionServiceTest {
-    //TODO: this needs to be changed to the actual address and we need a provisional during development.
-    public static final String URL = "https://mops.hhu.de/gruppe1/";
-
 
     private PermissionService permissionService;
 
