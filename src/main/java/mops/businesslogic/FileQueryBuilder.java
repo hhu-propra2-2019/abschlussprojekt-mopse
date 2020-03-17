@@ -105,7 +105,6 @@ public class FileQueryBuilder {
      * @param tags what the file should be tagged with
      * @return this
      */
-    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public FileQueryBuilder tags(@NonNull Iterable<String> tags) {
         tags.forEach(this::tag);
         return this;

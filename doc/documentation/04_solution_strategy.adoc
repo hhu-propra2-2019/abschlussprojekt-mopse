@@ -41,10 +41,10 @@ Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir 
 === Logging
 
 ****
-Für das Logging haben wir uns zunchst auf zwei Fälle beschränkt.
+Für das Logging haben wir uns zunächst auf zwei Fälle beschränkt.
 Zum einen `info` und `error`.
 Die `info` werden ausschließlich in den Controller geschrieben, da es sonst zu redundanten Lognachrichten kommen würde.
-Dies ist ausreichend, da jeder Aktion unserer Applikation von einem Controller gestartet wird.
+Dies ist ausreichend, da jede Aktion unserer Applikation von einem Controller gestartet wird.
 
 Die `error`s werden an jeder Stelle geschrieben, wo auch eine `Exception` geschmissen wird.
 Dies soll es einfach im Log machen den `Stacktrace` nach zu verfolgen.

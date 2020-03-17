@@ -130,7 +130,7 @@ public class RoleServiceImpl implements RoleService {
      */
     private Supplier<MopsException> getException(long dirId) {
         return () -> {
-            log.error(String.format("There is no directory with the id: %d in the database.", dirId));
+            log.error(String.format("There is no directory with the id %d in the database.", dirId));
             String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
             return new DatabaseException(errorMessage);
         };
