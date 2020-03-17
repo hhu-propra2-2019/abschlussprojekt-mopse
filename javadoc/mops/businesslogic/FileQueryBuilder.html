@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -184,10 +184,20 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="FileQueryBuilder.html" title="class in mops.businesslogic">FileQueryBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tags(java.lang.Iterable)">tags</a></span>&#8203;(@NonNull java.lang.Iterable&lt;java.lang.String&gt;&nbsp;tags)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tag(java.lang.String)">tag</a></span>&#8203;(@NonNull java.lang.String&nbsp;tag)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="FileQueryBuilder.html" title="class in mops.businesslogic">FileQueryBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tags(java.lang.Iterable)">tags</a></span>&#8203;(@NonNull java.lang.Iterable&lt;java.lang.String&gt;&nbsp;tags)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code><a href="FileQueryBuilder.html" title="class in mops.businesslogic">FileQueryBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#type(java.lang.String)">type</a></span>&#8203;(@NonNull java.lang.String&nbsp;type)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="FileQueryBuilder.html" title="class in mops.businesslogic">FileQueryBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#types(java.lang.Iterable)">types</a></span>&#8203;(@NonNull java.lang.Iterable&lt;java.lang.String&gt;&nbsp;types)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -297,6 +307,22 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
+<a id="type(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>type</h4>
+<pre class="methodSignature">public&nbsp;<a href="FileQueryBuilder.html" title="class in mops.businesslogic">FileQueryBuilder</a>&nbsp;type&#8203;(@NonNull
+                             @NonNull java.lang.String&nbsp;type)</pre>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>type</code> - new type to search for</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this</dd>
+</dl>
+</li>
+</ul>
 <a id="tags(java.lang.Iterable)">
 <!--   -->
 </a>
@@ -308,6 +334,22 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>tags</code> - what the file should be tagged with</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this</dd>
+</dl>
+</li>
+</ul>
+<a id="tag(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>tag</h4>
+<pre class="methodSignature">public&nbsp;<a href="FileQueryBuilder.html" title="class in mops.businesslogic">FileQueryBuilder</a>&nbsp;tag&#8203;(@NonNull
+                            @NonNull java.lang.String&nbsp;tag)</pre>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>tag</code> - what the file should be tagged with</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>this</dd>
 </dl>
