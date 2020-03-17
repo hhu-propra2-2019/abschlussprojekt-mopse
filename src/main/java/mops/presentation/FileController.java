@@ -99,7 +99,7 @@ public class FileController {
      * @return the route to the parentDir of the deleted file
      */
     @DeleteMapping("/{fileId}")
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock", "PMD.LawOfDemeter" })
     public String deleteFile(KeycloakAuthenticationToken token,
                              Model model,
                              @PathVariable("fileId") long fileId,
