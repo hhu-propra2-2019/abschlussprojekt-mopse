@@ -198,10 +198,10 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQuery)">searchFolder</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.query.FileQuery)">searchFolder</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
             org.springframework.ui.Model&nbsp;model,
             long&nbsp;dirId,
-            <a href="../businesslogic/FileQuery.html" title="class in mops.businesslogic">FileQuery</a>&nbsp;query)</code></th>
+            <a href="../businesslogic/query/FileQuery.html" title="class in mops.businesslogic.query">FileQuery</a>&nbsp;query)</code></th>
 <td class="colLast">
 <div class="block">Searches a folder for files.</div>
 </td>
@@ -360,7 +360,7 @@ public&nbsp;java.lang.String&nbsp;deleteFolder&#8203;(org.keycloak.adapters.spri
 </dl>
 </li>
 </ul>
-<a id="searchFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQuery)">
+<a id="searchFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.query.FileQuery)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -371,8 +371,8 @@ public&nbsp;java.lang.String&nbsp;searchFolder&#8203;(org.keycloak.adapters.spri
                                      org.springframework.ui.Model&nbsp;model,
                                      @PathVariable("dirId")
                                      long&nbsp;dirId,
-                                     @RequestAttribute("searchQuery")
-                                     <a href="../businesslogic/FileQuery.html" title="class in mops.businesslogic">FileQuery</a>&nbsp;query)</pre>
+                                     @RequestAttribute("search")
+                                     <a href="../businesslogic/query/FileQuery.html" title="class in mops.businesslogic.query">FileQuery</a>&nbsp;query)</pre>
 <div class="block">Searches a folder for files.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

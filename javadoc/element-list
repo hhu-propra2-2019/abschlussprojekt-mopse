@@ -1,10 +1,13 @@
 mops
 mops.businesslogic
+mops.businesslogic.config
 mops.businesslogic.exception
+mops.businesslogic.query
 mops.businesslogic.utils
 mops.config
 mops.exception
 mops.persistence
+mops.persistence.config
 mops.persistence.directory
 mops.persistence.file
 mops.persistence.permission

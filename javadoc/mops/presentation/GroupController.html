@@ -193,10 +193,10 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFilesInGroup(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQuery)">searchFilesInGroup</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFilesInGroup(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.query.FileQuery)">searchFilesInGroup</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                   org.springframework.ui.Model&nbsp;model,
                   long&nbsp;groupId,
-                  <a href="../businesslogic/FileQuery.html" title="class in mops.businesslogic">FileQuery</a>&nbsp;query)</code></th>
+                  <a href="../businesslogic/query/FileQuery.html" title="class in mops.businesslogic.query">FileQuery</a>&nbsp;query)</code></th>
 <td class="colLast">
 <div class="block">Searches are group for matching files.</div>
 </td>
@@ -289,7 +289,7 @@ public&nbsp;<a href="../businesslogic/GroupRootDirWrapper.html" title="class in 
 </dl>
 </li>
 </ul>
-<a id="searchFilesInGroup(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQuery)">
+<a id="searchFilesInGroup(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.query.FileQuery)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -300,8 +300,8 @@ public&nbsp;java.lang.String&nbsp;searchFilesInGroup&#8203;(org.keycloak.adapter
                                            org.springframework.ui.Model&nbsp;model,
                                            @PathVariable("groupId")
                                            long&nbsp;groupId,
-                                           @RequestAttribute("searchQuery")
-                                           <a href="../businesslogic/FileQuery.html" title="class in mops.businesslogic">FileQuery</a>&nbsp;query)</pre>
+                                           @RequestAttribute("search")
+                                           <a href="../businesslogic/query/FileQuery.html" title="class in mops.businesslogic.query">FileQuery</a>&nbsp;query)</pre>
 <div class="block">Searches are group for matching files.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
