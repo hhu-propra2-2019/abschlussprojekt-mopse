@@ -8,21 +8,20 @@
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
         <script>
-            var fileNamesCounter = "1";
-            var ownersCounter = "1";
-            var typesCounter = "1";
-            var tagsCounter = "1";
+            fileNamesCounter = "1";
+            ownersCounter = "1";
+            typesCounter = "1";
+            tagsCounter = "1";
 
             function addNewInputLine(type, placeholder) {
-                var counter = window[type + "Counter"];
-                console.log(counter);
+                const counter = window[type + "Counter"];
 
-                var parent = document.getElementById(type);
-                var div1 = document.createElement("div");
-                var div2 = document.createElement("div");
-                var div3 = document.createElement("div");
-                var text = document.createElement("input");
-                var button = document.createElement("input");
+                const parent = document.getElementById(type);
+                const div1 = document.createElement("div");
+                const div2 = document.createElement("div");
+                const div3 = document.createElement("div");
+                const text = document.createElement("input");
+                const button = document.createElement("input");
 
                 text.type = "text";
                 text.name = type + "[" + counter + "]";
@@ -87,7 +86,7 @@
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
-    <form action="#" th:action="@{/search}" th:method="post" th:object="FileQuery">
+    <form action="#" th:action="@{/search}" th:method="post">
         <div id="fileNames">
             <div>
                 <div><input type="text" name="fileNames[0]" placeholder="Dateiname"></div>
