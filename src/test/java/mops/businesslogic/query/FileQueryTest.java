@@ -106,7 +106,7 @@ public class FileQueryTest {
     public void twoMatches() {
         FileQuery fileQuery = FileQuery.builder()
                 .owner("iTitus")
-                .fileName("cv")
+                .name("cv")
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
     }
