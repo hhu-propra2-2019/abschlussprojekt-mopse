@@ -258,6 +258,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#deleteFile(mops.businesslogic.Account,long)">deleteFile(Account, long)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/FileServiceImpl.html#deleteFile(mops.businesslogic.Account,long)">deleteFile(Account, long)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileServiceImpl.html" title="class in mops.businesslogic">FileServiceImpl</a></dt>
 <dt><span class="memberNameLink"><a href="mops/presentation/FileController.html#deleteFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,javax.servlet.http.HttpServletRequest)">deleteFile(KeycloakAuthenticationToken, Model, long, HttpServletRequest)</a></span> - Method in class mops.presentation.<a href="mops/presentation/FileController.html" title="class in mops.presentation">FileController</a></dt>
 <dd>
 <div class="block">Deletes a file.</div>
@@ -398,6 +399,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileQueryBuilder.html#fileName(java.lang.String)">fileName(String)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileQueryBuilder.html" title="class in mops.businesslogic">FileQueryBuilder</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="mops/businesslogic/exception/FileNotFoundException.html" title="class in mops.businesslogic.exception"><span class="typeNameLink">FileNotFoundException</span></a> - Exception in <a href="mops/businesslogic/exception/package-summary.html">mops.businesslogic.exception</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/exception/FileNotFoundException.html#%3Cinit%3E(java.lang.String)">FileNotFoundException(String)</a></span> - Constructor for exception mops.businesslogic.exception.<a href="mops/businesslogic/exception/FileNotFoundException.html" title="class in mops.businesslogic.exception">FileNotFoundException</a></dt>
+<dd>
+<div class="block">Throws if file is not found.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/exception/FileNotFoundException.html#%3Cinit%3E(java.lang.String,java.lang.Throwable)">FileNotFoundException(String, Throwable)</a></span> - Constructor for exception mops.businesslogic.exception.<a href="mops/businesslogic/exception/FileNotFoundException.html" title="class in mops.businesslogic.exception">FileNotFoundException</a></dt>
+<dd>
+<div class="block">Throws if file is not found.</div>
+</dd>
 <dt><a href="mops/businesslogic/FileQuery.html" title="class in mops.businesslogic"><span class="typeNameLink">FileQuery</span></a> - Class in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="mops/businesslogic/FileQueryBuilder.html" title="class in mops.businesslogic"><span class="typeNameLink">FileQueryBuilder</span></a> - Class in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
@@ -409,6 +420,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Connects to MinIO Server and checks if the bucket exists.</div>
 </dd>
 <dt><a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic"><span class="typeNameLink">FileService</span></a> - Interface in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="mops/businesslogic/FileServiceImpl.html" title="class in mops.businesslogic"><span class="typeNameLink">FileServiceImpl</span></a> - Class in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/FileServiceImpl.html#%3Cinit%3E(mops.businesslogic.DirectoryService,mops.businesslogic.FileInfoService,mops.persistence.FileRepository)">FileServiceImpl(DirectoryService, FileInfoService, FileRepository)</a></span> - Constructor for class mops.businesslogic.<a href="mops/businesslogic/FileServiceImpl.html" title="class in mops.businesslogic">FileServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/FileInfoRepository.html#findAllInDirectory(long)">findAllInDirectory(long)</a></span> - Method in interface mops.persistence.<a href="mops/persistence/FileInfoRepository.html" title="interface in mops.persistence">FileInfoRepository</a></dt>
 <dd>&nbsp;</dd>
@@ -492,6 +507,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#getFile(mops.businesslogic.Account,long)">getFile(Account, long)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/FileServiceImpl.html#getFile(mops.businesslogic.Account,long)">getFile(Account, long)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileServiceImpl.html" title="class in mops.businesslogic">FileServiceImpl</a></dt>
 <dt><span class="memberNameLink"><a href="mops/presentation/FileController.html#getFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getFile(KeycloakAuthenticationToken, Model, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/FileController.html" title="class in mops.presentation">FileController</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/FileRepository.html#getFileContent(long)">getFileContent(long)</a></span> - Method in class mops.persistence.<a href="mops/persistence/FileRepository.html" title="class in mops.persistence">FileRepository</a></dt>
@@ -502,7 +518,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Retrieves file meta data.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/FileServiceImpl.html#getFileInfo(mops.businesslogic.Account,long)">getFileInfo(Account, long)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileServiceImpl.html" title="class in mops.businesslogic">FileServiceImpl</a></dt>
+<dd>
+<div class="block">Retrieves file meta data.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#getFilesOfDirectory(mops.businesslogic.Account,long)">getFilesOfDirectory(Account, long)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
+<dd>
+<div class="block">Retrieves file meta data of all files in a directory.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/FileServiceImpl.html#getFilesOfDirectory(mops.businesslogic.Account,long)">getFilesOfDirectory(Account, long)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileServiceImpl.html" title="class in mops.businesslogic">FileServiceImpl</a></dt>
 <dd>
 <div class="block">Retrieves file meta data of all files in a directory.</div>
 </dd>
@@ -902,6 +926,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#saveFile(mops.businesslogic.Account,long,org.springframework.web.multipart.MultipartFile,java.util.Set)">saveFile(Account, long, MultipartFile, Set&lt;String&gt;)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/FileServiceImpl.html#saveFile(mops.businesslogic.Account,long,org.springframework.web.multipart.MultipartFile,java.util.Set)">saveFile(Account, long, MultipartFile, Set&lt;String&gt;)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileServiceImpl.html" title="class in mops.businesslogic">FileServiceImpl</a></dt>
 <dt><span class="memberNameLink"><a href="mops/persistence/FileRepository.html#saveFile(org.springframework.web.multipart.MultipartFile,long)">saveFile(MultipartFile, long)</a></span> - Method in class mops.persistence.<a href="mops/persistence/FileRepository.html" title="class in mops.persistence">FileRepository</a></dt>
 <dd>
 <div class="block">Saves a file.</div>
