@@ -89,25 +89,25 @@
     <form action="#" th:action="@{/search}" th:method="post" th:object="FileQuery">
         <div id="fileNames">
             <div>
-                <div><input type="text" name="fileNames[0]" value="Suchfeld"></div>
+                <div><input type="text" name="fileNames[0]" placeholder="Suchfeld"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('fileNames')"></div>
             </div>
         </div>
         <div id="owners">
             <div>
-                <div><input type="text" name="owners[0]" value="Besitzer"></div>
+                <div><input type="text" name="owners[0]" placeholder="Besitzer"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('owners')"></div>
             </div>
         </div>
         <div id="types">
             <div>
-                <div><input type="text" name="types[0]" value="Typen"></div>
+                <div><input type="text" name="types[0]" placeholder="Typen"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('types')"></div>
             </div>
         </div>
         <div id="tags">
             <div>
-                <div><input type="text" name="tags[0]" value="Tags"></div>
+                <div><input type="text" name="tags[0]" placeholder="Tags"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('tags')"></div>
             </div>
         </div>
