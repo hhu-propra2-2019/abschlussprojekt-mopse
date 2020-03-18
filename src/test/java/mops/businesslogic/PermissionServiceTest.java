@@ -46,7 +46,7 @@ public class PermissionServiceTest {
     }
 
     @Test
-    public void fetchRolesInGroupTest() {
+    public void fetchRolesInGroupTest() throws MopsException {
         GroupPermission[] roles = { new GroupPermission(groupId, "admin"), new GroupPermission(groupId, "editor") };
         when(restTemplate.getForObject(URL, GroupPermission[].class)).thenReturn(roles);
 

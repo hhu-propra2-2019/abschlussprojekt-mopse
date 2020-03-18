@@ -3,11 +3,11 @@ package mops.businesslogic;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import mops.exception.MopsException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,20 +33,26 @@ public class PermissionServiceImpl implements PermissionService {
      * {@inheritDoc}
      */
     @Override
-    public String fetchRoleForUserInGroup(Account account, long groupId) throws GruppenFindungException {
+    public String fetchRoleForUserInGroup(Account account, long groupId) throws MopsException {
         log.info("Request role for user {} in group {}", account.getName(), groupId);
         Permission permission = restTemplate.getForObject(URL, Permission.class);
-        return Objects.requireNonNull(permission).getRoleInGroup(groupId);
+        if (permission == null) {
+            throw new GruppenFindungException("Es konnte keine Rolle für Sie gefunden werden.");
+        }
+        return permission.getRoleInGroup(groupId);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Set<String> fetchRolesInGroup(long groupId) {
+    public Set<String> fetchRolesInGroup(long groupId) throws MopsException {
         log.info("Request roles for group {}", groupId);
         GroupPermission[] groupPermissions = restTemplate.getForObject(URL, GroupPermission[].class);
-        return Arrays.stream(Objects.requireNonNull(groupPermissions))
+        if (groupPermissions == null) {
+            throw new GruppenFindungException("Es konnten keinen Rollen für diese Gruppe gefunden werden.");
+        }
+        return Arrays.stream(groupPermissions)
                 .map(GroupPermission::getPermission)
                 .collect(Collectors.toSet());
     }
