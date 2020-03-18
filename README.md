@@ -29,7 +29,7 @@ Es existieren IntelliJ Run Configurations um die benötigten Services zu starten
 1. Docker starten und eventuell in IntelliJ einbinden.
 1. Run Configuration `docker-compose.dev.yml: MinIO` starten
 oder alternativ `docker-compose -f docker-compose.dev.yml up minio_dev` in der Konsole ausführen.
-Dies geht recht schnell.
+Dies geht recht schnell. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
 Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `minio_dev`-Service beendet
 oder alternativ in der Konsole `docker-compose -f docker-compose.dev.yml down --volumes minio_dev` ausführen. 
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
@@ -48,7 +48,7 @@ erstellen (also `prod-template.env` im selben Verzeichnis duplizieren und die Ko
 für das Starten des MariaDB Containers.
 1. Run Configuration `docker-compose.dev.yml: MinIO` starten
 oder alternativ `docker-compose -f docker-compose.dev.yml up minio_dev` in der Konsole ausführen.
-Dies geht recht schnell.
+Dies geht recht schnell. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
 Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `minio_dev`-Service beendet
 oder alternativ in der Konsole `docker-compose -f docker-compose.dev.yml down --volumes minio_dev` ausführen. 
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
