@@ -83,9 +83,9 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void getGroupUrlForbidden() throws Exception {
-        mockMvc().perform(get("/material1/group/{groupId}/url", 1L))
-                .andExpect(status().isForbidden()
-                );
+        mockMvc()
+                .perform(get("/material1/group/{groupId}/url", 1L))
+                .andExpect(status().isForbidden());
     }
 
     /**
