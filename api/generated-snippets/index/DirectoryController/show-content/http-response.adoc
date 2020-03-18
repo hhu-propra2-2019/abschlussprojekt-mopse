@@ -192,15 +192,15 @@ Content-Length: 9225
         
         
     </table>
-    <form action="/create" method="post"><input type="hidden" name="_csrf" value="ce159989-1f72-48d7-ae30-8b2cd4b38ffb"/>
+    <form action="/create" method="post"><input type="hidden" name="_csrf" value="f7a10b7d-9140-4433-923a-7f1e7ae0cb9a"/>
         <input type="text" name="folderName">
         <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
-    <form action="/upload" method="post"><input type="hidden" name="_csrf" value="ce159989-1f72-48d7-ae30-8b2cd4b38ffb"/>
+    <form action="/upload" method="post"><input type="hidden" name="_csrf" value="f7a10b7d-9140-4433-923a-7f1e7ae0cb9a"/>
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
-    <form action="/search" method="post"><input type="hidden" name="_csrf" value="ce159989-1f72-48d7-ae30-8b2cd4b38ffb"/>
+    <form action="/search" method="post"><input type="hidden" name="_csrf" value="f7a10b7d-9140-4433-923a-7f1e7ae0cb9a"/>
         <div id="fileNames">
             <div id="fileNames[0]">
                 <div><input type="text" name="fileNames[0]" placeholder="Dateiname" id="fileNames0" value=""></div>
