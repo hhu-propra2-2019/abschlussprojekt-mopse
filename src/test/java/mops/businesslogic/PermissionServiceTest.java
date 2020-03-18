@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Set;
 
-import static mops.businesslogic.PermissionServiceImpl.URL;
+import static mops.businesslogic.PermissionServiceProdImpl.URL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.mock;
@@ -30,7 +30,7 @@ public class PermissionServiceTest {
     void setUp() {
         groupId = 1L;
         restTemplate = mock(RestTemplate.class);
-        permissionService = new PermissionServiceImpl(restTemplate);
+        permissionService = new PermissionServiceProdImpl(restTemplate);
         userName = "Carlo";
 
     }

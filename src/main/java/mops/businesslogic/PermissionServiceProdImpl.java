@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import mops.exception.MopsException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,7 +17,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @SuppressWarnings("PMD.LawOfDemeter")
 @Service
-public class PermissionServiceImpl implements PermissionService {
+@Profile("prod")
+public class PermissionServiceProdImpl implements PermissionService {
 
     //TODO: this needs to be changed to the actual address and we need a provisional during development.
     /**
