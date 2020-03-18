@@ -13,7 +13,7 @@ public class FileQueryTest {
     private FileInfo fileInfo;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         fileInfo = FileInfo.builder()
                 .id(1L)
                 .name("cv")
