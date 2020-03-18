@@ -43,7 +43,7 @@ Diese Datei wird von `docker-compose` gelesen und ist notwendig für das Starten
 oder alternativ `docker-compose -f docker-compose.dev.yml minio_dev` in der Konsole.
 1. Run Configuration `docker-compose.yml: MariaDB` starten
 oder alternativ `docker-compose material1_db` in der Konsole.
-1. Run Configuration `Material1Application - prod` starten
+1. Run Configuration `Material1Application - prod (local)` starten
 oder alternativ die Spring Anwendung im Profil `prod` mit folgenden Umgebungsvariablen starten:
 `MYSQL_ROOT_PASSWORD=password;MYSQL_DATABASE=material1;MATERIAL1_PORT=8080;MATERIAL1_DB_PORT=23306;MATERIAL1_DB_HOST=localhost;MINIO_HOST=http://localhost;MINIO_PORT=9000;MINIO_BUCKET_NAME=dev-bucket;MINIO_ACCESS_KEY=dev_minio_access_key;MINIO_SECRET_KEY=dev_minio_secret_key`.
 Gelesen werden sie von Spring in den einzelnen `application.properties` für die Profile.
