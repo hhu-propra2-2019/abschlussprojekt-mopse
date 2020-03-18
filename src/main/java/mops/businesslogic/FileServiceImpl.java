@@ -54,7 +54,7 @@ public class FileServiceImpl implements FileService {
             log.error("User {} tried to save a file without write permission.",
                     account.getName()
             );
-            throw new WriteAccessPermissionException("Keine Schreibberechtigungen");
+            throw new WriteAccessPermissionException("Keine Schreibberechtigung");
         }
         //no Law of demeter violation
         FileInfo meta = FileInfo.builder()
@@ -105,7 +105,7 @@ public class FileServiceImpl implements FileService {
                     account.getName(),
                     fileId
             );
-            throw new ReadAccessPermissionException("Keine Schreibberechtigung");
+            throw new ReadAccessPermissionException("Keine Leseberechtigung");
         }
 
         try (InputStream stream = fileRepository.getFileContent(fileId)) {
@@ -147,7 +147,7 @@ public class FileServiceImpl implements FileService {
                     account.getName(),
                     fileId
             );
-            throw new DeleteAccessPermissionException("Keine Löschberechtigungen");
+            throw new DeleteAccessPermissionException("Keine Löschberechtigung");
         }
 
         try {
