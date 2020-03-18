@@ -17,14 +17,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class PermissionServiceTest {
+class PermissionServiceTest {
 
-    private PermissionService permissionService;
+    PermissionService permissionService;
 
     @Mock
-    private RestTemplate restTemplate;
-    private long groupId;
-    private String userName;
+    RestTemplate restTemplate;
+    long groupId;
+    String userName;
 
     @BeforeEach
     void setup() {
@@ -35,7 +35,7 @@ public class PermissionServiceTest {
     }
 
     @Test
-    public void fetchRoleInGroupTest() throws MopsException {
+    void fetchRoleInGroupTest() throws MopsException {
         Set<PermissionServiceProdImpl.GroupPermission> groups = Set.of(new PermissionServiceProdImpl.GroupPermission(groupId, "admin"));
         PermissionServiceProdImpl.Permission permission = new PermissionServiceProdImpl.Permission(userName, groups);
         Account carlo = Account.of(userName, "carlo@hhu.de", "admin");
@@ -48,7 +48,7 @@ public class PermissionServiceTest {
     }
 
     @Test
-    public void fetchRolesInGroupTest() throws MopsException {
+    void fetchRolesInGroupTest() throws MopsException {
         PermissionServiceProdImpl.GroupPermission[] roles = { new PermissionServiceProdImpl.GroupPermission(groupId, "admin"), new PermissionServiceProdImpl.GroupPermission(groupId, "editor") };
         when(restTemplate.getForObject(URL, PermissionServiceProdImpl.GroupPermission[].class)).thenReturn(roles);
 
@@ -58,7 +58,7 @@ public class PermissionServiceTest {
     }
 
     @Test
-    public void fetchRoleExceptionThrownTest() {
+    void fetchRoleExceptionThrownTest() {
         Account carlo = Account.of(userName, "carlo@hhu.de", "admin");
         when(restTemplate.getForObject(URL, PermissionServiceProdImpl.Permission.class)).thenReturn(null);
 
@@ -66,7 +66,7 @@ public class PermissionServiceTest {
     }
 
     @Test
-    public void fetchRolesExceptionThrownTest() {
+    void fetchRolesExceptionThrownTest() {
         when(restTemplate.getForObject(URL, PermissionServiceProdImpl.GroupPermission[].class)).thenReturn(null);
         assertThatExceptionOfType(GruppenFindungException.class).isThrownBy(() -> permissionService.fetchRolesInGroup(groupId));
     }
