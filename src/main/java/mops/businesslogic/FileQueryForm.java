@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-@SuppressFBWarnings("EI_EXPOSE_REP")
+@SuppressFBWarnings(value = "EI_EXPOSE_REP",
+        justification = "This class is just a wrapper, so it's ok to expose the getters")
 public class FileQueryForm {
     /**
      * List of file names to search for.
