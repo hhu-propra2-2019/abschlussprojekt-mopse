@@ -80,7 +80,7 @@ class DirectoryServiceTest {
         given(permissionService.fetchRoleForUserInGroup(user, GROUP_ID)).willReturn(USER);
         given(permissionService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
 
-        root = directoryService.createRootFolder(admin, GROUP_ID);
+        root = directoryService.getOrCreateRootFolder(admin, GROUP_ID);
 
         given(fileInfoService.fetchAllFilesInDirectory(root.getId())).willReturn(List.of());
     }
@@ -105,7 +105,7 @@ class DirectoryServiceTest {
     @Test
     void createGroupRootFolderWithoutPermission() {
         assertThatExceptionOfType(WriteAccessPermissionException.class)
-                .isThrownBy(() -> directoryService.createRootFolder(user, GROUP_ID + 1L));
+                .isThrownBy(() -> directoryService.getOrCreateRootFolder(user, GROUP_ID + 1L));
     }
 
     /**
@@ -230,7 +230,7 @@ class DirectoryServiceTest {
         FileQuery fileQuery = FileQuery.builder()
                 .build();
 
-        Directory root = directoryService.createRootFolder(admin, GROUP_ID);
+        Directory root = directoryService.getOrCreateRootFolder(admin, GROUP_ID);
 
         assertThatExceptionOfType(ReadAccessPermissionException.class)
                 .isThrownBy(() -> directoryService.searchFolder(intruder, root.getId(), fileQuery));
