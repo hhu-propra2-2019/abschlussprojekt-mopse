@@ -20,7 +20,6 @@ public class FileQueryForm {
      * List of file types to search for.
      */
     private String[] types;
-
     /**
      * List of file tags to search for.
      */
