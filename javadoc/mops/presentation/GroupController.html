@@ -275,6 +275,7 @@ public&nbsp;java.lang.String&nbsp;getRootDirectory&#8203;(org.keycloak.adapters.
 <pre class="methodSignature">@GetMapping(value="/{groupId}/url",
             produces="application/json")
 @ResponseBody
+@Secured("ROLE_api_user")
 public&nbsp;<a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a>&nbsp;getGroupUrl&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                                        org.springframework.ui.Model&nbsp;model,
                                        @PathVariable("groupId")
