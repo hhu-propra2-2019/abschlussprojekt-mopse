@@ -12,6 +12,7 @@ import java.util.Set;
 
 import static mops.businesslogic.PermissionServiceImpl.URL;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -23,20 +24,22 @@ public class PermissionServiceTest {
     @Mock
     private RestTemplate restTemplate;
     private long groupId;
+    private String userName;
 
     @BeforeEach
     void setUp() {
         groupId = 1L;
         restTemplate = mock(RestTemplate.class);
         permissionService = new PermissionServiceImpl(restTemplate);
+        userName = "Carlo";
+
     }
 
     @Test
     public void fetchRoleInGroupTest() throws MopsException {
-        String user = "Carlo";
         Set<GroupPermission> groups = Set.of(new GroupPermission(groupId, "admin"));
-        Permission permission = new Permission(user, groups);
-        Account carlo = Account.of(user, "carlo@hhu.de", "admin");
+        Permission permission = new Permission(userName, groups);
+        Account carlo = Account.of(userName, "carlo@hhu.de", "admin");
 
         when(restTemplate.getForObject(URL, Permission.class)).thenReturn(permission);
 
@@ -53,5 +56,19 @@ public class PermissionServiceTest {
         Set<String> rolesInGroup = permissionService.fetchRolesInGroup(groupId);
 
         assertThat(rolesInGroup).containsExactlyInAnyOrder("admin", "editor");
+    }
+
+    @Test
+    public void fetchRoleExceptionThrownTest() {
+        Account carlo = Account.of(userName, "carlo@hhu.de", "admin");
+        when(restTemplate.getForObject(URL, Permission.class)).thenReturn(null);
+
+        assertThatExceptionOfType(GruppenFindungException.class).isThrownBy(() -> permissionService.fetchRoleForUserInGroup(carlo, groupId));
+    }
+
+    @Test
+    public void fetchRolesExceptionThrownTest() {
+        when(restTemplate.getForObject(URL, GroupPermission[].class)).thenReturn(null);
+        assertThatExceptionOfType(GruppenFindungException.class).isThrownBy(() -> permissionService.fetchRolesInGroup(groupId));
     }
 }
