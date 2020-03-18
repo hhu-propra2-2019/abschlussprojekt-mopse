@@ -36,7 +36,8 @@ class PermissionServiceTest {
 
     @Test
     void fetchRoleInGroupTest() throws MopsException {
-        Set<PermissionServiceProdImpl.GroupPermission> groups = Set.of(new PermissionServiceProdImpl.GroupPermission(groupId, "admin"));
+        Set<PermissionServiceProdImpl.GroupPermission> groups =
+                Set.of(new PermissionServiceProdImpl.GroupPermission(groupId, "admin"));
         PermissionServiceProdImpl.Permission permission = new PermissionServiceProdImpl.Permission(userName, groups);
         Account carlo = Account.of(userName, "carlo@hhu.de", "admin");
 
@@ -49,7 +50,8 @@ class PermissionServiceTest {
 
     @Test
     void fetchRolesInGroupTest() throws MopsException {
-        PermissionServiceProdImpl.GroupPermission[] roles = { new PermissionServiceProdImpl.GroupPermission(groupId, "admin"), new PermissionServiceProdImpl.GroupPermission(groupId, "editor") };
+        PermissionServiceProdImpl.GroupPermission[] roles = { new PermissionServiceProdImpl.GroupPermission(groupId,
+                "admin"), new PermissionServiceProdImpl.GroupPermission(groupId, "editor") };
         when(restTemplate.getForObject(URL, PermissionServiceProdImpl.GroupPermission[].class)).thenReturn(roles);
 
         Set<String> rolesInGroup = permissionService.fetchRolesInGroup(groupId);

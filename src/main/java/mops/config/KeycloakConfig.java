@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
+import org.springframework.web.client.RestTemplate;
 
 
 /**
@@ -48,6 +48,7 @@ public class KeycloakConfig {
 
     /**
      * Creates a keycloak secured keycloak restTemplate.
+     *
      * @return secured restTemplate
      */
     @Bean

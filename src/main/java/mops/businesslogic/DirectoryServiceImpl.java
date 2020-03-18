@@ -109,7 +109,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
-    public Directory createRootFolder(Account account, long groupId) throws MopsException {
+    public Directory getOrCreateRootFolder(Account account, long groupId) throws MopsException {
+        // TODO: get the root folder if it exists
         roleService.checkIfRole(account, groupId, ADMIN);
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
         DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
