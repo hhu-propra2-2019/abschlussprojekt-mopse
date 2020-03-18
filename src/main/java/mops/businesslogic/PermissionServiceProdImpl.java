@@ -68,8 +68,7 @@ public class PermissionServiceProdImpl implements PermissionService {
     @AllArgsConstructor
     @Slf4j
     @SuppressWarnings("PMD.LawOfDemeter")
-    static
-    class Permission {
+    static class Permission {
         /**
          * User name.
          */
@@ -100,8 +99,7 @@ public class PermissionServiceProdImpl implements PermissionService {
 
     @Getter
     @AllArgsConstructor
-    static
-    class GroupPermission {
+    static class GroupPermission {
         /**
          * Id of the group.
          */
@@ -113,4 +111,3 @@ public class PermissionServiceProdImpl implements PermissionService {
         private String permission;
     }
 }
-
