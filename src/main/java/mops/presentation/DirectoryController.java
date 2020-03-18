@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
+import mops.businesslogic.FileQueryForm;
 import mops.businesslogic.FileService;
 import mops.businesslogic.query.FileQuery;
 import mops.businesslogic.utils.AccountUtil;
@@ -60,6 +61,7 @@ public class DirectoryController {
         }
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
+        model.addAttribute("fileQueryForm", new FileQueryForm());
         return "directory";
     }
 
@@ -150,21 +152,26 @@ public class DirectoryController {
     /**
      * Searches a folder for files.
      *
-     * @param token user credentials
-     * @param model spring view model
-     * @param dirId id of the folder to be searched
-     * @param query wrapper object of the query parameter
+     * @param token     user credentials
+     * @param model     spring view model
+     * @param dirId     id of the folder to be searched
+     * @param queryForm wrapper object of the query form parameter
      * @return route to files view
      */
     @PostMapping("/{dirId}/search")
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock", "PMD.LawOfDemeter" })
     public String searchFolder(KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
-                               @RequestAttribute("search") FileQuery query) {
+                               @RequestAttribute("fileQueryForm") FileQueryForm queryForm) {
         log.info("Search in for file in the folder with the id {}.", dirId);
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
+
+        FileQuery query = FileQuery.builder()
+                .from(queryForm)
+                .build();
+
         try {
             files = directoryService.searchFolder(account, dirId, query);
         } catch (MopsException e) {
