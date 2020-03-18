@@ -22,7 +22,7 @@ Es ist aufwendig für Lerngruppen oder Kurse Dateien miteinander zu teilen, wenn
 
 ## Lokales Starten der Anwendung
 
-### Dev
+### Development Profile (mit interner H2 Datenbank und Stub `Gruppenfindung`s-Adapter)
 
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
@@ -33,16 +33,16 @@ Dies geht recht schnell. Das MinIO Webinterface ist dann über http://localhost:
 Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `minio_dev`-Service beendet
 oder alternativ in der Konsole `docker-compose -f docker-compose.dev.yml down --volumes minio_dev` ausführen. 
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
-1. Run Configuration `Material1Application - dev` starten.
+1. Run Configuration `Material1Application - dev` starten
 oder alternativ die Spring Anwendung im Spring Profil `dev` starten.
 1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1/groups geöffnet werden.
 
-### Prod
+### Production Profile (mit externer MariaDB Datenbank und echtem `Gruppenfindung`s-Adapter)
 
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
 1. Docker starten und eventuell in IntelliJ einbinden.
-1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage der in der Datei `prod-template.env`
+1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `prod-template.env`
 erstellen (also `prod-template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
 Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
 für das Starten des MariaDB Containers.
@@ -53,7 +53,7 @@ Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `minio_dev`-Serv
 oder alternativ in der Konsole `docker-compose -f docker-compose.dev.yml down --volumes minio_dev` ausführen. 
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
 1. Run Configuration `docker-compose.yml: MariaDB` starten
-oder alternativ `docker-compose up material1_db` in der Konsole.
+oder alternativ `docker-compose up material1_db` in der Konsole ausführen.
 Dies kann mehrere Minuten dauern.
 Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `material1_db`-Service beendet
 oder alternativ in der Konsole `docker-compose down --volumes material1_db` ausführen. 
@@ -73,4 +73,4 @@ Hier kann die Dokumentation gefunden werden: [Dokumentation](https://hhu-propra2
 
 Javadoc kann hier aufgerufen werden: [Javadoc](https://hhu-propra2.github.io/abschlussprojekt-mopse/javadoc/)
 
-Die REST API Documentation befindet sich hier: [REST API](https://hhu-propra2.github.io/abschlussprojekt-mopse/#section-system-scope-and-context)
+Die REST API Dokumentation befindet sich hier: [REST API](https://hhu-propra2.github.io/abschlussprojekt-mopse/#section-system-scope-and-context)
