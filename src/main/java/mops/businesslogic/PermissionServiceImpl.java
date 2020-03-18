@@ -68,7 +68,7 @@ class Permission {
      * @return the role of the user in the group
      * @throws GruppenFindungException something went wrong during api request
      */
-    @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn, PMD.DataflowAnomalyAnalysis")
+    @SuppressWarnings({ "PMD.UnnecessaryLocalBeforeReturn", "PMD.DataflowAnomalyAnalysis" })
     public String getRoleInGroup(long groupId) throws GruppenFindungException {
         Optional<GroupPermission> first = groups.stream()
                 .filter(group -> group.getGroup() == groupId)
