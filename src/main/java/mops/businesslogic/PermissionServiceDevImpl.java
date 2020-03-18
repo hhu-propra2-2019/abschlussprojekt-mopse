@@ -43,6 +43,9 @@ public class PermissionServiceDevImpl implements PermissionService {
         return Set.of("admin", "editor", "viewer");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Group> fetchGroupsForUser(Account account) {
         return null;
