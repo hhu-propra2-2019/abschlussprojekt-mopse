@@ -11,11 +11,11 @@ public class Group {
     /**
      * database id
      */
-    private Long id;
+    long id;
 
     /**
      * group name
      */
-    private String name;
+    String name;
 
 }
