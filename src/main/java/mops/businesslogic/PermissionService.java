@@ -29,5 +29,5 @@ public interface PermissionService {
      * @param account the user credentials
      * @return a list of groups for that user
      */
-    List<Group> fetchGroupsForUser(Account account);
+    List<Group> fetchGroupsForUser(Account account) throws MopsException;
 }

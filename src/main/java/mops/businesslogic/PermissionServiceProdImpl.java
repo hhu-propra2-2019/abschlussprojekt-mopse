@@ -70,8 +70,15 @@ public class PermissionServiceProdImpl implements PermissionService {
      * {@inheritDoc}
      */
     @Override
-    public List<Group> fetchGroupsForUser(Account account) {
-        return null;
+    public List<Group> fetchGroupsForUser(Account account) throws MopsException {
+        Group[] groups = restTemplate.getForObject(URL, Group[].class);
+        if (groups == null) {
+            log.error("The request for groups of user {} failed.", account.getName());
+            throw new GruppenFindungException(String.format(
+                    "Es konnten keinen Gruppen für diese Nutzerin %s gefunden werden.",
+                    account.getName()));
+        }
+        return Arrays.asList(groups);
     }
 
     @AllArgsConstructor
