@@ -226,7 +226,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         try {
             return fetchDirectory(dirId);
         } catch (NoSuchElementException e) {
-            throw new MopsException("Fehler beim abrufen des Verzeichnis", e);
+            throw new MopsException("Fehler beim Abrufen des Verzeichnisses", e);
         }
     }
 

@@ -47,7 +47,7 @@ public class RoleServiceImpl implements RoleService {
                     account.getName(),
                     directory.getName());
             throw new WriteAccessPermissionException(
-                    String.format("Der Benutzer %s hat keine Schreibberechtigungen auf %s.",
+                    String.format("Der Benutzer %s hat keine Schreibberechtigungen in %s.",
                             account.getName(),
                             directory.getName()));
         }
@@ -70,7 +70,7 @@ public class RoleServiceImpl implements RoleService {
                     account.getName(),
                     directory.getName());
             throw new ReadAccessPermissionException(
-                    String.format("Der Benutzer %s hat keine Leseberechtigungen auf %s.",
+                    String.format("Der Benutzer %s hat keine Leseberechtigungen in %s.",
                             account.getName(),
                             directory.getName()));
         }
@@ -95,7 +95,7 @@ public class RoleServiceImpl implements RoleService {
                     account.getName(),
                     directory.getName());
             throw new DeleteAccessPermissionException(
-                    String.format("Der Benutzer %s hat keine Löschberechtigungen %s.",
+                    String.format("Der Benutzer %s hat keine Löschberechtigungen in %s.",
                             account.getName(),
                             directory.getName()));
         }
