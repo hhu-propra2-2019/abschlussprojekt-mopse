@@ -40,8 +40,18 @@ public class PermissionServiceTest {
 
         when(restTemplate.getForObject(URL, Permission.class)).thenReturn(permission);
 
-        String rolesInGroup = permissionService.fetchRoleForUserInGroup(carlo, groupId);
+        String userRole = permissionService.fetchRoleForUserInGroup(carlo, groupId);
 
-        assertThat(rolesInGroup).isEqualTo("admin");
+        assertThat(userRole).isEqualTo("admin");
+    }
+
+    @Test
+    public void fetchRolesInGroupTest() {
+        GroupPermission[] roles = { new GroupPermission(groupId, "admin"), new GroupPermission(groupId, "editor") };
+        when(restTemplate.getForObject(URL, GroupPermission[].class)).thenReturn(roles);
+
+        Set<String> rolesInGroup = permissionService.fetchRolesInGroup(groupId);
+
+        assertThat(rolesInGroup).containsExactlyInAnyOrder("admin", "editor");
     }
 }
