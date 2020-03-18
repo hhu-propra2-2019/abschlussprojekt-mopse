@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor
@@ -40,9 +42,11 @@ public class PermissionServiceImpl implements PermissionService {
      */
     @Override
     public Set<String> fetchRolesInGroup(long groupId) {
-
-
-        return null;
+        log.info("Request roles for group {}", groupId);
+        GroupPermission[] groupPermissions = restTemplate.getForObject(URL, GroupPermission[].class);
+        return Arrays.stream(Objects.requireNonNull(groupPermissions))
+                .map(GroupPermission::getPermission)
+                .collect(Collectors.toSet());
     }
 }
 
