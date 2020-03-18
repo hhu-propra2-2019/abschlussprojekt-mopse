@@ -103,7 +103,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     /**
      * Redirect all requests to SSL if headers in proxy are set.
      *
-     * @param http
+     * @param http http security
      * @throws Exception
      */
     @SuppressWarnings({"PMD.SignatureDeclareThrowsException", "PMD.LawOfDemeter"})
