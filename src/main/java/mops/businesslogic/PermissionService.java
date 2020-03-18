@@ -3,6 +3,7 @@ package mops.businesslogic;
 import mops.exception.MopsException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,4 +25,8 @@ public interface PermissionService {
      */
     Set<String> fetchRolesInGroup(long groupId) throws MopsException;
 
+    /**
+     * @return a list of groups for that user
+     */
+    List<Group> fetchGroupsForUser();
 }

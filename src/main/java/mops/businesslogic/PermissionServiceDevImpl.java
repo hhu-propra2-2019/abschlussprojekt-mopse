@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -40,5 +41,10 @@ public class PermissionServiceDevImpl implements PermissionService {
     @Override
     public Set<String> fetchRolesInGroup(long groupId) {
         return Set.of("admin", "editor", "viewer");
+    }
+
+    @Override
+    public List<Group> fetchGroupsForUser() {
+        return null;
     }
 }

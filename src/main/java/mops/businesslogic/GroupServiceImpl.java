@@ -14,14 +14,17 @@ public class GroupServiceImpl implements GroupService {
      * Directory Service.
      */
     private DirectoryService directoryService;
+    /**
+     * API to GruppenFindung.
+     */
+    private PermissionService permissionService;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
-        // TODO: get groups from Gruppenfindung
-        return List.of();
+        return permissionService.fetchGroupsForUser();
     }
 
     /**

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -63,6 +64,11 @@ public class PermissionServiceProdImpl implements PermissionService {
         return Arrays.stream(groupPermissions)
                 .map(GroupPermission::getPermission)
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public List<Group> fetchGroupsForUser() {
+        return null;
     }
 
     @AllArgsConstructor
