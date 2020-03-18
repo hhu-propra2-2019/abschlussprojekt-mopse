@@ -3,6 +3,7 @@ package mops.businesslogic;
 import mops.businesslogic.exception.DeleteAccessPermissionException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
+import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissions;
@@ -48,7 +49,7 @@ class RoleServiceTest {
     Account intruder;
 
     @BeforeEach
-    void setup() {
+    void setup() throws MopsException {
         roleService = new RoleServiceImpl(permissionService, directoryPermissionsRepository);
 
         admin = Account.of(ADMIN, ADMIN + "@hhu.de", STUDENTIN);
