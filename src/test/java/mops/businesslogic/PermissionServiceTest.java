@@ -27,7 +27,7 @@ public class PermissionServiceTest {
     private String userName;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         groupId = 1L;
         restTemplate = mock(RestTemplate.class);
         permissionService = new PermissionServiceProdImpl(restTemplate);
