@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
-@SuppressWarnings("PMD")
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     /**
@@ -107,6 +106,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
      * @param http
      * @throws Exception
      */
+    @SuppressWarnings({"PMD.SignatureDeclareThrowsException", "PMD.LawOfDemeter"})
     private void forceHTTPS(HttpSecurity http) throws Exception {
         http.requiresChannel()
                 .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)

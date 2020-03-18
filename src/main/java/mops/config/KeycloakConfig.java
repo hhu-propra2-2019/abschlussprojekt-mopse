@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
  */
 
 @Configuration
-@SuppressWarnings("PMD")
+@SuppressWarnings("PMD.BeanMembersShouldSerialize")
 public class KeycloakConfig {
     /**
      * Keycloak ressource.
