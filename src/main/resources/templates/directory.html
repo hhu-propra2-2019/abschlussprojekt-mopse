@@ -120,23 +120,26 @@
         </div>
         <div><input type="button" value="-" id="fileNamesDelete" onclick="deleteLastInputLine('fileNames[0]')"></div>
         <div id="owners">
-            <div>
+            <div id="owners[0]">
                 <div><input type="text" name="owners[0]" placeholder="Besitzer" th:field="*{owners[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('owners', 'Besitzer')"></div>
             </div>
         </div>
+        <div><input type="button" value="-" id="ownersDelete" onclick="deleteLastInputLine('owners[0]')"></div>
         <div id="types">
-            <div>
+            <div id="types[0]">
                 <div><input type="text" name="types[0]" placeholder="Dateityp" th:field="*{types[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('types', 'Dateityp')"></div>
             </div>
         </div>
+        <div><input type="button" value="-" id="typesDelete" onclick="deleteLastInputLine('types[0]')"></div>
         <div id="tags">
-            <div>
+            <div id="tags[0]">
                 <div><input type="text" name="tags[0]" placeholder="Tags" th:field="*{tags[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('tags', 'Tags')"></div>
             </div>
         </div>
+        <div><input type="button" value="-" id="tagsDelete" onclick="deleteLastInputLine('tags[0]')"></div>
         <div>
             <div><input type="submit" name="searchFile" value="Datei suchen"></div>
         </div>
