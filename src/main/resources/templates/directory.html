@@ -30,6 +30,7 @@
                 button.type = "button";
                 button.value = "+";
                 button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', '" + placeholder + "');");
+                div1.id = text.name;
 
                 div2.appendChild(text);
                 div3.appendChild(button);
@@ -38,6 +39,29 @@
                 parent.appendChild(div1);
 
                 window[type + "Counter"]++;
+
+                const delButtonName = type + "[" + counter + "]";
+                const delButtonID = type + "Delete";
+                document.getElementById(delButtonID).setAttribute("onclick", "javascript: deleteLastInputLine('" + delButtonName + "')");
+            }
+
+            function deleteLastInputLine(del) {
+                const idLength = del.length;
+                const substring = del.substring(0, idLength - 3);
+
+                const counter = del.substring(idLength - 2, idLength - 1)
+                console.log(counter);
+                if (counter > 0) {
+                    // delete element
+                    const child = document.getElementById(del);
+                    child.parentNode.removeChild(child);
+
+                    // update deleteButton
+                    window[substring + "Counter"]--;
+                    const newOnclick = substring + "[" + (window[substring + "Counter"] - 1) + "]";
+                    const delButtonID = substring + "Delete";
+                    document.getElementById(delButtonID).setAttribute("onclick", "javascript: deleteLastInputLine('" + newOnclick + "')");
+                }
             }
         </script>
     </th:block>
@@ -89,11 +113,12 @@
     </form>
     <form action="#" th:action="@{/search}" th:method="post" th:object="${fileQueryForm}">
         <div id="fileNames">
-            <div>
+            <div id="fileNames[0]">
                 <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{fileNames[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('fileNames', 'Dateiname')"></div>
             </div>
         </div>
+        <div><input type="button" value="-" id="fileNamesDelete" onclick="deleteLastInputLine('fileNames[0]')"></div>
         <div id="owners">
             <div>
                 <div><input type="text" name="owners[0]" placeholder="Besitzer" th:field="*{owners[0]}"></div>
