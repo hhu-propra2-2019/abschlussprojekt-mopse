@@ -101,7 +101,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     }
 
     /**
-     * Redirect all Requests to SSL if header in proxy are set.
+     * Redirect all requests to SSL if headers in proxy are set.
      *
      * @param http
      * @throws Exception
