@@ -44,7 +44,7 @@ public class PermissionServiceDevImpl implements PermissionService {
     }
 
     @Override
-    public List<Group> fetchGroupsForUser() {
+    public List<Group> fetchGroupsForUser(Account account) {
         return null;
     }
 }

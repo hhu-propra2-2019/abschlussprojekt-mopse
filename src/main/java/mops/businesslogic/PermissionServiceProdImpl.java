@@ -66,8 +66,11 @@ public class PermissionServiceProdImpl implements PermissionService {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<Group> fetchGroupsForUser() {
+    public List<Group> fetchGroupsForUser(Account account) {
         return null;
     }
 

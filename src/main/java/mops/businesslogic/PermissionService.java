@@ -26,7 +26,8 @@ public interface PermissionService {
     Set<String> fetchRolesInGroup(long groupId) throws MopsException;
 
     /**
+     * @param account the user credentials
      * @return a list of groups for that user
      */
-    List<Group> fetchGroupsForUser();
+    List<Group> fetchGroupsForUser(Account account);
 }

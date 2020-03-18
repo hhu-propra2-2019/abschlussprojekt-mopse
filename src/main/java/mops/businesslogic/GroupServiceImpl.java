@@ -24,7 +24,7 @@ public class GroupServiceImpl implements GroupService {
      */
     @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
-        return permissionService.fetchGroupsForUser();
+        return permissionService.fetchGroupsForUser(account);
     }
 
     /**
