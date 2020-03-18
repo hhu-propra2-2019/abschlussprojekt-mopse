@@ -54,7 +54,7 @@ oder alternativ die Spring Anwendung im Profil `prod` mit folgenden Umgebungsvar
 Gelesen werden sie von Spring in den einzelnen `application.properties` für die Profile.
 1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1/groups geöffnet werden.
 
-Es ist möglich die Werte der Umgebungsvariablen zu ändern, dann müssen sie allerdings gleichzeitig in der `prod.env`
+Es ist möglich die Werte der Umgebungsvariablen zu anzupassen, dann müssen sie allerdings gleichzeitig in der `prod.env`
 und der Run Configuration geändert werden.
 
 ## Dokumentation
