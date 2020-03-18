@@ -226,7 +226,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         try {
             return fetchDirectory(dirId);
         } catch (NoSuchElementException e) {
-            throw new MopsException("Error on retrieving Directory", e);
+            throw new MopsException("Fehler beim Abrufen des Verzeichnisses", e);
         }
     }
 
@@ -266,7 +266,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         return () -> { //this is not a violation of the demeter's law
             log.error("The directory with the id {} was requested, but was not found in the database.",
                     dirId);
-            String errorMessage = String.format("There is no directory with the id: {} in the database.", dirId);
+            String errorMessage = String.format("There is no directory with the id %s in the database.", dirId);
             return new NoSuchElementException(errorMessage);
         };
     }
