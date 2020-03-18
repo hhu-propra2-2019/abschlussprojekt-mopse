@@ -37,7 +37,7 @@ oder alternativ in der Konsole `docker-compose -f docker-compose.dev.yml down --
 oder alternativ die Spring Anwendung im Spring Profil `dev` starten.
 1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1/groups geöffnet werden.
 
-### Production Profile  Profile (mit externer MariaDB Datenbank und echtem `Gruppenfindung`s-Adapter)
+### Production Profile (mit externer MariaDB Datenbank und echtem `Gruppenfindung`s-Adapter)
 
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
