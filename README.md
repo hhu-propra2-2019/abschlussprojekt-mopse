@@ -44,8 +44,10 @@ erstellen (also `prod-template.env` im selben Verzeichnis duplizieren und die Ko
 für das Starten des MariaDB Containers.
 1. Run Configuration `docker-compose.dev.yml: MinIO` starten.
 oder alternativ `docker-compose -f docker-compose.dev.yml minio_dev` in der Konsole.
+Dies geht recht schnell.
 1. Run Configuration `docker-compose.yml: MariaDB` starten
 oder alternativ `docker-compose material1_db` in der Konsole.
+Dies kann mehrere Minuten dauern.
 1. Run Configuration `Material1Application - prod (local)` starten
 oder alternativ die Spring Anwendung im Profil `prod` mit folgenden Umgebungsvariablen starten:
 `MYSQL_ROOT_PASSWORD=password;MYSQL_DATABASE=material1;MATERIAL1_PORT=8080;MATERIAL1_DB_PORT=23306;MATERIAL1_DB_HOST=localhost;MINIO_HOST=http://localhost;MINIO_PORT=9000;MINIO_BUCKET_NAME=dev-bucket;MINIO_ACCESS_KEY=dev_minio_access_key;MINIO_SECRET_KEY=dev_minio_secret_key`.
