@@ -60,50 +60,53 @@ public class PermissionServiceProdImpl implements PermissionService {
                 .map(GroupPermission::getPermission)
                 .collect(Collectors.toSet());
     }
-}
 
-@AllArgsConstructor
-@Slf4j
-@SuppressWarnings("PMD.LawOfDemeter")
-class Permission {
-    /**
-     * User name.
-     */
-    private String user;
-    /**
-     * Groups the is in.
-     */
-    private Set<GroupPermission> groups;
+    @AllArgsConstructor
+    @Slf4j
+    @SuppressWarnings("PMD.LawOfDemeter")
+    static
+    class Permission {
+        /**
+         * User name.
+         */
+        private String user;
+        /**
+         * Groups the is in.
+         */
+        private Set<GroupPermission> groups;
 
-    /**
-     * @param groupId id of the group
-     * @return the role of the user in the group
-     * @throws GruppenFindungException something went wrong during api request
-     */
-    @SuppressWarnings({ "PMD.UnnecessaryLocalBeforeReturn", "PMD.DataflowAnomalyAnalysis" })
-    public String getRoleInGroup(long groupId) throws GruppenFindungException {
-        Optional<GroupPermission> first = groups.stream()
-                .filter(group -> group.getGroup() == groupId)
-                .findFirst();
-        GroupPermission groupPermission = first.orElseThrow(() -> {
-            log.error("Unable to find group with the {} at GruppenFindung1.", groupId);
-            return new GruppenFindungException(String.format(
-                    "Gruppe mit der id {} konnte nicht gefunden werden.", groupId));
-        });
-        return groupPermission.getPermission();
+        /**
+         * @param groupId id of the group
+         * @return the role of the user in the group
+         * @throws GruppenFindungException something went wrong during api request
+         */
+        @SuppressWarnings({ "PMD.UnnecessaryLocalBeforeReturn", "PMD.DataflowAnomalyAnalysis" })
+        public String getRoleInGroup(long groupId) throws GruppenFindungException {
+            Optional<GroupPermission> first = groups.stream()
+                    .filter(group -> group.getGroup() == groupId)
+                    .findFirst();
+            GroupPermission groupPermission = first.orElseThrow(() -> {
+                log.error("Unable to find group with the {} at GruppenFindung1.", groupId);
+                return new GruppenFindungException(String.format(
+                        "Gruppe mit der id {} konnte nicht gefunden werden.", groupId));
+            });
+            return groupPermission.getPermission();
+        }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    static
+    class GroupPermission {
+        /**
+         * Id of the group.
+         */
+        private long group;
+
+        /**
+         * Permission/Role in that group.
+         */
+        private String permission;
     }
 }
 
-@Getter
-@AllArgsConstructor
-class GroupPermission {
-    /**
-     * Id of the group.
-     */
-    private long group;
-
-    /**
-     * Permission/Role in that group.
-     */
-    private String permission;
-}
