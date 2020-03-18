@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import mops.exception.MopsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +32,7 @@ public class PermissionServiceTest {
     }
 
     @Test
-    public void fetchRoleInGroupTest() throws GruppenFindungException {
+    public void fetchRoleInGroupTest() throws MopsException {
         String user = "Carlo";
         Set<GroupPermission> groups = Set.of(new GroupPermission(groupId, "admin"));
         Permission permission = new Permission(user, groups);

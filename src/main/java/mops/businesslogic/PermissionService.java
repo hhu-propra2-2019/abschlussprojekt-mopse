@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import mops.exception.MopsException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -15,7 +16,7 @@ public interface PermissionService {
      * @param groupId the id of the group
      * @return the role of the user in that group
      */
-    String fetchRoleForUserInGroup(Account account, long groupId) throws GruppenFindungException;
+    String fetchRoleForUserInGroup(Account account, long groupId) throws MopsException;
 
     /**
      * @param groupId the id of the group
