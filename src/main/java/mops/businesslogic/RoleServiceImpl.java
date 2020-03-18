@@ -46,9 +46,10 @@ public class RoleServiceImpl implements RoleService {
             log.error("The user '{}' tried to write in '{}' where they have no write permissions.",
                     account.getName(),
                     directory.getName());
-            throw new WriteAccessPermissionException(String.format("The user %s doesn't have write access in {}.",
-                    account.getName(),
-                    directory.getName()));
+            throw new WriteAccessPermissionException(
+                    String.format("Der Benutzer %s hat keine Schreibberechtigungen auf %s.",
+                            account.getName(),
+                            directory.getName()));
         }
     }
 
@@ -68,9 +69,10 @@ public class RoleServiceImpl implements RoleService {
             log.error("The user '{}' tried to read in '{}' where they have no read permissions.",
                     account.getName(),
                     directory.getName());
-            throw new ReadAccessPermissionException(String.format("The user %s doesn't have read access in %s.",
-                    account.getName(),
-                    directory.getName()));
+            throw new ReadAccessPermissionException(
+                    String.format("Der Benutzer %s hat keine Leseberechtigungen auf %s.",
+                            account.getName(),
+                            directory.getName()));
         }
 
     }
@@ -92,9 +94,10 @@ public class RoleServiceImpl implements RoleService {
             log.error("The user '{}' tried to delete in '{}' where they have no delete permissions.",
                     account.getName(),
                     directory.getName());
-            throw new DeleteAccessPermissionException(String.format("The user %s doesn't have delete access in %s.",
-                    account.getName(),
-                    directory.getName()));
+            throw new DeleteAccessPermissionException(
+                    String.format("Der Benutzer %s hat keine Löschberechtigungen %s.",
+                            account.getName(),
+                            directory.getName()));
         }
     }
 

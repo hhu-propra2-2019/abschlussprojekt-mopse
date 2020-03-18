@@ -54,7 +54,7 @@ public class FileServiceImpl implements FileService {
             log.error("User {} tried to save a file without write permission.",
                     account.getName()
             );
-            throw new WriteAccessPermissionException("No write permission");
+            throw new WriteAccessPermissionException("Keine Schreibberechtigungen");
         }
         //no Law of demeter violation
         FileInfo meta = FileInfo.builder()
@@ -74,7 +74,7 @@ public class FileServiceImpl implements FileService {
                     account.getName(),
                     e.getMessage()
             );
-            throw new MopsException("Error while saving", e);
+            throw new MopsException("Fehler während des Speicherns aufgetreten", e);
         }
     }
 
@@ -95,7 +95,7 @@ public class FileServiceImpl implements FileService {
                     fileId,
                     e.getMessage()
             );
-            throw new FileNotFoundException("File with ID " + fileId + " not found", e);
+            throw new FileNotFoundException("Datei mit ID " + fileId + " wurde nicht gefunden", e);
         }
 
         UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
@@ -105,7 +105,7 @@ public class FileServiceImpl implements FileService {
                     account.getName(),
                     fileId
             );
-            throw new ReadAccessPermissionException("No read permission");
+            throw new ReadAccessPermissionException("Keine Schreibberechtigung");
         }
 
         try (InputStream stream = fileRepository.getFileContent(fileId)) {
@@ -116,7 +116,7 @@ public class FileServiceImpl implements FileService {
                     fileId,
                     e.getMessage()
             );
-            throw new MopsException("Error while retrieving", e);
+            throw new MopsException("Fehler während des Abrufens aufgetreten", e);
         }
     }
 
@@ -135,7 +135,7 @@ public class FileServiceImpl implements FileService {
                     account.getName(),
                     fileId
             );
-            throw new FileNotFoundException("File not found", e);
+            throw new FileNotFoundException("Datei wurde nicht gefunden", e);
         }
 
         UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
@@ -147,7 +147,7 @@ public class FileServiceImpl implements FileService {
                     account.getName(),
                     fileId
             );
-            throw new DeleteAccessPermissionException("No delete permission");
+            throw new DeleteAccessPermissionException("Keine Löschberechtigungen");
         }
 
         try {
@@ -155,11 +155,11 @@ public class FileServiceImpl implements FileService {
             fileRepository.deleteFile(fileId);
         } catch (MopsException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error("File with ID {} error on retrieving. Error: {}",
+            log.error("File with ID {} error on deleting. Error: {}",
                     fileId,
                     e.getMessage()
             );
-            throw new MopsException("Error while deleting", e);
+            throw new MopsException("Fehler während des Löschens aufgetreten", e);
         }
         return directoryService.getDirectory(fileInfo.getDirectoryId());
     }
@@ -179,7 +179,7 @@ public class FileServiceImpl implements FileService {
                     fileId,
                     e.getMessage()
             );
-            throw new FileNotFoundException("File not found", e);
+            throw new FileNotFoundException("Datei nicht gefunden", e);
         }
         UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
 
@@ -188,7 +188,7 @@ public class FileServiceImpl implements FileService {
                     account.getName(),
                     fileId
             );
-            throw new ReadAccessPermissionException("No read permission");
+            throw new ReadAccessPermissionException("Keine Leseberechtigung");
         }
         return fileInfoService.fetchFileInfo(fileId);
     }
@@ -205,7 +205,7 @@ public class FileServiceImpl implements FileService {
                     account.getName(),
                     dirId
             );
-            throw new ReadAccessPermissionException("No read permission");
+            throw new ReadAccessPermissionException("Keine Leseberechtigung");
 
         }
         return fileInfoService.fetchAllFilesInDirectory(dirId);

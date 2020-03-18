@@ -30,7 +30,7 @@ public class FileInfoServiceImpl implements FileInfoService {
             return fileInfoRepo.findAllInDirectory(dirId);
         } catch (Exception e) {
             log.error("Failed to retrieve all files in directory with id {} from the database.", dirId);
-            throw new DatabaseException("Couldn't find all files in directory!", e);
+            throw new DatabaseException("Es konnten nicht alle Dateien im Verzeichnis gefunden werden!", e);
         }
     }
 
@@ -44,7 +44,7 @@ public class FileInfoServiceImpl implements FileInfoService {
             return fileInfoRepo.findById(fileId).orElseThrow();
         } catch (Exception e) {
             log.error("Failed to retrieve file info for file with id {} from the database.", fileId);
-            throw new DatabaseException("Couldn't find File Info!", e);
+            throw new DatabaseException("Die Datei-Informationen konnten nicht gefunden werden!", e);
         }
     }
 
@@ -61,7 +61,7 @@ public class FileInfoServiceImpl implements FileInfoService {
                     fileInfo.getName(),
                     fileInfo.getType(),
                     fileInfo.getSize());
-            throw new DatabaseException("File Info couldn't be saved!", e);
+            throw new DatabaseException("Datei-Informationen konnten nicht gespeichert werden!", e);
         }
     }
 
@@ -75,7 +75,7 @@ public class FileInfoServiceImpl implements FileInfoService {
             fileInfoRepo.deleteById(fileId);
         } catch (Exception e) {
             log.error("Failed to delete file with id {}", fileId);
-            throw new DatabaseException("File Info couldn't be deleted!", e);
+            throw new DatabaseException("Datei-Informationen konnten nicht gelöscht werden!", e);
         }
     }
 }
