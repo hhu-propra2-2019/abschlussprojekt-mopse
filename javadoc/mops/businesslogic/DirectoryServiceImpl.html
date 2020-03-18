@@ -227,26 +227,26 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createRootFolder(mops.businesslogic.Account,long)">createRootFolder</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
-                long&nbsp;groupId)</code></th>
-<td class="colLast">
-<div class="block">Creates the group root directory.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteFolder(mops.businesslogic.Account,long)">deleteFolder</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
             long&nbsp;dirId)</code></th>
 <td class="colLast">
 <div class="block">Deletes a folder.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirectory(long)">getDirectory</a></span>&#8203;(long&nbsp;dirId)</code></th>
 <td class="colLast">
 <div class="block">Internal use only: possible security flaw!
  Check permission before fetching!</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrCreateRootFolder(mops.businesslogic.Account,long)">getOrCreateRootFolder</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+                     long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Creates the group root directory.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
@@ -414,19 +414,19 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 </dl>
 </li>
 </ul>
-<a id="createRootFolder(mops.businesslogic.Account,long)">
+<a id="getOrCreateRootFolder(mops.businesslogic.Account,long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>createRootFolder</h4>
-<pre class="methodSignature">public&nbsp;<a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;createRootFolder&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
-                                  long&nbsp;groupId)
-                           throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<h4>getOrCreateRootFolder</h4>
+<pre class="methodSignature">public&nbsp;<a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;getOrCreateRootFolder&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
+                                       long&nbsp;groupId)
+                                throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
 <div class="block">Creates the group root directory.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="DirectoryService.html#createRootFolder(mops.businesslogic.Account,long)">createRootFolder</a></code>&nbsp;in interface&nbsp;<code><a href="DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a></code></dd>
+<dd><code><a href="DirectoryService.html#getOrCreateRootFolder(mops.businesslogic.Account,long)">getOrCreateRootFolder</a></code>&nbsp;in interface&nbsp;<code><a href="DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>account</code> - user credentials</dd>
 <dd><code>groupId</code> - the group id</dd>
