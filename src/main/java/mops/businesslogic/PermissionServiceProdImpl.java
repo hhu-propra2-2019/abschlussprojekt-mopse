@@ -39,6 +39,7 @@ public class PermissionServiceProdImpl implements PermissionService {
         log.info("Request role for user {} in group {}", account.getName(), groupId);
         Permission permission = restTemplate.getForObject(URL, Permission.class);
         if (permission == null) {
+            log.error("The request for user roles for user '{}' in group {} failed.", account.getName(), groupId);
             throw new GruppenFindungException("Es konnte keine Rolle für Sie gefunden werden.");
         }
         return permission.getRoleInGroup(groupId);
@@ -52,6 +53,7 @@ public class PermissionServiceProdImpl implements PermissionService {
         log.info("Request roles for group {}", groupId);
         GroupPermission[] groupPermissions = restTemplate.getForObject(URL, GroupPermission[].class);
         if (groupPermissions == null) {
+            log.error("The request for roles in group {} failed.", groupId);
             throw new GruppenFindungException("Es konnten keinen Rollen für diese Gruppe gefunden werden.");
         }
         return Arrays.stream(groupPermissions)
