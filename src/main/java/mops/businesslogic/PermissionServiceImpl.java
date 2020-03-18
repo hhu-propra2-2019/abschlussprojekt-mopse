@@ -3,6 +3,7 @@ package mops.businesslogic;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @AllArgsConstructor
 @SuppressWarnings("PMD.LawOfDemeter")
+@Service
 public class PermissionServiceImpl implements PermissionService {
 
     //TODO: this needs to be changed to the actual address and we need a provisional during development.
