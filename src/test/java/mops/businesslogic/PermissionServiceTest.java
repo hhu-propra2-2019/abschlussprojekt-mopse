@@ -76,11 +76,11 @@ class PermissionServiceTest {
     }
 
     @Test
-    public void fetchAllGroupsForUserTest() {
+    public void fetchAllGroupsForUserTest() throws MopsException {
         long[] groups = { 1L, 2L };
         List<Group> expectedGroups = List.of(
-                new Group(1L, "test1", 1L),
-                new Group(2L, "test2", 2L)
+                new Group(1L, "test1"),
+                new Group(2L, "test2")
         );
         when(restTemplate.getForObject(URL, long[].class)).thenReturn(groups);
 

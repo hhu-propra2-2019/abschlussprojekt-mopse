@@ -18,9 +18,4 @@ public class Group {
      */
     private String name;
 
-    /**
-     * group root dir
-     */
-    private long rootDir;
-
 }
