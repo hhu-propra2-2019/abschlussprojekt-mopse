@@ -27,10 +27,10 @@ include::../api/external-api.adoc[]
 PermissionService::
 
 Wir haben einen `PermissionService` implementiert, der unsere Anfragen an die Gruppe `GruppenFindung` stellt.
-Dieser stellt zwei Anfragen.
+Dieser stellt zwei Anfragen:
 Eine für die Rolle eines Nutzers innerhalb einer Gruppe und einmal alle Rollen in einer Gruppe.
 
-Da während der Entwicklungszeit der externe Service uns nicht zur Verfügung steht, haben wir einen Stub entwickelt, welcher fixe Rollen zurück gibt.
+Da während der Entwicklungszeit der externe Service uns nicht zur Verfügung steht, haben wir einen Stub entwickelt, welcher fixe Rollen zurückgibt.
 Wir haben uns dazu an der RESTApi Wiki von GruppenFindung orientiert.
 
 ****
