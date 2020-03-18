@@ -77,6 +77,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @SuppressWarnings("PMD.LawOfDemeter")
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
+        forceHTTPS(http);
         http.authorizeRequests()
                 .antMatchers("/actuator/**")
                 .hasRole("monitoring")
@@ -97,5 +98,18 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
     public static class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
+    }
+
+    /**
+     * Redirect all requests to SSL if headers in proxy are set.
+     *
+     * @param http http security
+     * @throws Exception on error
+     */
+    @SuppressWarnings({"PMD.SignatureDeclareThrowsException", "PMD.LawOfDemeter"})
+    private void forceHTTPS(HttpSecurity http) throws Exception {
+        http.requiresChannel()
+                .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+                .requiresSecure();
     }
 }

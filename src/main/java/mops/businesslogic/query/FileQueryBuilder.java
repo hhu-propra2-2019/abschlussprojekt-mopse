@@ -3,6 +3,7 @@ package mops.businesslogic.query;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import mops.businesslogic.FileQueryForm;
 
 import java.util.*;
 
@@ -89,6 +90,20 @@ public class FileQueryBuilder {
             index++;
         }
 
+        return this;
+    }
+
+    /**
+     * Create FileQuery from FileQueryForm.
+     *
+     * @param form FileFormQuery
+     * @return this
+     */
+    public FileQueryBuilder from(@NonNull FileQueryForm form) {
+        names(Arrays.asList(form.getFileNames()));
+        owners(Arrays.asList(form.getOwners()));
+        types(Arrays.asList(form.getTypes()));
+        tags(Arrays.asList(form.getTags()));
         return this;
     }
 
