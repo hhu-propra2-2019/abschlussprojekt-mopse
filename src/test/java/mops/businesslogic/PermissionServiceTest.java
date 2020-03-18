@@ -32,7 +32,6 @@ public class PermissionServiceTest {
         restTemplate = mock(RestTemplate.class);
         permissionService = new PermissionServiceProdImpl(restTemplate);
         userName = "Carlo";
-
     }
 
     @Test
