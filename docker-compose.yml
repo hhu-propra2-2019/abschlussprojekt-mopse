@@ -7,6 +7,7 @@ services:
       - "${MATERIAL1_DB_PORT:-23306}:3306"
     volumes:
       - material1_db_volume:/var/lib/mysql
+      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
     env_file:
       - prod.env
   material1:
