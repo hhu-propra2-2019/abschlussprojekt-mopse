@@ -95,7 +95,7 @@ public class FileServiceImpl implements FileService {
                     fileId,
                     e.getMessage()
             );
-            throw new FileNotFoundException(String.format("Datei mit ID %d wurde nicht gefunden", fileId));
+            throw new FileNotFoundException(String.format("Datei mit ID %d wurde nicht gefunden", fileId), e);
         }
 
         UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
