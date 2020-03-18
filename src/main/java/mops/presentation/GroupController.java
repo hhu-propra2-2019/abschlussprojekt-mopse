@@ -13,6 +13,7 @@ import mops.exception.MopsException;
 import mops.persistence.file.FileInfo;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -67,6 +68,7 @@ public class GroupController {
      */
     @GetMapping(value = "/{groupId}/url", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
+    @Secured("ROLE_api_user")
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public GroupRootDirWrapper getGroupUrl(KeycloakAuthenticationToken token,
                                            Model model,
