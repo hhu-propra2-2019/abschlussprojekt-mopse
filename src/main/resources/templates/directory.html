@@ -17,9 +17,9 @@
                 const counter = window[type + "Counter"];
 
                 const parent = document.getElementById(type);
-                const div1 = document.createElement("div");
-                const div2 = document.createElement("div");
-                const div3 = document.createElement("div");
+                const searchFormElement = document.createElement("div");
+                const searchFormLine = document.createElement("div");
+                const searchFormButton = document.createElement("div");
                 const text = document.createElement("input");
                 const button = document.createElement("input");
 
@@ -30,13 +30,19 @@
                 button.type = "button";
                 button.value = "+";
                 button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', '" + placeholder + "');");
-                div1.id = text.name;
+                searchFormElement.id = text.name;
 
-                div2.appendChild(text);
-                div3.appendChild(button);
-                div1.appendChild(div2);
-                div1.appendChild(div3);
-                parent.appendChild(div1);
+                // add css classes
+                searchFormElement.setAttribute("class", "searchFormElement");
+                searchFormLine.setAttribute("class", "searchFormLine");
+                searchFormButton.setAttribute("class", "searchFormLine");
+                button.setAttribute("class", "searchFormButton");
+
+                searchFormLine.appendChild(text);
+                searchFormButton.appendChild(button);
+                searchFormElement.appendChild(searchFormLine);
+                searchFormElement.appendChild(searchFormButton);
+                parent.appendChild(searchFormElement);
 
                 window[type + "Counter"]++;
 
@@ -64,6 +70,7 @@
                 }
             }
         </script>
+        <link rel="stylesheet" type="text/css" href="styles.css">
     </th:block>
 </head>
 <body>
@@ -73,6 +80,61 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
+    <form action="#" th:action="@{/search}" th:method="post" th:object="${fileQueryForm}" class="searchForm">
+        <div id="fileNames" class="searchFormCategory">
+            <div id="fileNames[0]" class="searchFormElement">
+                <div class="searchFormLine"><input type="text" name="fileNames[0]" placeholder="Dateiname"
+                                                   th:field="*{fileNames[0]}"></div>
+                <div class="searchFormLine"><input type="button" value="+"
+                                                   onclick="addNewInputLine('fileNames', 'Dateiname')"
+                                                   class="searchFormButton"></div>
+            </div>
+        </div>
+        <div><input type="button" value="-" id="fileNamesDelete" onclick="deleteLastInputLine('fileNames[0]')"
+                    class="searchFormButton searchFormDeleteButton"></div>
+
+        <div id="owners" class="searchFormCategory">
+            <div id="owners[0]" class="searchFormElement">
+                <div class="searchFormLine"><input type="text" name="owners[0]" placeholder="Besitzer"
+                                                   th:field="*{owners[0]}"></div>
+                <div class="searchFormLine"><input type="button" value="+"
+                                                   onclick="addNewInputLine('owners', 'Besitzer')"
+                                                   class="searchFormButton"></div>
+            </div>
+        </div>
+        <div><input type="button" value="-" id="ownersDelete" onclick="deleteLastInputLine('owners[0]')"
+                    class="searchFormButton searchFormDeleteButton"></div>
+
+        <div id="types" class="searchFormCategory">
+            <div id="types[0]" class="searchFormElement">
+                <div class="searchFormLine"><input type="text" name="types[0]" placeholder="Dateityp"
+                                                   th:field="*{types[0]}"></div>
+                <div class="searchFormLine"><input type="button" value="+"
+                                                   onclick="addNewInputLine('types', 'Dateityp')"
+                                                   class="searchFormButton"></div>
+            </div>
+        </div>
+        <div><input type="button" value="-" id="typesDelete" onclick="deleteLastInputLine('types[0]')"
+                    class="searchFormButton searchFormDeleteButton"></div>
+
+        <div id="tags" class="searchFormCategory">
+            <div id="tags[0]" class="searchFormElement">
+                <div class="searchFormLine"><input type="text" name="tags[0]" placeholder="Tags" th:field="*{tags[0]}">
+                </div>
+                <div class="searchFormLine"><input type="button" value="+" onclick="addNewInputLine('tags', 'Tags')"
+                                                   class="searchFormButton"></div>
+            </div>
+        </div>
+        <div class="searchFormLine"><input type="button" value="-" id="tagsDelete"
+                                           onclick="deleteLastInputLine('tags[0]')"
+                                           class="searchFormButton searchFormDeleteButton"></div>
+
+        <div>
+            <div><input type="submit" name="searchFile" value="Datei suchen"
+                        class="searchFormButton searchFormSubmitButton"></div>
+        </div>
+    </form>
+
     <table>
         <tr>
             <th>Name</th>
@@ -103,47 +165,19 @@
             </td>
         </tr>
     </table>
-    <form action="#" th:action="@{/create}" th:method="post">
-        <input type="text" name="folderName">
-        <input type="submit" name="newFolder" value="Neuer Ordner">
-    </form>
-    <form action="#" th:action="@{/upload}" th:method="post">
-        <input type="file" name="file">
-        <input type="submit" name="uploadFile" value="Datei Hochladen">
-    </form>
-    <form action="#" th:action="@{/search}" th:method="post" th:object="${fileQueryForm}">
-        <div id="fileNames">
-            <div id="fileNames[0]">
-                <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{fileNames[0]}"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('fileNames', 'Dateiname')"></div>
-            </div>
-        </div>
-        <div><input type="button" value="-" id="fileNamesDelete" onclick="deleteLastInputLine('fileNames[0]')"></div>
-        <div id="owners">
-            <div id="owners[0]">
-                <div><input type="text" name="owners[0]" placeholder="Besitzer" th:field="*{owners[0]}"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('owners', 'Besitzer')"></div>
-            </div>
-        </div>
-        <div><input type="button" value="-" id="ownersDelete" onclick="deleteLastInputLine('owners[0]')"></div>
-        <div id="types">
-            <div id="types[0]">
-                <div><input type="text" name="types[0]" placeholder="Dateityp" th:field="*{types[0]}"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('types', 'Dateityp')"></div>
-            </div>
-        </div>
-        <div><input type="button" value="-" id="typesDelete" onclick="deleteLastInputLine('types[0]')"></div>
-        <div id="tags">
-            <div id="tags[0]">
-                <div><input type="text" name="tags[0]" placeholder="Tags" th:field="*{tags[0]}"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('tags', 'Tags')"></div>
-            </div>
-        </div>
-        <div><input type="button" value="-" id="tagsDelete" onclick="deleteLastInputLine('tags[0]')"></div>
-        <div>
-            <div><input type="submit" name="searchFile" value="Datei suchen"></div>
-        </div>
-    </form>
+    <div class="uploadForms">
+        <form action="#" th:action="@{/upload}" th:method="post" class="uploadForm">
+            <input type="file" name="file">
+            <input type="submit" name="uploadFile" value="Datei Hochladen">
+        </form>
+
+        <form action="#" th:action="@{/create}" th:method="post" class="uploadForm">
+            <input type="text" name="folderName">
+            <input type="submit" name="newFolder" value="Neuer Ordner">
+        </form>
+    </div>
+
+
 </main>
 </body>
 </html>

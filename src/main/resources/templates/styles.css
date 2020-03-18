@@ -1,0 +1,32 @@
+.searchForm {
+    display: flex;
+}
+
+.searchForm .searchFormCategory {
+
+}
+
+.searchForm .searchFormCategory .searchFormElement {
+    display:flex;
+}
+
+.searchForm .searchFormCategory .searchFormElement .searchFormLine {
+    margin: 5px 10px 5px 0px;
+}
+
+
+.searchFormDeleteButton {
+    margin: 5px;
+}
+
+.searchFormSubmitButton {
+    margin: 5px;
+}
+
+.uploadForms {
+    display: flex;
+}
+
+.uploadForms .uploadForm {
+    margin: 5px 20px 5px 0px;
+}
