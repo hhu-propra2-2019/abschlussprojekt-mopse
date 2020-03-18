@@ -41,7 +41,7 @@ class FileServiceTest {
     }
 
     @BeforeAll
-    void setUp() {
+    void setup() {
         random = new Random();
         file = new MockMultipartFile("file.bin",
                 "originalFilename",

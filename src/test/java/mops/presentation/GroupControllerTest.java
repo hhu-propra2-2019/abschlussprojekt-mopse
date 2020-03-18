@@ -62,7 +62,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      * Tests the API for getting the group url.
      */
     @Test
-    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    @WithMockKeycloackAuth(roles = "api_user", idToken = @WithIDToken(email = "user@mail.de"))
     void getGroupUrl() throws Exception {
         mockMvc().perform(get("/material1/group/{groupId}/url", 1L))
                 .andExpect(status().isOk())
@@ -78,6 +78,14 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                                 fieldWithPath(".root_dir_id").description("The id of the group's root directory."),
                                 fieldWithPath(".root_dir_url").description("The url of the group's root directory.")
                         )));
+    }
+
+    @Test
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void getGroupUrlForbidden() throws Exception {
+        mockMvc()
+                .perform(get("/material1/group/{groupId}/url", 1L))
+                .andExpect(status().isForbidden());
     }
 
     /**
