@@ -1,23 +1,26 @@
 package mops.businesslogic;
 
+import lombok.Value;
+
 /**
  * Represents a group (course, study group, etc.).
  */
-public interface Group {
+@Value
+public class Group {
 
     /**
-     * @return database id
+     * database id
      */
-    Long getId();
+    private Long id;
 
     /**
-     * @return group name
+     * group name
      */
-    String getName();
+    private String name;
 
     /**
-     * @return group root dir
+     * group root dir
      */
-    long getRootDir();
+    private long rootDir;
 
 }
