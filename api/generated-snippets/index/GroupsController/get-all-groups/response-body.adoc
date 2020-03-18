@@ -115,13 +115,11 @@
 </header>
 <div class="main-wrapper"><main>
     <table>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Typ</th>
-            </tr>
-            
-        </table>
+        <tr>
+            <th>Name</th>
+            <th>Typ</th>
+        </tr>
+        
     </table>
 </main></div>
 <footer class="footer footer-main">

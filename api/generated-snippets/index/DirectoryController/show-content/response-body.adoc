@@ -11,6 +11,63 @@
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
+        <script>
+            fileNamesCounter = "1";
+            ownersCounter = "1";
+            typesCounter = "1";
+            tagsCounter = "1";
+
+            function addNewInputLine(type, placeholder) {
+                const counter = window[type + "Counter"];
+
+                const parent = document.getElementById(type);
+                const div1 = document.createElement("div");
+                const div2 = document.createElement("div");
+                const div3 = document.createElement("div");
+                const text = document.createElement("input");
+                const button = document.createElement("input");
+
+                text.type = "text";
+                text.name = type + "[" + counter + "]";
+                text.placeholder = placeholder;
+                text.setAttribute("th:field", type + "[" + counter + "]");
+                button.type = "button";
+                button.value = "+";
+                button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', '" + placeholder + "');");
+                div1.id = text.name;
+
+                div2.appendChild(text);
+                div3.appendChild(button);
+                div1.appendChild(div2);
+                div1.appendChild(div3);
+                parent.appendChild(div1);
+
+                window[type + "Counter"]++;
+
+                const delButtonName = type + "[" + counter + "]";
+                const delButtonID = type + "Delete";
+                document.getElementById(delButtonID).setAttribute("onclick", "javascript: deleteLastInputLine('" + delButtonName + "')");
+            }
+
+            function deleteLastInputLine(del) {
+                const idLength = del.length;
+                const substring = del.substring(0, idLength - 3);
+
+                const counter = del.substring(idLength - 2, idLength - 1);
+                console.log(counter);
+                if (counter > 0) {
+                    // delete element
+                    const child = document.getElementById(del);
+                    child.parentNode.removeChild(child);
+
+                    // update deleteButton
+                    window[substring + "Counter"]--;
+                    const newOnclick = substring + "[" + (window[substring + "Counter"] - 1) + "]";
+                    const delButtonID = substring + "Delete";
+                    document.getElementById(delButtonID).setAttribute("onclick", "javascript: deleteLastInputLine('" + newOnclick + "')");
+                }
+            }
+        </script>
     
 </head>
 <body>
@@ -124,6 +181,47 @@
         
         
     </table>
+    <form action="/create" method="post"><input type="hidden" name="_csrf" value="26d61d75-587a-4091-95c1-4124963639c9"/>
+        <input type="text" name="folderName">
+        <input type="submit" name="newFolder" value="Neuer Ordner">
+    </form>
+    <form action="/upload" method="post"><input type="hidden" name="_csrf" value="26d61d75-587a-4091-95c1-4124963639c9"/>
+        <input type="file" name="file">
+        <input type="submit" name="uploadFile" value="Datei Hochladen">
+    </form>
+    <form action="/search" method="post"><input type="hidden" name="_csrf" value="26d61d75-587a-4091-95c1-4124963639c9"/>
+        <div id="fileNames">
+            <div id="fileNames[0]">
+                <div><input type="text" name="fileNames[0]" placeholder="Dateiname" id="fileNames0" value=""></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('fileNames', 'Dateiname')"></div>
+            </div>
+        </div>
+        <div><input type="button" value="-" id="fileNamesDelete" onclick="deleteLastInputLine('fileNames[0]')"></div>
+        <div id="owners">
+            <div id="owners[0]">
+                <div><input type="text" name="owners[0]" placeholder="Besitzer" id="owners0" value=""></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('owners', 'Besitzer')"></div>
+            </div>
+        </div>
+        <div><input type="button" value="-" id="ownersDelete" onclick="deleteLastInputLine('owners[0]')"></div>
+        <div id="types">
+            <div id="types[0]">
+                <div><input type="text" name="types[0]" placeholder="Dateityp" id="types0" value=""></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('types', 'Dateityp')"></div>
+            </div>
+        </div>
+        <div><input type="button" value="-" id="typesDelete" onclick="deleteLastInputLine('types[0]')"></div>
+        <div id="tags">
+            <div id="tags[0]">
+                <div><input type="text" name="tags[0]" placeholder="Tags" id="tags0" value=""></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('tags', 'Tags')"></div>
+            </div>
+        </div>
+        <div><input type="button" value="-" id="tagsDelete" onclick="deleteLastInputLine('tags[0]')"></div>
+        <div>
+            <div><input type="submit" name="searchFile" value="Datei suchen"></div>
+        </div>
+    </form>
 </main></div>
 <footer class="footer footer-main">
   <div class="account">
