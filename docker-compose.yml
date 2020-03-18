@@ -21,6 +21,7 @@ services:
       - prod.env
     environment:
       MATERIAL1_PORT: ${MATERIAL1_PORT:-8080}
+      MATERIAL1_DB_HOST: ${MATERIAL1_DB_HOST:-material1_db}
       MATERIAL1_DB_PORT: ${MATERIAL1_DB_PORT:-23306}
 
 volumes:

@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Material1Application - prod" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="material1.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="mops.Material1Application" />
+    <option name="ACTIVE_PROFILES" value="prod" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <envs>
+      <env name="MYSQL_ROOT_PASSWORD" value="password" />
+      <env name="MYSQL_DATABASE" value="material1" />
+      <env name="MATERIAL1_PORT" value="8080" />
+      <env name="MATERIAL1_DB_PORT" value="23306" />
+      <env name="MATERIAL1_DB_HOST" value="localhost" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
