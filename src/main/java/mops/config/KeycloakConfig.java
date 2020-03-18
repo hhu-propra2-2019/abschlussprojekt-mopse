@@ -52,6 +52,7 @@ public class KeycloakConfig {
      * @return secured restTemplate
      */
     @Bean
+    @SuppressWarnings("deprecation") // best solution as of now
     public RestTemplate serviceAccountRestTemplate() {
         ClientCredentialsResourceDetails resourceDetails = new ClientCredentialsResourceDetails();
         resourceDetails.setGrantType(OAuth2Constants.CLIENT_CREDENTIALS);
