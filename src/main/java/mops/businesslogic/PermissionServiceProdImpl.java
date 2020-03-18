@@ -40,7 +40,9 @@ public class PermissionServiceProdImpl implements PermissionService {
         Permission permission = restTemplate.getForObject(URL, Permission.class);
         if (permission == null) {
             log.error("The request for user roles for user '{}' in group {} failed.", account.getName(), groupId);
-            throw new GruppenFindungException("Es konnte keine Rolle für Sie gefunden werden.");
+            throw new GruppenFindungException(String.format(
+                    "Es konnte keine Rolle für Sie in Gruppe %d gefunden werden.",
+                    groupId));
         }
         return permission.getRoleInGroup(groupId);
     }
