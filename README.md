@@ -53,7 +53,7 @@ Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `minio_dev`-Serv
 oder alternativ in der Konsole `docker-compose -f docker-compose.dev.yml down --volumes minio_dev` ausführen. 
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
 1. Run Configuration `docker-compose.yml: MariaDB` starten
-oder alternativ `docker-compose up material1_db` in der Konsole auführen.
+oder alternativ `docker-compose up material1_db` in der Konsole ausführen.
 Dies kann mehrere Minuten dauern.
 Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `material1_db`-Service beendet
 oder alternativ in der Konsole `docker-compose down --volumes material1_db` ausführen. 
