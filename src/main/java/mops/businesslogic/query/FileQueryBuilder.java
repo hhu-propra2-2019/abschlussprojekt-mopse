@@ -99,7 +99,7 @@ public class FileQueryBuilder {
      * @param form FileFormQuery
      * @return this
      */
-    public FileQueryBuilder from(FileQueryForm form) {
+    public FileQueryBuilder from(@NonNull FileQueryForm form) {
         names(Arrays.asList(form.getFileNames()));
         owners(Arrays.asList(form.getOwners()));
         types(Arrays.asList(form.getTypes()));
