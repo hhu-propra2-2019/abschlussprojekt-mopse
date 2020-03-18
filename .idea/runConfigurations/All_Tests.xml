@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="All in material1.test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+  <configuration default="false" name="All Tests" type="JUnit" factoryName="JUnit">
     <module name="material1.test" />
     <useClassPathOnly />
     <option name="PACKAGE_NAME" value="" />
