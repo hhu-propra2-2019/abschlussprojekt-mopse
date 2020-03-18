@@ -62,7 +62,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      * Tests the API for getting the group url.
      */
     @Test
-    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    @WithMockKeycloackAuth(roles = "api_user", idToken = @WithIDToken(email = "user@mail.de"))
     void getGroupUrl() throws Exception {
         mockMvc().perform(get("/material1/group/{groupId}/url", 1L))
                 .andExpect(status().isOk())
