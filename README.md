@@ -38,9 +38,10 @@ oder alternativ die Spring Anwendung im Profil `dev` starten.
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
 1. Docker starten und eventuell in IntelliJ einbinden.
-1. Eine Datei namens `prod.env` im Wurzelverzeichnis nach der Vorlage der in der Datei `prod-template.env` erstellen
-(also `prod-template.env` duplizieren und die Kopie in `prod.env` umbenennen), Änderungen sind für das lokale Starten
-nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig für das Starten des MariaDB Containers.
+1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage der in der Datei `prod-template.env`
+erstellen (also `prod-template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
+Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
+für das Starten des MariaDB Containers.
 1. Run Configuration `docker-compose.dev.yml: MinIO` starten.
 oder alternativ `docker-compose -f docker-compose.dev.yml minio_dev` in der Konsole.
 1. Run Configuration `docker-compose.yml: MariaDB` starten
