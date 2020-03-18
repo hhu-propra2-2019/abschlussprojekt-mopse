@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
+@SuppressWarnings("PMD")
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     /**
@@ -77,6 +78,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @SuppressWarnings("PMD.LawOfDemeter")
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
+        forceHTTPS(http);
         http.authorizeRequests()
                 .antMatchers("/actuator/**")
                 .hasRole("monitoring")
@@ -97,5 +99,17 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
     public static class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
+    }
+
+    /**
+     * Redirect all Requests to SSL if header in proxy are set.
+     *
+     * @param http
+     * @throws Exception
+     */
+    private void forceHTTPS(HttpSecurity http) throws Exception {
+        http.requiresChannel()
+                .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+                .requiresSecure();
     }
 }
