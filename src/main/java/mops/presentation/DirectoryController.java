@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -169,16 +168,8 @@ public class DirectoryController {
         Account account = AccountUtil.getAccountFromToken(token);
         List<FileInfo> files = null;
 
-        // convert FileQueryForm to FileQuery
-        Iterable<String> nameList = Arrays.asList(queryForm.getFileNames());
-        Iterable<String> ownerList = Arrays.asList(queryForm.getOwners());
-        Iterable<String> typeList = Arrays.asList(queryForm.getTypes());
-        Iterable<String> tagList = Arrays.asList(queryForm.getTags());
         FileQuery query = FileQuery.builder()
-                .names(nameList)
-                .owners(ownerList)
-                .types(typeList)
-                .tags(tagList)
+                .from(queryForm)
                 .build();
 
         try {
