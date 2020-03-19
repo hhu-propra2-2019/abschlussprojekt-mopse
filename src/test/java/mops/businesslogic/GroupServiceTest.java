@@ -1,6 +1,7 @@
 package mops.businesslogic;
 
 import mops.exception.MopsException;
+import mops.persistence.directory.Directory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-import static mops.businesslogic.PermissionServiceProdImpl.URL;
+import static mops.businesslogic.GroupServiceProdImpl.gruppenFindungUrl;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -25,6 +26,7 @@ public class GroupServiceTest {
     DirectoryService directoryService;
 
     long groupId;
+    long rootDirId;
     String userName;
     private Account carlo;
 
@@ -32,6 +34,7 @@ public class GroupServiceTest {
     @BeforeEach
     void setup() {
         groupId = 1L;
+        rootDirId = 1L;
         restTemplate = mock(RestTemplate.class);
         groupService = new GroupServiceProdImpl(directoryService, restTemplate);
         userName = "Carlo";
@@ -40,7 +43,18 @@ public class GroupServiceTest {
     }
 
     @Test
-    public void getGroupUrl() {
+    public void getGroupUrl() throws MopsException {
+        GroupRootDirWrapper groupRootDirWrapper = new GroupRootDirWrapper(groupId, rootDirId);
+        when(directoryService.getOrCreateRootFolder(carlo, groupId)).thenReturn(Directory.builder()
+                .id(rootDirId)
+                .groupOwner(groupId)
+                .permissions(1L)
+                .name("test")
+                .build());
+
+        GroupRootDirWrapper groupUrl = groupService.getGroupUrl(carlo, groupId);
+
+        assertThat(groupUrl).isEqualTo(groupRootDirWrapper);
     }
 
     @Test
@@ -54,7 +68,7 @@ public class GroupServiceTest {
                 groupOne,
                 groupTwo
         );
-        when(restTemplate.getForObject(URL, Group[].class)).thenReturn(groups);
+        when(restTemplate.getForObject(gruppenFindungUrl, Group[].class)).thenReturn(groups);
 
         List<Group> requestedGroups = groupService.getAllGroups(carlo);
 
