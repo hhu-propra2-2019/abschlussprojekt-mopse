@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6};
+var data = {"i0":6,"i1":6,"i2":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -161,6 +161,11 @@ extends org.springframework.data.repository.CrudRepository&lt;<a href="directory
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupFolderCount(long)">getGroupFolderCount</a></span>&#8203;(long&nbsp;groupOwner)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>java.util.Optional&lt;<a href="directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootFolder(long)">getRootFolder</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.org.springframework.data.repository.CrudRepository">
@@ -205,7 +210,7 @@ java.util.List&lt;<a href="directory/Directory.html" title="class in mops.persis
 <a id="getGroupFolderCount(long)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getGroupFolderCount</h4>
 <pre class="methodSignature">@Query("SELECT COUNT(*) FROM directory WHERE group_owner = :groupOwner")
@@ -216,6 +221,23 @@ long&nbsp;getGroupFolderCount&#8203;(@Param("groupOwner")
 <dd><code>groupOwner</code> - the group od</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the number of the folders the group already has</dd>
+</dl>
+</li>
+</ul>
+<a id="getRootFolder(long)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getRootFolder</h4>
+<pre class="methodSignature">@Query("SELECT * FROM directory WHERE id = :groupId AND parent_id IS NULL")
+java.util.Optional&lt;<a href="directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;&nbsp;getRootFolder&#8203;(@Param("groupId")
+                                            long&nbsp;groupId)</pre>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - the id of group</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the group directory</dd>
 </dl>
 </li>
 </ul>

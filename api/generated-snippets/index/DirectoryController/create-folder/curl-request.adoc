@@ -1,5 +1,5 @@
 [source,bash]
 ----
 $ curl 'http://localhost:8080/material1/dir/1/create' -i -X POST \
-    -d '_csrf=a09a557a-ea08-4e55-9096-12cf160b1c9c'
+    -d '_csrf=f722ba23-f011-40e0-b88c-de0689f2d6e7'
 ----

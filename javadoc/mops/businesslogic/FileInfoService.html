@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -158,20 +158,27 @@ public interface <span class="typeNameLabel">FileInfoService</span></pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>java.util.Set&lt;java.lang.Long&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchAllFileInfoIds()">fetchAllFileInfoIds</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Fetches all available FileInfo IDs.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchAllFilesInDirectory(long)">fetchAllFilesInDirectory</a></span>&#8203;(long&nbsp;dirId)</code></th>
 <td class="colLast">
 <div class="block">Lists all files in a specific directory.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchFileInfo(long)">fetchFileInfo</a></span>&#8203;(long&nbsp;fileId)</code></th>
 <td class="colLast">
 <div class="block">Get a file by id.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveFileInfo(mops.persistence.file.FileInfo)">saveFileInfo</a></span>&#8203;(<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&nbsp;fileInfo)</code></th>
 <td class="colLast">
@@ -255,7 +262,7 @@ public interface <span class="typeNameLabel">FileInfoService</span></pre>
 <a id="deleteFileInfo(long)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>deleteFileInfo</h4>
 <pre class="methodSignature">void&nbsp;deleteFileInfo&#8203;(long&nbsp;fileId)
@@ -266,6 +273,23 @@ public interface <span class="typeNameLabel">FileInfoService</span></pre>
 <dd><code>fileId</code> - file id</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="fetchAllFileInfoIds()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>fetchAllFileInfoIds</h4>
+<pre class="methodSignature">java.util.Set&lt;java.lang.Long&gt;&nbsp;fetchAllFileInfoIds()
+                                           throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Fetches all available FileInfo IDs.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>all IDs</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
 </dl>
 </li>
 </ul>

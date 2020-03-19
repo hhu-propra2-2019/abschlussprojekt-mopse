@@ -243,8 +243,7 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrCreateRootFolder(mops.businesslogic.Account,long)">getOrCreateRootFolder</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
-                     long&nbsp;groupId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrCreateRootFolder(long)">getOrCreateRootFolder</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Creates the group root directory.</div>
 </td>
@@ -414,21 +413,19 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 </dl>
 </li>
 </ul>
-<a id="getOrCreateRootFolder(mops.businesslogic.Account,long)">
+<a id="getOrCreateRootFolder(long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getOrCreateRootFolder</h4>
-<pre class="methodSignature">public&nbsp;<a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;getOrCreateRootFolder&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
-                                       long&nbsp;groupId)
+<pre class="methodSignature">public&nbsp;<a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;getOrCreateRootFolder&#8203;(long&nbsp;groupId)
                                 throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
 <div class="block">Creates the group root directory.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="DirectoryService.html#getOrCreateRootFolder(mops.businesslogic.Account,long)">getOrCreateRootFolder</a></code>&nbsp;in interface&nbsp;<code><a href="DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a></code></dd>
+<dd><code><a href="DirectoryService.html#getOrCreateRootFolder(long)">getOrCreateRootFolder</a></code>&nbsp;in interface&nbsp;<code><a href="DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>account</code> - user credentials</dd>
 <dd><code>groupId</code> - the group id</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the directory created</dd>
