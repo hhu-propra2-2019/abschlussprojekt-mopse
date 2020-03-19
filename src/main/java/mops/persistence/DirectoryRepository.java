@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @AggregateBuilder
@@ -26,5 +27,12 @@ public interface DirectoryRepository extends CrudRepository<Directory, Long> {
      */
     @Query("SELECT COUNT(*) FROM directory WHERE group_owner = :groupOwner")
     long getGroupFolderCount(@Param("groupOwner") long groupOwner);
+
+    /**
+     * @param groupId the id of group
+     * @return the group directory
+     */
+    @Query("SELECT * FROM directory WHERE id = :groupId AND parent_id IS NULL")
+    Optional<Directory> getRootFolder(@Param("groupId") long groupId);
 
 }
