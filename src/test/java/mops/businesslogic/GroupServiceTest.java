@@ -68,7 +68,6 @@ class GroupServiceTest {
                 groupOne,
                 groupTwo
         );
-        //TODO: needs to be changed to ends with when routes are know.
         when(restTemplate.getForObject(endsWith("/get-all"), eq(Group[].class))).thenReturn(groups);
 
         List<Group> requestedGroups = groupService.getAllGroups(carlo);
