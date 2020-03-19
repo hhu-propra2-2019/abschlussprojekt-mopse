@@ -111,9 +111,6 @@ class FileInfoTest {
 
     @Test
     void fetchAllIds() {
-        //clear all
-        repo.deleteAll();
-
         FileInfo f1 = FileInfo.builder()
                 .name("a")
                 .directory(rootDir)
