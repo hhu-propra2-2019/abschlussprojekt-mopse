@@ -181,15 +181,15 @@
         
         
     </table>
-    <form action="/create" method="post"><input type="hidden" name="_csrf" value="4b5c6942-16b1-461b-9e62-a2b07ee4c53d"/>
+    <form action="/create" method="post"><input type="hidden" name="_csrf" value="843f3006-8831-4bb7-8744-1dfdbcfb05a1"/>
         <input type="text" name="folderName">
         <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
-    <form action="/upload" method="post"><input type="hidden" name="_csrf" value="4b5c6942-16b1-461b-9e62-a2b07ee4c53d"/>
+    <form action="/upload" method="post"><input type="hidden" name="_csrf" value="843f3006-8831-4bb7-8744-1dfdbcfb05a1"/>
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
-    <form action="/search" method="post"><input type="hidden" name="_csrf" value="4b5c6942-16b1-461b-9e62-a2b07ee4c53d"/>
+    <form action="/search" method="post"><input type="hidden" name="_csrf" value="843f3006-8831-4bb7-8744-1dfdbcfb05a1"/>
         <div id="fileNames">
             <div id="fileNames[0]">
                 <div><input type="text" name="fileNames[0]" placeholder="Dateiname" id="fileNames0" value=""></div>
