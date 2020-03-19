@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @Slf4j
 @Repository
@@ -155,6 +157,27 @@ public class FileRepository {
         }
 
         return objectStat != null;
+    }
+
+    /**
+     * Fetches all IDs.
+     *
+     * @return all File IDs
+     */
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" })
+    public Set<Long> getAllIds() throws StorageException {
+        try {
+            Iterable<Result<Item>> results = minioClient.listObjects(configuration.getBucketName());
+            Set<Long> ids = new HashSet<>();
+            for (Result<Item> item : results) {
+                ids.add(
+                        Long.parseLong(item.get().objectName())
+                );
+            }
+            return ids;
+        } catch (Exception e) {
+            throw new StorageException("Fehler beim Laden aller File IDs.", e);
+        }
     }
 
     /**
