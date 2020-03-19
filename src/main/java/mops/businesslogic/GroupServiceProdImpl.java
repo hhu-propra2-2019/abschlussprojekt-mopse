@@ -42,7 +42,7 @@ public class GroupServiceProdImpl implements GroupService {
         if (groups == null) {
             log.error("The request for groups of user {} failed.", account.getName());
             throw new GruppenFindungException(String.format(
-                    "Es konnten keinen Gruppen für diese Nutzerin %s gefunden werden.",
+                    "Es konnten keinen Gruppen für die Nutzerin '%s' gefunden werden.",
                     account.getName()));
         }
         return List.of(groups);
