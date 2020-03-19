@@ -9,6 +9,13 @@ import java.util.List;
 public interface GroupService {
 
     /**
+     * Fetches all groups.
+     *
+     * @return a list of groups
+     */
+    List<Group> getAllGroups() throws MopsException;
+
+    /**
      * Fetches all visible groups of one user.
      *
      * @param account the account the user

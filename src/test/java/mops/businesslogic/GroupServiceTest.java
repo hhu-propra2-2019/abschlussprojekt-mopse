@@ -68,7 +68,7 @@ class GroupServiceTest {
                 groupOne,
                 groupTwo
         );
-        when(restTemplate.getForObject(endsWith("/get-all"), eq(Group[].class))).thenReturn(groups);
+        when(restTemplate.getForObject(endsWith("/get-all-groups-from-user"), eq(Group[].class))).thenReturn(groups);
 
         List<Group> requestedGroups = groupService.getAllGroups(carlo);
 
