@@ -260,9 +260,9 @@ public class DirectoryServiceImpl implements DirectoryService {
         DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
         builder.entry(ADMIN, true, true, true);
         roleNames
-            .stream()
-            .filter(role -> !role.equals(ADMIN))
-            .forEach(role -> builder.entry(role, true, false, false));
+                .stream()
+                .filter(role -> !role.equals(ADMIN))
+                .forEach(role -> builder.entry(role, true, false, false));
         return builder.build();
     }
 
