@@ -75,7 +75,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             fileInfoRepo.deleteById(fileId);
         } catch (Exception e) {
-            log.error("Failed to delete file with id {}", fileId);
+            log.error("Failed to delete file with id {}.", fileId);
             throw new DatabaseException("Datei-Informationen konnten nicht gelöscht werden!", e);
         }
     }
@@ -89,8 +89,50 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.getStorageUsage(groupId);
         } catch (Exception e) {
-            log.error("Failed to get total storage used by group with id {}", groupId);
+            log.error("Failed to get total storage used by group with id {}.", groupId);
             throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public long getStorageUsage() throws MopsException {
+        try {
+            return fileInfoRepo.getStorageUsage();
+        } catch (Exception e) {
+            log.error("Failed to get total storage used.");
+            throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public long getFileCount(long groupId) throws MopsException {
+        try {
+            return fileInfoRepo.getFileCount(groupId);
+        } catch (Exception e) {
+            log.error("Failed to get total file count in group with id {}.", groupId);
+            throw new DatabaseException("Gesamtdateianzahl konnte nicht geladen werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public long getFileCount() throws MopsException {
+        try {
+            return fileInfoRepo.count();
+        } catch (Exception e) {
+            log.error("Failed to get total file count.");
+            throw new DatabaseException("Gesamtdateianzahl konnte nicht geladen werden!", e);
         }
     }
 

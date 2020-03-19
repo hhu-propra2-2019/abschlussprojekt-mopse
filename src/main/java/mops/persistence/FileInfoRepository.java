@@ -31,6 +31,23 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
     long getStorageUsage(@Param("groupId") long groupId);
 
     /**
+     * Counts the total number of bytes in all groups.
+     *
+     * @return total storage usage in bytes
+     */
+    @Query("SELECT SUM(size) FROM file_info")
+    long getStorageUsage();
+
+    /**
+     * Counts the total number of files in a group.
+     *
+     * @param groupId group id
+     * @return total file count
+     */
+    @Query("SELECT COUNT(*) FROM file_info WHERE group_id = :groupId")
+    long getFileCount(@Param("groupId") long groupId);
+
+    /**
      * Fetches all file info ids.
      *
      * @return all ids

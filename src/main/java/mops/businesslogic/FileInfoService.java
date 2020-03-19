@@ -61,11 +61,25 @@ public interface FileInfoService {
     long getStorageUsage(long groupId) throws MopsException;
 
     /**
+     * Get the total number of bytes used by all groups.
+     *
+     * @return bytes used
+     */
+    long getStorageUsage() throws MopsException;
+
+    /**
      * Get the total number of files in a group.
      *
      * @param groupId group
      * @return file count
      */
     long getFileCount(long groupId) throws MopsException;
+
+    /**
+     * Get the total number of files in all groups.
+     *
+     * @return file count
+     */
+    long getFileCount() throws MopsException;
 
 }

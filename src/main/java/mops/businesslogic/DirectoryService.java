@@ -97,4 +97,11 @@ public interface DirectoryService {
      */
     long getDirCount(long groupId) throws MopsException;
 
+    /**
+     * Get the total number of directories in all groups.
+     *
+     * @return directory count
+     */
+    long getDirCount() throws MopsException;
+
 }

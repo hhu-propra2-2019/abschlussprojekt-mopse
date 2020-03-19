@@ -139,7 +139,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @SuppressWarnings("PMD.LawOfDemeter")
     public Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException {
         Directory rootDirectory = fetchDirectory(parentDirId);
-        long groupFolderCount = directoryRepository.getGroupFolderCount(rootDirectory.getGroupOwner());
+        long groupFolderCount = getDirCount(rootDirectory.getGroupOwner());
         if (groupFolderCount >= MAX_FOLDER_PER_GROUP) {
             log.error("The user '{}' tried to create another sub folder for the group with the id {}, "
                             + "but they already reached their max allowed folder count.",
@@ -237,6 +237,32 @@ public class DirectoryServiceImpl implements DirectoryService {
             return fetchDirectory(dirId);
         } catch (NoSuchElementException e) {
             throw new MopsException("Fehler beim Abrufen des Verzeichnisses", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getDirCount(long groupId) throws MopsException {
+        try {
+            return directoryRepository.getGroupFolderCount(groupId);
+        } catch (Exception e) {
+            log.error("Failed to get total directory count in group with id {}.", groupId);
+            throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getDirCount() throws MopsException {
+        try {
+            return directoryRepository.count();
+        } catch (Exception e) {
+            log.error("Failed to get total directory count.");
+            throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
         }
     }
 

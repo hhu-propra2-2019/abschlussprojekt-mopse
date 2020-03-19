@@ -14,7 +14,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class ActuatorComponent {
+public class PrometheusComponent {
 
     /**
      * Group service.
@@ -41,14 +41,53 @@ public class ActuatorComponent {
      * @param directoryService directory service
      * @param meterRegistry    meter registry
      */
-    public ActuatorComponent(GroupService groupService, FileInfoService fileInfoService,
-                             DirectoryService directoryService, MeterRegistry meterRegistry) {
+    public PrometheusComponent(GroupService groupService, FileInfoService fileInfoService,
+                               DirectoryService directoryService, MeterRegistry meterRegistry) {
         this.groupService = groupService;
         this.fileInfoService = fileInfoService;
         this.directoryService = directoryService;
         this.meterRegistry = meterRegistry;
 
+        addTotalGauges();
         addGroupGauges();
+    }
+
+    private void addTotalGauges() {
+        log.debug("Adding total storage gauge.");
+        Gauge
+                .builder("mops.material1.totalStorageUsage", () -> {
+                            try {
+                                return fileInfoService.getStorageUsage();
+                            } catch (MopsException ignored) {
+                                return 0L;
+                            }
+                        }
+                )
+                .register(meterRegistry);
+
+        log.debug("Adding total file count gauge.");
+        Gauge
+                .builder("mops.material1.totalFileCount", () -> {
+                            try {
+                                return fileInfoService.getFileCount();
+                            } catch (MopsException ignored) {
+                                return 0L;
+                            }
+                        }
+                )
+                .register(meterRegistry);
+
+        log.debug("Adding total directory count gauge.");
+        Gauge
+                .builder("mops.material1.totalDirCount", () -> {
+                            try {
+                                return directoryService.getDirCount();
+                            } catch (MopsException ignored) {
+                                return 0L;
+                            }
+                        }
+                )
+                .register(meterRegistry);
     }
 
     private void addGroupGauges() {
