@@ -19,6 +19,15 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    public List<Group> getAllGroups() throws MopsException {
+        // TODO: add some default groups here
+        return List.of();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
         // TODO: add some default groups here
         return List.of();

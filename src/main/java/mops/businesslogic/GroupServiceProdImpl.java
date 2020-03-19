@@ -35,9 +35,23 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    public List<Group> getAllGroups() throws MopsException {
+        // TODO: change to real route once known
+        Group[] groups = restTemplate.getForObject(gruppenFindungUrl + "/get-all-groups", Group[].class);
+        if (groups == null) {
+            log.error("The request for all groups failed.");
+            throw new GruppenFindungException("Es konnten keinen Gruppen gefunden werden.");
+        }
+        return List.of(groups);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
         // TODO: change to real route once known
-        Group[] groups = restTemplate.getForObject(gruppenFindungUrl + "/get-all", Group[].class);
+        Group[] groups = restTemplate.getForObject(gruppenFindungUrl + "/get-all-groups-from-user", Group[].class);
         if (groups == null) {
             log.error("The request for groups of user {} failed.", account.getName());
             throw new GruppenFindungException(String.format(
