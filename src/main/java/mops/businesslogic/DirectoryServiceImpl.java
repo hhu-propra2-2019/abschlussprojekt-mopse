@@ -109,7 +109,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn" })
-    public Directory getOrCreateRootFolder(Account account, long groupId) throws MopsException {
+    public Directory getOrCreateRootFolder(long groupId) throws MopsException {
         Optional<Directory> optionalDirectory = directoryRepository.getRootFolder(groupId);
         if (optionalDirectory.isPresent()) {
             return optionalDirectory.get();
@@ -258,7 +258,11 @@ public class DirectoryServiceImpl implements DirectoryService {
     //TODO: this is a template and can only implement when GruppenFindung defined their roles.
     private DirectoryPermissions createDefaultPermissions(Set<String> roleNames) {
         DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
-        roleNames.forEach(role -> builder.entry(role, true, true, true));
+        builder.entry(ADMIN, true, true, true);
+        roleNames
+            .stream()
+            .filter(role -> !role.equals(ADMIN))
+            .forEach(role -> builder.entry(role, true, false, false));
         return builder.build();
     }
 
