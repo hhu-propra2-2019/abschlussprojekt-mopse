@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -191,7 +191,7 @@ implements <a href="FileInfoService.html" title="interface in mops.businesslogic
 <td class="colFirst"><code>java.util.Set&lt;java.lang.Long&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchAllFileInfoIds()">fetchAllFileInfoIds</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Fetches all available FileInfo IDs.</div>
+<div class="block">Fetches all available FileInfo ids.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -209,6 +209,34 @@ implements <a href="FileInfoService.html" title="interface in mops.businesslogic
 </td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFileCountInGroup(long)">getFileCountInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Get the total number of files in a group.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStorageUsageInGroup(long)">getStorageUsageInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Get the total number of bytes used by that group.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalFileCount()">getTotalFileCount</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get the total number of files in all groups.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalStorageUsage()">getTotalStorageUsage</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get the total number of bytes used by all groups.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveFileInfo(mops.persistence.file.FileInfo)">saveFileInfo</a></span>&#8203;(<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&nbsp;fileInfo)</code></th>
 <td class="colLast">
@@ -340,6 +368,86 @@ implements <a href="FileInfoService.html" title="interface in mops.businesslogic
 </dl>
 </li>
 </ul>
+<a id="getStorageUsageInGroup(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getStorageUsageInGroup</h4>
+<pre class="methodSignature">public&nbsp;long&nbsp;getStorageUsageInGroup&#8203;(long&nbsp;groupId)
+                            throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Get the total number of bytes used by that group.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="FileInfoService.html#getStorageUsageInGroup(long)">getStorageUsageInGroup</a></code>&nbsp;in interface&nbsp;<code><a href="FileInfoService.html" title="interface in mops.businesslogic">FileInfoService</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - group</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>bytes used</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="getTotalStorageUsage()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTotalStorageUsage</h4>
+<pre class="methodSignature">public&nbsp;long&nbsp;getTotalStorageUsage()
+                          throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Get the total number of bytes used by all groups.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="FileInfoService.html#getTotalStorageUsage()">getTotalStorageUsage</a></code>&nbsp;in interface&nbsp;<code><a href="FileInfoService.html" title="interface in mops.businesslogic">FileInfoService</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>bytes used</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="getFileCountInGroup(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFileCountInGroup</h4>
+<pre class="methodSignature">public&nbsp;long&nbsp;getFileCountInGroup&#8203;(long&nbsp;groupId)
+                         throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Get the total number of files in a group.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="FileInfoService.html#getFileCountInGroup(long)">getFileCountInGroup</a></code>&nbsp;in interface&nbsp;<code><a href="FileInfoService.html" title="interface in mops.businesslogic">FileInfoService</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - group</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>file count</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="getTotalFileCount()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTotalFileCount</h4>
+<pre class="methodSignature">public&nbsp;long&nbsp;getTotalFileCount()
+                       throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Get the total number of files in all groups.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="FileInfoService.html#getTotalFileCount()">getTotalFileCount</a></code>&nbsp;in interface&nbsp;<code><a href="FileInfoService.html" title="interface in mops.businesslogic">FileInfoService</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>file count</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
 <a id="fetchAllFileInfoIds()">
 <!--   -->
 </a>
@@ -348,12 +456,12 @@ implements <a href="FileInfoService.html" title="interface in mops.businesslogic
 <h4>fetchAllFileInfoIds</h4>
 <pre class="methodSignature">public&nbsp;java.util.Set&lt;java.lang.Long&gt;&nbsp;fetchAllFileInfoIds()
                                                   throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
-<div class="block">Fetches all available FileInfo IDs.</div>
+<div class="block">Fetches all available FileInfo ids.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="FileInfoService.html#fetchAllFileInfoIds()">fetchAllFileInfoIds</a></code>&nbsp;in interface&nbsp;<code><a href="FileInfoService.html" title="interface in mops.businesslogic">FileInfoService</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>all IDs</dd>
+<dd>all ids</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
 </dl>

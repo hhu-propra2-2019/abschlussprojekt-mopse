@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6};
+var data = {"i0":6,"i1":6,"i2":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -151,12 +151,19 @@ public interface <span class="typeNameLabel">GroupService</span></pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="Group.html" title="class in mops.businesslogic">Group</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllGroups()">getAllGroups</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Fetches all groups.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="Group.html" title="class in mops.businesslogic">Group</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllGroups(mops.businesslogic.Account)">getAllGroups</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account)</code></th>
 <td class="colLast">
 <div class="block">Fetches all visible groups of one user.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupUrl(long)">getGroupUrl</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -178,6 +185,23 @@ public interface <span class="typeNameLabel">GroupService</span></pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="getAllGroups()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAllGroups</h4>
+<pre class="methodSignature">java.util.List&lt;<a href="Group.html" title="class in mops.businesslogic">Group</a>&gt;&nbsp;getAllGroups()
+                            throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Fetches all groups.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a list of groups</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
 <a id="getAllGroups(mops.businesslogic.Account)">
 <!--   -->
 </a>

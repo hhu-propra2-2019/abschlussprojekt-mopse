@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -155,13 +155,34 @@ extends org.springframework.data.repository.CrudRepository&lt;<a href="file/File
 <td class="colFirst"><code>java.util.Set&lt;java.lang.Long&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findAllIds()">findAllIds</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Fetches all IDs.</div>
+<div class="block">Fetches all file info ids.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findAllInDirectory(long)">findAllInDirectory</a></span>&#8203;(long&nbsp;dirId)</code></th>
 <td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFileCountInGroup(long)">getFileCountInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Counts the total number of files in a group.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStorageUsageInGroup(long)">getStorageUsageInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Counts the total number of bytes used in a group.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalStorageUsage()">getTotalStorageUsage</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Counts the total number of bytes in all groups.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -204,6 +225,57 @@ java.util.List&lt;<a href="file/FileInfo.html" title="class in mops.persistence.
 </dl>
 </li>
 </ul>
+<a id="getStorageUsageInGroup(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getStorageUsageInGroup</h4>
+<pre class="methodSignature">@Query("SELECT SUM(size) FROM file_info WHERE group_id = :groupId")
+long&nbsp;getStorageUsageInGroup&#8203;(@Param("groupId")
+                            long&nbsp;groupId)</pre>
+<div class="block">Counts the total number of bytes used in a group.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - group id</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>total storage usage in bytes</dd>
+</dl>
+</li>
+</ul>
+<a id="getTotalStorageUsage()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTotalStorageUsage</h4>
+<pre class="methodSignature">@Query("SELECT SUM(size) FROM file_info")
+long&nbsp;getTotalStorageUsage()</pre>
+<div class="block">Counts the total number of bytes in all groups.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>total storage usage in bytes</dd>
+</dl>
+</li>
+</ul>
+<a id="getFileCountInGroup(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFileCountInGroup</h4>
+<pre class="methodSignature">@Query("SELECT COUNT(*) FROM file_info WHERE group_id = :groupId")
+long&nbsp;getFileCountInGroup&#8203;(@Param("groupId")
+                         long&nbsp;groupId)</pre>
+<div class="block">Counts the total number of files in a group.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - group id</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>total file count</dd>
+</dl>
+</li>
+</ul>
 <a id="findAllIds()">
 <!--   -->
 </a>
@@ -212,10 +284,10 @@ java.util.List&lt;<a href="file/FileInfo.html" title="class in mops.persistence.
 <h4>findAllIds</h4>
 <pre class="methodSignature">@Query("SELECT id FROM file_info")
 java.util.Set&lt;java.lang.Long&gt;&nbsp;findAllIds()</pre>
-<div class="block">Fetches all IDs.</div>
+<div class="block">Fetches all file info ids.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>all IDs</dd>
+<dd>all ids</dd>
 </dl>
 </li>
 </ul>

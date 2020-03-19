@@ -2,6 +2,7 @@ mops
 mops.businesslogic
 mops.businesslogic.config
 mops.businesslogic.exception
+mops.businesslogic.prometheus
 mops.businesslogic.query
 mops.businesslogic.utils
 mops.config

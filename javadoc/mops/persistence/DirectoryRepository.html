@@ -158,7 +158,7 @@ extends org.springframework.data.repository.CrudRepository&lt;<a href="directory
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>long</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupFolderCount(long)">getGroupFolderCount</a></span>&#8203;(long&nbsp;groupOwner)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirCountInGroup(long)">getDirCountInGroup</a></span>&#8203;(long&nbsp;groupOwner)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
@@ -207,15 +207,15 @@ java.util.List&lt;<a href="directory/Directory.html" title="class in mops.persis
 </dl>
 </li>
 </ul>
-<a id="getGroupFolderCount(long)">
+<a id="getDirCountInGroup(long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getGroupFolderCount</h4>
+<h4>getDirCountInGroup</h4>
 <pre class="methodSignature">@Query("SELECT COUNT(*) FROM directory WHERE group_owner = :groupOwner")
-long&nbsp;getGroupFolderCount&#8203;(@Param("groupOwner")
-                         long&nbsp;groupOwner)</pre>
+long&nbsp;getDirCountInGroup&#8203;(@Param("groupOwner")
+                        long&nbsp;groupOwner)</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>groupOwner</code> - the group od</dd>

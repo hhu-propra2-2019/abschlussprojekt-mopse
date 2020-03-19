@@ -1,4 +1,4 @@
 [source,bash]
 ----
-$ http GET 'http://localhost:8080/material1/file/1?_csrf=685c0738-658c-4f30-b4d3-108bcba637d9'
+$ http GET 'http://localhost:8080/material1/file/1?_csrf=c2223aca-3292-45e0-94fc-ef3ef775e55e'
 ----
