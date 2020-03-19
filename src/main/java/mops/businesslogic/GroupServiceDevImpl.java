@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class GroupServiceImpl implements GroupService {
+public class GroupServiceDevImpl implements GroupService {
 
     /**
      * Directory Service.
@@ -29,7 +29,7 @@ public class GroupServiceImpl implements GroupService {
      */
     @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
-        // TODO: get groups from Gruppenfindung
+        // TODO: add some default groups here
         return List.of();
     }
 
