@@ -23,8 +23,6 @@ public class GroupServiceTest {
     RestTemplate restTemplate;
     @Mock
     DirectoryService directoryService;
-    @Mock
-    PermissionService permissionService;
 
     long groupId;
     String userName;
@@ -35,7 +33,7 @@ public class GroupServiceTest {
     void setup() {
         groupId = 1L;
         restTemplate = mock(RestTemplate.class);
-        groupService = new GroupServiceImpl(directoryService, permissionService, restTemplate);
+        groupService = new GroupServiceImpl(directoryService, restTemplate);
         userName = "Carlo";
         carlo = Account.of(userName, "carlo@hhu.de", "admin");
 

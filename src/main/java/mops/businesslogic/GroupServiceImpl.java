@@ -19,10 +19,6 @@ public class GroupServiceImpl implements GroupService {
      * Directory Service.
      */
     private DirectoryService directoryService;
-    /**
-     * API to GruppenFindung.
-     */
-    private PermissionService permissionService;
 
     private RestTemplate restTemplate;
 
