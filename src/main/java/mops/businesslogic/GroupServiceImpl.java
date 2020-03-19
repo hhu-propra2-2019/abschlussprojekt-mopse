@@ -13,6 +13,9 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class GroupServiceImpl implements GroupService {
+    /**
+     * URL to GruppenFindung. Will be replaced with env variable.
+     */
     public static final String URL = "https://mops.hhu.de/gruppe1/";
 
     /**
@@ -20,6 +23,9 @@ public class GroupServiceImpl implements GroupService {
      */
     private DirectoryService directoryService;
 
+    /**
+     * Allows to send REST API calls.
+     */
     private RestTemplate restTemplate;
 
     /**
