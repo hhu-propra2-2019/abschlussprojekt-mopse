@@ -1,14 +1,19 @@
 package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mops.exception.MopsException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class GroupServiceImpl implements GroupService {
+    public static final String URL = "https://mops.hhu.de/gruppe1/";
 
     /**
      * Directory Service.
@@ -19,12 +24,21 @@ public class GroupServiceImpl implements GroupService {
      */
     private PermissionService permissionService;
 
+    private RestTemplate restTemplate;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
-        return permissionService.fetchGroupsForUser(account);
+        Group[] groups = restTemplate.getForObject(URL, Group[].class);
+        if (groups == null) {
+            log.error("The request for groups of user {} failed.", account.getName());
+            throw new GruppenFindungException(String.format(
+                    "Es konnten keinen Gruppen für diese Nutzerin %s gefunden werden.",
+                    account.getName()));
+        }
+        return Arrays.asList(groups);
     }
 
     /**

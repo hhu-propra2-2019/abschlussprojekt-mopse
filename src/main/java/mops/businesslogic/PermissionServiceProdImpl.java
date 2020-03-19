@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -64,21 +63,6 @@ public class PermissionServiceProdImpl implements PermissionService {
         return Arrays.stream(groupPermissions)
                 .map(GroupPermission::getPermission)
                 .collect(Collectors.toSet());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Group> fetchGroupsForUser(Account account) throws MopsException {
-        Group[] groups = restTemplate.getForObject(URL, Group[].class);
-        if (groups == null) {
-            log.error("The request for groups of user {} failed.", account.getName());
-            throw new GruppenFindungException(String.format(
-                    "Es konnten keinen Gruppen für diese Nutzerin %s gefunden werden.",
-                    account.getName()));
-        }
-        return Arrays.asList(groups);
     }
 
     @AllArgsConstructor

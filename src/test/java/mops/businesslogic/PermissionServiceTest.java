@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 import java.util.Set;
 
 import static mops.businesslogic.PermissionServiceProdImpl.URL;
@@ -73,23 +72,5 @@ class PermissionServiceTest {
     void fetchRolesExceptionThrownTest() {
         when(restTemplate.getForObject(URL, PermissionServiceProdImpl.GroupPermission[].class)).thenReturn(null);
         assertThatExceptionOfType(GruppenFindungException.class).isThrownBy(() -> permissionService.fetchRolesInGroup(groupId));
-    }
-
-    @Test
-    public void fetchAllGroupsForUserTest() throws MopsException {
-        Group groupOne = new Group(1L, "test1");
-        Group groupTwo = new Group(2L, "test2");
-
-        Group[] groups = { groupOne, groupTwo };
-
-        List<Group> expectedGroups = List.of(
-                groupOne,
-                groupTwo
-        );
-        when(restTemplate.getForObject(URL, Group[].class)).thenReturn(groups);
-
-        List<Group> requestedGroups = permissionService.fetchGroupsForUser(carlo);
-
-        assertThat(requestedGroups).isEqualTo(expectedGroups);
     }
 }
