@@ -1,6 +1,6 @@
 package mops.businesslogic;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.exception.MopsException;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,40 +13,31 @@ import java.util.List;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Profile("prod")
 public class GroupServiceProdImpl implements GroupService {
     /**
      * URL to GruppenFindung.
      */
     @Value("${material1.mops.gruppenfindung.url}")
-    private static String gruppenFindungUrl;
+    private String gruppenFindungUrl;
 
     /**
      * Directory Service.
      */
-    private DirectoryService directoryService;
+    private final DirectoryService directoryService;
 
     /**
      * Allows to send REST API calls.
      */
-    private RestTemplate restTemplate;
-
-    /**
-     * Getter for url to GruppenFindung.
-     *
-     * @return url string
-     **/
-    public static String getGruppenFindungUrl() {
-        return gruppenFindungUrl;
-    }
+    private final RestTemplate restTemplate;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
-        Group[] groups = restTemplate.getForObject(getGruppenFindungUrl(), Group[].class);
+        Group[] groups = restTemplate.getForObject(gruppenFindungUrl, Group[].class);
         if (groups == null) {
             log.error("The request for groups of user {} failed.", account.getName());
             throw new GruppenFindungException(String.format(
