@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.DockerHealthcheckWaitStrategy;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -39,7 +40,7 @@ class FileRepositoryTests {
                 .waitingFor(Wait
                         .forHttp("/minio/health/ready")
                         .forPort(9000)
-                        .withStartupTimeout(Duration.ofSeconds(10)));
+                        .withStartupTimeout(Duration.ofSeconds(20)));
         minioServer.start();
 
         int mappedPort = minioServer.getFirstMappedPort();
