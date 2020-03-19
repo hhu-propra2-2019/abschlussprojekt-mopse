@@ -108,10 +108,13 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn" })
     public Directory getOrCreateRootFolder(Account account, long groupId) throws MopsException {
-        // TODO: get the root folder if it exists
-        roleService.checkIfRole(account, groupId, ADMIN);
+        Optional<Directory> optionalDirectory = directoryRepository.getRootFolder(groupId);
+        if (optionalDirectory.isPresent()) {
+            return optionalDirectory.get();
+        }
+
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
         DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
         rootPermissions = directoryPermissionsRepo.save(rootPermissions);

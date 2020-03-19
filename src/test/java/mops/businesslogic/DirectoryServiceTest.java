@@ -100,15 +100,6 @@ class DirectoryServiceTest {
     }
 
     /**
-     * Test if a group folder is not created when the user does not have permission.
-     */
-    @Test
-    void createGroupRootFolderWithoutPermission() {
-        assertThatExceptionOfType(WriteAccessPermissionException.class)
-                .isThrownBy(() -> directoryService.getOrCreateRootFolder(user, GROUP_ID + 1L));
-    }
-
-    /**
      * Test if folder is created in a given root folder.
      */
     @Test
