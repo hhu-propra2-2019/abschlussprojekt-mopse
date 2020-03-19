@@ -15,6 +15,8 @@ CREATE TABLE directory_permission_entry
     CONSTRAINT fk_entry_perm FOREIGN KEY (permissions_id) REFERENCES directory_permissions (id)
 );
 
+CREATE INDEX i_entry_perm ON directory_permission_entry (permissions_id);
+
 CREATE TABLE directory
 (
     id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -28,6 +30,9 @@ CREATE TABLE directory
     CONSTRAINT fk_dir_perm FOREIGN KEY (permissions_id) REFERENCES directory_permissions (id),
     CONSTRAINT u_dir UNIQUE (name, parent_id, group_owner)
 );
+
+CREATE INDEX i_dir_dir ON directory (parent_id);
+CREATE INDEX i_dir_perm ON directory (permissions_id);
 
 CREATE TABLE file_info
 (
@@ -43,6 +48,8 @@ CREATE TABLE file_info
     CONSTRAINT u_file UNIQUE (name, directory_id)
 );
 
+CREATE INDEX i_file_dir ON file_info (directory_id);
+
 CREATE TABLE file_tag
 (
     name    VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
@@ -50,3 +57,5 @@ CREATE TABLE file_tag
     CONSTRAINT fk_tag_file FOREIGN KEY (file_id) REFERENCES file_info (id),
     CONSTRAINT u_tag UNIQUE (name, file_id)
 );
+
+CREATE INDEX i_tag_file ON file_tag (file_id);
