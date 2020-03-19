@@ -6,6 +6,7 @@ import io.minio.Result;
 import io.minio.errors.*;
 import io.minio.messages.Item;
 import lombok.extern.slf4j.Slf4j;
+import mops.exception.MopsException;
 import mops.utils.AggregateBuilder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,7 @@ import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.Set;
 
 @Slf4j
 @Repository
@@ -155,6 +157,27 @@ public class FileRepository {
         }
 
         return objectStat != null;
+    }
+
+    /**
+     * Fetches all IDs.
+     *
+     * @return all File IDs
+     */
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" })
+    public Set<Long> getAllIds() throws MopsException {
+        try {
+            Iterable<Result<Item>> results = minioClient.listObjects(configuration.getBucketName());
+            Set<Long> ids = new java.util.HashSet<>();
+            for (Result<Item> item : results) {
+                ids.add(
+                        Long.parseLong(item.get().objectName())
+                );
+            }
+            return ids;
+        } catch (Exception e) {
+            throw new MopsException("Fehler beim laden aller File IDs.", e);
+        }
     }
 
     /**
