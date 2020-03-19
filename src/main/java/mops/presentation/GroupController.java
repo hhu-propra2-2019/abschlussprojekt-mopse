@@ -49,7 +49,6 @@ public class GroupController {
                                    Model model,
                                    @PathVariable("groupId") long groupId) {
         log.info("Root directory of group with id {} requested.", groupId);
-        Account account = AccountUtil.getAccountFromToken(token);
         GroupRootDirWrapper groupRootDir = null;
         try {
             groupRootDir = groupService.getGroupUrl(groupId);
