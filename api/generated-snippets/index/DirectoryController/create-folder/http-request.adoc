@@ -4,5 +4,5 @@ POST /material1/dir/1/create HTTP/1.1
 Host: localhost:8080
 Content-Type: application/x-www-form-urlencoded
 
-_csrf=f722ba23-f011-40e0-b88c-de0689f2d6e7
+_csrf=9f6995e5-4121-4ee2-9e69-b80686f51111
 ----
