@@ -335,6 +335,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileQueryForm.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/Group.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/Group.html" title="class in mops.businesslogic">Group</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/GroupRootDirWrapper.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/query/FileQuery.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.businesslogic.query.<a href="mops/businesslogic/query/FileQuery.html" title="class in mops.businesslogic.query">FileQuery</a></dt>
@@ -505,7 +507,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Fetches all visible groups of one user.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/GroupServiceImpl.html#getAllGroups(mops.businesslogic.Account)">getAllGroups(Account)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupServiceImpl.html" title="class in mops.businesslogic">GroupServiceImpl</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/GroupServiceDevImpl.html#getAllGroups(mops.businesslogic.Account)">getAllGroups(Account)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupServiceDevImpl.html" title="class in mops.businesslogic">GroupServiceDevImpl</a></dt>
+<dd>
+<div class="block">Fetches all visible groups of one user.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/GroupServiceProdImpl.html#getAllGroups(mops.businesslogic.Account)">getAllGroups(Account)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupServiceProdImpl.html" title="class in mops.businesslogic">GroupServiceProdImpl</a></dt>
 <dd>
 <div class="block">Fetches all visible groups of one user.</div>
 </dd>
@@ -594,13 +600,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/GroupService.html#getGroupUrl(long)">getGroupUrl(long)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/GroupService.html" title="interface in mops.businesslogic">GroupService</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/GroupServiceImpl.html#getGroupUrl(long)">getGroupUrl(long)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupServiceImpl.html" title="class in mops.businesslogic">GroupServiceImpl</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/GroupServiceDevImpl.html#getGroupUrl(long)">getGroupUrl(long)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupServiceDevImpl.html" title="class in mops.businesslogic">GroupServiceDevImpl</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/GroupServiceProdImpl.html#getGroupUrl(long)">getGroupUrl(long)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupServiceProdImpl.html" title="class in mops.businesslogic">GroupServiceProdImpl</a></dt>
 <dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#getGroupUrl(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getGroupUrl(KeycloakAuthenticationToken, Model, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileContainer.html#getId()">getId()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileContainer.html" title="class in mops.businesslogic">FileContainer</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/Group.html#getId()">getId()</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/Group.html" title="interface in mops.businesslogic">Group</a></dt>
-<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/Group.html#getId()">getId()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/Group.html" title="class in mops.businesslogic">Group</a></dt>
+<dd>
+<div class="block">Eatabase id.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/directory/Directory.html#getId()">getId()</a></span> - Method in class mops.persistence.directory.<a href="mops/persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></dt>
 <dd>
 <div class="block">Database Id.</div>
@@ -639,8 +648,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileContainer.html#getName()">getName()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileContainer.html" title="class in mops.businesslogic">FileContainer</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/Group.html#getName()">getName()</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/Group.html" title="interface in mops.businesslogic">Group</a></dt>
-<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/Group.html#getName()">getName()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/Group.html" title="class in mops.businesslogic">Group</a></dt>
+<dd>
+<div class="block">Group name.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/directory/Directory.html#getName()">getName()</a></span> - Method in class mops.persistence.directory.<a href="mops/persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></dt>
 <dd>
 <div class="block">Directory name.</div>
@@ -697,8 +708,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Keycloak roles of the user.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/Group.html#getRootDir()">getRootDir()</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/Group.html" title="interface in mops.businesslogic">Group</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#getRootDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getRootDirectory(KeycloakAuthenticationToken, Model, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/GroupRootDirWrapper.html#getRootDirId()">getRootDirId()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></dt>
@@ -749,10 +758,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">List of file types to search for.</div>
 </dd>
-<dt><a href="mops/businesslogic/Group.html" title="interface in mops.businesslogic"><span class="typeNameLink">Group</span></a> - Interface in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
+<dt><a href="mops/businesslogic/Group.html" title="class in mops.businesslogic"><span class="typeNameLink">Group</span></a> - Class in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
 <dd>
 <div class="block">Represents a group (course, study group, etc.).</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/Group.html#%3Cinit%3E(long,java.lang.String)">Group(long, String)</a></span> - Constructor for class mops.businesslogic.<a href="mops/businesslogic/Group.html" title="class in mops.businesslogic">Group</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="mops/presentation/GroupController.html" title="class in mops.presentation"><span class="typeNameLink">GroupController</span></a> - Class in <a href="mops/presentation/package-summary.html">mops.presentation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#%3Cinit%3E(mops.businesslogic.GroupService,mops.businesslogic.DirectoryService)">GroupController(GroupService, DirectoryService)</a></span> - Constructor for class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
@@ -775,9 +786,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="mops/businesslogic/GroupService.html" title="interface in mops.businesslogic"><span class="typeNameLink">GroupService</span></a> - Interface in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="mops/businesslogic/GroupServiceImpl.html" title="class in mops.businesslogic"><span class="typeNameLink">GroupServiceImpl</span></a> - Class in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
+<dt><a href="mops/businesslogic/GroupServiceDevImpl.html" title="class in mops.businesslogic"><span class="typeNameLink">GroupServiceDevImpl</span></a> - Class in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/GroupServiceImpl.html#%3Cinit%3E(mops.businesslogic.DirectoryService)">GroupServiceImpl(DirectoryService)</a></span> - Constructor for class mops.businesslogic.<a href="mops/businesslogic/GroupServiceImpl.html" title="class in mops.businesslogic">GroupServiceImpl</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/GroupServiceDevImpl.html#%3Cinit%3E(mops.businesslogic.DirectoryService)">GroupServiceDevImpl(DirectoryService)</a></span> - Constructor for class mops.businesslogic.<a href="mops/businesslogic/GroupServiceDevImpl.html" title="class in mops.businesslogic">GroupServiceDevImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="mops/businesslogic/GroupServiceProdImpl.html" title="class in mops.businesslogic"><span class="typeNameLink">GroupServiceProdImpl</span></a> - Class in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/GroupServiceProdImpl.html#%3Cinit%3E(mops.businesslogic.DirectoryService,org.springframework.web.client.RestTemplate)">GroupServiceProdImpl(DirectoryService, RestTemplate)</a></span> - Constructor for class mops.businesslogic.<a href="mops/businesslogic/GroupServiceProdImpl.html" title="class in mops.businesslogic">GroupServiceProdImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="mops/businesslogic/GruppenFindungException.html" title="class in mops.businesslogic"><span class="typeNameLink">GruppenFindungException</span></a> - Exception in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
 <dd>&nbsp;</dd>
@@ -796,6 +811,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileContainer.html#hashCode()">hashCode()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileContainer.html" title="class in mops.businesslogic">FileContainer</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileQueryForm.html#hashCode()">hashCode()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/Group.html#hashCode()">hashCode()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/Group.html" title="class in mops.businesslogic">Group</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/GroupRootDirWrapper.html#hashCode()">hashCode()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></dt>
 <dd>&nbsp;</dd>
@@ -1206,6 +1223,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileQueryForm.html#toString()">toString()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/Group.html#toString()">toString()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/Group.html" title="class in mops.businesslogic">Group</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/GroupRootDirWrapper.html#toString()">toString()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/query/FileQuery.html#toString()">toString()</a></span> - Method in class mops.businesslogic.query.<a href="mops/businesslogic/query/FileQuery.html" title="class in mops.businesslogic.query">FileQuery</a></dt>
@@ -1247,10 +1266,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,org.springframework.web.multipart.MultipartFile)">uploadFile(KeycloakAuthenticationToken, Model, long, MultipartFile)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>
 <div class="block">Uploads a file.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/PermissionServiceProdImpl.html#URL">URL</a></span> - Static variable in class mops.businesslogic.<a href="mops/businesslogic/PermissionServiceProdImpl.html" title="class in mops.businesslogic">PermissionServiceProdImpl</a></dt>
-<dd>
-<div class="block">URL to GruppenFindung.</div>
 </dd>
 <dt><a href="mops/businesslogic/UserPermission.html" title="class in mops.businesslogic"><span class="typeNameLink">UserPermission</span></a> - Class in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
 <dd>&nbsp;</dd>
