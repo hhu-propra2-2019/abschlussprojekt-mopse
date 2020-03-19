@@ -20,4 +20,10 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
     @Query("SELECT * FROM file_info WHERE directory_id = :dirId")
     List<FileInfo> findAllInDirectory(@Param("dirId") long dirId);
 
+    /**
+     * @param groupId
+     * @return
+     */
+    @Query("SELECT SUM(size) FROM file_info WHERE group_id = :groupId")
+    long getStorageUsage(@Param("groupId") long groupId);
 }

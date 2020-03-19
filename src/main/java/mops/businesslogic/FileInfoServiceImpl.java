@@ -78,4 +78,18 @@ public class FileInfoServiceImpl implements FileInfoService {
             throw new DatabaseException("Datei-Informationen konnten nicht gelöscht werden!", e);
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public long getStorageUsage(long groupId) throws MopsException {
+        try {
+            return fileInfoRepo.getStorageUsage(groupId);
+        } catch (Exception e) {
+            log.error("Failed to get total storage used by group with id {}", groupId);
+            throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
+        }
+    }
 }

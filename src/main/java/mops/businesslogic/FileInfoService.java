@@ -43,4 +43,12 @@ public interface FileInfoService {
      */
     void deleteFileInfo(long fileId) throws MopsException;
 
+    /**
+     * Get the total number of bytes used by that group.
+     *
+     * @param groupId group
+     * @return bytes used
+     */
+    long getStorageUsage(long groupId) throws MopsException;
+
 }
