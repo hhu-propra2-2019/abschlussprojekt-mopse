@@ -1,6 +1,5 @@
 package mops;
 
-import mops.businesslogic.*;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
@@ -8,19 +7,14 @@ import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
 import java.util.Optional;
 
-@SpringBootApplication
+@Configuration
 public class DummyDataApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Material1Application.class, args);
-    }
 
     @Bean
     ApplicationRunner init(DirectoryRepository directoryRepository, FileInfoRepository fileInfoRepository, DirectoryPermissionsRepository directoryPermissionsRepository) {
@@ -34,7 +28,6 @@ public class DummyDataApplication {
             Directory directoryParent = Directory.builder()
                     .id(1L)
                     .name("Root")
-                    .parent(null)
                     .groupOwner(100L)
                     .permissions(directoryPermissions.getId())
                     .build();
@@ -67,9 +60,9 @@ public class DummyDataApplication {
                     .tag("Test")
                     .build();
 
-            directoryPermissionsRepository.save(directoryPermissions);
-            directoryRepository.saveAll(Arrays.asList(directoryParent, directoryChild));
-            fileInfoRepository.saveAll(Arrays.asList(fileInfoParent, fileInfoChild));
+            //directoryPermissionsRepository.save(directoryPermissions);
+            //directoryRepository.saveAll(Arrays.asList(directoryParent, directoryChild));
+            //fileInfoRepository.saveAll(Arrays.asList(fileInfoParent, fileInfoChild));
 
             Optional<DirectoryPermissions> directoryPermissionsFind = directoryPermissionsRepository.findById(1000L);
             Optional<Directory> directoryFind = directoryRepository.findById(1L);
