@@ -178,7 +178,7 @@ public class FileRepository {
             }
             return ids;
         } catch (Exception e) {
-            throw new DatabaseException("Fehler beim laden aller File IDs.", e);
+            throw new DatabaseException("Fehler beim Laden aller File IDs.", e);
         }
     }
 
