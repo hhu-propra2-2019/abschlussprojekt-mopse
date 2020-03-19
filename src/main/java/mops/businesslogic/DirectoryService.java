@@ -37,7 +37,7 @@ public interface DirectoryService {
      * @param groupId the group id
      * @return the directory created
      */
-    Directory createRootFolder(Account account, long groupId) throws MopsException;
+    Directory getOrCreateRootFolder(Account account, long groupId) throws MopsException;
 
     /**
      * Creates a new folder inside a folder.

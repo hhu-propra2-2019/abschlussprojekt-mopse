@@ -106,7 +106,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
      * @param http http security
      * @throws Exception on error
      */
-    @SuppressWarnings({"PMD.SignatureDeclareThrowsException", "PMD.LawOfDemeter"})
+    @SuppressWarnings({ "PMD.SignatureDeclareThrowsException", "PMD.LawOfDemeter" })
     private void forceHTTPS(HttpSecurity http) throws Exception {
         http.requiresChannel()
                 .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)

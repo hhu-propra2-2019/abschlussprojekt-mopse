@@ -36,12 +36,14 @@ public class DirectoryPermissions {
      * Creation Time.
      */
     @Setter(AccessLevel.PRIVATE)
+    @EqualsAndHashCode.Exclude
     @CreatedDate
     private Timestamp creationTime;
     /**
      * Last Modified Time.
      */
     @Setter(AccessLevel.PRIVATE)
+    @EqualsAndHashCode.Exclude
     @LastModifiedDate
     private Timestamp lastModifiedTime;
 
