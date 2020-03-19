@@ -2,6 +2,7 @@
   <configuration default="false" name="Material1Application - dev" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="material1.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="mops.Material1Application" />
+    <option name="DEBUG_MODE" value="true" />
     <option name="ACTIVE_PROFILES" value="dev" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <method v="2">
