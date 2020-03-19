@@ -23,6 +23,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
 
     /**
      * Fetches all IDs.
+     *
      * @return all IDs
      */
     @Query("SELECT id FROM file_info")

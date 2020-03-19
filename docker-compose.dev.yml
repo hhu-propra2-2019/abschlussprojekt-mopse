@@ -4,12 +4,11 @@ services:
   minio_dev:
     image: minio/minio:latest
     ports:
-      - 9000:9000
+      - "${MINIO_PORT:-9000}:9000"
     volumes:
       - minio_dev_volume:/data
-    environment:
-      MINIO_ACCESS_KEY: dev_minio_access_key
-      MINIO_SECRET_KEY: dev_minio_secret_key
+    env_file:
+      - prod.env
     command: server /data
 
 volumes:
