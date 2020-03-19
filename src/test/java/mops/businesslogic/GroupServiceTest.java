@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class GroupServiceTest {
+
     GroupService groupService;
 
     @Mock
@@ -29,8 +30,7 @@ public class GroupServiceTest {
     long groupId;
     long rootDirId;
     String userName;
-    private Account carlo;
-
+    Account carlo;
 
     @BeforeEach
     void setup() {
@@ -40,7 +40,6 @@ public class GroupServiceTest {
         groupService = new GroupServiceProdImpl(directoryService, restTemplate);
         userName = "Carlo";
         carlo = Account.of(userName, "carlo@hhu.de", "admin");
-
     }
 
     @Test

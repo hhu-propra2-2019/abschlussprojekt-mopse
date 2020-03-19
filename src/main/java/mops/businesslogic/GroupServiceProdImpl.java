@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -16,11 +15,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @Profile("prod")
 public class GroupServiceProdImpl implements GroupService {
+
     /**
      * URL to GruppenFindung.
      */
     @Value("${material1.mops.gruppenfindung.url}")
-    private String gruppenFindungUrl;
+    private String gruppenFindungUrl = "https://mops.hhu.de/gruppe1";
 
     /**
      * Directory Service.
@@ -37,14 +37,15 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
-        Group[] groups = restTemplate.getForObject(gruppenFindungUrl, Group[].class);
+        // TODO: change to real route once known
+        Group[] groups = restTemplate.getForObject(gruppenFindungUrl + "/get-all", Group[].class);
         if (groups == null) {
             log.error("The request for groups of user {} failed.", account.getName());
             throw new GruppenFindungException(String.format(
                     "Es konnten keinen Gruppen für diese Nutzerin %s gefunden werden.",
                     account.getName()));
         }
-        return Arrays.asList(groups);
+        return List.of(groups);
     }
 
     /**
