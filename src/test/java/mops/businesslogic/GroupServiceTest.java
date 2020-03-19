@@ -33,7 +33,7 @@ public class GroupServiceTest {
     void setup() {
         groupId = 1L;
         restTemplate = mock(RestTemplate.class);
-        groupService = new GroupServiceImpl(directoryService, restTemplate);
+        groupService = new GroupServiceProdImpl(directoryService, restTemplate);
         userName = "Carlo";
         carlo = Account.of(userName, "carlo@hhu.de", "admin");
 

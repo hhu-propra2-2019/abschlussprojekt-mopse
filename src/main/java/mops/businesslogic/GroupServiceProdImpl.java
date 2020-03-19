@@ -3,6 +3,7 @@ package mops.businesslogic;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.exception.MopsException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,7 +13,8 @@ import java.util.List;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class GroupServiceImpl implements GroupService {
+@Profile("prod")
+public class GroupServiceProdImpl implements GroupService {
     /**
      * URL to GruppenFindung. Will be replaced with env variable.
      */
