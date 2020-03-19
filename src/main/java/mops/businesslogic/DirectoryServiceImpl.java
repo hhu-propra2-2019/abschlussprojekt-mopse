@@ -108,11 +108,20 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
-    public Directory getOrCreateRootFolder(Account account, long groupId) throws MopsException {
-        // TODO: get the root folder if it exists
-        roleService.checkIfRole(account, groupId, ADMIN);
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn" })
+    public Directory getOrCreateRootFolder(long groupId) throws MopsException {
+        Optional<Directory> optionalDirectory = directoryRepository.getRootFolder(groupId);
+        if (optionalDirectory.isPresent()) {
+            return optionalDirectory.get();
+        }
+
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
+        if (roleNames.isEmpty()) {
+            log.error("A root directory for group {} could not be created, as the group does not exist ", groupId);
+            String error = "This group does not exist.";
+            //TODO: More accurate exception?
+            throw new MopsException(error);
+        }
         DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
         rootPermissions = directoryPermissionsRepo.save(rootPermissions);
         Directory directory = Directory.builder()
@@ -253,9 +262,14 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return default directory permissions
      */
     //TODO: this is a template and can only implement when GruppenFindung defined their roles.
+    @SuppressWarnings({ "PMD.LawOfDemeter" }) //Streams
     private DirectoryPermissions createDefaultPermissions(Set<String> roleNames) {
         DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
-        roleNames.forEach(role -> builder.entry(role, true, true, true));
+        builder.entry(ADMIN, true, true, true);
+        roleNames
+                .stream()
+                .filter(role -> !role.equals(ADMIN))
+                .forEach(role -> builder.entry(role, true, false, false));
         return builder.build();
     }
 

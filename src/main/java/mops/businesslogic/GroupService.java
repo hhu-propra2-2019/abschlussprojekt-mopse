@@ -24,10 +24,9 @@ public interface GroupService {
     List<Group> getAllGroups(Account account) throws MopsException;
 
     /**
-     * @param account user account
      * @param groupId the id of the group
      * @return a wrapper for group urls
      */
-    GroupRootDirWrapper getGroupUrl(Account account, long groupId) throws MopsException;
+    GroupRootDirWrapper getGroupUrl(long groupId) throws MopsException;
 
 }

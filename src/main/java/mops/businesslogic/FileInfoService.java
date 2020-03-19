@@ -5,6 +5,7 @@ import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Handles meta data for files.
@@ -42,6 +43,14 @@ public interface FileInfoService {
      * @param fileId file id
      */
     void deleteFileInfo(long fileId) throws MopsException;
+
+    /**
+     * Fetches all available FileInfo ids.
+     *
+     * @return all ids
+     * @throws MopsException on error
+     */
+    Set<Long> fetchAllFileInfoIds() throws MopsException;
 
     /**
      * Get the total number of bytes used by that group.

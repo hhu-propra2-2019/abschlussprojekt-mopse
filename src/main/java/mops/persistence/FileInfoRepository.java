@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 @AggregateBuilder
@@ -21,9 +22,20 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
     List<FileInfo> findAllInDirectory(@Param("dirId") long dirId);
 
     /**
-     * @param groupId
-     * @return
+     * Counts the total number of bytes used in a group.
+     *
+     * @param groupId group id
+     * @return total storage usage in bytes
      */
     @Query("SELECT SUM(size) FROM file_info WHERE group_id = :groupId")
     long getStorageUsage(@Param("groupId") long groupId);
+
+    /**
+     * Fetches all file info ids.
+     *
+     * @return all ids
+     */
+    @Query("SELECT id FROM file_info")
+    Set<Long> findAllIds();
+
 }
