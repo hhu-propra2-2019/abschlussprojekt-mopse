@@ -19,19 +19,19 @@ public class PrometheusComponent {
     /**
      * Group service.
      */
-    private final GroupService groupService;
+    private final transient GroupService groupService;
     /**
      * File info service.
      */
-    private final FileInfoService fileInfoService;
+    private final transient FileInfoService fileInfoService;
     /**
      * Directory service.
      */
-    private final DirectoryService directoryService;
+    private final transient DirectoryService directoryService;
     /**
      * Meter registry.
      */
-    private final MeterRegistry meterRegistry;
+    private final transient MeterRegistry meterRegistry;
 
     /**
      * Constructor.
@@ -52,6 +52,7 @@ public class PrometheusComponent {
         addGroupGauges();
     }
 
+    @SuppressWarnings("PMD.LawOfDemeter") //This is a builder
     private void addTotalGauges() {
         log.debug("Adding total storage gauge.");
         Gauge
@@ -90,6 +91,7 @@ public class PrometheusComponent {
                 .register(meterRegistry);
     }
 
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) //This is a builder
     private void addGroupGauges() {
         List<Group> groups = List.of();
         try {

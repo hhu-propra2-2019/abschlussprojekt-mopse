@@ -244,6 +244,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public long getDirCount(long groupId) throws MopsException {
         try {
             return directoryRepository.getGroupFolderCount(groupId);
@@ -257,6 +258,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public long getDirCount() throws MopsException {
         try {
             return directoryRepository.count();
