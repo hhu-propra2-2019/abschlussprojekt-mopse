@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 @Slf4j
@@ -168,7 +169,7 @@ public class FileRepository {
     public Set<Long> getAllIds() throws MopsException {
         try {
             Iterable<Result<Item>> results = minioClient.listObjects(configuration.getBucketName());
-            Set<Long> ids = new java.util.HashSet<>();
+            Set<Long> ids = new HashSet<>();
             for (Result<Item> item : results) {
                 ids.add(
                         Long.parseLong(item.get().objectName())
