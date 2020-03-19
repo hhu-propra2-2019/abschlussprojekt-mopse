@@ -89,7 +89,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.findAllIds();
         } catch (Exception e) {
-            throw new MopsException("IDs konnten nicht geunden werden.", e);
+            throw new MopsException("IDs konnten nicht gefunden werden.", e);
         }
     }
 }
