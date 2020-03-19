@@ -23,4 +23,5 @@ public interface PermissionService {
      * @return gets all roles of that group
      */
     Set<String> fetchRolesInGroup(long groupId) throws MopsException;
+
 }

@@ -26,7 +26,6 @@ public class GroupServiceProdImpl implements GroupService {
      * Directory Service.
      */
     private final DirectoryService directoryService;
-
     /**
      * Allows to send REST API calls.
      */

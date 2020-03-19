@@ -18,15 +18,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class GroupServiceTest {
-
-
-    GroupService groupService;
+class GroupServiceTest {
 
     @Mock
     RestTemplate restTemplate;
     @Mock
     DirectoryService directoryService;
+
+    GroupService groupService;
 
     long groupId;
     long rootDirId;
@@ -44,7 +43,7 @@ public class GroupServiceTest {
     }
 
     @Test
-    public void getGroupUrl() throws MopsException {
+    void getGroupUrl() throws MopsException {
         GroupRootDirWrapper groupRootDirWrapper = new GroupRootDirWrapper(groupId, rootDirId);
         when(directoryService.getOrCreateRootFolder(groupId)).thenReturn(Directory.builder()
                 .id(rootDirId)
@@ -59,7 +58,7 @@ public class GroupServiceTest {
     }
 
     @Test
-    public void fetchAllGroupsForUserTest() throws MopsException {
+    void fetchAllGroupsForUserTest() throws MopsException {
         Group groupOne = new Group(1L, "test1");
         Group groupTwo = new Group(2L, "test2");
 
