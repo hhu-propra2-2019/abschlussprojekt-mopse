@@ -2,9 +2,9 @@ version: "3.7"
 
 services:
   material1_db:
-    image: mariadb:10.4
+    image: postgres
     ports:
-      - "${MATERIAL1_DB_PORT:-23306}:3306"
+      - "${MATERIAL1_DB_PORT:-5432}:5432"
     volumes:
       - material1_db_volume:/var/lib/mysql
       - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
@@ -22,7 +22,7 @@ services:
     environment:
       MATERIAL1_PORT: ${MATERIAL1_PORT:-8080}
       MATERIAL1_DB_HOST: ${MATERIAL1_DB_HOST:-material1_db}
-      MATERIAL1_DB_PORT: ${MATERIAL1_DB_PORT:-23306}
+      MATERIAL1_DB_PORT: ${MATERIAL1_DB_PORT:-5432}
 
 volumes:
   material1_db_volume:
