@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -188,11 +188,18 @@ implements <a href="FileService.html" title="interface in mops.businesslogic">Fi
           long&nbsp;fileId)</code></th>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>java.util.Set&lt;java.lang.Long&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllFileIds()">getAllFileIds</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Fetches all IDs.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="FileContainer.html" title="class in mops.businesslogic">FileContainer</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFile(mops.businesslogic.Account,long)">getFile</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
        long&nbsp;fileId)</code></th>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFileInfo(mops.businesslogic.Account,long)">getFileInfo</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
            long&nbsp;fileId)</code></th>
@@ -200,7 +207,7 @@ implements <a href="FileService.html" title="interface in mops.businesslogic">Fi
 <div class="block">Retrieves file meta data.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFilesOfDirectory(mops.businesslogic.Account,long)">getFilesOfDirectory</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
                    long&nbsp;dirId)</code></th>
@@ -208,7 +215,7 @@ implements <a href="FileService.html" title="interface in mops.businesslogic">Fi
 <div class="block">Retrieves file meta data of all files in a directory.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveFile(mops.businesslogic.Account,long,org.springframework.web.multipart.MultipartFile,java.util.Set)">saveFile</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
         long&nbsp;dirId,
@@ -356,7 +363,7 @@ public&nbsp;<a href="../persistence/directory/Directory.html" title="class in mo
 <a id="getFilesOfDirectory(mops.businesslogic.Account,long)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getFilesOfDirectory</h4>
 <pre class="methodSignature">public&nbsp;java.util.List&lt;<a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;&nbsp;getFilesOfDirectory&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
@@ -373,6 +380,25 @@ public&nbsp;<a href="../persistence/directory/Directory.html" title="class in mo
 <dd>the meta info.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error.</dd>
+</dl>
+</li>
+</ul>
+<a id="getAllFileIds()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getAllFileIds</h4>
+<pre class="methodSignature">public&nbsp;java.util.Set&lt;java.lang.Long&gt;&nbsp;getAllFileIds()
+                                            throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Fetches all IDs.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="FileService.html#getAllFileIds()">getAllFileIds</a></code>&nbsp;in interface&nbsp;<code><a href="FileService.html" title="interface in mops.businesslogic">FileService</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>all File IDs</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>
 </li>
 </ul>
