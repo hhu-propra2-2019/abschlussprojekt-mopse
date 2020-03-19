@@ -1,23 +1,21 @@
 package mops.businesslogic;
 
+import lombok.Value;
+
 /**
  * Represents a group (course, study group, etc.).
  */
-public interface Group {
+@Value
+@SuppressWarnings({ "checkstyle:VisibilityModifier", "PMD.DefaultPackage" })
+public class Group {
 
     /**
-     * @return database id
+     * Eatabase id.
      */
-    Long getId();
-
+    long id;
     /**
-     * @return group name
+     * Group name.
      */
-    String getName();
-
-    /**
-     * @return group root dir
-     */
-    long getRootDir();
+    String name;
 
 }
