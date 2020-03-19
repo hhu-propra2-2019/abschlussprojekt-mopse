@@ -55,7 +55,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      */
     @BeforeEach
     void setup() throws MopsException {
-        given(groupService.getGroupUrl(any(), eq(1L))).willReturn(new GroupRootDirWrapper(1L, 2L));
+        given(groupService.getGroupUrl(eq(1L))).willReturn(new GroupRootDirWrapper(1L, 2L));
     }
 
     /**

@@ -33,11 +33,10 @@ public interface DirectoryService {
     /**
      * Creates the group root directory.
      *
-     * @param account user credentials
      * @param groupId the group id
      * @return the directory created
      */
-    Directory getOrCreateRootFolder(Account account, long groupId) throws MopsException;
+    Directory getOrCreateRootFolder(long groupId) throws MopsException;
 
     /**
      * Creates a new folder inside a folder.
