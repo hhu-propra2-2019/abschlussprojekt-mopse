@@ -6,6 +6,7 @@ import io.minio.Result;
 import io.minio.errors.*;
 import io.minio.messages.Item;
 import lombok.extern.slf4j.Slf4j;
+import mops.businesslogic.exception.DatabaseException;
 import mops.exception.MopsException;
 import mops.utils.AggregateBuilder;
 import org.springframework.stereotype.Repository;
