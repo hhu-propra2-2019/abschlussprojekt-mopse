@@ -5,6 +5,7 @@ import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Handles meta data for files.
@@ -43,4 +44,11 @@ public interface FileInfoService {
      */
     void deleteFileInfo(long fileId) throws MopsException;
 
+    /**
+     * Fetches all available FileInfo IDs.
+     *
+     * @return all IDs
+     * @throws MopsException on error
+     */
+    Set<Long> fetchAllFileInfoIds() throws MopsException;
 }

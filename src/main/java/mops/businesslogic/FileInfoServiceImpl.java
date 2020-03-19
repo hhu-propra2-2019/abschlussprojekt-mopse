@@ -9,6 +9,7 @@ import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -76,6 +77,19 @@ public class FileInfoServiceImpl implements FileInfoService {
         } catch (Exception e) {
             log.error("Failed to delete file with id {}", fileId);
             throw new DatabaseException("Datei-Informationen konnten nicht gelöscht werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public Set<Long> fetchAllFileInfoIds() throws MopsException {
+        try {
+            return fileInfoRepo.findAllIds();
+        } catch (Exception e) {
+            throw new MopsException("IDs konnten nicht gefunden werden.", e);
         }
     }
 }
