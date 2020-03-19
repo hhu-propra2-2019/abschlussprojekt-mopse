@@ -85,9 +85,9 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public long getStorageUsage(long groupId) throws MopsException {
+    public long getStorageUsageInGroup(long groupId) throws MopsException {
         try {
-            return fileInfoRepo.getStorageUsage(groupId);
+            return fileInfoRepo.getStorageUsageInGroup(groupId);
         } catch (Exception e) {
             log.error("Failed to get total storage used by group with id {}.", groupId);
             throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
@@ -99,9 +99,9 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public long getStorageUsage() throws MopsException {
+    public long getTotalStorageUsage() throws MopsException {
         try {
-            return fileInfoRepo.getStorageUsage();
+            return fileInfoRepo.getTotalStorageUsage();
         } catch (Exception e) {
             log.error("Failed to get total storage used.");
             throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
@@ -113,9 +113,9 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public long getFileCount(long groupId) throws MopsException {
+    public long getFileCountInGroup(long groupId) throws MopsException {
         try {
-            return fileInfoRepo.getFileCount(groupId);
+            return fileInfoRepo.getFileCountInGroup(groupId);
         } catch (Exception e) {
             log.error("Failed to get total file count in group with id {}.", groupId);
             throw new DatabaseException("Gesamtdateianzahl konnte nicht geladen werden!", e);
@@ -127,7 +127,7 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public long getFileCount() throws MopsException {
+    public long getTotalFileCount() throws MopsException {
         try {
             return fileInfoRepo.count();
         } catch (Exception e) {

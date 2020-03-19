@@ -58,14 +58,14 @@ public interface FileInfoService {
      * @param groupId group
      * @return bytes used
      */
-    long getStorageUsage(long groupId) throws MopsException;
+    long getStorageUsageInGroup(long groupId) throws MopsException;
 
     /**
      * Get the total number of bytes used by all groups.
      *
      * @return bytes used
      */
-    long getStorageUsage() throws MopsException;
+    long getTotalStorageUsage() throws MopsException;
 
     /**
      * Get the total number of files in a group.
@@ -73,13 +73,13 @@ public interface FileInfoService {
      * @param groupId group
      * @return file count
      */
-    long getFileCount(long groupId) throws MopsException;
+    long getFileCountInGroup(long groupId) throws MopsException;
 
     /**
      * Get the total number of files in all groups.
      *
      * @return file count
      */
-    long getFileCount() throws MopsException;
+    long getTotalFileCount() throws MopsException;
 
 }

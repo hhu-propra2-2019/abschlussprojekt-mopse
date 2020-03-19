@@ -58,7 +58,7 @@ public class PrometheusComponent {
         Gauge
                 .builder("mops.material1.totalStorageUsage", () -> {
                             try {
-                                return fileInfoService.getStorageUsage();
+                                return fileInfoService.getTotalStorageUsage();
                             } catch (MopsException ignored) {
                                 return 0L;
                             }
@@ -70,7 +70,7 @@ public class PrometheusComponent {
         Gauge
                 .builder("mops.material1.totalFileCount", () -> {
                             try {
-                                return fileInfoService.getFileCount();
+                                return fileInfoService.getTotalFileCount();
                             } catch (MopsException ignored) {
                                 return 0L;
                             }
@@ -82,7 +82,7 @@ public class PrometheusComponent {
         Gauge
                 .builder("mops.material1.totalDirCount", () -> {
                             try {
-                                return directoryService.getDirCount();
+                                return directoryService.getTotalDirCount();
                             } catch (MopsException ignored) {
                                 return 0L;
                             }
@@ -104,7 +104,7 @@ public class PrometheusComponent {
             Gauge
                     .builder("mops.material1.groupStorageUsage", () -> {
                                 try {
-                                    return fileInfoService.getStorageUsage(group.getId());
+                                    return fileInfoService.getStorageUsageInGroup(group.getId());
                                 } catch (MopsException ignored) {
                                     return 0L;
                                 }
@@ -119,7 +119,7 @@ public class PrometheusComponent {
             Gauge
                     .builder("mops.material1.groupFileCount", () -> {
                                 try {
-                                    return fileInfoService.getFileCount(group.getId());
+                                    return fileInfoService.getFileCountInGroup(group.getId());
                                 } catch (MopsException ignored) {
                                     return 0L;
                                 }
@@ -134,7 +134,7 @@ public class PrometheusComponent {
             Gauge
                     .builder("mops.material1.groupDirCount", () -> {
                                 try {
-                                    return directoryService.getDirCount(group.getId());
+                                    return directoryService.getDirCountInGroup(group.getId());
                                 } catch (MopsException ignored) {
                                     return 0L;
                                 }
