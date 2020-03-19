@@ -20,7 +20,7 @@ public class GroupServiceDevImpl implements GroupService {
      */
     @Override
     public List<Group> getAllGroups() throws MopsException {
-        // TODO: get groups from Gruppenfindung
+        // TODO: add some default groups here
         return List.of();
     }
 
