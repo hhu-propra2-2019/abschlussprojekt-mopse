@@ -116,6 +116,12 @@ public class DirectoryServiceImpl implements DirectoryService {
         }
 
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
+        if(roleNames.isEmpty()) {
+            log.error("A root directory for group {} could not be created, as the group does not exist ", groupId);
+            String error = "This group does not exist.";
+            //TODO: More accurate exception?
+            throw new MopsException(error);
+        }
         DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
         rootPermissions = directoryPermissionsRepo.save(rootPermissions);
         Directory directory = Directory.builder()
