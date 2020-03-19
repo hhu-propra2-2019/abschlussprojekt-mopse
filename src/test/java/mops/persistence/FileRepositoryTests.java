@@ -41,7 +41,7 @@ class FileRepositoryTests {
                 .waitingFor(Wait
                         .forHttp("/minio/health/ready")
                         .forPort(9000)
-                        .withStartupTimeout(Duration.ofSeconds(10)));
+                        .withStartupTimeout(Duration.ofSeconds(20)));
         minioServer.start();
 
         int mappedPort = minioServer.getFirstMappedPort();
