@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class GroupServiceImpl implements GroupService {
+public class GroupServiceDevImpl implements GroupService {
 
     /**
      * Directory Service.

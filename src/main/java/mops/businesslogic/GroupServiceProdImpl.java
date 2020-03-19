@@ -61,7 +61,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
-    public GroupRootDirWrapper getGroupUrl(Account account, long groupId) throws MopsException {
-        return new GroupRootDirWrapper(groupId, directoryService.getOrCreateRootFolder(account, groupId).getId());
+    public GroupRootDirWrapper getGroupUrl(long groupId) throws MopsException {
+        return new GroupRootDirWrapper(groupId, directoryService.getOrCreateRootFolder(groupId).getId());
     }
 }

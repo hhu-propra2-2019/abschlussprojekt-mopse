@@ -45,14 +45,14 @@ public class GroupServiceTest {
     @Test
     public void getGroupUrl() throws MopsException {
         GroupRootDirWrapper groupRootDirWrapper = new GroupRootDirWrapper(groupId, rootDirId);
-        when(directoryService.getOrCreateRootFolder(carlo, groupId)).thenReturn(Directory.builder()
+        when(directoryService.getOrCreateRootFolder(groupId)).thenReturn(Directory.builder()
                 .id(rootDirId)
                 .groupOwner(groupId)
                 .permissions(1L)
                 .name("test")
                 .build());
 
-        GroupRootDirWrapper groupUrl = groupService.getGroupUrl(carlo, groupId);
+        GroupRootDirWrapper groupUrl = groupService.getGroupUrl(groupId);
 
         assertThat(groupUrl).isEqualTo(groupRootDirWrapper);
     }
