@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-import static mops.businesslogic.GroupServiceProdImpl.gruppenFindungUrl;
+import static mops.businesslogic.GroupServiceProdImpl.getGruppenFindungUrl;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -68,7 +68,7 @@ public class GroupServiceTest {
                 groupOne,
                 groupTwo
         );
-        when(restTemplate.getForObject(gruppenFindungUrl, Group[].class)).thenReturn(groups);
+        when(restTemplate.getForObject(getGruppenFindungUrl(), Group[].class)).thenReturn(groups);
 
         List<Group> requestedGroups = groupService.getAllGroups(carlo);
 

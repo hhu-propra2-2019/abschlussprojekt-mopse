@@ -20,7 +20,7 @@ public class GroupServiceProdImpl implements GroupService {
      * URL to GruppenFindung.
      */
     @Value("${material1.mops.gruppenfindung.url}")
-    public static String gruppenFindungUrl;
+    private static String gruppenFindungUrl;
 
     /**
      * Directory Service.
@@ -33,11 +33,20 @@ public class GroupServiceProdImpl implements GroupService {
     private RestTemplate restTemplate;
 
     /**
+     * Getter for url to GruppenFindung.
+     *
+     * @return url string
+     **/
+    public static String getGruppenFindungUrl() {
+        return gruppenFindungUrl;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
-        Group[] groups = restTemplate.getForObject(gruppenFindungUrl, Group[].class);
+        Group[] groups = restTemplate.getForObject(getGruppenFindungUrl(), Group[].class);
         if (groups == null) {
             log.error("The request for groups of user {} failed.", account.getName());
             throw new GruppenFindungException(String.format(
