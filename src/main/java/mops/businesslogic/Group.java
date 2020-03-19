@@ -13,7 +13,6 @@ public class Group {
      * Eatabase id.
      */
     long id;
-
     /**
      * Group name.
      */
