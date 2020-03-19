@@ -9,12 +9,12 @@ import lombok.Value;
 public class Group {
 
     /**
-     * database id
+     * Eatabase id.
      */
     long id;
 
     /**
-     * group name
+     * Group name.
      */
     String name;
 
