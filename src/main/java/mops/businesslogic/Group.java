@@ -10,7 +10,7 @@ import lombok.Value;
 public class Group {
 
     /**
-     * Eatabase id.
+     * Database id.
      */
     long id;
     /**
