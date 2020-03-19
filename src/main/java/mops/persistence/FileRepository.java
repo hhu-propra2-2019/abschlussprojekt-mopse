@@ -6,7 +6,6 @@ import io.minio.Result;
 import io.minio.errors.*;
 import io.minio.messages.Item;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.exception.DatabaseException;
 import mops.utils.AggregateBuilder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -166,7 +165,7 @@ public class FileRepository {
      * @return all File IDs
      */
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" })
-    public Set<Long> getAllIds() throws DatabaseException {
+    public Set<Long> getAllIds() throws StorageException {
         try {
             Iterable<Result<Item>> results = minioClient.listObjects(configuration.getBucketName());
             Set<Long> ids = new HashSet<>();
@@ -177,7 +176,7 @@ public class FileRepository {
             }
             return ids;
         } catch (Exception e) {
-            throw new DatabaseException("Fehler beim Laden aller File IDs.", e);
+            throw new StorageException("Fehler beim Laden aller File IDs.", e);
         }
     }
 
