@@ -27,6 +27,7 @@ Es ist aufwendig für Lerngruppen oder Kurse Dateien miteinander zu teilen, wenn
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
 1. Docker starten und eventuell in IntelliJ einbinden.
+1. `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
 1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `prod-template.env`
 erstellen (also `prod-template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
 Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
@@ -46,6 +47,7 @@ oder alternativ die Spring Anwendung im Spring Profil `dev` starten.
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
 1. Docker starten und eventuell in IntelliJ einbinden.
+1. `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
 1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `prod-template.env`
 erstellen (also `prod-template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
 Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
