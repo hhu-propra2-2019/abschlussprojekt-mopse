@@ -256,6 +256,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return default directory permissions
      */
     //TODO: this is a template and can only implement when GruppenFindung defined their roles.
+    @SuppressWarnings({ "PMD.LawOfDemeter" }) //Streams
     private DirectoryPermissions createDefaultPermissions(Set<String> roleNames) {
         DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
         builder.entry(ADMIN, true, true, true);
