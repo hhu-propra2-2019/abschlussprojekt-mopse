@@ -3,6 +3,7 @@ package mops.businesslogic.prometheus;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
+import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileInfoService;
 import mops.businesslogic.Group;
 import mops.businesslogic.GroupService;
@@ -24,6 +25,10 @@ public class ActuatorComponent {
      */
     private final FileInfoService fileInfoService;
     /**
+     * Directory service.
+     */
+    private final DirectoryService directoryService;
+    /**
      * Meter registry.
      */
     private final MeterRegistry meterRegistry;
@@ -31,20 +36,22 @@ public class ActuatorComponent {
     /**
      * Constructor.
      *
-     * @param groupService    group service
-     * @param fileInfoService file info service
-     * @param meterRegistry   meter registry
+     * @param groupService     group service
+     * @param fileInfoService  file info service
+     * @param directoryService directory service
+     * @param meterRegistry    meter registry
      */
-    public ActuatorComponent(GroupService groupService, FileInfoService fileInfoService, MeterRegistry meterRegistry) {
+    public ActuatorComponent(GroupService groupService, FileInfoService fileInfoService,
+                             DirectoryService directoryService, MeterRegistry meterRegistry) {
         this.groupService = groupService;
         this.fileInfoService = fileInfoService;
+        this.directoryService = directoryService;
         this.meterRegistry = meterRegistry;
 
-        addGroupStorageGauges();
+        addGroupGauges();
     }
 
-    private void addGroupStorageGauges() {
-        log.debug("addGroupStorageGauges()");
+    private void addGroupGauges() {
         List<Group> groups = List.of();
         try {
             groups = groupService.getAllGroups();
@@ -54,7 +61,7 @@ public class ActuatorComponent {
         groups.forEach(group -> {
             log.debug("Adding group storage gauge for group {}.", group);
             Gauge
-                    .builder("mops.material1.groupStorage", () -> {
+                    .builder("mops.material1.groupStorageUsage", () -> {
                                 try {
                                     return fileInfoService.getStorageUsage(group.getId());
                                 } catch (MopsException ignored) {
@@ -65,22 +72,28 @@ public class ActuatorComponent {
                     .tag("group_id", String.valueOf(group.getId()))
                     .register(meterRegistry);
         });
-    }
-
-    private void addGroupFileCountGauges() {
-        log.debug("addGroupFileCountGauges()");
-        List<Group> groups = List.of();
-        try {
-            groups = groupService.getAllGroups();
-        } catch (MopsException ignored) {
-        }
 
         groups.forEach(group -> {
-            log.debug("Adding group storage gauge for group {}.", group);
+            log.debug("Adding group file count gauge for group {}.", group);
             Gauge
-                    .builder("mops.material1.groupStorage", () -> {
+                    .builder("mops.material1.groupFileCount", () -> {
                                 try {
-                                    return fileInfoService.getStorageUsage(group.getId());
+                                    return fileInfoService.getFileCount(group.getId());
+                                } catch (MopsException ignored) {
+                                    return 0L;
+                                }
+                            }
+                    )
+                    .tag("group_id", String.valueOf(group.getId()))
+                    .register(meterRegistry);
+        });
+
+        groups.forEach(group -> {
+            log.debug("Adding group dir count gauge for group {}.", group);
+            Gauge
+                    .builder("mops.material1.groupDirCount", () -> {
+                                try {
+                                    return directoryService.getDirCount(group.getId());
                                 } catch (MopsException ignored) {
                                     return 0L;
                                 }
