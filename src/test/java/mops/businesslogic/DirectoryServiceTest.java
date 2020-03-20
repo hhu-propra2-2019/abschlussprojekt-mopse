@@ -1,7 +1,6 @@
 package mops.businesslogic;
 
 import mops.businesslogic.exception.ReadAccessPermissionException;
-import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
@@ -80,7 +79,7 @@ class DirectoryServiceTest {
         given(permissionService.fetchRoleForUserInGroup(user, GROUP_ID)).willReturn(USER);
         given(permissionService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
 
-        root = directoryService.getOrCreateRootFolder(admin, GROUP_ID);
+        root = directoryService.getOrCreateRootFolder(GROUP_ID);
 
         given(fileInfoService.fetchAllFilesInDirectory(root.getId())).willReturn(List.of());
     }
@@ -100,15 +99,6 @@ class DirectoryServiceTest {
     }
 
     /**
-     * Test if a group folder is not created when the user does not have permission.
-     */
-    @Test
-    void createGroupRootFolderWithoutPermission() {
-        assertThatExceptionOfType(WriteAccessPermissionException.class)
-                .isThrownBy(() -> directoryService.getOrCreateRootFolder(user, GROUP_ID + 1L));
-    }
-
-    /**
      * Test if folder is created in a given root folder.
      */
     @Test
@@ -120,7 +110,7 @@ class DirectoryServiceTest {
                 .name(subDirName)
                 .build();
 
-        Directory subDir = directoryService.createFolder(user, root.getId(), subDirName);
+        Directory subDir = directoryService.createFolder(admin, root.getId(), subDirName);
 
         assertThat(subDir).isEqualToIgnoringGivenFields(expected, "id", "creationTime", "lastModifiedTime");
     }
@@ -149,10 +139,10 @@ class DirectoryServiceTest {
         String subDirName1 = "a";
         String subDirName2 = "b";
 
-        Directory createdFirstDir = directoryService.createFolder(user, root.getId(), subDirName1);
-        Directory createdSecondDir = directoryService.createFolder(user, root.getId(), subDirName2);
+        Directory createdFirstDir = directoryService.createFolder(admin, root.getId(), subDirName1);
+        Directory createdSecondDir = directoryService.createFolder(admin, root.getId(), subDirName2);
 
-        List<Directory> subFolders = directoryService.getSubFolders(user, root.getId());
+        List<Directory> subFolders = directoryService.getSubFolders(admin, root.getId());
 
         assertThat(subFolders).containsExactlyInAnyOrder(createdFirstDir, createdSecondDir);
     }
@@ -188,7 +178,7 @@ class DirectoryServiceTest {
      */
     @Test
     void deleteSubFolderTest() throws MopsException {
-        Directory subFolder = directoryService.createFolder(user, root.getId(), "a");
+        Directory subFolder = directoryService.createFolder(admin, root.getId(), "a");
 
         Directory parent = directoryService.deleteFolder(admin, subFolder.getId());
 
@@ -230,7 +220,7 @@ class DirectoryServiceTest {
         FileQuery fileQuery = FileQuery.builder()
                 .build();
 
-        Directory root = directoryService.getOrCreateRootFolder(admin, GROUP_ID);
+        Directory root = directoryService.getOrCreateRootFolder(GROUP_ID);
 
         assertThatExceptionOfType(ReadAccessPermissionException.class)
                 .isThrownBy(() -> directoryService.searchFolder(intruder, root.getId(), fileQuery));

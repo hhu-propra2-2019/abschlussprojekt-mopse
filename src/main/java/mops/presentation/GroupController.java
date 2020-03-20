@@ -49,10 +49,9 @@ public class GroupController {
                                    Model model,
                                    @PathVariable("groupId") long groupId) {
         log.info("Root directory of group with id {} requested.", groupId);
-        Account account = AccountUtil.getAccountFromToken(token);
         GroupRootDirWrapper groupRootDir = null;
         try {
-            groupRootDir = groupService.getGroupUrl(account, groupId);
+            groupRootDir = groupService.getGroupUrl(groupId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
             log.error("Failed to retrieve root directory for group with id '{}'", groupId);
@@ -74,10 +73,9 @@ public class GroupController {
                                            Model model,
                                            @PathVariable("groupId") long groupId) {
         log.info("Group url for group with id '{}' requested.", groupId);
-        Account account = AccountUtil.getAccountFromToken(token);
         GroupRootDirWrapper groupRootDir = null;
         try {
-            groupRootDir = groupService.getGroupUrl(account, groupId);
+            groupRootDir = groupService.getGroupUrl(groupId);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
             log.error("Failed to retrieve group url for group with id '{}'.", groupId);

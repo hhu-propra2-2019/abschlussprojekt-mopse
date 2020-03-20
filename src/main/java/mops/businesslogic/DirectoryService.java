@@ -33,11 +33,10 @@ public interface DirectoryService {
     /**
      * Creates the group root directory.
      *
-     * @param account user credentials
      * @param groupId the group id
      * @return the directory created
      */
-    Directory getOrCreateRootFolder(Account account, long groupId) throws MopsException;
+    Directory getOrCreateRootFolder(long groupId) throws MopsException;
 
     /**
      * Creates a new folder inside a folder.
@@ -89,5 +88,20 @@ public interface DirectoryService {
      * @throws MopsException on error
      */
     Directory getDirectory(long dirId) throws MopsException;
+
+    /**
+     * Get the total number of directories in a group.
+     *
+     * @param groupId group
+     * @return directory count
+     */
+    long getDirCountInGroup(long groupId) throws MopsException;
+
+    /**
+     * Get the total number of directories in all groups.
+     *
+     * @return directory count
+     */
+    long getTotalDirCount() throws MopsException;
 
 }
