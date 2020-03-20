@@ -27,7 +27,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
      * @param groupId group id
      * @return total storage usage in bytes
      */
-    @Query("SELECT SUM(size) FROM file_info WHERE group_id = :groupId")
+    @Query("SELECT COALESCE(SUM(size), 0) FROM file_info WHERE group_id = :groupId")
     long getStorageUsageInGroup(@Param("groupId") long groupId);
 
     /**
@@ -35,7 +35,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
      *
      * @return total storage usage in bytes
      */
-    @Query("SELECT SUM(size) FROM file_info")
+    @Query("SELECT COALESCE(SUM(size), 0) FROM file_info")
     long getTotalStorageUsage();
 
     /**
@@ -44,7 +44,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
      * @param groupId group id
      * @return total file count
      */
-    @Query("SELECT COUNT(*) FROM file_info WHERE group_id = :groupId")
+    @Query("SELECT COALESCE(COUNT(*), 0) FROM file_info WHERE group_id = :groupId")
     long getFileCountInGroup(@Param("groupId") long groupId);
 
     /**
