@@ -9,9 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Controller for error routes.
+ */
 @Slf4j
 @Controller
 @RequestMapping("material1")
+// demeter violations in logging
+@SuppressWarnings("PMD.LawOfDemeter")
 public class ErrorController {
 
     /**

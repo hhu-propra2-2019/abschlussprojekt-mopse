@@ -19,7 +19,7 @@ public class ExceptionPresentationError implements PresentationError {
     MopsException exception;
 
     /**
-     * @return error message
+     * {@inheritDoc}
      */
     @NonNull
     @Override
