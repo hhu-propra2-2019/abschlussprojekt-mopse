@@ -61,20 +61,17 @@ public class DirectoryController {
         Account account = AccountUtil.getAccountFromToken(token);
         log.info("Folder content for folder with id '{}' requested by user '{}'.", dirId, account.getName());
 
-        List<Directory> directories = new ArrayList<>();
-        List<FileInfo> files = new ArrayList<>();
-
         try {
-            directories.addAll(directoryService.getSubFolders(account, dirId));
-            files.addAll(fileService.getFilesOfDirectory(account, dirId));
+            List<Directory> directories = new ArrayList<>(directoryService.getSubFolders(account, dirId));
+            List<FileInfo> files = new ArrayList<>(fileService.getFilesOfDirectory(account, dirId));
+            model.addAttribute("dirs", directories);
+            model.addAttribute("files", files);
         } catch (MopsException e) {
             log.error("Failed to retrieve the folder content for directory with id '{}':", dirId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
             return "redirect:/material1/error";
         }
 
-        model.addAttribute("dirs", directories);
-        model.addAttribute("files", files);
         model.addAttribute("fileQueryForm", new FileQueryForm());
         model.addAttribute("account", account);
         return "directory";
