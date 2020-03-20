@@ -38,7 +38,7 @@ Wir haben uns dazu an der RESTApi Wiki von GruppenFindung orientiert.
 ****
 GroupService
 
-Unser Service, welche die Gruppen bei uns verwaltet, muss logischerweise mit der GruppenFindung sprechen.
+Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der GruppenFindung interagieren.
 Dazu haben wir folgende REST API Anfragen implementiert:
 
 . `getAllGroups`
