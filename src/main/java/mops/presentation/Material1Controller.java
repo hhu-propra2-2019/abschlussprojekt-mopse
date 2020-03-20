@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @SuppressWarnings("PMD.LawOfDemeter")
 public class Material1Controller {
 
-
     /**
      * Landing page.
      *

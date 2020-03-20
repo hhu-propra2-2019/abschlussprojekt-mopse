@@ -5,6 +5,7 @@ import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.FileInfoRepository;
+import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
@@ -35,6 +36,8 @@ class DirectoryServiceTest {
 
     @MockBean
     PermissionService permissionService;
+    @MockBean
+    FileRepository fileRepository;
 
     @Autowired
     DirectoryService directoryService;
