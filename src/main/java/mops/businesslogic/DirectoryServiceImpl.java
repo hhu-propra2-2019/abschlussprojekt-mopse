@@ -223,7 +223,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return a directory object of the request folder
      */
     @SuppressWarnings("PMD.LawOfDemeter")
-    private Directory fetchDirectory(long parentDirID) {
+    private Directory fetchDirectory(long parentDirID) throws DatabaseException {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
         // this is not a violation of demeter's law
         return optionalDirectory.orElseThrow(getException(parentDirID)); //this is not a violation of demeter's law
@@ -307,12 +307,12 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param dirId directory id
      * @return a supplier to throw a exception
      */
-    private Supplier<NoSuchElementException> getException(long dirId) {
+    private Supplier<DatabaseException> getException(long dirId) {
         return () -> { //this is not a violation of the demeter's law
             log.error("The directory with the id {} was requested, but was not found in the database.",
                     dirId);
             String errorMessage = String.format("There is no directory with the id %s in the database.", dirId);
-            return new NoSuchElementException(errorMessage);
+            return new DatabaseException(errorMessage);
         };
     }
 }
