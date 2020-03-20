@@ -47,6 +47,7 @@ public class FileQuery {
     }
 
     /**
+     * Checks if file query matches with file meta data.
      * @param file a file information object
      * @return if the file meta data matches the query request
      */

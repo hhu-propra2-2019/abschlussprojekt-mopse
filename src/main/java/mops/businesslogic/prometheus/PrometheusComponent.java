@@ -153,6 +153,7 @@ public class PrometheusComponent {
     private interface GlobalStatSupplier {
 
         /**
+         * Gets global statistics.
          * @return stat
          * @throws MopsException on error
          */
@@ -164,6 +165,7 @@ public class PrometheusComponent {
     private interface GroupStatSupplier {
 
         /**
+         * Gets the group's statistics.
          * @param groupId group
          * @return stat
          * @throws MopsException on error

@@ -39,6 +39,7 @@ public class GroupController {
     private DirectoryService directoryService;
 
     /**
+     * Gets the root directory.
      * @param groupId the id of the group which files should be fetched
      * @return redirect to root dir
      */
@@ -58,6 +59,7 @@ public class GroupController {
     }
 
     /**
+     * Gets the url of the root directory.
      * @param groupId the id of the group of the requested url
      * @return a wrapper for the url string
      */

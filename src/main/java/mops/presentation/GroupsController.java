@@ -30,6 +30,7 @@ public class GroupsController {
     private final GroupService groupService;
 
     /**
+     * Gets all groups of a user.
      * @param token authentication token from keycloak server.
      * @param model view model.
      * @return groups view

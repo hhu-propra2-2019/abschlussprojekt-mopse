@@ -17,6 +17,7 @@ import java.util.Set;
 public interface FileService {
 
     /**
+     * Saves a file.
      * @param account       user credentials
      * @param dirId         directory id of the future parent folder
      * @param multipartFile the binary code of the file
@@ -25,6 +26,7 @@ public interface FileService {
     void saveFile(Account account, long dirId, MultipartFile multipartFile, Set<String> tags) throws MopsException;
 
     /**
+     * Gets a file.
      * @param account user credentials
      * @param fileId  file id of needed file
      * @return file
@@ -32,6 +34,7 @@ public interface FileService {
     FileContainer getFile(Account account, long fileId) throws MopsException;
 
     /**
+     * Deletes a file.
      * @param account user credentials
      * @param fileId  file id of file to be deleted
      * @return parent directory Id

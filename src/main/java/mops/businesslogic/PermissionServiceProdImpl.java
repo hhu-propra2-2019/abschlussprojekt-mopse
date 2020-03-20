@@ -88,6 +88,7 @@ public class PermissionServiceProdImpl implements PermissionService {
         private Set<GroupPermission> groups;
 
         /**
+         * Gets roles for a group.
          * @param groupId id of the group
          * @return the role of the user in the group
          * @throws GruppenFindungException something went wrong during api request

@@ -83,7 +83,7 @@ public interface DirectoryService {
                                           DirectoryPermissions permissions) throws MopsException;
 
     /**
-     * Internal use only: possible security flaw!
+     * Internal use only: possible security flaw!.
      * Check permission before fetching!
      *
      * @param dirId the id of the parent folder

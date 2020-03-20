@@ -18,6 +18,7 @@ import java.util.Set;
 public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
 
     /**
+     * Gets all files from one directory.
      * @param dirId directory id
      * @return a list of files in that directory
      */

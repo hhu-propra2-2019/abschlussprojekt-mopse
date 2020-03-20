@@ -41,6 +41,7 @@ public class DirectoryController {
     private final FileService fileService;
 
     /**
+     * Shows the content of a folder (files and sub folders).
      * @param token keycloak auth token
      * @param model spring view model
      * @param dirId id of the folder

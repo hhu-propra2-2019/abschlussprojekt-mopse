@@ -29,6 +29,7 @@ public class DummyDataSeeding {
     private static final long GROUP_ID = 100L;
 
     /**
+     * Initializes application runner.
      * @param directoryRepo            connection to the directory table from the database
      * @param fileInfoRepo             connection to the fileInfo table from the database
      * @param fileRepository           connection to the MinIO file repository

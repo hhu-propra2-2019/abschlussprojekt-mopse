@@ -131,6 +131,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
+     * Gets database exception.
      * @param dirId directory id
      * @return a supplier to throw a exception
      */

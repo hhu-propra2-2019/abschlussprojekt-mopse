@@ -18,6 +18,7 @@ import java.util.Optional;
 public interface DirectoryRepository extends CrudRepository<Directory, Long> {
 
     /**
+     * Gets all sub folders.
      * @param parentId the id of the parent folder
      * @return a list of level one sub folder of the parent folder
      */
@@ -25,6 +26,7 @@ public interface DirectoryRepository extends CrudRepository<Directory, Long> {
     List<Directory> getAllSubFoldersOfParent(@Param("parentId") long parentId);
 
     /**
+     * Gets folder count in a group.
      * @param groupOwner the group od
      * @return the number of the folders the group already has
      */
@@ -32,6 +34,7 @@ public interface DirectoryRepository extends CrudRepository<Directory, Long> {
     long getDirCountInGroup(@Param("groupOwner") long groupOwner);
 
     /**
+     * Gets the root folder of a group.
      * @param groupId the id of group
      * @return the group directory
      */
