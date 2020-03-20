@@ -62,6 +62,7 @@ public class DirectoryController {
         model.addAttribute("dirs", directories);
         model.addAttribute("files", files);
         model.addAttribute("fileQueryForm", new FileQueryForm());
+        model.addAttribute("account", account);
         return "directory";
     }
 
@@ -69,7 +70,6 @@ public class DirectoryController {
      * Uploads a file.
      *
      * @param token         keycloak auth token
-     * @param model         spring view model
      * @param dirId         id of the directory id where it will be uploaded
      * @param multipartFile file object
      * @return route after completion
@@ -77,7 +77,6 @@ public class DirectoryController {
     @PostMapping("/{dirId}/upload")
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String uploadFile(KeycloakAuthenticationToken token,
-                             Model model,
                              @PathVariable("dirId") long dirId,
                              @RequestAttribute("file") MultipartFile multipartFile) {
         log.info("Upload of a file in directory with id {} requested.", dirId);
@@ -95,7 +94,6 @@ public class DirectoryController {
      * Creates a new sub folder.
      *
      * @param token       keycloak auth token
-     * @param model       spring view model
      * @param parentDirId id of the parent folder
      * @param folderName  name of the new sub folder
      * @return object of the folder
@@ -104,7 +102,6 @@ public class DirectoryController {
     @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_EXCEPTION")
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock", "" })
     public String createSubFolder(KeycloakAuthenticationToken token,
-                                  Model model,
                                   @PathVariable("parentDirId") long parentDirId,
                                   @RequestAttribute("folderName") String folderName) {
         log.info("Sub folder creation requested in parent folder with id {}", parentDirId);
@@ -125,7 +122,6 @@ public class DirectoryController {
      * Deletes a folder.
      *
      * @param token user credentials
-     * @param model spring view model
      * @param dirId id of the folder to be deleted
      * @return the id of the parent folder
      */
@@ -133,7 +129,6 @@ public class DirectoryController {
     @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_EXCEPTION")
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
     public String deleteFolder(KeycloakAuthenticationToken token,
-                               Model model,
                                @PathVariable("dirId") long dirId) {
         log.info("Deletion of folder with id {} requested", dirId);
         Account account = AccountUtil.getAccountFromToken(token);
@@ -179,6 +174,7 @@ public class DirectoryController {
             log.error("Failed to search in folder with id {}", dirId);
         }
         model.addAttribute("files", files);
+        model.addAttribute("account", account);
         return "files";
     }
 }

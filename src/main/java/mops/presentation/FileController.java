@@ -54,6 +54,7 @@ public class FileController {
             log.error("Failed to retrieve file with id '{}'.", fileId);
         }
         model.addAttribute("file", info);
+        model.addAttribute("account", account);
         return "file";
     }
 
@@ -93,7 +94,6 @@ public class FileController {
      * Deletes a file.
      *
      * @param token   keycloak auth token
-     * @param model   spring view model
      * @param fileId  the id of the file to be deleted
      * @param request the Http request
      * @return the route to the parentDir of the deleted file
@@ -101,7 +101,6 @@ public class FileController {
     @DeleteMapping("/{fileId}")
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock", "PMD.LawOfDemeter" })
     public String deleteFile(KeycloakAuthenticationToken token,
-                             Model model,
                              @PathVariable("fileId") long fileId,
                              HttpServletRequest request) {
         Account account = AccountUtil.getAccountFromToken(token);

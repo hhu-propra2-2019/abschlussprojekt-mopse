@@ -48,6 +48,7 @@ public class GroupsController {
             log.error("Failed to retrieve user groups for {}.", account.getName());
         }
         model.addAttribute("groups", groups);
+        model.addAttribute("account", account);
         return "groups";
     }
 }
