@@ -32,7 +32,7 @@ Die `DirectoryPermissions` haben eine eindeutige `ID`.
 ==== PermissionEntry
 
 Das Datenbankobjekt `DirectoryPermissionsEntry` stellt Berechtigungsinformationen dar.
-`DirectoryPermissionsEntry` hat eine eindeutige ID.
+`DirectoryPermissionsEntry` hat eine eindeutige `ID`.
 Außerdem hat `DirectoryPermissionsEntry` ein Attribut `role`. `role` stellt die Rolle (Student, Organisator) in der
 Gruppe dar. Für die Rolle gibt es Informationen, ob der Benutzer lesen, schreiben oder löschen darf. Aus diesem Grund haben
 wir 3 `boolean` Attribute für Lesen, Schreiben und Löschen erstellt (`canRead`, `canWrite`, `canDelete`).
@@ -100,7 +100,7 @@ Packages kommunizieren kann.
 
 Der dritte Test überprüft, ob die Schicht-Architektur eingehalten wird.
 Die zusätzliche Annotation ermöglicht es, die `AggregateRoot` zu markieren, um die Überprüfung zu erleichtern. Die
-Lesbarkeit und Verständlichkeit der Klassen und Packages wird dadurch auch verbessert. Hier haben wir am 09.03. drei
+Lesbarkeit und Verständlichkeit der Klassen und Packages wird dadurch auch verbessert. Hier haben wir drei
 neue Tests hinzugefügt.
 
 Der vierte Test `allControllersShouldResideInMopsPresentation` sorgt dafür, dass alle Controller im
