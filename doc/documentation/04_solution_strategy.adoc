@@ -30,15 +30,12 @@ Authentifizierung auszustatten.
 === Datenbank
 
 ****
-Zur Auswahl standen hier MySQL, MariaDB und PostgreSQL, da wir damit bereits Erfahrungen gesammelt haben.
-Wir haben uns nach einer kurzen Diskussion für MariaDB entschieden.
-Und zwar weil MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, womit wir am meisten Erfahrung haben.
 
 Der Großteil unserer Erfahrungen beruhte bisher auf MySQL. Da MariaDB die aktive Open-Source-Weiterentwicklung von MySQL
-ist, haben wir uns für die Verwendung von MariaDB entschieden.
+ist, haben wir uns zunächst für die Verwendung von MariaDB entschieden.
 
 Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist
-umständlich immer diesen Docker-Container laufen zu lassen. Also haben wir uns entschieden in der Entwicklung und zum
-Testen H2 zu benutzen. Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir bereits kennen
-gelernt haben.
+umständlich, diesen Docker-Container dauerhaft aktiviert zu haben. Aus diesem Grund haben wir uns entschieden , während
+der Entwicklung und Testing H2 zu verwenden. H2 ist eine Embedded In-Memory Datenbank, die sehr schnell startet und
+die wir bereits kennengelernt haben.
 ****
