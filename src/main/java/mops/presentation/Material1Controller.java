@@ -19,21 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @SuppressWarnings("PMD.LawOfDemeter")
 public class Material1Controller {
 
-    /**
-     * Basic error page.
-     *
-     * @param token user credentials
-     * @param model spring view model
-     * @return error view template
-     */
-    @GetMapping("error")
-    public String error(KeycloakAuthenticationToken token, Model model) {
-        Account account = AccountUtil.getAccountFromToken(token);
-        log.info("Error page requested by user '{}'.", account.getName());
-
-        model.addAttribute("account", account);
-        return "mops_error";
-    }
 
     /**
      * Landing page.
@@ -49,5 +34,21 @@ public class Material1Controller {
 
         model.addAttribute("account", account);
         return "mops_index";
+    }
+
+    /**
+     * Basic error page.
+     *
+     * @param token user credentials
+     * @param model spring view model
+     * @return error view template
+     */
+    @GetMapping("error")
+    public String error(KeycloakAuthenticationToken token, Model model) {
+        Account account = AccountUtil.getAccountFromToken(token);
+        log.info("Error page requested by user '{}'.", account.getName());
+
+        model.addAttribute("account", account);
+        return "mops_error";
     }
 }
