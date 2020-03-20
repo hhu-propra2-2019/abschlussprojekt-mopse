@@ -148,7 +148,7 @@ Business Layer::
 | GroupService
 | _Verwaltet alle Inhalte einer einzelnen Gruppe. Ordner sowie Dateien._
 | _Um die Informationen über die Unterordner einer Gruppe zu erhalten, wird eine Anfrage an den `DirectoryService` gestellt.
-Ebenso kommunziert es über eine API mit `GruppenFindung`._
+Ebenso kommunziert er über eine API mit `GruppenFindung`._
 
 | PermissionService
 | _Stellt die Berechtigungen eines einzelnen Benutzers zur Verfügung._
