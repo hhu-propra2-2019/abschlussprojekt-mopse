@@ -11,6 +11,7 @@ import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.persistence.permission.DirectoryPermissionsBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,10 +29,12 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Represents the role of an admin.
      */
+    @Value("${material1.mops.configuration.admin}")
     public static final String ADMIN = "admin";
     /**
      * The max amount of folders per group.
      */
+    @Value("${material1.mops.configuration.max-groups}")
     public static final long MAX_FOLDER_PER_GROUP = 200L;
 
     /**
