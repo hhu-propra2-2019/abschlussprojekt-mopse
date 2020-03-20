@@ -74,7 +74,7 @@ oder alternativ in der Konsole `docker-compose down --volumes` ausführen.
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
 1. Run Configuration `Material1Application - prod (local)` starten
 oder alternativ die Spring Anwendung im Spring Profil `prod` mit folgenden Umgebungsvariablen starten:
-`MATERIAL1_PORT=8080;MATERIAL1_DB_HOST=localhost;MATERIAL1_DB_PORT=5432;POSTGRES_USER=postgres;POSTGRES_PASSWORD=password;POSTGRES_DB=material1;MATERIAL1_MINIO_HOST=http://localhost;MATERIAL1_MINIO_PORT=9000;MATERIAL1_MINIO_BUCKET_NAME=dev-bucket;MINIO_ACCESS_KEY=dev_minio_access_key;MINIO_SECRET_KEY=dev_minio_secret_key`.
+`MATERIAL1_PORT=8080;MATERIAL1_DB_HOST=localhost;MATERIAL1_DB_PORT=5432;POSTGRES_USER=postgres;POSTGRES_PASSWORD=password;POSTGRES_DB=material1;MATERIAL1_MINIO_HOST=http://localhost;MATERIAL1_MINIO_PORT=9000;MATERIAL1_MINIO_BUCKET_NAME=dev-bucket;MINIO_ACCESS_KEY=dev_minio_access_key;MINIO_SECRET_KEY=dev_minio_secret_key;MATERIAL1_GRUPPENFINDUNG_URL=https://mops.hhu.de/gruppe1`.
 Gelesen werden sie von Spring in den einzelnen `application.properties`-Dateien für die Profile.
 1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1/groups geöffnet werden.
 
