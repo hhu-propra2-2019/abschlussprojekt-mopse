@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Slf4j
 @Service
-@Profile("dev")
+@Profile({ "dev", "test" })
 public class PermissionServiceDevImpl implements PermissionService {
 
     /**

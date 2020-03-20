@@ -17,14 +17,8 @@ class DirectoryRepositoryTest {
 
     static final long GROUP_ID = 0L;
 
-    /**
-     * Handles db communication for directories.
-     */
     @Autowired
     DirectoryRepository directoryRepository;
-    /**
-     * Handles db communication for directory permissions.
-     */
     @Autowired
     DirectoryPermissionsRepository directoryPermissionsRepository;
 

@@ -4,7 +4,7 @@ import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
-import mops.persistence.FileRepository;
+import mops.persistence.FileInfoRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
@@ -20,9 +20,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 
 @DbContext
 @SpringBootTest
@@ -36,28 +34,14 @@ class DirectoryServiceTest {
     static final long GROUP_ID = 0L;
 
     @MockBean
-    GroupService groupService;
-    @MockBean
-    FileRepository fileRepository;
-    @MockBean
-    FileInfoService fileInfoService;
-    @MockBean
-    FileService fileService;
-    @MockBean
     PermissionService permissionService;
-    @MockBean
-    GarbageCollector garbageCollector;
 
-    /**
-     * Service for communication related to directories.
-     */
     @Autowired
     DirectoryService directoryService;
-    /**
-     * Repository for directory permissions.
-     */
     @Autowired
     DirectoryPermissionsRepository directoryPermissionsRepository;
+    @Autowired
+    FileInfoRepository fileInfoRepository;
 
     Directory root;
     Account admin;
@@ -82,8 +66,6 @@ class DirectoryServiceTest {
         given(permissionService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
 
         root = directoryService.getOrCreateRootFolder(GROUP_ID);
-
-        given(fileInfoService.fetchAllFilesInDirectory(root.getId())).willReturn(List.of());
     }
 
     /**
@@ -195,22 +177,25 @@ class DirectoryServiceTest {
         FileQuery query = FileQuery.builder()
                 .name("a")
                 .build();
-        FileInfo matchingFile = FileInfo.builder()
-                .name("a")
-                .directory(root)
-                .type("txt")
-                .size(0L)
-                .owner(USER)
-                .build();
-        FileInfo notMatchingFile = FileInfo.builder()
-                .name("b")
-                .directory(root)
-                .type("txt")
-                .size(0L)
-                .owner(USER)
-                .build();
 
-        when(fileInfoService.fetchAllFilesInDirectory(anyLong())).thenReturn(List.of(matchingFile, notMatchingFile));
+        FileInfo matchingFile = fileInfoRepository.save(
+                FileInfo.builder()
+                        .name("a")
+                        .directory(root)
+                        .type("txt")
+                        .size(0L)
+                        .owner(USER)
+                        .build()
+        );
+        FileInfo notMatchingFile = fileInfoRepository.save(
+                FileInfo.builder()
+                        .name("b")
+                        .directory(root)
+                        .type("txt")
+                        .size(0L)
+                        .owner(USER)
+                        .build()
+        );
 
         List<FileInfo> fileInfos = directoryService.searchFolder(user, root.getId(), query);
 

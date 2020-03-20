@@ -15,6 +15,7 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
+@TestContext
 @Transactional
 @AutoConfigureCache
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
