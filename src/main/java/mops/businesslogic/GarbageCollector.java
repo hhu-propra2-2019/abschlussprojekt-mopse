@@ -59,13 +59,23 @@ public class GarbageCollector {
         metaIds.removeAll(intersection);
         fileIds.removeAll(intersection);
 
+        long count = metaIds.size() + fileIds.size();
+        log.debug("{} orphans were found. {} FileInfo Entries and {} Files.",
+                count,
+                metaIds.size(),
+                fileIds.size()
+        );
+
         try {
             for (Long metaId : metaIds) {
                 fileInfoService.deleteFileInfo(metaId);
+                log.debug("Removed FileInfo orphan with ID {}", metaId);
             }
 
             for (Long fileId : fileIds) {
                 fileService.deleteFile(fileId);
+                log.debug("Removed orphaned File with ID {}", fileId);
+
             }
         } catch (MopsException e) {
             log.error("There was an error while removing orphans: {}", e.getMessage());
