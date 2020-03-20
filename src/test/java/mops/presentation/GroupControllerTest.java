@@ -3,13 +3,11 @@ package mops.presentation;
 import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
-import mops.businesslogic.*;
-import mops.businesslogic.query.FileQuery;
+import mops.businesslogic.DirectoryService;
+import mops.businesslogic.FileQueryForm;
+import mops.businesslogic.GroupRootDirWrapper;
+import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
-import mops.persistence.DirectoryPermissionsRepository;
-import mops.persistence.DirectoryRepository;
-import mops.persistence.FileInfoRepository;
-import mops.persistence.FileRepository;
 import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,21 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
     @MockBean
-    DirectoryRepository directoryRepository;
-    @MockBean
-    DirectoryPermissionsRepository directoryPermissionsRepository;
-    @MockBean
-    FileInfoRepository fileInfoRepository;
-    @MockBean
-    FileRepository fileRepository;
-    @MockBean
-    GroupService groupService;
-    @MockBean
-    FileService fileService;
-    @MockBean
     DirectoryService directoryService;
     @MockBean
-    FileInfoService fileInfoService;
+    GroupService groupService;
 
     /**
      * Setup service/repo mocks.
@@ -62,7 +48,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      */
     @Test
     @WithMockKeycloackAuth(roles = "api_user", idToken = @WithIDToken(email = "user@mail.de"))
-    void getGroupUrl() throws Exception {
+    void getRootDirectoryUrl() throws Exception {
         mockMvc().perform(get("/material1/group/{groupId}/url", 1L))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.group_id").value(1L))
@@ -108,11 +94,14 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void searchFile() throws Exception {
-        FileQuery fileQuery = FileQuery.builder()
-                .build();
+        FileQueryForm fileQueryForm = new FileQueryForm();
+        fileQueryForm.setNames(new String[] { "cv" });
+        fileQueryForm.setOwners(new String[] { "Thabb" });
+        fileQueryForm.setTypes(new String[] { "pdf" });
+        fileQueryForm.setTags(new String[] { "awesome" });
 
         mockMvc().perform(post("/material1/group/{groupId}/search", 1)
-                .requestAttr("search", fileQuery)
+                .requestAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("files"))

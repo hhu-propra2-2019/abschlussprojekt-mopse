@@ -22,6 +22,9 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Handles requests to MinIO.
+ */
 @Service
 @AllArgsConstructor
 @Slf4j

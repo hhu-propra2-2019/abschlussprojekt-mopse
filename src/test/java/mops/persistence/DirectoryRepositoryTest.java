@@ -2,7 +2,7 @@ package mops.persistence;
 
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.utils.DbContext;
+import mops.utils.AuditingDbContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
@@ -11,20 +11,14 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DbContext
+@AuditingDbContext
 @DataJdbcTest
 class DirectoryRepositoryTest {
 
     static final long GROUP_ID = 0L;
 
-    /**
-     * Handles db communication for directories.
-     */
     @Autowired
     DirectoryRepository directoryRepository;
-    /**
-     * Handles db communication for directory permissions.
-     */
     @Autowired
     DirectoryPermissionsRepository directoryPermissionsRepository;
 

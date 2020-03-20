@@ -6,6 +6,9 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuration for MinIO.
+ */
 @Configuration
 @ConfigurationProperties(prefix = "material1.mops.storage.minio")
 @Getter

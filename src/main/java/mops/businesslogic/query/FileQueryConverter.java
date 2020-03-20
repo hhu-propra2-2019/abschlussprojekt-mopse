@@ -4,6 +4,9 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+/**
+ * Builds a file query from string.
+ */
 public class FileQueryConverter implements Converter<String, FileQuery> {
 
     /**

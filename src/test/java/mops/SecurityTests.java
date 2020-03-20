@@ -2,12 +2,8 @@ package mops;
 
 import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
-import mops.businesslogic.*;
-import mops.persistence.DirectoryPermissionsRepository;
-import mops.persistence.DirectoryRepository;
-import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
-import mops.utils.TestContext;
+import mops.utils.DbContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,30 +13,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@TestContext
+@DbContext
 @SpringBootTest
 class SecurityTests {
 
     @MockBean
-    DirectoryRepository directoryRepository;
-    @MockBean
-    DirectoryPermissionsRepository directoryPermissionsRepository;
-    @MockBean
-    FileInfoRepository fileInfoRepository;
-    @MockBean
     FileRepository fileRepository;
-    @MockBean
-    GroupService groupService;
-    @MockBean
-    FileService fileService;
-    @MockBean
-    DirectoryService directoryService;
-    @MockBean
-    PermissionService permissionService;
-    @MockBean
-    FileInfoService fileInfoService;
-    @MockBean
-    GarbageCollector garbageCollector;
 
     @Autowired
     MockMvc mvc;

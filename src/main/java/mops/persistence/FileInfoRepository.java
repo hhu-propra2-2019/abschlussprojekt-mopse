@@ -10,11 +10,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Database connection for file meta data.
+ */
 @Repository
 @AggregateBuilder
 public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
 
     /**
+     * Gets all files from one directory.
+     *
      * @param dirId directory id
      * @return a list of files in that directory
      */
