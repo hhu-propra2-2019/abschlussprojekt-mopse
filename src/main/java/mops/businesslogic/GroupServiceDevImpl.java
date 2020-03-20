@@ -26,6 +26,7 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter") // stream
     public List<Group> getAllGroups() throws MopsException {
         return VALID_GROUP_IDS.stream()
                 .map(id -> new Group(id, "Einzigen #" + id))
