@@ -179,10 +179,9 @@ class FileInfoTest {
 
         group2dir = dirRepo.save(group2dir);
 
-        Random random = new Random();
-        long f1size = random.nextLong();
-        long f2size = random.nextLong();
-        long f3size = random.nextLong();
+        long f1size = 1423565L;
+        long f2size = 63479L;
+        long f3size = 81803L;
 
         FileInfo f1 = FileInfo.builder()
                 .name("a")
