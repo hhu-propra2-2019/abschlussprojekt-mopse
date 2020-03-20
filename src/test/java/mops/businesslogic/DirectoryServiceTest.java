@@ -187,7 +187,7 @@ class DirectoryServiceTest {
                         .owner(USER)
                         .build()
         );
-        FileInfo notMatchingFile = fileInfoRepository.save(
+        fileInfoRepository.save(
                 FileInfo.builder()
                         .name("b")
                         .directory(root)
