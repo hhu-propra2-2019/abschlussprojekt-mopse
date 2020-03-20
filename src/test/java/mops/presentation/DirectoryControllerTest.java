@@ -124,10 +124,11 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void searchFolder() throws Exception {
         FileQueryForm fileQueryForm = new FileQueryForm();
-        fileQueryForm.setFileNames(new String[] { "cv" });
+        fileQueryForm.setNames(new String[] { "cv" });
         fileQueryForm.setOwners(new String[] { "Thabb" });
         fileQueryForm.setTypes(new String[] { "pdf" });
         fileQueryForm.setTags(new String[] { "awesome" });
+
         mockMvc().perform(post("/material1/dir/{dir}/search", 1)
                 .requestAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))

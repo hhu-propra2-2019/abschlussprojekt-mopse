@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @SuppressFBWarnings(value = "EI_EXPOSE_REP",
         justification = "This class is just a wrapper, so it's ok to expose the getters")
 public class FileQueryForm {
+
     /**
      * List of file names to search for.
      */
-    private String[] fileNames;
+    private String[] names;
     /**
      * List of user names of file owners to search for.
      */
@@ -25,4 +26,5 @@ public class FileQueryForm {
      * List of file tags to search for.
      */
     private String[] tags;
+
 }
