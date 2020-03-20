@@ -2,9 +2,7 @@ package mops;
 
 import mops.businesslogic.Account;
 import mops.businesslogic.DirectoryService;
-import mops.persistence.DirectoryPermissionsRepository;
-import mops.persistence.DirectoryRepository;
-import mops.persistence.FileInfoRepository;
+import mops.businesslogic.FileInfoService;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -26,19 +24,15 @@ public class DummyDataSeeding {
     private static final long GROUP_ID = 100L;
 
     /**
-     * @param directoryRepo            connection to the directory table from the database
-     * @param fileInfoRepo             connection to the fileInfo table from the database
-     * @param fileRepository           connection to the MinIO file repository
-     * @param directoryPermissionsRepo connection to the directoryPermission table from the database
-     * @param directoryService         directory service
+     * @param fileInfoService  file info service
+     * @param fileRepository   connection to the MinIO file repository
+     * @param directoryService directory service
      * @return an ApplicationRunner
      */
     @Bean
     @Profile("dev")
-    public ApplicationRunner init(DirectoryRepository directoryRepo,
-                                  FileInfoRepository fileInfoRepo,
+    public ApplicationRunner init(FileInfoService fileInfoService,
                                   FileRepository fileRepository,
-                                  DirectoryPermissionsRepository directoryPermissionsRepo,
                                   DirectoryService directoryService) {
         return args -> {
             final int fileSize1 = 2_000;
@@ -61,11 +55,7 @@ public class DummyDataSeeding {
             Directory directoryParent = directoryService.getOrCreateRootFolder(GROUP_ID);
             directoryService.updatePermission(admin, directoryParent.getId(), directoryPermissions);
 
-            Directory directoryChild = Directory.builder()
-                    .fromParent(directoryParent)
-                    .name("Child")
-                    .build();
-            directoryChild = directoryRepo.save(directoryChild);
+            Directory directoryChild = directoryService.createFolder(admin, directoryParent.getId(), "Child Folder");
 
             FileInfo fileInfoParent = FileInfo.builder()
                     .name("Test1")
@@ -75,7 +65,8 @@ public class DummyDataSeeding {
                     .owner(owner1)
                     .tag("Test")
                     .build();
-            fileInfoParent = fileInfoRepo.save(fileInfoParent);
+            fileInfoParent = fileInfoService.saveFileInfo(fileInfoParent);
+
 
             byte[] contentParent = new byte[fileSize1];
             try (InputStream stream = new ByteArrayInputStream(contentParent)) {
@@ -90,7 +81,7 @@ public class DummyDataSeeding {
                     .owner(owner2)
                     .tag("Test")
                     .build();
-            fileInfoChild = fileInfoRepo.save(fileInfoChild);
+            fileInfoChild = fileInfoService.saveFileInfo(fileInfoChild);
 
             byte[] contentChild = new byte[fileSize2];
             try (InputStream stream = new ByteArrayInputStream(contentChild)) {
