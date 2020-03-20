@@ -38,12 +38,9 @@ class FileRepositoryTest {
                 .withEnv("MINIO_SECRET_KEY", fileRepoConfig.getSecretKey())
                 .withCommand("server /data")
                 .withExposedPorts(9000)
-                .waitingFor(
-                        Wait
-                                .forHttp("/minio/health/ready")
-                                .forPort(9000)
-                                .withStartupTimeout(Duration.ofSeconds(30))
-                );
+                .waitingFor(Wait.forHttp("/minio/health/ready")
+                        .forPort(9000)
+                        .withStartupTimeout(Duration.ofSeconds(30)));
         minioServer.start();
 
         int mappedPort = minioServer.getFirstMappedPort();
