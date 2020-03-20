@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
+
 /**
  * Controller Class for all requests on 'material1/file'.
  */
@@ -37,6 +38,7 @@ public class FileController {
 
     /**
      * Retrieves a file.
+     *
      * @param token  a keycloak authentication token
      * @param model  model
      * @param fileId the id of the requested file
@@ -63,6 +65,7 @@ public class FileController {
 
     /**
      * Downloads a file.
+     *
      * @param token  a keycloak authentication token
      * @param fileId the id of the requested file
      * @return the route to template 'file'

@@ -224,6 +224,7 @@ public class DirectoryServiceImpl implements DirectoryService {
 
     /**
      * Gets a directory.
+     *
      * @param parentDirID the id of the parent folder
      * @return a directory object of the request folder
      */
@@ -310,6 +311,7 @@ public class DirectoryServiceImpl implements DirectoryService {
 
     /**
      * Gets a database exception.
+     *
      * @param dirId directory id
      * @return a supplier to throw a exception
      */

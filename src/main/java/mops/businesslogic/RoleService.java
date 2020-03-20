@@ -39,6 +39,7 @@ public interface RoleService {
 
     /**
      * Checks if user is has a role.
+     *
      * @param account     user credentials
      * @param groupId     id of the group to check
      * @param allowedRole role which has the right

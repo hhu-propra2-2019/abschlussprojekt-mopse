@@ -13,6 +13,7 @@ public interface PermissionService {
 
     /**
      * Gets the role for one user in a group.
+     *
      * @param account user credentials
      * @param groupId the id of the group
      * @return the role of the user in that group
@@ -21,6 +22,7 @@ public interface PermissionService {
 
     /**
      * Gets all roles for a group.
+     *
      * @param groupId the id of the group
      * @return gets all roles of that group
      */

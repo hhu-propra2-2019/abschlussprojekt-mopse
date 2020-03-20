@@ -30,6 +30,7 @@ public class DummyDataSeeding {
 
     /**
      * Initializes application runner.
+     *
      * @param directoryRepo            connection to the directory table from the database
      * @param fileInfoRepo             connection to the fileInfo table from the database
      * @param fileRepository           connection to the MinIO file repository

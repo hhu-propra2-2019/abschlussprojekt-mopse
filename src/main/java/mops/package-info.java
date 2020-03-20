@@ -1,4 +1,4 @@
 /**
-  * Modulare Online Plattform für Studierende.
+ * Modulare Online Plattform für Studierende.
  */
 package mops;

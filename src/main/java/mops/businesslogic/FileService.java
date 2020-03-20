@@ -18,6 +18,7 @@ public interface FileService {
 
     /**
      * Saves a file.
+     *
      * @param account       user credentials
      * @param dirId         directory id of the future parent folder
      * @param multipartFile the binary code of the file
@@ -27,6 +28,7 @@ public interface FileService {
 
     /**
      * Gets a file.
+     *
      * @param account user credentials
      * @param fileId  file id of needed file
      * @return file
@@ -35,6 +37,7 @@ public interface FileService {
 
     /**
      * Deletes a file.
+     *
      * @param account user credentials
      * @param fileId  file id of file to be deleted
      * @return parent directory Id

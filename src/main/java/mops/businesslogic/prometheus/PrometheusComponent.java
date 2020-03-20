@@ -154,6 +154,7 @@ public class PrometheusComponent {
 
         /**
          * Gets global statistics.
+         *
          * @return stat
          * @throws MopsException on error
          */
@@ -166,6 +167,7 @@ public class PrometheusComponent {
 
         /**
          * Gets the group's statistics.
+         *
          * @param groupId group
          * @return stat
          * @throws MopsException on error

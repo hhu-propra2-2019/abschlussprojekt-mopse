@@ -28,6 +28,7 @@ public interface GroupService {
 
     /**
      * Gets the group url.
+     *
      * @param groupId the id of the group
      * @return a wrapper for group urls
      */
