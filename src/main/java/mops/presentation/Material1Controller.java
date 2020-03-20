@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Controller for error routes.
+ * Controller for basic routes.
  */
 @Slf4j
 @Controller
 @RequestMapping("material1")
 // demeter violations in logging
 @SuppressWarnings("PMD.LawOfDemeter")
-public class ErrorController {
+public class Material1Controller {
 
     /**
      * Basic error page.
@@ -35,4 +35,19 @@ public class ErrorController {
         return "mops_error";
     }
 
+    /**
+     * Landing page.
+     *
+     * @param token user credentials
+     * @param model spring view model
+     * @return error view template
+     */
+    @GetMapping
+    public String index(KeycloakAuthenticationToken token, Model model) {
+        Account account = AccountUtil.getAccountFromToken(token);
+        log.info("Index page requested by user '{}'.", account.getName());
+
+        model.addAttribute("account", account);
+        return "mops_index";
+    }
 }
