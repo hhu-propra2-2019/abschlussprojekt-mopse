@@ -37,6 +37,8 @@ public class GarbageCollector {
     @Scheduled(fixedDelay = ONE_WEEK)
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn" })
     public void removeOrphans() {
+        log.debug("Starting garbage collection.");
+
         Set<Long> metaIds;
         Set<Long> fileIds;
         try {
