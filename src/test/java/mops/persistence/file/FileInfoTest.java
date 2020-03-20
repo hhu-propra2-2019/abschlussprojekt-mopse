@@ -13,7 +13,9 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -30,7 +32,7 @@ class FileInfoTest {
     DirectoryRepository dirRepo;
 
     FileInfo file;
-    Directory rootDir;
+    Directory group1dir;
 
     @BeforeEach
     void setup() {
@@ -39,16 +41,16 @@ class FileInfoTest {
                 .build();
         rootDirPerms = permRepo.save(rootDirPerms);
 
-        this.rootDir = Directory.builder()
-                .name("")
-                .groupOwner(0L)
+        this.group1dir = Directory.builder()
+                .name("Group 1 Directory")
+                .groupOwner(1L)
                 .permissions(rootDirPerms)
                 .build();
-        rootDir = dirRepo.save(rootDir);
+        group1dir = dirRepo.save(group1dir);
 
         this.file = FileInfo.builder()
                 .name("a")
-                .directory(rootDir)
+                .directory(group1dir)
                 .type("txt")
                 .size(0L)
                 .owner("user")
@@ -113,7 +115,7 @@ class FileInfoTest {
     void fetchAllIds() {
         FileInfo f1 = FileInfo.builder()
                 .name("a")
-                .directory(rootDir)
+                .directory(group1dir)
                 .type("txt")
                 .size(0L)
                 .owner("user")
@@ -123,7 +125,7 @@ class FileInfoTest {
 
         FileInfo f2 = FileInfo.builder()
                 .name("b")
-                .directory(rootDir)
+                .directory(group1dir)
                 .type("txt")
                 .size(0L)
                 .owner("user")
@@ -133,7 +135,7 @@ class FileInfoTest {
 
         FileInfo f3 = FileInfo.builder()
                 .name("c")
-                .directory(rootDir)
+                .directory(group1dir)
                 .type("txt")
                 .size(0L)
                 .owner("user")
@@ -160,5 +162,66 @@ class FileInfoTest {
                 f1.getId(),
                 f3.getId()
         );
+    }
+
+    @Test
+    void shouldCountFileSizeAndFileAmountOfGroup() {
+        DirectoryPermissions permissions = DirectoryPermissions.builder()
+                .entry("admin", true, true, true)
+                .build();
+        permissions = permRepo.save(permissions);
+
+        Directory group2dir = Directory.builder()
+                .name("Group 2 Directory")
+                .groupOwner(2L)
+                .permissions(permissions)
+                .build();
+
+        group2dir = dirRepo.save(group2dir);
+
+        Random random = new Random();
+        long f1size = random.nextLong();
+        long f2size = random.nextLong();
+        long f3size = random.nextLong();
+
+        FileInfo f1 = FileInfo.builder()
+                .name("a")
+                .directory(group1dir)
+                .type("txt")
+                .size(f1size)
+                .owner("user")
+                .tag("1")
+                .tag("2")
+                .build();
+
+        FileInfo f2 = FileInfo.builder()
+                .name("b")
+                .directory(group1dir)
+                .type("txt")
+                .size(f2size)
+                .owner("user")
+                .tag("1")
+                .tag("2")
+                .build();
+
+        FileInfo f3 = FileInfo.builder()
+                .name("c")
+                .directory(group2dir)
+                .type("txt")
+                .size(f3size)
+                .owner("user")
+                .tag("1")
+                .tag("2")
+                .build();
+
+        repo.saveAll(List.of(f1, f2, f3));
+
+        long sizeOfGroup1 = repo.getStorageUsageInGroup(1);
+        long fileCountOfGroup1 = repo.getFileCountInGroup(1);
+        long totalSize = repo.getTotalStorageUsage();
+
+        assertThat(sizeOfGroup1).isEqualTo(f1size + f2size);
+        assertThat(fileCountOfGroup1).isEqualTo(2);
+        assertThat(totalSize).isEqualTo(f1size + f2size + f3size);
     }
 }
