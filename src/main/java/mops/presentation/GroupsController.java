@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,25 +35,27 @@ public class GroupsController {
     private final GroupService groupService;
 
     /**
-     * @param token authentication token from keycloak server.
-     * @param model view model.
+     * @param redirectAttributes redirect attributes
+     * @param token              authentication token from keycloak server.
+     * @param model              view model.
      * @return groups view
      */
     @GetMapping
-    public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
+    public String getAllGroups(RedirectAttributes redirectAttributes,
+                               KeycloakAuthenticationToken token,
+                               Model model) {
         Account account = AccountUtil.getAccountFromToken(token);
         log.info("All groups requested for user '{}'.", account.getName());
 
-        List<Group> groups = new ArrayList<>();
-
         try {
-            groups.addAll(groupService.getAllGroupsOfUser(account));
+            List<Group> groups = groupService.getAllGroupsOfUser(account);
+            model.addAttribute("groups", groups);
         } catch (MopsException e) {
             log.error("Failed to retrieve user groups for '{}':", account.getName(), e);
-            model.addAttribute("error", new ExceptionPresentationError(e));
+            redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
+            return "redirect:/material1/error";
         }
 
-        model.addAttribute("groups", groups);
         model.addAttribute("account", account);
         return "groups";
     }

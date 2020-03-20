@@ -55,7 +55,7 @@ public class GroupController {
         } catch (MopsException e) {
             log.error("Failed to retrieve root directory for group with id '{}':", groupId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
-            return "redirect:/material1/groups";
+            return "redirect:/material1/error";
         }
     }
 
@@ -81,34 +81,36 @@ public class GroupController {
     /**
      * Searches are group for matching files.
      *
-     * @param token     keycloak auth token
-     * @param model     spring view model
-     * @param groupId   the id of the group to be searched
-     * @param queryForm wrapper for a search query
+     * @param redirectAttributes redirect attributes
+     * @param token              keycloak auth token
+     * @param model              spring view model
+     * @param groupId            the id of the group to be searched
+     * @param queryForm          wrapper for a search query
      * @return the route to the template 'directory'
      */
     @PostMapping("/{groupId}/search")
-    public String searchFilesInGroup(KeycloakAuthenticationToken token,
+    public String searchFilesInGroup(RedirectAttributes redirectAttributes,
+                                     KeycloakAuthenticationToken token,
                                      Model model,
                                      @PathVariable("groupId") long groupId,
                                      @RequestAttribute("fileQueryForm") FileQueryForm queryForm) {
         Account account = AccountUtil.getAccountFromToken(token);
         log.info("Search files in group with id '{}' requested by user '{}'.", groupId, account.getName());
 
-        List<FileInfo> files = new ArrayList<>();
         FileQuery query = FileQuery.builder()
                 .from(queryForm)
                 .build();
 
         try {
-            files.addAll(directoryService.searchFolder(account, groupId, query));
+            List<FileInfo> files = new ArrayList<>(directoryService.searchFolder(account, groupId, query));
+            model.addAttribute("files", files);
         } catch (MopsException e) {
             log.error("Failed to search for files in group with id '{}':", groupId, e);
-            model.addAttribute("error", new ExceptionPresentationError(e));
+            redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
+            return "redirect:/material1/error";
         }
 
         model.addAttribute("fileQueryForm", queryForm);
-        model.addAttribute("files", files);
         model.addAttribute("account", account);
         return "files";
     }

@@ -42,13 +42,15 @@ public class DirectoryController {
     private final FileService fileService;
 
     /**
-     * @param token keycloak auth token
-     * @param model spring view model
-     * @param dirId id of the folder
+     * @param redirectAttributes redirect attributes
+     * @param token              keycloak auth token
+     * @param model              spring view model
+     * @param dirId              id of the folder
      * @return route to folder
      */
     @GetMapping("/{dirId}")
-    public String showFolderContent(KeycloakAuthenticationToken token,
+    public String showFolderContent(RedirectAttributes redirectAttributes,
+                                    KeycloakAuthenticationToken token,
                                     Model model,
                                     @PathVariable("dirId") long dirId) {
         Account account = AccountUtil.getAccountFromToken(token);
@@ -62,7 +64,8 @@ public class DirectoryController {
             files.addAll(fileService.getFilesOfDirectory(account, dirId));
         } catch (MopsException e) {
             log.error("Failed to retrieve the folder content for directory with id '{}':", dirId, e);
-            model.addAttribute("error", new ExceptionPresentationError(e));
+            redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
+            return "redirect:/material1/error";
         }
 
         model.addAttribute("dirs", directories);
@@ -95,6 +98,7 @@ public class DirectoryController {
         } catch (MopsException e) {
             log.error("Failed to upload file in directory with id '{}':", dirId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
+            return "redirect:/material1/error";
         }
 
         redirectAttributes.addAttribute("dirId", dirId);
@@ -125,7 +129,7 @@ public class DirectoryController {
         } catch (MopsException e) {
             log.error("Failed to create folder in parent directory with id '{}':", parentDirId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
-            redirectAttributes.addAttribute("dirId", parentDirId);
+            return "redirect:/material1/error";
         }
 
         return "redirect:/material1/dir/{dirId}";
@@ -152,7 +156,7 @@ public class DirectoryController {
         } catch (MopsException e) {
             log.error("Failed to delete folder with id '{}':", dirId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
-            redirectAttributes.addAttribute("dirId", dirId);
+            return "redirect:/material1/error";
         }
 
         return "redirect:/material1/dir/{dirId}";
@@ -161,35 +165,36 @@ public class DirectoryController {
     /**
      * Searches a folder for files.
      *
-     * @param token     user credentials
-     * @param model     spring view model
-     * @param dirId     id of the folder to be searched
-     * @param queryForm wrapper object of the query form parameter
+     * @param redirectAttributes redirect attributes
+     * @param token              user credentials
+     * @param model              spring view model
+     * @param dirId              id of the folder to be searched
+     * @param queryForm          wrapper object of the query form parameter
      * @return route to files view
      */
     @PostMapping("/{dirId}/search")
-    public String searchFolder(KeycloakAuthenticationToken token,
+    public String searchFolder(RedirectAttributes redirectAttributes,
+                               KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
                                @RequestAttribute("fileQueryForm") FileQueryForm queryForm) {
         Account account = AccountUtil.getAccountFromToken(token);
         log.info("Search for file in the folder with the id '{}' requested by user '{}'.", dirId, account.getName());
 
-        List<FileInfo> files = new ArrayList<>();
-
         FileQuery query = FileQuery.builder()
                 .from(queryForm)
                 .build();
 
         try {
-            files.addAll(directoryService.searchFolder(account, dirId, query));
+            List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
+            model.addAttribute("files", files);
         } catch (MopsException e) {
             log.error("Failed to search in folder with id '{}':", dirId, e);
-            model.addAttribute("error", new ExceptionPresentationError(e));
+            redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
+            return "redirect:/material1/error";
         }
 
         model.addAttribute("fileQueryForm", queryForm);
-        model.addAttribute("files", files);
         model.addAttribute("account", account);
         return "files";
     }

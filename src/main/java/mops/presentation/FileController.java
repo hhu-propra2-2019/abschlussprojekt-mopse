@@ -57,7 +57,7 @@ public class FileController {
         } catch (MopsException e) {
             log.error("Failed to retrieve file with id '{}':", fileId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
-            return "redirect:/material1/groups";
+            return "redirect:/material1/error";
         }
 
         model.addAttribute("file", info);
@@ -119,7 +119,7 @@ public class FileController {
         } catch (MopsException e) {
             log.error("Failed to delete file with id '{}':", fileId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
-            return "redirect:/material1/groups";
+            return "redirect:/material1/error";
         }
     }
 }
