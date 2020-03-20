@@ -2,8 +2,10 @@ package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.exception.MopsException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @SuppressWarnings("PMD.LawOfDemeter")
 @Service
 @Profile("prod")
@@ -24,7 +26,8 @@ public class PermissionServiceProdImpl implements PermissionService {
     /**
      * URL to GruppenFindung.
      */
-    public static final String URL = "https://mops.hhu.de/gruppe1/";
+    @Value("${material1.mops.gruppenfindung.url}")
+    private String gruppenFindungUrl = "https://mops.hhu.de/gruppe1";
 
     /**
      * A rest template to send request to external api.
@@ -37,7 +40,7 @@ public class PermissionServiceProdImpl implements PermissionService {
     @Override
     public String fetchRoleForUserInGroup(Account account, long groupId) throws MopsException {
         log.info("Request role for user {} in group {}", account.getName(), groupId);
-        Permission permission = restTemplate.getForObject(URL, Permission.class);
+        Permission permission = restTemplate.getForObject(gruppenFindungUrl + "/get-permission", Permission.class);
         if (permission == null) {
             log.error("The request for user roles for user '{}' in group {} failed.", account.getName(), groupId);
             throw new GruppenFindungException(String.format(
@@ -53,7 +56,8 @@ public class PermissionServiceProdImpl implements PermissionService {
     @Override
     public Set<String> fetchRolesInGroup(long groupId) throws MopsException {
         log.info("Request roles for group {}", groupId);
-        GroupPermission[] groupPermissions = restTemplate.getForObject(URL, GroupPermission[].class);
+        GroupPermission[] groupPermissions = restTemplate.getForObject(gruppenFindungUrl + "/get-roles",
+                GroupPermission[].class);
         if (groupPermissions == null) {
             log.error("The request for roles in group {} failed.", groupId);
             throw new GruppenFindungException(String.format(
@@ -69,6 +73,7 @@ public class PermissionServiceProdImpl implements PermissionService {
     @Slf4j
     @SuppressWarnings("PMD.LawOfDemeter")
     static class Permission {
+
         /**
          * User name.
          */
@@ -100,14 +105,15 @@ public class PermissionServiceProdImpl implements PermissionService {
     @Getter
     @AllArgsConstructor
     static class GroupPermission {
+
         /**
          * Id of the group.
          */
         private long group;
-
         /**
          * Permission/Role in that group.
          */
         private String permission;
+
     }
 }

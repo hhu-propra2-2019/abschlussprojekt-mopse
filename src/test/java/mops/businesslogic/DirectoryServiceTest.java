@@ -1,7 +1,6 @@
 package mops.businesslogic;
 
 import mops.businesslogic.exception.ReadAccessPermissionException;
-import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
