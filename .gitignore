@@ -33,5 +33,6 @@
 /.vscode/
 
 /prod.env
+/dev.env
 /doc/api/generated-snippets/
 /doc/javadoc/

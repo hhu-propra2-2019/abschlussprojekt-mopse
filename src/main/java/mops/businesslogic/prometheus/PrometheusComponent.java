@@ -70,12 +70,12 @@ public class PrometheusComponent {
         log.debug("Adding total file count gauge.");
         Gauge
                 .builder("mops.material1.totalFileCount", () -> {
-                    try {
-                        return fileInfoService.getTotalFileCount();
-                    } catch (MopsException e) {
-                        log.error("Error while reading total file count from gauge:", e);
-                        return 0L;
-                    }
+                            try {
+                                return fileInfoService.getTotalFileCount();
+                            } catch (MopsException e) {
+                                log.error("Error while reading total file count from gauge:", e);
+                                return 0L;
+                            }
                         }
                 )
                 .register(meterRegistry);
@@ -83,12 +83,12 @@ public class PrometheusComponent {
         log.debug("Adding total directory count gauge.");
         Gauge
                 .builder("mops.material1.totalDirCount", () -> {
-                    try {
-                        return directoryService.getTotalDirCount();
-                    } catch (MopsException e) {
-                        log.error("Error while reading total file directory count from gauge:", e);
-                        return 0L;
-                    }
+                            try {
+                                return directoryService.getTotalDirCount();
+                            } catch (MopsException e) {
+                                log.error("Error while reading total file directory count from gauge:", e);
+                                return 0L;
+                            }
                         }
                 )
                 .register(meterRegistry);
@@ -107,15 +107,15 @@ public class PrometheusComponent {
             log.debug("Adding group storage gauge for group {}.", group);
             Gauge
                     .builder("mops.material1.groupStorageUsage", () -> {
-                        try {
-                            return fileInfoService.getStorageUsageInGroup(group.getId());
-                        } catch (MopsException e) {
-                            log.error(
-                                    "Error while reading file storage usage in group '{}' from gauge:",
-                                    group, e
-                            );
-                            return 0L;
-                        }
+                                try {
+                                    return fileInfoService.getStorageUsageInGroup(group.getId());
+                                } catch (MopsException e) {
+                                    log.error(
+                                            "Error while reading file storage usage in group '{}' from gauge:",
+                                            group, e
+                                    );
+                                    return 0L;
+                                }
                             }
                     )
                     .tag("group_id", String.valueOf(group.getId()))
@@ -126,15 +126,15 @@ public class PrometheusComponent {
             log.debug("Adding group file count gauge for group {}.", group);
             Gauge
                     .builder("mops.material1.groupFileCount", () -> {
-                        try {
-                            return fileInfoService.getFileCountInGroup(group.getId());
-                        } catch (MopsException e) {
-                            log.error(
-                                    "Error while reading file count in group '{}' from gauge:",
-                                    group, e
-                            );
-                            return 0L;
-                        }
+                                try {
+                                    return fileInfoService.getFileCountInGroup(group.getId());
+                                } catch (MopsException e) {
+                                    log.error(
+                                            "Error while reading file count in group '{}' from gauge:",
+                                            group, e
+                                    );
+                                    return 0L;
+                                }
                             }
                     )
                     .tag("group_id", String.valueOf(group.getId()))
@@ -145,15 +145,15 @@ public class PrometheusComponent {
             log.debug("Adding group dir count gauge for group {}.", group);
             Gauge
                     .builder("mops.material1.groupDirCount", () -> {
-                        try {
-                            return directoryService.getDirCountInGroup(group.getId());
-                        } catch (MopsException e) {
-                            log.error(
-                                    "Error while reading directory count in group '{}' from gauge:",
-                                    group, e
-                            );
-                            return 0L;
-                        }
+                                try {
+                                    return directoryService.getDirCountInGroup(group.getId());
+                                } catch (MopsException e) {
+                                    log.error(
+                                            "Error while reading directory count in group '{}' from gauge:",
+                                            group, e
+                                    );
+                                    return 0L;
+                                }
                             }
                     )
                     .tag("group_id", String.valueOf(group.getId()))
