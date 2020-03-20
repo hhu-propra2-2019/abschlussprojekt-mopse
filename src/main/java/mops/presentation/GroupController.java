@@ -37,17 +37,13 @@ public class GroupController {
     private DirectoryService directoryService;
 
     /**
-     * @param token   a keycloak authentication token
-     * @param model   spring boot view model
      * @param groupId the id of the group which files should be fetched
      * @return redirect to root dir
      */
     @GetMapping("/{groupId}")
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock", "PMD.LawOfDemeter" })
     @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_EXCEPTION", justification = "Remove with exception handling")
-    public String getRootDirectory(KeycloakAuthenticationToken token,
-                                   Model model,
-                                   @PathVariable("groupId") long groupId) {
+    public String getRootDirectory(@PathVariable("groupId") long groupId) {
         log.info("Root directory of group with id {} requested.", groupId);
         GroupRootDirWrapper groupRootDir = null;
         try {
@@ -60,8 +56,6 @@ public class GroupController {
     }
 
     /**
-     * @param token   a keycloak authentication token
-     * @param model   spring boot view model
      * @param groupId the id of the group of the requested url
      * @return a wrapper for the url string
      */
@@ -69,9 +63,7 @@ public class GroupController {
     @ResponseBody
     @Secured("ROLE_api_user")
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
-    public GroupRootDirWrapper getGroupUrl(KeycloakAuthenticationToken token,
-                                           Model model,
-                                           @PathVariable("groupId") long groupId) {
+    public GroupRootDirWrapper getGroupUrl(@PathVariable("groupId") long groupId) {
         log.info("Group url for group with id '{}' requested.", groupId);
         GroupRootDirWrapper groupRootDir = null;
         try {
@@ -108,6 +100,7 @@ public class GroupController {
             log.error("Failed to search for files in group with id '{}'.", groupId);
         }
         model.addAttribute("files", files);
+        model.addAttribute("account", account);
         return "files";
     }
 }
