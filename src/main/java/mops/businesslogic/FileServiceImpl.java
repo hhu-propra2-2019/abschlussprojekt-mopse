@@ -218,4 +218,15 @@ public class FileServiceImpl implements FileService {
     public Set<Long> getAllFileIds() throws MopsException {
         return fileRepository.getAllIds();
     }
+
+    /**
+     * INTERNAL USE ONLY.
+     * Deletes a file without checking permission.
+     *
+     * @param fileId the id of the file
+     * @throws MopsException on error
+     */
+    void deleteFile(long fileId) throws MopsException {
+        fileRepository.deleteFile(fileId);
+    }
 }
