@@ -1,6 +1,6 @@
 [source,http,options="nowrap"]
 ----
-GET /material1/file/1/download?_csrf=6fd5f830-44e1-477a-8566-68dc833abba7 HTTP/1.1
+GET /material1/file/1/download?_csrf=13fc1895-e104-4a02-b2f4-dd71e6874e16 HTTP/1.1
 Content-Type: */*
 Host: localhost:8080
 
