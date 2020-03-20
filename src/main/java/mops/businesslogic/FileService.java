@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Set;
 
 
+/**
+ * Handles communication with the storage service.
+ */
 @Service
 public interface FileService {
 

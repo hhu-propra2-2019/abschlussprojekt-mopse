@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ * This is used during development and will return dummies.
+ */
 @Service
 @AllArgsConstructor
 public class GroupServiceDevImpl implements GroupService {

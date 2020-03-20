@@ -21,6 +21,9 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+/**
+ * Handles meta data for directories.
+ */
 @Service
 @AllArgsConstructor
 @Slf4j

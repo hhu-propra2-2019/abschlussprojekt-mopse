@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+/**
+ * Checks roles permissions.
+ */
 @Slf4j
 @Service
 @AllArgsConstructor

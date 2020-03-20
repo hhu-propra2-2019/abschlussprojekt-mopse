@@ -4,6 +4,9 @@ import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import org.springframework.stereotype.Service;
 
+/**
+ * Checks roles permissions.
+ */
 @Service
 public interface RoleService {
 

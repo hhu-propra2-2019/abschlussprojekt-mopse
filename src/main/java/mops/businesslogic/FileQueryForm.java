@@ -4,6 +4,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Wrapper for FileQuery for thymeleaf.
+ */
 @NoArgsConstructor
 @Data
 @SuppressFBWarnings(value = "EI_EXPOSE_REP",

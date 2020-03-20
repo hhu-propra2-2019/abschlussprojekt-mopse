@@ -4,6 +4,9 @@ import lombok.Value;
 import mops.persistence.file.FileInfo;
 import org.springframework.core.io.Resource;
 
+/**
+ * Wrapper of meta data and content of a file.
+ */
 @Value
 // @Value automatically makes all fields `private final` which CheckStyle and PMD don't see
 @SuppressWarnings({ "checkstyle:VisibilityModifier", "PMD.DefaultPackage" })

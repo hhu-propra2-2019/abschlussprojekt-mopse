@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Removes content of no longer existing groups.
+ */
 @Component
 @EnableScheduling
 @Slf4j

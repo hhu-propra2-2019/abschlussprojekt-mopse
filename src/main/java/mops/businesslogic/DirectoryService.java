@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Handles meta data for directories.
+ */
 @Service
 public interface DirectoryService {
 
