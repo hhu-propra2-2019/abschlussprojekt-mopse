@@ -8,13 +8,20 @@ import mops.businesslogic.FileInfoService;
 import mops.businesslogic.Group;
 import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Slf4j
 @Component
 public class PrometheusComponent {
+
+    /**
+     * One hour in milliseconds.
+     */
+    private static final long ONE_HOUR_IN_MS = 60L * 60L * 1000L;
 
     /**
      * Group service.
@@ -34,6 +41,11 @@ public class PrometheusComponent {
     private final transient MeterRegistry meterRegistry;
 
     /**
+     * Groups for which there were stats added already.
+     */
+    private final transient Set<Group> seenGroups = new HashSet<>();
+
+    /**
      * Constructor.
      *
      * @param groupService     group service
@@ -48,116 +60,112 @@ public class PrometheusComponent {
         this.directoryService = directoryService;
         this.meterRegistry = meterRegistry;
 
-        addTotalGauges();
+        addGlobalGauges();
         addGroupGauges();
     }
 
-    @SuppressWarnings("PMD.LawOfDemeter") //This is a builder
-    private void addTotalGauges() {
-        log.debug("Adding total storage gauge.");
-        Gauge
-                .builder("mops.material1.totalStorageUsage", () -> {
-                            try {
-                                return fileInfoService.getTotalStorageUsage();
-                            } catch (MopsException e) {
-                                log.error("Error while reading total file storage usage from gauge:", e);
-                                return 0L;
-                            }
-                        }
-                )
-                .register(meterRegistry);
-
-        log.debug("Adding total file count gauge.");
-        Gauge
-                .builder("mops.material1.totalFileCount", () -> {
-                            try {
-                                return fileInfoService.getTotalFileCount();
-                            } catch (MopsException e) {
-                                log.error("Error while reading total file count from gauge:", e);
-                                return 0L;
-                            }
-                        }
-                )
-                .register(meterRegistry);
-
-        log.debug("Adding total directory count gauge.");
-        Gauge
-                .builder("mops.material1.totalDirCount", () -> {
-                            try {
-                                return directoryService.getTotalDirCount();
-                            } catch (MopsException e) {
-                                log.error("Error while reading total file directory count from gauge:", e);
-                                return 0L;
-                            }
-                        }
-                )
-                .register(meterRegistry);
+    /**
+     * Update all the gauges.
+     */
+    @Scheduled(fixedRate = ONE_HOUR_IN_MS)
+    public void updateGauges() {
+        addGroupGauges();
     }
 
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) //This is a builder
+    @SuppressWarnings("PMD.LawOfDemeter")
+    private void addGlobalGauges() {
+        log.debug("Adding new global gauges.");
+
+        addGlobalGauge("totalStorageUsage", "total storage usage", fileInfoService::getTotalStorageUsage);
+        addGlobalGauge("totalFileCount", "total file count", fileInfoService::getTotalFileCount);
+        addGlobalGauge("totalDirCount", "total directory count", directoryService::getTotalDirCount);
+    }
+
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     private void addGroupGauges() {
-        List<Group> groups = List.of();
+        log.debug("Adding new group gauges.");
+
+        Set<Group> groups = new HashSet<>();
         try {
-            groups = groupService.getAllGroups();
+            groups.addAll(groupService.getAllGroups());
         } catch (MopsException e) {
             log.error("Error while getting all groups from gauge setup:", e);
         }
 
-        groups.forEach(group -> {
-            log.debug("Adding group storage gauge for group {}.", group);
-            Gauge
-                    .builder("mops.material1.groupStorageUsage", () -> {
-                                try {
-                                    return fileInfoService.getStorageUsageInGroup(group.getId());
-                                } catch (MopsException e) {
-                                    log.error(
-                                            "Error while reading file storage usage in group '{}' from gauge:",
-                                            group, e
-                                    );
-                                    return 0L;
-                                }
-                            }
-                    )
-                    .tag("group_id", String.valueOf(group.getId()))
-                    .register(meterRegistry);
-        });
+        groups.forEach(this::addGroupGauge);
+    }
 
-        groups.forEach(group -> {
-            log.debug("Adding group file count gauge for group {}.", group);
-            Gauge
-                    .builder("mops.material1.groupFileCount", () -> {
-                                try {
-                                    return fileInfoService.getFileCountInGroup(group.getId());
-                                } catch (MopsException e) {
-                                    log.error(
-                                            "Error while reading file count in group '{}' from gauge:",
-                                            group, e
-                                    );
-                                    return 0L;
-                                }
-                            }
-                    )
-                    .tag("group_id", String.valueOf(group.getId()))
-                    .register(meterRegistry);
-        });
+    @SuppressWarnings("PMD.LawOfDemeter")
+    private void addGroupGauge(Group group) {
+        if (seenGroups.add(group)) {
+            log.debug("Adding new gauges for group '{}'.", group);
 
-        groups.forEach(group -> {
-            log.debug("Adding group dir count gauge for group {}.", group);
-            Gauge
-                    .builder("mops.material1.groupDirCount", () -> {
-                                try {
-                                    return directoryService.getDirCountInGroup(group.getId());
-                                } catch (MopsException e) {
-                                    log.error(
-                                            "Error while reading directory count in group '{}' from gauge:",
-                                            group, e
-                                    );
-                                    return 0L;
-                                }
+            addGroupGauge("groupStorageUsage", "storage usage", group,
+                    fileInfoService::getStorageUsageInGroup);
+            addGroupGauge("groupFileCount", "file count", group,
+                    fileInfoService::getFileCountInGroup);
+            addGroupGauge("groupDirCount", "directory count", group,
+                    directoryService::getDirCountInGroup);
+        } else {
+            log.debug("Gauges for group '{}' already exist, skipping.", group);
+        }
+    }
+
+    @SuppressWarnings("PMD.LawOfDemeter") //This is a builder
+    private void addGlobalGauge(String key, String message, GlobalStatSupplier statGetter) {
+        log.debug("Adding '" + message + "' gauge.");
+        Gauge
+                .builder("mops.material1." + key, () -> {
+                            try {
+                                return statGetter.getGlobalStat();
+                            } catch (MopsException e) {
+                                log.error("Error while reading '" + message + "' from gauge:", e);
+                                return 0L;
                             }
-                    )
-                    .tag("group_id", String.valueOf(group.getId()))
-                    .register(meterRegistry);
-        });
+                        }
+                )
+                .register(meterRegistry);
+    }
+
+    @SuppressWarnings("PMD.LawOfDemeter") //This is a builder
+    private void addGroupGauge(String key, String message, Group group, GroupStatSupplier statGetter) {
+        log.debug("Adding '" + message + "' gauge for group {}.", group);
+        Gauge
+                .builder("mops.material1." + key, () -> {
+                    try {
+                        return statGetter.getGroupStat(group.getId());
+                    } catch (MopsException e) {
+                        log.error(
+                                "Error while reading '" + message + "' in group '{}' from gauge:",
+                                group, e
+                        );
+                        return 0L;
+                    }
+                })
+                .tag("group_id", String.valueOf(group.getId()))
+                .register(meterRegistry);
+    }
+
+    @FunctionalInterface
+    private interface GlobalStatSupplier {
+
+        /**
+         * @return stat
+         * @throws MopsException on error
+         */
+        Number getGlobalStat() throws MopsException;
+
+    }
+
+    @FunctionalInterface
+    private interface GroupStatSupplier {
+
+        /**
+         * @param groupId group
+         * @return stat
+         * @throws MopsException on error
+         */
+        Number getGroupStat(long groupId) throws MopsException;
+
     }
 }

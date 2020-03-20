@@ -45,6 +45,8 @@ class DirectoryServiceTest {
     FileService fileService;
     @MockBean
     PermissionService permissionService;
+    @MockBean
+    GarbageCollector garbageCollector;
 
     /**
      * Service for communication related to directories.
