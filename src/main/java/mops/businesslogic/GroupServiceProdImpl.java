@@ -49,7 +49,7 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    public List<Group> getAllGroups(Account account) throws MopsException {
+    public List<Group> getAllGroupsOfUser(Account account) throws MopsException {
         // TODO: change to real route once known
         Group[] groups = restTemplate.getForObject(gruppenFindungUrl + "/get-all-groups-from-user", Group[].class);
         if (groups == null) {

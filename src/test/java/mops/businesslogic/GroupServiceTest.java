@@ -70,7 +70,7 @@ class GroupServiceTest {
         );
         when(restTemplate.getForObject(endsWith("/get-all-groups-from-user"), eq(Group[].class))).thenReturn(groups);
 
-        List<Group> requestedGroups = groupService.getAllGroups(carlo);
+        List<Group> requestedGroups = groupService.getAllGroupsOfUser(carlo);
 
         assertThat(requestedGroups).isEqualTo(expectedGroups);
     }
