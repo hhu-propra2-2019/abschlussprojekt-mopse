@@ -42,7 +42,7 @@ public class GroupsController {
     @GetMapping
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
         Account account = AccountUtil.getAccountFromToken(token);
-        log.info("All groups are requested for user '{}'.", account.getName());
+        log.info("All groups requested for user '{}'.", account.getName());
 
         List<Group> groups = new ArrayList<>();
 
