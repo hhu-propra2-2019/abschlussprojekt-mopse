@@ -28,10 +28,14 @@ Es existieren IntelliJ Run Configurations um die benötigten Services zu starten
 
 1. Docker starten und eventuell in IntelliJ einbinden.
 1. `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
-1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `prod-template.env`
-erstellen (also `prod-template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
+1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `template.env`
+erstellen (also `template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
 Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
-für das Starten der Container.
+für das Starten des PostgreSQL Containers.
+1. Eine Datei namens `dev.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `template.env`
+erstellen (also `template.env` im selben Verzeichnis duplizieren und die Kopie in `dev.env` umbenennen),
+Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
+für das Starten des MinIO Containers.
 1. Run Configuration `docker-compose.dev.yml: MinIO` starten
 oder alternativ `docker-compose -f docker-compose.dev.yml up minio_dev` in der Konsole ausführen.
 Dies geht recht schnell. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
@@ -48,10 +52,14 @@ Es existieren IntelliJ Run Configurations um die benötigten Services zu starten
 
 1. Docker starten und eventuell in IntelliJ einbinden.
 1. `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
-1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `prod-template.env`
-erstellen (also `prod-template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
+1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `template.env`
+erstellen (also `template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
 Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
-für das Starten der Container.
+für das Starten  des PostgreSQL Containers.
+1. Eine Datei namens `dev.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `template.env`
+erstellen (also `template.env` im selben Verzeichnis duplizieren und die Kopie in `dev.env` umbenennen),
+Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
+für das Starten des MinIO Containers.
 1. Run Configuration `docker-compose.dev.yml: MinIO` starten
 oder alternativ `docker-compose -f docker-compose.dev.yml up minio_dev` in der Konsole ausführen.
 Dies geht recht schnell. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
