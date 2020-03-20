@@ -29,12 +29,12 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Represents the role of an admin.
      */
-    @Value("MATERIAL1_ADMIN_ROLE")
+    @Value("${material1.mops.configuration.admin}")
     public static final String ADMIN = "admin";
     /**
      * The max amount of folders per group.
      */
-    @Value("MATERIAL_MAX_FOLDER_PER_GROUP")
+    @Value("${material1.mops.configuration.max-groups}")
     public static final long MAX_FOLDER_PER_GROUP = 200L;
 
     /**
