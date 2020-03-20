@@ -9,6 +9,7 @@ import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -74,8 +75,78 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             fileInfoRepo.deleteById(fileId);
         } catch (Exception e) {
-            log.error("Failed to delete file with id {}", fileId);
+            log.error("Failed to delete file with id {}.", fileId);
             throw new DatabaseException("Datei-Informationen konnten nicht gelöscht werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public long getStorageUsageInGroup(long groupId) throws MopsException {
+        try {
+            return fileInfoRepo.getStorageUsageInGroup(groupId);
+        } catch (Exception e) {
+            log.error("Failed to get total storage used by group with id {}.", groupId);
+            throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public long getTotalStorageUsage() throws MopsException {
+        try {
+            return fileInfoRepo.getTotalStorageUsage();
+        } catch (Exception e) {
+            log.error("Failed to get total storage used.");
+            throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public long getFileCountInGroup(long groupId) throws MopsException {
+        try {
+            return fileInfoRepo.getFileCountInGroup(groupId);
+        } catch (Exception e) {
+            log.error("Failed to get total file count in group with id {}.", groupId);
+            throw new DatabaseException("Gesamtdateianzahl konnte nicht geladen werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public long getTotalFileCount() throws MopsException {
+        try {
+            return fileInfoRepo.count();
+        } catch (Exception e) {
+            log.error("Failed to get total file count.");
+            throw new DatabaseException("Gesamtdateianzahl konnte nicht geladen werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public Set<Long> fetchAllFileInfoIds() throws MopsException {
+        try {
+            return fileInfoRepo.findAllIds();
+        } catch (Exception e) {
+            log.error("Failed to get all FileInfo ids.");
+            throw new MopsException("IDs konnten nicht gefunden werden.", e);
         }
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class GroupServiceImpl implements GroupService {
+public class GroupServiceDevImpl implements GroupService {
 
     /**
      * Directory Service.
@@ -19,8 +19,17 @@ public class GroupServiceImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    public List<Group> getAllGroups() throws MopsException {
+        // TODO: add some default groups here
+        return List.of();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
-        // TODO: get groups from Gruppenfindung
+        // TODO: add some default groups here
         return List.of();
     }
 
@@ -29,7 +38,7 @@ public class GroupServiceImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
-    public GroupRootDirWrapper getGroupUrl(Account account, long groupId) throws MopsException {
-        return new GroupRootDirWrapper(groupId, directoryService.getOrCreateRootFolder(account, groupId).getId());
+    public GroupRootDirWrapper getGroupUrl(long groupId) throws MopsException {
+        return new GroupRootDirWrapper(groupId, directoryService.getOrCreateRootFolder(groupId).getId());
     }
 }

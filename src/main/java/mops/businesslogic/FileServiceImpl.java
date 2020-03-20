@@ -210,4 +210,12 @@ public class FileServiceImpl implements FileService {
         }
         return fileInfoService.fetchAllFilesInDirectory(dirId);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Long> getAllFileIds() throws MopsException {
+        return fileRepository.getAllIds();
+    }
 }
