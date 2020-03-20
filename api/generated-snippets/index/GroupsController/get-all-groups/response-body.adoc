@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Mops - Materialsammlung</title>
+  <title>Mops - Gruppen</title>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/icono.min.css" rel="stylesheet">
   <link href="/css/styles.min.css" rel="stylesheet">

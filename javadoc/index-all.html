@@ -233,7 +233,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates a new folder inside a folder.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#createSubFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.lang.String)">createSubFolder(KeycloakAuthenticationToken, long, String)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#createSubFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.lang.String)">createSubFolder(RedirectAttributes, KeycloakAuthenticationToken, long, String)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>
 <div class="block">Creates a new sub folder.</div>
 </dd>
@@ -281,7 +281,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Deletes a file.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/FileController.html#deleteFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,javax.servlet.http.HttpServletRequest)">deleteFile(KeycloakAuthenticationToken, long, HttpServletRequest)</a></span> - Method in class mops.presentation.<a href="mops/presentation/FileController.html" title="class in mops.presentation">FileController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/FileController.html#deleteFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">deleteFile(RedirectAttributes, KeycloakAuthenticationToken, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/FileController.html" title="class in mops.presentation">FileController</a></dt>
 <dd>
 <div class="block">Deletes a file.</div>
 </dd>
@@ -301,7 +301,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Deletes a folder.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#deleteFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">deleteFolder(KeycloakAuthenticationToken, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#deleteFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">deleteFolder(RedirectAttributes, KeycloakAuthenticationToken, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>
 <div class="block">Deletes a folder.</div>
 </dd>
@@ -392,6 +392,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/permission/DirectoryPermissions.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/error/ExceptionPresentationError.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.presentation.error.<a href="mops/presentation/error/ExceptionPresentationError.html" title="class in mops.presentation.error">ExceptionPresentationError</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/Material1Controller.html#error(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">error(KeycloakAuthenticationToken, Model)</a></span> - Method in class mops.presentation.<a href="mops/presentation/Material1Controller.html" title="class in mops.presentation">Material1Controller</a></dt>
+<dd>
+<div class="block">Basic error page.</div>
+</dd>
+<dt><a href="mops/presentation/error/ExceptionPresentationError.html" title="class in mops.presentation.error"><span class="typeNameLink">ExceptionPresentationError</span></a> - Class in <a href="mops/presentation/error/package-summary.html">mops.presentation.error</a></dt>
+<dd>
+<div class="block">An error to be shown in the web template - based on an exception message.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/error/ExceptionPresentationError.html#%3Cinit%3E(mops.exception.MopsException)">ExceptionPresentationError(MopsException)</a></span> - Constructor for class mops.presentation.error.<a href="mops/presentation/error/ExceptionPresentationError.html" title="class in mops.presentation.error">ExceptionPresentationError</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <a id="I:F">
@@ -609,7 +621,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Fetches all groups.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/GroupsController.html#getAllGroups(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">getAllGroups(KeycloakAuthenticationToken, Model)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupsController.html" title="class in mops.presentation">GroupsController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/GroupsController.html#getAllGroups(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">getAllGroups(RedirectAttributes, KeycloakAuthenticationToken, Model)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupsController.html" title="class in mops.presentation">GroupsController</a></dt>
 <dd>
 <div class="block">Gets all groups of a user.</div>
 </dd>
@@ -681,6 +693,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Email of the user.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/error/ExceptionPresentationError.html#getException()">getException()</a></span> - Method in class mops.presentation.error.<a href="mops/presentation/error/ExceptionPresentationError.html" title="class in mops.presentation.error">ExceptionPresentationError</a></dt>
+<dd>
+<div class="block">The exception.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#getFile(mops.businesslogic.Account,long)">getFile(Account, long)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
 <dd>
 <div class="block">Gets a file.</div>
@@ -689,7 +705,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets a file.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/FileController.html#getFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getFile(KeycloakAuthenticationToken, Model, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/FileController.html" title="class in mops.presentation">FileController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/FileController.html#getFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getFile(RedirectAttributes, KeycloakAuthenticationToken, Model, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/FileController.html" title="class in mops.presentation">FileController</a></dt>
 <dd>
 <div class="block">Retrieves a file.</div>
 </dd>
@@ -716,10 +732,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileServiceImpl.html#getFileInfo(mops.businesslogic.Account,long)">getFileInfo(Account, long)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileServiceImpl.html" title="class in mops.businesslogic">FileServiceImpl</a></dt>
 <dd>
 <div class="block">Retrieves file meta data.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/FileQueryForm.html#getFileNames()">getFileNames()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a></dt>
-<dd>
-<div class="block">List of file names to search for.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileService.html#getFilesOfDirectory(mops.businesslogic.Account,long)">getFilesOfDirectory(Account, long)</a></span> - Method in interface mops.businesslogic.<a href="mops/businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a></dt>
 <dd>
@@ -748,10 +760,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/GroupServiceProdImpl.html#getGroupUrl(long)">getGroupUrl(long)</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupServiceProdImpl.html" title="class in mops.businesslogic">GroupServiceProdImpl</a></dt>
 <dd>
 <div class="block">Gets the group url.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#getGroupUrl(long)">getGroupUrl(long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
-<dd>
-<div class="block">Gets the url of the root directory.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/FileContainer.html#getId()">getId()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileContainer.html" title="class in mops.businesslogic">FileContainer</a></dt>
 <dd>
@@ -793,6 +801,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Get the last modified time.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/error/ExceptionPresentationError.html#getMessage()">getMessage()</a></span> - Method in class mops.presentation.error.<a href="mops/presentation/error/ExceptionPresentationError.html" title="class in mops.presentation.error">ExceptionPresentationError</a></dt>
+<dd>
+<div class="block">Get the error message.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/error/PresentationError.html#getMessage()">getMessage()</a></span> - Method in interface mops.presentation.error.<a href="mops/presentation/error/PresentationError.html" title="interface in mops.presentation.error">PresentationError</a></dt>
+<dd>
+<div class="block">Get the error message.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/Account.html#getName()">getName()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/Account.html" title="class in mops.businesslogic">Account</a></dt>
 <dd>
 <div class="block">Name of the user.</div>
@@ -812,6 +828,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#getName()">getName()</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
 <div class="block">File name.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/FileQueryForm.html#getNames()">getNames()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a></dt>
+<dd>
+<div class="block">List of file names to search for.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/query/FileQuery.html#getNames()">getNames()</a></span> - Method in class mops.businesslogic.query.<a href="mops/businesslogic/query/FileQuery.html" title="class in mops.businesslogic.query">FileQuery</a></dt>
 <dd>
@@ -861,9 +881,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Keycloak roles of the user.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#getRootDirectory(long)">getRootDirectory(long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#getRootDirectory(org.springframework.web.servlet.mvc.support.RedirectAttributes,long)">getRootDirectory(RedirectAttributes, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
 <dd>
 <div class="block">Gets the root directory.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#getRootDirectoryUrl(long)">getRootDirectoryUrl(long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
+<dd>
+<div class="block">Gets the url of the root directory.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/GroupRootDirWrapper.html#getRootDirId()">getRootDirId()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></dt>
 <dd>
@@ -1041,6 +1065,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/permission/DirectoryPermissions.html#hashCode()">hashCode()</a></span> - Method in class mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/error/ExceptionPresentationError.html#hashCode()">hashCode()</a></span> - Method in class mops.presentation.error.<a href="mops/presentation/error/ExceptionPresentationError.html" title="class in mops.presentation.error">ExceptionPresentationError</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#hasTag(java.lang.String)">hasTag(String)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
 <div class="block">Checks if the file is tagged with a specific tag.</div>
@@ -1075,7 +1101,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Set id from existing DirectoryPermissions.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/DummyDataSeeding.html#init(mops.persistence.DirectoryRepository,mops.persistence.FileInfoRepository,mops.persistence.FileRepository,mops.persistence.DirectoryPermissionsRepository,mops.businesslogic.DirectoryService)">init(DirectoryRepository, FileInfoRepository, FileRepository, DirectoryPermissionsRepository, DirectoryService)</a></span> - Method in class mops.<a href="mops/DummyDataSeeding.html" title="class in mops">DummyDataSeeding</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/Material1Controller.html#index(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">index(KeycloakAuthenticationToken, Model)</a></span> - Method in class mops.presentation.<a href="mops/presentation/Material1Controller.html" title="class in mops.presentation">Material1Controller</a></dt>
+<dd>
+<div class="block">Landing page.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/DummyDataSeeding.html#init(mops.businesslogic.FileInfoService,mops.persistence.FileRepository,mops.businesslogic.DirectoryService)">init(FileInfoService, FileRepository, DirectoryService)</a></span> - Method in class mops.<a href="mops/DummyDataSeeding.html" title="class in mops">DummyDataSeeding</a></dt>
 <dd>
 <div class="block">Initializes application runner.</div>
 </dd>
@@ -1138,6 +1168,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Starts spring application.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/Material1Application.html#%3Cinit%3E()">Material1Application()</a></span> - Constructor for class mops.<a href="mops/Material1Application.html" title="class in mops">Material1Application</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="mops/presentation/Material1Controller.html" title="class in mops.presentation"><span class="typeNameLink">Material1Controller</span></a> - Class in <a href="mops/presentation/package-summary.html">mops.presentation</a></dt>
+<dd>
+<div class="block">Controller for basic routes.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/Material1Controller.html#%3Cinit%3E()">Material1Controller()</a></span> - Constructor for class mops.presentation.<a href="mops/presentation/Material1Controller.html" title="class in mops.presentation">Material1Controller</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/DirectoryServiceImpl.html#MAX_FOLDER_PER_GROUP">MAX_FOLDER_PER_GROUP</a></span> - Static variable in class mops.businesslogic.<a href="mops/businesslogic/DirectoryServiceImpl.html" title="class in mops.businesslogic">DirectoryServiceImpl</a></dt>
 <dd>
@@ -1204,6 +1240,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="mops/presentation/package-summary.html">mops.presentation</a> - package mops.presentation</dt>
 <dd>
 <div class="block">Presentation layer: contains all Controllers.</div>
+</dd>
+<dt><a href="mops/presentation/error/package-summary.html">mops.presentation.error</a> - package mops.presentation.error</dt>
+<dd>
+<div class="block">Contains error messages to show in the error template.</div>
 </dd>
 <dt><a href="mops/utils/package-summary.html">mops.utils</a> - package mops.utils</dt>
 <dd>
@@ -1311,6 +1351,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/PermissionServiceProdImpl.html#%3Cinit%3E(org.springframework.web.client.RestTemplate)">PermissionServiceProdImpl(RestTemplate)</a></span> - Constructor for class mops.businesslogic.<a href="mops/businesslogic/PermissionServiceProdImpl.html" title="class in mops.businesslogic">PermissionServiceProdImpl</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="mops/presentation/error/PresentationError.html" title="interface in mops.presentation.error"><span class="typeNameLink">PresentationError</span></a> - Interface in <a href="mops/presentation/error/package-summary.html">mops.presentation.error</a></dt>
+<dd>
+<div class="block">An error to be shown in the web template.</div>
+</dd>
 <dt><a href="mops/businesslogic/prometheus/PrometheusComponent.html" title="class in mops.businesslogic.prometheus"><span class="typeNameLink">PrometheusComponent</span></a> - Class in <a href="mops/businesslogic/prometheus/package-summary.html">mops.businesslogic.prometheus</a></dt>
 <dd>
 <div class="block">Prometheus integration.</div>
@@ -1383,7 +1427,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="mops/config/SchedulingConfig.html#%3Cinit%3E()">SchedulingConfig()</a></span> - Constructor for class mops.config.<a href="mops/config/SchedulingConfig.html" title="class in mops.config">SchedulingConfig</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#searchFilesInGroup(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.query.FileQuery)">searchFilesInGroup(KeycloakAuthenticationToken, Model, long, FileQuery)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/GroupController.html#searchFilesInGroup(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQueryForm)">searchFilesInGroup(RedirectAttributes, KeycloakAuthenticationToken, Model, long, FileQueryForm)</a></span> - Method in class mops.presentation.<a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></dt>
 <dd>
 <div class="block">Searches are group for matching files.</div>
 </dd>
@@ -1395,7 +1439,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Searches a folder for files.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#searchFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQueryForm)">searchFolder(KeycloakAuthenticationToken, Model, long, FileQueryForm)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#searchFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQueryForm)">searchFolder(RedirectAttributes, KeycloakAuthenticationToken, Model, long, FileQueryForm)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>
 <div class="block">Searches a folder for files.</div>
 </dd>
@@ -1421,10 +1465,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Id of the Directory this file resides in.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/FileQueryForm.html#setFileNames(java.lang.String%5B%5D)">setFileNames(String[])</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a></dt>
-<dd>
-<div class="block">List of file names to search for.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/directory/Directory.html#setGroupOwner(long)">setGroupOwner(long)</a></span> - Method in class mops.persistence.directory.<a href="mops/persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></dt>
 <dd>
 <div class="block">Id of the group which this Directory belongs to.</div>
@@ -1436,6 +1476,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#setName(java.lang.String)">setName(String)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
 <div class="block">File name.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/FileQueryForm.html#setNames(java.lang.String%5B%5D)">setNames(String[])</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a></dt>
+<dd>
+<div class="block">List of file names to search for.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#setOwner(java.lang.String)">setOwner(String)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
@@ -1477,7 +1521,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">List of file types to search for.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#showFolderContent(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">showFolderContent(KeycloakAuthenticationToken, Model, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#showFolderContent(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">showFolderContent(RedirectAttributes, KeycloakAuthenticationToken, Model, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>
 <div class="block">Shows the content of a folder (files and sub folders).</div>
 </dd>
@@ -1539,6 +1583,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/permission/DirectoryPermissions.html#toString()">toString()</a></span> - Method in class mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/error/ExceptionPresentationError.html#toString()">toString()</a></span> - Method in class mops.presentation.error.<a href="mops/presentation/error/ExceptionPresentationError.html" title="class in mops.presentation.error">ExceptionPresentationError</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/query/FileQueryBuilder.html#type(java.lang.String)">type(String)</a></span> - Method in class mops.businesslogic.query.<a href="mops/businesslogic/query/FileQueryBuilder.html" title="class in mops.businesslogic.query">FileQueryBuilder</a></dt>
 <dd>
 <div class="block">Add a file type.</div>
@@ -1569,7 +1615,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Replaces the permissions for a directory with new ones.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,org.springframework.web.multipart.MultipartFile)">uploadFile(KeycloakAuthenticationToken, long, MultipartFile)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#uploadFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,org.springframework.web.multipart.MultipartFile)">uploadFile(RedirectAttributes, KeycloakAuthenticationToken, long, MultipartFile)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>
 <div class="block">Uploads a file.</div>
 </dd>

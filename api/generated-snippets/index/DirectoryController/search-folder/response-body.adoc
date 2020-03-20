@@ -22,7 +22,7 @@
   <i class="icon icon-sidebar icon-navigation-primary-show icono-caretLeft"></i>
   <i class="icon icon-sidebar icon-sidebar-hide icono-cross"></i>
   <a class="brand" href="#">
-    <h1>Mops - Dateien</h1>
+    <h1>Mops - Materialsammlung</h1>
   </a>
   <div class="form-search-wrapper">
     <form class="form form-search" method="get">

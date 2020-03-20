@@ -179,7 +179,8 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllGroups(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">getAllGroups</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllGroups(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">getAllGroups</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+            org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
             org.springframework.ui.Model&nbsp;model)</code></th>
 <td class="colLast">
 <div class="block">Gets all groups of a user.</div>
@@ -228,18 +229,20 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getAllGroups(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">
+<a id="getAllGroups(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getAllGroups</h4>
 <pre class="methodSignature">@GetMapping
-public&nbsp;java.lang.String&nbsp;getAllGroups&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+public&nbsp;java.lang.String&nbsp;getAllGroups&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+                                     org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                                      org.springframework.ui.Model&nbsp;model)</pre>
 <div class="block">Gets all groups of a user.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>redirectAttributes</code> - redirect attributes</dd>
 <dd><code>token</code> - authentication token from keycloak server.</dd>
 <dd><code>model</code> - view model.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>

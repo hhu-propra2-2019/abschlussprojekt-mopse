@@ -13,4 +13,5 @@ mops.persistence.directory
 mops.persistence.file
 mops.persistence.permission
 mops.presentation
+mops.presentation.error
 mops.utils

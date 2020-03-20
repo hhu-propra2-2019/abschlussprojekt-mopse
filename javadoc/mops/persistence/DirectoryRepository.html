@@ -161,7 +161,7 @@ extends org.springframework.data.repository.CrudRepository&lt;<a href="directory
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>long</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirCountInGroup(long)">getDirCountInGroup</a></span>&#8203;(long&nbsp;groupOwner)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirCountInGroup(long)">getDirCountInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Gets folder count in a group.</div>
 </td>
@@ -221,13 +221,13 @@ java.util.List&lt;<a href="directory/Directory.html" title="class in mops.persis
 <ul class="blockList">
 <li class="blockList">
 <h4>getDirCountInGroup</h4>
-<pre class="methodSignature">@Query("SELECT COALESCE(COUNT(*), 0) FROM directory WHERE group_owner = :groupOwner")
-long&nbsp;getDirCountInGroup&#8203;(@Param("groupOwner")
-                        long&nbsp;groupOwner)</pre>
+<pre class="methodSignature">@Query("SELECT COALESCE(COUNT(*), 0) FROM directory WHERE group_owner = :groupId")
+long&nbsp;getDirCountInGroup&#8203;(@Param("groupId")
+                        long&nbsp;groupId)</pre>
 <div class="block">Gets folder count in a group.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>groupOwner</code> - the group od</dd>
+<dd><code>groupId</code> - the group id</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the number of the folders the group already has</dd>
 </dl>
@@ -239,7 +239,7 @@ long&nbsp;getDirCountInGroup&#8203;(@Param("groupOwner")
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getRootFolder</h4>
-<pre class="methodSignature">@Query("SELECT * FROM directory WHERE id = :groupId AND parent_id IS NULL")
+<pre class="methodSignature">@Query("SELECT * FROM directory WHERE group_owner = :groupId AND parent_id IS NULL")
 java.util.Optional&lt;<a href="directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;&nbsp;getRootFolder&#8203;(@Param("groupId")
                                             long&nbsp;groupId)</pre>
 <div class="block">Gets the root folder of a group.</div>

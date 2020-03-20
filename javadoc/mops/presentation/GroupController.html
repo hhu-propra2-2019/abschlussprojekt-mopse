@@ -179,25 +179,27 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupUrl(long)">getGroupUrl</a></span>&#8203;(long&nbsp;groupId)</code></th>
-<td class="colLast">
-<div class="block">Gets the url of the root directory.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootDirectory(long)">getRootDirectory</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootDirectory(org.springframework.web.servlet.mvc.support.RedirectAttributes,long)">getRootDirectory</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+                long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Gets the root directory.</div>
 </td>
 </tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootDirectoryUrl(long)">getRootDirectoryUrl</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Gets the url of the root directory.</div>
+</td>
+</tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFilesInGroup(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.query.FileQuery)">searchFilesInGroup</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFilesInGroup(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQueryForm)">searchFilesInGroup</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+                  org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                   org.springframework.ui.Model&nbsp;model,
                   long&nbsp;groupId,
-                  <a href="../businesslogic/query/FileQuery.html" title="class in mops.businesslogic.query">FileQuery</a>&nbsp;query)</code></th>
+                  <a href="../businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a>&nbsp;queryForm)</code></th>
 <td class="colLast">
 <div class="block">Searches are group for matching files.</div>
 </td>
@@ -246,36 +248,38 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getRootDirectory(long)">
+<a id="getRootDirectory(org.springframework.web.servlet.mvc.support.RedirectAttributes,long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getRootDirectory</h4>
 <pre class="methodSignature">@GetMapping("/{groupId}")
-public&nbsp;java.lang.String&nbsp;getRootDirectory&#8203;(@PathVariable("groupId")
+public&nbsp;java.lang.String&nbsp;getRootDirectory&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+                                         @PathVariable("groupId")
                                          long&nbsp;groupId)</pre>
 <div class="block">Gets the root directory.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>redirectAttributes</code> - redirect attributes</dd>
 <dd><code>groupId</code> - the id of the group which files should be fetched</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>redirect to root dir</dd>
 </dl>
 </li>
 </ul>
-<a id="getGroupUrl(long)">
+<a id="getRootDirectoryUrl(long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getGroupUrl</h4>
+<h4>getRootDirectoryUrl</h4>
 <pre class="methodSignature">@GetMapping(value="/{groupId}/url",
             produces="application/json")
 @ResponseBody
 @Secured("ROLE_api_user")
-public&nbsp;<a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a>&nbsp;getGroupUrl&#8203;(@PathVariable("groupId")
-                                       long&nbsp;groupId)</pre>
+public&nbsp;<a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a>&nbsp;getRootDirectoryUrl&#8203;(@PathVariable("groupId")
+                                               long&nbsp;groupId)</pre>
 <div class="block">Gets the url of the root directory.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -285,26 +289,28 @@ public&nbsp;<a href="../businesslogic/GroupRootDirWrapper.html" title="class in 
 </dl>
 </li>
 </ul>
-<a id="searchFilesInGroup(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.query.FileQuery)">
+<a id="searchFilesInGroup(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQueryForm)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>searchFilesInGroup</h4>
 <pre class="methodSignature">@PostMapping("/{groupId}/search")
-public&nbsp;java.lang.String&nbsp;searchFilesInGroup&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+public&nbsp;java.lang.String&nbsp;searchFilesInGroup&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+                                           org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                                            org.springframework.ui.Model&nbsp;model,
                                            @PathVariable("groupId")
                                            long&nbsp;groupId,
-                                           @RequestAttribute("search")
-                                           <a href="../businesslogic/query/FileQuery.html" title="class in mops.businesslogic.query">FileQuery</a>&nbsp;query)</pre>
+                                           @RequestAttribute("fileQueryForm")
+                                           <a href="../businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a>&nbsp;queryForm)</pre>
 <div class="block">Searches are group for matching files.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>redirectAttributes</code> - redirect attributes</dd>
 <dd><code>token</code> - keycloak auth token</dd>
 <dd><code>model</code> - spring view model</dd>
 <dd><code>groupId</code> - the id of the group to be searched</dd>
-<dd><code>query</code> - wrapper for a search query</dd>
+<dd><code>queryForm</code> - wrapper for a search query</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the route to the template 'directory'</dd>
 </dl>

@@ -79,7 +79,7 @@
   <i class="icon icon-sidebar icon-navigation-primary-show icono-caretLeft"></i>
   <i class="icon icon-sidebar icon-sidebar-hide icono-cross"></i>
   <a class="brand" href="#">
-    <h1>Mops - Ordner</h1>
+    <h1>Mops - Materialsammlung</h1>
   </a>
   <div class="form-search-wrapper">
     <form class="form form-search" method="get">
@@ -181,19 +181,19 @@
         
         
     </table>
-    <form action="/create" method="post"><input type="hidden" name="_csrf" value="a65c5536-5be2-47e3-96a0-ddec1ee0ce88"/>
+    <form action="/create" method="post"><input type="hidden" name="_csrf" value="ec10965e-3151-4f86-9bb2-6752accf4ca4"/>
         <input type="text" name="folderName">
         <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
-    <form action="/upload" method="post"><input type="hidden" name="_csrf" value="a65c5536-5be2-47e3-96a0-ddec1ee0ce88"/>
+    <form action="/upload" method="post"><input type="hidden" name="_csrf" value="ec10965e-3151-4f86-9bb2-6752accf4ca4"/>
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
-    <form action="/search" method="post"><input type="hidden" name="_csrf" value="a65c5536-5be2-47e3-96a0-ddec1ee0ce88"/>
+    <form action="/search" method="post"><input type="hidden" name="_csrf" value="ec10965e-3151-4f86-9bb2-6752accf4ca4"/>
         <div id="fileNames">
             <div id="fileNames[0]">
-                <div><input type="text" name="fileNames[0]" placeholder="Dateiname" id="fileNames0" value=""></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('fileNames', 'Dateiname')"></div>
+                <div><input type="text" name="names[0]" placeholder="Dateiname" id="names0" value=""></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('names', 'Dateiname')"></div>
             </div>
         </div>
         <div><input type="button" value="-" id="fileNamesDelete" onclick="deleteLastInputLine('fileNames[0]')"></div>
