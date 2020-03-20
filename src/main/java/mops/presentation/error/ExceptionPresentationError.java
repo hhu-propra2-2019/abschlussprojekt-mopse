@@ -5,7 +5,7 @@ import mops.exception.MopsException;
 import org.springframework.lang.NonNull;
 
 /**
- * An error to be shown in the web template - based on a exception message.
+ * An error to be shown in the web template - based on an exception message.
  */
 @Value
 // @Value automatically makes all fields `private final` which CheckStyle and PMD don't see
