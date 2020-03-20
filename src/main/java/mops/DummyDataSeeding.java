@@ -1,8 +1,9 @@
 package mops;
 
-import mops.persistence.DirectoryPermissionsRepository;
-import mops.persistence.DirectoryRepository;
-import mops.persistence.FileInfoRepository;
+import mops.businesslogic.Account;
+import mops.businesslogic.DirectoryService;
+import mops.businesslogic.FileInfoService;
+import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
@@ -11,26 +12,40 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.util.Arrays;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
+/**
+ * Setups data for development.
+ */
 @Configuration
 public class DummyDataSeeding {
+
     /**
-     * @param directoryRepo            connection to the directory table from the database
-     * @param fileInfoRepo             connection to the fileInfo table from the database
-     * @param directoryPermissionsRepo connection to the directoryPermission table from the database
+     * Group id.
+     */
+    private static final long GROUP_ID = 100L;
+
+    /**
+     * Initializes application runner.
+     *
+     * @param fileInfoService  file info service
+     * @param fileRepository   connection to the MinIO file repository
+     * @param directoryService directory service
      * @return an ApplicationRunner
      */
     @Bean
     @Profile("dev")
-    public ApplicationRunner init(DirectoryRepository directoryRepo, FileInfoRepository fileInfoRepo,
-                                  DirectoryPermissionsRepository directoryPermissionsRepo) {
+    public ApplicationRunner init(FileInfoService fileInfoService,
+                                  FileRepository fileRepository,
+                                  DirectoryService directoryService) {
         return args -> {
-            final long groupId = 100L;
-            final long fileSize1 = 2_000L;
-            final long fileSize2 = 3_000L;
+            final int fileSize1 = 2_000;
+            final int fileSize2 = 3_000;
             final String owner1 = "studentin";
             final String owner2 = "studentin1";
+
+            Account admin = Account.of("admin", "admin@hhu.de", "admin");
 
             DirectoryPermissions directoryPermissions = DirectoryPermissions.builder()
                     .entry("admin", true, true, true)
@@ -42,22 +57,10 @@ public class DummyDataSeeding {
                     .entry("studentin", true, true, true)
                     .build();
 
-            directoryPermissions = directoryPermissionsRepo.save(directoryPermissions);
+            Directory directoryParent = directoryService.getOrCreateRootFolder(GROUP_ID);
+            directoryService.updatePermission(admin, directoryParent.getId(), directoryPermissions);
 
-            Directory directoryParent = Directory.builder()
-                    .name("")
-                    .groupOwner(groupId)
-                    .permissions(directoryPermissions)
-                    .build();
-
-            directoryParent = directoryRepo.save(directoryParent);
-
-            Directory directoryChild = Directory.builder()
-                    .fromParent(directoryParent)
-                    .name("Child")
-                    .build();
-
-            directoryChild = directoryRepo.save(directoryChild);
+            Directory directoryChild = directoryService.createFolder(admin, directoryParent.getId(), "Child Folder");
 
             FileInfo fileInfoParent = FileInfo.builder()
                     .name("Test1")
@@ -67,6 +70,13 @@ public class DummyDataSeeding {
                     .owner(owner1)
                     .tag("Test")
                     .build();
+            fileInfoParent = fileInfoService.saveFileInfo(fileInfoParent);
+
+
+            byte[] contentParent = new byte[fileSize1];
+            try (InputStream stream = new ByteArrayInputStream(contentParent)) {
+                fileRepository.saveFile(stream, fileSize1, fileInfoParent.getType(), fileInfoParent.getId());
+            }
 
             FileInfo fileInfoChild = FileInfo.builder()
                     .name("Test2")
@@ -76,8 +86,12 @@ public class DummyDataSeeding {
                     .owner(owner2)
                     .tag("Test")
                     .build();
+            fileInfoChild = fileInfoService.saveFileInfo(fileInfoChild);
 
-            fileInfoRepo.saveAll(Arrays.asList(fileInfoParent, fileInfoChild));
+            byte[] contentChild = new byte[fileSize2];
+            try (InputStream stream = new ByteArrayInputStream(contentChild)) {
+                fileRepository.saveFile(stream, fileSize2, fileInfoChild.getType(), fileInfoChild.getId());
+            }
         };
     }
 }

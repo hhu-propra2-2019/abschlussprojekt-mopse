@@ -8,14 +8,19 @@ import mops.businesslogic.FileInfoService;
 import mops.businesslogic.Group;
 import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Prometheus integration.
+ */
 @Slf4j
 @Component
+@Profile("!test")
 public class PrometheusComponent {
 
     /**
@@ -150,6 +155,8 @@ public class PrometheusComponent {
     private interface GlobalStatSupplier {
 
         /**
+         * Gets global statistics.
+         *
          * @return stat
          * @throws MopsException on error
          */
@@ -161,6 +168,8 @@ public class PrometheusComponent {
     private interface GroupStatSupplier {
 
         /**
+         * Gets the group's statistics.
+         *
          * @param groupId group
          * @return stat
          * @throws MopsException on error

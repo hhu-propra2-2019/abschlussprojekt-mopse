@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"
-      th:replace="~{mopslayout :: html(name='Ordner', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{mopslayout :: html(name='Materialsammlung', title='Ordner', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}">
 <head>
     <meta charset="utf-8">
     <title>Ordner</title>
@@ -114,8 +113,8 @@
     <form action="#" th:action="@{/search}" th:method="post" th:object="${fileQueryForm}">
         <div id="fileNames">
             <div id="fileNames[0]">
-                <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{fileNames[0]}"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('fileNames', 'Dateiname')"></div>
+                <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{names[0]}"></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('names', 'Dateiname')"></div>
             </div>
         </div>
         <div><input type="button" value="-" id="fileNamesDelete" onclick="deleteLastInputLine('fileNames[0]')"></div>

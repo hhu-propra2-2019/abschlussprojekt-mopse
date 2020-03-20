@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * MinIO connection.
+ */
 @Slf4j
 @Repository
 @AggregateBuilder
@@ -75,17 +78,35 @@ public class FileRepository {
      */
     public void saveFile(MultipartFile file, long fileId) throws StorageException {
         try (InputStream stream = file.getInputStream()) {
+            saveFile(stream, file.getSize(), file.getContentType(), fileId);
+        } catch (IOException | StorageException e) {
+            log.error("Failed so save file '{}' to MinIO server:", file.getName(), e);
+            throw new StorageException("Fehler beim Speichern der Datei.", e);
+        }
+    }
+
+    /**
+     * Saves an input stream with meta information.
+     *
+     * @param stream input stream (must be closed by caller)
+     * @param size   size in bytes
+     * @param type   content type
+     * @param fileId the File ID given by the FileInfo database.
+     * @throws StorageException on Error
+     */
+    public void saveFile(InputStream stream, long size, String type, long fileId) throws StorageException {
+        try {
             minioClient.putObject(configuration.getBucketName(),
                     String.valueOf(fileId),
                     stream,
-                    file.getSize(),
+                    size,
                     new HashMap<>(),
                     null, // no encryption will be needed
-                    file.getContentType()
+                    type
             );
         } catch (MinioException | IOException | InvalidKeyException
                 | NoSuchAlgorithmException | XmlPullParserException e) {
-            log.error("Failed so save file {} to MinIO server.", file.getName());
+            log.error("Failed so save file '{}' to MinIO server:", fileId, e);
             throw new StorageException("Fehler beim Speichern der Datei.", e);
         }
     }

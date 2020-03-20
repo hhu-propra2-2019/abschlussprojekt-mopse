@@ -25,6 +25,8 @@ public class GroupRootDirWrapper {
     long rootDirId;
 
     /**
+     * Gets the root directory url.
+     *
      * @return the relative url of the group's root directory.
      */
     @JsonGetter("root_dir_url")

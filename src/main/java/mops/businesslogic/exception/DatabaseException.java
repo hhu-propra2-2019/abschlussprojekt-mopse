@@ -2,6 +2,9 @@ package mops.businesslogic.exception;
 
 import mops.exception.MopsException;
 
+/**
+ * Throws if something went wrong with fetching information from the database.
+ */
 public class DatabaseException extends MopsException {
 
     /**

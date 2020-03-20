@@ -98,6 +98,8 @@
 
     <module name="SuppressWarningsFilter"/>
 
+    <module name="JavadocPackage"/>
+
     <module name="TreeWalker">
 
         <module name="SuppressWarningsHolder"/>
@@ -110,6 +112,15 @@
         <module name="JavadocVariable"/>
         <module name="JavadocStyle"/>
         <module name="MissingJavadocMethod"/>
+        <module name="MissingJavadocType"/>
+        <module name="MissingJavadocPackage"/>
+        <module name="JavadocBlockTagLocation"/>
+        <module name="JavadocContentLocation"/>
+        <module name="JavadocParagraph"/>
+        <module name="JavadocTagContinuationIndentation"/>
+        <module name="NonEmptyAtclauseDescription"/>
+        <module name="SummaryJavadoc"/>
+
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See https://checkstyle.org/config_naming.html -->

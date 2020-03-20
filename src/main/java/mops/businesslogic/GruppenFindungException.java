@@ -2,6 +2,9 @@ package mops.businesslogic;
 
 import mops.exception.MopsException;
 
+/**
+ * Is thrown when something happened during API request to GruppenFindung.
+ */
 public class GruppenFindungException extends MopsException {
     /**
      * Is thrown when something happened during API request to GruppenFindung.

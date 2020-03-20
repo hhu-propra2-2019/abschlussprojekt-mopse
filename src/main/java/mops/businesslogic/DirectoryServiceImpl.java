@@ -21,6 +21,9 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+/**
+ * Handles meta data for directories.
+ */
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -119,10 +122,9 @@ public class DirectoryServiceImpl implements DirectoryService {
         }
 
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
-        if (roleNames.isEmpty()) {
-            log.error("A root directory for group {} could not be created, as the group does not exist ", groupId);
-            String error = "This group does not exist.";
-            //TODO: More accurate exception?
+        if (roleNames.isEmpty()) { // TODO: check for actual existence of group
+            log.error("A root directory for group '{}' could not be created, as the group does not exist.", groupId);
+            String error = "Es konnte kein Wurzelverzeichnis für die Gruppe erstellt werden, da sie nicht existiert.";
             throw new MopsException(error);
         }
         DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
@@ -220,11 +222,13 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
+     * Gets a directory.
+     *
      * @param parentDirID the id of the parent folder
      * @return a directory object of the request folder
      */
     @SuppressWarnings("PMD.LawOfDemeter")
-    private Directory fetchDirectory(long parentDirID) {
+    private Directory fetchDirectory(long parentDirID) throws DatabaseException {
         Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
         // this is not a violation of demeter's law
         return optionalDirectory.orElseThrow(getException(parentDirID)); //this is not a violation of demeter's law
@@ -305,15 +309,17 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
+     * Gets a database exception.
+     *
      * @param dirId directory id
      * @return a supplier to throw a exception
      */
-    private Supplier<NoSuchElementException> getException(long dirId) {
+    private Supplier<DatabaseException> getException(long dirId) {
         return () -> { //this is not a violation of the demeter's law
             log.error("The directory with the id {} was requested, but was not found in the database.",
                     dirId);
             String errorMessage = String.format("There is no directory with the id %s in the database.", dirId);
-            return new NoSuchElementException(errorMessage);
+            return new DatabaseException(errorMessage);
         };
     }
 }

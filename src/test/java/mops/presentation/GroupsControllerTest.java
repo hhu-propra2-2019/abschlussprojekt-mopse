@@ -3,14 +3,8 @@ package mops.presentation;
 import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
-import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileService;
 import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
-import mops.persistence.DirectoryPermissionsRepository;
-import mops.persistence.DirectoryRepository;
-import mops.persistence.FileInfoRepository;
-import mops.persistence.FileRepository;
 import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,19 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class GroupsControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
     @MockBean
-    DirectoryRepository directoryRepository;
-    @MockBean
-    DirectoryPermissionsRepository directoryPermissionsRepository;
-    @MockBean
-    FileInfoRepository fileInfoRepository;
-    @MockBean
-    FileRepository fileRepository;
-    @MockBean
     GroupService groupService;
-    @MockBean
-    FileService fileService;
-    @MockBean
-    DirectoryService directoryService;
 
     /**
      * Setup service/repo mocks.

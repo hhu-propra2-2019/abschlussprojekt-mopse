@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers(disabledWithoutDocker = true)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class FileRepositoryTests {
+class FileRepositoryTest {
 
     final Random random = new Random();
     FileRepository fileRepository;
@@ -38,10 +38,9 @@ class FileRepositoryTests {
                 .withEnv("MINIO_SECRET_KEY", fileRepoConfig.getSecretKey())
                 .withCommand("server /data")
                 .withExposedPorts(9000)
-                .waitingFor(Wait
-                        .forHttp("/minio/health/ready")
+                .waitingFor(Wait.forHttp("/minio/health/ready")
                         .forPort(9000)
-                        .withStartupTimeout(Duration.ofSeconds(20)));
+                        .withStartupTimeout(Duration.ofSeconds(30)));
         minioServer.start();
 
         int mappedPort = minioServer.getFirstMappedPort();
