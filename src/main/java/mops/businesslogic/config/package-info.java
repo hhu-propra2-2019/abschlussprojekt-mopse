@@ -1,4 +1,4 @@
 /**
- Configuration for services.
+  * Configuration for services.
  */
 package mops.businesslogic.config;

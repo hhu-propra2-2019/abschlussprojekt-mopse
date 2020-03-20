@@ -1,4 +1,4 @@
 /**
-Persistence layer.
+ * Persistence layer.
  */
 package mops.persistence;

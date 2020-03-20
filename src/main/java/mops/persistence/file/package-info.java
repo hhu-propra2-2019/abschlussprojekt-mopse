@@ -1,4 +1,4 @@
 /**
-Metadata of files database integration.
+ * Metadata of files database integration.
  */
 package mops.persistence.file;

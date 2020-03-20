@@ -1,4 +1,4 @@
 /**
-Exceptions thrown from business layer.
+ * Exceptions thrown from business layer.
  */
 package mops.businesslogic.exception;

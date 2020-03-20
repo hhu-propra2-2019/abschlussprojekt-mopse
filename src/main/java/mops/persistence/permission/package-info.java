@@ -1,4 +1,4 @@
 /**
-Directory Permission database integration.
+ * Directory Permission database integration.
  */
 package mops.persistence.permission;

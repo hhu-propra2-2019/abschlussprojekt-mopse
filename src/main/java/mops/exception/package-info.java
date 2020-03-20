@@ -1,4 +1,4 @@
 /**
-Base Exceptions.
+ * Base Exceptions.
  */
 package mops.exception;

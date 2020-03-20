@@ -1,4 +1,4 @@
 /**
-Prometheus integration.
+ * Prometheus integration.
  */
 package mops.businesslogic.prometheus;

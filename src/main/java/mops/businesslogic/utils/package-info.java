@@ -1,4 +1,4 @@
 /**
-Statics in business layer.
+ * Statics in business layer.
  */
 package mops.businesslogic.utils;
