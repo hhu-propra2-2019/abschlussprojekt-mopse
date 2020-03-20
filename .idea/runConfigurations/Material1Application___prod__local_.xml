@@ -6,16 +6,18 @@
     <option name="ACTIVE_PROFILES" value="prod" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <envs>
-      <env name="MYSQL_ROOT_PASSWORD" value="password" />
-      <env name="MYSQL_DATABASE" value="material1" />
       <env name="MATERIAL1_PORT" value="8080" />
-      <env name="MATERIAL1_DB_PORT" value="23306" />
       <env name="MATERIAL1_DB_HOST" value="localhost" />
-      <env name="MINIO_HOST" value="http://localhost" />
-      <env name="MINIO_PORT" value="9000" />
-      <env name="MINIO_BUCKET_NAME" value="dev-bucket" />
+      <env name="MATERIAL1_DB_PORT" value="5432" />
+      <env name="POSTGRES_USER" value="postgres" />
+      <env name="POSTGRES_PASSWORD" value="password" />
+      <env name="POSTGRES_DB" value="material1" />
+      <env name="MATERIAL1_MINIO_HOST" value="http://localhost" />
+      <env name="MATERIAL1_MINIO_PORT" value="9000" />
+      <env name="MATERIAL1_MINIO_BUCKET_NAME" value="dev-bucket" />
       <env name="MINIO_ACCESS_KEY" value="dev_minio_access_key" />
       <env name="MINIO_SECRET_KEY" value="dev_minio_secret_key" />
+      <env name="MATERIAL1_GRUPPENFINDUNG_URL" value="https://mops.hhu.de/gruppe1" />
     </envs>
     <method v="2">
       <option name="Make" enabled="true" />
