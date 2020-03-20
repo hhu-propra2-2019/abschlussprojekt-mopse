@@ -3,7 +3,6 @@ package mops.presentation;
 import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
-import mops.Material1Application;
 import mops.utils.KeycloakContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @KeycloakContext
-@WebMvcTest(Material1Application.class)
+@WebMvcTest(Material1Controller.class)
 class Material1ControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
     @Test
