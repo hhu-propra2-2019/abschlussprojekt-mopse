@@ -213,7 +213,7 @@ java.util.List&lt;<a href="directory/Directory.html" title="class in mops.persis
 <ul class="blockList">
 <li class="blockList">
 <h4>getDirCountInGroup</h4>
-<pre class="methodSignature">@Query("SELECT COUNT(*) FROM directory WHERE group_owner = :groupOwner")
+<pre class="methodSignature">@Query("SELECT COALESCE(COUNT(*), 0) FROM directory WHERE group_owner = :groupOwner")
 long&nbsp;getDirCountInGroup&#8203;(@Param("groupOwner")
                         long&nbsp;groupOwner)</pre>
 <dl>
