@@ -32,7 +32,7 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    public List<Group> getAllGroups(Account account) throws MopsException {
+    public List<Group> getAllGroupsOfUser(Account account) throws MopsException {
         Group einzigen = new Group(GROUPID, "Einzigen");
         return List.of(einzigen);
     }
