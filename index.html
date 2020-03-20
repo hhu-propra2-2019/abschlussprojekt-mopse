@@ -934,17 +934,19 @@ Nun kann man die Annotation <code>@WithMockKeycloakAuth</code> benutzen, um Test
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>Zur Auswahl standen hier MySQL, MariaDB und PostgreSQL, da wir damit bereits Erfahrungen gesammelt haben.
-Wir haben uns nach einer kurzen Diskussion für MariaDB entschieden.
-Und zwar weil MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, womit wir am meisten Erfahrung haben.</p>
+<p>Zur Auswahl standen hier MySQL, MariaDB und PostgreSQL, da wir mit diesen Datenbanken bereits Erfahrungen gesammelt haben.</p>
 </div>
 <div class="paragraph">
-<p>Der Großteil unserer Erfahrungen beruhte bisher auf MySQL. Da MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, haben wir uns für die Verwendung von MariaDB entschieden.</p>
+<p>Der Großteil unserer Erfahrungen beruhte bisher auf MySQL, also haben wir uns zunächst für die neuere Variante MariaDB entschieden.</p>
 </div>
 <div class="paragraph">
-<p>Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist umständlich immer diesen Docker-Container laufen zu lassen.
-Also haben wir uns entschieden in der Entwicklung und zum Testen H2 zu benutzen.
-Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir bereits kennen gelernt haben.</p>
+<p>Leider dauerte das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist umständlich immer diesen Docker-Container laufen zu lassen.
+Also haben wir uns dafür entschieden, in der Entwicklung und zum Testen H2 zu benutzen.
+Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir ebenfalls schon kennen gelernt haben.</p>
+</div>
+<div class="paragraph">
+<p>Nach einiger Zeit sind wir dann doch auf PostgreSQL umgestiegen, weil es von den Server-Admins der HHU bevorzugt wird und für ein Testdeployment auf Heroku notwendig ist.
+Das war ein schmerzloser Prozess, da wir bis dahin noch nichts mit der echten Datenbank gemacht haben.</p>
 </div>
 </div>
 </div>
@@ -2062,7 +2064,7 @@ Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskuss
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-19 20:29:12 UTC
+Last updated 2020-03-20 08:17:33 UTC
 </div>
 </div>
 </body>
