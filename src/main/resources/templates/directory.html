@@ -80,8 +80,8 @@
             <th>Typ</th>
             <th>Größe</th>
         </tr>
-        <tr th:each="dir : ${dirs}" th:href="@{/${dir.id}}" }>
-            <td th:text="${dir.name}">%Name%</td>
+        <tr th:each="dir : ${dirs}" }>
+            <td> <a th:text="${dir.name}" th:href="@{${dir.id}}">%Name%</a></td>
             <td></td>
             <td>Dateiordner</td>
             <td></td>
