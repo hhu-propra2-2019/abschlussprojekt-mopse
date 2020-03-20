@@ -35,6 +35,8 @@ public class GroupsController {
     private final GroupService groupService;
 
     /**
+     * Gets all groups of a user.
+     *
      * @param redirectAttributes redirect attributes
      * @param token              authentication token from keycloak server.
      * @param model              view model.

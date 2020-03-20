@@ -5,6 +5,9 @@ import lombok.Value;
 
 import java.util.Set;
 
+/**
+ * Wrapper for keycloak credentials.
+ */
 @Value(staticConstructor = "of")
 // @Value automatically makes all fields `private final` which CheckStyle and PMD don't see
 @SuppressWarnings({ "checkstyle:VisibilityModifier", "PMD.DefaultPackage" })

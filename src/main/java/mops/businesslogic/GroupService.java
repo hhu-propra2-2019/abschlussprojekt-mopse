@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Handles requests for group meta data.
+ */
 @Service
 public interface GroupService {
 
@@ -24,6 +27,8 @@ public interface GroupService {
     List<Group> getAllGroupsOfUser(Account account) throws MopsException;
 
     /**
+     * Gets the group url.
+     *
      * @param groupId the id of the group
      * @return a wrapper for group urls
      */

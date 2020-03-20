@@ -15,6 +15,9 @@ import org.springframework.context.annotation.Profile;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+/**
+ * Setups data for development.
+ */
 @Configuration
 public class DummyDataSeeding {
 
@@ -24,6 +27,8 @@ public class DummyDataSeeding {
     private static final long GROUP_ID = 100L;
 
     /**
+     * Initializes application runner.
+     *
      * @param fileInfoService  file info service
      * @param fileRepository   connection to the MinIO file repository
      * @param directoryService directory service

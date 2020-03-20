@@ -14,6 +14,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Builds file meta data.
+ */
 @Slf4j
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)

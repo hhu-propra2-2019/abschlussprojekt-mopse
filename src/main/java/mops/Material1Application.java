@@ -3,6 +3,9 @@ package mops;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Starts spring application.
+ */
 @SpringBootApplication
 public class Material1Application {
 

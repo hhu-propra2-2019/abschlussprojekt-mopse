@@ -10,6 +10,9 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Builds directory permissions.
+ */
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",

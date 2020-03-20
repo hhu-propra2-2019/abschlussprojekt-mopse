@@ -4,6 +4,9 @@ import lombok.Value;
 import mops.persistence.file.FileInfo;
 import org.springframework.core.io.Resource;
 
+/**
+ * Wrapper of meta data and content of a file.
+ */
 @Value
 // @Value automatically makes all fields `private final` which CheckStyle and PMD don't see
 @SuppressWarnings({ "checkstyle:VisibilityModifier", "PMD.DefaultPackage" })
@@ -19,6 +22,8 @@ public class FileContainer {
     Resource content;
 
     /**
+     * Gets a directory id.
+     *
      * @return parent directory of file
      */
     public long getDirectoryId() {
@@ -26,6 +31,8 @@ public class FileContainer {
     }
 
     /**
+     * Gets the file id.
+     *
      * @return file id
      */
     public long getId() {
@@ -33,6 +40,8 @@ public class FileContainer {
     }
 
     /**
+     * Gets the file type.
+     *
      * @return content type of file
      */
     public String getType() {
@@ -40,6 +49,8 @@ public class FileContainer {
     }
 
     /**
+     * Gets the file name.
+     *
      * @return display name of file
      */
     public String getName() {
@@ -47,6 +58,8 @@ public class FileContainer {
     }
 
     /**
+     * Gets the file size.
+     *
      * @return size of file in bytes
      */
     public long getSize() {

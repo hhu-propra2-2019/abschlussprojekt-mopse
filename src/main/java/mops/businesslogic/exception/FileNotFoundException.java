@@ -2,6 +2,9 @@ package mops.businesslogic.exception;
 
 import mops.exception.MopsException;
 
+/**
+ * Throws if file is not found.
+ */
 public class FileNotFoundException extends MopsException {
 
     /**

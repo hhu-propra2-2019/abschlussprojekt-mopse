@@ -10,6 +10,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ * This is used during production.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor

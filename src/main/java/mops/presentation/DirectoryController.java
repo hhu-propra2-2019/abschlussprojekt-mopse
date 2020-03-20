@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Controller Class for all requests on 'material1/dir'.
+ */
 @Controller
 @RequestMapping("/material1/dir")
 @AllArgsConstructor
@@ -42,6 +45,8 @@ public class DirectoryController {
     private final FileService fileService;
 
     /**
+     * Shows the content of a folder (files and sub folders).
+     *
      * @param redirectAttributes redirect attributes
      * @param token              keycloak auth token
      * @param model              spring view model

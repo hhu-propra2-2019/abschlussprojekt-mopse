@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+/**
+ * Controller Class for all requests on 'material1/file'.
+ */
 @Controller
 @RequestMapping("material1/file")
 @AllArgsConstructor
@@ -37,6 +40,8 @@ public class FileController {
     private final FileService fileService;
 
     /**
+     * Retrieves a file.
+     *
      * @param redirectAttributes redirect attributes
      * @param token              a keycloak authentication token
      * @param model              model
@@ -66,6 +71,8 @@ public class FileController {
     }
 
     /**
+     * Downloads a file.
+     *
      * @param token  a keycloak authentication token
      * @param fileId the id of the requested file
      * @return the route to template 'file'
