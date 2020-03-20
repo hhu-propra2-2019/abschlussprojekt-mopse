@@ -34,6 +34,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * The max amount of folders per group.
      */
+    @Value("MATERIAL_MAX_FOLDER_PER_GROUP")
     public static final long MAX_FOLDER_PER_GROUP = 200L;
 
     /**
