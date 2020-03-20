@@ -33,6 +33,10 @@ public class DummyDataSeeding {
 
             DirectoryPermissions directoryPermissions = DirectoryPermissions.builder()
                     .entry("admin", true, true, true)
+                    .entry("orga", true, true, true)
+                    .entry("korrektor", true, true, true)
+                    .entry("viewer", true, true, true)
+                    .entry("studentin", true, true, true)
                     .build();
 
             directoryPermissions = directoryPermissionsRepo.save(directoryPermissions);
