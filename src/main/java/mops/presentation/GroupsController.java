@@ -42,7 +42,7 @@ public class GroupsController {
         log.info("All groups are requested for user '{}'.", account.getName());
         List<Group> groups = null;
         try {
-            groups = groupService.getAllGroups(account);
+            groups = groupService.getAllGroupsOfUser(account);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
             log.error("Failed to retrieve user groups for {}.", account.getName());

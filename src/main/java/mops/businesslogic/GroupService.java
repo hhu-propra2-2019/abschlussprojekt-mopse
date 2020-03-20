@@ -21,7 +21,7 @@ public interface GroupService {
      * @param account the account the user
      * @return a list of groups
      */
-    List<Group> getAllGroups(Account account) throws MopsException;
+    List<Group> getAllGroupsOfUser(Account account) throws MopsException;
 
     /**
      * @param groupId the id of the group
