@@ -1,4 +1,4 @@
 /**
-General static classes.
+ * General static classes.
  */
 package mops.utils;
