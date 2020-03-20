@@ -78,7 +78,7 @@ class DirectoryRepositoryTest {
 
         directoryRepository.saveAll(List.of(a, b));
 
-        long groupFolderCount = directoryRepository.getGroupFolderCount(GROUP_ID);
+        long groupFolderCount = directoryRepository.getDirCountInGroup(GROUP_ID);
 
         assertThat(groupFolderCount).isEqualTo(3L);
     }

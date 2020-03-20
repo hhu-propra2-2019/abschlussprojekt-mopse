@@ -22,8 +22,35 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
     List<FileInfo> findAllInDirectory(@Param("dirId") long dirId);
 
     /**
-     * Fetches all IDs.
-     * @return all IDs
+     * Counts the total number of bytes used in a group.
+     *
+     * @param groupId group id
+     * @return total storage usage in bytes
+     */
+    @Query("SELECT SUM(size) FROM file_info WHERE group_id = :groupId")
+    long getStorageUsageInGroup(@Param("groupId") long groupId);
+
+    /**
+     * Counts the total number of bytes in all groups.
+     *
+     * @return total storage usage in bytes
+     */
+    @Query("SELECT SUM(size) FROM file_info")
+    long getTotalStorageUsage();
+
+    /**
+     * Counts the total number of files in a group.
+     *
+     * @param groupId group id
+     * @return total file count
+     */
+    @Query("SELECT COUNT(*) FROM file_info WHERE group_id = :groupId")
+    long getFileCountInGroup(@Param("groupId") long groupId);
+
+    /**
+     * Fetches all file info ids.
+     *
+     * @return all ids
      */
     @Query("SELECT id FROM file_info")
     Set<Long> findAllIds();

@@ -27,15 +27,16 @@ Nun kann man die Annotation `@WithMockKeycloakAuth` benutzen, um Tests mit einer
 === Datenbank
 
 ****
-Zur Auswahl standen hier MySQL, MariaDB und PostgreSQL, da wir damit bereits Erfahrungen gesammelt haben.
-Wir haben uns nach einer kurzen Diskussion für MariaDB entschieden.
-Und zwar weil MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, womit wir am meisten Erfahrung haben.
+Zur Auswahl standen hier MySQL, MariaDB und PostgreSQL, da wir mit diesen Datenbanken bereits Erfahrungen gesammelt haben.
 
-Der Großteil unserer Erfahrungen beruhte bisher auf MySQL. Da MariaDB die aktive Open-Source-Weiterentwicklung von MySQL ist, haben wir uns für die Verwendung von MariaDB entschieden.
+Der Großteil unserer Erfahrungen beruhte bisher auf MySQL, also haben wir uns zunächst für die neuere Variante MariaDB entschieden.
 
-Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist umständlich immer diesen Docker-Container laufen zu lassen.
-Also haben wir uns entschieden in der Entwicklung und zum Testen H2 zu benutzen.
-Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir bereits kennen gelernt haben.
+Leider dauerte das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist umständlich immer diesen Docker-Container laufen zu lassen.
+Also haben wir uns dafür entschieden, in der Entwicklung und zum Testen H2 zu benutzen.
+Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir ebenfalls schon kennen gelernt haben.
+
+Nach einiger Zeit sind wir dann doch auf PostgreSQL umgestiegen, weil es von den Server-Admins der HHU bevorzugt wird und für ein Testdeployment auf Heroku notwendig ist.
+Das war ein schmerzloser Prozess, da wir bis dahin noch nichts mit der echten Datenbank gemacht haben.
 ****
 
 === Logging
