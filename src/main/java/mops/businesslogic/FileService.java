@@ -56,4 +56,11 @@ public interface FileService {
      */
     List<FileInfo> getFilesOfDirectory(Account account, long dirId) throws MopsException;
 
+    /**
+     * Fetches all IDs.
+     *
+     * @return all File IDs
+     */
+    Set<Long> getAllFileIds() throws MopsException;
+
 }

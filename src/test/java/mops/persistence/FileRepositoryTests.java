@@ -1,6 +1,7 @@
 package mops.persistence;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import mops.exception.MopsException;
 import org.junit.jupiter.api.*;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
 import java.util.Random;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,7 +41,7 @@ class FileRepositoryTests {
                 .waitingFor(Wait
                         .forHttp("/minio/health/ready")
                         .forPort(9000)
-                        .withStartupTimeout(Duration.ofSeconds(10)));
+                        .withStartupTimeout(Duration.ofSeconds(20)));
         minioServer.start();
 
         int mappedPort = minioServer.getFirstMappedPort();
@@ -123,6 +125,37 @@ class FileRepositoryTests {
         }
 
         assertThat(retrievedData).isEqualTo(originalContent);
+    }
+
+    @Test
+    void shouldListAllFiles() throws MopsException {
+        long fileId1 = 1;
+        long fileId2 = 2;
+        long fileId3 = 3;
+
+        MultipartFile file1 = getRandomMultipartFile();
+        MultipartFile file2 = getRandomMultipartFile();
+        MultipartFile file3 = getRandomMultipartFile();
+
+        fileRepository.saveFile(file1, fileId1);
+        fileRepository.saveFile(file2, fileId2);
+        fileRepository.saveFile(file3, fileId3);
+
+        Set<Long> fetchedIds = fileRepository.getAllIds();
+
+        assertThat(fetchedIds).containsExactlyInAnyOrder(
+                fileId1,
+                fileId2,
+                fileId3
+        );
+
+        fileRepository.deleteFile(fileId2);
+        fetchedIds = fileRepository.getAllIds();
+
+        assertThat(fetchedIds).containsExactlyInAnyOrder(
+                fileId1,
+                fileId3
+        );
     }
 
     private byte[] getRandomBytes() {
