@@ -114,8 +114,8 @@
     <form action="#" th:action="@{/search}" th:method="post" th:object="${fileQueryForm}">
         <div id="fileNames">
             <div id="fileNames[0]">
-                <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{fileNames[0]}"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('fileNames', 'Dateiname')"></div>
+                <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{names[0]}"></div>
+                <div><input type="button" value="+" onclick="addNewInputLine('names', 'Dateiname')"></div>
             </div>
         </div>
         <div><input type="button" value="-" id="fileNamesDelete" onclick="deleteLastInputLine('fileNames[0]')"></div>
