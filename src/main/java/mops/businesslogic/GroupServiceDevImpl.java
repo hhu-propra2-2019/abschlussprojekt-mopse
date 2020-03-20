@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * {@inheritDoc}
+ * This is used during development and will return dummies.
+ */
 @Service
 @AllArgsConstructor
 public class GroupServiceDevImpl implements GroupService {

@@ -4,6 +4,9 @@ import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import org.springframework.stereotype.Service;
 
+/**
+ * Checks roles permissions.
+ */
 @Service
 public interface RoleService {
 
@@ -35,6 +38,8 @@ public interface RoleService {
     void checkDeletePermission(Account account, Directory directory) throws MopsException;
 
     /**
+     * Checks if user is has a role.
+     *
      * @param account     user credentials
      * @param groupId     id of the group to check
      * @param allowedRole role which has the right

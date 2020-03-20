@@ -22,6 +22,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Controller Class for all requests on 'material1/file'.
+ */
 @Controller
 @RequestMapping("material1/file")
 @AllArgsConstructor
@@ -34,6 +37,8 @@ public class FileController {
     private final FileService fileService;
 
     /**
+     * Retrieves a file.
+     *
      * @param token  a keycloak authentication token
      * @param model  model
      * @param fileId the id of the requested file
@@ -59,6 +64,8 @@ public class FileController {
     }
 
     /**
+     * Downloads a file.
+     *
      * @param token  a keycloak authentication token
      * @param fileId the id of the requested file
      * @return the route to template 'file'

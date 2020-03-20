@@ -21,6 +21,9 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+/**
+ * Handles meta data for directories.
+ */
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -220,6 +223,8 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
+     * Gets a directory.
+     *
      * @param parentDirID the id of the parent folder
      * @return a directory object of the request folder
      */
@@ -305,6 +310,8 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
+     * Gets a database exception.
+     *
      * @param dirId directory id
      * @return a supplier to throw a exception
      */
