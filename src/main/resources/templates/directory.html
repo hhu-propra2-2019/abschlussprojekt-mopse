@@ -91,8 +91,8 @@
                 </form>
             </td>
         </tr>
-        <tr th:each="file : ${files}" th:href="@{../file/${file.id}}">
-            <td th:text="${file.name}">%Name%</td>
+        <tr th:each="file : ${files}">
+            <td> <a th:text="${file.name}" th:href="@{'../file/' +  ${file.id}}">%Name%</a></td>
             <td th:text="TBD">%Datum%</td>
             <td th:text="${file.type}">%Typ%</td>
             <td th:text="${file.size}">%Größe%</td>
