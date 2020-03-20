@@ -5,6 +5,8 @@ import mops.exception.MopsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * {@inheritDoc}
@@ -13,10 +15,11 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class GroupServiceDevImpl implements GroupService {
+
     /**
-     * constant for the long value 100.
+     * Group id.
      */
-    private static final long GROUPID = 100L;
+    private static final Set<Long> VALID_GROUP_IDS = Set.of(100L);
 
     /**
      * Directory Service.
@@ -27,9 +30,11 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter") // stream
     public List<Group> getAllGroups() throws MopsException {
-        Group einzigen = new Group(GROUPID, "Einzigen");
-        return List.of(einzigen);
+        return VALID_GROUP_IDS.stream()
+                .map(id -> new Group(id, "Einzigen #" + id))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -37,8 +42,7 @@ public class GroupServiceDevImpl implements GroupService {
      */
     @Override
     public List<Group> getAllGroupsOfUser(Account account) throws MopsException {
-        Group einzigen = new Group(GROUPID, "Einzigen");
-        return List.of(einzigen);
+        return getAllGroups(); // every user is in every group
     }
 
     /**
