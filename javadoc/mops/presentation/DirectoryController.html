@@ -179,8 +179,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createSubFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,java.lang.String)">createSubFolder</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-               org.springframework.ui.Model&nbsp;model,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createSubFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.lang.String)">createSubFolder</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                long&nbsp;parentDirId,
                java.lang.String&nbsp;folderName)</code></th>
 <td class="colLast">
@@ -189,8 +188,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">deleteFolder</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-            org.springframework.ui.Model&nbsp;model,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">deleteFolder</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
             long&nbsp;dirId)</code></th>
 <td class="colLast">
 <div class="block">Deletes a folder.</div>
@@ -215,8 +213,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,org.springframework.web.multipart.MultipartFile)">uploadFile</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-          org.springframework.ui.Model&nbsp;model,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,org.springframework.web.multipart.MultipartFile)">uploadFile</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
           long&nbsp;dirId,
           org.springframework.web.multipart.MultipartFile&nbsp;multipartFile)</code></th>
 <td class="colLast">
@@ -288,7 +285,7 @@ public&nbsp;java.lang.String&nbsp;showFolderContent&#8203;(org.keycloak.adapters
 </dl>
 </li>
 </ul>
-<a id="uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,org.springframework.web.multipart.MultipartFile)">
+<a id="uploadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,org.springframework.web.multipart.MultipartFile)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -296,7 +293,6 @@ public&nbsp;java.lang.String&nbsp;showFolderContent&#8203;(org.keycloak.adapters
 <h4>uploadFile</h4>
 <pre class="methodSignature">@PostMapping("/{dirId}/upload")
 public&nbsp;java.lang.String&nbsp;uploadFile&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                                   org.springframework.ui.Model&nbsp;model,
                                    @PathVariable("dirId")
                                    long&nbsp;dirId,
                                    @RequestAttribute("file")
@@ -305,7 +301,6 @@ public&nbsp;java.lang.String&nbsp;uploadFile&#8203;(org.keycloak.adapters.spring
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>token</code> - keycloak auth token</dd>
-<dd><code>model</code> - spring view model</dd>
 <dd><code>dirId</code> - id of the directory id where it will be uploaded</dd>
 <dd><code>multipartFile</code> - file object</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -313,7 +308,7 @@ public&nbsp;java.lang.String&nbsp;uploadFile&#8203;(org.keycloak.adapters.spring
 </dl>
 </li>
 </ul>
-<a id="createSubFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,java.lang.String)">
+<a id="createSubFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -321,7 +316,6 @@ public&nbsp;java.lang.String&nbsp;uploadFile&#8203;(org.keycloak.adapters.spring
 <h4>createSubFolder</h4>
 <pre class="methodSignature">@PostMapping("/{parentDirId}/create")
 public&nbsp;java.lang.String&nbsp;createSubFolder&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                                        org.springframework.ui.Model&nbsp;model,
                                         @PathVariable("parentDirId")
                                         long&nbsp;parentDirId,
                                         @RequestAttribute("folderName")
@@ -330,7 +324,6 @@ public&nbsp;java.lang.String&nbsp;createSubFolder&#8203;(org.keycloak.adapters.s
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>token</code> - keycloak auth token</dd>
-<dd><code>model</code> - spring view model</dd>
 <dd><code>parentDirId</code> - id of the parent folder</dd>
 <dd><code>folderName</code> - name of the new sub folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -338,7 +331,7 @@ public&nbsp;java.lang.String&nbsp;createSubFolder&#8203;(org.keycloak.adapters.s
 </dl>
 </li>
 </ul>
-<a id="deleteFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">
+<a id="deleteFolder(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -346,14 +339,12 @@ public&nbsp;java.lang.String&nbsp;createSubFolder&#8203;(org.keycloak.adapters.s
 <h4>deleteFolder</h4>
 <pre class="methodSignature">@DeleteMapping("/{dirId}")
 public&nbsp;java.lang.String&nbsp;deleteFolder&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                                     org.springframework.ui.Model&nbsp;model,
                                      @PathVariable("dirId")
                                      long&nbsp;dirId)</pre>
 <div class="block">Deletes a folder.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>token</code> - user credentials</dd>
-<dd><code>model</code> - spring view model</dd>
 <dd><code>dirId</code> - id of the folder to be deleted</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the id of the parent folder</dd>

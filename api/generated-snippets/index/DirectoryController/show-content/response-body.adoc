@@ -181,15 +181,15 @@
         
         
     </table>
-    <form action="/create" method="post"><input type="hidden" name="_csrf" value="91f437cd-031f-4f75-ac26-167bd9dee0ec"/>
+    <form action="/create" method="post"><input type="hidden" name="_csrf" value="edd84139-67d7-40c8-a8b3-e782756a09e4"/>
         <input type="text" name="folderName">
         <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
-    <form action="/upload" method="post"><input type="hidden" name="_csrf" value="91f437cd-031f-4f75-ac26-167bd9dee0ec"/>
+    <form action="/upload" method="post"><input type="hidden" name="_csrf" value="edd84139-67d7-40c8-a8b3-e782756a09e4"/>
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
-    <form action="/search" method="post"><input type="hidden" name="_csrf" value="91f437cd-031f-4f75-ac26-167bd9dee0ec"/>
+    <form action="/search" method="post"><input type="hidden" name="_csrf" value="edd84139-67d7-40c8-a8b3-e782756a09e4"/>
         <div id="fileNames">
             <div id="fileNames[0]">
                 <div><input type="text" name="fileNames[0]" placeholder="Dateiname" id="fileNames0" value=""></div>
@@ -228,14 +228,16 @@
     <a class="account-link" href="https://keycloak.cs.hhu.de/auth/realms/MOPS/account">
       <img class="account-image" src="/img/resized/elvis.jpg">
       <div class="account-name">
-        
-        <span>Anmelden</span>
-        
+        <small>Angemeldet als</small>
+        <span>user</span>
+        <small>in der Rolle studentin</small>
       </div>
     </a>
-    
+    <div class="account-logout-wrapper">
+      <a class="account-logout" href="/logout">Abmelden</a>
+    </div>
   </div>
-  <span class="copyright">© 2020 Mops</span>
+  
 </footer>
 </body>
 </html>

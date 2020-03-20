@@ -9,7 +9,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 4233
+Content-Length: 4359
 
 <!DOCTYPE html>
 <html lang="en">
@@ -138,14 +138,16 @@ Content-Length: 4233
     <a class="account-link" href="https://keycloak.cs.hhu.de/auth/realms/MOPS/account">
       <img class="account-image" src="/img/resized/elvis.jpg">
       <div class="account-name">
-        
-        <span>Anmelden</span>
-        
+        <small>Angemeldet als</small>
+        <span>user</span>
+        <small>in der Rolle studentin</small>
       </div>
     </a>
-    
+    <div class="account-logout-wrapper">
+      <a class="account-logout" href="/logout">Abmelden</a>
+    </div>
   </div>
-  <span class="copyright">© 2020 Mops</span>
+  
 </footer>
 </body>
 </html>

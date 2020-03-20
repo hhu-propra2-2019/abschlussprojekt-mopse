@@ -129,14 +129,16 @@
     <a class="account-link" href="https://keycloak.cs.hhu.de/auth/realms/MOPS/account">
       <img class="account-image" src="/img/resized/elvis.jpg">
       <div class="account-name">
-        
-        <span>Anmelden</span>
-        
+        <small>Angemeldet als</small>
+        <span>user</span>
+        <small>in der Rolle studentin</small>
       </div>
     </a>
-    
+    <div class="account-logout-wrapper">
+      <a class="account-logout" href="/logout">Abmelden</a>
+    </div>
   </div>
-  <span class="copyright">© 2020 Mops</span>
+  
 </footer>
 </body>
 </html>

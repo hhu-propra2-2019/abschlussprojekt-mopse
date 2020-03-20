@@ -178,8 +178,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,javax.servlet.http.HttpServletRequest)">deleteFile</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-          org.springframework.ui.Model&nbsp;model,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,javax.servlet.http.HttpServletRequest)">deleteFile</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
           long&nbsp;fileId,
           javax.servlet.http.HttpServletRequest&nbsp;request)</code></th>
 <td class="colLast">
@@ -283,7 +282,7 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;org.springframework.core.
 </dl>
 </li>
 </ul>
-<a id="deleteFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,javax.servlet.http.HttpServletRequest)">
+<a id="deleteFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,javax.servlet.http.HttpServletRequest)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -291,7 +290,6 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;org.springframework.core.
 <h4>deleteFile</h4>
 <pre class="methodSignature">@DeleteMapping("/{fileId}")
 public&nbsp;java.lang.String&nbsp;deleteFile&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                                   org.springframework.ui.Model&nbsp;model,
                                    @PathVariable("fileId")
                                    long&nbsp;fileId,
                                    javax.servlet.http.HttpServletRequest&nbsp;request)</pre>
@@ -299,7 +297,6 @@ public&nbsp;java.lang.String&nbsp;deleteFile&#8203;(org.keycloak.adapters.spring
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>token</code> - keycloak auth token</dd>
-<dd><code>model</code> - spring view model</dd>
 <dd><code>fileId</code> - the id of the file to be deleted</dd>
 <dd><code>request</code> - the Http request</dd>
 <dt><span class="returnLabel">Returns:</span></dt>

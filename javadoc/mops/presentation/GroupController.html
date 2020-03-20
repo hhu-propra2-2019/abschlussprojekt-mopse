@@ -179,16 +179,12 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code><a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupUrl(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getGroupUrl</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-           org.springframework.ui.Model&nbsp;model,
-           long&nbsp;groupId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupUrl(long)">getGroupUrl</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getRootDirectory</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                org.springframework.ui.Model&nbsp;model,
-                long&nbsp;groupId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootDirectory(long)">getRootDirectory</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
@@ -245,28 +241,24 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getRootDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">
+<a id="getRootDirectory(long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getRootDirectory</h4>
 <pre class="methodSignature">@GetMapping("/{groupId}")
-public&nbsp;java.lang.String&nbsp;getRootDirectory&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                                         org.springframework.ui.Model&nbsp;model,
-                                         @PathVariable("groupId")
+public&nbsp;java.lang.String&nbsp;getRootDirectory&#8203;(@PathVariable("groupId")
                                          long&nbsp;groupId)</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>token</code> - a keycloak authentication token</dd>
-<dd><code>model</code> - spring boot view model</dd>
 <dd><code>groupId</code> - the id of the group which files should be fetched</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>redirect to root dir</dd>
 </dl>
 </li>
 </ul>
-<a id="getGroupUrl(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">
+<a id="getGroupUrl(long)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -276,14 +268,10 @@ public&nbsp;java.lang.String&nbsp;getRootDirectory&#8203;(org.keycloak.adapters.
             produces="application/json")
 @ResponseBody
 @Secured("ROLE_api_user")
-public&nbsp;<a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a>&nbsp;getGroupUrl&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                                       org.springframework.ui.Model&nbsp;model,
-                                       @PathVariable("groupId")
+public&nbsp;<a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a>&nbsp;getGroupUrl&#8203;(@PathVariable("groupId")
                                        long&nbsp;groupId)</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>token</code> - a keycloak authentication token</dd>
-<dd><code>model</code> - spring boot view model</dd>
 <dd><code>groupId</code> - the id of the group of the requested url</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a wrapper for the url string</dd>
