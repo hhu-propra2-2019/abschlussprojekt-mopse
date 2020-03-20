@@ -8,7 +8,7 @@ import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.utils.TestContext;
+import mops.utils.DbContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
-@TestContext
+@DbContext
 @SpringBootTest
 class DirectoryServiceTest {
 
@@ -221,8 +221,6 @@ class DirectoryServiceTest {
     void searchFolderWithoutPermissionTest() throws MopsException {
         FileQuery fileQuery = FileQuery.builder()
                 .build();
-
-        Directory root = directoryService.getOrCreateRootFolder(GROUP_ID);
 
         assertThatExceptionOfType(ReadAccessPermissionException.class)
                 .isThrownBy(() -> directoryService.searchFolder(intruder, root.getId(), fileQuery));
