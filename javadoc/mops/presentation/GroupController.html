@@ -135,6 +135,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 @RequestMapping("material1/group")
 public class <span class="typeNameLabel">GroupController</span>
 extends java.lang.Object</pre>
+<div class="block">Controller Class for all requests on 'material1/group'.</div>
 </li>
 </ul>
 </div>
@@ -180,12 +181,16 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code><a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupUrl(long)">getGroupUrl</a></span>&#8203;(long&nbsp;groupId)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the url of the root directory.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootDirectory(long)">getRootDirectory</a></span>&#8203;(long&nbsp;groupId)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the root directory.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
@@ -250,6 +255,7 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">@GetMapping("/{groupId}")
 public&nbsp;java.lang.String&nbsp;getRootDirectory&#8203;(@PathVariable("groupId")
                                          long&nbsp;groupId)</pre>
+<div class="block">Gets the root directory.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>groupId</code> - the id of the group which files should be fetched</dd>
@@ -270,6 +276,7 @@ public&nbsp;java.lang.String&nbsp;getRootDirectory&#8203;(@PathVariable("groupId
 @Secured("ROLE_api_user")
 public&nbsp;<a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a>&nbsp;getGroupUrl&#8203;(@PathVariable("groupId")
                                        long&nbsp;groupId)</pre>
+<div class="block">Gets the url of the root directory.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>groupId</code> - the id of the group of the requested url</dd>

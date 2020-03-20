@@ -131,6 +131,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <a href="../utils/AggregateBuilder.html" title="annotation in mops.utils">@AggregateBuilder</a>
 public interface <span class="typeNameLabel">FileInfoRepository</span>
 extends org.springframework.data.repository.CrudRepository&lt;<a href="file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>,&#8203;java.lang.Long&gt;</pre>
+<div class="block">Database connection for file meta data.</div>
 </li>
 </ul>
 </div>
@@ -161,7 +162,9 @@ extends org.springframework.data.repository.CrudRepository&lt;<a href="file/File
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findAllInDirectory(long)">findAllInDirectory</a></span>&#8203;(long&nbsp;dirId)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets all files from one directory.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>long</code></td>
@@ -217,6 +220,7 @@ extends org.springframework.data.repository.CrudRepository&lt;<a href="file/File
 <pre class="methodSignature">@Query("SELECT * FROM file_info WHERE directory_id = :dirId")
 java.util.List&lt;<a href="file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;&nbsp;findAllInDirectory&#8203;(@Param("dirId")
                                             long&nbsp;dirId)</pre>
+<div class="block">Gets all files from one directory.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>dirId</code> - directory id</dd>

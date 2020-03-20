@@ -139,6 +139,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 public class <span class="typeNameLabel">FileServiceImpl</span>
 extends java.lang.Object
 implements <a href="FileService.html" title="interface in mops.businesslogic">FileService</a></pre>
+<div class="block">Handles requests to MinIO.</div>
 </li>
 </ul>
 </div>
@@ -186,6 +187,9 @@ implements <a href="FileService.html" title="interface in mops.businesslogic">Fi
 <td class="colFirst"><code><a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteFile(mops.businesslogic.Account,long)">deleteFile</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
           long&nbsp;fileId)</code></th>
+<td class="colLast">
+<div class="block">Deletes a file.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.util.Set&lt;java.lang.Long&gt;</code></td>
@@ -198,6 +202,9 @@ implements <a href="FileService.html" title="interface in mops.businesslogic">Fi
 <td class="colFirst"><code><a href="FileContainer.html" title="class in mops.businesslogic">FileContainer</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFile(mops.businesslogic.Account,long)">getFile</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
        long&nbsp;fileId)</code></th>
+<td class="colLast">
+<div class="block">Gets a file.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></code></td>
@@ -221,6 +228,9 @@ implements <a href="FileService.html" title="interface in mops.businesslogic">Fi
         long&nbsp;dirId,
         org.springframework.web.multipart.MultipartFile&nbsp;multipartFile,
         java.util.Set&lt;java.lang.String&gt;&nbsp;tags)</code></th>
+<td class="colLast">
+<div class="block">Saves a file.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -279,6 +289,7 @@ public&nbsp;void&nbsp;saveFile&#8203;(<a href="Account.html" title="class in mop
                      org.springframework.web.multipart.MultipartFile&nbsp;multipartFile,
                      java.util.Set&lt;java.lang.String&gt;&nbsp;tags)
               throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Saves a file.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="FileService.html#saveFile(mops.businesslogic.Account,long,org.springframework.web.multipart.MultipartFile,java.util.Set)">saveFile</a></code>&nbsp;in interface&nbsp;<code><a href="FileService.html" title="interface in mops.businesslogic">FileService</a></code></dd>
@@ -301,6 +312,7 @@ public&nbsp;void&nbsp;saveFile&#8203;(<a href="Account.html" title="class in mop
 <pre class="methodSignature">public&nbsp;<a href="FileContainer.html" title="class in mops.businesslogic">FileContainer</a>&nbsp;getFile&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
                              long&nbsp;fileId)
                       throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Gets a file.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="FileService.html#getFile(mops.businesslogic.Account,long)">getFile</a></code>&nbsp;in interface&nbsp;<code><a href="FileService.html" title="interface in mops.businesslogic">FileService</a></code></dd>
@@ -324,6 +336,7 @@ public&nbsp;void&nbsp;saveFile&#8203;(<a href="Account.html" title="class in mop
 public&nbsp;<a href="../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;deleteFile&#8203;(<a href="Account.html" title="class in mops.businesslogic">Account</a>&nbsp;account,
                             long&nbsp;fileId)
                      throws <a href="../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Deletes a file.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="FileService.html#deleteFile(mops.businesslogic.Account,long)">deleteFile</a></code>&nbsp;in interface&nbsp;<code><a href="FileService.html" title="interface in mops.businesslogic">FileService</a></code></dd>

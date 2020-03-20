@@ -135,6 +135,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 @RequestMapping("material1/file")
 public class <span class="typeNameLabel">FileController</span>
 extends java.lang.Object</pre>
+<div class="block">Controller Class for all requests on 'material1/file'.</div>
 </li>
 </ul>
 </div>
@@ -189,14 +190,18 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;org.springframework.core.io.Resource&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#downloadFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">downloadFile</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
             long&nbsp;fileId)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Downloads a file.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getFile</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
        org.springframework.ui.Model&nbsp;model,
        long&nbsp;fileId)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Retrieves a file.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -252,6 +257,7 @@ public&nbsp;java.lang.String&nbsp;getFile&#8203;(org.keycloak.adapters.springsec
                                 org.springframework.ui.Model&nbsp;model,
                                 @PathVariable("fileId")
                                 long&nbsp;fileId)</pre>
+<div class="block">Retrieves a file.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>token</code> - a keycloak authentication token</dd>
@@ -273,6 +279,7 @@ public&nbsp;java.lang.String&nbsp;getFile&#8203;(org.keycloak.adapters.springsec
 public&nbsp;org.springframework.http.ResponseEntity&lt;org.springframework.core.io.Resource&gt;&nbsp;downloadFile&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                                                                                                   @PathVariable("fileId")
                                                                                                   long&nbsp;fileId)</pre>
+<div class="block">Downloads a file.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>token</code> - a keycloak authentication token</dd>
