@@ -80,7 +80,7 @@ public class GarbageCollector {
 
             }
         } catch (MopsException e) {
-            log.error("There was an error while removing orphans: {}", e.getMessage());
+            log.error("There was an error while removing orphans:", e);
         }
     }
 }
