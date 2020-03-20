@@ -1,5 +1,8 @@
 package mops.exception;
 
+/**
+ * Base exception for the application.
+ */
 @SuppressWarnings("PMD.MissingSerialVersionUID")
 public class MopsException extends Exception {
 

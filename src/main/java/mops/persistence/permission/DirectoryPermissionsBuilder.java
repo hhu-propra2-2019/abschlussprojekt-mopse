@@ -10,6 +10,9 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Builds directory permissions.
+ */
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
@@ -36,9 +39,9 @@ public class DirectoryPermissionsBuilder {
      * @return this
      */
     public DirectoryPermissionsBuilder from(DirectoryPermissions permissions) {
-        this.id = permissions.getId();
+        id = permissions.getId();
         permissions.getPermissions().forEach(e -> entry(e.getRole(), e.isCanRead(), e.isCanWrite(), e.isCanDelete()));
-        this.creationTime = permissions.getCreationTime();
+        creationTime = permissions.getCreationTime();
         return this;
     }
 
@@ -60,7 +63,7 @@ public class DirectoryPermissionsBuilder {
      * @return this
      */
     public DirectoryPermissionsBuilder id(DirectoryPermissions permissions) {
-        this.id = permissions == null ? null : permissions.getId();
+        id = permissions == null ? null : permissions.getId();
         return this;
     }
 
@@ -78,7 +81,7 @@ public class DirectoryPermissionsBuilder {
         if (role.isEmpty()) {
             throw new IllegalArgumentException("role must not be empty!");
         }
-        this.entries.add(new DirectoryPermissionEntry(role, canRead, canWrite, canDelete));
+        entries.add(new DirectoryPermissionEntry(role, canRead, canWrite, canDelete));
         return this;
     }
 

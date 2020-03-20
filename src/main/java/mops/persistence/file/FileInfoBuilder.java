@@ -14,6 +14,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Builds file meta data.
+ */
 @Slf4j
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
@@ -61,14 +64,14 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder from(@NonNull FileInfo file) {
-        this.id = file.getId();
-        this.name = file.getName();
-        this.directoryId = file.getDirectoryId();
-        this.type = file.getType();
-        this.size = file.getSize();
-        this.owner = file.getOwner();
+        id = file.getId();
+        name = file.getName();
+        directoryId = file.getDirectoryId();
+        type = file.getType();
+        size = file.getSize();
+        owner = file.getOwner();
         file.getTags().stream().map(FileTag::getName).forEach(this::tag);
-        this.creationTime = file.getCreationTime();
+        creationTime = file.getCreationTime();
         return this;
     }
 
@@ -79,9 +82,9 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder from(@NonNull MultipartFile file) {
-        this.name = file.getName();
-        this.type = file.getContentType();
-        this.size = file.getSize();
+        name = file.getName();
+        type = file.getContentType();
+        size = file.getSize();
         return this;
     }
 
@@ -103,7 +106,7 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder id(FileInfo fileInfo) {
-        this.id = fileInfo == null ? null : fileInfo.getId();
+        id = fileInfo == null ? null : fileInfo.getId();
         return this;
     }
 
@@ -140,7 +143,7 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder directory(@NonNull Directory directory) {
-        this.directoryId = directory.getId();
+        directoryId = directory.getId();
         return this;
     }
 
@@ -196,7 +199,7 @@ public class FileInfoBuilder {
             log.error("Failed to add tag as it was empty.");
             throw new IllegalArgumentException("tag must not be empty!");
         }
-        this.tags.add(new FileTag(tag));
+        tags.add(new FileTag(tag));
         return this;
     }
 

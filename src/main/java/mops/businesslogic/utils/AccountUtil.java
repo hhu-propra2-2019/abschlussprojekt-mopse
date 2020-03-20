@@ -4,6 +4,9 @@ import mops.businesslogic.Account;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 
+/**
+ * Builds an account.
+ */
 public class AccountUtil {
 
     /**

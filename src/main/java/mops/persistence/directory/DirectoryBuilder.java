@@ -10,6 +10,9 @@ import mops.utils.AggregateBuilder;
 import java.sql.Timestamp;
 import java.time.Instant;
 
+/**
+ * Builds directories.
+ */
 @Slf4j
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
@@ -49,12 +52,12 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder from(@NonNull Directory directory) {
-        this.id = directory.getId();
-        this.name = directory.getName();
-        this.parentId = directory.getParentId();
-        this.groupOwner = directory.getGroupOwner();
-        this.permissionsId = directory.getPermissionsId();
-        this.creationTime = directory.getCreationTime();
+        id = directory.getId();
+        name = directory.getName();
+        parentId = directory.getParentId();
+        groupOwner = directory.getGroupOwner();
+        permissionsId = directory.getPermissionsId();
+        creationTime = directory.getCreationTime();
         return this;
     }
 
@@ -65,9 +68,9 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder fromParent(@NonNull Directory parent) {
-        this.parentId = parent.getId();
-        this.groupOwner = parent.getGroupOwner();
-        this.permissionsId = parent.getPermissionsId();
+        parentId = parent.getId();
+        groupOwner = parent.getGroupOwner();
+        permissionsId = parent.getPermissionsId();
         return this;
     }
 
@@ -89,7 +92,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder id(Directory directory) {
-        this.id = directory == null ? null : directory.getId();
+        id = directory == null ? null : directory.getId();
         return this;
     }
 
@@ -122,7 +125,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder parent(@NonNull Directory parent) {
-        this.parentId = parent.getId();
+        parentId = parent.getId();
         return this;
     }
 
@@ -155,7 +158,7 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder permissions(@NonNull DirectoryPermissions permissions) {
-        this.permissionsId = permissions.getId();
+        permissionsId = permissions.getId();
         return this;
     }
 

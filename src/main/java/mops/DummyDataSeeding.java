@@ -13,6 +13,9 @@ import org.springframework.context.annotation.Profile;
 
 import java.util.Arrays;
 
+/**
+ * Setups data for development.
+ */
 @Configuration
 public class DummyDataSeeding {
     /**

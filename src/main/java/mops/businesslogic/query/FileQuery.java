@@ -10,6 +10,9 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.function.Predicate;
 
+/**
+ * Wrapper for file search requests.
+ */
 @Value
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 // @Value automatically makes all fields `private final` which CheckStyle and PMD don't see

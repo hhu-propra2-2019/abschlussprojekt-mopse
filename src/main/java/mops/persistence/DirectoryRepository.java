@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Database connection for directories.
+ */
 @Repository
 @AggregateBuilder
 public interface DirectoryRepository extends CrudRepository<Directory, Long> {
