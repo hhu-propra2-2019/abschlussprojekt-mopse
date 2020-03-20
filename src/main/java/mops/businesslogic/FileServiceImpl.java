@@ -226,6 +226,7 @@ public class FileServiceImpl implements FileService {
      * @param fileId the id of the file
      * @throws MopsException on error
      */
+    @SuppressWarnings("PMD.DefaultPackage")
     void deleteFile(long fileId) throws MopsException {
         fileRepository.deleteFile(fileId);
     }

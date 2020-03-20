@@ -35,7 +35,8 @@ public class GarbageCollector {
      * Collects all IDs, find orphans and delete them.
      */
     @Scheduled(fixedDelay = ONE_WEEK)
-    void removeOrphans() {
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn" })
+    public void removeOrphans() {
         Set<Long> metaIds;
         Set<Long> fileIds;
         try {
