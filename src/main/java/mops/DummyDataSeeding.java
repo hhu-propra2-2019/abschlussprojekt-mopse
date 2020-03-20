@@ -16,16 +16,15 @@ import java.util.Arrays;
 @Configuration
 public class DummyDataSeeding {
     /**
-     *
-     * @param directoryRepo connection to the directory table from the database
-     * @param fileInfoRepo connection to the fileInfo table from the database
+     * @param directoryRepo            connection to the directory table from the database
+     * @param fileInfoRepo             connection to the fileInfo table from the database
      * @param directoryPermissionsRepo connection to the directoryPermission table from the database
      * @return an ApplicationRunner
      */
     @Bean
     @Profile("dev")
     public ApplicationRunner init(DirectoryRepository directoryRepo, FileInfoRepository fileInfoRepo,
-                           DirectoryPermissionsRepository directoryPermissionsRepo) {
+                                  DirectoryPermissionsRepository directoryPermissionsRepo) {
         return args -> {
             final long onehundred = 100L;
             final long twothousand = 2000L;
@@ -39,7 +38,7 @@ public class DummyDataSeeding {
             directoryPermissions = directoryPermissionsRepo.save(directoryPermissions);
 
             Directory directoryParent = Directory.builder()
-                    .name("Root")
+                    .name("")
                     .groupOwner(onehundred)
                     .permissions(directoryPermissions)
                     .build();
