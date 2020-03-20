@@ -177,9 +177,11 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>org.springframework.boot.ApplicationRunner</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#init(mops.persistence.DirectoryRepository,mops.persistence.FileInfoRepository,mops.persistence.DirectoryPermissionsRepository)">init</a></span>&#8203;(<a href="persistence/DirectoryRepository.html" title="interface in mops.persistence">DirectoryRepository</a>&nbsp;directoryRepo,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#init(mops.persistence.DirectoryRepository,mops.persistence.FileInfoRepository,mops.persistence.FileRepository,mops.persistence.DirectoryPermissionsRepository,mops.businesslogic.DirectoryService)">init</a></span>&#8203;(<a href="persistence/DirectoryRepository.html" title="interface in mops.persistence">DirectoryRepository</a>&nbsp;directoryRepo,
     <a href="persistence/FileInfoRepository.html" title="interface in mops.persistence">FileInfoRepository</a>&nbsp;fileInfoRepo,
-    <a href="persistence/DirectoryPermissionsRepository.html" title="interface in mops.persistence">DirectoryPermissionsRepository</a>&nbsp;directoryPermissionsRepo)</code></th>
+    <a href="persistence/FileRepository.html" title="class in mops.persistence">FileRepository</a>&nbsp;fileRepository,
+    <a href="persistence/DirectoryPermissionsRepository.html" title="interface in mops.persistence">DirectoryPermissionsRepository</a>&nbsp;directoryPermissionsRepo,
+    <a href="businesslogic/DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a>&nbsp;directoryService)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -225,7 +227,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="init(mops.persistence.DirectoryRepository,mops.persistence.FileInfoRepository,mops.persistence.DirectoryPermissionsRepository)">
+<a id="init(mops.persistence.DirectoryRepository,mops.persistence.FileInfoRepository,mops.persistence.FileRepository,mops.persistence.DirectoryPermissionsRepository,mops.businesslogic.DirectoryService)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -235,12 +237,16 @@ extends java.lang.Object</pre>
 @Profile("dev")
 public&nbsp;org.springframework.boot.ApplicationRunner&nbsp;init&#8203;(<a href="persistence/DirectoryRepository.html" title="interface in mops.persistence">DirectoryRepository</a>&nbsp;directoryRepo,
                                                        <a href="persistence/FileInfoRepository.html" title="interface in mops.persistence">FileInfoRepository</a>&nbsp;fileInfoRepo,
-                                                       <a href="persistence/DirectoryPermissionsRepository.html" title="interface in mops.persistence">DirectoryPermissionsRepository</a>&nbsp;directoryPermissionsRepo)</pre>
+                                                       <a href="persistence/FileRepository.html" title="class in mops.persistence">FileRepository</a>&nbsp;fileRepository,
+                                                       <a href="persistence/DirectoryPermissionsRepository.html" title="interface in mops.persistence">DirectoryPermissionsRepository</a>&nbsp;directoryPermissionsRepo,
+                                                       <a href="businesslogic/DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a>&nbsp;directoryService)</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>directoryRepo</code> - connection to the directory table from the database</dd>
 <dd><code>fileInfoRepo</code> - connection to the fileInfo table from the database</dd>
+<dd><code>fileRepository</code> - connection to the MinIO file repository</dd>
 <dd><code>directoryPermissionsRepo</code> - connection to the directoryPermission table from the database</dd>
+<dd><code>directoryService</code> - directory service</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>an ApplicationRunner</dd>
 </dl>

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -208,6 +208,16 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveFile(java.io.InputStream,long,java.lang.String,long)">saveFile</a></span>&#8203;(java.io.InputStream&nbsp;stream,
+        long&nbsp;size,
+        java.lang.String&nbsp;type,
+        long&nbsp;fileId)</code></th>
+<td class="colLast">
+<div class="block">Saves an input stream with meta information.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveFile(org.springframework.web.multipart.MultipartFile,long)">saveFile</a></span>&#8203;(org.springframework.web.multipart.MultipartFile&nbsp;file,
         long&nbsp;fileId)</code></th>
 <td class="colLast">
@@ -278,6 +288,29 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>file</code> - the file that should get saved permanently.</dd>
+<dd><code>fileId</code> - the File ID given by the FileInfo database.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>mops.persistence.StorageException</code> - on Error</dd>
+</dl>
+</li>
+</ul>
+<a id="saveFile(java.io.InputStream,long,java.lang.String,long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>saveFile</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;saveFile&#8203;(java.io.InputStream&nbsp;stream,
+                     long&nbsp;size,
+                     java.lang.String&nbsp;type,
+                     long&nbsp;fileId)
+              throws mops.persistence.StorageException</pre>
+<div class="block">Saves an input stream with meta information.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>stream</code> - input stream (must be closed by caller)</dd>
+<dd><code>size</code> - size in bytes</dd>
+<dd><code>type</code> - content type</dd>
 <dd><code>fileId</code> - the File ID given by the FileInfo database.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>mops.persistence.StorageException</code> - on Error</dd>
