@@ -119,7 +119,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         }
 
         Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
-        if (roleNames.isEmpty()) {
+        if (roleNames.isEmpty()) { // TODO: check for actual existence of group
             log.error("A root directory for group '{}' could not be created, as the group does not exist.", groupId);
             String error = "Es konnte kein Wurzelverzeichnis für die Gruppe erstellt werden, da sie nicht existiert.";
             throw new MopsException(error);

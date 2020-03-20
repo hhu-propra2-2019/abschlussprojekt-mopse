@@ -12,6 +12,11 @@ import java.util.Set;
 public class PermissionServiceDevImpl implements PermissionService {
 
     /**
+     * Group id.
+     */
+    private static final Set<Long> VALID_GROUP_IDS = Set.of(100L);
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -19,16 +24,20 @@ public class PermissionServiceDevImpl implements PermissionService {
     public String fetchRoleForUserInGroup(Account account, long groupId) {
         log.debug("Fetching roles for user '{}' with global roles '{}' in group '{}'.",
                 account.getName(), account.getRoles(), groupId);
-        if (account.getRoles().stream().anyMatch(role -> role.contains("admin"))) {
-            log.debug("Found 'admin' global role, returning local role 'admin'.");
-            return "admin";
-        } else if (account.getRoles().stream().anyMatch(role -> role.contains("orga") || role.contains("korrektor"))) {
-            log.debug("Found 'orga'/'korrektorin' global role, returning local role 'editor'.");
-            return "editor";
-        } else if (account.getName().length() % 2 == groupId % 2 || account.getRoles().stream().anyMatch(
-                role -> role.contains("studentin"))) {
-            log.debug("Returning local role 'viewer'.");
-            return "viewer";
+
+        if (VALID_GROUP_IDS.contains(groupId)) {
+            if (account.getRoles().stream().anyMatch(role -> role.contains("admin"))) {
+                log.debug("Found 'admin' global role, returning local role 'admin'.");
+                return "admin";
+            } else if (account.getRoles().stream()
+                    .anyMatch(role -> role.contains("orga") || role.contains("korrektor"))) {
+                log.debug("Found 'orga'/'korrektorin' global role, returning local role 'editor'.");
+                return "editor";
+            } else if (account.getName().length() % 2 == groupId % 2 || account.getRoles().stream().anyMatch(
+                    role -> role.contains("studentin"))) {
+                log.debug("Returning local role 'viewer'.");
+                return "viewer";
+            }
         }
 
         log.debug("Returning local role 'outsider'.");
@@ -39,7 +48,12 @@ public class PermissionServiceDevImpl implements PermissionService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.OnlyOneReturn")
     public Set<String> fetchRolesInGroup(long groupId) {
-        return Set.of("admin", "editor", "viewer");
+        if (VALID_GROUP_IDS.contains(groupId)) {
+            return Set.of("admin", "editor", "viewer");
+        }
+
+        return Set.of();
     }
 }
