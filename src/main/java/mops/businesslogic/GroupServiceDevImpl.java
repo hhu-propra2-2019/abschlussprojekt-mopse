@@ -20,8 +20,9 @@ public class GroupServiceDevImpl implements GroupService {
      */
     @Override
     public List<Group> getAllGroups() throws MopsException {
-        // TODO: add some default groups here
-        return List.of();
+        long groupId = 100L;
+        Group einzigen = new Group(groupId, "Einzigen");
+        return List.of(einzigen);
     }
 
     /**
@@ -29,8 +30,9 @@ public class GroupServiceDevImpl implements GroupService {
      */
     @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
-        // TODO: add some default groups here
-        return List.of();
+        long groupId = 100L;
+        Group einzigen = new Group(groupId, "Einzigen");
+        return List.of(einzigen);
     }
 
     /**
