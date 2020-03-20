@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
-
+/**
+ * Controller Class for all requests on 'material1/file'.
+ */
 @Controller
 @RequestMapping("material1/file")
 @AllArgsConstructor

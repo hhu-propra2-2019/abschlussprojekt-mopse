@@ -19,7 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * Controller Class for all requests on 'material1/group'.
+ */
 @Controller
 @RequestMapping("material1/group")
 @AllArgsConstructor
