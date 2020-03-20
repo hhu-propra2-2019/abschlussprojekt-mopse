@@ -39,6 +39,8 @@ class SecurityTests {
     PermissionService permissionService;
     @MockBean
     FileInfoService fileInfoService;
+    @MockBean
+    GarbageCollector garbageCollector;
 
     @Autowired
     MockMvc mvc;
