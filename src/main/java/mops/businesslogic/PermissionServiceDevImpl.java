@@ -25,7 +25,8 @@ public class PermissionServiceDevImpl implements PermissionService {
         } else if (account.getRoles().stream().anyMatch(role -> role.contains("orga") || role.contains("korrektor"))) {
             log.debug("Found 'orga'/'korrektorin' global role, returning local role 'editor'.");
             return "editor";
-        } else if (account.getName().length() % 2 == groupId % 2) {
+        } else if (account.getName().length() % 2 == groupId % 2 || account.getRoles().stream().anyMatch(
+                role -> role.contains("studentin"))) {
             log.debug("Returning local role 'viewer'.");
             return "viewer";
         }
