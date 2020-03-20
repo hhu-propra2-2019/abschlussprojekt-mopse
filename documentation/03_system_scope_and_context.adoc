@@ -41,8 +41,8 @@ GroupService
 Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der GruppenFindung interagieren.
 Dazu haben wir folgende REST API Anfragen implementiert:
 
-. `getAllGroups` TODO: this will change with #217
-. `getAllGroups` TODO: this will change with #217
+. `getAllGroups`
+. `getAllGroupsOfUser`
 
 Diese unterscheiden sich, dass die erste alle Gruppen eines Nutzers anfragt und die zweite alle Gruppen, die existieren erfragt.
 Die erste brauchen wir für unsere Startseite des Nutzers und die zweite für unsere Garbage Collection.
