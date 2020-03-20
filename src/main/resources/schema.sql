@@ -1,8 +1,8 @@
 CREATE TABLE directory_permissions
 (
     id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
-    creation_time      TIMESTAMP(9) NOT NULL,
-    last_modified_time TIMESTAMP(9) NOT NULL
+    creation_time      TIMESTAMP NOT NULL,
+    last_modified_time TIMESTAMP NOT NULL
 );
 
 CREATE TABLE directory_permission_entry
@@ -15,6 +15,8 @@ CREATE TABLE directory_permission_entry
     CONSTRAINT fk_entry_perm FOREIGN KEY (permissions_id) REFERENCES directory_permissions (id)
 );
 
+CREATE INDEX i_entry_perm ON directory_permission_entry (permissions_id);
+
 CREATE TABLE directory
 (
     id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -22,12 +24,15 @@ CREATE TABLE directory
     parent_id          BIGINT,
     group_owner        INTEGER      NOT NULL,
     permissions_id     BIGINT       NOT NULL,
-    creation_time      TIMESTAMP(9) NOT NULL,
-    last_modified_time TIMESTAMP(9) NOT NULL,
+    creation_time      TIMESTAMP    NOT NULL,
+    last_modified_time TIMESTAMP    NOT NULL,
     CONSTRAINT fk_dir_dir FOREIGN KEY (parent_id) REFERENCES directory (id),
     CONSTRAINT fk_dir_perm FOREIGN KEY (permissions_id) REFERENCES directory_permissions (id),
     CONSTRAINT u_dir UNIQUE (name, parent_id, group_owner)
 );
+
+CREATE INDEX i_dir_dir ON directory (parent_id);
+CREATE INDEX i_dir_perm ON directory (permissions_id);
 
 CREATE TABLE file_info
 (
@@ -37,11 +42,13 @@ CREATE TABLE file_info
     type               VARCHAR(255) NOT NULL CHECK (type NOT LIKE ''),
     size               BIGINT       NOT NULL,
     owner              VARCHAR(255) NOT NULL CHECK (owner NOT LIKE ''),
-    creation_time      TIMESTAMP(9) NOT NULL,
-    last_modified_time TIMESTAMP(9) NOT NULL,
+    creation_time      TIMESTAMP    NOT NULL,
+    last_modified_time TIMESTAMP    NOT NULL,
     CONSTRAINT fk_file_dir FOREIGN KEY (directory_id) REFERENCES directory (id),
     CONSTRAINT u_file UNIQUE (name, directory_id)
 );
+
+CREATE INDEX i_file_dir ON file_info (directory_id);
 
 CREATE TABLE file_tag
 (
@@ -50,3 +57,5 @@ CREATE TABLE file_tag
     CONSTRAINT fk_tag_file FOREIGN KEY (file_id) REFERENCES file_info (id),
     CONSTRAINT u_tag UNIQUE (name, file_id)
 );
+
+CREATE INDEX i_tag_file ON file_tag (file_id);

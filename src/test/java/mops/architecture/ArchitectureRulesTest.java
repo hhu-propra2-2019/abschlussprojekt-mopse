@@ -7,6 +7,7 @@ import com.tngtech.archunit.lang.ArchRule;
 import mops.utils.AggregateBuilder;
 import mops.utils.AggregateRoot;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,8 @@ class ArchitectureRulesTest {
             .areNotAnnotatedWith(AggregateRoot.class)
             .and()
             .areNotAnnotatedWith(AggregateBuilder.class)
+            .and()
+            .areNotAnnotatedWith(Configuration.class)
             .and()
             .resideInAPackage(".." + MOPS_PERSISTENCE)
             .should()

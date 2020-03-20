@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -29,6 +30,7 @@ class FileInfoTest {
     DirectoryRepository dirRepo;
 
     FileInfo file;
+    Directory rootDir;
 
     @BeforeEach
     void setup() {
@@ -37,7 +39,7 @@ class FileInfoTest {
                 .build();
         rootDirPerms = permRepo.save(rootDirPerms);
 
-        Directory rootDir = Directory.builder()
+        this.rootDir = Directory.builder()
                 .name("")
                 .groupOwner(0L)
                 .permissions(rootDirPerms)
@@ -90,7 +92,7 @@ class FileInfoTest {
 
         Optional<FileInfo> loaded = repo.findById(saved.getId());
 
-        assertThat(loaded).get().isEqualToIgnoringNullFields(saved);
+        assertThat(loaded).get().isEqualTo(saved);
     }
 
     @Test
@@ -105,5 +107,58 @@ class FileInfoTest {
         Optional<FileInfo> loaded2 = repo.findById(id2);
 
         assertThat(loaded2).get().isEqualTo(loaded);
+    }
+
+    @Test
+    void fetchAllIds() {
+        FileInfo f1 = FileInfo.builder()
+                .name("a")
+                .directory(rootDir)
+                .type("txt")
+                .size(0L)
+                .owner("user")
+                .tag("1")
+                .tag("2")
+                .build();
+
+        FileInfo f2 = FileInfo.builder()
+                .name("b")
+                .directory(rootDir)
+                .type("txt")
+                .size(0L)
+                .owner("user")
+                .tag("1")
+                .tag("2")
+                .build();
+
+        FileInfo f3 = FileInfo.builder()
+                .name("c")
+                .directory(rootDir)
+                .type("txt")
+                .size(0L)
+                .owner("user")
+                .tag("1")
+                .tag("2")
+                .build();
+
+        f1 = repo.save(f1);
+        f2 = repo.save(f2);
+        f3 = repo.save(f3);
+
+        Set<Long> fetchedIds1 = repo.findAllIds();
+
+        assertThat(fetchedIds1).containsExactlyInAnyOrder(
+                f1.getId(),
+                f2.getId(),
+                f3.getId()
+        );
+
+        repo.delete(f2);
+        Set<Long> fetchedIds2 = repo.findAllIds();
+
+        assertThat(fetchedIds2).containsExactlyInAnyOrder(
+                f1.getId(),
+                f3.getId()
+        );
     }
 }

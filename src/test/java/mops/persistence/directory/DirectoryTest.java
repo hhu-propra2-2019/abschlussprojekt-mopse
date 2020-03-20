@@ -80,7 +80,7 @@ class DirectoryTest {
 
         Optional<Directory> loaded = repo.findById(saved.getId());
 
-        assertThat(loaded).get().isEqualToIgnoringNullFields(saved);
+        assertThat(loaded).get().isEqualTo(saved);
     }
 
     @Test

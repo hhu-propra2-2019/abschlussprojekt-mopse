@@ -2,11 +2,14 @@ version: "3.7"
 
 services:
   material1_db:
-    image: mariadb:10.4
+    image: postgres:alpine
     ports:
-      - "${MATERIAL1_DB_PORT:-23306}:3306"
+      - "${MATERIAL1_DB_PORT:-5432}:5432"
     volumes:
-      - material1_db_volume:/var/lib/mysql
+      - material1_db_volume:/var/lib/postgresql/data
+      - ./src/main/resources/schema-postgresql.sql:/docker-entrypoint-initdb.d/schema-postgresql.sql:ro
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
     env_file:
       - prod.env
   material1:
@@ -18,9 +21,6 @@ services:
       - material1_db
     env_file:
       - prod.env
-    environment:
-      MATERIAL1_PORT: ${MATERIAL1_PORT:-8080}
-      MATERIAL1_DB_PORT: ${MATERIAL1_DB_PORT:-23306}
 
 volumes:
   material1_db_volume:

@@ -59,12 +59,14 @@ public class FileInfo {
      * Creation Time.
      */
     @Setter(AccessLevel.PRIVATE)
+    @EqualsAndHashCode.Exclude
     @CreatedDate
     private Timestamp creationTime;
     /**
      * Last Modified Time.
      */
     @Setter(AccessLevel.PRIVATE)
+    @EqualsAndHashCode.Exclude
     @LastModifiedDate
     private Timestamp lastModifiedTime;
 
@@ -76,8 +78,7 @@ public class FileInfo {
      */
     @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public boolean hasTag(String otherTag) {
-        return tags.stream()
-                .anyMatch(tag -> otherTag.equals(tag.getName()));
+        return tags.stream().anyMatch(tag -> otherTag.equalsIgnoreCase(tag.getName()));
     }
 
     /**

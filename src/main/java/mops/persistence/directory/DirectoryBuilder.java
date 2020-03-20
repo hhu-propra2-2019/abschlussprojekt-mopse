@@ -3,12 +3,14 @@ package mops.persistence.directory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.utils.AggregateBuilder;
 
 import java.sql.Timestamp;
 import java.time.Instant;
 
+@Slf4j
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
@@ -165,10 +167,13 @@ public class DirectoryBuilder {
      */
     public Directory build() {
         if (name == null) {
+            log.error("Directory is not completely setup name was not set.");
             throw new IllegalStateException("Directory incomplete: name must be set!");
         } else if (groupOwner == -1L) {
+            log.error("Directory is not completely setup group owner was not set.");
             throw new IllegalStateException("Directory incomplete: groupOwner must be set!");
         } else if (permissionsId == -1L) {
+            log.error("Directory is not completely setup permission id was not set.");
             throw new IllegalStateException("Directory incomplete: permissionsId must be set!");
         }
 

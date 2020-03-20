@@ -1,6 +1,7 @@
 package mops.presentation;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.Account;
 import mops.businesslogic.Group;
 import mops.businesslogic.GroupService;
@@ -20,6 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/material1/groups")
 @AllArgsConstructor
+@Slf4j
 public class GroupsController {
 
     /**
@@ -33,16 +35,20 @@ public class GroupsController {
      * @return groups view
      */
     @GetMapping
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock" })
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.EmptyCatchBlock", "PMD.LawOfDemeter" })
     public String getAllGroups(KeycloakAuthenticationToken token, Model model) {
         Account account = AccountUtil.getAccountFromToken(token);
+        //this is okay because it is logging
+        log.info("All groups are requested for user '{}'.", account.getName());
         List<Group> groups = null;
         try {
-            groups = groupService.getAllGroups(account);
+            groups = groupService.getAllGroupsOfUser(account);
         } catch (MopsException e) {
             // TODO: Add exception handling, remove PMD warning suppression
+            log.error("Failed to retrieve user groups for {}.", account.getName());
         }
         model.addAttribute("groups", groups);
+        model.addAttribute("account", account);
         return "groups";
     }
 }

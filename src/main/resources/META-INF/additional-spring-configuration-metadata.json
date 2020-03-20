@@ -4,6 +4,11 @@
       "name": "application.name",
       "type": "java.lang.String",
       "description": "Application Name."
+    },
+    {
+      "name": "hhu_keycloak.token-uri",
+      "type": "java.lang.String",
+      "description": "HHU Keycloak Token URI."
     }
   ]
 }

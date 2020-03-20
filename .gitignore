@@ -33,6 +33,6 @@
 /.vscode/
 
 /prod.env
-/minio_data/
+/dev.env
 /doc/api/generated-snippets/
 /doc/javadoc/

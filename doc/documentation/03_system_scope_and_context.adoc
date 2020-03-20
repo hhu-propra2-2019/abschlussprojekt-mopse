@@ -22,3 +22,29 @@ Nutzers in einer bestimmten Gruppe._  | _Wir erhalten ein Datenobjekt (.json) zu
 |===
 
 include::../api/external-api.adoc[]
+
+****
+PermissionService::
+
+Wir haben einen `PermissionService` implementiert, der unsere Anfragen an die Gruppe `GruppenFindung` stellt.
+Dieser stellt zwei Anfragen:
+Eine für die Rolle eines Nutzers innerhalb einer Gruppe und einmal alle Rollen in einer Gruppe.
+
+Da während der Entwicklungszeit der externe Service uns nicht zur Verfügung steht, haben wir einen Stub entwickelt, welcher fixe Rollen zurückgibt.
+Wir haben uns dazu an der RESTApi Wiki von GruppenFindung orientiert.
+
+****
+
+****
+GroupService
+
+Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der GruppenFindung interagieren.
+Dazu haben wir folgende REST API Anfragen implementiert:
+
+. `getAllGroups`
+. `getAllGroupsOfUser`
+
+Diese unterscheiden sich, dass die erste alle Gruppen eines Nutzers anfragt und die zweite alle Gruppen, die existieren erfragt.
+Die erste brauchen wir für unsere Startseite des Nutzers und die zweite für unsere Garbage Collection.
+Damit können wir alle nicht mehr vorhanden Gruppen löschen.
+****

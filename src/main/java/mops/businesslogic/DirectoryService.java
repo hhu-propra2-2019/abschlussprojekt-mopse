@@ -1,5 +1,6 @@
 package mops.businesslogic;
 
+import mops.businesslogic.query.FileQuery;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -18,7 +19,7 @@ public interface DirectoryService {
      * @param dirId   the id of the folder
      * @return a permission flag object
      */
-    UserPermission getPermissionsOfUser(Account account, long dirId);
+    UserPermission getPermissionsOfUser(Account account, long dirId) throws MopsException;
 
     /**
      * Returns all folders of the parent folder.
@@ -32,11 +33,10 @@ public interface DirectoryService {
     /**
      * Creates the group root directory.
      *
-     * @param account user credentials
      * @param groupId the group id
      * @return the directory created
      */
-    Directory createRootFolder(Account account, long groupId) throws MopsException;
+    Directory getOrCreateRootFolder(long groupId) throws MopsException;
 
     /**
      * Creates a new folder inside a folder.
@@ -78,5 +78,30 @@ public interface DirectoryService {
     DirectoryPermissions updatePermission(Account account,
                                           long dirId,
                                           DirectoryPermissions permissions) throws MopsException;
+
+    /**
+     * Internal use only: possible security flaw!
+     * Check permission before fetching!
+     *
+     * @param dirId the id of the parent folder
+     * @return directory object of the requested folder
+     * @throws MopsException on error
+     */
+    Directory getDirectory(long dirId) throws MopsException;
+
+    /**
+     * Get the total number of directories in a group.
+     *
+     * @param groupId group
+     * @return directory count
+     */
+    long getDirCountInGroup(long groupId) throws MopsException;
+
+    /**
+     * Get the total number of directories in all groups.
+     *
+     * @return directory count
+     */
+    long getTotalDirCount() throws MopsException;
 
 }
