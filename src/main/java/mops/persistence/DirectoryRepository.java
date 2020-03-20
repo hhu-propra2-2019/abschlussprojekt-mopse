@@ -29,11 +29,11 @@ public interface DirectoryRepository extends CrudRepository<Directory, Long> {
     /**
      * Gets folder count in a group.
      *
-     * @param groupOwner the group od
+     * @param groupId the group id
      * @return the number of the folders the group already has
      */
-    @Query("SELECT COALESCE(COUNT(*), 0) FROM directory WHERE group_owner = :groupOwner")
-    long getDirCountInGroup(@Param("groupOwner") long groupOwner);
+    @Query("SELECT COALESCE(COUNT(*), 0) FROM directory WHERE group_owner = :groupId")
+    long getDirCountInGroup(@Param("groupId") long groupId);
 
     /**
      * Gets the root folder of a group.
@@ -41,7 +41,7 @@ public interface DirectoryRepository extends CrudRepository<Directory, Long> {
      * @param groupId the id of group
      * @return the group directory
      */
-    @Query("SELECT * FROM directory WHERE id = :groupId AND parent_id IS NULL")
+    @Query("SELECT * FROM directory WHERE group_owner = :groupId AND parent_id IS NULL")
     Optional<Directory> getRootFolder(@Param("groupId") long groupId);
 
 }

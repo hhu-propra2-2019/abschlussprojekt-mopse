@@ -8,6 +8,7 @@ import mops.businesslogic.FileInfoService;
 import mops.businesslogic.Group;
 import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ import java.util.Set;
  */
 @Slf4j
 @Component
+@Profile("!test")
 public class PrometheusComponent {
 
     /**

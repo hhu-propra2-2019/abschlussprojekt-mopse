@@ -2,6 +2,7 @@ package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
 import mops.exception.MopsException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @AllArgsConstructor
+@Profile({ "dev", "test" })
 public class GroupServiceDevImpl implements GroupService {
 
     /**

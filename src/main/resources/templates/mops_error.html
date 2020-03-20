@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{mopslayout :: html(name='Materialsammlung', title='Datei', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}">
+      th:replace="~{mopslayout :: html(name='Materialsammlung', title='Fehler', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}">
 <head>
     <meta charset="utf-8">
-    <title>Datei</title>
+    <title>Materialsammlung</title>
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
     </th:block>
@@ -15,7 +15,9 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
-
+    <div class="alert alert-warning" id="error-message" th:if="${error} != null" th:text="${error.message}">
+        Error!
+    </div>
 </main>
 </body>
 </html>

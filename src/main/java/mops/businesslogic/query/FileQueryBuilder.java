@@ -103,7 +103,7 @@ public class FileQueryBuilder {
      * @return this
      */
     public FileQueryBuilder from(@NonNull FileQueryForm form) {
-        names(Arrays.asList(form.getFileNames()));
+        names(Arrays.asList(form.getNames()));
         owners(Arrays.asList(form.getOwners()));
         types(Arrays.asList(form.getTypes()));
         tags(Arrays.asList(form.getTags()));
