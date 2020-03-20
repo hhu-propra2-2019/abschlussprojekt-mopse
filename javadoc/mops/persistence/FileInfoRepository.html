@@ -231,7 +231,7 @@ java.util.List&lt;<a href="file/FileInfo.html" title="class in mops.persistence.
 <ul class="blockList">
 <li class="blockList">
 <h4>getStorageUsageInGroup</h4>
-<pre class="methodSignature">@Query("SELECT COALESCE(SUM(size), 0) FROM file_info WHERE group_id = :groupId")
+<pre class="methodSignature">@Query("SELECT COALESCE(SUM(size), 0) FROM file_info LEFT JOIN directory ON file_info.directory_id = directory.id WHERE group_owner = :groupId")
 long&nbsp;getStorageUsageInGroup&#8203;(@Param("groupId")
                             long&nbsp;groupId)</pre>
 <div class="block">Counts the total number of bytes used in a group.</div>
@@ -264,7 +264,7 @@ long&nbsp;getTotalStorageUsage()</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getFileCountInGroup</h4>
-<pre class="methodSignature">@Query("SELECT COALESCE(COUNT(*), 0) FROM file_info WHERE group_id = :groupId")
+<pre class="methodSignature">@Query("SELECT COALESCE(COUNT(*), 0) FROM file_info LEFT JOIN directory ON file_info.directory_id = directory.id WHERE group_owner = :groupId")
 long&nbsp;getFileCountInGroup&#8203;(@Param("groupId")
                          long&nbsp;groupId)</pre>
 <div class="block">Counts the total number of files in a group.</div>
