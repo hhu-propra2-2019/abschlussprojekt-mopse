@@ -39,9 +39,9 @@ public class DirectoryPermissionsBuilder {
      * @return this
      */
     public DirectoryPermissionsBuilder from(DirectoryPermissions permissions) {
-        id = permissions.getId();
+        this.id = permissions.getId();
         permissions.getPermissions().forEach(e -> entry(e.getRole(), e.isCanRead(), e.isCanWrite(), e.isCanDelete()));
-        creationTime = permissions.getCreationTime();
+        this.creationTime = permissions.getCreationTime();
         return this;
     }
 
@@ -63,7 +63,7 @@ public class DirectoryPermissionsBuilder {
      * @return this
      */
     public DirectoryPermissionsBuilder id(DirectoryPermissions permissions) {
-        id = permissions == null ? null : permissions.getId();
+        this.id = permissions == null ? null : permissions.getId();
         return this;
     }
 

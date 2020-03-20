@@ -64,14 +64,14 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder from(@NonNull FileInfo file) {
-        id = file.getId();
-        name = file.getName();
-        directoryId = file.getDirectoryId();
-        type = file.getType();
-        size = file.getSize();
-        owner = file.getOwner();
+        this.id = file.getId();
+        this.name = file.getName();
+        this.directoryId = file.getDirectoryId();
+        this.type = file.getType();
+        this.size = file.getSize();
+        this.owner = file.getOwner();
         file.getTags().stream().map(FileTag::getName).forEach(this::tag);
-        creationTime = file.getCreationTime();
+        this.creationTime = file.getCreationTime();
         return this;
     }
 
@@ -82,9 +82,9 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder from(@NonNull MultipartFile file) {
-        name = file.getName();
-        type = file.getContentType();
-        size = file.getSize();
+        this.name = file.getName();
+        this.type = file.getContentType();
+        this.size = file.getSize();
         return this;
     }
 
@@ -106,7 +106,7 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder id(FileInfo fileInfo) {
-        id = fileInfo == null ? null : fileInfo.getId();
+        this.id = fileInfo == null ? null : fileInfo.getId();
         return this;
     }
 
@@ -143,7 +143,7 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder directory(@NonNull Directory directory) {
-        directoryId = directory.getId();
+        this.directoryId = directory.getId();
         return this;
     }
 
@@ -199,7 +199,7 @@ public class FileInfoBuilder {
             log.error("Failed to add tag as it was empty.");
             throw new IllegalArgumentException("tag must not be empty!");
         }
-        tags.add(new FileTag(tag));
+        this.tags.add(new FileTag(tag));
         return this;
     }
 
