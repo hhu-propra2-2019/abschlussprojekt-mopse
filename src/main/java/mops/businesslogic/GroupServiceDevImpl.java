@@ -9,6 +9,10 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class GroupServiceDevImpl implements GroupService {
+    /**
+     * constant for the long value 100.
+     */
+    private static final long GROUPID = 100L;
 
     /**
      * Directory Service.
@@ -20,8 +24,7 @@ public class GroupServiceDevImpl implements GroupService {
      */
     @Override
     public List<Group> getAllGroups() throws MopsException {
-        long groupId = 100L;
-        Group einzigen = new Group(groupId, "Einzigen");
+        Group einzigen = new Group(GROUPID, "Einzigen");
         return List.of(einzigen);
     }
 
@@ -30,8 +33,7 @@ public class GroupServiceDevImpl implements GroupService {
      */
     @Override
     public List<Group> getAllGroups(Account account) throws MopsException {
-        long groupId = 100L;
-        Group einzigen = new Group(groupId, "Einzigen");
+        Group einzigen = new Group(GROUPID, "Einzigen");
         return List.of(einzigen);
     }
 
