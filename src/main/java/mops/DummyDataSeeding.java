@@ -26,13 +26,16 @@ public class DummyDataSeeding {
     public ApplicationRunner init(DirectoryRepository directoryRepo, FileInfoRepository fileInfoRepo,
                                   DirectoryPermissionsRepository directoryPermissionsRepo) {
         return args -> {
-            final long onehundred = 100L;
-            final long twothousand = 2000L;
-            final long threethousand = 3000L;
-
+            final long groupId = 100L;
+            final long fileSize1 = 2_000L;
+            final long fileSize2 = 3_000L;
+            final String owner1 = "studentin";
+            final String owner2 = "studentin1";
 
             DirectoryPermissions directoryPermissions = DirectoryPermissions.builder()
                     .entry("admin", true, true, true)
+                    .entry("editor", true, true, false)
+                    .entry("viewer", true, false, false)
                     .entry("editor", true, true, true)
                     .entry("korrektor", true, true, true)
                     .entry("viewer", true, true, true)
@@ -43,7 +46,7 @@ public class DummyDataSeeding {
 
             Directory directoryParent = Directory.builder()
                     .name("")
-                    .groupOwner(onehundred)
+                    .groupOwner(groupId)
                     .permissions(directoryPermissions)
                     .build();
 
@@ -60,8 +63,8 @@ public class DummyDataSeeding {
                     .name("Test1")
                     .directory(directoryParent)
                     .type("application/pdf")
-                    .size(twothousand)
-                    .owner("Hebert")
+                    .size(fileSize1)
+                    .owner(owner1)
                     .tag("Test")
                     .build();
 
@@ -69,8 +72,8 @@ public class DummyDataSeeding {
                     .name("Test2")
                     .directory(directoryChild)
                     .type("image/png")
-                    .size(threethousand)
-                    .owner("MAX")
+                    .size(fileSize2)
+                    .owner(owner2)
                     .tag("Test")
                     .build();
 
