@@ -156,8 +156,8 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.GroupService,mops.businesslogic.DirectoryService)">GroupController</a></span>&#8203;(<a href="../businesslogic/GroupService.html" title="interface in mops.businesslogic">GroupService</a>&nbsp;groupService,
-               <a href="../businesslogic/DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a>&nbsp;directoryService)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.group.GroupService,mops.businesslogic.directory.DirectoryService)">GroupController</a></span>&#8203;(<a href="../businesslogic/group/GroupService.html" title="interface in mops.businesslogic.group">GroupService</a>&nbsp;groupService,
+               <a href="../businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -187,7 +187,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a></code></td>
+<td class="colFirst"><code><a href="../businesslogic/group/GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRootDirectoryUrl(long)">getRootDirectoryUrl</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Gets the url of the root directory.</div>
@@ -195,11 +195,11 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFilesInGroup(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQueryForm)">searchFilesInGroup</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFilesInGroup(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.presentation.form.FileQueryForm)">searchFilesInGroup</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
                   org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                   org.springframework.ui.Model&nbsp;model,
                   long&nbsp;groupId,
-                  <a href="../businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a>&nbsp;queryForm)</code></th>
+                  <a href="form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a>&nbsp;queryForm)</code></th>
 <td class="colLast">
 <div class="block">Searches are group for matching files.</div>
 </td>
@@ -228,14 +228,14 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(mops.businesslogic.GroupService,mops.businesslogic.DirectoryService)">
+<a id="&lt;init&gt;(mops.businesslogic.group.GroupService,mops.businesslogic.directory.DirectoryService)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>GroupController</h4>
-<pre>public&nbsp;GroupController&#8203;(<a href="../businesslogic/GroupService.html" title="interface in mops.businesslogic">GroupService</a>&nbsp;groupService,
-                       <a href="../businesslogic/DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a>&nbsp;directoryService)</pre>
+<pre>public&nbsp;GroupController&#8203;(<a href="../businesslogic/group/GroupService.html" title="interface in mops.businesslogic.group">GroupService</a>&nbsp;groupService,
+                       <a href="../businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService)</pre>
 </li>
 </ul>
 </li>
@@ -278,7 +278,7 @@ public&nbsp;java.lang.String&nbsp;getRootDirectory&#8203;(org.springframework.we
             produces="application/json")
 @ResponseBody
 @Secured("ROLE_api_user")
-public&nbsp;<a href="../businesslogic/GroupRootDirWrapper.html" title="class in mops.businesslogic">GroupRootDirWrapper</a>&nbsp;getRootDirectoryUrl&#8203;(@PathVariable("groupId")
+public&nbsp;<a href="../businesslogic/group/GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a>&nbsp;getRootDirectoryUrl&#8203;(@PathVariable("groupId")
                                                long&nbsp;groupId)</pre>
 <div class="block">Gets the url of the root directory.</div>
 <dl>
@@ -289,7 +289,7 @@ public&nbsp;<a href="../businesslogic/GroupRootDirWrapper.html" title="class in 
 </dl>
 </li>
 </ul>
-<a id="searchFilesInGroup(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQueryForm)">
+<a id="searchFilesInGroup(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.presentation.form.FileQueryForm)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -302,7 +302,7 @@ public&nbsp;java.lang.String&nbsp;searchFilesInGroup&#8203;(org.springframework.
                                            @PathVariable("groupId")
                                            long&nbsp;groupId,
                                            @RequestAttribute("fileQueryForm")
-                                           <a href="../businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a>&nbsp;queryForm)</pre>
+                                           <a href="form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a>&nbsp;queryForm)</pre>
 <div class="block">Searches are group for matching files.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

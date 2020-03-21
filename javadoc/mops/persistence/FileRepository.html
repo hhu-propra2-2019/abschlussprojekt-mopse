@@ -132,7 +132,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <hr>
 <pre>@Repository
-<a href="../utils/AggregateBuilder.html" title="annotation in mops.utils">@AggregateBuilder</a>
+<a href="../util/AggregateBuilder.html" title="annotation in mops.util">@AggregateBuilder</a>
 public class <span class="typeNameLabel">FileRepository</span>
 extends java.lang.Object</pre>
 <div class="block">MinIO connection.</div>
@@ -256,13 +256,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>FileRepository</h4>
 <pre>public&nbsp;FileRepository&#8203;(mops.persistence.FileRepositoryConfig&nbsp;configuration)
-               throws mops.persistence.StorageException</pre>
+               throws <a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></pre>
 <div class="block">Connects to MinIO Server and checks if the bucket exists.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>configuration</code> - the injected Config.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>mops.persistence.StorageException</code> - on Error</dd>
+<dd><code><a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></code> - on Error</dd>
 </dl>
 </li>
 </ul>
@@ -284,14 +284,14 @@ extends java.lang.Object</pre>
 <h4>saveFile</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;saveFile&#8203;(org.springframework.web.multipart.MultipartFile&nbsp;file,
                      long&nbsp;fileId)
-              throws mops.persistence.StorageException</pre>
+              throws <a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></pre>
 <div class="block">Saves a file.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>file</code> - the file that should get saved permanently.</dd>
 <dd><code>fileId</code> - the File ID given by the FileInfo database.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>mops.persistence.StorageException</code> - on Error</dd>
+<dd><code><a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></code> - on Error</dd>
 </dl>
 </li>
 </ul>
@@ -305,7 +305,7 @@ extends java.lang.Object</pre>
                      long&nbsp;size,
                      java.lang.String&nbsp;type,
                      long&nbsp;fileId)
-              throws mops.persistence.StorageException</pre>
+              throws <a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></pre>
 <div class="block">Saves an input stream with meta information.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -314,7 +314,7 @@ extends java.lang.Object</pre>
 <dd><code>type</code> - content type</dd>
 <dd><code>fileId</code> - the File ID given by the FileInfo database.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>mops.persistence.StorageException</code> - on Error</dd>
+<dd><code><a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></code> - on Error</dd>
 </dl>
 </li>
 </ul>
@@ -325,13 +325,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>deleteFile</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;deleteFile&#8203;(long&nbsp;fileId)
-                throws mops.persistence.StorageException</pre>
+                throws <a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></pre>
 <div class="block">Deletes a file permanently.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>fileId</code> - the ID of the file that's desired to be deleted.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>mops.persistence.StorageException</code> - on error</dd>
+<dd><code><a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></code> - on error</dd>
 </dl>
 </li>
 </ul>
@@ -342,7 +342,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getFileContent</h4>
 <pre class="methodSignature">public&nbsp;java.io.InputStream&nbsp;getFileContent&#8203;(long&nbsp;fileId)
-                                   throws mops.persistence.StorageException</pre>
+                                   throws <a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></pre>
 <div class="block">Retrieves the bytes of the file.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -350,7 +350,7 @@ extends java.lang.Object</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>file content as byte array</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>mops.persistence.StorageException</code> - on error</dd>
+<dd><code><a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></code> - on error</dd>
 </dl>
 </li>
 </ul>
@@ -361,7 +361,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>fileExist</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;fileExist&#8203;(long&nbsp;fileId)
-                  throws mops.persistence.StorageException</pre>
+                  throws <a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></pre>
 <div class="block">Checks if a file with a specified ID already exists.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -369,7 +369,7 @@ extends java.lang.Object</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if found</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>mops.persistence.StorageException</code></dd>
+<dd><code><a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -380,13 +380,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getAllIds</h4>
 <pre class="methodSignature">public&nbsp;java.util.Set&lt;java.lang.Long&gt;&nbsp;getAllIds()
-                                        throws mops.persistence.StorageException</pre>
+                                        throws <a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></pre>
 <div class="block">Fetches all IDs.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>all File IDs</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>mops.persistence.StorageException</code></dd>
+<dd><code><a href="exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></code></dd>
 </dl>
 </li>
 </ul>

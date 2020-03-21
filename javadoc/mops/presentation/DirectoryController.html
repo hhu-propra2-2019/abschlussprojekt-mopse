@@ -156,8 +156,8 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.DirectoryService,mops.businesslogic.FileService)">DirectoryController</a></span>&#8203;(<a href="../businesslogic/DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a>&nbsp;directoryService,
-                   <a href="../businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a>&nbsp;fileService)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService)">DirectoryController</a></span>&#8203;(<a href="../businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService,
+                   <a href="../businesslogic/file/FileService.html" title="interface in mops.businesslogic.file">FileService</a>&nbsp;fileService)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -199,11 +199,11 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQueryForm)">searchFolder</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.presentation.form.FileQueryForm)">searchFolder</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
             org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
             org.springframework.ui.Model&nbsp;model,
             long&nbsp;dirId,
-            <a href="../businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a>&nbsp;queryForm)</code></th>
+            <a href="form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a>&nbsp;queryForm)</code></th>
 <td class="colLast">
 <div class="block">Searches a folder for files.</div>
 </td>
@@ -252,14 +252,14 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(mops.businesslogic.DirectoryService,mops.businesslogic.FileService)">
+<a id="&lt;init&gt;(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>DirectoryController</h4>
-<pre>public&nbsp;DirectoryController&#8203;(<a href="../businesslogic/DirectoryService.html" title="interface in mops.businesslogic">DirectoryService</a>&nbsp;directoryService,
-                           <a href="../businesslogic/FileService.html" title="interface in mops.businesslogic">FileService</a>&nbsp;fileService)</pre>
+<pre>public&nbsp;DirectoryController&#8203;(<a href="../businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService,
+                           <a href="../businesslogic/file/FileService.html" title="interface in mops.businesslogic.file">FileService</a>&nbsp;fileService)</pre>
 </li>
 </ul>
 </li>
@@ -368,7 +368,7 @@ public&nbsp;java.lang.String&nbsp;deleteFolder&#8203;(org.springframework.web.se
 </dl>
 </li>
 </ul>
-<a id="searchFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.businesslogic.FileQueryForm)">
+<a id="searchFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.presentation.form.FileQueryForm)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -381,7 +381,7 @@ public&nbsp;java.lang.String&nbsp;searchFolder&#8203;(org.springframework.web.se
                                      @PathVariable("dirId")
                                      long&nbsp;dirId,
                                      @RequestAttribute("fileQueryForm")
-                                     <a href="../businesslogic/FileQueryForm.html" title="class in mops.businesslogic">FileQueryForm</a>&nbsp;queryForm)</pre>
+                                     <a href="form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a>&nbsp;queryForm)</pre>
 <div class="block">Searches a folder for files.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
