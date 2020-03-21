@@ -3,10 +3,10 @@ package mops.businesslogic.prometheus;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileInfoService;
-import mops.businesslogic.Group;
-import mops.businesslogic.GroupService;
+import mops.businesslogic.directory.DirectoryService;
+import mops.businesslogic.file.FileInfoService;
+import mops.businesslogic.group.Group;
+import mops.businesslogic.group.GroupService;
 import mops.exception.MopsException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -151,11 +151,14 @@ public class PrometheusComponent {
                 .register(meterRegistry);
     }
 
+    /**
+     * Private Functional Interface to get a global statistic.
+     */
     @FunctionalInterface
     private interface GlobalStatSupplier {
 
         /**
-         * Gets global statistics.
+         * Gets global statistic.
          *
          * @return stat
          * @throws MopsException on error
@@ -164,11 +167,14 @@ public class PrometheusComponent {
 
     }
 
+    /**
+     * Private Functional Interface to get a group statistic.
+     */
     @FunctionalInterface
     private interface GroupStatSupplier {
 
         /**
-         * Gets the group's statistics.
+         * Gets the group's statistic.
          *
          * @param groupId group
          * @return stat

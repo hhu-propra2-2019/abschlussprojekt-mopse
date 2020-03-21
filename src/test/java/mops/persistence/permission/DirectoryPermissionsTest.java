@@ -1,7 +1,7 @@
 package mops.persistence.permission;
 
 import mops.persistence.DirectoryPermissionsRepository;
-import mops.utils.AuditingDbContext;
+import mops.util.AuditingDbContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

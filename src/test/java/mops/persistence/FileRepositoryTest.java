@@ -2,6 +2,7 @@ package mops.persistence;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mops.exception.MopsException;
+import mops.persistence.exception.StorageException;
 import org.junit.jupiter.api.*;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
