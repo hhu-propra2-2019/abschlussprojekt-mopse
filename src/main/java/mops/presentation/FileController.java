@@ -2,10 +2,9 @@ package mops.presentation;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.Account;
-import mops.businesslogic.FileContainer;
-import mops.businesslogic.FileService;
-import mops.businesslogic.utils.AccountUtil;
+import mops.businesslogic.file.FileContainer;
+import mops.businesslogic.file.FileService;
+import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -53,7 +52,7 @@ public class FileController {
                           KeycloakAuthenticationToken token,
                           Model model,
                           @PathVariable("fileId") long fileId) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("File with id '{}' requested by user '{}'.", fileId, account.getName());
 
         FileInfo info;
@@ -81,7 +80,7 @@ public class FileController {
     @GetMapping("/{fileId}/download")
     public ResponseEntity<Resource> downloadFile(KeycloakAuthenticationToken token,
                                                  @PathVariable("fileId") long fileId) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("File with id '{}' requested for download by user '{}'.", fileId, account.getName());
 
         FileContainer result;
@@ -116,7 +115,7 @@ public class FileController {
     public String deleteFile(RedirectAttributes redirectAttributes,
                              KeycloakAuthenticationToken token,
                              @PathVariable("fileId") long fileId) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("Deletion of file with id '{}' requested by user '{}'.", fileId, account.getName());
 
         try {

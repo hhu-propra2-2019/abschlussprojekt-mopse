@@ -4,7 +4,7 @@ import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.library.dependencies.Slice;
-import mops.utils.AggregateRoot;
+import mops.util.AggregateRoot;
 
 import java.util.List;
 

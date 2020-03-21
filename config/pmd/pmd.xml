@@ -49,11 +49,6 @@
         </properties>
     </rule>
 
-    <rule ref="category/java/documentation.xml/CommentRequired">
-        <properties>
-            <property name="headerCommentRequirement" value="Ignored"/>
-        </properties>
-    </rule>
     <rule ref="category/java/documentation.xml/CommentSize">
         <properties>
             <property name="maxLines" value="8"/>

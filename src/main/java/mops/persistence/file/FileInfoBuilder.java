@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import mops.persistence.directory.Directory;
-import mops.utils.AggregateBuilder;
+import mops.util.AggregateBuilder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;

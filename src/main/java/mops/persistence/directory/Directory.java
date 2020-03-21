@@ -1,7 +1,7 @@
 package mops.persistence.directory;
 
 import lombok.*;
-import mops.utils.AggregateRoot;
+import mops.util.AggregateRoot;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;

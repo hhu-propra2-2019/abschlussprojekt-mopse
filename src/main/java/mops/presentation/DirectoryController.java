@@ -2,16 +2,15 @@ package mops.presentation;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.Account;
-import mops.businesslogic.DirectoryService;
-import mops.businesslogic.FileQueryForm;
-import mops.businesslogic.FileService;
-import mops.businesslogic.query.FileQuery;
-import mops.businesslogic.utils.AccountUtil;
+import mops.businesslogic.directory.DirectoryService;
+import mops.businesslogic.file.FileService;
+import mops.businesslogic.file.query.FileQuery;
+import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.presentation.error.ExceptionPresentationError;
+import mops.presentation.form.FileQueryForm;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +57,7 @@ public class DirectoryController {
                                     KeycloakAuthenticationToken token,
                                     Model model,
                                     @PathVariable("dirId") long dirId) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("Folder content for folder with id '{}' requested by user '{}'.", dirId, account.getName());
 
         try {
@@ -91,7 +90,7 @@ public class DirectoryController {
                              KeycloakAuthenticationToken token,
                              @PathVariable("dirId") long dirId,
                              @RequestAttribute("file") MultipartFile multipartFile) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("Upload of a file in directory with id '{}' requested by user '{}'.", dirId, account.getName());
 
         try {
@@ -121,7 +120,7 @@ public class DirectoryController {
                                   KeycloakAuthenticationToken token,
                                   @PathVariable("parentDirId") long parentDirId,
                                   @RequestAttribute("folderName") String folderName) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("Sub folder creation requested in parent folder with id '{}' by user '{}'.",
                 parentDirId, account.getName());
 
@@ -149,7 +148,7 @@ public class DirectoryController {
     public String deleteFolder(RedirectAttributes redirectAttributes,
                                KeycloakAuthenticationToken token,
                                @PathVariable("dirId") long dirId) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("Deletion of folder with id {} requested by user '{}'.", dirId, account.getName());
 
         try {
@@ -180,12 +179,10 @@ public class DirectoryController {
                                Model model,
                                @PathVariable("dirId") long dirId,
                                @RequestAttribute("fileQueryForm") FileQueryForm queryForm) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("Search for file in the folder with the id '{}' requested by user '{}'.", dirId, account.getName());
 
-        FileQuery query = FileQuery.builder()
-                .from(queryForm)
-                .build();
+        FileQuery query = queryForm.toQuery();
 
         try {
             List<FileInfo> files = directoryService.searchFolder(account, dirId, query);

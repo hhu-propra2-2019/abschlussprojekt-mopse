@@ -4,8 +4,8 @@ import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
-import mops.utils.AggregateBuilder;
-import mops.utils.AggregateRoot;
+import mops.util.AggregateBuilder;
+import mops.util.AggregateRoot;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
@@ -33,10 +33,12 @@ class ArchitectureRulesTest {
             .and()
             .areNotAnnotatedWith(Configuration.class)
             .and()
+            .areNotAssignableTo(Exception.class)
+            .and()
             .resideInAPackage(".." + MOPS_PERSISTENCE)
             .should()
             .notBePublic()
-            .because("The implementation of an aggregate should be hidden!");
+            .because("the implementation of an aggregate should be hidden!");
 
     /**
      * Tests if there is only one Aggregate Root per package
