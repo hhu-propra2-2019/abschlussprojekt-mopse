@@ -1,5 +1,6 @@
 package mops.businesslogic.config;
 
+import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileInfoService;
 import mops.businesslogic.security.Account;
@@ -18,6 +19,7 @@ import java.io.InputStream;
 /**
  * Setups data for development.
  */
+@Slf4j
 @Configuration
 @Profile("dev")
 public class DummyDataSeeding {
@@ -40,6 +42,8 @@ public class DummyDataSeeding {
                                   FileRepository fileRepository,
                                   DirectoryService directoryService) {
         return args -> {
+            log.info("Seeding database with dummy data.");
+
             final int fileSize1 = 2_000;
             final int fileSize2 = 3_000;
             final String owner1 = "studentin";
