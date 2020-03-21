@@ -2,7 +2,7 @@ package mops.persistence;
 
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.utils.AuditingDbContext;
+import mops.util.AuditingDbContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;

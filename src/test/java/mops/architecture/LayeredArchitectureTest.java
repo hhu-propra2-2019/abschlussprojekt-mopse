@@ -17,14 +17,12 @@ class LayeredArchitectureTest {
      */
     @ArchTest
     static final ArchRule checkLayeredArchitecture = layeredArchitecture()
-            .layer("mops").definedBy(MOPS)
             .layer("mopsPersistence").definedBy(MOPS_PERSISTENCE)
             .layer("mopsBusinesslogic").definedBy(MOPS_BUSINESSLOGIC)
             .layer("mopsPresentation").definedBy(MOPS_PRESENTATION)
 
-            .whereLayer("mops").mayNotBeAccessedByAnyLayer()
-            .whereLayer("mopsPresentation").mayOnlyBeAccessedByLayers("mops")
-            .whereLayer("mopsBusinesslogic").mayOnlyBeAccessedByLayers("mops", "mopsPresentation")
-            .whereLayer("mopsPersistence").mayOnlyBeAccessedByLayers("mops", "mopsPresentation", "mopsBusinesslogic");
+            .whereLayer("mopsPresentation").mayNotBeAccessedByAnyLayer()
+            .whereLayer("mopsBusinesslogic").mayOnlyBeAccessedByLayers("mopsPresentation")
+            .whereLayer("mopsPersistence").mayOnlyBeAccessedByLayers("mopsPresentation", "mopsBusinesslogic");
 
 }

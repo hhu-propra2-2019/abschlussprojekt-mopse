@@ -3,7 +3,7 @@ package mops.persistence.permission;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import mops.utils.AggregateBuilder;
+import mops.util.AggregateBuilder;
 
 import java.sql.Timestamp;
 import java.time.Instant;

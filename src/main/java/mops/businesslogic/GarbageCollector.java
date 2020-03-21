@@ -2,6 +2,8 @@ package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mops.businesslogic.file.FileInfoService;
+import mops.businesslogic.file.FileServiceImpl;
 import mops.exception.MopsException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -24,13 +26,12 @@ public class GarbageCollector {
     /**
      * One week in milliseconds.
      */
-    private static final long ONE_WEEK = 604_800_016;
+    private static final long ONE_WEEK = 7L * 24L * 60L * 60L * 1000L;
 
     /**
      * FileInfoService.
      */
     private final FileInfoService fileInfoService;
-
     /**
      * FileService.
      */
@@ -42,7 +43,7 @@ public class GarbageCollector {
     @Scheduled(fixedDelay = ONE_WEEK)
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn" })
     public void removeOrphans() {
-        log.debug("Starting garbage collection.");
+        log.info("Starting garbage collection.");
 
         Set<Long> metaIds;
         Set<Long> fileIds;
@@ -50,7 +51,7 @@ public class GarbageCollector {
             metaIds = new HashSet<>(fileInfoService.fetchAllFileInfoIds());
             fileIds = new HashSet<>(fileService.getAllFileIds());
         } catch (MopsException e) {
-            log.error("There was an error while collecting all IDs: {}", e.getMessage());
+            log.error("There was an error while collecting all IDs:", e);
             return;
         }
 
@@ -67,7 +68,7 @@ public class GarbageCollector {
         fileIds.removeAll(intersection);
 
         long count = metaIds.size() + fileIds.size();
-        log.debug("{} orphans were found. {} FileInfo Entries and {} Files.",
+        log.info("{} orphans were found. {} FileInfo Entries and {} Files.",
                 count,
                 metaIds.size(),
                 fileIds.size()

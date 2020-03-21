@@ -236,8 +236,8 @@ GroupController::
 
 Dieser hat folgende Routen:
 
-include::../api/generated-snippets/index/GroupController/get-all-files-of-directory/path-parameters.adoc[]
-include::../api/generated-snippets/index/GroupController/get-group-url/path-parameters.adoc[]
+include::../api/generated-snippets/index/GroupController/get-root-directory/path-parameters.adoc[]
+include::../api/generated-snippets/index/GroupController/get-root-directory-url/path-parameters.adoc[]
 include::../api/generated-snippets/index/GroupController/search-file/path-parameters.adoc[]
 
 GroupsController::
