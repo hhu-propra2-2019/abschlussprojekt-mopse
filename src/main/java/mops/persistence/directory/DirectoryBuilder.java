@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.utils.AggregateBuilder;
+import mops.util.AggregateBuilder;
 
 import java.sql.Timestamp;
 import java.time.Instant;

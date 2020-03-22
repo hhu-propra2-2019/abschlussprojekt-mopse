@@ -2,10 +2,9 @@ package mops.presentation;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.Account;
-import mops.businesslogic.Group;
-import mops.businesslogic.GroupService;
-import mops.businesslogic.utils.AccountUtil;
+import mops.businesslogic.group.Group;
+import mops.businesslogic.group.GroupService;
+import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.presentation.error.ExceptionPresentationError;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -46,7 +45,7 @@ public class GroupsController {
     public String getAllGroups(RedirectAttributes redirectAttributes,
                                KeycloakAuthenticationToken token,
                                Model model) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("All groups requested for user '{}'.", account.getName());
 
         try {
