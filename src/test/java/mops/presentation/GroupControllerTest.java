@@ -66,7 +66,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                         responseFields(
                                 fieldWithPath(".group_id").description("The id of the group."),
                                 fieldWithPath(".root_dir_id").description("The id of the group's root directory."),
-                                fieldWithPath(".root_dir_url").description("The url to the group's root directory.")
+                                fieldWithPath(".root_dir_url").description("The url of the group's root directory.")
                         )));
     }
 
