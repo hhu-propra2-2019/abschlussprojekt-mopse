@@ -3,7 +3,6 @@ package mops.businesslogic.directory;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.group.GroupRootDirWrapper;
 import mops.businesslogic.security.Account;
-import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -17,15 +16,6 @@ import java.util.List;
  */
 @Service
 public interface DirectoryService {
-
-    /**
-     * Gets all 3 permissions of a user.
-     *
-     * @param account user credentials
-     * @param dirId   the id of the folder
-     * @return a permission flag object
-     */
-    UserPermission getPermissionsOfUser(Account account, long dirId) throws MopsException;
 
     /**
      * Returns all folders of the parent folder.

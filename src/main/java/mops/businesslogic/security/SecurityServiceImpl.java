@@ -33,6 +33,44 @@ public class SecurityServiceImpl implements SecurityService {
      * {@inheritDoc}
      */
     @Override
+    //this is normal behaviour
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.CyclomaticComplexity", "PMD.PrematureDeclaration" })
+    public UserPermission getPermissionsOfUser(Account account, Directory directory) throws MopsException {
+        boolean write = true;
+        boolean read = true;
+        boolean delete = true;
+
+        try {
+            checkWritePermission(account, directory);
+        } catch (WriteAccessPermissionException e) {
+            write = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Schreiben möglich", e);
+        }
+
+        try {
+            checkReadPermission(account, directory);
+        } catch (ReadAccessPermissionException e) {
+            read = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Lesen möglich", e);
+        }
+
+        try {
+            checkDeletePermission(account, directory);
+        } catch (DeleteAccessPermissionException e) {
+            delete = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Löschen möglich", e);
+        }
+
+        return new UserPermission(read, write, delete);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public void checkWritePermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions permissions = permissionService.getPermissions(directory);

@@ -9,6 +9,7 @@ import mops.businesslogic.exception.FileNotFoundException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.businesslogic.security.Account;
+import mops.businesslogic.security.SecurityService;
 import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.FileRepository;
@@ -42,6 +43,10 @@ public class FileServiceImpl implements FileService {
      */
     private final FileInfoService fileInfoService;
     /**
+     * Handle permission checks for roles.
+     */
+    private final SecurityService securityService;
+    /**
      * File content repository.
      */
     private final FileRepository fileRepository;
@@ -54,7 +59,8 @@ public class FileServiceImpl implements FileService {
     @Transactional(rollbackFor = MopsException.class)
     public void saveFile(Account account, long dirId, MultipartFile multipartFile,
                          Set<String> tags) throws MopsException {
-        UserPermission userPermission = directoryService.getPermissionsOfUser(account, dirId);
+        Directory directory = directoryService.getDirectory(dirId);
+        UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
 
         if (!userPermission.isWrite()) {
             log.error("User {} tried to save a file without write permission.",
@@ -104,7 +110,8 @@ public class FileServiceImpl implements FileService {
             throw new FileNotFoundException(String.format("Datei mit ID %d wurde nicht gefunden", fileId), e);
         }
 
-        UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
+        Directory directory = directoryService.getDirectory(fileInfo.getDirectoryId());
+        UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
 
         if (!userPermission.isRead()) {
             log.error("User {} tried to read file {} without permission.",
@@ -145,7 +152,8 @@ public class FileServiceImpl implements FileService {
             throw new FileNotFoundException("Datei wurde nicht gefunden", e);
         }
 
-        UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
+        Directory directory = directoryService.getDirectory(fileInfo.getDirectoryId());
+        UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
         String owner = fileInfo.getOwner();
         boolean isOwner = owner.equals(account.getName());
         // Only true if user is not the owner and has no delete permission
@@ -188,7 +196,9 @@ public class FileServiceImpl implements FileService {
             );
             throw new FileNotFoundException("Datei nicht gefunden", e);
         }
-        UserPermission userPermission = directoryService.getPermissionsOfUser(account, fileInfo.getDirectoryId());
+
+        Directory directory = directoryService.getDirectory(fileInfo.getDirectoryId());
+        UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
 
         if (!userPermission.isRead()) {
             log.error("User {} tried to read file {} without permission.",
@@ -206,7 +216,8 @@ public class FileServiceImpl implements FileService {
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public List<FileInfo> getFilesOfDirectory(Account account, long dirId) throws MopsException {
-        UserPermission userPermission = directoryService.getPermissionsOfUser(account, dirId);
+        Directory directory = directoryService.getDirectory(dirId);
+        UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
         if (!userPermission.isRead()) {
             log.error("User {} tried to read files in directory with ID {} without permission.",
                     account.getName(),

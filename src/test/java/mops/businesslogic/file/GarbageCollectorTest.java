@@ -4,23 +4,27 @@ import mops.businesslogic.GarbageCollector;
 import mops.exception.MopsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Set;
 
 import static org.mockito.Mockito.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(MockitoExtension.class)
 public class GarbageCollectorTest {
 
-    GarbageCollector garbageCollector;
+    @Mock
     FileServiceImpl fileService;
+    @Mock
     FileInfoService fileInfoService;
+
+    GarbageCollector garbageCollector;
+
 
     @BeforeEach
     void prepare() {
-        fileService = mock(FileServiceImpl.class);
-        fileInfoService = mock(FileInfoService.class);
         garbageCollector = new GarbageCollector(fileInfoService, fileService);
     }
 

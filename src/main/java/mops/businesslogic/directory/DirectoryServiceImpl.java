@@ -2,7 +2,9 @@ package mops.businesslogic.directory;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.exception.*;
+import mops.businesslogic.exception.DatabaseException;
+import mops.businesslogic.exception.DeleteAccessPermissionException;
+import mops.businesslogic.exception.StorageLimitationException;
 import mops.businesslogic.file.FileInfoService;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.group.GroupRootDirWrapper;
@@ -10,7 +12,6 @@ import mops.businesslogic.group.GroupService;
 import mops.businesslogic.permission.PermissionService;
 import mops.businesslogic.security.Account;
 import mops.businesslogic.security.SecurityService;
-import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
@@ -65,45 +66,6 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Connects to the GruppenFindungs API.
      */
     private final GroupService groupService;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    //this is normal behaviour
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.CyclomaticComplexity", "PMD.PrematureDeclaration" })
-    public UserPermission getPermissionsOfUser(Account account, long dirId) throws MopsException {
-        Directory directory = getDirectory(dirId);
-        boolean write = true;
-        boolean read = true;
-        boolean delete = true;
-
-        try {
-            securityService.checkWritePermission(account, directory);
-        } catch (WriteAccessPermissionException e) {
-            write = false;
-        } catch (MopsException e) {
-            throw new MopsException("Keine Berechtigungsprüfung auf Schreiben möglich", e);
-        }
-
-        try {
-            securityService.checkReadPermission(account, directory);
-        } catch (ReadAccessPermissionException e) {
-            read = false;
-        } catch (MopsException e) {
-            throw new MopsException("Keine Berechtigungsprüfung auf Lesen möglich", e);
-        }
-
-        try {
-            securityService.checkDeletePermission(account, directory);
-        } catch (DeleteAccessPermissionException e) {
-            delete = false;
-        } catch (MopsException e) {
-            throw new MopsException("Keine Berechtigungsprüfung auf Löschen möglich", e);
-        }
-
-        return new UserPermission(read, write, delete);
-    }
 
     /**
      * {@inheritDoc}

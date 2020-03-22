@@ -11,6 +11,15 @@ import org.springframework.stereotype.Service;
 public interface SecurityService {
 
     /**
+     * Gets all 3 permissions of a user in a directory.
+     *
+     * @param account   user credentials
+     * @param directory the directory
+     * @return a permission flag object
+     */
+    UserPermission getPermissionsOfUser(Account account, Directory directory) throws MopsException;
+
+    /**
      * Checks if the user has writing rights.
      *
      * @param account   user credentials
