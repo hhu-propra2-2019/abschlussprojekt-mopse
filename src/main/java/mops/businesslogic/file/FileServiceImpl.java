@@ -158,7 +158,7 @@ public class FileServiceImpl implements FileService {
 
         try {
             fileInfoService.deleteFileInfo(fileId);
-            fileRepository.deleteFile(fileId);
+            deleteFile(fileId);
         } catch (MopsException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             log.error("File with ID {} error on deleting. Error: {}",

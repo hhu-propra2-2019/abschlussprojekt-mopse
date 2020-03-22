@@ -6,6 +6,7 @@ import io.minio.Result;
 import io.minio.errors.*;
 import io.minio.messages.Item;
 import lombok.extern.slf4j.Slf4j;
+import mops.persistence.config.FileRepositoryConfig;
 import mops.persistence.exception.StorageException;
 import mops.util.AggregateBuilder;
 import org.springframework.stereotype.Repository;

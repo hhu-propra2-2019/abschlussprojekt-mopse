@@ -33,7 +33,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.findAllInDirectory(dirId);
         } catch (Exception e) {
-            log.error("Failed to retrieve all files in directory with id {} from the database.", dirId);
+            log.error("Failed to retrieve all files in directory with id {} from the database:", dirId, e);
             throw new DatabaseException("Es konnten nicht alle Dateien im Verzeichnis gefunden werden!", e);
         }
     }
@@ -47,7 +47,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.findById(fileId).orElseThrow();
         } catch (Exception e) {
-            log.error("Failed to retrieve file info for file with id {} from the database.", fileId);
+            log.error("Failed to retrieve file info for file with id {} from the database:", fileId, e);
             throw new DatabaseException("Die Datei-Informationen konnten nicht gefunden werden!", e);
         }
     }
@@ -78,7 +78,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             fileInfoRepo.deleteById(fileId);
         } catch (Exception e) {
-            log.error("Failed to delete file with id {}.", fileId);
+            log.error("Failed to delete file with id {}:", fileId, e);
             throw new DatabaseException("Datei-Informationen konnten nicht gelöscht werden!", e);
         }
     }
@@ -92,7 +92,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.getStorageUsageInGroup(groupId);
         } catch (Exception e) {
-            log.error("Failed to get total storage used by group with id {}.", groupId);
+            log.error("Failed to get total storage used by group with id {}:", groupId, e);
             throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
         }
     }
@@ -106,7 +106,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.getTotalStorageUsage();
         } catch (Exception e) {
-            log.error("Failed to get total storage used.");
+            log.error("Failed to get total storage used:", e);
             throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
         }
     }
@@ -120,7 +120,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.getFileCountInGroup(groupId);
         } catch (Exception e) {
-            log.error("Failed to get total file count in group with id {}.", groupId);
+            log.error("Failed to get total file count in group with id {}:", groupId, e);
             throw new DatabaseException("Gesamtdateianzahl konnte nicht geladen werden!", e);
         }
     }
@@ -134,7 +134,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.count();
         } catch (Exception e) {
-            log.error("Failed to get total file count.");
+            log.error("Failed to get total file count:", e);
             throw new DatabaseException("Gesamtdateianzahl konnte nicht geladen werden!", e);
         }
     }
@@ -148,7 +148,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.findAllIds();
         } catch (Exception e) {
-            log.error("Failed to get all FileInfo ids.");
+            log.error("Failed to get all FileInfo ids:", e);
             throw new MopsException("IDs konnten nicht gefunden werden.", e);
         }
     }

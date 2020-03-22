@@ -1,9 +1,8 @@
 package mops.businesslogic.group;
 
-import mops.businesslogic.directory.DirectoryService;
+import mops.businesslogic.exception.GruppenFindungException;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
-import mops.persistence.directory.Directory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,11 +11,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.endsWith;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -24,39 +24,19 @@ class GroupServiceTest {
 
     @Mock
     RestTemplate restTemplate;
-    @Mock
-    DirectoryService directoryService;
 
     GroupService groupService;
 
     long groupId;
-    long rootDirId;
     String userName;
     Account carlo;
 
     @BeforeEach
     void setup() {
         groupId = 1L;
-        rootDirId = 1L;
-        restTemplate = mock(RestTemplate.class);
-        groupService = new GroupServiceProdImpl(directoryService, restTemplate);
         userName = "Carlo";
         carlo = Account.of(userName, "carlo@hhu.de", "admin");
-    }
-
-    @Test
-    void getGroupUrl() throws MopsException {
-        GroupRootDirWrapper groupRootDirWrapper = new GroupRootDirWrapper(groupId, rootDirId);
-        when(directoryService.getOrCreateRootFolder(groupId)).thenReturn(Directory.builder()
-                .id(rootDirId)
-                .groupOwner(groupId)
-                .permissions(1L)
-                .name("test")
-                .build());
-
-        GroupRootDirWrapper groupUrl = groupService.getGroupUrl(groupId);
-
-        assertThat(groupUrl).isEqualTo(groupRootDirWrapper);
+        groupService = new GroupServiceProdImpl(restTemplate);
     }
 
     @Test
@@ -75,5 +55,52 @@ class GroupServiceTest {
         List<Group> requestedGroups = groupService.getAllGroupsOfUser(carlo);
 
         assertThat(requestedGroups).isEqualTo(expectedGroups);
+    }
+
+
+    @Test
+    void fetchRoleInGroupTest() throws MopsException {
+        Set<GroupServiceProdImpl.GroupPermission> groups = Set.of(
+                new GroupServiceProdImpl.GroupPermission(groupId, "admin")
+        );
+        GroupServiceProdImpl.Permission permission = new GroupServiceProdImpl.Permission(userName, groups);
+
+        when(restTemplate.getForObject(endsWith("/get-permission"), eq(GroupServiceProdImpl.Permission.class)))
+                .thenReturn(permission);
+
+        String userRole = groupService.fetchRoleForUserInGroup(carlo, groupId);
+
+        assertThat(userRole).isEqualTo("admin");
+    }
+
+    @Test
+    void fetchRolesInGroupTest() throws MopsException {
+        GroupServiceProdImpl.GroupPermission[] roles = {
+                new GroupServiceProdImpl.GroupPermission(groupId, "admin"),
+                new GroupServiceProdImpl.GroupPermission(groupId, "editor")
+        };
+        when(restTemplate.getForObject(endsWith("/get-roles"), eq(GroupServiceProdImpl.GroupPermission[].class)))
+                .thenReturn(roles);
+
+        Set<String> rolesInGroup = groupService.fetchRolesInGroup(groupId);
+
+        assertThat(rolesInGroup).containsExactlyInAnyOrder("admin", "editor");
+    }
+
+    @Test
+    void fetchRoleExceptionThrownTest() {
+        when(restTemplate.getForObject(endsWith("/get-permission"), eq(GroupServiceProdImpl.Permission.class)))
+                .thenReturn(null);
+
+        assertThatExceptionOfType(GruppenFindungException.class)
+                .isThrownBy(() -> groupService.fetchRoleForUserInGroup(carlo, groupId));
+    }
+
+    @Test
+    void fetchRolesExceptionThrownTest() {
+        when(restTemplate.getForObject(endsWith("/get-roles"), eq(GroupServiceProdImpl.GroupPermission[].class)))
+                .thenReturn(null);
+        assertThatExceptionOfType(GruppenFindungException.class)
+                .isThrownBy(() -> groupService.fetchRolesInGroup(groupId));
     }
 }

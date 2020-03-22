@@ -5,12 +5,30 @@ import mops.exception.MopsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
- * Handles requests for group meta data.
+ * API to Gruppenfindung.
  */
 @Service
 public interface GroupService {
+
+    /**
+     * Gets the role for one user in a group.
+     *
+     * @param account user credentials
+     * @param groupId the id of the group
+     * @return the role of the user in that group
+     */
+    String fetchRoleForUserInGroup(Account account, long groupId) throws MopsException;
+
+    /**
+     * Gets all roles for a group.
+     *
+     * @param groupId the id of the group
+     * @return gets all roles of that group
+     */
+    Set<String> fetchRolesInGroup(long groupId) throws MopsException;
 
     /**
      * Fetches all groups.
@@ -26,13 +44,5 @@ public interface GroupService {
      * @return a list of groups
      */
     List<Group> getAllGroupsOfUser(Account account) throws MopsException;
-
-    /**
-     * Gets the group url.
-     *
-     * @param groupId the id of the group
-     * @return a wrapper for group urls
-     */
-    GroupRootDirWrapper getGroupUrl(long groupId) throws MopsException;
 
 }

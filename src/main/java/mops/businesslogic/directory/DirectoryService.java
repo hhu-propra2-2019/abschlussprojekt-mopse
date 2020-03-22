@@ -1,6 +1,7 @@
 package mops.businesslogic.directory;
 
 import mops.businesslogic.file.query.FileQuery;
+import mops.businesslogic.group.GroupRootDirWrapper;
 import mops.businesslogic.security.Account;
 import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
@@ -41,7 +42,7 @@ public interface DirectoryService {
      * @param groupId the group id
      * @return the directory created
      */
-    Directory getOrCreateRootFolder(long groupId) throws MopsException;
+    GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException;
 
     /**
      * Creates a new folder inside a folder.
@@ -73,10 +74,11 @@ public interface DirectoryService {
     List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) throws MopsException;
 
     /**
-     * Replaces the permissions for a directory with new ones.
+     * Replaces the permissions for a directory and all its parents and children (which use the same permissions object)
+     * with the given ones.
      *
      * @param account     user credentials
-     * @param dirId       directory id of whom's permission should be changed
+     * @param dirId       directory id for which the permission should be changed
      * @param permissions new permissions
      * @return the updated directory permissions
      */
@@ -93,6 +95,25 @@ public interface DirectoryService {
      * @throws MopsException on error
      */
     Directory getDirectory(long dirId) throws MopsException;
+
+    /**
+     * Internal use only: possible security flaw!.
+     * Check permission before saving!
+     *
+     * @param directory directory to be saved
+     * @return directory object of the requested folder
+     * @throws MopsException on error
+     */
+    Directory saveDirectory(Directory directory) throws MopsException;
+
+    /**
+     * Internal use only: possible security flaw!.
+     * Check permission before deleting!
+     *
+     * @param directory directory to be deleted
+     * @throws MopsException on error
+     */
+    void deleteDirectory(Directory directory) throws MopsException;
 
     /**
      * Get the total number of directories in a group.

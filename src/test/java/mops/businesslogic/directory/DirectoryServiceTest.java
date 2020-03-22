@@ -2,8 +2,8 @@ package mops.businesslogic.directory;
 
 import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.file.query.FileQuery;
+import mops.businesslogic.group.GroupService;
 import mops.businesslogic.security.Account;
-import mops.businesslogic.security.PermissionService;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.FileInfoRepository;
@@ -37,7 +37,7 @@ class DirectoryServiceTest {
     static final long GROUP_ID = 0L;
 
     @MockBean
-    PermissionService permissionService;
+    GroupService groupService;
     @MockBean
     FileRepository fileRepository;
 
@@ -64,13 +64,13 @@ class DirectoryServiceTest {
         editor = Account.of(EDITOR, "editor@hhu.de", STUDENTIN);
         admin = Account.of(ADMIN, "admin@hhu.de", STUDENTIN);
 
-        given(permissionService.fetchRolesInGroup(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, USER));
-        given(permissionService.fetchRoleForUserInGroup(admin, GROUP_ID)).willReturn(ADMIN);
-        given(permissionService.fetchRoleForUserInGroup(editor, GROUP_ID)).willReturn(EDITOR);
-        given(permissionService.fetchRoleForUserInGroup(user, GROUP_ID)).willReturn(USER);
-        given(permissionService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
+        given(groupService.fetchRolesInGroup(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, USER));
+        given(groupService.fetchRoleForUserInGroup(admin, GROUP_ID)).willReturn(ADMIN);
+        given(groupService.fetchRoleForUserInGroup(editor, GROUP_ID)).willReturn(EDITOR);
+        given(groupService.fetchRoleForUserInGroup(user, GROUP_ID)).willReturn(USER);
+        given(groupService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
 
-        root = directoryService.getOrCreateRootFolder(GROUP_ID);
+        root = directoryService.getOrCreateRootFolder(GROUP_ID).getRootDir();
     }
 
     /**

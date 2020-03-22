@@ -80,6 +80,8 @@ public class DirectoryPermissionsBuilder {
                                              boolean canDelete) {
         if (role.isEmpty()) {
             throw new IllegalArgumentException("role must not be empty!");
+        } else if (entries.stream().map(DirectoryPermissionEntry::getRole).anyMatch(role::equalsIgnoreCase)) {
+            throw new IllegalArgumentException("role already exists");
         }
         this.entries.add(new DirectoryPermissionEntry(role, canRead, canWrite, canDelete));
         return this;
