@@ -144,7 +144,7 @@ public class FileServiceImpl implements FileService {
         try {
             fileInfo = fileInfoService.fetchFileInfo(fileId);
         } catch (MopsException e) {
-            log.error("User {} tried to delete file with ID {}, bot file was not found:",
+            log.error("User {} tried to delete file with ID {}, but file was not found:",
                     account.getName(),
                     fileId,
                     e
@@ -167,7 +167,7 @@ public class FileServiceImpl implements FileService {
 
         try {
             fileInfoService.deleteFileInfo(fileId);
-            deleteFile(fileId);
+            fileRepository.deleteFile(fileId);
         } catch (MopsException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             log.error("File with ID {} error on deleting:",
