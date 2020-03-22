@@ -2,6 +2,9 @@ package mops.businesslogic.exception;
 
 import mops.exception.MopsException;
 
+/**
+ * Is thrown when an user tries to read something which he/she/it does not have the permission for.
+ */
 public class ReadAccessPermissionException extends MopsException {
     /**
      * Is thrown when an user tries to read something which he/she/it does not have the permission for.

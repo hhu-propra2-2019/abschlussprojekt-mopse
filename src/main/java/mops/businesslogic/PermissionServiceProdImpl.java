@@ -15,6 +15,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * {@inheritDoc}
+ * This is used during production.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @SuppressWarnings("PMD.LawOfDemeter")
@@ -22,10 +26,10 @@ import java.util.stream.Collectors;
 @Profile("prod")
 public class PermissionServiceProdImpl implements PermissionService {
 
-    //TODO: this needs to be changed to the actual address and we need a provisional during development.
     /**
      * URL to GruppenFindung.
      */
+    // TODO: change to real route once known
     @Value("${material1.mops.gruppenfindung.url}")
     private String gruppenFindungUrl = "https://mops.hhu.de/gruppe1";
 
@@ -84,6 +88,8 @@ public class PermissionServiceProdImpl implements PermissionService {
         private Set<GroupPermission> groups;
 
         /**
+         * Gets roles for a group.
+         *
          * @param groupId id of the group
          * @return the role of the user in the group
          * @throws GruppenFindungException something went wrong during api request

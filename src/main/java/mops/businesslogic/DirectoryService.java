@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Handles meta data for directories.
+ */
 @Service
 public interface DirectoryService {
 
@@ -80,7 +83,7 @@ public interface DirectoryService {
                                           DirectoryPermissions permissions) throws MopsException;
 
     /**
-     * Internal use only: possible security flaw!
+     * Internal use only: possible security flaw!.
      * Check permission before fetching!
      *
      * @param dirId the id of the parent folder

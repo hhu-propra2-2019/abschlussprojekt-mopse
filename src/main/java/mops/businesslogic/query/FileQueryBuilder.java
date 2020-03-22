@@ -7,6 +7,9 @@ import mops.businesslogic.FileQueryForm;
 
 import java.util.*;
 
+/**
+ * Builds a file query.
+ */
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
         "PMD.BeanMembersShouldSerialize" }) // this is a builder
@@ -100,7 +103,7 @@ public class FileQueryBuilder {
      * @return this
      */
     public FileQueryBuilder from(@NonNull FileQueryForm form) {
-        names(Arrays.asList(form.getFileNames()));
+        names(Arrays.asList(form.getNames()));
         owners(Arrays.asList(form.getOwners()));
         types(Arrays.asList(form.getTypes()));
         tags(Arrays.asList(form.getTags()));

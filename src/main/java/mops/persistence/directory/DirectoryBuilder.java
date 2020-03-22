@@ -10,6 +10,9 @@ import mops.utils.AggregateBuilder;
 import java.sql.Timestamp;
 import java.time.Instant;
 
+/**
+ * Builds directories.
+ */
 @Slf4j
 @AggregateBuilder
 @NoArgsConstructor(access = AccessLevel.PACKAGE)

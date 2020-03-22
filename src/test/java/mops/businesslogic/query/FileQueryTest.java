@@ -4,13 +4,11 @@ import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FileQueryTest {
+class FileQueryTest {
 
-    private FileInfo fileInfo;
+    FileInfo fileInfo;
 
     @BeforeEach
     void setup() {
@@ -26,7 +24,7 @@ public class FileQueryTest {
     }
 
     @Test
-    public void findOwnerTest() {
+    void findOwnerTest() {
         FileQuery fileQuery = FileQuery.builder()
                 .owner("iTitus")
                 .build();
@@ -35,7 +33,7 @@ public class FileQueryTest {
     }
 
     @Test
-    public void noMatchingOwnerTest() {
+    void noMatchingOwnerTest() {
         FileQuery fileQuery = FileQuery.builder()
                 .owner("Segelzwerg")
                 .build();
@@ -44,7 +42,7 @@ public class FileQueryTest {
     }
 
     @Test
-    public void findFileNameTest() {
+    void findFileNameTest() {
         FileQuery fileQuery = FileQuery.builder()
                 .name("cv")
                 .build();
@@ -53,7 +51,7 @@ public class FileQueryTest {
     }
 
     @Test
-    public void noMatchingFileNameTest() {
+    void noMatchingFileNameTest() {
         FileQuery fileQuery = FileQuery.builder()
                 .name("Lebenslauf")
                 .build();
@@ -62,7 +60,7 @@ public class FileQueryTest {
     }
 
     @Test
-    public void findTypeTest() {
+    void findTypeTest() {
         FileQuery fileQuery = FileQuery.builder()
                 .type("pdf")
                 .build();
@@ -70,7 +68,7 @@ public class FileQueryTest {
     }
 
     @Test
-    public void noMatchingTypeTest() {
+    void noMatchingTypeTest() {
         FileQuery fileQuery = FileQuery.builder()
                 .type("png")
                 .build();
@@ -78,23 +76,23 @@ public class FileQueryTest {
     }
 
     @Test
-    public void findTagTest() {
+    void findTagTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .tags(List.of("Hausaufgaben"))
+                .tag("Hausaufgaben")
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isTrue();
     }
 
     @Test
-    public void noMatchingTagTest() {
+    void noMatchingTagTest() {
         FileQuery fileQuery = FileQuery.builder()
-                .tags(List.of("lösungen"))
+                .tag("lösungen")
                 .build();
         assertThat(fileQuery.checkMatch(fileInfo)).isFalse();
     }
 
     @Test
-    public void oneMatchesOneDoesNotTest() {
+    void oneMatchesOneDoesNotTest() {
         FileQuery fileQuery = FileQuery.builder()
                 .type("pdf")
                 .tag("lösungen")
@@ -103,7 +101,7 @@ public class FileQueryTest {
     }
 
     @Test
-    public void twoMatches() {
+    void twoMatches() {
         FileQuery fileQuery = FileQuery.builder()
                 .owner("iTitus")
                 .name("cv")

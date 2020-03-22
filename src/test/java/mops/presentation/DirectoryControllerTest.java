@@ -6,12 +6,7 @@ import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.Servl
 import mops.businesslogic.DirectoryService;
 import mops.businesslogic.FileQueryForm;
 import mops.businesslogic.FileService;
-import mops.businesslogic.GroupService;
 import mops.exception.MopsException;
-import mops.persistence.DirectoryPermissionsRepository;
-import mops.persistence.DirectoryRepository;
-import mops.persistence.FileInfoRepository;
-import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.utils.KeycloakContext;
@@ -37,16 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(DirectoryController.class)
 class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
-    @MockBean
-    DirectoryRepository directoryRepository;
-    @MockBean
-    DirectoryPermissionsRepository directoryPermissionsRepository;
-    @MockBean
-    FileInfoRepository fileInfoRepository;
-    @MockBean
-    FileRepository fileRepository;
-    @MockBean
-    GroupService groupService;
     @MockBean
     FileService fileService;
     @MockBean
@@ -124,10 +109,11 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void searchFolder() throws Exception {
         FileQueryForm fileQueryForm = new FileQueryForm();
-        fileQueryForm.setFileNames(new String[] { "cv" });
+        fileQueryForm.setNames(new String[] { "cv" });
         fileQueryForm.setOwners(new String[] { "Thabb" });
         fileQueryForm.setTypes(new String[] { "pdf" });
         fileQueryForm.setTags(new String[] { "awesome" });
+
         mockMvc().perform(post("/material1/dir/{dir}/search", 1)
                 .requestAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))
