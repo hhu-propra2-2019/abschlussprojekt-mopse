@@ -133,7 +133,7 @@ public class GroupServiceProdImpl implements GroupService {
         @SuppressWarnings({ "PMD.UnnecessaryLocalBeforeReturn", "PMD.DataflowAnomalyAnalysis" })
         public String getRoleInGroup(long groupId) throws GruppenFindungException {
             Optional<GroupPermission> first = groups.stream()
-                    .filter(group -> group.getGroup() == groupId)
+                    .filter(groupPermission -> groupPermission.getGroup() == groupId)
                     .findFirst();
             GroupPermission groupPermission = first.orElseThrow(() -> {
                 log.error("Unable to find group with the {} at GruppenFindung1.", groupId);

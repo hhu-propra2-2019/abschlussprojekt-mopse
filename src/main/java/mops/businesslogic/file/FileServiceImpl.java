@@ -75,10 +75,10 @@ public class FileServiceImpl implements FileService {
             fileRepository.saveFile(multipartFile, fileInfo.getId());
         } catch (MopsException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error("Error while saving file {} by user {}. Error: {}",
+            log.error("Error while saving file {} by user {}:",
                     meta.getName(),
                     account.getName(),
-                    e.getMessage()
+                    e
             );
             throw new MopsException("Fehler während des Speicherns aufgetreten", e);
         }
@@ -96,10 +96,10 @@ public class FileServiceImpl implements FileService {
         try {
             fileInfo = fileInfoService.fetchFileInfo(fileId);
         } catch (MopsException e) {
-            log.error("User {} tried to retrieved non existing file with ID {}. Error: {}",
+            log.error("User {} tried to retrieve non existing file with ID {}:",
                     account.getName(),
                     fileId,
-                    e.getMessage()
+                    e
             );
             throw new FileNotFoundException(String.format("Datei mit ID %d wurde nicht gefunden", fileId), e);
         }
@@ -118,9 +118,9 @@ public class FileServiceImpl implements FileService {
             ByteArrayResource byteArrayResource = new ByteArrayResource(stream.readAllBytes());
             return new FileContainer(fileInfo, byteArrayResource);
         } catch (MopsException | IOException e) {
-            log.error("Error on retrieving file with ID {}. Error: {}",
+            log.error("Error on retrieving file with ID {}:",
                     fileId,
-                    e.getMessage()
+                    e
             );
             throw new MopsException("Fehler während des Abrufens aufgetreten", e);
         }
@@ -137,9 +137,10 @@ public class FileServiceImpl implements FileService {
         try {
             fileInfo = fileInfoService.fetchFileInfo(fileId);
         } catch (MopsException e) {
-            log.error("User {} tried to delete file with ID {}, bot file was not found.",
+            log.error("User {} tried to delete file with ID {}, bot file was not found:",
                     account.getName(),
-                    fileId
+                    fileId,
+                    e
             );
             throw new FileNotFoundException("Datei wurde nicht gefunden", e);
         }
@@ -161,9 +162,9 @@ public class FileServiceImpl implements FileService {
             deleteFile(fileId);
         } catch (MopsException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error("File with ID {} error on deleting. Error: {}",
+            log.error("File with ID {} error on deleting:",
                     fileId,
-                    e.getMessage()
+                    e
             );
             throw new MopsException("Fehler während des Löschens aufgetreten", e);
         }
@@ -180,10 +181,10 @@ public class FileServiceImpl implements FileService {
         try {
             fileInfo = fileInfoService.fetchFileInfo(fileId);
         } catch (MopsException e) {
-            log.error("User {} tried to retrieved non existing file with ID {}. Error: {}",
+            log.error("User {} tried to retrieve non existing file with ID {}:",
                     account.getName(),
                     fileId,
-                    e.getMessage()
+                    e
             );
             throw new FileNotFoundException("Datei nicht gefunden", e);
         }
@@ -212,7 +213,6 @@ public class FileServiceImpl implements FileService {
                     dirId
             );
             throw new ReadAccessPermissionException("Keine Leseberechtigung");
-
         }
         return fileInfoService.fetchAllFilesInDirectory(dirId);
     }

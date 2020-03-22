@@ -61,10 +61,12 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.save(fileInfo);
         } catch (Exception e) {
-            log.error("Failed to save file '{}' of type '{}' with size '{}' bytes to database.",
+            log.error("Failed to save file '{}' of type '{}' with size '{}' bytes to database:",
                     fileInfo.getName(),
                     fileInfo.getType(),
-                    fileInfo.getSize());
+                    fileInfo.getSize(),
+                    e
+            );
             throw new DatabaseException("Datei-Informationen konnten nicht gespeichert werden!", e);
         }
     }
