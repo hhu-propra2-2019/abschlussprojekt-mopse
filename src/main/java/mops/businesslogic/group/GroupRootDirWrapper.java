@@ -1,8 +1,9 @@
 package mops.businesslogic.group;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Value;
+import mops.persistence.directory.Directory;
 
 /**
  * Wraps a url for a group given a group id.
@@ -13,16 +14,30 @@ import lombok.Value;
 public class GroupRootDirWrapper {
 
     /**
-     * The id of the group.
+     * The root directory.
      */
-    @JsonProperty("group_id")
-    long groupId;
+    @JsonIgnore
+    Directory rootDir;
+
+    /**
+     * The id of the group.
+     *
+     * @return group id
+     */
+    @JsonGetter("group_id")
+    public long getGroupId() {
+        return rootDir.getGroupOwner();
+    }
 
     /**
      * The id of the group's root directory.
+     *
+     * @return root directory id
      */
-    @JsonProperty("root_dir_id")
-    long rootDirId;
+    @JsonGetter("root_dir_id")
+    public long getRootDirId() {
+        return rootDir.getId();
+    }
 
     /**
      * Gets the root directory url.
@@ -31,6 +46,6 @@ public class GroupRootDirWrapper {
      */
     @JsonGetter("root_dir_url")
     public String getRootDirUrl() {
-        return String.format("/material1/dir/%d", rootDirId);
+        return String.format("/material1/dir/%d", getRootDirId());
     }
 }

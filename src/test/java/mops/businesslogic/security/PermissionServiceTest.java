@@ -1,87 +1,93 @@
 package mops.businesslogic.security;
 
-import mops.businesslogic.exception.GruppenFindungException;
+import mops.businesslogic.permission.PermissionService;
+import mops.businesslogic.permission.PermissionServiceImpl;
 import mops.exception.MopsException;
+import mops.persistence.DirectoryPermissionsRepository;
+import mops.persistence.directory.Directory;
+import mops.persistence.permission.DirectoryPermissions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
-import java.util.Set;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.ArgumentMatchers.endsWith;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class PermissionServiceTest {
 
     @Mock
-    RestTemplate restTemplate;
+    DirectoryPermissionsRepository permissionsRepository;
 
     PermissionService permissionService;
 
-    long groupId;
-    String userName;
-    Account carlo;
+    Directory directory;
+    Directory otherDirectory;
+    DirectoryPermissions permissions;
 
     @BeforeEach
     void setup() {
-        groupId = 1L;
-        restTemplate = mock(RestTemplate.class);
-        permissionService = new PermissionServiceProdImpl(restTemplate);
-        userName = "Carlo";
-        carlo = Account.of(userName, "carlo@hhu.de", "admin");
+        permissionService = new PermissionServiceImpl(permissionsRepository);
+
+        directory = Directory.builder()
+                .id(1L)
+                .name("")
+                .groupOwner(100L)
+                .permissions(2L)
+                .build();
+        otherDirectory = Directory.builder()
+                .id(2L)
+                .name("")
+                .groupOwner(100L)
+                .permissions(3L)
+                .build();
+
+        permissions = DirectoryPermissions.builder()
+                .entry("admin", true, true, true)
+                .build();
     }
 
     @Test
-    void fetchRoleInGroupTest() throws MopsException {
-        Set<PermissionServiceProdImpl.GroupPermission> groups = Set.of(
-                new PermissionServiceProdImpl.GroupPermission(groupId, "admin")
-        );
-        PermissionServiceProdImpl.Permission permission = new PermissionServiceProdImpl.Permission(userName, groups);
+    void getPermissions() throws MopsException {
+        given(permissionsRepository.findById(directory.getPermissionsId()))
+                .willReturn(Optional.of(permissions));
 
-        when(restTemplate.getForObject(endsWith("/get-permission"), eq(PermissionServiceProdImpl.Permission.class)))
-                .thenReturn(permission);
+        DirectoryPermissions result = permissionService.getPermissions(directory);
 
-        String userRole = permissionService.fetchRoleForUserInGroup(carlo, groupId);
-
-        assertThat(userRole).isEqualTo("admin");
+        assertThat(result).isEqualTo(permissions);
     }
 
     @Test
-    void fetchRolesInGroupTest() throws MopsException {
-        PermissionServiceProdImpl.GroupPermission[] roles = {
-                new PermissionServiceProdImpl.GroupPermission(groupId, "admin"),
-                new PermissionServiceProdImpl.GroupPermission(groupId, "editor")
-        };
-        when(restTemplate.getForObject(endsWith("/get-roles"), eq(PermissionServiceProdImpl.GroupPermission[].class)))
-                .thenReturn(roles);
+    void getPermissionsError() {
+        given(permissionsRepository.findById(otherDirectory.getPermissionsId()))
+                .willThrow(DbActionExecutionException.class);
 
-        Set<String> rolesInGroup = permissionService.fetchRolesInGroup(groupId);
-
-        assertThat(rolesInGroup).containsExactlyInAnyOrder("admin", "editor");
+        assertThatThrownBy(() -> permissionService.getPermissions(otherDirectory))
+                .isInstanceOf(MopsException.class);
     }
 
     @Test
-    void fetchRoleExceptionThrownTest() {
-        when(restTemplate.getForObject(endsWith("/get-permission"), eq(PermissionServiceProdImpl.Permission.class)))
-                .thenReturn(null);
+    void savePermissions() throws MopsException {
+        given(permissionsRepository.save(permissions))
+                .willReturn(permissions);
 
-        assertThatExceptionOfType(GruppenFindungException.class)
-                .isThrownBy(() -> permissionService.fetchRoleForUserInGroup(carlo, groupId));
+        DirectoryPermissions result = permissionService.savePermissions(permissions);
+
+        assertThat(result).isEqualTo(permissions);
     }
 
     @Test
-    void fetchRolesExceptionThrownTest() {
-        when(restTemplate.getForObject(endsWith("/get-roles"), eq(PermissionServiceProdImpl.GroupPermission[].class)))
-                .thenReturn(null);
-        assertThatExceptionOfType(GruppenFindungException.class)
-                .isThrownBy(() -> permissionService.fetchRolesInGroup(groupId));
+    void savePermissionsError() {
+        given(permissionsRepository.save(permissions))
+                .willThrow(DbActionExecutionException.class);
+
+        assertThatThrownBy(() -> permissionService.savePermissions(permissions))
+                .isInstanceOf(MopsException.class);
     }
 }

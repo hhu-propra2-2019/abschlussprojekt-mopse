@@ -135,7 +135,7 @@ Business Layer::
 |Komponente |Funktion | Schnittstellen
 | DirectoryService
 | _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner._
-| _Die Informationen über die Dateien holt er sich vom `FileInfoService`. Um die Berechtigungen eines einzelnen Benutzers zu überprüfen, wird eine Anfrage an den `PermissionService` gestellt, während die Berechtigungen des Ordners vom `DirectoryPermissionRepository` zur Verfügung gestellt werden. Um Operatioen, die andere Ordner involvieren, ausführen zu können, wird beim `DirectoryRepository` angefragt._
+| _Die Informationen über die Dateien holt er sich vom `FileInfoService`. Um die Berechtigungen eines einzelnen Benutzers zu überprüfen, wird eine Anfrage an den `GroupService` & `SecurityService` gestellt, während die Berechtigungen des Ordners vom `PermissionService` zur Verfügung gestellt werden. Um Operatioen, die andere Ordner involvieren, ausführen zu können, wird beim `DirectoryRepository` angefragt._
 
 | FileInfoService
 | _Verwaltet alle Metadaten einer Datei in Form des Objektes `FileInfo`._
@@ -143,20 +143,19 @@ Business Layer::
 
 | FileService
 | _Verwaltet die Funktionen einer Datei. Dabei wird die Datei selbst mit ihren Metadaten verknüpft._
-| _Mittels einer Anfrage an den `FileInfoService` werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten._
+| _Mittels einer Anfrage an den `FileInfoService` werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten. Berechtigungen werden mittels des `DirectoryService` und des `SecurityService` überprüft._
 
 | GroupService
-| _Verwaltet alle Inhalte einer einzelnen Gruppe. Ordner sowie Dateien._
-| _Um die Informationen über die Unterordner einer Gruppe zu erhalten, wird eine Anfrage an den `DirectoryService` gestellt.
-Ebenso kommunziert er über eine API mit `GruppenFindung`._
+| _Erlaubt es Anfragen an die `Gruppenfindung` zu stellen._
+| _Kommunziert nur über eine REST-API mit der `Gruppenfindung`._
 
 | PermissionService
-| _Stellt die Berechtigungen eines einzelnen Benutzers zur Verfügung._
-| _Stellt eine Anfrage an das Modul `Gruppenbildung`, um die Berechtigungen eines Benutzers in einer Gruppe zu erhalten._
+| _Stellt die Berechtigungen eines Ordners zur Verfügung._
+| _Befragt die Datenbank über das `DirectoryPermissionsRepository` nach Ordnerberechtigungen._
 
-| RoleService
-| _Checkt die Rolenberechtigung eines Nutzers._
-| _Es stellt Berechtigungsanfragen an den `PermissionService`._
+| SecurityService
+| _Überprüft die Rollenberechtigungen eines Nutzers._
+| _Er vergleicht die Berechtigungen, die aus dem `PermissionService` kommen mit den Rollen des Users, die aus dem `GroupService` kommen._
 |===
 
 Persistence Layer::

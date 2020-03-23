@@ -24,12 +24,12 @@ Außerdem hat der Entity `Directory` ein Attribut `group`.
 Dort wird eine ID gespeichert, welche die Gruppe des Ordners identifiziert.
 Zusätzlich hat ein Ordner eine eindeutige `ID`.
 
-==== Permissions
+==== DirectoryPermissions
 
 Das Datenbankobjekt `DirectoryPermissions` stellt die Berechtigungen für die erstellten Ordner dar.
 Die `DirectoryPermissions` haben eine eindeutige `ID`.
 
-==== PermissionEntry
+==== DirectoryPermissionsEntry
 
 Das Datenbankobjekt `DirectoryPermissionsEntry` stellt Berechtigungsinformationen dar.
 `DirectoryPermissionsEntry` hat eine eindeutige `ID`.
@@ -45,7 +45,7 @@ Das Attribut `owner` speichert den Namen des Inhabers der Datei.
 Außerdem speichern wir die Größe (`size`), den Namen (`name`) und den Typ der Datei (`type`).
 Zusätzlich hat jede `FileInfo` eine eindeutige `ID`.
 
-==== File_tag
+==== FileTag
 
 Hier speichern wir Tags für die Files (Dateien). Tags sind Kategorien oder Etiketten, die zur Suche und Filterung von
 Dateien nützlich sind. Das Attribut `name` speichert den Namen des Tags.
@@ -119,13 +119,13 @@ _Als Schnittstelle für die Dateispeicherung haben wir MinIO gewählt, weil es v
 
 _Die erforderlichen Umgebungsvariablen lauten:_
 
-- MINIO_HOST
-- MINIO_PORT
-- MINIO_BUCKET_NAME
+- MATERIAL1_MINIO_HOST
+- MATERIAL1_MINIO_PORT
+- MATERIAL1_MINIO_BUCKET_NAME
 - MINIO_ACCESS_KEY
 - MINIO_SECRET_KEY
 
-_Im Entwicklungsprozess sind diese durch Default-Werte (welche im Dev Docker Container gesetzt werden) vorgegeben._
+_Im Entwicklungsprozess sind diese durch Default-Werte (welche in der `application.properties`) vorgegeben._
 
 _Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach ersetzt werden, wenn eine andere Lösung zur Speicherung von Dateien genutzt wird._
 

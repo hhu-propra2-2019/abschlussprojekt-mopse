@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.group.GroupRootDirWrapper;
-import mops.businesslogic.group.GroupService;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.file.FileInfo;
@@ -39,10 +38,6 @@ public class GroupController {
     /**
      * Communicator for directory objects.
      */
-    private GroupService groupService;
-    /**
-     * For searching.
-     */
     private DirectoryService directoryService;
 
     /**
@@ -58,7 +53,7 @@ public class GroupController {
         log.info("Root directory of group with id '{}' requested.", groupId);
 
         try {
-            GroupRootDirWrapper groupRootDir = groupService.getGroupUrl(groupId);
+            GroupRootDirWrapper groupRootDir = directoryService.getOrCreateRootFolder(groupId);
             return "redirect:" + groupRootDir.getRootDirUrl();
         } catch (MopsException e) {
             log.error("Failed to retrieve root directory for group with id '{}':", groupId, e);
@@ -80,7 +75,7 @@ public class GroupController {
         log.info("Group root directory url for group with id '{}' requested.", groupId);
 
         try {
-            return groupService.getGroupUrl(groupId);
+            return directoryService.getOrCreateRootFolder(groupId);
         } catch (MopsException e) {
             log.error("Failed to retrieve group root directory url for group with id '{}':", groupId, e);
             throw new ResponseStatusException(

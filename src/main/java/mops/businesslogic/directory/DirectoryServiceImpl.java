@@ -1,16 +1,18 @@
 package mops.businesslogic.directory;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.exception.*;
+import mops.businesslogic.exception.DatabaseException;
+import mops.businesslogic.exception.DeleteAccessPermissionException;
+import mops.businesslogic.exception.StorageLimitationException;
 import mops.businesslogic.file.FileInfoService;
 import mops.businesslogic.file.query.FileQuery;
+import mops.businesslogic.group.GroupRootDirWrapper;
+import mops.businesslogic.group.GroupService;
+import mops.businesslogic.permission.PermissionService;
 import mops.businesslogic.security.Account;
-import mops.businesslogic.security.PermissionService;
-import mops.businesslogic.security.RoleService;
-import mops.businesslogic.security.UserPermission;
+import mops.businesslogic.security.SecurityService;
 import mops.exception.MopsException;
-import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -20,17 +22,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
  * Handles meta data for directories.
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class DirectoryServiceImpl implements DirectoryService {
 
@@ -38,12 +38,13 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Represents the role of an admin.
      */
     @Value("${material1.mops.configuration.admin}")
-    public static final String ADMIN = "admin";
+    private String adminRole = "admin";
     /**
      * The max amount of folders per group.
      */
+    @SuppressWarnings("checkstyle:MagicNumber")
     @Value("${material1.mops.configuration.max-groups}")
-    public static final long MAX_FOLDER_PER_GROUP = 200L;
+    private long maxFoldersPerGroup = 200L;
 
     /**
      * This connects to database related to directory information.
@@ -56,90 +57,67 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Handle permission checks for roles.
      */
-    private final RoleService roleService;
+    private final SecurityService securityService;
     /**
-     * Handle permission checks for roles.
+     * Handle permissions storage and retrieval.
      */
     private final PermissionService permissionService;
     /**
-     * This connects to database to handle directory permissions.
+     * Connects to the GruppenFindungs API.
      */
-    private final DirectoryPermissionsRepository directoryPermissionsRepo;
+    private final GroupService groupService;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    //this is normal behaviour
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.CyclomaticComplexity", "PMD.PrematureDeclaration" })
-    public UserPermission getPermissionsOfUser(Account account, long dirId) throws MopsException {
-        Directory directory = fetchDirectory(dirId);
-        boolean write = true;
-        boolean read = true;
-        boolean delete = true;
-
-        try {
-            roleService.checkWritePermission(account, directory);
-        } catch (WriteAccessPermissionException e) {
-            write = false;
-        } catch (MopsException e) {
-            throw new MopsException("Keine Berechtigungsprüfung auf Schreiben möglich", e);
-        }
-
-        try {
-            roleService.checkReadPermission(account, directory);
-        } catch (ReadAccessPermissionException e) {
-            read = false;
-        } catch (MopsException e) {
-            throw new MopsException("Keine Berechtigungsprüfung auf Lesen möglich", e);
-        }
-
-        try {
-            roleService.checkDeletePermission(account, directory);
-        } catch (DeleteAccessPermissionException e) {
-            delete = false;
-        } catch (MopsException e) {
-            throw new MopsException("Keine Berechtigungsprüfung auf Löschen möglich", e);
-        }
-
-        return new UserPermission(read, write, delete);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException {
-        Directory directory = fetchDirectory(parentDirID);
-        roleService.checkReadPermission(account, directory);
-        return directoryRepository.getAllSubFoldersOfParent(parentDirID);
+        Directory directory = getDirectory(parentDirID);
+        securityService.checkReadPermission(account, directory);
+        try {
+            return directoryRepository.getAllSubFoldersOfParent(parentDirID);
+        } catch (Exception e) {
+            log.error("Subfolders of parent folder with id '{}' could not be loaded:", parentDirID, e);
+            throw new DatabaseException("Unterordner konnten nicht geladen werden.", e);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn" })
-    public Directory getOrCreateRootFolder(long groupId) throws MopsException {
-        Optional<Directory> optionalDirectory = directoryRepository.getRootFolder(groupId);
-        if (optionalDirectory.isPresent()) {
-            return optionalDirectory.get();
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
+            "PMD.AvoidCatchingGenericException" })
+    public GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException {
+        Optional<GroupRootDirWrapper> optRootDir;
+        try {
+            optRootDir = directoryRepository
+                    .getRootFolder(groupId)
+                    .map(GroupRootDirWrapper::new);
+        } catch (Exception e) {
+            log.error("Error while searching for root directory of group with id '{}':", groupId, e);
+            throw new DatabaseException("Das Wurzelverzeichnis konnte nicht gefunden werden.", e);
         }
 
-        Set<String> roleNames = permissionService.fetchRolesInGroup(groupId);
+        if (optRootDir.isPresent()) {
+            return optRootDir.get();
+        }
+
+        Set<String> roleNames = groupService.fetchRolesInGroup(groupId);
         if (roleNames.isEmpty()) { // TODO: check for actual existence of group
             log.error("A root directory for group '{}' could not be created, as the group does not exist.", groupId);
             String error = "Es konnte kein Wurzelverzeichnis für die Gruppe erstellt werden, da sie nicht existiert.";
             throw new MopsException(error);
         }
         DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
-        rootPermissions = directoryPermissionsRepo.save(rootPermissions);
+        rootPermissions = permissionService.savePermissions(rootPermissions);
         Directory directory = Directory.builder()
                 .name("")
                 .groupOwner(groupId)
                 .permissions(rootPermissions)
                 .build(); // no demeter violation here
-        return directoryRepository.save(directory);
+        return new GroupRootDirWrapper(saveDirectory(directory));
     }
 
     /**
@@ -148,23 +126,24 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException {
-        Directory rootDirectory = fetchDirectory(parentDirId);
+        Directory rootDirectory = getDirectory(parentDirId);
         long groupFolderCount = getDirCountInGroup(rootDirectory.getGroupOwner());
-        if (groupFolderCount >= MAX_FOLDER_PER_GROUP) {
+        if (groupFolderCount >= maxFoldersPerGroup) {
             log.error("The user '{}' tried to create another sub folder for the group with the id {}, "
                             + "but they already reached their max allowed folder count.",
                     account.getName(),
                     parentDirId);
-            String error = "Your group has max allowed amount of folders. You can't create any more.";
+            String error = "Deine Gruppe hat die maximale Anzahl an Ordnern erreicht. "
+                    + "Du kannst keine weiteren mehr erstellen.";
             throw new StorageLimitationException(error);
         }
-        roleService.checkWritePermission(account, rootDirectory);
+        securityService.checkWritePermission(account, rootDirectory);
 
         Directory directory = Directory.builder() //this is no violation of demeter's law
                 .fromParent(rootDirectory)
                 .name(dirName)
                 .build();
-        return directoryRepository.save(directory);
+        return saveDirectory(directory);
     }
 
     /**
@@ -173,8 +152,8 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     @SuppressWarnings("PMD.LawOfDemeter") //these are not violations of demeter's law
     public Directory deleteFolder(Account account, long dirId) throws MopsException {
-        Directory directory = fetchDirectory(dirId);
-        roleService.checkDeletePermission(account, directory);
+        Directory directory = getDirectory(dirId);
+        securityService.checkDeletePermission(account, directory);
 
         List<FileInfo> files = fileInfoService.fetchAllFilesInDirectory(dirId);
         List<Directory> subFolders = getSubFolders(account, dirId);
@@ -183,13 +162,13 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("The user '{}' tried to delete the folder with id {}, but the folder was not empty.",
                     account.getName(),
                     dirId);
-            String errorMessage = String.format("The directory %s is not empty.", directory.getName());
+            String errorMessage = String.format("Der Ordner %s ist nicht leer.", directory.getName());
             throw new DeleteAccessPermissionException(errorMessage);
         }
 
-        Directory parentDirectory = fetchDirectory(directory.getParentId());
+        Directory parentDirectory = getDirectory(directory.getParentId());
 
-        directoryRepository.delete(directory);
+        deleteDirectory(directory);
 
         return parentDirectory;
     }
@@ -200,8 +179,8 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) throws MopsException {
-        Directory directory = fetchDirectory(dirId);
-        roleService.checkReadPermission(account, directory);
+        Directory directory = getDirectory(dirId);
+        securityService.checkReadPermission(account, directory);
         List<FileInfo> fileInfos = fileInfoService.fetchAllFilesInDirectory(dirId);
 
         return fileInfos.stream() //this is a stream not violation of demeter's law
@@ -217,38 +196,57 @@ public class DirectoryServiceImpl implements DirectoryService {
     public DirectoryPermissions updatePermission(Account account,
                                                  long dirId,
                                                  DirectoryPermissions permissions) throws MopsException {
-        Directory directory = fetchDirectory(dirId);
-        checkIfAdmin(account, directory);
+        Directory directory = getDirectory(dirId);
+        securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
         DirectoryPermissions updatedPermissions = DirectoryPermissions.builder()
                 .from(permissions)
                 .id(directory.getPermissionsId())
                 .build(); // no demeter violation here
-        return directoryPermissionsRepo.save(updatedPermissions);
-    }
-
-    /**
-     * Gets a directory.
-     *
-     * @param parentDirID the id of the parent folder
-     * @return a directory object of the request folder
-     */
-    @SuppressWarnings("PMD.LawOfDemeter")
-    private Directory fetchDirectory(long parentDirID) throws DatabaseException {
-        Optional<Directory> optionalDirectory = directoryRepository.findById(parentDirID);
-        // this is not a violation of demeter's law
-        return optionalDirectory.orElseThrow(getException(parentDirID)); //this is not a violation of demeter's law
+        return permissionService.savePermissions(updatedPermissions);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
     public Directory getDirectory(long dirId) throws MopsException {
         try {
-            return fetchDirectory(dirId);
-        } catch (NoSuchElementException e) {
-            throw new MopsException("Fehler beim Abrufen des Verzeichnisses", e);
+            return directoryRepository.findById(dirId).orElseThrow();
+        } catch (Exception e) {
+            log.error("The directory with the id '{}' was requested, but was not found in the database:", dirId, e);
+            String error = String.format("Der Ordner mit der ID '%d' konnte nicht gefunden werden.", dirId);
+            throw new DatabaseException(error, e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public Directory saveDirectory(Directory directory) throws MopsException {
+        try {
+            return directoryRepository.save(directory);
+        } catch (Exception e) {
+            log.error("The directory with the id '{}' could not be saved to the database:", directory, e);
+            String error = String.format("Der Ordner '%s' konnte nicht gefunden werden.", directory);
+            throw new DatabaseException(error, e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public void deleteDirectory(Directory directory) throws MopsException {
+        try {
+            directoryRepository.delete(directory);
+        } catch (Exception e) {
+            log.error("The directory '{}' could not be deleted from the database:", directory, e);
+            String error = String.format("Der Ordner '%s' konnte nicht gelöscht werden.", directory);
+            throw new DatabaseException(error, e);
         }
     }
 
@@ -261,7 +259,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         try {
             return directoryRepository.getDirCountInGroup(groupId);
         } catch (Exception e) {
-            log.error("Failed to get total directory count in group with id {}.", groupId);
+            log.error("Failed to get total directory count in group with id '{}':", groupId, e);
             throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
         }
     }
@@ -275,24 +273,9 @@ public class DirectoryServiceImpl implements DirectoryService {
         try {
             return directoryRepository.count();
         } catch (Exception e) {
-            log.error("Failed to get total directory count.");
+            log.error("Failed to get total directory count:", e);
             throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
         }
-    }
-
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.UnusedPrivateMethod" })
-    private DirectoryPermissions fetchPermissions(Directory directory) throws DatabaseException {
-        Optional<DirectoryPermissions> permissions = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        return permissions.orElseThrow(() -> { // this is not a violation of demeter's law
-            log.error("The permission for directory with the id {} could not be fetched.",
-                    directory.getId());
-            String errorMessage = "Permission couldn't be fetched.";
-            return new DatabaseException(errorMessage);
-        });
-    }
-
-    private void checkIfAdmin(Account account, Directory directory) throws MopsException {
-        roleService.checkIfRole(account, directory.getGroupOwner(), ADMIN);
     }
 
     /**
@@ -301,30 +284,15 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @param roleNames all role names existing in the group
      * @return default directory permissions
      */
-    //TODO: this is a template and can only implement when GruppenFindung defined their roles.
+    //TODO: this is a placeholder and can only be implemented when GruppenFindung defined their roles.
     @SuppressWarnings({ "PMD.LawOfDemeter" }) //Streams
     private DirectoryPermissions createDefaultPermissions(Set<String> roleNames) {
         DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
-        builder.entry(ADMIN, true, true, true);
+        builder.entry(adminRole, true, true, true);
         roleNames
                 .stream()
-                .filter(role -> !role.equals(ADMIN))
+                .filter(role -> !role.equalsIgnoreCase(adminRole))
                 .forEach(role -> builder.entry(role, true, false, false));
         return builder.build();
-    }
-
-    /**
-     * Gets a database exception.
-     *
-     * @param dirId directory id
-     * @return a supplier to throw a exception
-     */
-    private Supplier<DatabaseException> getException(long dirId) {
-        return () -> { //this is not a violation of the demeter's law
-            log.error("The directory with the id {} was requested, but was not found in the database.",
-                    dirId);
-            String errorMessage = String.format("There is no directory with the id %s in the database.", dirId);
-            return new DatabaseException(errorMessage);
-        };
     }
 }
