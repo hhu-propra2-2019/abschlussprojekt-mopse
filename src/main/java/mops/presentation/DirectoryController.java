@@ -73,6 +73,7 @@ public class DirectoryController {
 
         model.addAttribute("fileQueryForm", new FileQueryForm());
         model.addAttribute("account", account);
+        model.addAttribute("thisDirId", dirId);
         return "directory";
     }
 
@@ -119,7 +120,7 @@ public class DirectoryController {
     public String createSubFolder(RedirectAttributes redirectAttributes,
                                   KeycloakAuthenticationToken token,
                                   @PathVariable("parentDirId") long parentDirId,
-                                  @RequestAttribute("folderName") String folderName) {
+                                  @RequestParam("folderName") String folderName) {
         Account account = Account.of(token);
         log.info("Sub folder creation requested in parent folder with id '{}' by user '{}'.",
                 parentDirId, account.getName());
