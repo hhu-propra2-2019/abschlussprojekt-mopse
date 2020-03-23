@@ -86,7 +86,6 @@
             <td></td>
             <td>
                 <form action="#" th:action="@{${dir.id}}" th:method="post">
-                    <input type="hidden" th:name="${_csrf.getParameterName()}" th:value="${_csrf.getToken()}">
                     <input type="submit" name="deleteFolder" value="Ordner löschen">
                 </form>
             </td>
@@ -98,24 +97,20 @@
             <td th:text="${file.size}">%Größe%</td>
             <td>
                 <form action="#" th:action="@{../file/${file.id}}" th:method="delete">
-                    <input type="hidden" th:name="${_csrf.getParameterName()}" th:value="${_csrf.getToken()}">
                     <input type="submit" name="deleteFile" value="Datei löschen">
                 </form>
             </td>
         </tr>
     </table>
     <form action="#" th:action="@{/create}" th:method="post">
-        <input type="hidden" th:name="${_csrf.getParameterName()}" th:value="${_csrf.getToken()}">
         <input type="text" name="folderName">
         <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
     <form action="#" th:action="@{/upload}" th:method="post" enctype="multipart/form-data">
-        <input type="hidden" th:name="${_csrf.getParameterName()}" th:value="${_csrf.getToken()}">
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
     <form action="#" th:action="@{/search}" th:method="post" th:object="${fileQueryForm}">
-        <input type="hidden" th:name="${_csrf.getParameterName()}" th:value="${_csrf.getToken()}">
         <div id="fileNames">
             <div id="fileNames[0]">
                 <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{names[0]}"></div>
