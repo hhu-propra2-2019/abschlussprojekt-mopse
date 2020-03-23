@@ -38,7 +38,7 @@ entschieden.
 
 Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist
 umständlich, diesen Docker-Container dauerhaft aktiviert zu haben. Aus diesem Grund haben wir uns entschieden , während
-der Entwicklung und Testing H2 zu verwenden. H2 ist eine Embedded In-Memory Datenbank, die sehr schnell startet und
+des Testings H2 zu verwenden. H2 ist eine Embedded In-Memory Datenbank, die sehr schnell startet und
 die wir bereits kennengelernt haben.
 
 Nach einiger Zeit sind wir dann doch auf PostgreSQL umgestiegen, weil es von den Server-Admins der HHU bevorzugt wird
