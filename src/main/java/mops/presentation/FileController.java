@@ -7,7 +7,6 @@ import mops.businesslogic.file.FileService;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
-import mops.persistence.file.FileInfo;
 import mops.presentation.error.ExceptionPresentationError;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.core.io.Resource;
@@ -48,25 +47,31 @@ public class FileController {
      * @return the route to template 'file'
      */
     @GetMapping("/{fileId}")
-    public String getFile(RedirectAttributes redirectAttributes,
-                          KeycloakAuthenticationToken token,
-                          Model model,
-                          @PathVariable("fileId") long fileId) {
+    public ResponseEntity<Resource> getFile(RedirectAttributes redirectAttributes,
+                                            KeycloakAuthenticationToken token,
+                                            Model model,
+                                            @PathVariable("fileId") long fileId) {
         Account account = Account.of(token);
-        log.info("File with id '{}' requested by user '{}'.", fileId, account.getName());
+        log.info("File with id '{}' requested for download by user '{}'.", fileId, account.getName());
 
-        FileInfo info;
+        FileContainer result;
         try {
-            info = fileService.getFileInfo(account, fileId);
+            result = fileService.getFile(account, fileId);
         } catch (MopsException e) {
             log.error("Failed to retrieve file with id '{}':", fileId, e);
-            redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
-            return "redirect:/material1/error";
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "The requested file could not be found.", e);
         }
 
-        model.addAttribute("file", info);
-        model.addAttribute("account", account);
-        return "file";
+        MediaType contentType = MediaType.parseMediaType(result.getType());
+        long contentLength = result.getSize();
+
+        return ResponseEntity.ok()
+                .contentType(contentType)
+                .contentLength(contentLength)
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "inline; filename=\"" + result.getName() + "\"")
+                .body(result.getContent());
     }
 
     /**
