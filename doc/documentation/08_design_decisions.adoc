@@ -34,8 +34,8 @@ Die `DirectoryPermissions` haben eine eindeutige `ID`.
 Das Datenbankobjekt `DirectoryPermissionsEntry` stellt Berechtigungsinformationen dar.
 `DirectoryPermissionsEntry` hat eine eindeutige `ID`.
 Außerdem hat `DirectoryPermissionsEntry` ein Attribut `role`. `role` stellt die Rolle (Student, Organisator) in der
-Gruppe dar. Für die Rolle gibt es Informationen, ob der Benutzer lesen, schreiben oder löschen darf. Aus diesem Grund haben
-wir 3 `boolean` Attribute für Lesen, Schreiben und Löschen erstellt (`canRead`, `canWrite`, `canDelete`).
+Gruppe dar. Für die Rolle gibt es Informationen, ob der Benutzer lesen, schreiben oder löschen darf. Aus diesem Grund
+haben wir 3 `boolean` Attribute für Lesen, Schreiben und Löschen erstellt (`canRead`, `canWrite`, `canDelete`).
 
 ==== FileInfo
 
@@ -100,7 +100,7 @@ Packages kommunizieren kann.
 
 Der dritte Test überprüft, ob die Schicht-Architektur eingehalten wird.
 Die zusätzliche Annotation ermöglicht es, die `AggregateRoot` zu markieren, um die Überprüfung zu erleichtern. Die
-Lesbarkeit und Verständlichkeit der Klassen und Packages wird dadurch auch verbessert. Hier haben wir am 09.03. drei
+Lesbarkeit und Verständlichkeit der Klassen und Packages werden dadurch auch verbessert. Hier haben wir drei
 neue Tests hinzugefügt.
 
 Der vierte Test `allControllersShouldResideInMopsPresentation` sorgt dafür, dass alle Controller im
@@ -115,7 +115,8 @@ ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles er
 
 === FileStorage
 
-_Als Schnittstelle für die Dateispeicherung haben wir MinIO gewählt, weil es vorgegeben wurde. Die erforderliche Konfiguration erfolgt über Umgebungsvariablen um einen möglichst flexiblen Einsatz zu ermöglichen._
+_Als Schnittstelle für die Dateispeicherung haben wir MinIO gewählt, weil es vorgegeben wurde. Die erforderliche
+Konfiguration erfolgt über Umgebungsvariablen um einen möglichst flexiblen Einsatz zu ermöglichen._
 
 _Die erforderlichen Umgebungsvariablen lauten:_
 
@@ -127,7 +128,8 @@ _Die erforderlichen Umgebungsvariablen lauten:_
 
 _Im Entwicklungsprozess sind diese durch Default-Werte (welche in der `application.properties`) vorgegeben._
 
-_Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach ersetzt werden, wenn eine andere Lösung zur Speicherung von Dateien genutzt wird._
+_Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach ersetzt werden, wenn
+eine andere Lösung zur Speicherung von Dateien genutzt wird._
 
 === _<Entscheidung n>_
 
