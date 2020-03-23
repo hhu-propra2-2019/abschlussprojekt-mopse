@@ -1,6 +1,6 @@
 CREATE TABLE directory_permissions
 (
-    id                 BIGSERIAL PRIMARY KEY,
+    id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
     creation_time      TIMESTAMP NOT NULL,
     last_modified_time TIMESTAMP NOT NULL
 );
@@ -19,7 +19,7 @@ CREATE INDEX i_entry_perm ON directory_permission_entry (permissions_id);
 
 CREATE TABLE directory
 (
-    id                 BIGSERIAL PRIMARY KEY,
+    id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
     name               VARCHAR(255) NOT NULL,
     parent_id          BIGINT,
     group_owner        INTEGER      NOT NULL,
@@ -36,7 +36,7 @@ CREATE INDEX i_dir_perm ON directory (permissions_id);
 
 CREATE TABLE file_info
 (
-    id                 BIGSERIAL PRIMARY KEY,
+    id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
     name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     directory_id       BIGINT       NOT NULL,
     type               VARCHAR(255) NOT NULL CHECK (type NOT LIKE ''),

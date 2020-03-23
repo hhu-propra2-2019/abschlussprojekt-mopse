@@ -63,9 +63,7 @@ public class DummyDataSeeding {
                     .entry(adminRole, true, true, true)
                     .entry("editor", true, true, false)
                     .entry("viewer", true, false, false)
-                    .entry("editor", true, true, true)
                     .entry("korrektor", true, true, true)
-                    .entry("viewer", true, true, true)
                     .entry("studentin", true, true, true)
                     .build();
 
