@@ -195,7 +195,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.lang.String</code></td>
+<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;org.springframework.core.io.Resource&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getFile</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
        org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
        org.springframework.ui.Model&nbsp;model,
@@ -254,11 +254,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getFile</h4>
 <pre class="methodSignature">@GetMapping("/{fileId}")
-public&nbsp;java.lang.String&nbsp;getFile&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
-                                org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                                org.springframework.ui.Model&nbsp;model,
-                                @PathVariable("fileId")
-                                long&nbsp;fileId)</pre>
+public&nbsp;org.springframework.http.ResponseEntity&lt;org.springframework.core.io.Resource&gt;&nbsp;getFile&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+                                                                                             org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+                                                                                             org.springframework.ui.Model&nbsp;model,
+                                                                                             @PathVariable("fileId")
+                                                                                             long&nbsp;fileId)</pre>
 <div class="block">Retrieves a file.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
