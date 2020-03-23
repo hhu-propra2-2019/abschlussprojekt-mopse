@@ -1,8 +1,7 @@
 package mops.presentation;
 
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.Account;
-import mops.businesslogic.utils.AccountUtil;
+import mops.businesslogic.security.Account;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +27,7 @@ public class Material1Controller {
      */
     @GetMapping
     public String index(KeycloakAuthenticationToken token, Model model) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("Index page requested by user '{}'.", account.getName());
 
         model.addAttribute("account", account);
@@ -44,7 +43,7 @@ public class Material1Controller {
      */
     @GetMapping("error")
     public String error(KeycloakAuthenticationToken token, Model model) {
-        Account account = AccountUtil.getAccountFromToken(token);
+        Account account = Account.of(token);
         log.info("Error page requested by user '{}'.", account.getName());
 
         model.addAttribute("account", account);
