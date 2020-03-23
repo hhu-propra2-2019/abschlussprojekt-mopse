@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FileQueryFormTest {
+class FileQueryFormTest {
 
     @Test
-    public void emptyStringTest() {
+    void emptyStringTest() {
         FileQueryForm fileQueryForm = new FileQueryForm();
         fileQueryForm.setNames(new String[] { "" });
         fileQueryForm.setOwners(new String[] {"ich"});
