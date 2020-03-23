@@ -84,7 +84,7 @@ class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         mockMvc().perform(get("/material1/file/{fileId}", 1)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("file"))
+                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
                                 parameterWithName("fileId").description("The file id.")
