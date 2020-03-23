@@ -28,7 +28,7 @@ Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskuss
 |Die Berechtigungen (Lesen, Hochladen, Löschen) die jede Rolle hat; einem Ordner zugeordnet.
 
 |Test (Modultest)
-|Modultests überprüfen dauerhaft die Funktion alle Komponenten (Module) des Systems. Dadurch wird sichergestellt, dass
+|Modultests überprüfen dauerhaft die Funktion aller Komponenten (Module) des Systems. Dadurch wird sichergestellt, dass
 keine Fehler während der Entwicklung übersehen werden.
 
 |MinIO
