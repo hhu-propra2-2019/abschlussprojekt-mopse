@@ -34,9 +34,10 @@ Zur Auswahl standen hier MySQL, MariaDB und PostgreSQL, da wir mit diesen Datenb
 
 Der Großteil unserer Erfahrungen beruhte bisher auf MySQL, also haben wir uns zunächst für die neuere Variante MariaDB entschieden.
 
-Leider dauerte das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist umständlich immer diesen Docker-Container laufen zu lassen.
-Also haben wir uns dafür entschieden, in der Entwicklung und zum Testen H2 zu benutzen.
-Das ist eine Embedded In-Memory Datenbank, die sehr schnell startet und die wir ebenfalls schon kennen gelernt haben.
+Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist
+umständlich, diesen Docker-Container dauerhaft aktiviert zu haben. Aus diesem Grund haben wir uns entschieden , während
+der Entwicklung und Testing H2 zu verwenden. H2 ist eine Embedded In-Memory Datenbank, die sehr schnell startet und
+die wir bereits kennengelernt haben.
 
 Nach einiger Zeit sind wir dann doch auf PostgreSQL umgestiegen, weil es von den Server-Admins der HHU bevorzugt wird und für ein Testdeployment auf Heroku notwendig ist.
 Das war ein schmerzloser Prozess, da wir bis dahin noch nichts mit der echten Datenbank gemacht haben.
@@ -60,9 +61,4 @@ Wir haben `SLF4J` nicht konfiguriert, also wird standardmäßig `Logback` benutz
 
 Wir haben uns dafür entschieden, weil unsere Internetrecherche die meisten Treffer dazu ergeben hat und unser Tutor uns unabhängig davon zu geraten hat.
 Die Einfachheit des Tools ist ebenfalls ein Entscheidungsgrund gewesen.
-
-Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist
-umständlich, diesen Docker-Container dauerhaft aktiviert zu haben. Aus diesem Grund haben wir uns entschieden , während
-der Entwicklung und Testing H2 zu verwenden. H2 ist eine Embedded In-Memory Datenbank, die sehr schnell startet und
-die wir bereits kennengelernt haben.
 ****
