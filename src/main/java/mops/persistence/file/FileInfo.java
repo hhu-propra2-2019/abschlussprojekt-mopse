@@ -7,6 +7,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.util.unit.DataSize;
+import org.springframework.util.unit.DataUnit;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -71,6 +73,15 @@ public class FileInfo {
     private Timestamp lastModifiedTime;
 
     /**
+     * Gives you FileInfoBuilder.
+     *
+     * @return FileInfoBuilder
+     */
+    public static FileInfoBuilder builder() {
+        return new FileInfoBuilder();
+    }
+
+    /**
      * Checks if the file is tagged with a specific tag.
      *
      * @param otherTag tag to check for
@@ -100,11 +111,11 @@ public class FileInfo {
     }
 
     /**
-     * Gives you FileInfoBuilder.
+     * Converts Byte to a Megabyte String.
      *
-     * @return FileInfoBuilder
+     * @return Filesize in MB.
      */
-    public static FileInfoBuilder builder() {
-        return new FileInfoBuilder();
+    public String getMegabyteSizeString() {
+        return DataSize.of(this.getSize(), DataUnit.MEGABYTES).toString();
     }
 }
