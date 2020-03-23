@@ -2,18 +2,15 @@ package mops.businesslogic.security;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.exception.DatabaseException;
 import mops.businesslogic.exception.DeleteAccessPermissionException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
+import mops.businesslogic.group.GroupService;
+import mops.businesslogic.permission.PermissionService;
 import mops.exception.MopsException;
-import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * Checks roles permissions.
@@ -21,16 +18,54 @@ import java.util.function.Supplier;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class RoleServiceImpl implements RoleService {
+public class SecurityServiceImpl implements SecurityService {
 
     /**
      * API for GruppenFindung which handles permissions.
      */
-    private final PermissionService permissionService;
+    private final GroupService groupService;
     /**
-     * This connects to database to handle directory permissions.
+     * Handles directory permissions.
      */
-    private final DirectoryPermissionsRepository directoryPermissionsRepo;
+    private final PermissionService permissionService;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    //this is normal behaviour
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.CyclomaticComplexity", "PMD.PrematureDeclaration" })
+    public UserPermission getPermissionsOfUser(Account account, Directory directory) throws MopsException {
+        boolean write = true;
+        boolean read = true;
+        boolean delete = true;
+
+        try {
+            checkWritePermission(account, directory);
+        } catch (WriteAccessPermissionException e) {
+            write = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Schreiben möglich", e);
+        }
+
+        try {
+            checkReadPermission(account, directory);
+        } catch (ReadAccessPermissionException e) {
+            read = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Lesen möglich", e);
+        }
+
+        try {
+            checkDeletePermission(account, directory);
+        } catch (DeleteAccessPermissionException e) {
+            delete = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Berechtigungsprüfung auf Löschen möglich", e);
+        }
+
+        return new UserPermission(read, write, delete);
+    }
 
     /**
      * {@inheritDoc}
@@ -38,12 +73,12 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public void checkWritePermission(Account account, Directory directory) throws MopsException {
-        DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
+        DirectoryPermissions permissions = permissionService.getPermissions(directory);
 
-        String userRole = permissionService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
+        String userRole = groupService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
 
         //this is not a violation of demeter's law
-        boolean allowedToWrite = directoryPermissions.isAllowedToWrite(userRole);
+        boolean allowedToWrite = permissions.isAllowedToWrite(userRole);
 
         if (!allowedToWrite) {
             log.error("The user '{}' tried to write in '{}' where they have no write permissions.",
@@ -62,11 +97,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public void checkReadPermission(Account account, Directory directory) throws MopsException {
-        DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
+        DirectoryPermissions permissions = permissionService.getPermissions(directory);
 
-        String userRole = permissionService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
+        String userRole = groupService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
         //this is not a violation of demeter's law
-        boolean allowedToRead = directoryPermissions.isAllowedToRead(userRole);
+        boolean allowedToRead = permissions.isAllowedToRead(userRole);
 
         if (!allowedToRead) {
             log.error("The user '{}' tried to read in '{}' where they have no read permissions.",
@@ -86,12 +121,12 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public void checkDeletePermission(Account account, Directory directory) throws MopsException {
-        DirectoryPermissions directoryPermissions = getDirectoryPermissions(directory);
+        DirectoryPermissions permissions = permissionService.getPermissions(directory);
 
-        String userRole = permissionService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
+        String userRole = groupService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
 
         //this is not a violation of demeter's law
-        boolean allowedToDelete = directoryPermissions.isAllowedToDelete(userRole);
+        boolean allowedToDelete = permissions.isAllowedToDelete(userRole);
 
         if (!allowedToDelete) {
             log.error("The user '{}' tried to delete in '{}' where they have no delete permissions.",
@@ -109,7 +144,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {
-        String role = permissionService.fetchRoleForUserInGroup(account, groupId);
+        String role = groupService.fetchRoleForUserInGroup(account, groupId);
         if (!allowedRole.equals(role)) {
             log.error("The user '{}' does not have the required role '{}' in group with id {}.",
                     account.getName(),
@@ -121,26 +156,5 @@ public class RoleServiceImpl implements RoleService {
                     groupId);
             throw new WriteAccessPermissionException(errorMessage);
         }
-    }
-
-    @SuppressWarnings("PMD.LawOfDemeter")
-    private DirectoryPermissions getDirectoryPermissions(Directory directory) throws MopsException {
-        Optional<DirectoryPermissions> optDirPerm = directoryPermissionsRepo.findById(directory.getPermissionsId());
-        //this is not a violation of demeter's law
-        return optDirPerm.orElseThrow(getException(directory.getId()));
-    }
-
-    /**
-     * Gets database exception.
-     *
-     * @param dirId directory id
-     * @return a supplier to throw a exception
-     */
-    private Supplier<MopsException> getException(long dirId) {
-        return () -> {
-            log.error("There is no directory with the id '{}' in the database.", dirId);
-            String errorMessage = String.format("There is no directory with the id: %d in the database.", dirId);
-            return new DatabaseException(errorMessage);
-        };
     }
 }
