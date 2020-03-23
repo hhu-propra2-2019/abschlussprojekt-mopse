@@ -115,7 +115,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">mops.businesslogic.security</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">mops.businesslogic.permission</a></div>
 <h2 title="Interface PermissionService" class="title">Interface PermissionService</h2>
 </div>
 <div class="contentContainer">
@@ -124,12 +124,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><code><a href="PermissionServiceDevImpl.html" title="class in mops.businesslogic.security">PermissionServiceDevImpl</a></code>, <code><a href="PermissionServiceProdImpl.html" title="class in mops.businesslogic.security">PermissionServiceProdImpl</a></code></dd>
+<dd><code><a href="PermissionServiceImpl.html" title="class in mops.businesslogic.permission">PermissionServiceImpl</a></code></dd>
 </dl>
 <hr>
 <pre>@Service
 public interface <span class="typeNameLabel">PermissionService</span></pre>
-<div class="block">API for GruppenFindung which handles permissions.</div>
+<div class="block">Handles directory permissions.</div>
 </li>
 </ul>
 </div>
@@ -151,18 +151,17 @@ public interface <span class="typeNameLabel">PermissionService</span></pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchRoleForUserInGroup(mops.businesslogic.security.Account,long)">fetchRoleForUserInGroup</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
-                       long&nbsp;groupId)</code></th>
+<td class="colFirst"><code><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPermissions(mops.persistence.directory.Directory)">getPermissions</a></span>&#8203;(<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)</code></th>
 <td class="colLast">
-<div class="block">Gets the role for one user in a group.</div>
+<div class="block">Get permissions of directory.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>java.util.Set&lt;java.lang.String&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchRolesInGroup(long)">fetchRolesInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colFirst"><code><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#savePermissions(mops.persistence.permission.DirectoryPermissions)">savePermissions</a></span>&#8203;(<a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)</code></th>
 <td class="colLast">
-<div class="block">Gets all roles for a group.</div>
+<div class="block">Save permissions of directory.</div>
 </td>
 </tr>
 </table>
@@ -182,43 +181,41 @@ public interface <span class="typeNameLabel">PermissionService</span></pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="fetchRoleForUserInGroup(mops.businesslogic.security.Account,long)">
+<a id="getPermissions(mops.persistence.directory.Directory)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>fetchRoleForUserInGroup</h4>
-<pre class="methodSignature">java.lang.String&nbsp;fetchRoleForUserInGroup&#8203;(<a href="Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
-                                         long&nbsp;groupId)
-                                  throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
-<div class="block">Gets the role for one user in a group.</div>
+<h4>getPermissions</h4>
+<pre class="methodSignature"><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;getPermissions&#8203;(<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)
+                             throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Get permissions of directory.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>account</code> - user credentials</dd>
-<dd><code>groupId</code> - the id of the group</dd>
+<dd><code>directory</code> - directory</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the role of the user in that group</dd>
+<dd>directory permissions</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
 </dl>
 </li>
 </ul>
-<a id="fetchRolesInGroup(long)">
+<a id="savePermissions(mops.persistence.permission.DirectoryPermissions)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>fetchRolesInGroup</h4>
-<pre class="methodSignature">java.util.Set&lt;java.lang.String&gt;&nbsp;fetchRolesInGroup&#8203;(long&nbsp;groupId)
-                                           throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
-<div class="block">Gets all roles for a group.</div>
+<h4>savePermissions</h4>
+<pre class="methodSignature"><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;savePermissions&#8203;(<a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)
+                              throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Save permissions of directory.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>groupId</code> - the id of the group</dd>
+<dd><code>permissions</code> - directory permissions</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>gets all roles of that group</dd>
+<dd>saved directory permissions</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
 </dl>
 </li>
 </ul>

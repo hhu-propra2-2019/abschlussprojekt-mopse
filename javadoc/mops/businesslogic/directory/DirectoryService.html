@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -160,6 +160,13 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteDirectory(mops.persistence.directory.Directory)">deleteDirectory</a></span>&#8203;(<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)</code></th>
+<td class="colLast">
+<div class="block">Internal use only: possible security flaw!.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteFolder(mops.businesslogic.security.Account,long)">deleteFolder</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
             long&nbsp;dirId)</code></th>
@@ -167,33 +174,25 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 <div class="block">Deletes a folder.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirCountInGroup(long)">getDirCountInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Get the total number of directories in a group.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirectory(long)">getDirectory</a></span>&#8203;(long&nbsp;dirId)</code></th>
 <td class="colLast">
 <div class="block">Internal use only: possible security flaw!.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="../group/GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrCreateRootFolder(long)">getOrCreateRootFolder</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Creates the group root directory.</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code><a href="../security/UserPermission.html" title="class in mops.businesslogic.security">UserPermission</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPermissionsOfUser(mops.businesslogic.security.Account,long)">getPermissionsOfUser</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
-                    long&nbsp;dirId)</code></th>
-<td class="colLast">
-<div class="block">Gets all 3 permissions of a user.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
@@ -212,6 +211,13 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 </td>
 </tr>
 <tr id="i8" class="altColor">
+<td class="colFirst"><code><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveDirectory(mops.persistence.directory.Directory)">saveDirectory</a></span>&#8203;(<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)</code></th>
+<td class="colLast">
+<div class="block">Internal use only: possible security flaw!.</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(mops.businesslogic.security.Account,long,mops.businesslogic.file.query.FileQuery)">searchFolder</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
             long&nbsp;dirId,
@@ -220,13 +226,14 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 <div class="block">Searches a folder for files.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updatePermission(mops.businesslogic.security.Account,long,mops.persistence.permission.DirectoryPermissions)">updatePermission</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
                 long&nbsp;dirId,
                 <a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)</code></th>
 <td class="colLast">
-<div class="block">Replaces the permissions for a directory with new ones.</div>
+<div class="block">Replaces the permissions for a directory and all its parents and children (which use the same permissions object)
+ with the given ones.</div>
 </td>
 </tr>
 </table>
@@ -246,27 +253,6 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getPermissionsOfUser(mops.businesslogic.security.Account,long)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getPermissionsOfUser</h4>
-<pre class="methodSignature"><a href="../security/UserPermission.html" title="class in mops.businesslogic.security">UserPermission</a>&nbsp;getPermissionsOfUser&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
-                                    long&nbsp;dirId)
-                             throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
-<div class="block">Gets all 3 permissions of a user.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>account</code> - user credentials</dd>
-<dd><code>dirId</code> - the id of the folder</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>a permission flag object</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
-</dl>
-</li>
-</ul>
 <a id="getSubFolders(mops.businesslogic.security.Account,long)">
 <!--   -->
 </a>
@@ -294,8 +280,8 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getOrCreateRootFolder</h4>
-<pre class="methodSignature"><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;getOrCreateRootFolder&#8203;(long&nbsp;groupId)
-                         throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<pre class="methodSignature"><a href="../group/GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a>&nbsp;getOrCreateRootFolder&#8203;(long&nbsp;groupId)
+                                   throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
 <div class="block">Creates the group root directory.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -384,11 +370,12 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
                                       long&nbsp;dirId,
                                       <a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)
                                throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
-<div class="block">Replaces the permissions for a directory with new ones.</div>
+<div class="block">Replaces the permissions for a directory and all its parents and children (which use the same permissions object)
+ with the given ones.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>account</code> - user credentials</dd>
-<dd><code>dirId</code> - directory id of whom's permission should be changed</dd>
+<dd><code>dirId</code> - directory id for which the permission should be changed</dd>
 <dd><code>permissions</code> - new permissions</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the updated directory permissions</dd>
@@ -412,6 +399,44 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 <dd><code>dirId</code> - the id of the parent folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>directory object of the requested folder</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
+</dl>
+</li>
+</ul>
+<a id="saveDirectory(mops.persistence.directory.Directory)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>saveDirectory</h4>
+<pre class="methodSignature"><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;saveDirectory&#8203;(<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)
+                 throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Internal use only: possible security flaw!.
+ Check permission before saving!</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>directory</code> - directory to be saved</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>directory object of the requested folder</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
+</dl>
+</li>
+</ul>
+<a id="deleteDirectory(mops.persistence.directory.Directory)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deleteDirectory</h4>
+<pre class="methodSignature">void&nbsp;deleteDirectory&#8203;(<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)
+              throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Internal use only: possible security flaw!.
+ Check permission before deleting!</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>directory</code> - directory to be deleted</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
 </dl>

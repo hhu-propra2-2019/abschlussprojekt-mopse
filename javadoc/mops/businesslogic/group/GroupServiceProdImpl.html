@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -162,8 +162,7 @@ implements <a href="GroupService.html" title="interface in mops.businesslogic.gr
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,org.springframework.web.client.RestTemplate)">GroupServiceProdImpl</a></span>&#8203;(<a href="../directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService,
-                    org.springframework.web.client.RestTemplate&nbsp;restTemplate)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(org.springframework.web.client.RestTemplate)">GroupServiceProdImpl</a></span>&#8203;(org.springframework.web.client.RestTemplate&nbsp;restTemplate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -185,24 +184,32 @@ implements <a href="GroupService.html" title="interface in mops.businesslogic.gr
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchRoleForUserInGroup(mops.businesslogic.security.Account,long)">fetchRoleForUserInGroup</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
+                       long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Gets the role for one user in a group.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>java.util.Set&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchRolesInGroup(long)">fetchRolesInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Gets all roles for a group.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="Group.html" title="class in mops.businesslogic.group">Group</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllGroups()">getAllGroups</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Fetches all groups.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="Group.html" title="class in mops.businesslogic.group">Group</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllGroupsOfUser(mops.businesslogic.security.Account)">getAllGroupsOfUser</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account)</code></th>
 <td class="colLast">
 <div class="block">Fetches all visible groups of one user.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupUrl(long)">getGroupUrl</a></span>&#8203;(long&nbsp;groupId)</code></th>
-<td class="colLast">
-<div class="block">Gets the group url.</div>
 </td>
 </tr>
 </table>
@@ -229,14 +236,13 @@ implements <a href="GroupService.html" title="interface in mops.businesslogic.gr
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(mops.businesslogic.directory.DirectoryService,org.springframework.web.client.RestTemplate)">
+<a id="&lt;init&gt;(org.springframework.web.client.RestTemplate)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>GroupServiceProdImpl</h4>
-<pre>public&nbsp;GroupServiceProdImpl&#8203;(<a href="../directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService,
-                            org.springframework.web.client.RestTemplate&nbsp;restTemplate)</pre>
+<pre>public&nbsp;GroupServiceProdImpl&#8203;(org.springframework.web.client.RestTemplate&nbsp;restTemplate)</pre>
 </li>
 </ul>
 </li>
@@ -249,6 +255,50 @@ implements <a href="GroupService.html" title="interface in mops.businesslogic.gr
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="fetchRoleForUserInGroup(mops.businesslogic.security.Account,long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchRoleForUserInGroup</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;fetchRoleForUserInGroup&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
+                                                long&nbsp;groupId)
+                                         throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Gets the role for one user in a group.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="GroupService.html#fetchRoleForUserInGroup(mops.businesslogic.security.Account,long)">fetchRoleForUserInGroup</a></code>&nbsp;in interface&nbsp;<code><a href="GroupService.html" title="interface in mops.businesslogic.group">GroupService</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>account</code> - user credentials</dd>
+<dd><code>groupId</code> - the id of the group</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the role of the user in that group</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="fetchRolesInGroup(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchRolesInGroup</h4>
+<pre class="methodSignature">public&nbsp;java.util.Set&lt;java.lang.String&gt;&nbsp;fetchRolesInGroup&#8203;(long&nbsp;groupId)
+                                                  throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Gets all roles for a group.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="GroupService.html#fetchRolesInGroup(long)">fetchRolesInGroup</a></code>&nbsp;in interface&nbsp;<code><a href="GroupService.html" title="interface in mops.businesslogic.group">GroupService</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - the id of the group</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>gets all roles of that group</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
 <a id="getAllGroups()">
 <!--   -->
 </a>
@@ -271,7 +321,7 @@ implements <a href="GroupService.html" title="interface in mops.businesslogic.gr
 <a id="getAllGroupsOfUser(mops.businesslogic.security.Account)">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>getAllGroupsOfUser</h4>
 <pre class="methodSignature">public&nbsp;java.util.List&lt;<a href="Group.html" title="class in mops.businesslogic.group">Group</a>&gt;&nbsp;getAllGroupsOfUser&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account)
@@ -284,27 +334,6 @@ implements <a href="GroupService.html" title="interface in mops.businesslogic.gr
 <dd><code>account</code> - the account the user</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a list of groups</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
-</dl>
-</li>
-</ul>
-<a id="getGroupUrl(long)">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>getGroupUrl</h4>
-<pre class="methodSignature">public&nbsp;<a href="GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a>&nbsp;getGroupUrl&#8203;(long&nbsp;groupId)
-                                throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
-<div class="block">Gets the group url.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="GroupService.html#getGroupUrl(long)">getGroupUrl</a></code>&nbsp;in interface&nbsp;<code><a href="GroupService.html" title="interface in mops.businesslogic.group">GroupService</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>groupId</code> - the id of the group</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>a wrapper for group urls</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>

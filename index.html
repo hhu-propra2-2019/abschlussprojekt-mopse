@@ -860,26 +860,8 @@ Nutzers in einer bestimmten Gruppe.</em></p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>{"group_id":1,"root_dir_id":2,"root_dir_url":"/material1/dir/2"}</code></pre>
+<pre class="highlight nowrap"><code>{"group_id":1,"root_dir_url":"/material1/dir/2","root_dir_id":2}</code></pre>
 </div>
-</div>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="dlist">
-<dl>
-<dt class="hdlist1">PermissionService</dt>
-<dd>
-<p>Wir haben einen <code>PermissionService</code> implementiert, der unsere Anfragen an die Gruppe <code>GruppenFindung</code> stellt.
-Dieser stellt zwei Anfragen:
-Eine für die Rolle eines Nutzers innerhalb einer Gruppe und einmal alle Rollen in einer Gruppe.</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>Da während der Entwicklungszeit der externe Service uns nicht zur Verfügung steht, haben wir einen Stub entwickelt, welcher fixe Rollen zurückgibt.
-Wir haben uns dazu an der RESTApi Wiki von GruppenFindung orientiert.</p>
 </div>
 </div>
 </div>
@@ -895,17 +877,41 @@ Dazu haben wir folgende REST API Anfragen implementiert:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>getAllGroups</code></p>
+<p><code>getAllGroups</code>: gibt alle existierenden Gruppen zurück</p>
 </li>
 <li>
-<p><code>getAllGroupsOfUser</code></p>
+<p><code>getAllGroupsOfUser</code>: gibt alle Gruppen zurück, in der ein gegebener User Mitglied ist</p>
+</li>
+<li>
+<p><code>fetchRolesInGroup</code>: gibt alle Rollen in einer gegebenen Gruppe zurück</p>
+</li>
+<li>
+<p><code>fetchRoleForUserInGroup</code>: gibt die Rolle eines bestimmten Users in einer gegebenen Gruppe zurück</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Diese unterscheiden sich, dass die erste alle Gruppen eines Nutzers anfragt und die zweite alle Gruppen, die existieren erfragt.
-Die erste brauchen wir für unsere Startseite des Nutzers und die zweite für unsere Garbage Collection.
-Damit können wir alle nicht mehr vorhanden Gruppen löschen.</p>
+<p>Diese verschiedenen Anfragen sind notwendig für die verschiedenen Funktionalitäten, die unsere Anwendung bereitstellt:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Anzeige aller Gruppen</p>
+</li>
+<li>
+<p>Garbage Collection (Überprüfen ob eine Gruppe noch existiert)</p>
+</li>
+<li>
+<p>Überprüfung von Berechtigungen eines Users</p>
+</li>
+<li>
+<p>Erstellung einer Platzhalterberechtigung für alle Rollen</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Da uns während der Entwicklungszeit der externe Service nicht zur Verfügung stand, haben wir einen Stub entwickelt, welcher fixe Rollen zurückgibt.
+Wir haben uns dazu an dem REST-API Wiki der <code>Gruppenfindung</code> orientiert.</p>
 </div>
 </div>
 </div>
@@ -1291,7 +1297,7 @@ Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DirectoryService</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Die Informationen über die Dateien holt er sich vom <code>FileInfoService</code>. Um die Berechtigungen eines einzelnen Benutzers zu überprüfen, wird eine Anfrage an den <code>PermissionService</code> gestellt, während die Berechtigungen des Ordners vom <code>DirectoryPermissionRepository</code> zur Verfügung gestellt werden. Um Operatioen, die andere Ordner involvieren, ausführen zu können, wird beim <code>DirectoryRepository</code> angefragt.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Die Informationen über die Dateien holt er sich vom <code>FileInfoService</code>. Um die Berechtigungen eines einzelnen Benutzers zu überprüfen, wird eine Anfrage an den <code>GroupService</code> &amp; <code>SecurityService</code> gestellt, während die Berechtigungen des Ordners vom <code>PermissionService</code> zur Verfügung gestellt werden. Um Operatioen, die andere Ordner involvieren, ausführen zu können, wird beim <code>DirectoryRepository</code> angefragt.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FileInfoService</p></td>
@@ -1301,23 +1307,22 @@ Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FileService</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Verwaltet die Funktionen einer Datei. Dabei wird die Datei selbst mit ihren Metadaten verknüpft.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Mittels einer Anfrage an den <code>FileInfoService</code> werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das <code>FileRepository</code> gestellt werden, um die Datei selbst zu erhalten.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Mittels einer Anfrage an den <code>FileInfoService</code> werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das <code>FileRepository</code> gestellt werden, um die Datei selbst zu erhalten. Berechtigungen werden mittels des <code>DirectoryService</code> und des <code>SecurityService</code> überprüft.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GroupService</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Verwaltet alle Inhalte einer einzelnen Gruppe. Ordner sowie Dateien.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Um die Informationen über die Unterordner einer Gruppe zu erhalten, wird eine Anfrage an den <code>DirectoryService</code> gestellt.
-Ebenso kommunziert er über eine API mit <code>GruppenFindung</code>.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Erlaubt es Anfragen an die <code>Gruppenfindung</code> zu stellen.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Kommunziert nur über eine REST-API mit der <code>Gruppenfindung</code>.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PermissionService</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt die Berechtigungen eines einzelnen Benutzers zur Verfügung.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage an das Modul <code>Gruppenbildung</code>, um die Berechtigungen eines Benutzers in einer Gruppe zu erhalten.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt die Berechtigungen eines Ordners zur Verfügung.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Befragt die Datenbank über das <code>DirectoryPermissionsRepository</code> nach Ordnerberechtigungen.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RoleService</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Checkt die Rolenberechtigung eines Nutzers.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es stellt Berechtigungsanfragen an den <code>PermissionService</code>.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SecurityService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Überprüft die Rollenberechtigungen eines Nutzers.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Er vergleicht die Berechtigungen, die aus dem <code>PermissionService</code> kommen mit den Rollen des Users, die aus dem <code>GroupService</code> kommen.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -1844,14 +1849,14 @@ Zusätzlich hat ein Ordner eine eindeutige <code>ID</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_permissions">8.1.2. Permissions</h4>
+<h4 id="_directorypermissions">8.1.2. DirectoryPermissions</h4>
 <div class="paragraph">
 <p>Das Datenbankobjekt <code>DirectoryPermissions</code> stellt die Berechtigungen für die erstellten Ordner dar.
 Die <code>DirectoryPermissions</code> haben eine eindeutige <code>ID</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_permissionentry">8.1.3. PermissionEntry</h4>
+<h4 id="_directorypermissionsentry">8.1.3. DirectoryPermissionsEntry</h4>
 <div class="paragraph">
 <p>Das Datenbankobjekt <code>DirectoryPermissionsEntry</code> stellt Berechtigungsinformationen dar.
 <code>DirectoryPermissionsEntry</code> hat eine eindeutige <code>ID</code>.
@@ -1872,7 +1877,7 @@ Zusätzlich hat jede <code>FileInfo</code> eine eindeutige <code>ID</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_file_tag">8.1.5. File_tag</h4>
+<h4 id="_filetag">8.1.5. FileTag</h4>
 <div class="paragraph">
 <p>Hier speichern wir Tags für die Files (Dateien). Tags sind Kategorien oder Etiketten, die zur Suche und Filterung von
 Dateien nützlich sind. Das Attribut <code>name</code> speichert den Namen des Tags.
@@ -1969,13 +1974,13 @@ ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles er
 <div class="ulist">
 <ul>
 <li>
-<p>MINIO_HOST</p>
+<p>MATERIAL1_MINIO_HOST</p>
 </li>
 <li>
-<p>MINIO_PORT</p>
+<p>MATERIAL1_MINIO_PORT</p>
 </li>
 <li>
-<p>MINIO_BUCKET_NAME</p>
+<p>MATERIAL1_MINIO_BUCKET_NAME</p>
 </li>
 <li>
 <p>MINIO_ACCESS_KEY</p>
@@ -1986,7 +1991,7 @@ ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles er
 </ul>
 </div>
 <div class="paragraph">
-<p><em>Im Entwicklungsprozess sind diese durch Default-Werte (welche im Dev Docker Container gesetzt werden) vorgegeben.</em></p>
+<p><em>Im Entwicklungsprozess sind diese durch Default-Werte (welche in der <code>application.properties</code>) vorgegeben.</em></p>
 </div>
 <div class="paragraph">
 <p><em>Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach ersetzt werden, wenn eine andere Lösung zur Speicherung von Dateien genutzt wird.</em></p>
@@ -2107,7 +2112,7 @@ Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskuss
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-21 18:40:31 UTC
+Last updated 2020-03-23 08:23:51 UTC
 </div>
 </div>
 </body>
