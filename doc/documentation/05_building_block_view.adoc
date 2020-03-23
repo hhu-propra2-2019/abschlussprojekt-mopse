@@ -141,9 +141,9 @@ Business Layer::
 | _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und
 Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner._
 | _Die Informationen über die Dateien werden vom `FileInfoService` abgerufen. Die Berechtigungen des Ordners werden vom
-`PermissionService` zur Verfügung gestellt und können verändert werden. Die vom `GroupService` bereitgestellten Rollen
-werden vom `SecurityService` überprüft, damit ein User nur erlaubte Aktionen ausführen kann. Für das Speichern und
-Abrufen der Ordner wird mit dem `DirectoryRepository` interagiert._
+`PermissionService` zur Verfügung gestellt und können verändert werden.
+Die vom `GroupService` bereitgestellten Rollen werden vom `SecurityService` überprüft, damit ein User nur erlaubte
+Aktionen ausführen kann. Für das Speichern und Abrufen der Ordner wird mit dem `DirectoryRepository` interagiert._
 
 | FileInfoService
 | _Verwaltet alle Metadaten einer Datei in Form des Objektes `FileInfo`._

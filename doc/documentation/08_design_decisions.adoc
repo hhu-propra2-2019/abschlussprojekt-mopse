@@ -100,7 +100,7 @@ Packages kommunizieren kann.
 
 Der dritte Test überprüft, ob die Schicht-Architektur eingehalten wird.
 Die zusätzliche Annotation ermöglicht es, die `AggregateRoot` zu markieren, um die Überprüfung zu erleichtern. Die
-Lesbarkeit und Verständlichkeit der Klassen und Packages wird dadurch auch verbessert. Hier haben wir am 09.03. drei
+Lesbarkeit und Verständlichkeit der Klassen und Packages werden dadurch auch verbessert. Hier haben wir drei
 neue Tests hinzugefügt.
 
 Der vierte Test `allControllersShouldResideInMopsPresentation` sorgt dafür, dass alle Controller im
