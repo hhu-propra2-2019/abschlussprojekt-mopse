@@ -82,7 +82,7 @@ public class FileInfoBuilder {
      * @return this
      */
     public FileInfoBuilder from(@NonNull MultipartFile file) {
-        this.name = file.getName();
+        this.name = file.getOriginalFilename();
         this.type = file.getContentType();
         this.size = file.getSize();
         return this;
