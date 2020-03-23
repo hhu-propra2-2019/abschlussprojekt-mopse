@@ -56,9 +56,6 @@ Dies soll es einfach im Log machen den `Stacktrace` nach zu verfolgen.
 Als Technologie benutzen wir `SLF4J` (Simple Logging Face for Java).
 Dies ist nativ in `Spring-Boot 2.x` und lässt sich mit einer einfachen Annotation (`SLF4J`) jeder Klasse hinzufügen.
 
-Der Großteil unserer Erfahrungen beruhte bisher auf MySQL. Da MariaDB die aktive Open-Source-Weiterentwicklung von MySQL
-ist, haben wir uns zunächst für die Verwendung von MariaDB entschieden.
-
 Wir haben `SLF4J` nicht konfiguriert, also wird standardmäßig `Logback` benutzt.
 
 Wir haben uns dafür entschieden, weil unsere Internetrecherche die meisten Treffer dazu ergeben hat und unser Tutor uns unabhängig davon zu geraten hat.
