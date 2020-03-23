@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Slf4j
 @Controller
-@RequestMapping("material1")
 // demeter violations in logging
+@RequestMapping("/material1")
 @SuppressWarnings("PMD.LawOfDemeter")
 public class Material1Controller {
 
@@ -31,7 +31,7 @@ public class Material1Controller {
         log.info("Index page requested by user '{}'.", account.getName());
 
         model.addAttribute("account", account);
-        return "mops_index";
+        return "redirect:/material1/groups";
     }
 
     /**
