@@ -8,6 +8,7 @@ import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,13 @@ public class DummyDataSeeding {
      * Group id.
      */
     private static final long GROUP_ID = 100L;
+
+    /**
+     * Represents the role of an admin.
+     */
+    @Value("${material1.mops.configuration.admin}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
+    private String adminRole = "admin";
 
     /**
      * Initializes application runner.
@@ -52,7 +60,7 @@ public class DummyDataSeeding {
             Account admin = Account.of("admin", "admin@hhu.de", "admin");
 
             DirectoryPermissions directoryPermissions = DirectoryPermissions.builder()
-                    .entry("admin", true, true, true)
+                    .entry(adminRole, true, true, true)
                     .entry("editor", true, true, false)
                     .entry("viewer", true, false, false)
                     .entry("editor", true, true, true)
@@ -61,7 +69,7 @@ public class DummyDataSeeding {
                     .entry("studentin", true, true, true)
                     .build();
 
-            Directory directoryParent = directoryService.getOrCreateRootFolder(GROUP_ID);
+            Directory directoryParent = directoryService.getOrCreateRootFolder(GROUP_ID).getRootDir();
             directoryService.updatePermission(admin, directoryParent.getId(), directoryPermissions);
 
             Directory directoryChild = directoryService.createFolder(admin, directoryParent.getId(), "Child Folder");

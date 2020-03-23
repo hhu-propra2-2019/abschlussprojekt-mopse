@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -61,8 +60,8 @@ public class DirectoryController {
         log.info("Folder content for folder with id '{}' requested by user '{}'.", dirId, account.getName());
 
         try {
-            List<Directory> directories = new ArrayList<>(directoryService.getSubFolders(account, dirId));
-            List<FileInfo> files = new ArrayList<>(fileService.getFilesOfDirectory(account, dirId));
+            List<Directory> directories = directoryService.getSubFolders(account, dirId);
+            List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
             model.addAttribute("dirs", directories);
             model.addAttribute("files", files);
         } catch (MopsException e) {

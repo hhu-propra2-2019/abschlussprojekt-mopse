@@ -5,8 +5,8 @@ import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackA
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.group.GroupRootDirWrapper;
-import mops.businesslogic.group.GroupService;
 import mops.exception.MopsException;
+import mops.persistence.directory.Directory;
 import mops.presentation.form.FileQueryForm;
 import mops.util.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -32,15 +31,21 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
     @MockBean
     DirectoryService directoryService;
-    @MockBean
-    GroupService groupService;
 
     /**
      * Setup service/repo mocks.
      */
     @BeforeEach
     void setup() throws MopsException {
-        given(groupService.getGroupUrl(eq(1L))).willReturn(new GroupRootDirWrapper(1L, 2L));
+        given(directoryService.getOrCreateRootFolder(1L))
+                .willReturn(new GroupRootDirWrapper(
+                        Directory.builder()
+                                .id(2L)
+                                .name("")
+                                .permissions(0L)
+                                .groupOwner(1L)
+                                .build()
+                ));
     }
 
     /**
