@@ -144,7 +144,7 @@ public class DirectoryController {
      * @param dirId              id of the folder to be deleted
      * @return the id of the parent folder
      */
-    @DeleteMapping("/{dirId}")
+    @PostMapping("/{dirId}")
     public String deleteFolder(RedirectAttributes redirectAttributes,
                                KeycloakAuthenticationToken token,
                                @PathVariable("dirId") long dirId) {
