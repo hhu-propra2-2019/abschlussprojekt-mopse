@@ -93,7 +93,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void createFolder() throws Exception {
         mockMvc().perform(post("/material1/dir/{dir}/create", 1)
-                .requestAttr("folderName", "Vorlesungen")
+                .param("folderName", "Vorlesungen")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/material1/dir/2"))
