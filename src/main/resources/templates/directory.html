@@ -97,7 +97,7 @@
             <td th:text="${file.type}">%Typ%</td>
             <td th:text="${file.size}">%Größe%</td>
             <td>
-                <form action="#" th:action="@{../file/${file.id}}" th:method="delete">
+                <form action="#" th:action="@{'../file/' + ${file.id}}" th:method="post">
                     <input type="hidden" th:name="${_csrf.getParameterName()}" th:value="${_csrf.getToken()}">
                     <input type="submit" name="deleteFile" value="Datei löschen">
                 </form>
