@@ -22,7 +22,7 @@ Es ist aufwendig für Lerngruppen oder Kurse Dateien miteinander zu teilen, wenn
 
 ## Lokales Starten der Anwendung
 
-### Development Profile (mit interner H2 Datenbank und Stub `Gruppenfindung`s-Adapter)
+### Development Profile (mit externer PostgreSQL Datenbank und Stub `Gruppenfindung`s-Adapter)
 
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
@@ -41,6 +41,12 @@ oder alternativ `docker-compose -f docker-compose.dev.yml up minio_dev` in der K
 Dies geht recht schnell. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
 Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `minio_dev`-Service beendet
 oder alternativ in der Konsole `docker-compose -f docker-compose.dev.yml down --volumes` ausführen. 
+`--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
+1. Run Configuration `docker-compose.yml: PostgreSQL` starten
+oder alternativ `docker-compose up material1_db` in der Konsole ausführen.
+Dies kann mehrere Minuten dauern.
+Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `material1_db`-Service beendet
+oder alternativ in der Konsole `docker-compose down --volumes` ausführen. 
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
 1. Run Configuration `Material1Application - dev` starten
 oder alternativ die Spring Anwendung im Spring Profil `dev` starten.
