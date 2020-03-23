@@ -113,7 +113,7 @@
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
 
-    <form action="#" th:action="@{/search}" th:method="post" th:object="${fileQueryForm}">
+    <form action="#" th:action="@{${thisDirId} + '/search'}" th:method="post" th:object="${fileQueryForm}">
         <div id="fileNames">
             <div id="fileNames[0]">
                 <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{names[0]}"></div>
