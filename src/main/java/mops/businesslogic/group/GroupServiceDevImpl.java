@@ -36,8 +36,16 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    public boolean doesGroupExist(long groupId) throws MopsException {
+        return VALID_GROUP_IDS.contains(groupId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn" }) // these are streams
-    public String fetchRoleForUserInGroup(Account account, long groupId) {
+    public String getUserRole(Account account, long groupId) {
         log.debug("Fetching roles for user '{}' with global roles '{}' in group '{}'.",
                 account.getName(), account.getRoles(), groupId);
 
@@ -64,7 +72,7 @@ public class GroupServiceDevImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.OnlyOneReturn")
-    public Set<String> fetchRolesInGroup(long groupId) {
+    public Set<String> getRoles(long groupId) {
         if (VALID_GROUP_IDS.contains(groupId)) {
             return Set.of(adminRole, "editor", "viewer");
         }
@@ -87,7 +95,7 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    public List<Group> getAllGroupsOfUser(Account account) throws MopsException {
+    public List<Group> getUserGroups(Account account) throws MopsException {
         return getAllGroups(); // every user is in every group
     }
 }

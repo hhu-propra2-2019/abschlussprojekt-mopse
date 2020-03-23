@@ -14,21 +14,29 @@ import java.util.Set;
 public interface GroupService {
 
     /**
+     * Tests whether a group exists.
+     *
+     * @param groupId the id of the group
+     * @return true if it exists, false otherwise
+     */
+    boolean doesGroupExist(long groupId) throws MopsException;
+
+    /**
      * Gets the role for one user in a group.
      *
      * @param account user credentials
      * @param groupId the id of the group
      * @return the role of the user in that group
      */
-    String fetchRoleForUserInGroup(Account account, long groupId) throws MopsException;
+    String getUserRole(Account account, long groupId) throws MopsException;
 
     /**
-     * Gets all roles for a group.
+     * Gets all roles that exist in a group.
      *
      * @param groupId the id of the group
      * @return gets all roles of that group
      */
-    Set<String> fetchRolesInGroup(long groupId) throws MopsException;
+    Set<String> getRoles(long groupId) throws MopsException;
 
     /**
      * Fetches all groups.
@@ -43,6 +51,6 @@ public interface GroupService {
      * @param account the account the user
      * @return a list of groups
      */
-    List<Group> getAllGroupsOfUser(Account account) throws MopsException;
+    List<Group> getUserGroups(Account account) throws MopsException;
 
 }

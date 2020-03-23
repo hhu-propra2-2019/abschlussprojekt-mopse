@@ -72,11 +72,11 @@ class SecurityServiceTest {
 
         given(permissionService.getPermissions(root)).willReturn(permissions);
 
-        given(groupService.fetchRolesInGroup(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, USER));
-        given(groupService.fetchRoleForUserInGroup(admin, GROUP_ID)).willReturn(ADMIN);
-        given(groupService.fetchRoleForUserInGroup(editor, GROUP_ID)).willReturn(EDITOR);
-        given(groupService.fetchRoleForUserInGroup(user, GROUP_ID)).willReturn(USER);
-        given(groupService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
+        given(groupService.getRoles(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, USER));
+        given(groupService.getUserRole(admin, GROUP_ID)).willReturn(ADMIN);
+        given(groupService.getUserRole(editor, GROUP_ID)).willReturn(EDITOR);
+        given(groupService.getUserRole(user, GROUP_ID)).willReturn(USER);
+        given(groupService.getUserRole(intruder, GROUP_ID)).willReturn(INTRUDER);
     }
 
     @Test

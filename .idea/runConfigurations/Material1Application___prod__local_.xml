@@ -17,7 +17,7 @@
       <env name="MATERIAL1_MINIO_BUCKET_NAME" value="dev-bucket" />
       <env name="MINIO_ACCESS_KEY" value="dev_minio_access_key" />
       <env name="MINIO_SECRET_KEY" value="dev_minio_secret_key" />
-      <env name="MATERIAL1_GRUPPENFINDUNG_URL" value="https://mops.hhu.de/gruppe1" />
+      <env name="MATERIAL1_GRUPPENFINDUNG_URL" value="https://mops.hhu.de/gruppen1" />
       <env name="MATERIAL1_ADMIN_ROLE" value="admin" />
       <env name="MATERIAL_MAX_FOLDER_PER_GROUP" value="200" />
     </envs>

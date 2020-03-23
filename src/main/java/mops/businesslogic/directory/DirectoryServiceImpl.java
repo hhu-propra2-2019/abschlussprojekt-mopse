@@ -37,13 +37,13 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Represents the role of an admin.
      */
-    @Value("${material1.mops.configuration.admin}")
+    @Value("${material1.mops.configuration.role.admin}")
     private String adminRole = "admin";
     /**
      * The max amount of folders per group.
      */
     @SuppressWarnings("checkstyle:MagicNumber")
-    @Value("${material1.mops.configuration.max-groups}")
+    @Value("${material1.mops.configuration.quota.max-folders-in-group}")
     private long maxFoldersPerGroup = 200L;
 
     /**
@@ -104,12 +104,13 @@ public class DirectoryServiceImpl implements DirectoryService {
             return optRootDir.get();
         }
 
-        Set<String> roleNames = groupService.fetchRolesInGroup(groupId);
-        if (roleNames.isEmpty()) { // TODO: check for actual existence of group
+        if (!groupService.doesGroupExist(groupId)) {
             log.error("A root directory for group '{}' could not be created, as the group does not exist.", groupId);
             String error = "Es konnte kein Wurzelverzeichnis für die Gruppe erstellt werden, da sie nicht existiert.";
             throw new MopsException(error);
         }
+
+        Set<String> roleNames = groupService.getRoles(groupId);
         DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
         rootPermissions = permissionService.savePermissions(rootPermissions);
         Directory directory = Directory.builder()

@@ -34,7 +34,7 @@ public class DummyDataSeeding {
     /**
      * Represents the role of an admin.
      */
-    @Value("${material1.mops.configuration.admin}")
+    @Value("${material1.mops.configuration.role.admin}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
     private String adminRole = "admin";
 

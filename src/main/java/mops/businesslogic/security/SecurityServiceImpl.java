@@ -75,7 +75,7 @@ public class SecurityServiceImpl implements SecurityService {
     public void checkWritePermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions permissions = permissionService.getPermissions(directory);
 
-        String userRole = groupService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
+        String userRole = groupService.getUserRole(account, directory.getGroupOwner());
 
         //this is not a violation of demeter's law
         boolean allowedToWrite = permissions.isAllowedToWrite(userRole);
@@ -99,7 +99,7 @@ public class SecurityServiceImpl implements SecurityService {
     public void checkReadPermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions permissions = permissionService.getPermissions(directory);
 
-        String userRole = groupService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
+        String userRole = groupService.getUserRole(account, directory.getGroupOwner());
         //this is not a violation of demeter's law
         boolean allowedToRead = permissions.isAllowedToRead(userRole);
 
@@ -123,7 +123,7 @@ public class SecurityServiceImpl implements SecurityService {
     public void checkDeletePermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions permissions = permissionService.getPermissions(directory);
 
-        String userRole = groupService.fetchRoleForUserInGroup(account, directory.getGroupOwner());
+        String userRole = groupService.getUserRole(account, directory.getGroupOwner());
 
         //this is not a violation of demeter's law
         boolean allowedToDelete = permissions.isAllowedToDelete(userRole);
@@ -144,7 +144,7 @@ public class SecurityServiceImpl implements SecurityService {
      */
     @Override
     public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {
-        String role = groupService.fetchRoleForUserInGroup(account, groupId);
+        String role = groupService.getUserRole(account, groupId);
         if (!allowedRole.equals(role)) {
             log.error("The user '{}' does not have the required role '{}' in group with id {}.",
                     account.getName(),

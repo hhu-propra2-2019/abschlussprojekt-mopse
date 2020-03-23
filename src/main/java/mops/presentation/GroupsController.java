@@ -49,7 +49,7 @@ public class GroupsController {
         log.info("All groups requested for user '{}'.", account.getName());
 
         try {
-            List<Group> groups = groupService.getAllGroupsOfUser(account);
+            List<Group> groups = groupService.getUserGroups(account);
             model.addAttribute("groups", groups);
         } catch (MopsException e) {
             log.error("Failed to retrieve user groups for '{}':", account.getName(), e);
