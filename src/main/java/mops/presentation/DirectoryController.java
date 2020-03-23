@@ -90,7 +90,7 @@ public class DirectoryController {
     public String uploadFile(RedirectAttributes redirectAttributes,
                              KeycloakAuthenticationToken token,
                              @PathVariable("dirId") long dirId,
-                             @RequestAttribute("file") MultipartFile multipartFile) {
+                             @RequestParam("file") MultipartFile multipartFile) {
         Account account = Account.of(token);
         log.info("Upload of a file in directory with id '{}' requested by user '{}'.", dirId, account.getName());
 
