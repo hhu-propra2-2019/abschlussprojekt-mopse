@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -74,7 +75,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void uploadFile() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "teststring".getBytes());
+        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "teststring".getBytes(StandardCharsets.UTF_8));
         mockMvc().perform(fileUpload("/material1/dir/{dir}/upload", 1)
                 .file(file)
                 .with(csrf()))
