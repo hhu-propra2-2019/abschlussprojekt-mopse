@@ -133,8 +133,8 @@ public class DirectoryServiceImpl implements DirectoryService {
                             + "but they already reached their max allowed folder count.",
                     account.getName(),
                     parentDirId);
-            String error = "Deine Gruppe hat die maximale Anzahl an Ordnern erreicht. " +
-                    "Du kannst keine weiteren mehr erstellen.";
+            String error = "Deine Gruppe hat die maximale Anzahl an Ordnern erreicht. "
+                    + "Du kannst keine weiteren mehr erstellen.";
             throw new StorageLimitationException(error);
         }
         securityService.checkWritePermission(account, rootDirectory);
