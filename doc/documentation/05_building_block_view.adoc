@@ -20,13 +20,15 @@ Das wären zum Beispiel:_
 _Diese Sicht sollte in jeder Architekturdokumentation vorhanden sein.
 In der Analogie zum Hausbau bildet die Bausteinsicht den Grundrissplan._
 
-_Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren Beschreibungen._
+_Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und Whiteboxen (siehe Abbildung unten) und deren
+Beschreibungen._
 
 image:05_building_blocks-DE.png["Baustein Sichten"]
 
 _Die *Gesamtabgrenzung* zeigt unser System in Abgrenzung zu Nachbarsystemen._
 
-_*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen Bausteine (in unserem Fall die einzelnen Schichten)._
+_*Ebene 1* ist die Whitebox-Beschreibung des Gesamtsystems, zusammen mit Blackbox-Beschreibungen der darin enthaltenen
+Bausteine (in unserem Fall die einzelnen Schichten)._
 
 _*Ebene 2* zoomt in die einzelnen Schichten hinein und zeigt die darin enthaltenen Komponenten._
 
@@ -60,7 +62,8 @@ Enthaltene Bausteine::
 === Ebene 1
 
 ****
-_Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie zuvor auch._
+_Ebene 1 zeigt das Gesamtsystem bzw. dessen Komponenten (also die 5 Schichten), die Darstellung erfolgt genauso wie
+zuvor auch._
 
 image:Ebene1.png["Ebene 1"]
 
@@ -84,14 +87,15 @@ Darstellung nach gleichem Schema wie zuvor._
 
 image:Ebene2.png["Ebene 2"]
 
-Begründung:: Von der HTML Presentation aus wird je nach Route ein bestimmter Controller in der Presentation Layer angesteuert.
-Jeder Controller repräsentiert damit einen Routenanfang `/material1/{routenBeginn}`.
+Begründung:: Von der HTML Presentation aus wird je nach Route ein bestimmter Controller in der Presentation Layer
+angesteuert. Jeder Controller repräsentiert damit einen Routenanfang `/material1/{routenBeginn}`.
 Hierdurch werden zu große Controller vermieden und Übersicht geschaffen.
 
-Die Services der Business Layer bearbeiten die Anfragen der Controller und stellen diese die angefragten Daten zur Verfügung.
-Die von ihnen benötigten Daten holen sie sich wiederum von der Persitence Layer.
+Die Services der Business Layer bearbeiten die Anfragen der Controller und stellen diese die angefragten Daten zur
+Verfügung. Die von ihnen benötigten Daten holen sie sich wiederum von der Persitence Layer.
 
-In der Persistence Layer liegen die Repositorys, die im Prinzip direkte Schnittstellen zwischen den Anfragen der Services und der Database Layer darstellen.
+In der Persistence Layer liegen die Repositorys, die im Prinzip direkte Schnittstellen zwischen den Anfragen der
+Services und der Database Layer darstellen.
 Sie verarbeiten also deren Anfragen und leiten sie an die Database Layer weiter.
 
 Die Database Layer wiederum beinhaltet alle Daten, die bei uns gespeichert werden.
@@ -134,8 +138,12 @@ Business Layer::
 |===
 |Komponente |Funktion | Schnittstellen
 | DirectoryService
-| _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner._
-| _Die Informationen über die Dateien holt er sich vom `FileInfoService`. Um die Berechtigungen eines einzelnen Benutzers zu überprüfen, wird eine Anfrage an den `GroupService` & `SecurityService` gestellt, während die Berechtigungen des Ordners vom `PermissionService` zur Verfügung gestellt werden. Um Operatioen, die andere Ordner involvieren, ausführen zu können, wird beim `DirectoryRepository` angefragt._
+| _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und
+Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner._
+| _Die Informationen über die Dateien werden vom `FileInfoService` abgerufen. Die Berechtigungen des Ordners werden vom
+`PermissionService` zur Verfügung gestellt und können verändert werden. Die vom `GroupService` bereitgestellten Rollen
+werden vom `SecurityService` überprüft, damit ein User nur erlaubte Aktionen ausführen kann. Für das Speichern und
+Abrufen der Ordner wird mit dem `DirectoryRepository` interagiert._
 
 | FileInfoService
 | _Verwaltet alle Metadaten einer Datei in Form des Objektes `FileInfo`._
@@ -143,7 +151,9 @@ Business Layer::
 
 | FileService
 | _Verwaltet die Funktionen einer Datei. Dabei wird die Datei selbst mit ihren Metadaten verknüpft._
-| _Mittels einer Anfrage an den `FileInfoService` werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten. Berechtigungen werden mittels des `DirectoryService` und des `SecurityService` überprüft._
+| _Mittels einer Anfrage an den `FileInfoService` werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage
+an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten. Berechtigungen werden mittels des
+`DirectoryService` und des `SecurityService` überprüft._
 
 | GroupService
 | _Erlaubt es Anfragen an die `Gruppenfindung` zu stellen._
@@ -155,7 +165,8 @@ Business Layer::
 
 | SecurityService
 | _Überprüft die Rollenberechtigungen eines Nutzers._
-| _Er vergleicht die Berechtigungen, die aus dem `PermissionService` kommen mit den Rollen des Users, die aus dem `GroupService` kommen._
+| _Er vergleicht die Berechtigungen, die aus dem `PermissionService` kommen mit den Rollen des Users, die aus dem
+`GroupService` kommen._
 |===
 
 Persistence Layer::
