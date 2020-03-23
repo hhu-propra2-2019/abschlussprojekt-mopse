@@ -133,7 +133,8 @@ public class DirectoryServiceImpl implements DirectoryService {
                             + "but they already reached their max allowed folder count.",
                     account.getName(),
                     parentDirId);
-            String error = "Your group has max allowed amount of folders. You can't create any more.";
+            String error = "Deine Gruppe hat die maximale Anzahl an Ordnern erreicht. " +
+                    "Du kannst keine weiteren mehr erstellen.";
             throw new StorageLimitationException(error);
         }
         securityService.checkWritePermission(account, rootDirectory);
@@ -161,7 +162,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("The user '{}' tried to delete the folder with id {}, but the folder was not empty.",
                     account.getName(),
                     dirId);
-            String errorMessage = String.format("The directory %s is not empty.", directory.getName());
+            String errorMessage = String.format("Der Ordner %s ist nicht leer.", directory.getName());
             throw new DeleteAccessPermissionException(errorMessage);
         }
 
