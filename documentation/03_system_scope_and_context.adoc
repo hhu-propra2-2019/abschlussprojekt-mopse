@@ -41,6 +41,6 @@ Diese verschiedenen Anfragen sind notwendig für die verschiedenen Funktionalit�
 - Überprüfung von Berechtigungen eines Users
 - Erstellung einer Platzhalterberechtigung für alle Rollen
 
-Da uns während der Entwicklungszeit der externe Service nicht zur Verfügung stand, haben wir einen Stub entwickelt, welcher fixe Rollen zurückgibt.
-Wir haben uns dazu an dem REST-API Wiki der `Gruppenfindung` orientiert.
+Da uns während der Entwicklungszeit der externe Service nicht zur Verfügung stand, haben wir einen Stub entwickelt,
+welcher festgesetzte Rollen zurückgibt. Wir haben uns dazu an dem REST-API Wiki der `Gruppenfindung` orientiert.
 ****
