@@ -37,7 +37,7 @@ Der Großteil unserer Erfahrungen beruhte bisher auf MySQL, also haben wir uns z
 entschieden.
 
 Leider dauert das Starten der MariaDB-Datenbank in einem Docker-Container recht lange (ähnlich wie MySQL) und es ist
-umständlich, diesen Docker-Container dauerhaft aktiviert zu haben. Aus diesem Grund haben wir uns entschieden , während
+umständlich, diesen Docker-Container dauerhaft aktiviert zu haben. Aus diesem Grund haben wir uns entschieden, während
 des Testings H2 zu verwenden. H2 ist eine Embedded In-Memory Datenbank, die sehr schnell startet und
 die wir bereits kennengelernt haben.
 
