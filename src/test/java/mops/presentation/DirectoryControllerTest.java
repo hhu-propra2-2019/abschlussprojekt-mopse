@@ -7,13 +7,13 @@ import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileService;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
-import mops.persistence.file.FileInfo;
 import mops.presentation.form.FileQueryForm;
 import mops.util.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.List;
 
@@ -22,8 +22,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -75,8 +74,9 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void uploadFile() throws Exception {
-        mockMvc().perform(post("/material1/dir/{dir}/upload", 1)
-                .requestAttr("file", mock(FileInfo.class))
+        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "teststring".getBytes());
+        mockMvc().perform(fileUpload("/material1/dir/{dir}/upload", 1)
+                .file(file)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/material1/dir/1"))
