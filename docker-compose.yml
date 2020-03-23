@@ -7,7 +7,7 @@ services:
       - "${MATERIAL1_DB_PORT:-5432}:5432"
     volumes:
       - material1_db_volume:/var/lib/postgresql/data
-      - ./src/main/resources/schema-postgresql.sql:/docker-entrypoint-initdb.d/schema-postgresql.sql:ro
+      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
     env_file:
