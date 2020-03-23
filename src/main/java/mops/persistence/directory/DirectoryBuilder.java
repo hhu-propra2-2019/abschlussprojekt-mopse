@@ -170,13 +170,13 @@ public class DirectoryBuilder {
      */
     public Directory build() {
         if (name == null) {
-            log.error("Directory is not completely setup name was not set.");
+            log.error("Directory is not completely setup: name was not set.");
             throw new IllegalStateException("Directory incomplete: name must be set!");
         } else if (groupOwner == -1L) {
-            log.error("Directory is not completely setup group owner was not set.");
+            log.error("Directory is not completely setup: group owner was not set.");
             throw new IllegalStateException("Directory incomplete: groupOwner must be set!");
         } else if (permissionsId == -1L) {
-            log.error("Directory is not completely setup permission id was not set.");
+            log.error("Directory is not completely setup: permission id was not set.");
             throw new IllegalStateException("Directory incomplete: permissionsId must be set!");
         }
 

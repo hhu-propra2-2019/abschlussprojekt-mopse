@@ -34,9 +34,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
     @MockBean
-    FileService fileService;
-    @MockBean
     DirectoryService directoryService;
+    @MockBean
+    FileService fileService;
 
     /**
      * Setups the a Mock MVC Builder.

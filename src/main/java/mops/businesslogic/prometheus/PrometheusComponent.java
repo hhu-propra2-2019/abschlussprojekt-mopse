@@ -124,7 +124,7 @@ public class PrometheusComponent {
                             try {
                                 return statGetter.getGlobalStat();
                             } catch (MopsException e) {
-                                log.error("Error while reading '" + message + "' from gauge:", e);
+                                log.error("Error while reading '{}' from gauge:", message, e);
                                 return 0L;
                             }
                         }
@@ -140,10 +140,7 @@ public class PrometheusComponent {
                     try {
                         return statGetter.getGroupStat(group.getId());
                     } catch (MopsException e) {
-                        log.error(
-                                "Error while reading '" + message + "' in group '{}' from gauge:",
-                                group, e
-                        );
+                        log.error("Error while reading '{}' in group '{}' from gauge:", message, group, e);
                         return 0L;
                     }
                 })

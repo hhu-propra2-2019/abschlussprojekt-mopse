@@ -1,4 +1,4 @@
-package mops.persistence;
+package mops.persistence.config;
 
 
 import lombok.Getter;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "material1.mops.storage.minio")
 @Getter
 @Setter
-class FileRepositoryConfig {
+public class FileRepositoryConfig {
 
     /**
      * Host of the MinIO server.
@@ -35,4 +35,5 @@ class FileRepositoryConfig {
      * MinIO secret key.
      */
     private String secretKey;
+
 }
