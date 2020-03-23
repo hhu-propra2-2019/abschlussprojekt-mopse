@@ -4,8 +4,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import mops.businesslogic.file.query.FileQuery;
+import mops.businesslogic.file.query.FileQueryBuilder;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Wrapper for FileQuery for thymeleaf.
@@ -40,11 +43,26 @@ public class FileQueryForm {
      */
     @SuppressWarnings("PMD.LawOfDemeter")
     public FileQuery toQuery() {
-        return FileQuery.builder()
-                .names(Arrays.asList(names))
-                .owners(Arrays.asList(owners))
-                .types(Arrays.asList(types))
-                .tags(Arrays.asList(tags))
-                .build();
+        FileQueryBuilder fileQueryBuilder = FileQuery.builder();
+        if (names != null) {
+            fileQueryBuilder.names(removeEmptyStrings(names));
+        }
+        if (owners != null) {
+            fileQueryBuilder.owners(removeEmptyStrings(owners));
+        }
+        if (tags != null) {
+            fileQueryBuilder.tags(removeEmptyStrings(tags));
+        }
+        if (types != null) {
+            fileQueryBuilder.types(removeEmptyStrings(types));
+        }
+        return fileQueryBuilder.build();
+    }
+
+    @SuppressWarnings("PMD.LawOfDemeter")
+    private List<String> removeEmptyStrings(String... array) {
+        return Arrays.stream(array)
+                .filter(string ->  !string.isEmpty())
+                .collect(Collectors.toList());
     }
 }
