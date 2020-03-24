@@ -90,28 +90,36 @@ Wiederum wird immer eine `DirectoryPermissionsEntry` zu genau einer `DirectoryPe
 === ArchUnit Tests
 
 Zur Vorbereitung haben wir uns die Vorlesung zu ArchUnit `Vorlesung 14 PP2` durchgelesen und bearbeitet. Danach haben
-wir die Tests `onlyAggregateRootsArePublic`, `oneAggregateRootPerAggregate` und `checkIfLayeredArchitectureIsNotViolated`
+wir die Tests `AGGREGATE_ROOT_PUBLIC_NOTHING_ELSE`, `ONE_AGGREGATE_ROOT_PER_PACKAGE` und `CHECK_LAYERED_ARCHITECTURE`
 geschrieben und dazu eine Hilfsannotation `AggregateRoot` erstellt.
+
 Die Funktion des ersten Tests ist die Überprüfung dass nur `AggregateRoots` `public` und alle anderen Klassen `private`
 sind.
 
-Der zweite Test stellt sicher, dass es nur eine einzige `AggregateRoot` pro Package gibt, welche mit anderen
+Der zweite Test, stellt sicher, dass es nur eine einzige `AggregateRoot` pro Package gibt, welche mit anderen
 Packages kommunizieren kann.
 
 Der dritte Test überprüft, ob die Schicht-Architektur eingehalten wird.
 Die zusätzliche Annotation ermöglicht es, die `AggregateRoot` zu markieren, um die Überprüfung zu erleichtern. Die
-Lesbarkeit und Verständlichkeit der Klassen und Packages werden dadurch auch verbessert. Hier haben wir drei
-neue Tests hinzugefügt.
+Lesbarkeit und Verständlichkeit der Klassen und Packages werden dadurch auch verbessert. 
 
-Der vierte Test `allControllersShouldResideInMopsPresentation` sorgt dafür, dass alle Controller im
+Hier haben wir drei neue Tests hinzugefügt: 
+
+Der vierte Test `ALL_CONTROLLERS_SHOULD_RESIDE_IN_MOPS_PRESENTATION` sorgt dafür, dass alle Controller im
 Presentation-Layer liegen, da dies bei der Schicht-Architektur eine wichtige Vorgabe ist.
 
-Der fünfte Test `everythingInPresentationShouldBeAController` ist eine Ergänzung des vorherigen Test und stellt sicher,
+Der fünfte Test `EVERYTHING_IN_PRESENTATION_SHOULD_BE_A_CONTROLLER` ist eine Ergänzung des vorherigen Test und stellt sicher,
 dass sich alle Controller im `Presentation`-Package befinden, da sie nur von dort erreichbar sein sollen.
 
-Der letzte Test ist eine Überprüfung, dass keine `cycles` im Projekt auftreten. Dies wird durch die Schicht-Architektur
-vorausgesetzt ist, aber dies ist ein zusätzlicher Test zur Sicherstellung.
-ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus
+Der letzte Test, `ARE_THERE_ANY_CYCLES_WITHIN_PACKAGES`, ist eine Überprüfung, dass keine `cycles` im Projekt auftreten. Dies wird durch die Schicht-Architektur
+vorausgesetzt ist, aber dies ist ein zusätzlicher Test zur Sicherstellung,
+ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus sein.
+
+Dann haben wir noch zwei weitere Tests für Services implementiert: 
+
+Der nun siebte Test `SERVICES_ARE_ANNOTATED_WITH_SERVICE` untersucht, ob alle Services auch richtig mit `@Service` annotiert sind.
+
+Der achte Test, der mit dem siebten sehr in Einstimmung ist, überprüft, ob alle Klassen, die mit `@Service` annotiert sind, auch Service im Namen haben, damit die Struktur des Projekts nicht verwirrend wird. 
 
 === FileStorage
 
