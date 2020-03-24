@@ -61,30 +61,27 @@ public class FileQuery {
     }
 
     private boolean checkTags(FileInfo file) {
-        boolean anyMatch = tags.stream().anyMatch(file::hasTag);
-        return tags.isEmpty() || anyMatch;
+        return tags.isEmpty() || tags.stream()
+                .anyMatch(file::hasTag);
     }
 
     @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean checkTypes(FileInfo file) {
-        return types.stream()
-                .anyMatch(type -> file.getType()
-                        .toLowerCase(Locale.ROOT)
-                        .contains(type.toLowerCase(Locale.ROOT))) || types.isEmpty();
+        return types.isEmpty() || types.stream()
+                .anyMatch(type -> file.getType().toLowerCase(Locale.ROOT)
+                        .contains(type.toLowerCase(Locale.ROOT)));
     }
 
     private boolean checkNames(FileInfo file) {
-        return names.stream()
-                .anyMatch(name -> file.getName()
-                        .toLowerCase(Locale.ROOT)
-                        .contains(name.toLowerCase(Locale.ROOT))) || names.isEmpty();
+        return names.isEmpty() || names.stream()
+                .anyMatch(name -> file.getName().toLowerCase(Locale.ROOT)
+                        .contains(name.toLowerCase(Locale.ROOT)));
     }
 
     @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean checkOwners(FileInfo file) {
-        return owners.stream()
-                .anyMatch(owner -> file.getOwner()
-                        .toLowerCase(Locale.ROOT)
-                        .contains(owner.toLowerCase(Locale.ROOT))) || owners.isEmpty();
+        return owners.isEmpty() || owners.stream()
+                .anyMatch(owner -> file.getOwner().toLowerCase(Locale.ROOT)
+                        .contains(owner.toLowerCase(Locale.ROOT)));
     }
 }

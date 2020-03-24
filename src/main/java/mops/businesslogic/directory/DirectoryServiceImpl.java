@@ -21,7 +21,6 @@ import mops.persistence.permission.DirectoryPermissionsBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -188,12 +187,8 @@ public class DirectoryServiceImpl implements DirectoryService {
                 .filter(query::checkMatch)
                 .collect(Collectors.toList());
 
-        List<FileInfo> subResults = new ArrayList<>();
         for (Directory subDir : getSubFolders(account, dirId)) {
-            subResults.addAll(searchFolder(account, subDir.getId(), query));
-        }
-        if (!subResults.isEmpty()) {
-            results.addAll(subResults);
+            results.addAll(searchFolder(account, subDir.getId(), query));
         }
         return results;
     }
