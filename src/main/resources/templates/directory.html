@@ -42,7 +42,8 @@
 
                 const delButtonName = type + "[" + counter + "]";
                 const delButtonID = type + "Delete";
-                document.getElementById(delButtonID).setAttribute("onclick", "javascript: deleteLastInputLine('" + delButtonName + "')");
+                document.getElementById(delButtonID)
+                    .setAttribute("onclick", "javascript: deleteLastInputLine('" + delButtonName + "')");
             }
 
             function deleteLastInputLine(del) {
@@ -59,7 +60,8 @@
                     window[substring + "Counter"]--;
                     const newOnclick = substring + "[" + (window[substring + "Counter"] - 1) + "]";
                     const delButtonID = substring + "Delete";
-                    document.getElementById(delButtonID).setAttribute("onclick", "javascript: deleteLastInputLine('" + newOnclick + "')");
+                    document.getElementById(delButtonID)
+                        .setAttribute("onclick", "javascript: deleteLastInputLine('" + newOnclick + "')");
                 }
             }
         </script>
