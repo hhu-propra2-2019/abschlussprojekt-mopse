@@ -101,7 +101,12 @@ class DirectoryServiceTest {
 
         Directory subDir = directoryService.createFolder(admin, root.getId(), subDirName);
 
-        assertThat(subDir).isEqualToIgnoringGivenFields(expected, "id", "creationTime", "lastModifiedTime");
+        assertThat(subDir).isEqualToIgnoringGivenFields(expected,
+                "id",
+                "permissionsId",
+                "creationTime",
+                "lastModifiedTime");
+        assertThat(subDir.getPermissionsId()).isNotEqualTo(root.getPermissionsId());
     }
 
     /**
