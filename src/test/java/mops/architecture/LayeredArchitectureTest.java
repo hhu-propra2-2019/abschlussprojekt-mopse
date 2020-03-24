@@ -16,7 +16,7 @@ class LayeredArchitectureTest {
      * no wrong accesses are made.
      */
     @ArchTest
-    static final ArchRule checkLayeredArchitecture = layeredArchitecture()
+    static final ArchRule CHECK_LAYERED_ARCHITECTURE = layeredArchitecture()
             .layer("mopsPersistence").definedBy(MOPS_PERSISTENCE)
             .layer("mopsBusinesslogic").definedBy(MOPS_BUSINESSLOGIC)
             .layer("mopsPresentation").definedBy(MOPS_PRESENTATION)
