@@ -193,24 +193,6 @@ public class DirectoryServiceImpl implements DirectoryService {
         return parentDirectory;
     }
 
-    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" })
-    private boolean isFirstLevel(Directory directory) throws DatabaseException {
-        long permissionsId = directory.getPermissionsId();
-        Long parentId = directory.getParentId();
-        try {
-            Directory parentDirectory = directoryRepository.findById(parentId).orElseThrow();
-            long parentDirPermId = parentDirectory.getPermissionsId();
-            return parentDirPermId != permissionsId;
-        } catch (Exception e) {
-            long groupOwner = directory.getGroupOwner();
-            log.error("Failed to retrieve root directory of group '{}' from database.", groupOwner);
-            String message = String.format("Das Wurzelverzeichnis für die Gruppe '%d' konnte nicht gefunden werden.",
-                    groupOwner);
-            throw new DatabaseException(message, e);
-        }
-
-    }
-
     /**
      * {@inheritDoc}
      */
