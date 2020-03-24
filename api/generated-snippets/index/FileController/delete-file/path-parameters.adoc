@@ -1,4 +1,4 @@
-.+/material1/file/{fileId}+
+.+/material1/file/{fileId}/delete+
 |===
 |Parameter|Description
 

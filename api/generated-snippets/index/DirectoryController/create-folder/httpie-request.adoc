@@ -1,5 +1,6 @@
 [source,bash]
 ----
 $ http --form POST 'http://localhost:8080/material1/dir/1/create' \
-    '_csrf=75221899-30f7-426b-923f-e10d734a4f40'
+    'folderName=Vorlesungen' \
+    '_csrf=b2860e21-f34e-4ceb-b334-daa7b66a7c09'
 ----

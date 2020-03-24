@@ -307,7 +307,7 @@ public&nbsp;java.lang.String&nbsp;uploadFile&#8203;(org.springframework.web.serv
                                    org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                                    @PathVariable("dirId")
                                    long&nbsp;dirId,
-                                   @RequestAttribute("file")
+                                   @RequestParam("file")
                                    org.springframework.web.multipart.MultipartFile&nbsp;multipartFile)</pre>
 <div class="block">Uploads a file.</div>
 <dl>
@@ -332,7 +332,7 @@ public&nbsp;java.lang.String&nbsp;createSubFolder&#8203;(org.springframework.web
                                         org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                                         @PathVariable("parentDirId")
                                         long&nbsp;parentDirId,
-                                        @RequestAttribute("folderName")
+                                        @RequestParam("folderName")
                                         java.lang.String&nbsp;folderName)</pre>
 <div class="block">Creates a new sub folder.</div>
 <dl>
@@ -352,7 +352,7 @@ public&nbsp;java.lang.String&nbsp;createSubFolder&#8203;(org.springframework.web
 <ul class="blockList">
 <li class="blockList">
 <h4>deleteFolder</h4>
-<pre class="methodSignature">@DeleteMapping("/{dirId}")
+<pre class="methodSignature">@PostMapping("/{dirId}/delete")
 public&nbsp;java.lang.String&nbsp;deleteFolder&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
                                      org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                                      @PathVariable("dirId")
@@ -380,7 +380,7 @@ public&nbsp;java.lang.String&nbsp;searchFolder&#8203;(org.springframework.web.se
                                      org.springframework.ui.Model&nbsp;model,
                                      @PathVariable("dirId")
                                      long&nbsp;dirId,
-                                     @RequestAttribute("fileQueryForm")
+                                     @ModelAttribute
                                      <a href="form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a>&nbsp;queryForm)</pre>
 <div class="block">Searches a folder for files.</div>
 <dl>

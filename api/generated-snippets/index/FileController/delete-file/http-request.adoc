@@ -1,6 +1,8 @@
 [source,http,options="nowrap"]
 ----
-DELETE /material1/file/1 HTTP/1.1
+POST /material1/file/1/delete HTTP/1.1
 Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded
 
+_csrf=befaa30a-43b0-48e1-a6a0-d38b988c9a69
 ----

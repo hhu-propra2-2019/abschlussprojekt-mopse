@@ -1,4 +1,4 @@
-.+/material1/dir/{dir}+
+.+/material1/dir/{dir}/delete+
 |===
 |Parameter|Description
 
