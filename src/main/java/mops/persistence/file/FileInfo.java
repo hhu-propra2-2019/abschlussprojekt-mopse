@@ -7,8 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.relational.core.mapping.MappedCollection;
-import org.springframework.util.unit.DataSize;
-import org.springframework.util.unit.DataUnit;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -111,11 +109,31 @@ public class FileInfo {
     }
 
     /**
-     * Converts Byte to a Megabyte String.
+     * Converts Byte to a String.
      *
-     * @return Filesize in MB.
+     * @return Filesize with prefix.
      */
-    public String getMegabyteSizeString() {
-        return DataSize.of(this.getSize(), DataUnit.MEGABYTES).toString();
+    public String getSizeString() {
+        final double kilobyte = 1024;
+        final double megabyte = kilobyte * 1024;
+        final double gigabyte = megabyte * 1024;
+
+        double result;
+        String suffix;
+
+        if (this.size < kilobyte) {
+            result = this.size;
+            suffix = " B";
+        } else if (this.size > kilobyte && this.size < megabyte) {
+            result = this.size / kilobyte;
+            suffix = " Kb";
+        } else if (this.size > megabyte && this.size < gigabyte) {
+            result = this.size / megabyte;
+            suffix = " Mb";
+        } else {
+            result = this.size / gigabyte;
+            suffix = " Gb";
+        }
+        return String.format("%.2f" + suffix, result);
     }
 }

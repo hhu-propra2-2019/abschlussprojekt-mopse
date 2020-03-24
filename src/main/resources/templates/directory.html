@@ -94,7 +94,7 @@
             <td> <a th:text="${file.name}" th:href="@{'../file/' +  ${file.id}}">%Name%</a></td>
             <td th:text="TBD">%Datum%</td>
             <td th:text="${file.type}">%Typ%</td>
-            <td th:text="${file.size}">%Größe%</td>
+            <td th:text="${file.getSizeString()}">%Größe%</td>
             <td>
                 <form action="#" th:action="@{'../file/' + ${file.id}+ '/delete'}" th:method="post">
                     <input type="submit" name="deleteFile" value="Datei löschen">
