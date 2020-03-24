@@ -120,6 +120,7 @@
             <th>Name</th>
             <th>Erstellungsdatum</th>
             <th>Typ</th>
+            <th>Besitzer</th>
             <th>Größe</th>
         </tr>
         

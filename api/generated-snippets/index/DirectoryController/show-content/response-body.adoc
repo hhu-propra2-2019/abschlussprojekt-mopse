@@ -177,23 +177,24 @@
             <th>Name</th>
             <th>Erstelldatum</th>
             <th>Typ</th>
+            <th>Besitzer</th>
             <th>Größe</th>
         </tr>
         
         
     </table>
 
-    <form action="1/create" method="post"><input type="hidden" name="_csrf" value="d03350d7-4deb-4485-b297-fc9a35a48899"/>
+    <form action="1/create" method="post"><input type="hidden" name="_csrf" value="82e27a42-d811-4a3b-863f-93c96d41dd14"/>
         <input type="text" name="folderName">
         <input type="submit" name="newFolder" value="Neuer Ordner" required>
     </form>
 
-    <form action="1/upload" method="post" enctype="multipart/form-data"><input type="hidden" name="_csrf" value="d03350d7-4deb-4485-b297-fc9a35a48899"/>
+    <form action="1/upload" method="post" enctype="multipart/form-data"><input type="hidden" name="_csrf" value="82e27a42-d811-4a3b-863f-93c96d41dd14"/>
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
 
-    <form action="1/search" method="post"><input type="hidden" name="_csrf" value="d03350d7-4deb-4485-b297-fc9a35a48899"/>
+    <form action="1/search" method="post"><input type="hidden" name="_csrf" value="82e27a42-d811-4a3b-863f-93c96d41dd14"/>
         <div id="fileNames">
             <div id="fileNames[0]">
                 <div><input type="text" name="names[0]" placeholder="Dateiname" id="names0" value=""></div>

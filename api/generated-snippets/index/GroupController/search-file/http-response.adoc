@@ -9,7 +9,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 4488
+Content-Length: 4518
 
 <!DOCTYPE html>
 <html lang="en">
@@ -131,6 +131,7 @@ Content-Length: 4488
             <th>Name</th>
             <th>Erstellungsdatum</th>
             <th>Typ</th>
+            <th>Besitzer</th>
             <th>Größe</th>
         </tr>
         
