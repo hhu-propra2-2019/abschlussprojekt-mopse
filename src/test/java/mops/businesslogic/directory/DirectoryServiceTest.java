@@ -6,6 +6,7 @@ import mops.businesslogic.group.GroupService;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
+import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
@@ -252,7 +253,7 @@ class DirectoryServiceTest {
                 .name("a")
                 .build();
 
-        FileInfo matchingFile = fileInfoRepository.save(
+        FileInfo matchingFile1 = fileInfoRepository.save(
                 FileInfo.builder()
                         .name("a")
                         .directory(root)
@@ -261,6 +262,19 @@ class DirectoryServiceTest {
                         .owner(USER)
                         .build()
         );
+
+        Directory child = directoryService.createFolder(admin, root.getId(), "child");
+
+        FileInfo matchingFile2 = fileInfoRepository.save(
+                FileInfo.builder()
+                        .name("ab")
+                        .directory(child)
+                        .type("txt")
+                        .size(0L)
+                        .owner(USER)
+                        .build()
+        );
+
         fileInfoRepository.save(
                 FileInfo.builder()
                         .name("b")
@@ -273,7 +287,7 @@ class DirectoryServiceTest {
 
         List<FileInfo> fileInfos = directoryService.searchFolder(user, root.getId(), query);
 
-        assertThat(fileInfos).containsExactlyInAnyOrder(matchingFile);
+        assertThat(fileInfos).containsExactlyInAnyOrder(matchingFile1, matchingFile2);
     }
 
     @Test

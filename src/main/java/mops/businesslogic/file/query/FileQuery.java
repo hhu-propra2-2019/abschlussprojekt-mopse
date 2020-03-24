@@ -61,19 +61,27 @@ public class FileQuery {
     }
 
     private boolean checkTags(FileInfo file) {
-        boolean anyMatch = tags.stream().anyMatch(file::hasTag);
-        return tags.isEmpty() || anyMatch;
+        return tags.isEmpty() || tags.stream()
+                .anyMatch(file::hasTag);
     }
 
+    @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean checkTypes(FileInfo file) {
-        return types.isEmpty() || types.contains(file.getType().toLowerCase(Locale.ROOT));
+        return types.isEmpty() || types.stream()
+                .anyMatch(type -> file.getType().toLowerCase(Locale.ROOT)
+                        .contains(type.toLowerCase(Locale.ROOT)));
     }
 
     private boolean checkNames(FileInfo file) {
-        return names.isEmpty() || names.contains(file.getName().toLowerCase(Locale.ROOT));
+        return names.isEmpty() || names.stream()
+                .anyMatch(name -> file.getName().toLowerCase(Locale.ROOT)
+                        .contains(name.toLowerCase(Locale.ROOT)));
     }
 
+    @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean checkOwners(FileInfo file) {
-        return owners.isEmpty() || owners.contains(file.getOwner().toLowerCase(Locale.ROOT));
+        return owners.isEmpty() || owners.stream()
+                .anyMatch(owner -> file.getOwner().toLowerCase(Locale.ROOT)
+                        .contains(owner.toLowerCase(Locale.ROOT)));
     }
 }
