@@ -113,7 +113,7 @@ dass sich alle Controller im `Presentation`-Package befinden, da sie nur von dor
 
 Der letzte Test, `ARE_THERE_ANY_CYCLES_WITHIN_PACKAGES`, ist eine Überprüfung, dass keine `cycles` im Projekt auftreten. Dies wird durch die Schicht-Architektur
 vorausgesetzt ist, aber dies ist ein zusätzlicher Test zur Sicherstellung,
-ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus
+ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus sein.
 
 Dann haben wir noch zwei weitere Tests für Services implementiert: 
 
