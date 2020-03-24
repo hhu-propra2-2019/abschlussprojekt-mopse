@@ -105,7 +105,7 @@
 
     <form action="#" th:action="@{{thisDirId}/create(thisDirId = ${thisDirId})}" th:method="post">
         <input type="text" name="folderName">
-        <input type="submit" name="newFolder" value="Neuer Ordner">
+        <input type="submit" name="newFolder" value="Neuer Ordner" required="required">
     </form>
 
     <form action="#" th:action="@{{thisDirId}/upload(thisDirId = ${thisDirId})}" th:method="post" enctype="multipart/form-data">

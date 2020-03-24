@@ -14,6 +14,7 @@ import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
+import mops.persistence.exception.StorageException;
 import mops.persistence.file.FileInfo;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,12 @@ public class FileServiceImpl implements FileService {
                     account.getName()
             );
             throw new WriteAccessPermissionException("Keine Schreibberechtigung");
+        }
+        if(multipartFile.getSize() <= 0) {
+            log.error("User {} tried to save a file that was empty.",
+                    account.getName()
+            );
+            throw new StorageException("Leere Datei");
         }
         //no Law of demeter violation
         FileInfo meta = FileInfo.builder()
