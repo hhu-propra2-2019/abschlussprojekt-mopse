@@ -67,4 +67,16 @@ class DirectoryPermissionsTest {
 
         assertThat(loaded2).get().isEqualTo(loaded);
     }
+
+    @Test
+    public void copyTest() {
+        DirectoryPermissions admin = DirectoryPermissions.builder()
+                .entry("admin", true, true, true)
+                .id(1L)
+                .build();
+        DirectoryPermissions copy = DirectoryPermissions.builder().copy(admin).build();
+
+        assertThat(copy).isEqualToIgnoringGivenFields(admin, "id");
+        assertThat(copy.getId()).isNotEqualTo(admin.getId());
+    }
 }
