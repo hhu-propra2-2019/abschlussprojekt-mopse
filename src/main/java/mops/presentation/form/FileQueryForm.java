@@ -62,7 +62,7 @@ public class FileQueryForm {
     @SuppressWarnings("PMD.LawOfDemeter")
     private List<String> removeEmptyStrings(String... array) {
         return Arrays.stream(array)
-                .filter(string ->  !string.isEmpty())
+                .filter(string -> !string.isEmpty())
                 .collect(Collectors.toList());
     }
 }

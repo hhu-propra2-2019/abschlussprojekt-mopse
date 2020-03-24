@@ -11,7 +11,7 @@ class FileQueryFormTest {
     void emptyStringTest() {
         FileQueryForm fileQueryForm = new FileQueryForm();
         fileQueryForm.setNames(new String[] { "" });
-        fileQueryForm.setOwners(new String[] {"ich"});
+        fileQueryForm.setOwners(new String[] { "ich" });
 
         FileQuery expected = FileQuery.builder()
                 .owner("ich")
