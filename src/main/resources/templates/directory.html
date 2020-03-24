@@ -85,7 +85,7 @@
             <td>Dateiordner</td>
             <td></td>
             <td>
-                <form action="#" th:action="@{${dir.id}}" th:method="post">
+                <form action="#" th:action="@{${dir.id} + '/delete'}" th:method="post">
                     <input type="submit" name="deleteFolder" value="Ordner löschen">
                 </form>
             </td>
@@ -96,7 +96,7 @@
             <td th:text="${file.type}">%Typ%</td>
             <td th:text="${file.size}">%Größe%</td>
             <td>
-                <form action="#" th:action="@{'../file/' + ${file.id}}" th:method="post">
+                <form action="#" th:action="@{'../file/' + ${file.id}+ '/delete'}" th:method="post">
                     <input type="submit" name="deleteFile" value="Datei löschen">
                 </form>
             </td>
