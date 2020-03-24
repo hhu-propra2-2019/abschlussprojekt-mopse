@@ -21,6 +21,7 @@ import mops.persistence.permission.DirectoryPermissionsBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -183,9 +184,26 @@ public class DirectoryServiceImpl implements DirectoryService {
         securityService.checkReadPermission(account, directory);
         List<FileInfo> fileInfos = fileInfoService.fetchAllFilesInDirectory(dirId);
 
-        return fileInfos.stream() //this is a stream not violation of demeter's law
+        /*List<Long> ids = new ArrayList<>();
+        ids.add(dirId);
+        for (Long id : ids) {
+            fileInfos.addAll(fileInfoService.fetchAllFilesInDirectory(id));
+            for (Directory dir : getSubFolders(account, id)) {
+                ids.add(dir.getId());
+            }
+        }*/
+
+        List<FileInfo> results = fileInfos.stream() //this is a stream not violation of demeter's law
                 .filter(query::checkMatch)
                 .collect(Collectors.toList());
+
+        List<FileInfo> subResults = new ArrayList<>();
+        for (Directory subDir : getSubFolders(account, dirId)) {
+            subResults.addAll(searchFolder(account, subDir.getId(), query));
+        }
+        if(!subResults.isEmpty())
+            results.addAll(subResults);
+        return results;
     }
 
     /**
