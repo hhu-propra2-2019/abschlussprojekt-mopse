@@ -71,6 +71,15 @@ public class FileInfo {
     private Timestamp lastModifiedTime;
 
     /**
+     * Gives you FileInfoBuilder.
+     *
+     * @return FileInfoBuilder
+     */
+    public static FileInfoBuilder builder() {
+        return new FileInfoBuilder();
+    }
+
+    /**
      * Checks if the file is tagged with a specific tag.
      *
      * @param otherTag tag to check for
@@ -100,11 +109,32 @@ public class FileInfo {
     }
 
     /**
-     * Gives you FileInfoBuilder.
+     * Converts Byte to a String.
      *
-     * @return FileInfoBuilder
+     * @return Filesize with prefix.
      */
-    public static FileInfoBuilder builder() {
-        return new FileInfoBuilder();
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+    public String getSizeString() {
+        final double kibibyte = 1024;
+        final double mibibyte = kibibyte * 1024;
+        final double gibibyte = mibibyte * 1024;
+
+        double result;
+        String suffix;
+
+        if (this.size < kibibyte) {
+            result = this.size;
+            suffix = "B";
+        } else if (this.size < mibibyte) {
+            result = this.size / kibibyte;
+            suffix = "KiB";
+        } else if (this.size < gibibyte) {
+            result = this.size / mibibyte;
+            suffix = "MiB";
+        } else {
+            result = this.size / gibibyte;
+            suffix = "GiB";
+        }
+        return String.format("%.2f %s", result, suffix);
     }
 }
