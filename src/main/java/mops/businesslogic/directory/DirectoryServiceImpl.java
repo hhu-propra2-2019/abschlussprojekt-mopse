@@ -195,6 +195,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         return parentDirectory;
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     private boolean isFirstLevel(Directory directory) throws DatabaseException {
         long permissionsId = directory.getPermissionsId();
         long groupOwner = directory.getGroupOwner();

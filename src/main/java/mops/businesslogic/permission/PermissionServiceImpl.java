@@ -55,6 +55,7 @@ public class PermissionServiceImpl implements PermissionService {
     /**
     * {@inheritDoc}
     */
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void delete(Directory directory) throws MopsException {
         try {
