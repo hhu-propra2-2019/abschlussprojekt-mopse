@@ -46,6 +46,18 @@ public class DirectoryPermissionsBuilder {
     }
 
     /**
+     * Initialize from existing DirectoryPermissions. Is like from but without copying the id.
+     *
+     * @param permissions existing DirectoryPermissions
+     * @return this
+     */
+    public DirectoryPermissionsBuilder copy(DirectoryPermissions permissions) {
+        permissions.getPermissions().forEach(e -> entry(e.getRole(), e.isCanRead(), e.isCanWrite(), e.isCanDelete()));
+        this.creationTime = permissions.getCreationTime();
+        return this;
+    }
+
+    /**
      * Set id.
      *
      * @param id id
