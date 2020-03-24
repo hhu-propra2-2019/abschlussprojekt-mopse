@@ -200,8 +200,13 @@ class DirectoryServiceTest {
 
         List<Directory> subFolders = directoryService.getSubFolders(admin, root.getId());
 
+        long permissionsId = subFolder.getPermissionsId();
+
         assertThat(parent).isEqualTo(root);
         assertThat(subFolders).isEmpty();
+        Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);
+        assertThat(byId).isEmpty();
+
     }
 
     @Test
