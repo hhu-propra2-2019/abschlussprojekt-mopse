@@ -183,7 +183,7 @@ class DirectoryServiceTest {
                 .name("a")
                 .build();
 
-        FileInfo matchingFile = fileInfoRepository.save(
+        FileInfo matchingFile1 = fileInfoRepository.save(
                 FileInfo.builder()
                         .name("a")
                         .directory(root)
@@ -192,6 +192,17 @@ class DirectoryServiceTest {
                         .owner(USER)
                         .build()
         );
+
+        FileInfo matchingFile2 = fileInfoRepository.save(
+                FileInfo.builder()
+                        .name("ab")
+                        .directory(root)
+                        .type("txt")
+                        .size(0L)
+                        .owner(USER)
+                        .build()
+        );
+
         fileInfoRepository.save(
                 FileInfo.builder()
                         .name("b")
@@ -204,7 +215,7 @@ class DirectoryServiceTest {
 
         List<FileInfo> fileInfos = directoryService.searchFolder(user, root.getId(), query);
 
-        assertThat(fileInfos).containsExactlyInAnyOrder(matchingFile);
+        assertThat(fileInfos).containsExactlyInAnyOrder(matchingFile1, matchingFile2);
     }
 
     @Test
