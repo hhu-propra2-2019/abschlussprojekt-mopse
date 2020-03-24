@@ -9,7 +9,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 9557
+Content-Length: 9590
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,10 +23,10 @@ Content-Length: 9557
   
         <!-- Links, Skripts, Styles hier einfügen! -->
         <script>
-            fileNamesCounter = "1";
-            ownersCounter = "1";
-            typesCounter = "1";
-            tagsCounter = "1";
+            namesCounter = 1;
+            ownersCounter = 1;
+            typesCounter = 1;
+            tagsCounter = 1;
 
             function addNewInputLine(type, placeholder) {
                 const counter = window[type + "Counter"];
@@ -42,6 +42,7 @@ Content-Length: 9557
                 text.name = type + "[" + counter + "]";
                 text.placeholder = placeholder;
                 text.setAttribute("th:field", type + "[" + counter + "]");
+                text.required = true;
                 button.type = "button";
                 button.value = "+";
                 button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', '" + placeholder + "');");
@@ -57,7 +58,8 @@ Content-Length: 9557
 
                 const delButtonName = type + "[" + counter + "]";
                 const delButtonID = type + "Delete";
-                document.getElementById(delButtonID).setAttribute("onclick", "javascript: deleteLastInputLine('" + delButtonName + "')");
+                document.getElementById(delButtonID)
+                    .setAttribute("onclick", "javascript: deleteLastInputLine('" + delButtonName + "')");
             }
 
             function deleteLastInputLine(del) {
@@ -65,7 +67,6 @@ Content-Length: 9557
                 const substring = del.substring(0, idLength - 3);
 
                 const counter = del.substring(idLength - 2, idLength - 1);
-                console.log(counter);
                 if (counter > 0) {
                     // delete element
                     const child = document.getElementById(del);
@@ -75,7 +76,8 @@ Content-Length: 9557
                     window[substring + "Counter"]--;
                     const newOnclick = substring + "[" + (window[substring + "Counter"] - 1) + "]";
                     const delButtonID = substring + "Delete";
-                    document.getElementById(delButtonID).setAttribute("onclick", "javascript: deleteLastInputLine('" + newOnclick + "')");
+                    document.getElementById(delButtonID)
+                        .setAttribute("onclick", "javascript: deleteLastInputLine('" + newOnclick + "')");
                 }
             }
         </script>
@@ -186,7 +188,7 @@ Content-Length: 9557
         <form action="0" method="get">
             <input type="submit" value="Ebene hoch">
         </form>
-        </div>
+    </div>
     <table>
         <tr>
             <th>Name</th>
@@ -199,24 +201,25 @@ Content-Length: 9557
         
     </table>
 
-    <form action="0/create" method="post"><input type="hidden" name="_csrf" value="31ff490f-c61b-48d1-8c5f-b75a9bc13f08"/>
-        <input type="text" name="folderName">
-        <input type="submit" name="newFolder" value="Neuer Ordner" required>
+    <form action="0/create" method="post"><input type="hidden" name="_csrf" value="952c743c-3d72-43da-b8f9-602f29050417"/>
+        <input type="text" name="folderName" required>
+        <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
 
-    <form action="0/upload" method="post" enctype="multipart/form-data"><input type="hidden" name="_csrf" value="31ff490f-c61b-48d1-8c5f-b75a9bc13f08"/>
-        <input type="file" name="file">
+    <form action="0/upload" method="post"
+          enctype="multipart/form-data"><input type="hidden" name="_csrf" value="952c743c-3d72-43da-b8f9-602f29050417"/>
+        <input type="file" name="file" required>
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
 
-    <form action="0/search" method="post"><input type="hidden" name="_csrf" value="31ff490f-c61b-48d1-8c5f-b75a9bc13f08"/>
-        <div id="fileNames">
-            <div id="fileNames[0]">
+    <form action="0/search" method="post"><input type="hidden" name="_csrf" value="952c743c-3d72-43da-b8f9-602f29050417"/>
+        <div id="names">
+            <div id="names[0]">
                 <div><input type="text" name="names[0]" placeholder="Dateiname" id="names0" value=""></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('names', 'Dateiname')"></div>
             </div>
         </div>
-        <div><input type="button" value="-" id="fileNamesDelete" onclick="deleteLastInputLine('fileNames[0]')"></div>
+        <div><input type="button" value="-" id="namesDelete" onclick="deleteLastInputLine('names[0]')"></div>
         <div id="owners">
             <div id="owners[0]">
                 <div><input type="text" name="owners[0]" placeholder="Besitzer" id="owners0" value=""></div>

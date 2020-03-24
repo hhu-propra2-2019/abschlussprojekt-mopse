@@ -292,7 +292,7 @@ implements <a href="FileService.html" title="interface in mops.businesslogic.fil
 <ul class="blockList">
 <li class="blockList">
 <h4>saveFile</h4>
-<pre class="methodSignature">@Transactional(rollbackFor=<a href="../../exception/MopsException.html" title="class in mops.exception">MopsException.class</a>)
+<pre class="methodSignature">@Transactional
 public&nbsp;void&nbsp;saveFile&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
                      long&nbsp;dirId,
                      org.springframework.web.multipart.MultipartFile&nbsp;multipartFile,
@@ -341,7 +341,7 @@ public&nbsp;void&nbsp;saveFile&#8203;(<a href="../security/Account.html" title="
 <ul class="blockList">
 <li class="blockList">
 <h4>deleteFile</h4>
-<pre class="methodSignature">@Transactional(rollbackFor=<a href="../../exception/MopsException.html" title="class in mops.exception">MopsException.class</a>)
+<pre class="methodSignature">@Transactional
 public&nbsp;<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;deleteFile&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
                             long&nbsp;fileId)
                      throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
