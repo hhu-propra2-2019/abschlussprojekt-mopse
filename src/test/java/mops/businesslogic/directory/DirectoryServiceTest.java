@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -201,6 +202,22 @@ class DirectoryServiceTest {
 
         assertThat(parent).isEqualTo(root);
         assertThat(subFolders).isEmpty();
+    }
+
+    @Test
+    public void deleteRootFolderTest() throws MopsException {
+        long groupId = 100L;
+
+        given(groupService.fetchRolesInGroup(groupId)).willReturn(Set.of(ADMIN, EDITOR, USER));
+        given(groupService.fetchRoleForUserInGroup(admin, groupId)).willReturn(ADMIN);
+        given(groupService.fetchRoleForUserInGroup(editor, groupId)).willReturn(EDITOR);
+        given(groupService.fetchRoleForUserInGroup(user, groupId)).willReturn(USER);
+        given(groupService.fetchRoleForUserInGroup(intruder, groupId)).willReturn(INTRUDER);
+
+        Directory rootFolder = directoryService.getOrCreateRootFolder(groupId).getRootDir();
+        long permissionsId = rootFolder.getPermissionsId();
+        Directory directory = directoryService.deleteFolder(admin, rootFolder.getId());
+        Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);
     }
 
     @Test
