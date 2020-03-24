@@ -178,11 +178,37 @@ public class DirectoryServiceImpl implements DirectoryService {
             throw new DeleteAccessPermissionException(errorMessage);
         }
 
-        Directory parentDirectory = getDirectory(directory.getParentId());
 
+
+        Directory parentDirectory;
+        if (directory.getParentId() != null) {
+            parentDirectory = getDirectory(directory.getParentId());
+        } else {
+            parentDirectory = null;
+        }
         deleteDirectory(directory);
 
+        if (directory.getParentId() == null || isFirstLevel(directory)) {
+            permissionService.delete(directory);
+        }
+
         return parentDirectory;
+    }
+
+    private boolean isFirstLevel(Directory directory) throws DatabaseException {
+        long permissionsId = directory.getPermissionsId();
+        long groupOwner = directory.getGroupOwner();
+        try {
+            Directory parentDirectory = directoryRepository.getRootFolder(groupOwner).orElseThrow();
+            long parentDirectoryPermissionsId = parentDirectory.getPermissionsId();
+            return parentDirectoryPermissionsId != permissionsId;
+        } catch (Exception e) {
+            log.error("Failed to retrieve root directory of group '{}' from database.", groupOwner);
+            String message = String.format("Das Wurzelverzeichnis für die Gruppe '%d' konnte nicht gefunden werden.",
+                    groupOwner);
+            throw new DatabaseException(message, e);
+        }
+
     }
 
     /**
