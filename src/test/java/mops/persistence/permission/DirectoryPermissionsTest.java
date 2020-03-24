@@ -74,7 +74,10 @@ class DirectoryPermissionsTest {
                 .entry("admin", true, true, true)
                 .id(1L)
                 .build();
-        DirectoryPermissions copy = DirectoryPermissions.builder().copy(admin).build();
+        DirectoryPermissions copy = DirectoryPermissions.builder()
+                .from(admin)
+                .id((Long) null)
+                .build();
 
         assertThat(copy).isEqualToIgnoringGivenFields(admin, "id");
         assertThat(copy.getId()).isNotEqualTo(admin.getId());
