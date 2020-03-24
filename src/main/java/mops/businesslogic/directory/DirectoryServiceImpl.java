@@ -162,7 +162,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter") //these are not violations of demeter's law
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) //these are not violations of demeter's law
     public Directory deleteFolder(Account account, long dirId) throws MopsException {
         Directory directory = getDirectory(dirId);
         securityService.checkDeletePermission(account, directory);
@@ -180,11 +180,9 @@ public class DirectoryServiceImpl implements DirectoryService {
 
 
 
-        Directory parentDirectory;
+        Directory parentDirectory = null;
         if (directory.getParentId() != null) {
             parentDirectory = getDirectory(directory.getParentId());
-        } else {
-            parentDirectory = null;
         }
         deleteDirectory(directory);
 
@@ -198,13 +196,13 @@ public class DirectoryServiceImpl implements DirectoryService {
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     private boolean isFirstLevel(Directory directory) throws DatabaseException {
         long permissionsId = directory.getPermissionsId();
-        long groupOwner = directory.getGroupOwner();
         Long parentId = directory.getParentId();
         try {
             Directory parentDirectory = directoryRepository.findById(parentId).orElseThrow();
             long parentDirPermId = parentDirectory.getPermissionsId();
             return parentDirPermId != permissionsId;
         } catch (Exception e) {
+            long groupOwner = directory.getGroupOwner();
             log.error("Failed to retrieve root directory of group '{}' from database.", groupOwner);
             String message = String.format("Das Wurzelverzeichnis für die Gruppe '%d' konnte nicht gefunden werden.",
                     groupOwner);
