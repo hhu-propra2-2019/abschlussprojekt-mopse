@@ -42,19 +42,21 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         String referer = request.getHeader("referer");
         model.addAttribute("referer", referer);
-        String error = "mops_error";
 
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
+            model.addAttribute("statuscode", statusCode);
 
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                error = "error-404";
+                model.addAttribute("status_message",
+                        "Die angeforderte Resource konnte nicht gefunden werden :(");
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                error = "error-500";
+                model.addAttribute("status_message",
+                        "Captain, wir haben ein Problem! Wuff!");
             }
         }
 
-        return error;
+        return "mops_error";
     }
 
     /**
