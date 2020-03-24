@@ -1,45 +1,40 @@
-package mops.persistence.directory;
+package mops.persistence.group;
 
 import lombok.*;
 import mops.util.AggregateRoot;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Set;
 
 /**
- * Represents a directory where files can be stored.
+ * Represents a group.
  */
 @Data
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @AggregateRoot
-public class Directory {
+public class Group {
 
     /**
-     * Database Id.
+     * Database id.
      */
     @Id
-    @Setter(AccessLevel.PRIVATE)
     private Long id;
     /**
-     * Directory name.
+     * Group name.
      */
     @NonNull
     private String name;
     /**
-     * Id of the Directory above this one.
+     * File tags.
      */
-    private Long parentId;
-    /**
-     * Id of the group which this Directory belongs to.
-     */
-    private long groupOwner;
-    /**
-     * Id of the DirectoryPermissions object which stores the access permission for this Directory tree.
-     */
-    private long permissionsId;
+    @NonNull
+    @MappedCollection(idColumn = "group_id")
+    private Set<GroupMember> members;
     /**
      * Creation Time.
      */
@@ -74,11 +69,11 @@ public class Directory {
     }
 
     /**
-     * Gives you DirectoryBuilder.
+     * Gives you GroupBuilder.
      *
-     * @return DirectoryBuilder
+     * @return GroupBuilder
      */
-    public static DirectoryBuilder builder() {
-        return new DirectoryBuilder();
+    public static GroupBuilder builder() {
+        return new GroupBuilder();
     }
 }

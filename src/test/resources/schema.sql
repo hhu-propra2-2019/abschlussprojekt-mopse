@@ -59,3 +59,22 @@ CREATE TABLE IF NOT EXISTS file_tag
 );
 
 CREATE INDEX IF NOT EXISTS i_tag_file ON file_tag (file_id);
+
+CREATE TABLE IF NOT EXISTS "group"
+(
+    id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
+    creation_time      TIMESTAMP    NOT NULL,
+    last_modified_time TIMESTAMP    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS group_member
+(
+    group_id BIGINT       NOT NULL,
+    name     VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
+    role     VARCHAR(255) NOT NULL CHECK (role NOT LIKE ''),
+    CONSTRAINT fk_member_group FOREIGN KEY (group_id) REFERENCES "group" (id),
+    CONSTRAINT u_member UNIQUE (group_id, name)
+);
+
+CREATE INDEX IF NOT EXISTS i_member_group ON group_member (group_id);

@@ -3,6 +3,7 @@ package mops.businesslogic.group;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
+import mops.persistence.group.Group;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -87,7 +88,7 @@ public class GroupServiceDevImpl implements GroupService {
     @SuppressWarnings("PMD.LawOfDemeter") // stream
     public List<Group> getAllGroups() throws MopsException {
         return VALID_GROUP_IDS.stream()
-                .map(id -> new Group(id, "Einzigen #" + id))
+                .map(id -> Group.builder().id(id).name("Einzigen #" + id).build()) // TODO: does this need membes?
                 .collect(Collectors.toList());
     }
 

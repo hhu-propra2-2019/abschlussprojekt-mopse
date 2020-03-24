@@ -2,10 +2,10 @@ package mops.presentation;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.group.Group;
 import mops.businesslogic.group.GroupService;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
+import mops.persistence.group.Group;
 import mops.presentation.error.ExceptionPresentationError;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
