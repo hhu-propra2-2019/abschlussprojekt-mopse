@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -179,14 +179,6 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#error(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">error</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-     org.springframework.ui.Model&nbsp;model)</code></th>
-<td class="colLast">
-<div class="block">Basic error page.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#index(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">index</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
      org.springframework.ui.Model&nbsp;model)</code></th>
 <td class="colLast">
@@ -239,32 +231,13 @@ extends java.lang.Object</pre>
 <a id="index(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>index</h4>
 <pre class="methodSignature">@GetMapping
 public&nbsp;java.lang.String&nbsp;index&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                               org.springframework.ui.Model&nbsp;model)</pre>
 <div class="block">Landing page.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>token</code> - user credentials</dd>
-<dd><code>model</code> - spring view model</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>error view template</dd>
-</dl>
-</li>
-</ul>
-<a id="error(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model)">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>error</h4>
-<pre class="methodSignature">@GetMapping("error")
-public&nbsp;java.lang.String&nbsp;error&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                              org.springframework.ui.Model&nbsp;model)</pre>
-<div class="block">Basic error page.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>token</code> - user credentials</dd>

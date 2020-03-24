@@ -1200,6 +1200,27 @@ zuvor auch.</em></p>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Application Konfiguration</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-config" data-lang="config">spring.servlet.multipart.enabled=true
+spring.servlet.multipart.max-file-size=${MATERIAL1_MAX_FILE_SIZE:10MB}
+spring.servlet.multipart.max-request-size=${MATERIAL1_MAX_FILE_SIZE:10MB}
+server.tomcat.max-swallow-size=-1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Die erste Zeile erlaubt Up-/Download von Dateien.
+Die <code>max-file-size</code> ist die maximale Uploadgröße und die <code>max-request-size</code> ist die maximale Downloadgröße.
+Zweitere darf nur erhöht werden, da sonst alte Dateien nicht herunter geladen werden können. <code>max-swallow-size</code> nach
+unserer Recherche wird sonst nicht die maximale Filegrößenfehler, die von uns implementiert sind, nicht geworfen.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_ebene_2">5.3. Ebene 2</h3>
@@ -2162,7 +2183,7 @@ keine Fehler während der Entwicklung übersehen werden.</p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-24 12:10:19 UTC
+Last updated 2020-03-24 13:22:18 UTC
 </div>
 </div>
 </body>
