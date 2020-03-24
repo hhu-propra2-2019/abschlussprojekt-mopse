@@ -183,9 +183,14 @@ public class DirectoryServiceImpl implements DirectoryService {
         securityService.checkReadPermission(account, directory);
         List<FileInfo> fileInfos = fileInfoService.fetchAllFilesInDirectory(dirId);
 
-        return fileInfos.stream() //this is a stream not violation of demeter's law
+        List<FileInfo> results = fileInfos.stream() //this is a stream not violation of demeter's law
                 .filter(query::checkMatch)
                 .collect(Collectors.toList());
+
+        for (Directory subDir : getSubFolders(account, dirId)) {
+            results.addAll(searchFolder(account, subDir.getId(), query));
+        }
+        return results;
     }
 
     /**
