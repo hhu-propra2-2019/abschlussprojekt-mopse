@@ -79,6 +79,23 @@ Enthaltene Bausteine::
 |===
 ****
 
+****
+Application Konfiguration
+
+[source,config]
+----
+spring.servlet.multipart.enabled=true
+spring.servlet.multipart.max-file-size=${MATERIAL1_MAX_FILE_SIZE:10MB}
+spring.servlet.multipart.max-request-size=${MATERIAL1_MAX_FILE_SIZE:10MB}
+server.tomcat.max-swallow-size=-1
+----
+Die erste Zeile erlaubt Up-/Download von Dateien.
+Die `max-file-size` ist die maximale Uploadgröße und die `max-request-size` ist die maximale Downloadgröße.
+Zweitere darf nur erhöht werden, da sonst alte Dateien nicht herunter geladen werden können. `max-swallow-size` nach
+unserer Recherche wird sonst nicht die maximale Filegrößenfehler, die von uns implementiert sind, nicht geworfen.
+
+****
+
 === Ebene 2
 
 ****

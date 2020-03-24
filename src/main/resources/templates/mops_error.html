@@ -18,6 +18,11 @@
     <div class="alert alert-warning" id="error-message" th:if="${error} != null" th:text="${error.message}">
         Error!
     </div>
+    <div th:if="${statuscode}">
+        <h1 th:text="${statuscode}">404</h1>
+        <h3 th:if="${status_message}" th:text="${status_message}">Die angeforderte Resource konnte nicht gefunden werden :(</h3>
+    </div>
+    <a th:if="${referer}" th:href="${referer}" class="nav-link">Zurück</a>
 </main>
 </body>
 </html>
