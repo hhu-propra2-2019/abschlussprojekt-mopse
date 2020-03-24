@@ -72,6 +72,7 @@ public class DirectoryController {
 
         model.addAttribute("fileQueryForm", new FileQueryForm());
         model.addAttribute("account", account);
+        model.addAttribute("thisDirId", dirId);
         return "directory";
     }
 
@@ -88,7 +89,7 @@ public class DirectoryController {
     public String uploadFile(RedirectAttributes redirectAttributes,
                              KeycloakAuthenticationToken token,
                              @PathVariable("dirId") long dirId,
-                             @RequestAttribute("file") MultipartFile multipartFile) {
+                             @RequestParam("file") MultipartFile multipartFile) {
         Account account = Account.of(token);
         log.info("Upload of a file in directory with id '{}' requested by user '{}'.", dirId, account.getName());
 
@@ -118,7 +119,7 @@ public class DirectoryController {
     public String createSubFolder(RedirectAttributes redirectAttributes,
                                   KeycloakAuthenticationToken token,
                                   @PathVariable("parentDirId") long parentDirId,
-                                  @RequestAttribute("folderName") String folderName) {
+                                  @RequestParam("folderName") String folderName) {
         Account account = Account.of(token);
         log.info("Sub folder creation requested in parent folder with id '{}' by user '{}'.",
                 parentDirId, account.getName());
@@ -143,7 +144,7 @@ public class DirectoryController {
      * @param dirId              id of the folder to be deleted
      * @return the id of the parent folder
      */
-    @DeleteMapping("/{dirId}")
+    @PostMapping("/{dirId}/delete")
     public String deleteFolder(RedirectAttributes redirectAttributes,
                                KeycloakAuthenticationToken token,
                                @PathVariable("dirId") long dirId) {
@@ -177,7 +178,7 @@ public class DirectoryController {
                                KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
-                               @RequestAttribute("fileQueryForm") FileQueryForm queryForm) {
+                               @ModelAttribute FileQueryForm queryForm) {
         Account account = Account.of(token);
         log.info("Search for file in the folder with the id '{}' requested by user '{}'.", dirId, account.getName());
 
