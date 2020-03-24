@@ -60,8 +60,10 @@ public class DirectoryController {
         log.info("Folder content for folder with id '{}' requested by user '{}'.", dirId, account.getName());
 
         try {
+            Directory directory = directoryService.getDirectory(dirId);
             List<Directory> directories = directoryService.getSubFolders(account, dirId);
             List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+            model.addAttribute("directory", directory);
             model.addAttribute("dirs", directories);
             model.addAttribute("files", files);
         } catch (MopsException e) {
@@ -72,7 +74,7 @@ public class DirectoryController {
 
         model.addAttribute("fileQueryForm", new FileQueryForm());
         model.addAttribute("account", account);
-        model.addAttribute("thisDirId", dirId);
+
         return "directory";
     }
 
@@ -178,7 +180,7 @@ public class DirectoryController {
                                KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
-                               @ModelAttribute FileQueryForm queryForm) {
+                               @ModelAttribute("fileQueryForm") FileQueryForm queryForm) {
         Account account = Account.of(token);
         log.info("Search for file in the folder with the id '{}' requested by user '{}'.", dirId, account.getName());
 

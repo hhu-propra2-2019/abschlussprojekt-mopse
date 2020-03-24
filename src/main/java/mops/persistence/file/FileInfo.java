@@ -9,6 +9,7 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -86,7 +87,9 @@ public class FileInfo {
      */
     @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     public boolean hasTag(String otherTag) {
-        return tags.stream().anyMatch(tag -> otherTag.equalsIgnoreCase(tag.getName()));
+        return tags.stream()
+                .anyMatch(tag -> tag.getName().toLowerCase(Locale.ROOT)
+                        .contains(otherTag.toLowerCase(Locale.ROOT)));
     }
 
     /**

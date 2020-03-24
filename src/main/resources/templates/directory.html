@@ -7,10 +7,10 @@
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
         <script>
-            fileNamesCounter = "1";
-            ownersCounter = "1";
-            typesCounter = "1";
-            tagsCounter = "1";
+            namesCounter = 1;
+            ownersCounter = 1;
+            typesCounter = 1;
+            tagsCounter = 1;
 
             function addNewInputLine(type, placeholder) {
                 const counter = window[type + "Counter"];
@@ -26,6 +26,7 @@
                 text.name = type + "[" + counter + "]";
                 text.placeholder = placeholder;
                 text.setAttribute("th:field", type + "[" + counter + "]");
+                text.required = true;
                 button.type = "button";
                 button.value = "+";
                 button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', '" + placeholder + "');");
@@ -41,7 +42,8 @@
 
                 const delButtonName = type + "[" + counter + "]";
                 const delButtonID = type + "Delete";
-                document.getElementById(delButtonID).setAttribute("onclick", "javascript: deleteLastInputLine('" + delButtonName + "')");
+                document.getElementById(delButtonID)
+                    .setAttribute("onclick", "javascript: deleteLastInputLine('" + delButtonName + "')");
             }
 
             function deleteLastInputLine(del) {
@@ -49,7 +51,6 @@
                 const substring = del.substring(0, idLength - 3);
 
                 const counter = del.substring(idLength - 2, idLength - 1);
-                console.log(counter);
                 if (counter > 0) {
                     // delete element
                     const child = document.getElementById(del);
@@ -59,7 +60,8 @@
                     window[substring + "Counter"]--;
                     const newOnclick = substring + "[" + (window[substring + "Counter"] - 1) + "]";
                     const delButtonID = substring + "Delete";
-                    document.getElementById(delButtonID).setAttribute("onclick", "javascript: deleteLastInputLine('" + newOnclick + "')");
+                    document.getElementById(delButtonID)
+                        .setAttribute("onclick", "javascript: deleteLastInputLine('" + newOnclick + "')");
                 }
             }
         </script>
@@ -72,18 +74,24 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
-    <input type="button" value="zurück" onclick="history.back(-1)" />
+    <div th:if="${directory.getParentId()} != null">
+        <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
+            <input type="submit" value="Ebene hoch">
+        </form>
+    </div>
     <table>
         <tr>
             <th>Name</th>
             <th>Erstelldatum</th>
             <th>Typ</th>
+            <th>Besitzer</th>
             <th>Größe</th>
         </tr>
-        <tr th:each="dir : ${dirs}" }>
-            <td> <a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
+        <tr th:each="dir : ${dirs}">
+            <td><a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
             <td th:text="${#temporals.format(dir.creationTime, 'dd.MM.yyyy - HH:mm')}"></td>
             <td>Dateiordner</td>
+            <td></td>
             <td></td>
             <td>
                 <form action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}" th:method="post">
@@ -92,9 +100,10 @@
             </td>
         </tr>
         <tr th:each="file : ${files}">
-            <td> <a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
-            <td th:text="TBD">%Datum%</td>
+            <td><a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
+            <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
             <td th:text="${file.type}">%Typ%</td>
+            <td th:text="${file.owner}">%Owner%</td>
             <td th:text="${file.getSizeString()}">%Größe%</td>
             <td>
                 <form action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
@@ -104,24 +113,26 @@
         </tr>
     </table>
 
-    <form action="#" th:action="@{{thisDirId}/create(thisDirId = ${thisDirId})}" th:method="post">
-        <input type="text" name="folderName">
-        <input type="submit" name="newFolder" value="Neuer Ordner" required>
+    <form action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}" th:method="post">
+        <input type="text" name="folderName" required>
+        <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
 
-    <form action="#" th:action="@{{thisDirId}/upload(thisDirId = ${thisDirId})}" th:method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
+    <form action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}" th:method="post"
+          enctype="multipart/form-data">
+        <input type="file" name="file" required>
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
 
-    <form action="#" th:action="@{{thisDirId}/search(thisDirId = ${thisDirId})}" th:method="post" th:object="${fileQueryForm}">
-        <div id="fileNames">
-            <div id="fileNames[0]">
-                <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{names[0]}"></div>
+    <form action="#" th:action="@{{dirId}/search(dirId = ${directory.getId()})}" th:method="post"
+          th:object="${fileQueryForm}">
+        <div id="names">
+            <div id="names[0]">
+                <div><input type="text" name="names[0]" placeholder="Dateiname" th:field="*{names[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('names', 'Dateiname')"></div>
             </div>
         </div>
-        <div><input type="button" value="-" id="fileNamesDelete" onclick="deleteLastInputLine('fileNames[0]')"></div>
+        <div><input type="button" value="-" id="namesDelete" onclick="deleteLastInputLine('names[0]')"></div>
         <div id="owners">
             <div id="owners[0]">
                 <div><input type="text" name="owners[0]" placeholder="Besitzer" th:field="*{owners[0]}"></div>
