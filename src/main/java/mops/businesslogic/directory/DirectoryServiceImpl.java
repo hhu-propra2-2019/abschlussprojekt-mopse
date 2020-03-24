@@ -15,6 +15,7 @@ import mops.businesslogic.security.SecurityService;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
+import mops.persistence.directory.DirectoryBuilder;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.persistence.permission.DirectoryPermissionsBuilder;
@@ -139,10 +140,21 @@ public class DirectoryServiceImpl implements DirectoryService {
         }
         securityService.checkWritePermission(account, parentDir);
 
-        Directory directory = Directory.builder() //this is no violation of demeter's law
+        DirectoryBuilder builder = Directory.builder() //this is no violation of demeter's law
                 .fromParent(parentDir)
-                .name(dirName)
-                .build();
+                .name(dirName);
+
+        if (parentDir.getParentId() == null) {
+            DirectoryPermissions parentPermissions = permissionService.getPermissions(parentDir);
+            DirectoryPermissions permissions = DirectoryPermissions.builder()
+                    .copy(parentPermissions)
+                    .build();
+            DirectoryPermissions savedPermissions = permissionService.savePermissions(permissions);
+            builder.permissions(savedPermissions);
+        }
+
+
+        Directory directory = builder.build();
         return saveDirectory(directory);
     }
 
