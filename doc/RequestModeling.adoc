@@ -31,10 +31,10 @@
 `GET` Anfrage auf eine Datei (`material1/file/{file_id}/download`)
 
 === 6. Löschen einer Datei
-`DELETE` Löschen einer Datei (`material1/file/{file_id}`)
+`POST` Löschen einer Datei (`material1/file/{file_id}/delete`)
 
 === 7. Löschen eines Ordners
-`DELETE` Löschen eines Ordners (`material1/dir/{dir_id}`)
+`POST` Löschen eines Ordners (`material1/dir/{dir_id}/delete`)
 
 === 8. Hochladen einer Datei
 `POST` Hochladen (`material1/dir/{dir_id}/upload`)
