@@ -1,7 +1,6 @@
 package mops.presentation.error;
 
 import lombok.Value;
-import mops.exception.MopsException;
 import org.springframework.lang.NonNull;
 
 /**
@@ -16,7 +15,7 @@ public class ExceptionPresentationError implements PresentationError {
      * The exception.
      */
     @lombok.NonNull
-    MopsException exception;
+    Exception exception;
 
     /**
      * {@inheritDoc}

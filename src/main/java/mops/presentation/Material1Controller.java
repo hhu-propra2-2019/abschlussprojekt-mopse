@@ -33,20 +33,4 @@ public class Material1Controller {
         model.addAttribute("account", account);
         return "redirect:/material1/groups";
     }
-
-    /**
-     * Basic error page.
-     *
-     * @param token user credentials
-     * @param model spring view model
-     * @return error view template
-     */
-    @GetMapping("error")
-    public String error(KeycloakAuthenticationToken token, Model model) {
-        Account account = Account.of(token);
-        log.info("Error page requested by user '{}'.", account.getName());
-
-        model.addAttribute("account", account);
-        return "mops_error";
-    }
 }
