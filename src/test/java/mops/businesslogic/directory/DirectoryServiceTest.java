@@ -195,12 +195,13 @@ class DirectoryServiceTest {
     @Test
     void deleteFirstFolderTest() throws MopsException {
         Directory subFolder = directoryService.createFolder(admin, root.getId(), "a");
+        long permissionsId = subFolder.getPermissionsId();
+
 
         Directory parent = directoryService.deleteFolder(admin, subFolder.getId());
 
         List<Directory> subFolders = directoryService.getSubFolders(admin, root.getId());
 
-        long permissionsId = subFolder.getPermissionsId();
 
         assertThat(parent).isEqualTo(root);
         assertThat(subFolders).isEmpty();
@@ -226,6 +227,23 @@ class DirectoryServiceTest {
 
         assertThat(directory).isNull();
         assertThat(byId).isEmpty();
+    }
+
+    @Test
+    public void deleteSecondLevelFolderTest() throws MopsException {
+        Directory subFolder = directoryService.createFolder(admin, root.getId(), "a");
+        Directory secondLevel = directoryService.createFolder(admin, subFolder.getId(), "b");
+        long permissionsId = secondLevel.getPermissionsId();
+
+
+        Directory parent = directoryService.deleteFolder(admin, secondLevel.getId());
+        List<Directory> subFolders = directoryService.getSubFolders(admin, subFolder.getId());
+
+
+        assertThat(parent).isEqualTo(subFolder);
+        assertThat(subFolders).isEmpty();
+        Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);
+        assertThat(byId).isNotEmpty();
     }
 
     @Test
