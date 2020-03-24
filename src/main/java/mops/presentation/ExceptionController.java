@@ -37,21 +37,24 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
      * {@inheritDoc}
      */
     @RequestMapping("/error")
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         String referrer = request.getHeader("referer");
         model.addAttribute("referrer", referrer);
+        String error = "mops_error";
 
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
 
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "error-404";
+                error = "error-404";
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "error-500";
+                error = "error-500";
             }
         }
-        return "mops_error";
+
+        return error;
     }
 
     /**
