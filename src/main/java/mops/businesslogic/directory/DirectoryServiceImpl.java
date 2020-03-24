@@ -268,7 +268,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             return directoryRepository.save(directory);
         } catch (Exception e) {
             log.error("The directory with the id '{}' could not be saved to the database:", directory, e);
-            String error = String.format("Der Ordner '%s' konnte nicht gefunden werden.", directory);
+            String error = String.format("Der Ordner '%s' konnte nicht gespeichert werden.", directory);
             throw new DatabaseException(error, e);
         }
     }
