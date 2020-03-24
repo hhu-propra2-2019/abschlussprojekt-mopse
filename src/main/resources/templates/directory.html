@@ -78,12 +78,14 @@
             <th>Name</th>
             <th>Erstelldatum</th>
             <th>Typ</th>
+            <th>Besitzer</th>
             <th>Größe</th>
         </tr>
         <tr th:each="dir : ${dirs}" }>
             <td> <a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
             <td th:text="${#temporals.format(dir.creationTime, 'dd.MM.yyyy - HH:mm')}"></td>
             <td>Dateiordner</td>
+            <td></td>
             <td></td>
             <td>
                 <form action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}" th:method="post">
@@ -93,8 +95,9 @@
         </tr>
         <tr th:each="file : ${files}">
             <td> <a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
-            <td th:text="TBD">%Datum%</td>
+            <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
             <td th:text="${file.type}">%Typ%</td>
+            <td th:text="${file.owner}">%Owner%</td>
             <td th:text="${file.getSizeString()}">%Größe%</td>
             <td>
                 <form action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
