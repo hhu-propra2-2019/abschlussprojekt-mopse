@@ -133,7 +133,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void deleteDirectory() throws Exception {
-        mockMvc().perform(post("/material1/dir/{dir}", 1)
+        mockMvc().perform(post("/material1/dir/{dir}/delete", 1)
                 .requestAttr("dirId", 1)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
