@@ -6,7 +6,6 @@ import mops.businesslogic.group.GroupService;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryPermissionsRepository;
-import mops.persistence.DirectoryRepository;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;

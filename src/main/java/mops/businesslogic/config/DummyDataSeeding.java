@@ -62,10 +62,7 @@ public class DummyDataSeeding {
 
             DirectoryPermissions directoryPermissions = DirectoryPermissions.builder()
                     .entry(adminRole, true, true, true)
-                    .entry("editor", true, true, false)
                     .entry("viewer", true, false, false)
-                    .entry("korrektor", true, true, true)
-                    .entry("studentin", true, true, true)
                     .build();
 
             Directory directoryParent = directoryService.getOrCreateRootFolder(GROUP_ID).getRootDir();
