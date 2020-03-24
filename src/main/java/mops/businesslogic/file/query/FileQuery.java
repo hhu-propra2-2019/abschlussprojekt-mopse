@@ -65,15 +65,33 @@ public class FileQuery {
         return tags.isEmpty() || anyMatch;
     }
 
+    @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean checkTypes(FileInfo file) {
-        return types.isEmpty() || types.contains(file.getType().toLowerCase(Locale.ROOT));
+        for (String type : types) {
+            if (file.getType().toLowerCase(Locale.ROOT).contains(type.toLowerCase(Locale.ROOT))) {
+                return true;
+            }
+        }
+        return types.isEmpty();
     }
 
+    @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean checkNames(FileInfo file) {
-        return names.isEmpty() || names.contains(file.getName().toLowerCase(Locale.ROOT));
+        for (String name : names) {
+            if (file.getName().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT))) {
+                return true;
+            }
+        }
+        return names.isEmpty();
     }
 
+    @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean checkOwners(FileInfo file) {
-        return owners.isEmpty() || owners.contains(file.getOwner().toLowerCase(Locale.ROOT));
+        for (String owner : owners) {
+            if (file.getOwner().toLowerCase(Locale.ROOT).contains(owner.toLowerCase(Locale.ROOT))) {
+                return true;
+            }
+        }
+        return owners.isEmpty();
     }
 }
