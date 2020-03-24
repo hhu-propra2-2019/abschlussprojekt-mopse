@@ -7,14 +7,15 @@ import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileService;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
-import mops.persistence.file.FileInfo;
 import mops.presentation.form.FileQueryForm;
 import mops.util.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockMultipartFile;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -74,8 +75,9 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void uploadFile() throws Exception {
-        mockMvc().perform(post("/material1/dir/{dir}/upload", 1)
-                .requestAttr("file", mock(FileInfo.class))
+        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "teststring".getBytes(StandardCharsets.UTF_8));
+        mockMvc().perform(fileUpload("/material1/dir/{dir}/upload", 1)
+                .file(file)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/material1/dir/1"))
@@ -92,7 +94,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void createFolder() throws Exception {
         mockMvc().perform(post("/material1/dir/{dir}/create", 1)
-                .requestAttr("folderName", "Vorlesungen")
+                .param("folderName", "Vorlesungen")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/material1/dir/2"))
@@ -131,7 +133,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void deleteDirectory() throws Exception {
-        mockMvc().perform(delete("/material1/dir/{dir}", 1)
+        mockMvc().perform(post("/material1/dir/{dir}/delete", 1)
                 .requestAttr("dirId", 1)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
