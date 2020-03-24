@@ -201,8 +201,8 @@ public class DirectoryServiceImpl implements DirectoryService {
         Long parentId = directory.getParentId();
         try {
             Directory parentDirectory = directoryRepository.findById(parentId).orElseThrow();
-            long parentDirectoryPermissionsId = parentDirectory.getPermissionsId();
-            return parentDirectoryPermissionsId != permissionsId;
+            long parentDirPermId = parentDirectory.getPermissionsId();
+            return parentDirPermId != permissionsId;
         } catch (Exception e) {
             log.error("Failed to retrieve root directory of group '{}' from database.", groupOwner);
             String message = String.format("Das Wurzelverzeichnis für die Gruppe '%d' konnte nicht gefunden werden.",
