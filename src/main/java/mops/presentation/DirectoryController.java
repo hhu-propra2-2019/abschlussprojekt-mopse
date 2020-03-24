@@ -60,10 +60,10 @@ public class DirectoryController {
         log.info("Folder content for folder with id '{}' requested by user '{}'.", dirId, account.getName());
 
         try {
+            Directory directory = directoryService.getDirectory(dirId);
             List<Directory> directories = directoryService.getSubFolders(account, dirId);
             List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
-            Directory thisDirectory = directoryService.getDirectory(dirId);
-            model.addAttribute("thisDirectory", thisDirectory);
+            model.addAttribute("directory", directory);
             model.addAttribute("dirs", directories);
             model.addAttribute("files", files);
         } catch (MopsException e) {

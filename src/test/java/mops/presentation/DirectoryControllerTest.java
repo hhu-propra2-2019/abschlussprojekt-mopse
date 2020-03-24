@@ -47,6 +47,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         Directory root = mock(Directory.class);
 
         given(directory.getId()).willReturn(2L);
+        given(directoryService.getDirectory(eq(1L))).willReturn(root);
         given(directoryService.getSubFolders(any(), eq(1L))).willReturn(List.of());
         given(fileService.getFilesOfDirectory(any(), eq(1L))).willReturn(List.of());
         given(directoryService.createFolder(any(), eq(1L), any())).willReturn(directory);
@@ -75,7 +76,8 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void uploadFile() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "teststring".getBytes(StandardCharsets.UTF_8));
+        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain",
+                "teststring".getBytes(StandardCharsets.UTF_8));
         mockMvc().perform(fileUpload("/material1/dir/{dir}/upload", 1)
                 .file(file)
                 .with(csrf()))
