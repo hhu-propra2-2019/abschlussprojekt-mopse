@@ -37,27 +37,26 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
      * {@inheritDoc}
      */
     @RequestMapping("/material1/error")
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         String referer = request.getHeader("referer");
         model.addAttribute("referer", referer);
 
         if (status != null) {
-            Integer statusCode;
+            int statusCode;
             try {
-                statusCode = Integer.valueOf(status.toString());
-            } catch (NumberFormatException e) {
+                statusCode = (int) status;
+            } catch (ClassCastException e) {
                 statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
             }
             model.addAttribute("statuscode", statusCode);
 
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 model.addAttribute("status_message",
-                        "Die angeforderte Resource konnte nicht gefunden werden :(");
+                        "Die angeforderte Ressource konnte nicht gefunden werden :(");
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                model.addAttribute("status_message",
-                        "Captain, wir haben ein Problem! Wuff!");
+                model.addAttribute("status_message", "Captain, wir haben ein Problem! Wuff!");
             }
         }
 
