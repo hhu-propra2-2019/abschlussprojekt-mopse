@@ -49,7 +49,7 @@ public class GroupServiceDevImpl implements GroupService {
                     .anyMatch(role -> role.contains("orga") || role.contains("korrektor"))) {
                 log.debug("Found 'orga'/'korrektorin' global role, returning local role 'admin'.");
                 return adminRole;
-            } else if (account.getRoles().stream().anyMatch(role -> role.contains("studentin"))) {
+            } else {
                 log.debug("Returning local role 'viewer'.");
                 return "viewer";
             }
