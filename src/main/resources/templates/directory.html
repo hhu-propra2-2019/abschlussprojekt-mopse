@@ -74,7 +74,7 @@
 <main th:fragment="bodycontent">
     <div th:if="${directory.getParentId()} != null">
         <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
-            <input type="submit" name="newFolder" value="zurück" required>
+            <input type="submit" value="Ebene hoch">
         </form>
         </div>
     <table>
