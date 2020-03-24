@@ -66,4 +66,14 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
     @Query("SELECT id FROM file_info")
     Set<Long> findAllIds();
 
+    /**
+     * Finds all FileInfo IDs, where no dir exists anymore.
+     * Should theoretically always be an empty list.
+     *
+     * @return all IDs of found orphans
+     */
+    @Query("SELECT id from file_info "
+            + "WHERE directory_id NOT IN "
+            + "(SELECT id from directory)")
+    Set<Long> findAllOrphansByDirectory();
 }
