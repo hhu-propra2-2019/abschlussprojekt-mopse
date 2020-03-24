@@ -21,6 +21,8 @@ import mops.persistence.permission.DirectoryPermissions;
 import mops.persistence.permission.DirectoryPermissionsBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 import java.util.Optional;
@@ -154,7 +156,6 @@ public class DirectoryServiceImpl implements DirectoryService {
             builder.permissions(savedPermissions);
         }
 
-
         Directory directory = builder.build();
         return saveDirectory(directory);
     }
@@ -163,6 +164,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) //these are not violations of demeter's law
     public Directory deleteFolder(Account account, long dirId) throws MopsException {
         Directory directory = getDirectory(dirId);
@@ -179,16 +181,21 @@ public class DirectoryServiceImpl implements DirectoryService {
             throw new DeleteAccessPermissionException(errorMessage);
         }
 
-
-
         Directory parentDirectory = null;
         if (directory.getParentId() != null) {
             parentDirectory = getDirectory(directory.getParentId());
         }
-        deleteDirectory(directory);
 
-        if (parentDirectory == null || parentDirectory.getPermissionsId() != directory.getPermissionsId()) {
-            permissionService.deletePermission(directory);
+        try {
+            deleteDirectory(directory);
+
+            if (parentDirectory == null || parentDirectory.getPermissionsId() != directory.getPermissionsId()) {
+                permissionService.deletePermissions(directory);
+            }
+        } catch (MopsException e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            log.error("Error while deleting directory {} by user {}:", directory.getName(), account.getName(), e);
+            throw new MopsException("Fehler während des Löschens aufgetreten", e);
         }
 
         return parentDirectory;

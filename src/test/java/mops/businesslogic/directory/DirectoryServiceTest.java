@@ -197,17 +197,14 @@ class DirectoryServiceTest {
         Directory subFolder = directoryService.createFolder(admin, root.getId(), "a");
         long permissionsId = subFolder.getPermissionsId();
 
-
         Directory parent = directoryService.deleteFolder(admin, subFolder.getId());
 
         List<Directory> subFolders = directoryService.getSubFolders(admin, root.getId());
-
+        Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);
 
         assertThat(parent).isEqualTo(root);
         assertThat(subFolders).isEmpty();
-        Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);
         assertThat(byId).isEmpty();
-
     }
 
     @Test
@@ -235,10 +232,8 @@ class DirectoryServiceTest {
         Directory secondLevel = directoryService.createFolder(admin, subFolder.getId(), "b");
         long permissionsId = secondLevel.getPermissionsId();
 
-
         Directory parent = directoryService.deleteFolder(admin, secondLevel.getId());
         List<Directory> subFolders = directoryService.getSubFolders(admin, subFolder.getId());
-
 
         assertThat(parent).isEqualTo(subFolder);
         assertThat(subFolders).isEmpty();

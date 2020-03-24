@@ -34,7 +34,9 @@ public class PermissionServiceImpl implements PermissionService {
         } catch (Exception e) {
             log.error("Failed to retrieve directory permissions with id '{}' for directory with id '{}' and name '{}':",
                     id, directory.getId(), directory.getName(), e);
-            throw new DatabaseException("Die Ordnerberechtigungen konnten nicht gefunden werden!", e);
+            String message = String.format("Die Berechtigungnen für den Ordner '%s' konnten nicht gefunden werden.",
+                    directory.getName());
+            throw new DatabaseException(message, e);
         }
     }
 
@@ -53,19 +55,19 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     /**
-    * {@inheritDoc}
-    */
+     * {@inheritDoc}
+     */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
-    public void deletePermission(Directory directory) throws MopsException {
+    public void deletePermissions(Directory directory) throws MopsException {
+        long id = directory.getPermissionsId();
         try {
-            permissionsRepository.deleteById(directory.getPermissionsId());
+            permissionsRepository.deleteById(id);
         } catch (Exception e) {
-            log.error("Failed to delete directory permissions '{}'.", directory.getPermissionsId(), e);
+            log.error("Failed to delete directory permissions with id '{}':", id, e);
             String message = String.format("Die Berechtigungnen für den Ordner '%s' konnten nicht gelöscht werden.",
                     directory.getName());
-            throw new DatabaseException(message,
-                    e);
+            throw new DatabaseException(message, e);
         }
     }
 }
