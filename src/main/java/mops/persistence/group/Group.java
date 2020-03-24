@@ -77,7 +77,6 @@ public class Group {
         return new GroupBuilder();
     }
 
-
     /**
      * Get the role of a group member.
      *

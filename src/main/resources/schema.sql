@@ -62,7 +62,7 @@ CREATE INDEX i_tag_file ON file_tag (file_id);
 
 CREATE TABLE "group"
 (
-    id                 BIGSERIAL PRIMARY KEY,
+    id                 BIGINT PRIMARY KEY,
     name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     creation_time      TIMESTAMP    NOT NULL,
     last_modified_time TIMESTAMP    NOT NULL
