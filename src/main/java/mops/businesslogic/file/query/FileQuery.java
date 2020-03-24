@@ -67,31 +67,24 @@ public class FileQuery {
 
     @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean checkTypes(FileInfo file) {
-        for (String type : types) {
-            if (file.getType().toLowerCase(Locale.ROOT).contains(type.toLowerCase(Locale.ROOT))) {
-                return true;
-            }
-        }
-        return types.isEmpty();
+        return types.stream()
+                .anyMatch(type -> file.getType()
+                        .toLowerCase(Locale.ROOT)
+                        .contains(type.toLowerCase(Locale.ROOT))) || types.isEmpty();
     }
 
-    @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean checkNames(FileInfo file) {
-        for (String name : names) {
-            if (file.getName().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT))) {
-                return true;
-            }
-        }
-        return names.isEmpty();
+        return names.stream()
+                .anyMatch(name -> file.getName()
+                        .toLowerCase(Locale.ROOT)
+                        .contains(name.toLowerCase(Locale.ROOT))) || names.isEmpty();
     }
 
     @SuppressWarnings("PMD.OnlyOneReturn")
     private boolean checkOwners(FileInfo file) {
-        for (String owner : owners) {
-            if (file.getOwner().toLowerCase(Locale.ROOT).contains(owner.toLowerCase(Locale.ROOT))) {
-                return true;
-            }
-        }
-        return owners.isEmpty();
+        return owners.stream()
+                .anyMatch(owner -> file.getOwner()
+                        .toLowerCase(Locale.ROOT)
+                        .contains(owner.toLowerCase(Locale.ROOT))) || owners.isEmpty();
     }
 }
