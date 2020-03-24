@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10};
+var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -222,74 +222,81 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i10" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSizeString()">getSizeString</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Converts Byte to a String.</div>
+</td>
+</tr>
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>@NonNull java.util.Set&lt;mops.persistence.file.FileTag&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTags()">getTags</a></span>()</code></th>
 <td class="colLast">
 <div class="block">File tags.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>@NonNull java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getType()">getType</a></span>()</code></th>
 <td class="colLast">
 <div class="block">File type.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hasTag(java.lang.String)">hasTag</a></span>&#8203;(java.lang.String&nbsp;otherTag)</code></th>
 <td class="colLast">
 <div class="block">Checks if the file is tagged with a specific tag.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDirectoryId(long)">setDirectoryId</a></span>&#8203;(long&nbsp;directoryId)</code></th>
 <td class="colLast">
 <div class="block">Id of the Directory this file resides in.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(@NonNull java.lang.String&nbsp;name)</code></th>
 <td class="colLast">
 <div class="block">File name.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setOwner(java.lang.String)">setOwner</a></span>&#8203;(@NonNull java.lang.String&nbsp;owner)</code></th>
 <td class="colLast">
 <div class="block">Username of the owner.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSize(long)">setSize</a></span>&#8203;(long&nbsp;size)</code></th>
 <td class="colLast">
 <div class="block">Size in bytes.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTags(java.util.Set)">setTags</a></span>&#8203;(@NonNull java.util.Set&lt;mops.persistence.file.FileTag&gt;&nbsp;tags)</code></th>
 <td class="colLast">
 <div class="block">File tags.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setType(java.lang.String)">setType</a></span>&#8203;(@NonNull java.lang.String&nbsp;type)</code></th>
 <td class="colLast">
 <div class="block">File type.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -318,6 +325,20 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="builder()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>builder</h4>
+<pre class="methodSignature">public static&nbsp;<a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a>&nbsp;builder()</pre>
+<div class="block">Gives you FileInfoBuilder.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>FileInfoBuilder</dd>
+</dl>
+</li>
+</ul>
 <a id="hasTag(java.lang.String)">
 <!--   -->
 </a>
@@ -362,17 +383,17 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="builder()">
+<a id="getSizeString()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>builder</h4>
-<pre class="methodSignature">public static&nbsp;<a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a>&nbsp;builder()</pre>
-<div class="block">Gives you FileInfoBuilder.</div>
+<h4>getSizeString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getSizeString()</pre>
+<div class="block">Converts Byte to a String.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>FileInfoBuilder</dd>
+<dd>Filesize with prefix.</dd>
 </dl>
 </li>
 </ul>
