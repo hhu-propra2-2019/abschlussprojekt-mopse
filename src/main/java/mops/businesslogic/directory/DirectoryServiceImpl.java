@@ -15,11 +15,14 @@ import mops.businesslogic.security.SecurityService;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
+import mops.persistence.directory.DirectoryBuilder;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.persistence.permission.DirectoryPermissionsBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 import java.util.Optional;
@@ -144,10 +147,21 @@ public class DirectoryServiceImpl implements DirectoryService {
         }
         securityService.checkWritePermission(account, parentDirectory);
 
-        Directory directory = Directory.builder() //this is no violation of demeter's law
+        DirectoryBuilder builder = Directory.builder() //this is no violation of demeter's law
                 .fromParent(parentDirectory)
-                .name(dirName)
-                .build();
+                .name(dirName);
+
+        if (parentDirectory.getParentId() == null) {
+            DirectoryPermissions parentPermissions = permissionService.getPermissions(parentDirectory);
+            DirectoryPermissions permissions = DirectoryPermissions.builder()
+                    .from(parentPermissions)
+                    .id((Long) null)
+                    .build();
+            DirectoryPermissions savedPermissions = permissionService.savePermissions(permissions);
+            builder.permissions(savedPermissions);
+        }
+
+        Directory directory = builder.build();
         return saveDirectory(directory);
     }
 
@@ -155,7 +169,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter") //these are not violations of demeter's law
+    @Transactional
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) //these are not violations of demeter's law
     public Directory deleteFolder(Account account, long dirId) throws MopsException {
         Directory directory = getDirectory(dirId);
         securityService.checkDeletePermission(account, directory);
@@ -171,9 +186,22 @@ public class DirectoryServiceImpl implements DirectoryService {
             throw new DeleteAccessPermissionException(errorMessage);
         }
 
-        Directory parentDirectory = getDirectory(directory.getParentId());
+        Directory parentDirectory = null;
+        if (directory.getParentId() != null) {
+            parentDirectory = getDirectory(directory.getParentId());
+        }
 
-        deleteDirectory(directory);
+        try {
+            deleteDirectory(directory);
+
+            if (parentDirectory == null || parentDirectory.getPermissionsId() != directory.getPermissionsId()) {
+                permissionService.deletePermissions(directory);
+            }
+        } catch (MopsException e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            log.error("Error while deleting directory {} by user {}:", directory.getName(), account.getName(), e);
+            throw new MopsException("Fehler während des Löschens aufgetreten", e);
+        }
 
         return parentDirectory;
     }
