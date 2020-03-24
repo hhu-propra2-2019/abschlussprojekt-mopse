@@ -1952,33 +1952,46 @@ Wiederum wird immer eine <code>DirectoryPermissionsEntry</code> zu genau einer <
 <h3 id="_archunit_tests">8.2. ArchUnit Tests</h3>
 <div class="paragraph">
 <p>Zur Vorbereitung haben wir uns die Vorlesung zu ArchUnit <code>Vorlesung 14 PP2</code> durchgelesen und bearbeitet. Danach haben
-wir die Tests <code>onlyAggregateRootsArePublic</code>, <code>oneAggregateRootPerAggregate</code> und <code>checkIfLayeredArchitectureIsNotViolated</code>
-geschrieben und dazu eine Hilfsannotation <code>AggregateRoot</code> erstellt.
-Die Funktion des ersten Tests ist die Überprüfung dass nur <code>AggregateRoots</code> <code>public</code> und alle anderen Klassen <code>private</code>
+wir die Tests <code>AGGREGATE_ROOT_PUBLIC_NOTHING_ELSE</code>, <code>ONE_AGGREGATE_ROOT_PER_PACKAGE</code> und <code>CHECK_LAYERED_ARCHITECTURE</code>
+geschrieben und dazu eine Hilfsannotation <code>AggregateRoot</code> erstellt.</p>
+</div>
+<div class="paragraph">
+<p>Die Funktion des ersten Tests ist die Überprüfung dass nur <code>AggregateRoots</code> <code>public</code> und alle anderen Klassen <code>private</code>
 sind.</p>
 </div>
 <div class="paragraph">
-<p>Der zweite Test stellt sicher, dass es nur eine einzige <code>AggregateRoot</code> pro Package gibt, welche mit anderen
+<p>Der zweite Test, stellt sicher, dass es nur eine einzige <code>AggregateRoot</code> pro Package gibt, welche mit anderen
 Packages kommunizieren kann.</p>
 </div>
 <div class="paragraph">
 <p>Der dritte Test überprüft, ob die Schicht-Architektur eingehalten wird.
 Die zusätzliche Annotation ermöglicht es, die <code>AggregateRoot</code> zu markieren, um die Überprüfung zu erleichtern. Die
-Lesbarkeit und Verständlichkeit der Klassen und Packages werden dadurch auch verbessert. Hier haben wir drei
-neue Tests hinzugefügt.</p>
+Lesbarkeit und Verständlichkeit der Klassen und Packages werden dadurch auch verbessert.</p>
 </div>
 <div class="paragraph">
-<p>Der vierte Test <code>allControllersShouldResideInMopsPresentation</code> sorgt dafür, dass alle Controller im
+<p>Hier haben wir drei neue Tests hinzugefügt:</p>
+</div>
+<div class="paragraph">
+<p>Der vierte Test <code>ALL_CONTROLLERS_SHOULD_RESIDE_IN_MOPS_PRESENTATION</code> sorgt dafür, dass alle Controller im
 Presentation-Layer liegen, da dies bei der Schicht-Architektur eine wichtige Vorgabe ist.</p>
 </div>
 <div class="paragraph">
-<p>Der fünfte Test <code>everythingInPresentationShouldBeAController</code> ist eine Ergänzung des vorherigen Test und stellt sicher,
+<p>Der fünfte Test <code>EVERYTHING_IN_PRESENTATION_SHOULD_BE_A_CONTROLLER</code> ist eine Ergänzung des vorherigen Test und stellt sicher,
 dass sich alle Controller im <code>Presentation</code>-Package befinden, da sie nur von dort erreichbar sein sollen.</p>
 </div>
 <div class="paragraph">
-<p>Der letzte Test ist eine Überprüfung, dass keine <code>cycles</code> im Projekt auftreten. Dies wird durch die Schicht-Architektur
-vorausgesetzt ist, aber dies ist ein zusätzlicher Test zur Sicherstellung.
-ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus</p>
+<p>Der letzte Test, <code>ARE_THERE_ANY_CYCLES_WITHIN_PACKAGES</code>, ist eine Überprüfung, dass keine <code>cycles</code> im Projekt auftreten. Dies wird durch die Schicht-Architektur
+vorausgesetzt ist, aber dies ist ein zusätzlicher Test zur Sicherstellung,
+ob dies auch wirklich eingehalten wird, falls z.B. der LayerCheck nicht alles erwischt kann dies ein Auffangmechanismus sein.</p>
+</div>
+<div class="paragraph">
+<p>Dann haben wir noch zwei weitere Tests für Services implementiert:</p>
+</div>
+<div class="paragraph">
+<p>Der nun siebte Test <code>SERVICES_ARE_ANNOTATED_WITH_SERVICE</code> untersucht, ob alle Services auch richtig mit <code>@Service</code> annotiert sind.</p>
+</div>
+<div class="paragraph">
+<p>Der achte Test, der mit dem siebten sehr in Einstimmung ist, überprüft, ob alle Klassen, die mit <code>@Service</code> annotiert sind, auch Service im Namen haben, damit die Struktur des Projekts nicht verwirrend wird.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2149,7 +2162,7 @@ keine Fehler während der Entwicklung übersehen werden.</p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-24 10:27:17 UTC
+Last updated 2020-03-24 11:16:02 UTC
 </div>
 </div>
 </body>
