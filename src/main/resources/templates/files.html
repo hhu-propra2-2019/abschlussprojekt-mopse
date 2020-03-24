@@ -23,14 +23,14 @@
             <th>Besitzer</th>
             <th>Größe</th>
         </tr>
-        <tr th:each="file : ${files}" th:href="@{/${file.id}}">
-            <td th:text="${file.name}">%Name%</td>
+        <tr th:each="file : ${files}">
+            <td><a th:text="${file.name}" th:href="@{../../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
             <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
             <td th:text="${file.type}">%Typ%</td>
             <td th:text="${file.owner}">%Owner%</td>
             <td th:text="${file.size}">%Größe%</td>
             <td>
-                <form action="#" th:action="@{../file/${file.id}}" th:method="delete">
+                <form action="#" th:action="@{../../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
                     <input type="submit" name="deleteFile" value="Datei löschen">
                 </form>
             </td>

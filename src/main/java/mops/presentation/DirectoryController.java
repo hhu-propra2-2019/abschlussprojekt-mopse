@@ -180,7 +180,7 @@ public class DirectoryController {
                                KeycloakAuthenticationToken token,
                                Model model,
                                @PathVariable("dirId") long dirId,
-                               @ModelAttribute FileQueryForm queryForm) {
+                               @ModelAttribute("fileQueryForm") FileQueryForm queryForm) {
         Account account = Account.of(token);
         log.info("Search for file in the folder with the id '{}' requested by user '{}'.", dirId, account.getName());
 
