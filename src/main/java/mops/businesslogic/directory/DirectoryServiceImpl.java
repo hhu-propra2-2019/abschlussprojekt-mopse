@@ -129,10 +129,15 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException {
+        if (dirName.isEmpty()) {
+            log.error("The user '{}' tried to create a sub folder with an empty name.", account.getName());
+            throw new DatabaseException("Name leer.");
+        }
+
         Directory parentDir = getDirectory(parentDirId);
         long groupFolderCount = getDirCountInGroup(parentDir.getGroupOwner());
         if (groupFolderCount >= maxFoldersPerGroup) {
-            log.error("The user '{}' tried to create another sub folder for the group with the id {}, "
+            log.error("The user '{}' tried to create another sub folder in the group with the id {}, "
                             + "but they already reached their max allowed folder count.",
                     account.getName(),
                     parentDirId);

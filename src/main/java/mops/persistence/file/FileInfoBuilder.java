@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import mops.persistence.directory.Directory;
 import mops.util.AggregateBuilder;
+import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
@@ -83,7 +84,8 @@ public class FileInfoBuilder {
      */
     public FileInfoBuilder from(@NonNull MultipartFile file) {
         this.name = file.getOriginalFilename();
-        this.type = file.getContentType();
+        String type = file.getContentType();
+        this.type = type == null ? MediaType.APPLICATION_OCTET_STREAM_VALUE : type;
         this.size = file.getSize();
         return this;
     }

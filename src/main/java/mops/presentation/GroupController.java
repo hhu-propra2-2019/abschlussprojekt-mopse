@@ -3,11 +3,9 @@ package mops.presentation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DirectoryService;
-import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.group.GroupRootDirWrapper;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
-import mops.persistence.file.FileInfo;
 import mops.presentation.error.ExceptionPresentationError;
 import mops.presentation.form.FileQueryForm;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -15,13 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Controller Class for all requests on 'material1/group'.
@@ -44,13 +38,16 @@ public class GroupController {
      * Gets the root directory.
      *
      * @param redirectAttributes redirect attributes
+     * @param token              keycloak auth token
      * @param groupId            the id of the group which files should be fetched
      * @return redirect to root dir
      */
     @GetMapping("/{groupId}")
     public String getRootDirectory(RedirectAttributes redirectAttributes,
+                                   KeycloakAuthenticationToken token,
                                    @PathVariable("groupId") long groupId) {
-        log.info("Root directory of group with id '{}' requested.", groupId);
+        Account account = Account.of(token);
+        log.info("Root directory of group with id '{}' requested by user '{}'.", groupId, account.getName());
 
         try {
             GroupRootDirWrapper groupRootDir = directoryService.getOrCreateRootFolder(groupId);
@@ -65,14 +62,17 @@ public class GroupController {
     /**
      * Gets the url of the root directory.
      *
+     * @param token   keycloak auth token
      * @param groupId the id of the group of the requested url
      * @return a wrapper for the url string
      */
     @GetMapping(value = "/{groupId}/url", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Secured("ROLE_api_user")
-    public GroupRootDirWrapper getRootDirectoryUrl(@PathVariable("groupId") long groupId) {
-        log.info("Group root directory url for group with id '{}' requested.", groupId);
+    public GroupRootDirWrapper getRootDirectoryUrl(KeycloakAuthenticationToken token,
+                                                   @PathVariable("groupId") long groupId) {
+        Account account = Account.of(token);
+        log.info("Group root directory url for group with id '{}' requested by user '{}'.", groupId, account.getName());
 
         try {
             return directoryService.getOrCreateRootFolder(groupId);
@@ -88,7 +88,6 @@ public class GroupController {
      *
      * @param redirectAttributes redirect attributes
      * @param token              keycloak auth token
-     * @param model              spring view model
      * @param groupId            the id of the group to be searched
      * @param queryForm          wrapper for a search query
      * @return the route to the template 'directory'
@@ -96,25 +95,19 @@ public class GroupController {
     @PostMapping("/{groupId}/search")
     public String searchFilesInGroup(RedirectAttributes redirectAttributes,
                                      KeycloakAuthenticationToken token,
-                                     Model model,
                                      @PathVariable("groupId") long groupId,
-                                     @RequestAttribute("fileQueryForm") FileQueryForm queryForm) {
+                                     @ModelAttribute("fileQueryForm") FileQueryForm queryForm) {
         Account account = Account.of(token);
         log.info("Search files in group with id '{}' requested by user '{}'.", groupId, account.getName());
 
-        FileQuery query = queryForm.toQuery();
-
         try {
-            List<FileInfo> files = new ArrayList<>(directoryService.searchFolder(account, groupId, query));
-            model.addAttribute("files", files);
+            GroupRootDirWrapper groupRootDir = directoryService.getOrCreateRootFolder(groupId);
+            redirectAttributes.addFlashAttribute("fileQueryForm", queryForm);
+            return "redirect:" + groupRootDir.getRootDirUrl() + "/search";
         } catch (MopsException e) {
             log.error("Failed to search for files in group with id '{}':", groupId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
             return "redirect:/material1/error";
         }
-
-        model.addAttribute("fileQueryForm", queryForm);
-        model.addAttribute("account", account);
-        return "files";
     }
 }

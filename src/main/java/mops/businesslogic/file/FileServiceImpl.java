@@ -56,10 +56,22 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
-    @Transactional(rollbackFor = MopsException.class)
+    @Transactional
+    // builder & too many if-statements - but those are fine as they are exit points of this method
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.CyclomaticComplexity" })
     public void saveFile(Account account, long dirId, MultipartFile multipartFile,
                          Set<String> tags) throws MopsException {
+        if (multipartFile.getSize() <= 0) {
+            log.error("User {} tried to save a file that was empty.", account.getName());
+            throw new StorageException("Leere Datei");
+        }
+
+        String name = multipartFile.getOriginalFilename();
+        if (name == null || name.isEmpty()) {
+            log.error("User {} tried to save a file with an empty name.", account.getName());
+            throw new StorageException("Name leer.");
+        }
+
         Directory directory = directoryService.getDirectory(dirId);
         UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
 
@@ -69,13 +81,7 @@ public class FileServiceImpl implements FileService {
             );
             throw new WriteAccessPermissionException("Keine Schreibberechtigung");
         }
-        if (multipartFile.getSize() <= 0) {
-            log.error("User {} tried to save a file that was empty.",
-                    account.getName()
-            );
-            throw new StorageException("Leere Datei");
-        }
-        //no Law of demeter violation
+
         FileInfo meta = FileInfo.builder()
                 .from(multipartFile)
                 .directory(dirId)
@@ -144,8 +150,8 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
-    @Transactional(rollbackFor = MopsException.class)
     public Directory deleteFile(Account account, long fileId) throws MopsException {
         FileInfo fileInfo;
         try {

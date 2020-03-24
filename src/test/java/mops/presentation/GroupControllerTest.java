@@ -108,8 +108,8 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         mockMvc().perform(post("/material1/group/{groupId}/search", 1)
                 .requestAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(view().name("files"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlTemplate("/material1/dir/{dirId}/search", 2L))
                 .andDo(document("index/GroupController/{method-name}",
                         pathParameters(
                                 parameterWithName("groupId").description("The group id.")
