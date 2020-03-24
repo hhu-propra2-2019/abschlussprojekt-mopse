@@ -218,6 +218,9 @@ class DirectoryServiceTest {
         long permissionsId = rootFolder.getPermissionsId();
         Directory directory = directoryService.deleteFolder(admin, rootFolder.getId());
         Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);
+
+        assertThat(directory).isNull();
+        assertThat(byId).isEmpty();
     }
 
     @Test
