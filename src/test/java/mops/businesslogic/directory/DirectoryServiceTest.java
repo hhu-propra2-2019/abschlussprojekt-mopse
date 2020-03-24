@@ -193,7 +193,7 @@ class DirectoryServiceTest {
      * Tests if a admin can delete subfolder.
      */
     @Test
-    void deleteSubFolderTest() throws MopsException {
+    void deleteFirstFolderTest() throws MopsException {
         Directory subFolder = directoryService.createFolder(admin, root.getId(), "a");
 
         Directory parent = directoryService.deleteFolder(admin, subFolder.getId());
