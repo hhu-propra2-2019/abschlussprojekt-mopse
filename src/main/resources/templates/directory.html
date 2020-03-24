@@ -81,7 +81,7 @@
         </tr>
         <tr th:each="dir : ${dirs}" }>
             <td> <a th:text="${dir.name}" th:href="@{${dir.id}}">%Name%</a></td>
-            <td></td>
+            <td th:text="${#temporals.format(dir.creationTime, 'dd.MM.yyyy - HH:mm')}"></td>
             <td>Dateiordner</td>
             <td></td>
             <td>
