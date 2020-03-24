@@ -51,4 +51,20 @@ public class PermissionServiceImpl implements PermissionService {
             throw new DatabaseException("Die Ordnerberechtigungen konnten nicht gespeichert werden!", e);
         }
     }
+
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public void delete(Directory directory) throws MopsException {
+        try {
+            permissionsRepository.deleteById(directory.getPermissionsId());
+        } catch (Exception e) {
+            log.error("Failed to delete directory permissions '{}'.", directory.getPermissionsId(), e);
+            String message = String.format("Die Berechtigungnen für den Ordner '%s' konnten nicht gelöscht werden.",
+                    directory.getName());
+            throw new DatabaseException(message,
+                    e);
+        }
+    }
 }

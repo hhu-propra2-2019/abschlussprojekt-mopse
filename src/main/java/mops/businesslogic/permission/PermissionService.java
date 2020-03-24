@@ -29,4 +29,10 @@ public interface PermissionService {
      */
     DirectoryPermissions savePermissions(DirectoryPermissions permissions) throws MopsException;
 
+    /**
+     * Deletes the permissions of a directory.
+     *
+     * @param directory directory of the permission to delete
+     */
+    void delete(Directory directory) throws MopsException;
 }
