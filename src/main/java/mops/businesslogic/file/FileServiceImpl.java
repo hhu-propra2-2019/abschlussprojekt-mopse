@@ -69,7 +69,7 @@ public class FileServiceImpl implements FileService {
             );
             throw new WriteAccessPermissionException("Keine Schreibberechtigung");
         }
-        if(multipartFile.getSize() <= 0) {
+        if (multipartFile.getSize() <= 0) {
             log.error("User {} tried to save a file that was empty.",
                     account.getName()
             );
