@@ -46,7 +46,7 @@ public class DirectoryPermissionsBuilder {
     }
 
     /**
-     * Initialize from existing DirectoryPermissions. Is like from but without copying the id.
+     * Initialize from existing DirectoryPermissions. It's like from but without copying the id.
      *
      * @param permissions existing DirectoryPermissions
      * @return this
