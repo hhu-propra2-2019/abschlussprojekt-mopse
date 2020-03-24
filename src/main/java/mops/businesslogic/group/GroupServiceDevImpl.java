@@ -47,9 +47,9 @@ public class GroupServiceDevImpl implements GroupService {
                 return adminRole;
             } else if (account.getRoles().stream()
                     .anyMatch(role -> role.contains("orga") || role.contains("korrektor"))) {
-                log.debug("Found 'orga'/'korrektorin' global role, returning local role 'editor'.");
-                return "editor";
-            } else if (account.getRoles().stream().anyMatch(role -> role.contains("studentin"))) {
+                log.debug("Found 'orga'/'korrektorin' global role, returning local role 'admin'.");
+                return adminRole;
+            } else {
                 log.debug("Returning local role 'viewer'.");
                 return "viewer";
             }
@@ -66,7 +66,7 @@ public class GroupServiceDevImpl implements GroupService {
     @SuppressWarnings("PMD.OnlyOneReturn")
     public Set<String> fetchRolesInGroup(long groupId) {
         if (VALID_GROUP_IDS.contains(groupId)) {
-            return Set.of(adminRole, "editor", "viewer");
+            return Set.of(adminRole, "viewer");
         }
 
         return Set.of();
