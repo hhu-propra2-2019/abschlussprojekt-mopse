@@ -118,7 +118,7 @@ class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void deleteFile() throws Exception {
-        mockMvc().perform(post("/material1/file/{fileId}", 1)
+        mockMvc().perform(post("/material1/file/{fileId}/delete", 1)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect((redirectedUrl("/material1/dir/2")))
