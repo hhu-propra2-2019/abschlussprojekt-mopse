@@ -147,7 +147,8 @@ public class DirectoryServiceImpl implements DirectoryService {
         if (parentDir.getParentId() == null) {
             DirectoryPermissions parentPermissions = permissionService.getPermissions(parentDir);
             DirectoryPermissions permissions = DirectoryPermissions.builder()
-                    .copy(parentPermissions)
+                    .from(parentPermissions)
+                    .id(null)
                     .build();
             DirectoryPermissions savedPermissions = permissionService.savePermissions(permissions);
             builder.permissions(savedPermissions);
