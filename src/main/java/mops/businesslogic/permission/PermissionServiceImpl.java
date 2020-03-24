@@ -57,7 +57,7 @@ public class PermissionServiceImpl implements PermissionService {
     */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
-    public void delete(Directory directory) throws MopsException {
+    public void deletePermission(Directory directory) throws MopsException {
         try {
             permissionsRepository.deleteById(directory.getPermissionsId());
         } catch (Exception e) {

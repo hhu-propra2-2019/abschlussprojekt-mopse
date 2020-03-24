@@ -187,7 +187,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         deleteDirectory(directory);
 
         if (parentDirectory == null || parentDirectory.getPermissionsId() != directory.getPermissionsId()) {
-            permissionService.delete(directory);
+            permissionService.deletePermission(directory);
         }
 
         return parentDirectory;

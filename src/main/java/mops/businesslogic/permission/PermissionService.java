@@ -34,5 +34,5 @@ public interface PermissionService {
      *
      * @param directory directory of the permission to delete
      */
-    void delete(Directory directory) throws MopsException;
+    void deletePermission(Directory directory) throws MopsException;
 }
