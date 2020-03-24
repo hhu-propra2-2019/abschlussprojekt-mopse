@@ -134,8 +134,8 @@ public class DirectoryServiceImpl implements DirectoryService {
             throw new DatabaseException("Name leer.");
         }
 
-        Directory parentDirectory = getDirectory(parentDirId);
-        long groupFolderCount = getDirCountInGroup(parentDirectory.getGroupOwner());
+        Directory parentDir = getDirectory(parentDirId);
+        long groupFolderCount = getDirCountInGroup(parentDir.getGroupOwner());
         if (groupFolderCount >= maxFoldersPerGroup) {
             log.error("The user '{}' tried to create another sub folder in the group with the id {}, "
                             + "but they already reached their max allowed folder count.",
@@ -145,14 +145,14 @@ public class DirectoryServiceImpl implements DirectoryService {
                     + "Du kannst keine weiteren mehr erstellen.";
             throw new StorageLimitationException(error);
         }
-        securityService.checkWritePermission(account, parentDirectory);
+        securityService.checkWritePermission(account, parentDir);
 
         DirectoryBuilder builder = Directory.builder() //this is no violation of demeter's law
-                .fromParent(parentDirectory)
+                .fromParent(parentDir)
                 .name(dirName);
 
-        if (parentDirectory.getParentId() == null) {
-            DirectoryPermissions parentPermissions = permissionService.getPermissions(parentDirectory);
+        if (parentDir.getParentId() == null) {
+            DirectoryPermissions parentPermissions = permissionService.getPermissions(parentDir);
             DirectoryPermissions permissions = DirectoryPermissions.builder()
                     .from(parentPermissions)
                     .id((Long) null)
