@@ -44,7 +44,12 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
         model.addAttribute("referer", referer);
 
         if (status != null) {
-            Integer statusCode = Integer.valueOf(status.toString());
+            Integer statusCode;
+            try {
+                statusCode = Integer.valueOf(status.toString());
+            } catch (NumberFormatException e) {
+                statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
+            }
             model.addAttribute("statuscode", statusCode);
 
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
