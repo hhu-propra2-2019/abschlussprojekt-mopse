@@ -77,6 +77,7 @@ class DirectoryServiceTest {
                 .build();
 
         given(groupService.getGroup(GROUP_ID)).willReturn(group);
+        given(groupService.doesGroupExist(GROUP_ID)).willReturn(true);
 
         root = directoryService.getOrCreateRootFolder(GROUP_ID).getRootDir();
     }
@@ -218,11 +219,17 @@ class DirectoryServiceTest {
     public void deleteRootFolderTest() throws MopsException {
         long groupId = 100L;
 
-        given(groupService.fetchRolesInGroup(groupId)).willReturn(Set.of(ADMIN, EDITOR, USER));
-        given(groupService.fetchRoleForUserInGroup(admin, groupId)).willReturn(ADMIN);
-        given(groupService.fetchRoleForUserInGroup(editor, groupId)).willReturn(EDITOR);
-        given(groupService.fetchRoleForUserInGroup(user, groupId)).willReturn(USER);
-        given(groupService.fetchRoleForUserInGroup(intruder, groupId)).willReturn(INTRUDER);
+        Group group = Group.builder()
+                .id(groupId)
+                .name("Another Test Group")
+                .member(admin.getName(), ADMIN)
+                .member(editor.getName(), EDITOR)
+                .member(user.getName(), VIEWER)
+                .build();
+
+        given(groupService.getRoles(groupId)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
+        given(groupService.getGroup(groupId)).willReturn(group);
+        given(groupService.doesGroupExist(groupId)).willReturn(true);
 
         Directory rootFolder = directoryService.getOrCreateRootFolder(groupId).getRootDir();
         long permissionsId = rootFolder.getPermissionsId();
@@ -272,7 +279,7 @@ class DirectoryServiceTest {
                         .directory(child)
                         .type("txt")
                         .size(0L)
-                        .owner(USER)
+                        .owner(VIEWER)
                         .build()
         );
 

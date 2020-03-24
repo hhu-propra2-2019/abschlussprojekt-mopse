@@ -51,7 +51,7 @@ public class GroupServiceDevImpl implements GroupService {
                     .name("Einzigen #" + id)
                     .build()
             )
-            .collect(Collectors.toUnmodifiableMap(Group::getId, Function.identity()));
+            .collect(Collectors.toMap(Group::getId, Function.identity()));
 
     /**
      * {@inheritDoc}
