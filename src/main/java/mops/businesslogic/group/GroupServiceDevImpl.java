@@ -29,9 +29,13 @@ public class GroupServiceDevImpl implements GroupService {
     /**
      * Represents the role of an admin.
      */
-    @Value("${material1.mops.configuration.admin}")
-    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
+    @Value("${material1.mops.configuration.role.admin}")
     private String adminRole = "admin";
+    /**
+     * Represents the role of a viewer.
+     */
+    @Value("${material1.mops.configuration.role.viewer}")
+    private String viewerRole = "viewer";
 
     /**
      * {@inheritDoc}
@@ -47,24 +51,24 @@ public class GroupServiceDevImpl implements GroupService {
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn" }) // these are streams
     public String getUserRole(Account account, long groupId) {
-        log.debug("Fetching roles for user '{}' with global roles '{}' in group '{}'.",
+        log.debug("Fetching group role for user '{}' with keycloak roles '{}' in group '{}'.",
                 account.getName(), account.getRoles(), groupId);
 
         if (VALID_GROUP_IDS.contains(groupId)) {
             if (account.getRoles().stream().anyMatch(role -> role.contains("admin"))) {
-                log.debug("Found 'admin' global role, returning local role 'admin'.");
+                log.debug("Found 'admin' keycloak role, returning group role 'admin'.");
                 return adminRole;
             } else if (account.getRoles().stream()
                     .anyMatch(role -> role.contains("orga") || role.contains("korrektor"))) {
-                log.debug("Found 'orga'/'korrektorin' global role, returning local role 'editor'.");
-                return "editor";
+                log.debug("Found 'orga'/'korrektorin' keycloak role, returning group role 'admin'.");
+                return adminRole;
             } else if (account.getRoles().stream().anyMatch(role -> role.contains("studentin"))) {
-                log.debug("Returning local role 'viewer'.");
-                return "viewer";
+                log.debug("Returning group role 'viewer'.");
+                return viewerRole;
             }
         }
 
-        log.debug("Returning local role 'outsider'.");
+        log.debug("Returning group role 'outsider'.");
         return "outsider";
     }
 
@@ -75,7 +79,7 @@ public class GroupServiceDevImpl implements GroupService {
     @SuppressWarnings("PMD.OnlyOneReturn")
     public Set<String> getRoles(long groupId) {
         if (VALID_GROUP_IDS.contains(groupId)) {
-            return Set.of(adminRole, "editor", "viewer");
+            return Set.of(adminRole, viewerRole);
         }
 
         return Set.of();
@@ -88,7 +92,7 @@ public class GroupServiceDevImpl implements GroupService {
     @SuppressWarnings("PMD.LawOfDemeter") // stream
     public List<Group> getAllGroups() throws MopsException {
         return VALID_GROUP_IDS.stream()
-                .map(id -> Group.builder().id(id).name("Einzigen #" + id).build()) // TODO: does this need membes?
+                .map(id -> Group.builder().id(id).name("Einzigen #" + id).build())
                 .collect(Collectors.toList());
     }
 
