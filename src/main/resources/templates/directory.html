@@ -92,7 +92,7 @@
         </tr>
         <tr th:each="file : ${files}">
             <td> <a th:text="${file.name}" th:href="@{'../file/' +  ${file.id}}">%Name%</a></td>
-            <td th:text="TBD">%Datum%</td>
+            <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
             <td th:text="${file.type}">%Typ%</td>
             <td th:text="${file.size}">%Größe%</td>
             <td>
