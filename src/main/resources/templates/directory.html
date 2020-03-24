@@ -72,6 +72,7 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
+    <input type="button" value="zurück" onclick="history.back(-1)" />
     <table>
         <tr>
             <th>Name</th>
@@ -79,38 +80,41 @@
             <th>Typ</th>
             <th>Größe</th>
         </tr>
-        <tr th:each="dir : ${dirs}" th:href="@{/${dir.id}}" }>
-            <td th:text="${dir.name}">%Name%</td>
-            <td></td>
+        <tr th:each="dir : ${dirs}" }>
+            <td> <a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
+            <td th:text="${#temporals.format(dir.creationTime, 'dd.MM.yyyy - HH:mm')}"></td>
             <td>Dateiordner</td>
             <td></td>
             <td>
-                <form action="#" th:action="@{/${dir.id}}" th:method="delete">
+                <form action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}" th:method="post">
                     <input type="submit" name="deleteFolder" value="Ordner löschen">
                 </form>
             </td>
         </tr>
-        <tr th:each="file : ${files}" th:href="@{../file/${file.id}}">
-            <td th:text="${file.name}">%Name%</td>
+        <tr th:each="file : ${files}">
+            <td> <a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
             <td th:text="TBD">%Datum%</td>
             <td th:text="${file.type}">%Typ%</td>
-            <td th:text="${file.size}">%Größe%</td>
+            <td th:text="${file.getSizeString()}">%Größe%</td>
             <td>
-                <form action="#" th:action="@{../file/${file.id}}" th:method="delete">
+                <form action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
                     <input type="submit" name="deleteFile" value="Datei löschen">
                 </form>
             </td>
         </tr>
     </table>
-    <form action="#" th:action="@{/create}" th:method="post">
+
+    <form action="#" th:action="@{{thisDirId}/create(thisDirId = ${thisDirId})}" th:method="post">
         <input type="text" name="folderName">
-        <input type="submit" name="newFolder" value="Neuer Ordner">
+        <input type="submit" name="newFolder" value="Neuer Ordner" required>
     </form>
-    <form action="#" th:action="@{/upload}" th:method="post">
+
+    <form action="#" th:action="@{{thisDirId}/upload(thisDirId = ${thisDirId})}" th:method="post" enctype="multipart/form-data">
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
-    <form action="#" th:action="@{/search}" th:method="post" th:object="${fileQueryForm}">
+
+    <form action="#" th:action="@{{thisDirId}/search(thisDirId = ${thisDirId})}" th:method="post" th:object="${fileQueryForm}">
         <div id="fileNames">
             <div id="fileNames[0]">
                 <div><input type="text" name="fileNames[0]" placeholder="Dateiname" th:field="*{names[0]}"></div>

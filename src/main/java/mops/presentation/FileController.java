@@ -116,7 +116,7 @@ public class FileController {
      * @param fileId             the id of the file to be deleted
      * @return the route to the parentDir of the deleted file
      */
-    @DeleteMapping("/{fileId}")
+    @PostMapping("/{fileId}/delete")
     public String deleteFile(RedirectAttributes redirectAttributes,
                              KeycloakAuthenticationToken token,
                              @PathVariable("fileId") long fileId) {
