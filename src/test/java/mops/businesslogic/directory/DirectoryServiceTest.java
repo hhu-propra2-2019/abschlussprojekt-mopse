@@ -109,6 +109,27 @@ class DirectoryServiceTest {
         assertThat(subDir.getPermissionsId()).isNotEqualTo(root.getPermissionsId());
     }
 
+    @Test
+    public void createSecondLevelFolderTest() throws MopsException {
+        String subDirName = "a";
+        String secondLevelName = "b";
+
+        Directory subDir = directoryService.createFolder(admin, root.getId(), subDirName);
+
+        Directory expected = Directory.builder()
+                .fromParent(subDir)
+                .name(subDirName)
+                .build();
+
+        Directory secondLevelFolder = directoryService.createFolder(admin, subDir.getId(), secondLevelName);
+        assertThat(secondLevelFolder).isEqualToIgnoringGivenFields(expected,
+                "id",
+                "name",
+                "creationTime",
+                "lastModifiedTime");
+        assertThat(secondLevelFolder.getPermissionsId()).isNotEqualTo(root.getPermissionsId());
+    }
+
     /**
      * Test if admin can update the permissions of a directory.
      */
