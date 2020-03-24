@@ -9,7 +9,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 9495
+Content-Length: 9557
 
 <!DOCTYPE html>
 <html lang="en">
@@ -182,7 +182,11 @@ Content-Length: 9495
   </div>
 </header>
 <div class="main-wrapper"><main>
-    <input type="button" value="zurück" onclick="history.back(-1)" />
+    <div>
+        <form action="0" method="get">
+            <input type="submit" value="Ebene hoch">
+        </form>
+        </div>
     <table>
         <tr>
             <th>Name</th>
@@ -195,17 +199,17 @@ Content-Length: 9495
         
     </table>
 
-    <form action="1/create" method="post"><input type="hidden" name="_csrf" value="82e27a42-d811-4a3b-863f-93c96d41dd14"/>
+    <form action="0/create" method="post"><input type="hidden" name="_csrf" value="a1585797-f511-4401-8b70-6165076b11b8"/>
         <input type="text" name="folderName">
         <input type="submit" name="newFolder" value="Neuer Ordner" required>
     </form>
 
-    <form action="1/upload" method="post" enctype="multipart/form-data"><input type="hidden" name="_csrf" value="82e27a42-d811-4a3b-863f-93c96d41dd14"/>
+    <form action="0/upload" method="post" enctype="multipart/form-data"><input type="hidden" name="_csrf" value="a1585797-f511-4401-8b70-6165076b11b8"/>
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
 
-    <form action="1/search" method="post"><input type="hidden" name="_csrf" value="82e27a42-d811-4a3b-863f-93c96d41dd14"/>
+    <form action="0/search" method="post"><input type="hidden" name="_csrf" value="a1585797-f511-4401-8b70-6165076b11b8"/>
         <div id="fileNames">
             <div id="fileNames[0]">
                 <div><input type="text" name="names[0]" placeholder="Dateiname" id="names0" value=""></div>

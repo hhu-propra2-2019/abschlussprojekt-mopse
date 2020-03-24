@@ -9,7 +9,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 4421
+Content-Length: 4350
 
 <!DOCTYPE html>
 <html lang="en">
@@ -125,7 +125,6 @@ Content-Length: 4421
   </div>
 </header>
 <div class="main-wrapper"><main>
-    <input type="button" value="zurück" onclick="history.back(-1)" />
     <table>
         <tr>
             <th>Name</th>
