@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -182,13 +182,20 @@ implements <a href="PermissionService.html" title="interface in mops.businesslog
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deletePermissions(mops.persistence.directory.Directory)">deletePermissions</a></span>&#8203;(<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)</code></th>
+<td class="colLast">
+<div class="block">Deletes the permissions of a directory.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPermissions(mops.persistence.directory.Directory)">getPermissions</a></span>&#8203;(<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)</code></th>
 <td class="colLast">
 <div class="block">Get permissions of directory.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#savePermissions(mops.persistence.permission.DirectoryPermissions)">savePermissions</a></span>&#8203;(<a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)</code></th>
 <td class="colLast">
@@ -262,7 +269,7 @@ implements <a href="PermissionService.html" title="interface in mops.businesslog
 <a id="savePermissions(mops.persistence.permission.DirectoryPermissions)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>savePermissions</h4>
 <pre class="methodSignature">public&nbsp;<a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;savePermissions&#8203;(<a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)
@@ -277,6 +284,25 @@ implements <a href="PermissionService.html" title="interface in mops.businesslog
 <dd>saved directory permissions</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
+</dl>
+</li>
+</ul>
+<a id="deletePermissions(mops.persistence.directory.Directory)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>deletePermissions</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;deletePermissions&#8203;(<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)
+                       throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Deletes the permissions of a directory.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="PermissionService.html#deletePermissions(mops.persistence.directory.Directory)">deletePermissions</a></code>&nbsp;in interface&nbsp;<code><a href="PermissionService.html" title="interface in mops.businesslogic.permission">PermissionService</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>directory</code> - directory of the permission to delete</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>
 </li>
 </ul>
