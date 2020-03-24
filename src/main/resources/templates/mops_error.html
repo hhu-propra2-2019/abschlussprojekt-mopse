@@ -18,6 +18,7 @@
     <div class="alert alert-warning" id="error-message" th:if="${error} != null" th:text="${error.message}">
         Error!
     </div>
+    <a th:if="${referrer}" th:href="${referrer}" class="nav-link">Zurück</a>
 </main>
 </body>
 </html>
