@@ -198,8 +198,9 @@ public class DirectoryServiceImpl implements DirectoryService {
     private boolean isFirstLevel(Directory directory) throws DatabaseException {
         long permissionsId = directory.getPermissionsId();
         long groupOwner = directory.getGroupOwner();
+        Long parentId = directory.getParentId();
         try {
-            Directory parentDirectory = directoryRepository.getRootFolder(groupOwner).orElseThrow();
+            Directory parentDirectory = directoryRepository.findById(parentId).orElseThrow();
             long parentDirectoryPermissionsId = parentDirectory.getPermissionsId();
             return parentDirectoryPermissionsId != permissionsId;
         } catch (Exception e) {
