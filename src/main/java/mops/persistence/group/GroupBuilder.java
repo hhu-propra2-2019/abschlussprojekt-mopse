@@ -103,9 +103,22 @@ public class GroupBuilder {
         } else if (role.isEmpty()) {
             log.error("Failed to add member as role was empty.");
             throw new IllegalArgumentException("member role must not be empty!");
+        } else if (hasMember(name)) {
+            log.error("Failed to add member as it already exists.");
+            throw new IllegalArgumentException("member must not already exist!");
         }
         this.members.add(new GroupMember(name, role));
         return this;
+    }
+
+    /**
+     * Tests if the given user is already a member.
+     *
+     * @param name user name
+     * @return true if already a member, false otherwise
+     */
+    public boolean hasMember(String name) {
+        return members.stream().map(GroupMember::getName).anyMatch(name::equals);
     }
 
     /**

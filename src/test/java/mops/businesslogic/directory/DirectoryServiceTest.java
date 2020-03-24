@@ -10,6 +10,7 @@ import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.util.DbContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +33,7 @@ class DirectoryServiceTest {
     static final String STUDENTIN = "studentin";
     static final String ADMIN = "admin";
     static final String EDITOR = "editor";
-    static final String USER = "user";
+    static final String VIEWER = "viewer";
     static final String INTRUDER = "intruder";
     static final long GROUP_ID = 0L;
 
@@ -60,15 +61,21 @@ class DirectoryServiceTest {
     @BeforeEach
     void setup() throws MopsException {
         intruder = Account.of(INTRUDER, "intruder@uni-koeln.de", STUDENTIN);
-        user = Account.of(USER, "user@hhu.de", STUDENTIN);
+        user = Account.of(VIEWER, "user@hhu.de", STUDENTIN);
         editor = Account.of(EDITOR, "editor@hhu.de", STUDENTIN);
         admin = Account.of(ADMIN, "admin@hhu.de", STUDENTIN);
 
-        given(groupService.getRoles(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, USER));
-        given(groupService.getUserRole(admin, GROUP_ID)).willReturn(ADMIN);
-        given(groupService.getUserRole(editor, GROUP_ID)).willReturn(EDITOR);
-        given(groupService.getUserRole(user, GROUP_ID)).willReturn(USER);
-        given(groupService.getUserRole(intruder, GROUP_ID)).willReturn(INTRUDER);
+        given(groupService.getRoles(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
+
+        Group group = Group.builder()
+                .id(GROUP_ID)
+                .name("Test Group")
+                .member(admin.getName(), ADMIN)
+                .member(editor.getName(), EDITOR)
+                .member(user.getName(), VIEWER)
+                .build();
+
+        given(groupService.getGroup(GROUP_ID)).willReturn(group);
 
         root = directoryService.getOrCreateRootFolder(GROUP_ID).getRootDir();
     }
@@ -110,7 +117,7 @@ class DirectoryServiceTest {
     @Test
     void updatePermissionTest() throws MopsException {
         DirectoryPermissions permissions = DirectoryPermissions.builder()
-                .entry(USER, true, false, false)
+                .entry(VIEWER, true, false, false)
                 .entry(EDITOR, true, false, false)
                 .entry(ADMIN, true, true, true)
                 .build();
@@ -151,7 +158,7 @@ class DirectoryServiceTest {
     @Test
     void createSubFolderWithReadsOnlyPermissionTest() throws MopsException {
         DirectoryPermissions permissions = DirectoryPermissions.builder()
-                .entry(USER, false, false, false)
+                .entry(VIEWER, false, false, false)
                 .entry(EDITOR, true, false, false)
                 .entry(ADMIN, true, true, true)
                 .build();
@@ -189,7 +196,7 @@ class DirectoryServiceTest {
                         .directory(root)
                         .type("txt")
                         .size(0L)
-                        .owner(USER)
+                        .owner(VIEWER)
                         .build()
         );
         fileInfoRepository.save(
@@ -198,7 +205,7 @@ class DirectoryServiceTest {
                         .directory(root)
                         .type("txt")
                         .size(0L)
-                        .owner(USER)
+                        .owner(VIEWER)
                         .build()
         );
 

@@ -23,15 +23,6 @@ public interface GroupService {
     boolean doesGroupExist(long groupId) throws MopsException;
 
     /**
-     * Gets the role for one user in a group.
-     *
-     * @param account user credentials
-     * @param groupId the id of the group
-     * @return the role of the user in that group
-     */
-    String getUserRole(Account account, long groupId) throws MopsException;
-
-    /**
      * Gets all roles that exist in a group.
      *
      * @param groupId the id of the group
@@ -53,5 +44,13 @@ public interface GroupService {
      * @return a list of groups
      */
     List<Group> getUserGroups(Account account) throws MopsException;
+
+    /**
+     * Get a group by id.
+     *
+     * @param groupId goup id
+     * @return group
+     */
+    Group getGroup(long groupId) throws MopsException;
 
 }

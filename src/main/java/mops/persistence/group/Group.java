@@ -76,4 +76,19 @@ public class Group {
     public static GroupBuilder builder() {
         return new GroupBuilder();
     }
+
+
+    /**
+     * Get the role of a group member.
+     *
+     * @param name member name
+     * @return role in group
+     */
+    public String getMemberRole(String name) {
+        return members.stream()
+                .filter(member -> member.getName().equals(name))
+                .findFirst()
+                .map(GroupMember::getRole)
+                .orElse("intruder");
+    }
 }

@@ -76,16 +76,6 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
-    public String getUserRole(Account account, long groupId) throws MopsException {
-        log.debug("Request role for user '{}' in group '{}'.", account.getName(), groupId);
-        throw new UnsupportedOperationException("nyi");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     @SuppressWarnings("PMD.LawOfDemeter") // stream
     public Set<String> getRoles(long groupId) throws MopsException {
         log.debug("Request roles in group '{}'", groupId);
@@ -137,8 +127,12 @@ public class GroupServiceProdImpl implements GroupService {
         }*/
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
-    private Group getGroup(long groupId) throws MopsException {
+    public Group getGroup(long groupId) throws MopsException {
         try {
             return groupRepository.findById(groupId).orElseThrow();
         } catch (Exception e) {
