@@ -115,26 +115,26 @@ public class FileInfo {
      */
     @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     public String getSizeString() {
-        final double kilobyte = 1024;
-        final double megabyte = kilobyte * 1024;
-        final double gigabyte = megabyte * 1024;
+        final double kibibyte = 1024;
+        final double mibibyte = kibibyte * 1024;
+        final double gibibyte = mibibyte * 1024;
 
         double result;
         String suffix;
 
-        if (this.size < kilobyte) {
+        if (this.size < kibibyte) {
             result = this.size;
-            suffix = " B";
-        } else if (this.size < megabyte) {
-            result = this.size / kilobyte;
-            suffix = " KB";
-        } else if (this.size < gigabyte) {
-            result = this.size / megabyte;
-            suffix = " MB";
+            suffix = "B";
+        } else if (this.size < mibibyte) {
+            result = this.size / kibibyte;
+            suffix = "KiB";
+        } else if (this.size < gibibyte) {
+            result = this.size / mibibyte;
+            suffix = "MiB";
         } else {
-            result = this.size / gigabyte;
-            suffix = " GB";
+            result = this.size / gibibyte;
+            suffix = "GiB";
         }
-        return String.format("%.2f" + suffix, result);
+        return String.format("%.2f %s", result, suffix);
     }
 }
