@@ -26,22 +26,22 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
                                          HttpServletResponse response,
                                          Object handler, Exception ex) {
 
-        String referrer = request.getHeader("referer");
+        String referer = request.getHeader("referer");
         ModelAndView mav = new ModelAndView("mops_error");
         mav.getModel().put("error", ex);
-        mav.getModel().put("referrer", referrer);
+        mav.getModel().put("referer", referer);
         return mav;
     }
 
     /**
      * {@inheritDoc}
      */
-    @RequestMapping("/error")
+    @RequestMapping("/material1/error")
     @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        String referrer = request.getHeader("referer");
-        model.addAttribute("referrer", referrer);
+        String referer = request.getHeader("referer");
+        model.addAttribute("referer", referer);
         String error = "mops_error";
 
         if (status != null) {
@@ -62,6 +62,6 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
      */
     @Override
     public String getErrorPath() {
-        return "mops_error";
+        return "/material1/error";
     }
 }
