@@ -72,6 +72,7 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
+    <input type="button" value="zurück" onclick="history.back(-1)" />
     <table>
         <tr>
             <th>Name</th>
@@ -94,7 +95,7 @@
             <td> <a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
             <td th:text="TBD">%Datum%</td>
             <td th:text="${file.type}">%Typ%</td>
-            <td th:text="${file.size}">%Größe%</td>
+            <td th:text="${file.getSizeString()}">%Größe%</td>
             <td>
                 <form action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
                     <input type="submit" name="deleteFile" value="Datei löschen">
@@ -105,7 +106,7 @@
 
     <form action="#" th:action="@{{thisDirId}/create(thisDirId = ${thisDirId})}" th:method="post">
         <input type="text" name="folderName">
-        <input type="submit" name="newFolder" value="Neuer Ordner">
+        <input type="submit" name="newFolder" value="Neuer Ordner" required>
     </form>
 
     <form action="#" th:action="@{{thisDirId}/upload(thisDirId = ${thisDirId})}" th:method="post" enctype="multipart/form-data">
