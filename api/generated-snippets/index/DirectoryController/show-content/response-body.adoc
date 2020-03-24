@@ -171,6 +171,7 @@
   </div>
 </header>
 <div class="main-wrapper"><main>
+    <input type="button" value="zurück" onclick="history.back(-1)" />
     <table>
         <tr>
             <th>Name</th>
@@ -182,17 +183,17 @@
         
     </table>
 
-    <form action="1/create" method="post"><input type="hidden" name="_csrf" value="d3bd81e2-4baa-40b9-a4b1-3bd36409a28a"/>
+    <form action="1/create" method="post"><input type="hidden" name="_csrf" value="72390087-090a-406e-8347-32d468d1193c"/>
         <input type="text" name="folderName">
         <input type="submit" name="newFolder" value="Neuer Ordner" required>
     </form>
 
-    <form action="1/upload" method="post" enctype="multipart/form-data"><input type="hidden" name="_csrf" value="d3bd81e2-4baa-40b9-a4b1-3bd36409a28a"/>
+    <form action="1/upload" method="post" enctype="multipart/form-data"><input type="hidden" name="_csrf" value="72390087-090a-406e-8347-32d468d1193c"/>
         <input type="file" name="file">
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
 
-    <form action="1/search" method="post"><input type="hidden" name="_csrf" value="d3bd81e2-4baa-40b9-a4b1-3bd36409a28a"/>
+    <form action="1/search" method="post"><input type="hidden" name="_csrf" value="72390087-090a-406e-8347-32d468d1193c"/>
         <div id="fileNames">
             <div id="fileNames[0]">
                 <div><input type="text" name="names[0]" placeholder="Dateiname" id="names0" value=""></div>

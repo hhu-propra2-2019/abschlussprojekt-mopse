@@ -114,6 +114,7 @@
   </div>
 </header>
 <div class="main-wrapper"><main>
+    <input type="button" value="zurück" onclick="history.back(-1)" />
     <table>
         <tr>
             <th>Name</th>
