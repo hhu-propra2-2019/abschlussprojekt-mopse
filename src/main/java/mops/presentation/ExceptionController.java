@@ -66,13 +66,21 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
             }
             model.addAttribute("statuscode", statusCode);
 
-            if (statusCode == HttpStatus.NOT_FOUND.value()) {
+            if(statusCode == HttpStatus.BAD_REQUEST.value()) {
+                model.addAttribute("status_message",
+                        "Deine Anfrage wurde vom Server nicht verstanden. Jaul!");
+            } else if (statusCode == HttpStatus.FORBIDDEN.value() || statusCode == HttpStatus.UNAUTHORIZED.value()) {
+                model.addAttribute("status_message", "Das darfst du nicht. Grrrr!");
+            }
+            else if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 model.addAttribute("status_message",
                         "Die angeforderte Ressource konnte nicht gefunden werden :(");
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 model.addAttribute("status_message", "Captain, wir haben ein Problem! Wuff!");
             } else if (statusCode == HttpStatus.METHOD_NOT_ALLOWED.value()) {
                 model.addAttribute("status_message", "Diese Methode ist nicht erlaubt.");
+            } else if (statusCode == HttpStatus.REQUEST_TIMEOUT.value()) {
+                model.addAttribute("status_message", "Das hat uns zu lange gedauert. Zzzzzz.");
             }
         }
 
