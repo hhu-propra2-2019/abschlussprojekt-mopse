@@ -1,18 +1,25 @@
+// Don't show the build in search line
 .form-search-wrapper {
   display: none !important;
 }
 
-.material1-search-form {
-  display: none;
+.material1-search-wrapper {
+  padding-bottom: 10px;
 
-  .material1-search-form-column {
+  .material1-search-form {
+    display: none;
 
-    .material1-search-form-field {
-      display: flex;
+    .material1-search-form-column {
+      padding-right: 10px;
+
+      .material1-search-form-field {
+        display: flex;
+      }
     }
   }
 }
 
 .material1-create-forms {
   display: flex;
+  justify-content: space-between;
 }
