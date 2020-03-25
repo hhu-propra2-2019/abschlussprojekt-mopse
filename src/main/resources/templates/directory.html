@@ -78,6 +78,7 @@
         <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
             <input type="submit" value="Ebene hoch">
         </form>
+        <div th:text="${directoryPath}">%PATH%></div>
     </div>
     <table>
         <tr>

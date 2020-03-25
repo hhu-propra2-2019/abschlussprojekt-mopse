@@ -90,6 +90,19 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn"})
+    public String buildDirectoryPath(long dirId) throws MopsException {
+        Directory dir = getDirectory(dirId);
+        if (dir.getParentId() == null) {
+            return "";
+        }
+        return buildDirectoryPath(dir.getParentId()) + "/" + dir.getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
             "PMD.AvoidCatchingGenericException" })
     public GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException {

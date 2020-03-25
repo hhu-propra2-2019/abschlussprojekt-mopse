@@ -72,8 +72,18 @@ public class DirectoryController {
             return "redirect:/material1/error";
         }
 
+        String dirPath = null;
+        try {
+            dirPath = directoryService.buildDirectoryPath(dirId);
+        } catch (MopsException e) {
+            log.error("Failed to fetch directory path for id '{}':", dirId, e);
+            redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
+            return "redirect:/material1/error";
+        }
+
         model.addAttribute("fileQueryForm", new FileQueryForm());
         model.addAttribute("account", account);
+        model.addAttribute("directoryPath", dirPath);
 
         return "directory";
     }
