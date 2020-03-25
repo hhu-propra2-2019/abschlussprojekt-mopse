@@ -5,6 +5,8 @@ import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackA
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileService;
+import mops.businesslogic.security.SecurityService;
+import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.presentation.form.FileQueryForm;
@@ -37,6 +39,8 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     DirectoryService directoryService;
     @MockBean
     FileService fileService;
+    @MockBean
+    SecurityService securityService;
 
     /**
      * Setups the a Mock MVC Builder.
@@ -46,6 +50,8 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         Directory directory = mock(Directory.class);
         Directory root = mock(Directory.class);
 
+        UserPermission userPermission = new UserPermission(true, true, true);
+
         given(directory.getId()).willReturn(2L);
         given(directoryService.getDirectory(eq(1L))).willReturn(root);
         given(directoryService.getSubFolders(any(), eq(1L))).willReturn(List.of());
@@ -53,6 +59,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         given(directoryService.createFolder(any(), eq(1L), any())).willReturn(directory);
         given(directoryService.deleteFolder(any(), eq(1L))).willReturn(root);
         given(directoryService.searchFolder(any(), eq(1L), any())).willReturn(List.of());
+        given(securityService.getPermissionsOfUser(any(), any())).willReturn(userPermission);
     }
 
     /**
