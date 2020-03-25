@@ -71,25 +71,44 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter"})
     public List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException {
         Directory directory = getDirectory(parentDirID);
         securityService.checkReadPermission(account, directory);
         try {
-            List<Directory> allSubFoldersOfParent = directoryRepository.getAllSubFoldersOfParent(parentDirID);
-            List<Directory> readableFolders = new ArrayList<>();
-            for (Directory dir : allSubFoldersOfParent) {
-                boolean readPerm = securityService.getPermissionsOfUser(account, dir).isRead();
-                if (readPerm) {
-                    readableFolders.add(dir);
-                }
+            List<Directory> directories = directoryRepository.getAllSubFoldersOfParent(parentDirID);
+            if (getDirectory(parentDirID).getParentId() == null) {
+                // If the current dir is the root folder,
+                // there could be directories in it without
+                // reading permission
+                directories = removeNoReadPermissionDirectories(account, directories);
             }
-
-            return readableFolders;
+            return directories;
         } catch (Exception e) {
             log.error("Subfolders of parent folder with id '{}' could not be loaded:", parentDirID, e);
             throw new DatabaseException("Unterordner konnten nicht geladen werden.", e);
         }
+    }
+
+    /**
+     * Removes all directories without reading permissions in place.
+     *
+     * @param account the account
+     * @param directories all directories that should be checked
+     * @return filtered list
+     * @throws MopsException on error
+     */
+    @SuppressWarnings("PMD.LawOfDemeter")
+    private List<Directory> removeNoReadPermissionDirectories(Account account,
+                                                              List<Directory> directories) throws MopsException {
+        List<Directory> readableFolders = new ArrayList<>();
+        for (Directory dir : directories) {
+            boolean readPerm = securityService.getPermissionsOfUser(account, dir).isRead();
+            if (readPerm) {
+                readableFolders.add(dir);
+            }
+        }
+        return readableFolders;
     }
 
     /**
