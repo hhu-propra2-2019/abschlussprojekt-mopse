@@ -77,6 +77,7 @@ public class DirectoryController {
             List<Directory> directories = directoryService.getSubFolders(account, dirId);
             List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
             UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
+            List<Directory> dirPath = directoryService.getDirectoryPath(dirId);
             boolean admin = securityService.isUserAdmin(account, directory.getGroupOwner());
             DirectoryPermissions permissions = permissionService.getPermissions(directory);
             EditDirectoryForm editDirectoryForm = EditDirectoryForm.of(directory, permissions);
@@ -87,6 +88,7 @@ public class DirectoryController {
             model.addAttribute("directory", directory);
             model.addAttribute("dirs", directories);
             model.addAttribute("files", files);
+            model.addAttribute("directoryPath", dirPath);
             model.addAttribute("editDirectoryForm", editDirectoryForm);
         } catch (MopsException e) {
             log.error("Failed to retrieve the folder content for directory with id '{}':", dirId, e);
