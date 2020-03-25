@@ -12,6 +12,7 @@ import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.presentation.error.ExceptionPresentationError;
+import mops.presentation.form.EditDirectoryForm;
 import mops.presentation.form.FileQueryForm;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
