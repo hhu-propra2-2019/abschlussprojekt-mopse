@@ -23,7 +23,7 @@ Ziel:
 
 In Production soll ein `docker-compose [...] up` die Anwendung und alle Dependencies (also nur die Datenbank) starten.
 
-In Develpoment soll ein anderes `docker-compose [...] up` nur die Dependencies (die Datenbank und MinIO) starten, damit
+In Development soll ein anderes `docker-compose [...] up` nur die Dependencies (die Datenbank und MinIO) starten, damit
 die Anwendung separat aus der IDE gestartet werden kann.
 
 Zusätzlich soll es eine Möglichkeit die Anwendung für Tutoren zu demonstrieren. Noch ein anderer
