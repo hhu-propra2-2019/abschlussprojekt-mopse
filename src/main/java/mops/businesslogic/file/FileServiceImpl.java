@@ -4,10 +4,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DirectoryService;
-import mops.businesslogic.exception.DeleteAccessPermissionException;
-import mops.businesslogic.exception.FileNotFoundException;
-import mops.businesslogic.exception.ReadAccessPermissionException;
-import mops.businesslogic.exception.WriteAccessPermissionException;
+import mops.businesslogic.exception.*;
 import mops.businesslogic.security.Account;
 import mops.businesslogic.security.SecurityService;
 import mops.businesslogic.security.UserPermission;
@@ -92,6 +89,14 @@ public class FileServiceImpl implements FileService {
         try {
             FileInfo fileInfo = fileInfoService.saveFileInfo(meta);
             fileRepository.saveFile(multipartFile, fileInfo.getId());
+        } catch (DatabaseDuplicationException e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            log.error("Error while saving file {} by user {}:",
+                    meta.getName(),
+                    account.getName(),
+                    e
+            );
+            throw new MopsException("Die Datei ist schon vorhanden.", e);
         } catch (MopsException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             log.error("Error while saving file {} by user {}:",
