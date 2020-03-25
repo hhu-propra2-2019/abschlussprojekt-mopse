@@ -82,10 +82,12 @@
     <div th:if="${adminRole}">
         <form action="#" th:action="@{{dirId}/edit(dirId = ${directory.id})}" th:method="post"
               th:object="${editDirectoryForm}">
-            <label>
-                <span>Ordnername:</span>
-                <input type="text" th:value="*{name}"/>
-            </label>
+            <fieldset th:if="${directory.parentId} != null">
+                <label>
+                    <span>Ordnername:</span>
+                    <input type="text" th:field="*{name}"/>
+                </label>
+            </fieldset>
             <table>
                 <thead>
                 <tr>
@@ -97,7 +99,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="rolePermissions, itemStat : *{rolePermissions}">
-                    <td><span th:text="*{rolePermissions[__${itemStat.index}__].role}" readonly>%Rolle%</span></td>
+                    <td><input type="text" th:field="*{rolePermissions[__${itemStat.index}__].role}" readonly/></td>
                     <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
                     <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
                     <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
