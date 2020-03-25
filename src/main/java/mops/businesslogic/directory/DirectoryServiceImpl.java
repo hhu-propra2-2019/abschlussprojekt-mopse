@@ -309,7 +309,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = getDirectory(dirId);
         securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
 
-        Set<String> roles = groupService.fetchRolesInGroup(directory.getGroupOwner());
+        Set<String> roles = groupService.getRoles(directory.getGroupOwner());
         if (!permissions.getRoles().equals(roles)) {
             log.error("The user '{}' tried to change the permissions of a directory to an invalid one. "
                             + "Role Permissions are missing or superfluous.",
