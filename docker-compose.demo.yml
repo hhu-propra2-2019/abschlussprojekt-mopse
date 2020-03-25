@@ -6,4 +6,3 @@ services:
       MATERIAL1_PROFILE: dev
     depends_on:
       - material1_minio
-  material1_minio:

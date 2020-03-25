@@ -14,6 +14,46 @@ oder Architekturmuster,
 Eine *kurze* und *präzise* Darlegung aller relevanten Entscheidungen.
 ****
 
+=== Docker-Compose
+
+****
+Beim Design der docker-compose Konfigurationen hatten wir komplizierte Anforderungen.
+
+Ziel:
+
+In Production soll ein `docker-compose [...] up` die Anwendung und alle Dependencies (also nur die Datenbank) starten.
+
+In Develpoment soll ein anderes `docker-compose [...] up` nur die Dependencies (die Datenbank und MinIO) starten, damit
+die Anwendung separat aus der IDE gestartet werden kann.
+
+Zusätzlich soll es eine Möglichkeit die Anwendung für Tutoren zu demonstrieren. Noch ein anderer
+`docker-compose [...] up` Befehl soll die alle Dependencies (diesmal die Datenbank und MinIO) und die Anwendung lokal
+starten.
+
+In allen diesen Fällen sollen sämtliche Umgebungsvariablen und Startparameter richtig konfiguriert sein.
+
+Gelöst wurde dies durch das Benutzen von mehreren `docker-compose` .yml Dateien, die zusammen geladen werden.
+Denn `docker-compose` erlaubt es bereits definierte Services in einer anderen Konfigurationsdatei zu ergänzen.
+
+Also gibt es nun:
+
+`docker-compose.yml`: Enthält die Definition des Datenbank-Containers ohne Konfiguration
+
+`docker-compose.dev.yml`: Enthält die Definition des MinIO-Containers mit Konfiguration und zusätzlich Konfiguration
+für den in der `docker-compose.yml` definierten Datenbank-Container.
+
+`docker-compose.prod.yml`: Enthält die Definition des Anwendungs-Containers mit Build-Anweisungen und Konfiguration und
+zusätzlich Konfiguration für den in der `docker-compose.yml` definierten Datenbank-Container.
+
+`docker-compose.demo.yml`: Überschreibt Teile der Konfiguration des Anwendungs-Containers aus der
+`docker-compose.prod.yml` und fügt ein weiteres `depends_on` auf den MinIO-Container aus `docker-compose.dev.yml` ein.
+
+Geladen werden die Konfigurationen aus den Dateien `dev.env` und `prod.env`.
+
+Somit kann man sich für jeden Fall aus den `docker-compose`-Konfigurationsdateien die passende Konfiguration
+zusammenbauen.
+****
+
 === Controller Tests
 
 ****
