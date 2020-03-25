@@ -107,7 +107,7 @@
             <td th:text="${file.owner}">%Owner%</td>
             <td th:text="${file.getSizeString()}">%Größe%</td>
             <td>
-                <form th:if="${deletePermission || file.getOwner() == account.getName()}" action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
+                <form th:if="${deletePermission || file.owner == account.name}" action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
                     <input type="submit" name="deleteFile" value="Datei löschen">
                 </form>
             </td>

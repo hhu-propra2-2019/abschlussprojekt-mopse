@@ -43,7 +43,6 @@ public class DirectoryController {
      * Manges all file queries.
      */
     private final FileService fileService;
-
     /**
      * Fetches permissions of user.
      */
