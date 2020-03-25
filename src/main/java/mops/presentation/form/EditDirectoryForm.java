@@ -29,7 +29,7 @@ public class EditDirectoryForm {
      *
      * @param directory   directory
      * @param permissions directory permissions
-     * @return EditDirectoryForm
+     * @return pre-filled EditDirectoryForm from given directory and permissions
      */
     @SuppressWarnings("PMD.LawOfDemeter") // streams & builder
     public static EditDirectoryForm of(Directory directory, DirectoryPermissions permissions) {
@@ -51,9 +51,9 @@ public class EditDirectoryForm {
     }
 
     /**
-     * Extract directory permissions object.
+     * Extract the directory permissions object from the internal rolePermissions list.
      *
-     * @return directory permissions
+     * @return extracted directory permissions
      */
     @SuppressWarnings("PMD.LawOfDemeter") // streams & builder
     public DirectoryPermissions buildDirectoryPermissions() {
