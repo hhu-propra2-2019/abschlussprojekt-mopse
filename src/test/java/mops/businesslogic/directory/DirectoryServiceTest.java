@@ -148,6 +148,30 @@ class DirectoryServiceTest {
     }
 
     /**
+     * Test if path display works correctly.
+     */
+    @Test
+    void buildDirectoryPathTest() throws MopsException {
+        String subDirName1 = "a";
+        String subDirName2 = "b";
+
+        Directory createdFirstDir = directoryService.createFolder(admin, root.getId(), subDirName1);
+        Directory createdSecondDir = directoryService.createFolder(admin, createdFirstDir.getId(), subDirName2);
+
+        String shouldReturn = "/a/b";
+        assertThat(directoryService.buildDirectoryPath(createdSecondDir.getId())).isEqualTo(shouldReturn);
+    }
+
+    /**
+     * Test if path display works correctly.
+     */
+    @Test
+    void buildDirectoryPathInRootTest() throws MopsException {
+        String shouldReturn = "";
+        assertThat(directoryService.buildDirectoryPath(root.getId())).isEqualTo(shouldReturn);
+    }
+
+    /**
      * Test if sub folders are correctly returned.
      */
     @Test
