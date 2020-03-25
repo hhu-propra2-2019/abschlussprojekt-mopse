@@ -78,8 +78,10 @@
         <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
             <input type="submit" value="Ebene hoch">
         </form>
-        <div th:text="${directoryPath}">%PATH%></div>
     </div>
+    <p th:each="dir : ${directoryPath}">
+        <a th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir Name</a>
+    </p>
     <table>
         <tr>
             <th>Name</th>
