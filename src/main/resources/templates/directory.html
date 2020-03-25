@@ -75,11 +75,14 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
+    <!-- Button to the directory above -->
     <div th:if="${directory.getParentId()} != null">
         <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
             <input type="submit" value="Ebene hoch">
         </form>
     </div>
+
+    <!-- Main Table to show the Folder Content -->
     <table>
         <tr>
             <th>Name</th>
@@ -114,17 +117,20 @@
         </tr>
     </table>
 
+    <!-- Form to create a new subfolder -->
     <form action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}" th:method="post">
         <input type="text" name="folderName" required>
         <input type="submit" name="newFolder" value="Neuer Ordner">
     </form>
 
+    <!-- Form to upload a new file to the folder -->
     <form action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}" th:method="post"
           enctype="multipart/form-data">
         <input type="file" name="file" required>
         <input type="submit" name="uploadFile" value="Datei Hochladen">
     </form>
 
+    <!-- Form to search for a file in the folder and all subfolders by 4 different parameters -->
     <form action="#" th:action="@{{dirId}/search(dirId = ${directory.getId()})}" th:method="post"
           th:object="${fileQueryForm}">
         <div id="names">
