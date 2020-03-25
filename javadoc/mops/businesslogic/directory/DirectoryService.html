@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -189,13 +189,20 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirectoryPath(long)">getDirectoryPath</a></span>&#8203;(long&nbsp;dirId)</code></th>
+<td class="colLast">
+<div class="block">Builds directory path as list.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="../group/GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrCreateRootFolder(long)">getOrCreateRootFolder</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Creates the group root directory.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSubFolders(mops.businesslogic.security.Account,long)">getSubFolders</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
              long&nbsp;parentDirID)</code></th>
@@ -203,21 +210,21 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 <div class="block">Returns all folders of the parent folder.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalDirCount()">getTotalDirCount</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get the total number of directories in all groups.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveDirectory(mops.persistence.directory.Directory)">saveDirectory</a></span>&#8203;(<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)</code></th>
 <td class="colLast">
 <div class="block">Internal use only: possible security flaw!.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(mops.businesslogic.security.Account,long,mops.businesslogic.file.query.FileQuery)">searchFolder</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
             long&nbsp;dirId,
@@ -226,7 +233,7 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 <div class="block">Searches a folder for files.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updatePermission(mops.businesslogic.security.Account,long,mops.persistence.permission.DirectoryPermissions)">updatePermission</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
                 long&nbsp;dirId,
@@ -269,6 +276,25 @@ public interface <span class="typeNameLabel">DirectoryService</span></pre>
 <dd><code>parentDirID</code> - id of the parent folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>list of folders</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="getDirectoryPath(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDirectoryPath</h4>
+<pre class="methodSignature">java.util.List&lt;<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;&nbsp;getDirectoryPath&#8203;(long&nbsp;dirId)
+                                    throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Builds directory path as list.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>dirId</code> - highest dir of path</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>directory path ordered list</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>
