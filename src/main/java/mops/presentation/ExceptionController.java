@@ -71,8 +71,7 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
                         "Deine Anfrage wurde vom Server nicht verstanden. Jaul!");
             } else if (statusCode == HttpStatus.FORBIDDEN.value() || statusCode == HttpStatus.UNAUTHORIZED.value()) {
                 model.addAttribute("status_message", "Das darfst du nicht. Grrrr!");
-            }
-            else if (statusCode == HttpStatus.NOT_FOUND.value()) {
+            } else if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 model.addAttribute("status_message",
                         "Die angeforderte Ressource konnte nicht gefunden werden :(");
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
