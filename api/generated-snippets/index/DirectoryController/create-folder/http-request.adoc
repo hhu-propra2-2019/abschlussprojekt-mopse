@@ -4,5 +4,5 @@ POST /material1/dir/1/create HTTP/1.1
 Host: localhost:8080
 Content-Type: application/x-www-form-urlencoded
 
-folderName=Vorlesungen&_csrf=fad7704b-9087-4645-9600-55767aa67e6d
+folderName=Vorlesungen&_csrf=83c52712-0d98-4aaa-b565-437f8b8445ab
 ----
