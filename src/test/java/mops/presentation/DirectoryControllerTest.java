@@ -10,6 +10,7 @@ import mops.businesslogic.security.SecurityService;
 import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
+import mops.persistence.permission.DirectoryPermissions;
 import mops.presentation.form.FileQueryForm;
 import mops.util.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,6 +55,10 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         Directory root = mock(Directory.class);
 
         UserPermission userPermission = new UserPermission(true, true, true);
+        DirectoryPermissions permissions = DirectoryPermissions.builder()
+                .entry("admin", true, true, true)
+                .entry("viewer", true, false, false)
+                .build();
 
         given(directory.getId()).willReturn(2L);
         given(directoryService.getDirectory(eq(1L))).willReturn(root);
@@ -63,6 +68,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         given(directoryService.deleteFolder(any(), eq(1L))).willReturn(root);
         given(directoryService.searchFolder(any(), eq(1L), any())).willReturn(List.of());
         given(securityService.getPermissionsOfUser(any(), any())).willReturn(userPermission);
+        given(permissionService.getPermissions(any())).willReturn(permissions);
     }
 
     /**
