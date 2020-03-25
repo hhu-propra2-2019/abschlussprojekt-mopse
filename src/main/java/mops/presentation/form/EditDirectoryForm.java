@@ -27,8 +27,8 @@ public class EditDirectoryForm {
     /**
      * Creates a new EditDirectoryForm from an existing directory and permissions.
      *
-     * @param directory   directory
-     * @param permissions directory permissions
+     * @param directory   existing directory
+     * @param permissions existing directory permissions
      * @return pre-filled EditDirectoryForm from given directory and permissions
      */
     @SuppressWarnings("PMD.LawOfDemeter") // streams & builder
