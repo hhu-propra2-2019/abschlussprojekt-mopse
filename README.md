@@ -46,19 +46,10 @@ Es existieren IntelliJ Run Configurations um die benötigten Services zu starten
 
 1. Docker starten und eventuell in IntelliJ einbinden.
 1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
-1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `prod-template.env`
-erstellen (also `prod-template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
-Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
-für das Starten der Container.
-1. Run Configuration `docker-compose.dev.yml: MinIO` starten
-oder alternativ `docker-compose -f -f docker-compose.dev.yml up minio_dev` in der Konsole ausführen.
-Dies geht recht schnell. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
-Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `minio_dev`-Service beendet
-oder alternativ in der Konsole `docker-compose -f docker-compose.dev.yml down --volumes` ausführen. 
-`--volumes` ist notwendig um die erstellten Docker Volumes mitzulöschen.
 1. Run Configuration `docker-compose.yml: PostgreSQL & MinIO` starten
 oder alternativ `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up material1_db material1_minio` in der
-Konsole ausführen. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
+Konsole ausführen. Dies kann mehrere Minuten dauern.
+Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
 Zum Beenden in IntelliJ einfach auf den Knopf drücken, der die Konfiguration `Compose: docker-compose.yml` beendet
 oder alternativ in der Konsole
 `docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --volumes --remove-orphans` ausführen.
@@ -72,10 +63,6 @@ starten.
 
 1. Docker starten
 1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
-1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `prod-template.env`
-erstellen (also `prod-template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
-Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
-für das Starten der Container.
 1. `docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.prod.yml -f docker-compose.demo.yml up --build material1_app`
 in der Konsole ausführen. Zum Beenden in der Konsole
 `docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.prod.yml -f docker-compose.demo.yml down --volumes --remove-orphans`
