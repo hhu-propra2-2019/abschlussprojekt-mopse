@@ -154,4 +154,12 @@ public class FileInfoServiceImpl implements FileInfoService {
             throw new MopsException("IDs konnten nicht gefunden werden.", e);
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Long> fetchAllOrphanedFileInfos() throws MopsException {
+        return fileInfoRepo.findAllOrphansByDirectory();
+    }
 }

@@ -53,6 +53,14 @@ public interface FileInfoService {
     Set<Long> fetchAllFileInfoIds() throws MopsException;
 
     /**
+     * Fetches all FileInfos which are in non existing directories.
+     *
+     * @return all ids
+     * @throws MopsException on error
+     */
+    Set<Long> fetchAllOrphanedFileInfos() throws MopsException;
+
+    /**
      * Get the total number of bytes used by that group.
      *
      * @param groupId group
