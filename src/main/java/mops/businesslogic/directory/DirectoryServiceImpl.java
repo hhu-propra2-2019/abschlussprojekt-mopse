@@ -77,7 +77,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         securityService.checkReadPermission(account, directory);
         try {
             List<Directory> directories = directoryRepository.getAllSubFoldersOfParent(parentDirID);
-            if (getDirectory(parentDirID).getParentId() == null) {
+            if (directory.getParentId() == null) {
                 // If the current dir is the root folder,
                 // there could be directories in it without
                 // reading permission
