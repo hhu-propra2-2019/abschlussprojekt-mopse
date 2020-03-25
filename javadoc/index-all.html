@@ -443,6 +443,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Lists all files in a specific directory.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileInfoService.html#fetchAllOrphanedFileInfos()">fetchAllOrphanedFileInfos()</a></span> - Method in interface mops.businesslogic.file.<a href="mops/businesslogic/file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a></dt>
+<dd>
+<div class="block">Fetches all FileInfos which are in non existing directories.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileInfoServiceImpl.html#fetchAllOrphanedFileInfos()">fetchAllOrphanedFileInfos()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileInfoServiceImpl.html" title="class in mops.businesslogic.file">FileInfoServiceImpl</a></dt>
+<dd>
+<div class="block">Fetches all FileInfos which are in non existing directories.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileInfoService.html#fetchFileInfo(long)">fetchFileInfo(long)</a></span> - Method in interface mops.businesslogic.file.<a href="mops/businesslogic/file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a></dt>
 <dd>
 <div class="block">Get a file by id.</div>
@@ -574,6 +582,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/persistence/FileInfoRepository.html#findAllInDirectory(long)">findAllInDirectory(long)</a></span> - Method in interface mops.persistence.<a href="mops/persistence/FileInfoRepository.html" title="interface in mops.persistence">FileInfoRepository</a></dt>
 <dd>
 <div class="block">Gets all files from one directory.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/persistence/FileInfoRepository.html#findAllOrphansByDirectory()">findAllOrphansByDirectory()</a></span> - Method in interface mops.persistence.<a href="mops/persistence/FileInfoRepository.html" title="interface in mops.persistence">FileInfoRepository</a></dt>
+<dd>
+<div class="block">Finds all FileInfo IDs, where no dir exists anymore.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/query/FileQueryBuilder.html#from(java.lang.String)">from(String)</a></span> - Method in class mops.businesslogic.file.query.<a href="mops/businesslogic/file/query/FileQueryBuilder.html" title="class in mops.businesslogic.file.query">FileQueryBuilder</a></dt>
 <dd>

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -203,41 +203,48 @@ implements <a href="FileInfoService.html" title="interface in mops.businesslogic
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.util.Set&lt;java.lang.Long&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchAllOrphanedFileInfos()">fetchAllOrphanedFileInfos</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Fetches all FileInfos which are in non existing directories.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchFileInfo(long)">fetchFileInfo</a></span>&#8203;(long&nbsp;fileId)</code></th>
 <td class="colLast">
 <div class="block">Get a file by id.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFileCountInGroup(long)">getFileCountInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Get the total number of files in a group.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStorageUsageInGroup(long)">getStorageUsageInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Get the total number of bytes used by that group.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalFileCount()">getTotalFileCount</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get the total number of files in all groups.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalStorageUsage()">getTotalStorageUsage</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get the total number of bytes used by all groups.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="../../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveFileInfo(mops.persistence.file.FileInfo)">saveFileInfo</a></span>&#8203;(<a href="../../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&nbsp;fileInfo)</code></th>
 <td class="colLast">
@@ -452,7 +459,7 @@ implements <a href="FileInfoService.html" title="interface in mops.businesslogic
 <a id="fetchAllFileInfoIds()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>fetchAllFileInfoIds</h4>
 <pre class="methodSignature">public&nbsp;java.util.Set&lt;java.lang.Long&gt;&nbsp;fetchAllFileInfoIds()
@@ -461,6 +468,25 @@ implements <a href="FileInfoService.html" title="interface in mops.businesslogic
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="FileInfoService.html#fetchAllFileInfoIds()">fetchAllFileInfoIds</a></code>&nbsp;in interface&nbsp;<code><a href="FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>all ids</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchAllOrphanedFileInfos()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>fetchAllOrphanedFileInfos</h4>
+<pre class="methodSignature">public&nbsp;java.util.Set&lt;java.lang.Long&gt;&nbsp;fetchAllOrphanedFileInfos()
+                                                        throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Fetches all FileInfos which are in non existing directories.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="FileInfoService.html#fetchAllOrphanedFileInfos()">fetchAllOrphanedFileInfos</a></code>&nbsp;in interface&nbsp;<code><a href="FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>all ids</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>

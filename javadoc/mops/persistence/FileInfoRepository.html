@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -167,20 +167,27 @@ extends org.springframework.data.repository.CrudRepository&lt;<a href="file/File
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>java.util.Set&lt;java.lang.Long&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findAllOrphansByDirectory()">findAllOrphansByDirectory</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Finds all FileInfo IDs, where no dir exists anymore.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFileCountInGroup(long)">getFileCountInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Counts the total number of files in a group.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStorageUsageInGroup(long)">getStorageUsageInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Counts the total number of bytes used in a group.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalStorageUsage()">getTotalStorageUsage</a></span>()</code></th>
 <td class="colLast">
@@ -283,7 +290,7 @@ long&nbsp;getFileCountInGroup&#8203;(@Param("groupId")
 <a id="findAllIds()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>findAllIds</h4>
 <pre class="methodSignature">@Query("SELECT id FROM file_info")
@@ -292,6 +299,22 @@ java.util.Set&lt;java.lang.Long&gt;&nbsp;findAllIds()</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>all ids</dd>
+</dl>
+</li>
+</ul>
+<a id="findAllOrphansByDirectory()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>findAllOrphansByDirectory</h4>
+<pre class="methodSignature">@Query("SELECT id from file_info WHERE directory_id NOT IN (SELECT id from directory)")
+java.util.Set&lt;java.lang.Long&gt;&nbsp;findAllOrphansByDirectory()</pre>
+<div class="block">Finds all FileInfo IDs, where no dir exists anymore.
+ Should theoretically always be an empty list.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>all IDs of found orphans</dd>
 </dl>
 </li>
 </ul>
