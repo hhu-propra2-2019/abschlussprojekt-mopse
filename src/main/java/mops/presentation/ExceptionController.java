@@ -50,7 +50,7 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
      * @return view
      */
     @RequestMapping("/material1/error")
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis", "PMD.CyclomaticComplexity" })
     public String handleError(KeycloakAuthenticationToken token, HttpServletRequest request, Model model) {
         Account account = Account.of(token);
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
