@@ -242,7 +242,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         if (directory.getParentId() != null) {
             if (newName == null || newName.isEmpty()) {
                 log.error("The user '{}' tried to change the name of a directory to an empty name.", account.getName());
-                throw new DatabaseException("Name leer.");
+                throw new DatabaseException("Name des Ordners darf nicht leer sein.");
             }
             directory.setName(newName);
         }
