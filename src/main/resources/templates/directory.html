@@ -86,7 +86,7 @@
             <th>Typ</th>
             <th>Besitzer</th>
             <th>Größe</th>
-            <th th:if="${deletePermission}"></th>
+            <th></th>
         </tr>
         <tr th:each="dir : ${dirs}">
             <td><a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
