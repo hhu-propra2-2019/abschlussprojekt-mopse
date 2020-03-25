@@ -15,6 +15,9 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
+    <form action="#" th:action="@{{dirId}(dirId = ${backDirId})}" method="get">
+        <input type="submit" value="Ebene hoch">
+    </form>
     <table>
         <tr>
             <th>Name</th>
