@@ -66,24 +66,17 @@ public class DirectoryController {
             model.addAttribute("directory", directory);
             model.addAttribute("dirs", directories);
             model.addAttribute("files", files);
+
+            String dirPath = directoryService.buildDirectoryPath(dirId);
+            model.addAttribute("directoryPath", dirPath);
         } catch (MopsException e) {
             log.error("Failed to retrieve the folder content for directory with id '{}':", dirId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
             return "redirect:/material1/error";
         }
 
-        String dirPath = null;
-        try {
-            dirPath = directoryService.buildDirectoryPath(dirId);
-        } catch (MopsException e) {
-            log.error("Failed to fetch directory path for id '{}':", dirId, e);
-            redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
-            return "redirect:/material1/error";
-        }
-
         model.addAttribute("fileQueryForm", new FileQueryForm());
         model.addAttribute("account", account);
-        model.addAttribute("directoryPath", dirPath);
 
         return "directory";
     }

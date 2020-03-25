@@ -90,7 +90,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter" })
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     public String buildDirectoryPath(long dirId) throws MopsException {
         String result = "";
         Directory dir = getDirectory(dirId);
