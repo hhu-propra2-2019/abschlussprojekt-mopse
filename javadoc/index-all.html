@@ -133,6 +133,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Builds the DirectoryPermissions.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#buildDirectoryPermissions()">buildDirectoryPermissions()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>
+<div class="block">Extract the directory permissions object from the internal rolePermissions list.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/query/FileQuery.html#builder()">builder()</a></span> - Static method in class mops.businesslogic.file.query.<a href="mops/businesslogic/file/query/FileQuery.html" title="class in mops.businesslogic.file.query">FileQuery</a></dt>
 <dd>
 <div class="block">Returns a builder for file queries.</div>
@@ -161,7 +165,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/permission/DirectoryPermissions.html#canEqual(java.lang.Object)">canEqual(Object)</a></span> - Method in class mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#canEqual(java.lang.Object)">canEqual(Object)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/form/FileQueryForm.html#canEqual(java.lang.Object)">canEqual(Object)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#canEqual(java.lang.Object)">canEqual(Object)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/SecurityService.html#checkDeletePermission(mops.businesslogic.security.Account,mops.persistence.directory.Directory)">checkDeletePermission(Account, Directory)</a></span> - Method in interface mops.businesslogic.security.<a href="mops/businesslogic/security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a></dt>
 <dd>
@@ -351,7 +359,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Controller Class for all requests on 'material1/dir'.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService,mops.businesslogic.security.SecurityService)">DirectoryController(DirectoryService, FileService, SecurityService)</a></span> - Constructor for class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService)">DirectoryController(DirectoryService, FileService, SecurityService, PermissionService)</a></span> - Constructor for class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission"><span class="typeNameLink">DirectoryPermissions</span></a> - Class in <a href="mops/persistence/permission/package-summary.html">mops.persistence.permission</a></dt>
 <dd>
@@ -395,6 +403,24 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">E</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryService.html#editDirectory(mops.businesslogic.security.Account,long,java.lang.String,mops.persistence.permission.DirectoryPermissions)">editDirectory(Account, long, String, DirectoryPermissions)</a></span> - Method in interface mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a></dt>
+<dd>
+<div class="block">Edit the directory's properties.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryServiceImpl.html#editDirectory(mops.businesslogic.security.Account,long,java.lang.String,mops.persistence.permission.DirectoryPermissions)">editDirectory(Account, long, String, DirectoryPermissions)</a></span> - Method in class mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryServiceImpl.html" title="class in mops.businesslogic.directory">DirectoryServiceImpl</a></dt>
+<dd>
+<div class="block">Edit the directory's properties.</div>
+</dd>
+<dt><a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form"><span class="typeNameLink">EditDirectoryForm</span></a> - Class in <a href="mops/presentation/form/package-summary.html">mops.presentation.form</a></dt>
+<dd>
+<div class="block">Wrapper for the edit directory form for thymeleaf.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#%3Cinit%3E()">EditDirectoryForm()</a></span> - Constructor for class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#editFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,mops.presentation.form.EditDirectoryForm)">editFolder(RedirectAttributes, KeycloakAuthenticationToken, long, EditDirectoryForm)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
+<dd>
+<div class="block">Edit the folder.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/permission/DirectoryPermissionsBuilder.html#entry(java.lang.String,boolean,boolean,boolean)">entry(String, boolean, boolean, boolean)</a></span> - Method in class mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissionsBuilder.html" title="class in mops.persistence.permission">DirectoryPermissionsBuilder</a></dt>
 <dd>
 <div class="block">Add permission.</div>
@@ -419,7 +445,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/error/ExceptionPresentationError.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.presentation.error.<a href="mops/presentation/error/ExceptionPresentationError.html" title="class in mops.presentation.error">ExceptionPresentationError</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/form/FileQueryForm.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="mops/presentation/ExceptionController.html" title="class in mops.presentation"><span class="typeNameLink">ExceptionController</span></a> - Class in <a href="mops/presentation/package-summary.html">mops.presentation</a></dt>
 <dd>
@@ -876,6 +906,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">File name.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#getName()">getName()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>
+<div class="block">Directory name.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/query/FileQuery.html#getNames()">getNames()</a></span> - Method in class mops.businesslogic.file.query.<a href="mops/businesslogic/file/query/FileQuery.html" title="class in mops.businesslogic.file.query">FileQuery</a></dt>
 <dd>
 <div class="block">List of file names to search for.</div>
@@ -936,9 +970,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Port of the MinIO server.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#getRole()">getRole()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
+<dd>
+<div class="block">Role.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#getRolePermissions()">getRolePermissions()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>
+<div class="block">Role Permissions.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/Account.html#getRoles()">getRoles()</a></span> - Method in class mops.businesslogic.security.<a href="mops/businesslogic/security/Account.html" title="class in mops.businesslogic.security">Account</a></dt>
 <dd>
 <div class="block">Keycloak roles of the user.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/persistence/permission/DirectoryPermissions.html#getRoles()">getRoles()</a></span> - Method in class mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></dt>
+<dd>
+<div class="block">Get all roles for which there are permissions.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/group/GroupRootDirWrapper.html#getRootDir()">getRootDir()</a></span> - Method in class mops.businesslogic.group.<a href="mops/businesslogic/group/GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a></dt>
 <dd>
@@ -1140,7 +1186,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/error/ExceptionPresentationError.html#hashCode()">hashCode()</a></span> - Method in class mops.presentation.error.<a href="mops/presentation/error/ExceptionPresentationError.html" title="class in mops.presentation.error">ExceptionPresentationError</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#hashCode()">hashCode()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/form/FileQueryForm.html#hashCode()">hashCode()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#hashCode()">hashCode()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#hasTag(java.lang.String)">hasTag(String)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
@@ -1202,15 +1252,35 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/UserPermission.html#isDelete()">isDelete()</a></span> - Method in class mops.businesslogic.security.<a href="mops/businesslogic/security/UserPermission.html" title="class in mops.businesslogic.security">UserPermission</a></dt>
 <dd>
-<div class="block">delete permission flag.</div>
+<div class="block">Delete permission flag.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#isDelete()">isDelete()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
+<dd>
+<div class="block">Can delete.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/UserPermission.html#isRead()">isRead()</a></span> - Method in class mops.businesslogic.security.<a href="mops/businesslogic/security/UserPermission.html" title="class in mops.businesslogic.security">UserPermission</a></dt>
 <dd>
-<div class="block">read permission flag.</div>
+<div class="block">Read permission flag.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#isRead()">isRead()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
+<dd>
+<div class="block">Can read.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/security/SecurityService.html#isUserAdmin(mops.businesslogic.security.Account,long)">isUserAdmin(Account, long)</a></span> - Method in interface mops.businesslogic.security.<a href="mops/businesslogic/security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a></dt>
+<dd>
+<div class="block">Checks if user is has the admin role.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/security/SecurityServiceImpl.html#isUserAdmin(mops.businesslogic.security.Account,long)">isUserAdmin(Account, long)</a></span> - Method in class mops.businesslogic.security.<a href="mops/businesslogic/security/SecurityServiceImpl.html" title="class in mops.businesslogic.security">SecurityServiceImpl</a></dt>
+<dd>
+<div class="block">Checks if user is has the admin role.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/UserPermission.html#isWrite()">isWrite()</a></span> - Method in class mops.businesslogic.security.<a href="mops/businesslogic/security/UserPermission.html" title="class in mops.businesslogic.security">UserPermission</a></dt>
 <dd>
-<div class="block">write permission flag.</div>
+<div class="block">Write permission flag.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#isWrite()">isWrite()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
+<dd>
+<div class="block">Can write.</div>
 </dd>
 </dl>
 <a id="I:K">
@@ -1396,6 +1466,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Create a new Account.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#of(mops.persistence.directory.Directory,mops.persistence.permission.DirectoryPermissions)">of(Directory, DirectoryPermissions)</a></span> - Static method in class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>
+<div class="block">Creates a new EditDirectoryForm from an existing directory and permissions.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/Account.html#of(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken)">of(KeycloakAuthenticationToken)</a></span> - Static method in class mops.businesslogic.security.<a href="mops/businesslogic/security/Account.html" title="class in mops.businesslogic.security">Account</a></dt>
 <dd>
 <div class="block">Create a new Account.</div>
@@ -1475,6 +1549,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Collects all IDs, find orphans and delete them.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/ExceptionController.html#resolveException(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.Object,java.lang.Exception)">resolveException(HttpServletRequest, HttpServletResponse, Object, Exception)</a></span> - Method in class mops.presentation.<a href="mops/presentation/ExceptionController.html" title="class in mops.presentation">ExceptionController</a></dt>
+<dt><a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form"><span class="typeNameLink">RolePermissionsForm</span></a> - Class in <a href="mops/presentation/form/package-summary.html">mops.presentation.form</a></dt>
+<dd>
+<div class="block">Permissions form wrapper.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#%3Cinit%3E()">RolePermissionsForm()</a></span> - Constructor for class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <a id="I:S">
 <!--   -->
@@ -1579,6 +1659,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Name of the bucket.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#setDelete(boolean)">setDelete(boolean)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
+<dd>
+<div class="block">Can delete.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#setDirectoryId(long)">setDirectoryId(long)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
 <div class="block">Id of the Directory this file resides in.</div>
@@ -1598,6 +1682,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#setName(java.lang.String)">setName(String)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
 <div class="block">File name.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#setName(java.lang.String)">setName(String)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>
+<div class="block">Directory name.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/form/FileQueryForm.html#setNames(java.lang.String%5B%5D)">setNames(String[])</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a></dt>
 <dd>
@@ -1627,6 +1715,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Port of the MinIO server.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#setRead(boolean)">setRead(boolean)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
+<dd>
+<div class="block">Can read.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#setRole(java.lang.String)">setRole(String)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
+<dd>
+<div class="block">Role.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#setRolePermissions(java.util.List)">setRolePermissions(List&lt;RolePermissionsForm&gt;)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>
+<div class="block">Role Permissions.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/config/FileRepositoryConfig.html#setSecretKey(java.lang.String)">setSecretKey(String)</a></span> - Method in class mops.persistence.config.<a href="mops/persistence/config/FileRepositoryConfig.html" title="class in mops.persistence.config">FileRepositoryConfig</a></dt>
 <dd>
 <div class="block">MinIO secret key.</div>
@@ -1650,6 +1750,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/presentation/form/FileQueryForm.html#setTypes(java.lang.String%5B%5D)">setTypes(String[])</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a></dt>
 <dd>
 <div class="block">List of file types to search for.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#setWrite(boolean)">setWrite(boolean)</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
+<dd>
+<div class="block">Can write.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#showFolderContent(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">showFolderContent(RedirectAttributes, KeycloakAuthenticationToken, Model, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>
@@ -1729,7 +1833,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/error/ExceptionPresentationError.html#toString()">toString()</a></span> - Method in class mops.presentation.error.<a href="mops/presentation/error/ExceptionPresentationError.html" title="class in mops.presentation.error">ExceptionPresentationError</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/EditDirectoryForm.html#toString()">toString()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/form/FileQueryForm.html#toString()">toString()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/FileQueryForm.html" title="class in mops.presentation.form">FileQueryForm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#toString()">toString()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/query/FileQueryBuilder.html#type(java.lang.String)">type(String)</a></span> - Method in class mops.businesslogic.file.query.<a href="mops/businesslogic/file/query/FileQueryBuilder.html" title="class in mops.businesslogic.file.query">FileQueryBuilder</a></dt>
 <dd>

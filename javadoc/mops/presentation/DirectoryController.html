@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -156,9 +156,10 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService,mops.businesslogic.security.SecurityService)">DirectoryController</a></span>&#8203;(<a href="../businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService)">DirectoryController</a></span>&#8203;(<a href="../businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService,
                    <a href="../businesslogic/file/FileService.html" title="interface in mops.businesslogic.file">FileService</a>&nbsp;fileService,
-                   <a href="../businesslogic/security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a>&nbsp;securityService)</code></th>
+                   <a href="../businesslogic/security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a>&nbsp;securityService,
+                   <a href="../businesslogic/permission/PermissionService.html" title="interface in mops.businesslogic.permission">PermissionService</a>&nbsp;permissionService)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -200,6 +201,16 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#editFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,mops.presentation.form.EditDirectoryForm)">editFolder</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+          org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+          long&nbsp;dirId,
+          <a href="form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a>&nbsp;editForm)</code></th>
+<td class="colLast">
+<div class="block">Edit the folder.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.presentation.form.FileQueryForm)">searchFolder</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
             org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
             org.springframework.ui.Model&nbsp;model,
@@ -209,7 +220,7 @@ extends java.lang.Object</pre>
 <div class="block">Searches a folder for files.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#showFolderContent(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">showFolderContent</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
                  org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
@@ -219,7 +230,7 @@ extends java.lang.Object</pre>
 <div class="block">Shows the content of a folder (files and sub folders).</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uploadFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,org.springframework.web.multipart.MultipartFile)">uploadFile</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
           org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
@@ -253,7 +264,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService,mops.businesslogic.security.SecurityService)">
+<a id="&lt;init&gt;(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -261,7 +272,8 @@ extends java.lang.Object</pre>
 <h4>DirectoryController</h4>
 <pre>public&nbsp;DirectoryController&#8203;(<a href="../businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService,
                            <a href="../businesslogic/file/FileService.html" title="interface in mops.businesslogic.file">FileService</a>&nbsp;fileService,
-                           <a href="../businesslogic/security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a>&nbsp;securityService)</pre>
+                           <a href="../businesslogic/security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a>&nbsp;securityService,
+                           <a href="../businesslogic/permission/PermissionService.html" title="interface in mops.businesslogic.permission">PermissionService</a>&nbsp;permissionService)</pre>
 </li>
 </ul>
 </li>
@@ -343,6 +355,31 @@ public&nbsp;java.lang.String&nbsp;createSubFolder&#8203;(org.springframework.web
 <dd><code>token</code> - keycloak auth token</dd>
 <dd><code>parentDirId</code> - id of the parent folder</dd>
 <dd><code>folderName</code> - name of the new sub folder</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>object of the folder</dd>
+</dl>
+</li>
+</ul>
+<a id="editFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,mops.presentation.form.EditDirectoryForm)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>editFolder</h4>
+<pre class="methodSignature">@PostMapping("/{dirId}/edit")
+public&nbsp;java.lang.String&nbsp;editFolder&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+                                   org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+                                   @PathVariable("dirId")
+                                   long&nbsp;dirId,
+                                   @ModelAttribute("editDirectoryForm")
+                                   <a href="form/EditDirectoryForm.html" title="class in mops.presentation.form">EditDirectoryForm</a>&nbsp;editForm)</pre>
+<div class="block">Edit the folder.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>redirectAttributes</code> - redirect attributes</dd>
+<dd><code>token</code> - keycloak auth token</dd>
+<dd><code>dirId</code> - id of the current folder</dd>
+<dd><code>editForm</code> - new directory properties from the template</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>object of the folder</dd>
 </dl>
