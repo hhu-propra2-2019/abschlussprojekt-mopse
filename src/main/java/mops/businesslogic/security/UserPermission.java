@@ -22,9 +22,5 @@ public class UserPermission {
      * Delete permission flag.
      */
     boolean delete;
-    /**
-     * Admin flag.
-     */
-    boolean admin;
 
 }

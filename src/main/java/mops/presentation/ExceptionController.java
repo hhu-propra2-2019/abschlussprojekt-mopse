@@ -52,7 +52,11 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
     @RequestMapping("/material1/error")
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     public String handleError(KeycloakAuthenticationToken token, HttpServletRequest request, Model model) {
-        Account account = Account.of(token);
+        if (token != null) {
+            Account account = Account.of(token);
+            model.addAttribute("account", account);
+        }
+
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         String referer = request.getHeader("referer");
         model.addAttribute("referer", referer);
@@ -74,7 +78,7 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
             }
         }
 
-        model.addAttribute("account", account);
+
         return "mops_error";
     }
 

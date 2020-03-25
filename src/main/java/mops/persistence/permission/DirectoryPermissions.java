@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Represents a collection of Permissions for a Directory.
@@ -105,6 +106,17 @@ public class DirectoryPermissions {
                 .filter(DirectoryPermissionEntry::isCanDelete)
                 .map(DirectoryPermissionEntry::getRole)
                 .anyMatch(userRole::equals);
+    }
+
+    /**
+     * Get all roles for which there are permissions.
+     *
+     * @return roles
+     */
+    public Set<String> getRoles() {
+        return permissions.stream()
+                .map(DirectoryPermissionEntry::getRole)
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     /**

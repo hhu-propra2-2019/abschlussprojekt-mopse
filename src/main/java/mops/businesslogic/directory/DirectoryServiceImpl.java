@@ -235,8 +235,20 @@ public class DirectoryServiceImpl implements DirectoryService {
             long dirId,
             String newName,
             DirectoryPermissions newPermissions) throws MopsException {
-        // TODO: this
-        return null;
+        Directory directory = getDirectory(dirId);
+        securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
+
+        if (directory.getParentId() != null) {
+            if (newName == null || newName.isEmpty()) {
+                log.error("The user '{}' tried to change the name of a directory to an empty name.", account.getName());
+                throw new DatabaseException("Name leer.");
+            }
+            directory.setName(newName);
+        }
+
+        updatePermission(account, dirId, newPermissions);
+
+        return saveDirectory(directory);
     }
 
     /**
@@ -249,6 +261,15 @@ public class DirectoryServiceImpl implements DirectoryService {
                                                  DirectoryPermissions permissions) throws MopsException {
         Directory directory = getDirectory(dirId);
         securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
+
+        Set<String> roles = groupService.fetchRolesInGroup(directory.getGroupOwner());
+        if (!permissions.getRoles().equals(roles)) {
+            log.error("The user '{}' tried to change the permissions of a directory to an invalid one. "
+                            + "Role Permissions are missing or superfluous.",
+                    account.getName());
+            throw new DatabaseException("Neue Berechtigungen ungültig.");
+        }
+
         DirectoryPermissions updatedPermissions = DirectoryPermissions.builder()
                 .from(permissions)
                 .id(directory.getPermissionsId())

@@ -5,12 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.file.query.FileQuery;
+import mops.businesslogic.permission.PermissionService;
 import mops.businesslogic.security.Account;
 import mops.businesslogic.security.SecurityService;
 import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.persistence.permission.DirectoryPermissions;
 import mops.presentation.error.ExceptionPresentationError;
 import mops.presentation.form.EditDirectoryForm;
 import mops.presentation.form.FileQueryForm;
@@ -48,6 +50,10 @@ public class DirectoryController {
      * Fetches permissions of user.
      */
     private final SecurityService securityService;
+    /**
+     * Fetches role permissions.
+     */
+    private final PermissionService permissionService;
 
     /**
      * Shows the content of a folder (files and sub folders).
@@ -71,11 +77,17 @@ public class DirectoryController {
             List<Directory> directories = directoryService.getSubFolders(account, dirId);
             List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
             UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
+            boolean admin = securityService.isUserAdmin(account, directory.getGroupOwner());
+            DirectoryPermissions permissions = permissionService.getPermissions(directory);
+            EditDirectoryForm editDirectoryForm = EditDirectoryForm.of(directory, permissions);
+
             model.addAttribute("deletePermission", userPermission.isDelete());
             model.addAttribute("writePermission", userPermission.isWrite());
+            model.addAttribute("adminRole", admin);
             model.addAttribute("directory", directory);
             model.addAttribute("dirs", directories);
             model.addAttribute("files", files);
+            model.addAttribute("editDirectoryForm", editDirectoryForm);
         } catch (MopsException e) {
             log.error("Failed to retrieve the folder content for directory with id '{}':", dirId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
@@ -84,7 +96,6 @@ public class DirectoryController {
 
         model.addAttribute("fileQueryForm", new FileQueryForm());
         model.addAttribute("account", account);
-
         return "directory";
     }
 
@@ -165,10 +176,11 @@ public class DirectoryController {
         Account account = Account.of(token);
         log.info("Directory edit requested in directory with id '{}' by user '{}'.", dirId, account.getName());
 
-        // TODO: extract new properties from form object
+        String newName = editForm.getName();
+        DirectoryPermissions newPermissions = editForm.buildDirectoryPermissions();
 
         try {
-            Directory directory = directoryService.editDirectory(account, dirId, null, null);
+            Directory directory = directoryService.editDirectory(account, dirId, newName, newPermissions);
             redirectAttributes.addAttribute("dirId", directory.getId());
         } catch (MopsException e) {
             log.error("Failed to edit directory with id '{}':", dirId, e);

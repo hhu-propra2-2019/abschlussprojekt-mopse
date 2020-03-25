@@ -47,7 +47,6 @@ public class SecurityServiceImpl implements SecurityService {
         boolean write = true;
         boolean read = true;
         boolean delete = true;
-        boolean admin = true;
 
         try {
             checkWritePermission(account, directory);
@@ -73,15 +72,7 @@ public class SecurityServiceImpl implements SecurityService {
             throw new MopsException("Keine Berechtigungsprüfung auf Löschen möglich", e);
         }
 
-        try {
-            checkIfRole(account, directory.getGroupOwner(), adminRole);
-        } catch (WriteAccessPermissionException e) {
-            admin = false;
-        } catch (MopsException e) {
-            throw new MopsException("Keine Rollenprüfung auf 'admin' möglich", e);
-        }
-
-        return new UserPermission(read, write, delete, admin);
+        return new UserPermission(read, write, delete);
     }
 
     /**
@@ -153,6 +144,21 @@ public class SecurityServiceImpl implements SecurityService {
                     String.format("Der Benutzer %s hat keine Löschberechtigungen in %s.",
                             account.getName(),
                             directory.getName()));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isUserAdmin(Account account, long groupId) throws MopsException {
+        try {
+            checkIfRole(account, groupId, adminRole);
+            return true;
+        } catch (WriteAccessPermissionException e) {
+            return false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Rollenprüfung auf admin möglich.", e);
         }
     }
 
