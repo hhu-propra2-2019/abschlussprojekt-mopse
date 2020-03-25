@@ -1,5 +1,5 @@
 [source,bash]
 ----
 $ curl 'http://localhost:8080/material1/file/1/delete' -i -X POST \
-    -d '_csrf=88d178d5-6cbc-4577-980e-b6c1a8528324'
+    -d '_csrf=5eb28505-3cc8-40cd-950a-6c7ba5e027c0'
 ----

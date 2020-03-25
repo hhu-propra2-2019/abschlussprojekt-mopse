@@ -454,9 +454,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-system-scope-and-context">3. Kontextabgrenzung</a></li>
 <li><a href="#section-solution-strategy">4. Lösungsstrategie</a>
 <ul class="sectlevel2">
-<li><a href="#_controller_tests">4.1. Controller Tests</a></li>
-<li><a href="#_datenbank">4.2. Datenbank</a></li>
-<li><a href="#_logging">4.3. Logging</a></li>
+<li><a href="#_docker_compose">4.1. Docker-Compose</a></li>
+<li><a href="#_controller_tests">4.2. Controller Tests</a></li>
+<li><a href="#_datenbank">4.3. Datenbank</a></li>
+<li><a href="#_logging">4.4. Logging</a></li>
 </ul>
 </li>
 <li><a href="#section-building-block-view">5. Bausteinsicht</a>
@@ -948,7 +949,64 @@ oder Architekturmuster,</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_controller_tests">4.1. Controller Tests</h3>
+<h3 id="_docker_compose">4.1. Docker-Compose</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Beim Design der docker-compose Konfigurationen hatten wir komplizierte Anforderungen.</p>
+</div>
+<div class="paragraph">
+<p>Ziel:</p>
+</div>
+<div class="paragraph">
+<p>In Production soll ein <code>docker-compose [&#8230;&#8203;] up</code> die Anwendung und alle Dependencies (also nur die Datenbank) starten.</p>
+</div>
+<div class="paragraph">
+<p>In Development soll ein anderes <code>docker-compose [&#8230;&#8203;] up</code> nur die Dependencies (die Datenbank und MinIO) starten, damit
+die Anwendung separat aus der IDE gestartet werden kann.</p>
+</div>
+<div class="paragraph">
+<p>Zusätzlich soll es eine Möglichkeit geben, die Anwendung für Tutoren zu demonstrieren. Noch ein anderer
+<code>docker-compose [&#8230;&#8203;] up</code> Befehl soll alle Dependencies (diesmal die Datenbank und MinIO) und die Anwendung lokal
+starten.</p>
+</div>
+<div class="paragraph">
+<p>In all diesen Fällen sollen sämtliche Umgebungsvariablen und Startparameter richtig konfiguriert sein.</p>
+</div>
+<div class="paragraph">
+<p>Gelöst wird dies durch das Benutzen von mehreren <code>docker-compose</code> .yml Dateien, die zusammen geladen werden.
+Denn <code>docker-compose</code> erlaubt es, bereits definierte Services in einer anderen Konfigurationsdatei zu ergänzen.</p>
+</div>
+<div class="paragraph">
+<p>Also gibt es nun:</p>
+</div>
+<div class="paragraph">
+<p><code>docker-compose.yml</code>: Enthält die Definition des Datenbank-Containers ohne Konfiguration.</p>
+</div>
+<div class="paragraph">
+<p><code>docker-compose.dev.yml</code>: Enthält die Definition des MinIO-Containers mit Konfiguration und zusätzlich die Konfiguration
+für den in der <code>docker-compose.yml</code> definierten Datenbank-Container.</p>
+</div>
+<div class="paragraph">
+<p><code>docker-compose.prod.yml</code>: Enthält die Definition des Anwendungs-Containers mit Build-Anweisungen und Konfiguration und
+zusätzlich die Konfiguration für den in der <code>docker-compose.yml</code> definierten Datenbank-Container.</p>
+</div>
+<div class="paragraph">
+<p><code>docker-compose.demo.yml</code>: Überschreibt Teile der Konfiguration des Anwendungs-Containers aus der
+<code>docker-compose.prod.yml</code> und fügt ein weiteres <code>depends_on</code> auf den MinIO-Container aus <code>docker-compose.dev.yml</code> ein.</p>
+</div>
+<div class="paragraph">
+<p>Geladen werden die Konfigurationen aus den Dateien <code>dev.env</code> und <code>prod.env</code>.</p>
+</div>
+<div class="paragraph">
+<p>Somit kann man sich für jeden Fall aus den <code>docker-compose</code>-Konfigurationsdateien die passende Konfiguration
+zusammenbauen.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_controller_tests">4.2. Controller Tests</h3>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
@@ -965,7 +1023,7 @@ Authentifizierung auszustatten.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_datenbank">4.2. Datenbank</h3>
+<h3 id="_datenbank">4.3. Datenbank</h3>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
@@ -991,7 +1049,7 @@ Das war ein schmerzloser Prozess, da wir bis dahin noch nichts mit der echten Da
 </div>
 </div>
 <div class="sect2">
-<h3 id="_logging">4.3. Logging</h3>
+<h3 id="_logging">4.4. Logging</h3>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
@@ -2183,7 +2241,7 @@ keine Fehler während der Entwicklung übersehen werden.</p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-25 14:00:12 UTC
+Last updated 2020-03-25 16:14:53 UTC
 </div>
 </div>
 </body>
