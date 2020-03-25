@@ -27,7 +27,6 @@
                 text.name = type + "[" + counter + "]";
                 text.placeholder = placeholder;
                 text.setAttribute("th:field", type + "[" + counter + "]");
-                text.required = true;
                 button.type = "button";
                 button.value = "+";
                 button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', '" + placeholder + "');");
@@ -46,13 +45,21 @@
                 const delButtonID = type + "Delete";
                 document.getElementById(delButtonID)
                     .setAttribute("onclick", "javascript: deleteLastInputLine('" + delButtonName + "')");
+
+                console.log(counter);
             }
 
             function deleteLastInputLine(del) {
                 const idLength = del.length;
-                const substring = del.substring(0, idLength - 3);
 
-                const counter = del.substring(idLength - 2, idLength - 1);
+                var ifOver9 = 0;
+                const substringTestIfOver9 = del.substring(0, idLength - 4);
+                if (window[substringTestIfOver9 + "Counter"] > 9) {
+                    ifOver9 = -1;
+                }
+                const substring = del.substring(0, idLength - 3 + ifOver9);
+
+                const counter = del.substring(idLength - 2 + ifOver9, idLength - 1);
                 if (counter > 0) {
                     // delete element
                     const child = document.getElementById(del);
@@ -62,6 +69,7 @@
                     window[substring + "Counter"]--;
                     const newOnclick = substring + "[" + (window[substring + "Counter"] - 1) + "]";
                     const delButtonID = substring + "Delete";
+
                     document.getElementById(delButtonID)
                         .setAttribute("onclick", "javascript: deleteLastInputLine('" + newOnclick + "')");
                 }
