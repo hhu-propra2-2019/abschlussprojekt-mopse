@@ -70,11 +70,14 @@ public class DirectoryController {
             List<Directory> directories = directoryService.getSubFolders(account, dirId);
             List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
             UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
+            List<Directory> dirPath = directoryService.getDirectoryPath(dirId);
+
             model.addAttribute("deletePermission", userPermission.isDelete());
             model.addAttribute("writePermission", userPermission.isWrite());
             model.addAttribute("directory", directory);
             model.addAttribute("dirs", directories);
             model.addAttribute("files", files);
+            model.addAttribute("directoryPath", dirPath);
         } catch (MopsException e) {
             log.error("Failed to retrieve the folder content for directory with id '{}':", dirId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));

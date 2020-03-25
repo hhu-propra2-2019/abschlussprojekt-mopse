@@ -79,6 +79,11 @@
             <input type="submit" value="Ebene hoch">
         </form>
     </div>
+    <br>
+    <div>
+        <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir Name</a>
+    </div>
+
     <table>
         <tr>
             <th>Name</th>
