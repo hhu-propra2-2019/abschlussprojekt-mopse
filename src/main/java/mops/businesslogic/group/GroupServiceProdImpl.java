@@ -1,5 +1,6 @@
 package mops.businesslogic.group;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", justification = "spotbugs bug")
     public String fetchRoleForUserInGroup(Account account, long groupId) throws MopsException {
         try {
             Permission permission = restTemplate.getForObject(gruppenFindungUrl + "/get-permission", Permission.class);
@@ -59,6 +61,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" }) // stream
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", justification = "spotbugs bug")
     public Set<String> fetchRolesInGroup(long groupId) throws MopsException {
         try {
             GroupPermission[] groupPermissions = restTemplate.getForObject(gruppenFindungUrl + "/get-roles",
@@ -80,6 +83,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", justification = "spotbugs bug")
     public List<Group> getAllGroups() throws MopsException {
         // TODO: change to real route once known
         try {
@@ -96,6 +100,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", justification = "spotbugs bug")
     public List<Group> getAllGroupsOfUser(Account account) throws MopsException {
         // TODO: change to real route once known
         try {
