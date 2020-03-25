@@ -6,10 +6,12 @@ import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.security.Account;
+import mops.businesslogic.security.SecurityService;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import mops.presentation.error.ExceptionPresentationError;
+import mops.presentation.form.EditDirectoryForm;
 import mops.presentation.form.FileQueryForm;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -41,6 +43,10 @@ public class DirectoryController {
      * Manges all file queries.
      */
     private final FileService fileService;
+    /**
+     * Fetches permissions of user.
+     */
+    private final SecurityService securityService;
 
     /**
      * Shows the content of a folder (files and sub folders).
@@ -131,6 +137,37 @@ public class DirectoryController {
             redirectAttributes.addAttribute("dirId", directory.getId());
         } catch (MopsException e) {
             log.error("Failed to create folder in parent directory with id '{}':", parentDirId, e);
+            redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
+            return "redirect:/material1/error";
+        }
+
+        return "redirect:/material1/dir/{dirId}";
+    }
+
+    /**
+     * Edit the folder.
+     *
+     * @param redirectAttributes redirect attributes
+     * @param token              keycloak auth token
+     * @param dirId              id of the current folder
+     * @param editForm           new directory properties from the template
+     * @return object of the folder
+     */
+    @PostMapping("/{dirId}/edit")
+    public String editFolder(RedirectAttributes redirectAttributes,
+                             KeycloakAuthenticationToken token,
+                             @PathVariable("dirId") long dirId,
+                             @ModelAttribute("editDirectoryForm") EditDirectoryForm editForm) {
+        Account account = Account.of(token);
+        log.info("Directory edit requested in directory with id '{}' by user '{}'.", dirId, account.getName());
+
+        // TODO: extract new properties from form object
+
+        try {
+            Directory directory = directoryService.editDirectory(account, dirId, null, null);
+            redirectAttributes.addAttribute("dirId", directory.getId());
+        } catch (MopsException e) {
+            log.error("Failed to edit directory with id '{}':", dirId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
             return "redirect:/material1/error";
         }

@@ -230,6 +230,19 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
+    public Directory editDirectory(
+            Account account,
+            long dirId,
+            String newName,
+            DirectoryPermissions newPermissions) throws MopsException {
+        // TODO: this
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public DirectoryPermissions updatePermission(Account account,
                                                  long dirId,

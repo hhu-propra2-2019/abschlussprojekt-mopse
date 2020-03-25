@@ -1,6 +1,6 @@
 package mops.businesslogic.security;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.exception.DeleteAccessPermissionException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
@@ -10,6 +10,7 @@ import mops.businesslogic.permission.PermissionService;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SecurityServiceImpl implements SecurityService {
 
     /**
@@ -30,6 +31,13 @@ public class SecurityServiceImpl implements SecurityService {
     private final PermissionService permissionService;
 
     /**
+     * Represents the role of an admin.
+     */
+    @Value("${material1.mops.configuration.admin}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
+    private String adminRole = "admin";
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -39,6 +47,7 @@ public class SecurityServiceImpl implements SecurityService {
         boolean write = true;
         boolean read = true;
         boolean delete = true;
+        boolean admin = true;
 
         try {
             checkWritePermission(account, directory);
@@ -64,7 +73,15 @@ public class SecurityServiceImpl implements SecurityService {
             throw new MopsException("Keine Berechtigungsprüfung auf Löschen möglich", e);
         }
 
-        return new UserPermission(read, write, delete);
+        try {
+            checkIfRole(account, directory.getGroupOwner(), adminRole);
+        } catch (WriteAccessPermissionException e) {
+            admin = false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Rollenprüfung auf 'admin' möglich", e);
+        }
+
+        return new UserPermission(read, write, delete, admin);
     }
 
     /**
