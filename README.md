@@ -30,8 +30,7 @@ Es existieren IntelliJ Run Configurations um die benötigten Services zu starten
 1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
 1. Run Configuration `docker-compose.yml: PostgreSQL & MinIO` starten
 oder alternativ `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up material1_db material1_minio` in der
-Konsole ausführen. Dies kann mehrere Minuten dauern.
-Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
+Konsole ausführen. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
 Zum Beenden in IntelliJ einfach auf den Knopf drücken, der die Konfiguration `Compose: docker-compose.yml` beendet
 oder alternativ in der Konsole
 `docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --volumes --remove-orphans` ausführen.
@@ -48,8 +47,7 @@ Es existieren IntelliJ Run Configurations um die benötigten Services zu starten
 1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
 1. Run Configuration `docker-compose.yml: PostgreSQL & MinIO` starten
 oder alternativ `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up material1_db material1_minio` in der
-Konsole ausführen. Dies kann mehrere Minuten dauern.
-Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
+Konsole ausführen. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
 Zum Beenden in IntelliJ einfach auf den Knopf drücken, der die Konfiguration `Compose: docker-compose.yml` beendet
 oder alternativ in der Konsole
 `docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --volumes --remove-orphans` ausführen.
