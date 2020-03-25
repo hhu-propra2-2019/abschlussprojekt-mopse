@@ -68,7 +68,7 @@ public class FileInfoServiceImpl implements FileInfoService {
                 log.error("The file '{}'  already exists in the directory '{}’.",
                         fileInfo.getDirectoryId(),
                         fileInfo.getName());
-                throw new DatabaseDuplicationException("Die Datei ist schon vorhanden.");
+                throw new DatabaseDuplicationException("Die Datei ist schon vorhanden.", e);
             }
             log.error("Failed to save file '{}' of type '{}' with size '{}' bytes to database:",
                     fileInfo.getName(),
