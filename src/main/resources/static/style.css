@@ -1,3 +1,12 @@
+.form-search-wrapper {
+  display: none !important;
+}
 
+.material1-search-form {
+  display: none;
+}
+.material1-search-form .material1-search-form-column .material1-search-form-field {
+  display: flex;
+}
 
 /*# sourceMappingURL=style.css.map */
