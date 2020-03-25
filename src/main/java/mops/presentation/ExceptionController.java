@@ -66,7 +66,7 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
             }
             model.addAttribute("statuscode", statusCode);
 
-            if(statusCode == HttpStatus.BAD_REQUEST.value()) {
+            if (statusCode == HttpStatus.BAD_REQUEST.value()) {
                 model.addAttribute("status_message",
                         "Deine Anfrage wurde vom Server nicht verstanden. Jaul!");
             } else if (statusCode == HttpStatus.FORBIDDEN.value() || statusCode == HttpStatus.UNAUTHORIZED.value()) {
