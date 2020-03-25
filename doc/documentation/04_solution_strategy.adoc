@@ -26,18 +26,18 @@ In Production soll ein `docker-compose [...] up` die Anwendung und alle Dependen
 In Development soll ein anderes `docker-compose [...] up` nur die Dependencies (die Datenbank und MinIO) starten, damit
 die Anwendung separat aus der IDE gestartet werden kann.
 
-Zusätzlich soll es eine Möglichkeit die Anwendung für Tutoren zu demonstrieren. Noch ein anderer
-`docker-compose [...] up` Befehl soll die alle Dependencies (diesmal die Datenbank und MinIO) und die Anwendung lokal
+Zusätzlich soll es eine Möglichkeit geben, die Anwendung für Tutoren zu demonstrieren. Noch ein anderer
+`docker-compose [...] up` Befehl soll alle Dependencies (diesmal die Datenbank und MinIO) und die Anwendung lokal
 starten.
 
-In allen diesen Fällen sollen sämtliche Umgebungsvariablen und Startparameter richtig konfiguriert sein.
+In all diesen Fällen sollen sämtliche Umgebungsvariablen und Startparameter richtig konfiguriert sein.
 
-Gelöst wurde dies durch das Benutzen von mehreren `docker-compose` .yml Dateien, die zusammen geladen werden.
+Gelöst wird dies durch das Benutzen von mehreren `docker-compose` .yml Dateien, die zusammen geladen werden.
 Denn `docker-compose` erlaubt es bereits definierte Services in einer anderen Konfigurationsdatei zu ergänzen.
 
 Also gibt es nun:
 
-`docker-compose.yml`: Enthält die Definition des Datenbank-Containers ohne Konfiguration
+`docker-compose.yml`: Enthält die Definition des Datenbank-Containers ohne Konfiguration.
 
 `docker-compose.dev.yml`: Enthält die Definition des MinIO-Containers mit Konfiguration und zusätzlich Konfiguration
 für den in der `docker-compose.yml` definierten Datenbank-Container.
