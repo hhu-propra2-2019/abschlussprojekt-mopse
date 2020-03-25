@@ -40,7 +40,7 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
     public String fetchRoleForUserInGroup(Account account, long groupId) throws MopsException {
         try {
             Permission permission = restTemplate.getForObject(gruppenFindungUrl + "/get-permission", Permission.class);
@@ -49,7 +49,7 @@ public class GroupServiceProdImpl implements GroupService {
             log.error("The request for user roles for user '{}' in group {} failed.", account.getName(), groupId);
             throw new GruppenFindungException(String.format(
                     "Es konnte keine Rolle für Sie in Gruppe %d gefunden werden.",
-                    groupId));
+                    groupId), e);
         }
 
     }
@@ -58,7 +58,7 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter") // stream
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" }) // stream
     public Set<String> fetchRolesInGroup(long groupId) throws MopsException {
         try {
             GroupPermission[] groupPermissions = restTemplate.getForObject(gruppenFindungUrl + "/get-roles",
@@ -70,7 +70,7 @@ public class GroupServiceProdImpl implements GroupService {
             log.error("The request for roles in group {} failed.", groupId);
             throw new GruppenFindungException(String.format(
                     "Es konnten keinen Rollen für diese Gruppe %d gefunden werden.",
-                    groupId));
+                    groupId), e);
         }
 
     }
@@ -79,6 +79,7 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public List<Group> getAllGroups() throws MopsException {
         // TODO: change to real route once known
         try {
@@ -86,7 +87,7 @@ public class GroupServiceProdImpl implements GroupService {
             return List.of(Objects.requireNonNull(groups));
         } catch (Exception e) {
             log.error("The request for all groups failed.");
-            throw new GruppenFindungException("Es konnten keinen Gruppen gefunden werden.");
+            throw new GruppenFindungException("Es konnten keinen Gruppen gefunden werden.", e);
         }
     }
 
@@ -94,6 +95,7 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public List<Group> getAllGroupsOfUser(Account account) throws MopsException {
         // TODO: change to real route once known
         try {
@@ -103,7 +105,7 @@ public class GroupServiceProdImpl implements GroupService {
             log.error("The request for groups of user {} failed.", account.getName());
             throw new GruppenFindungException(String.format(
                     "Es konnten keinen Gruppen für die Nutzerin '%s' gefunden werden.",
-                    account.getName()));
+                    account.getName()), e);
         }
     }
 
