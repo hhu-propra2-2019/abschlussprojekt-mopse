@@ -141,13 +141,14 @@
     </form>
 
     <!-- Main Table to show the Folder Content -->
-    <table>
+    <table class="table">
         <tr>
             <th>Name</th>
             <th>Erstelldatum</th>
             <th>Typ</th>
             <th>Besitzer</th>
             <th>Größe</th>
+            <th></th>
         </tr>
         <tr th:each="dir : ${dirs}">
             <td><a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
