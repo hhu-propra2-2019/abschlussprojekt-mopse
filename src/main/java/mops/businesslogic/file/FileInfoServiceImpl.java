@@ -2,14 +2,17 @@ package mops.businesslogic.file;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mops.businesslogic.exception.DatabaseDuplicationException;
 import mops.businesslogic.exception.DatabaseException;
 import mops.exception.MopsException;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.file.FileInfo;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+
 
 /**
  * Handles meta data for files.
@@ -61,6 +64,12 @@ public class FileInfoServiceImpl implements FileInfoService {
         try {
             return fileInfoRepo.save(fileInfo);
         } catch (Exception e) {
+            if (e.getCause() instanceof DuplicateKeyException) {
+                log.error("The file '{}'  already exists in the directory '{}’.",
+                        fileInfo.getDirectoryId(),
+                        fileInfo.getName());
+                throw new DatabaseDuplicationException("Die Datei ist schon vorhanden.");
+            }
             log.error("Failed to save file '{}' of type '{}' with size '{}' bytes to database:",
                     fileInfo.getName(),
                     fileInfo.getType(),
