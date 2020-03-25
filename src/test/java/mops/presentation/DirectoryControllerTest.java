@@ -5,6 +5,7 @@ import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackA
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileService;
+import mops.businesslogic.permission.PermissionService;
 import mops.businesslogic.security.SecurityService;
 import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
@@ -41,6 +42,8 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     FileService fileService;
     @MockBean
     SecurityService securityService;
+    @MockBean
+    PermissionService permissionService;
 
     /**
      * Setups the a Mock MVC Builder.
