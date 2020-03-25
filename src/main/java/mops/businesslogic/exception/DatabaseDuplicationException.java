@@ -17,6 +17,7 @@ public class DatabaseDuplicationException extends DatabaseException {
      * Is thrown if the an entry already exists.
      *
      * @param message error message
+     * @param exception the wrapped exception
      */
     public DatabaseDuplicationException(String message, Exception exception) {
         super(message, exception);
