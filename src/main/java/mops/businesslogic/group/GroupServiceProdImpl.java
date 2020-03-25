@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * {@inheritDoc}
@@ -31,6 +28,7 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 @Profile("prod")
+@SuppressWarnings("PMD.UnusedPrivateMethod")
 public class GroupServiceProdImpl implements GroupService {
 
     /**
@@ -42,16 +40,19 @@ public class GroupServiceProdImpl implements GroupService {
      * REST-API-URL of gruppen1.
      */
     @Value("${material1.mops.gruppenfindung.url}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
     private String gruppenfindungsUrl = "https://mops.hhu.de/gruppen1";
     /**
      * Represents the role of an admin.
      */
     @Value("${material1.mops.configuration.role.admin}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
     private String adminRole = "admin";
     /**
      * Represents the role of a viewer.
      */
     @Value("${material1.mops.configuration.role.viewer}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
     private String viewerRole = "viewer";
 
     /**
@@ -68,7 +69,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public boolean doesGroupExist(long groupId) throws MopsException {
+    public boolean doesGroupExist(UUID groupId) throws MopsException {
         log.debug("Request existence of group '{}'.", groupId);
         throw new MopsException("noch nicht implementiert", new UnsupportedOperationException("nyi"));
     }
@@ -78,7 +79,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter") // stream
-    public Set<String> getRoles(long groupId) throws MopsException {
+    public Set<String> getRoles(UUID groupId) throws MopsException {
         log.debug("Request roles in group '{}'", groupId);
         throw new MopsException("noch nicht implementiert", new UnsupportedOperationException("nyi"));
     }
@@ -101,10 +102,13 @@ public class GroupServiceProdImpl implements GroupService {
         throw new MopsException("noch nicht implementiert", new UnsupportedOperationException("nyi"));
     }
 
+    /**
+     * Scheduled function to update our database the external group event stream.
+     */
     @Transactional
     @Scheduled(fixedRate = UPDATE_RATE)
     @SuppressWarnings("checkstyle:DesignForExtension")
-    void updateDatabase() throws MopsException {
+    public void updateDatabase() throws MopsException {
         // TODO: implement with timestamp and deltas once the gruppen1 API is implemented
         /*try {
 
@@ -118,8 +122,8 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
-    public Group getGroup(long groupId) throws MopsException {
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException", "PMD.DefaultPackage" })
+    public Group getGroup(UUID groupId) throws MopsException {
         try {
             return groupRepository.findById(groupId).orElseThrow();
         } catch (Exception e) {
@@ -162,7 +166,7 @@ public class GroupServiceProdImpl implements GroupService {
     }
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    private boolean doesGroupExistExternal(long groupId) throws MopsException {
+    private boolean doesGroupExistExternal(UUID groupId) throws MopsException {
         try {
             Boolean result = restTemplate.getForObject(gruppenfindungsUrl + "/isUserAdminInGroup?groupId={groupId}",
                     Boolean.class,
@@ -175,7 +179,7 @@ public class GroupServiceProdImpl implements GroupService {
     }
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    private boolean isUserInGroup(String userName, long groupId) throws MopsException {
+    private boolean isUserInGroup(String userName, UUID groupId) throws MopsException {
         try {
             Boolean result = restTemplate.getForObject(
                     gruppenfindungsUrl + "/isUserInGroup?userName={userName}&groupId={groupId}",
@@ -190,7 +194,7 @@ public class GroupServiceProdImpl implements GroupService {
     }
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    private boolean isUserAdminInGroup(String userName, long groupId) throws MopsException {
+    private boolean isUserAdminInGroup(String userName, UUID groupId) throws MopsException {
         try {
             Boolean result = restTemplate.getForObject(
                     gruppenfindungsUrl + "/isUserAdminInGroup?userName={userName}&groupId={groupId}",
@@ -204,7 +208,7 @@ public class GroupServiceProdImpl implements GroupService {
         }
     }
 
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" })
     private UpdatedGroupsDTO returnAllGroups(long lastEventId) throws MopsException {
         try {
             return restTemplate.exchange(
@@ -220,7 +224,7 @@ public class GroupServiceProdImpl implements GroupService {
     }
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    private List<UserDTO> returnUsersOfGroup(long groupId) throws MopsException {
+    private List<UserDTO> returnUsersOfGroup(UUID groupId) throws MopsException {
         try {
             return restTemplate.exchange(
                     gruppenfindungsUrl + "/returnUsersOfGroup?groupId={groupId}",
@@ -255,6 +259,7 @@ public class GroupServiceProdImpl implements GroupService {
      * Updated groups since the last time stamp.
      */
     @Data
+    @SuppressWarnings("PMD.DefaultPackage")
     static class UpdatedGroupsDTO {
 
         /**
@@ -272,12 +277,13 @@ public class GroupServiceProdImpl implements GroupService {
      * Group.
      */
     @Data
+    @SuppressWarnings("PMD.DefaultPackage")
     static class GroupDTO {
 
         /**
          * Group id.
          */
-        private long groupId;
+        private UUID groupId;
         /**
          * Course.
          */
@@ -293,7 +299,24 @@ public class GroupServiceProdImpl implements GroupService {
         /**
          * Group status.
          */
-        private String status;
+        private StatusDTO status;
+
+    }
+
+    /**
+     * Group status enum.
+     */
+    @SuppressWarnings("PMD.DefaultPackage")
+    enum StatusDTO {
+
+        /**
+         * Represents an active group.
+         */
+        ACTIVE,
+        /**
+         * Represents a deleted group.
+         */
+        DEACTIVATED
 
     }
 
@@ -301,6 +324,7 @@ public class GroupServiceProdImpl implements GroupService {
      * User.
      */
     @Data
+    @SuppressWarnings("PMD.DefaultPackage")
     static class UserDTO {
 
         /**

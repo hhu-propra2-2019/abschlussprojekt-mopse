@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Prometheus integration.
@@ -48,7 +49,7 @@ public class PrometheusComponent {
     /**
      * Groups for which there were stats added already.
      */
-    private final transient Set<Long> seenGroups = new HashSet<>();
+    private final transient Set<UUID> seenGroups = new HashSet<>();
 
     /**
      * Constructor.
@@ -178,7 +179,7 @@ public class PrometheusComponent {
          * @return stat
          * @throws MopsException on error
          */
-        Number getGroupStat(long groupId) throws MopsException;
+        Number getGroupStat(UUID groupId) throws MopsException;
 
     }
 }

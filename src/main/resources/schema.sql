@@ -22,7 +22,7 @@ CREATE TABLE directory
     id                 BIGSERIAL PRIMARY KEY,
     name               VARCHAR(255) NOT NULL,
     parent_id          BIGINT,
-    group_owner        INTEGER      NOT NULL,
+    group_owner        UUID      NOT NULL,
     permissions_id     BIGINT       NOT NULL,
     creation_time      TIMESTAMP    NOT NULL,
     last_modified_time TIMESTAMP    NOT NULL,
@@ -62,7 +62,7 @@ CREATE INDEX i_tag_file ON file_tag (file_id);
 
 CREATE TABLE "group"
 (
-    id                 BIGINT PRIMARY KEY,
+    id                 UUID PRIMARY KEY,
     name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     creation_time      TIMESTAMP    NOT NULL,
     last_modified_time TIMESTAMP    NOT NULL
@@ -70,7 +70,7 @@ CREATE TABLE "group"
 
 CREATE TABLE group_member
 (
-    group_id BIGINT       NOT NULL,
+    group_id UUID       NOT NULL,
     name     VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     role     VARCHAR(255) NOT NULL CHECK (role NOT LIKE ''),
     CONSTRAINT fk_member_group FOREIGN KEY (group_id) REFERENCES "group" (id),

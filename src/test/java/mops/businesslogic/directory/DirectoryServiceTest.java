@@ -22,6 +22,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -36,7 +37,7 @@ class DirectoryServiceTest {
     static final String EDITOR = "editor";
     static final String VIEWER = "viewer";
     static final String INTRUDER = "intruder";
-    static final long GROUP_ID = 0L;
+    static final UUID GROUP_ID = new UUID(0, 1);
 
     @MockBean
     GroupService groupService;
@@ -242,7 +243,7 @@ class DirectoryServiceTest {
 
     @Test
     public void deleteRootFolderTest() throws MopsException {
-        long groupId = 100L;
+        UUID groupId = new UUID(0, 2);
 
         Group group = Group.builder()
                 .id(groupId)

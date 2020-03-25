@@ -15,6 +15,7 @@ import org.springframework.data.relational.core.conversion.DbActionExecutionExce
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -22,6 +23,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @AuditingDbContext
 @DataJdbcTest
 class FileInfoTest {
+
+    static final UUID GROUP1_ID = new UUID(0, 1);
+    static final UUID GROUP2_ID = new UUID(0, 2);
 
     @Autowired
     FileInfoRepository repo;
@@ -42,7 +46,7 @@ class FileInfoTest {
 
         this.group1dir = Directory.builder()
                 .name("Group 1 Directory")
-                .groupOwner(1L)
+                .groupOwner(GROUP1_ID)
                 .permissions(rootDirPerms)
                 .build();
         group1dir = dirRepo.save(group1dir);
@@ -172,7 +176,7 @@ class FileInfoTest {
 
         Directory group2dir = Directory.builder()
                 .name("Group 2 Directory")
-                .groupOwner(2L)
+                .groupOwner(GROUP2_ID)
                 .permissions(permissions)
                 .build();
 
@@ -214,10 +218,11 @@ class FileInfoTest {
 
         repo.saveAll(List.of(f1, f2, f3));
 
-        long sizeOfGroup1 = repo.getStorageUsageInGroup(1);
-        long fileCountOfGroup1 = repo.getFileCountInGroup(1);
+        long sizeOfGroup1 = repo.getStorageUsageInGroup(GROUP1_ID);
+        long fileCountOfGroup1 = repo.getFileCountInGroup(GROUP1_ID);
         long totalSize = repo.getTotalStorageUsage();
 
+        assertThat(GROUP1_ID).isNotEqualTo(GROUP2_ID);
         assertThat(sizeOfGroup1).isEqualTo(f1size + f2size);
         assertThat(fileCountOfGroup1).isEqualTo(2);
         assertThat(totalSize).isEqualTo(f1size + f2size + f3size);

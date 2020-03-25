@@ -10,6 +10,7 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Represents a group.
@@ -23,7 +24,7 @@ public class Group {
      * Database id.
      */
     @Id
-    private Long id;
+    private UUID id;
     /**
      * Group name.
      */
@@ -83,6 +84,7 @@ public class Group {
      * @param name member name
      * @return role in group
      */
+    @SuppressWarnings("PMD.LawOfDemeter") // stream
     public String getMemberRole(String name) {
         return members.stream()
                 .filter(member -> member.getName().equals(name))

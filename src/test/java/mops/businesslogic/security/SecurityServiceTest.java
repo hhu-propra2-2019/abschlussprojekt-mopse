@@ -18,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import java.util.Set;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -32,7 +33,7 @@ class SecurityServiceTest {
     static final String EDITOR = "editor";
     static final String VIEWER = "viewer";
     static final String INTRUDER = "intruder";
-    static final long GROUP_ID = 0L;
+    static final UUID GROUP_ID = new UUID(0, 1);
     static final long PERMISSIONS_ID = 0L;
     static final long ROOT_DIR_ID = 0L;
 

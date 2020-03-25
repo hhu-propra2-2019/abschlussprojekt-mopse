@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -18,6 +19,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @AuditingDbContext
 @DataJdbcTest
 class DirectoryTest {
+
+    static final UUID GROUP_ID = new UUID(0, 1);
 
     @Autowired
     DirectoryRepository repo;
@@ -35,7 +38,7 @@ class DirectoryTest {
 
         Directory rootDir = Directory.builder()
                 .name("")
-                .groupOwner(0L)
+                .groupOwner(GROUP_ID)
                 .permissions(rootDirPerms)
                 .build();
         rootDir = repo.save(rootDir);
@@ -59,7 +62,7 @@ class DirectoryTest {
         Directory wrong = Directory.builder()
                 .name("")
                 .parent(0L)
-                .groupOwner(0L)
+                .groupOwner(GROUP_ID)
                 .permissions(0L)
                 .build();
 

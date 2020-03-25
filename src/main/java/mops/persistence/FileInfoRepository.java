@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Database connection for file meta data.
@@ -36,7 +37,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
             + "INNER JOIN directory "
             + "ON file_info.directory_id = directory.id "
             + "WHERE group_owner = :groupId")
-    long getStorageUsageInGroup(@Param("groupId") long groupId);
+    long getStorageUsageInGroup(@Param("groupId") UUID groupId);
 
     /**
      * Counts the total number of bytes in all groups.
@@ -56,7 +57,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
             + "INNER JOIN directory "
             + "ON file_info.directory_id = directory.id "
             + "WHERE group_owner = :groupId")
-    long getFileCountInGroup(@Param("groupId") long groupId);
+    long getFileCountInGroup(@Param("groupId") UUID groupId);
 
     /**
      * Fetches all file info ids.

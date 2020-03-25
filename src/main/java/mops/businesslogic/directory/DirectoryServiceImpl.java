@@ -41,6 +41,11 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Value("${material1.mops.configuration.role.admin}")
     private String adminRole = "admin";
     /**
+     * Represents the role of a viewer.
+     */
+    @Value("${material1.mops.configuration.role.viewer}")
+    private String viewerRole = "viewer";
+    /**
      * The max amount of folders per group.
      */
     @SuppressWarnings("checkstyle:MagicNumber")
@@ -72,7 +77,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter"})
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" })
     public List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException {
         Directory directory = getDirectory(parentDirID);
         securityService.checkReadPermission(account, directory);
@@ -94,7 +99,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Removes all directories without reading permissions.
      *
-     * @param account the account
+     * @param account     the account
      * @param directories all directories that should be checked
      * @return filtered list
      * @throws MopsException on error
@@ -137,7 +142,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
             "PMD.AvoidCatchingGenericException" })
-    public GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException {
+    public GroupRootDirWrapper getOrCreateRootFolder(UUID groupId) throws MopsException {
         Optional<GroupRootDirWrapper> optRootDir;
         try {
             optRootDir = directoryRepository
@@ -374,7 +379,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public long getDirCountInGroup(long groupId) throws MopsException {
+    public long getDirCountInGroup(UUID groupId) throws MopsException {
         try {
             return directoryRepository.getDirCountInGroup(groupId);
         } catch (Exception e) {

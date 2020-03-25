@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJdbcTest
 class DirectoryRepositoryTest {
 
-    static final long GROUP_ID = 0L;
+    static final UUID GROUP_ID = new UUID(0, 1);
 
     @Autowired
     DirectoryRepository directoryRepository;

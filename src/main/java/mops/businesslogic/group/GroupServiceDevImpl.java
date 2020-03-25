@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -29,23 +26,26 @@ public class GroupServiceDevImpl implements GroupService {
     /**
      * Group id.
      */
-    private static final Set<Long> VALID_GROUP_IDS = Set.of(100L);
+    private static final Set<UUID> VALID_GROUP_IDS = Set.of(new UUID(0, 100));
 
     /**
      * Represents the role of an admin.
      */
     @Value("${material1.mops.configuration.role.admin}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
     private String adminRole = "admin";
     /**
      * Represents the role of a viewer.
      */
     @Value("${material1.mops.configuration.role.viewer}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
     private String viewerRole = "viewer";
 
     /**
      * Group cache.
      */
-    private final Map<Long, Group> cachedGroups = VALID_GROUP_IDS.stream()
+    @SuppressWarnings("PMD.BeanMembersShouldSerialize")
+    private final Map<UUID, Group> cachedGroups = VALID_GROUP_IDS.stream()
             .map(id -> Group.builder()
                     .id(id)
                     .name("Einzigen #" + id)
@@ -57,7 +57,7 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    public boolean doesGroupExist(long groupId) throws MopsException {
+    public boolean doesGroupExist(UUID groupId) throws MopsException {
         return VALID_GROUP_IDS.contains(groupId);
     }
 
@@ -66,7 +66,7 @@ public class GroupServiceDevImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.OnlyOneReturn")
-    public Set<String> getRoles(long groupId) throws MopsException {
+    public Set<String> getRoles(UUID groupId) throws MopsException {
         if (doesGroupExist(groupId)) {
             return Set.of(adminRole, viewerRole);
         }
@@ -87,11 +87,13 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter") // builder
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.UseConcurrentHashMap" }) // builder
     public List<Group> getUserGroups(Account account) throws MopsException {
-        Map<Long, Group> newCache = new HashMap<>();
-        for (long id : cachedGroups.keySet()) {
-            Group group = cachedGroups.get(id);
+        Map<UUID, Group> newCache = new HashMap<>();
+        for (Map.Entry<UUID, Group> entry : cachedGroups.entrySet()) {
+            UUID id = entry.getKey();
+            Group group = entry.getValue();
+
             GroupBuilder newGroupBuilder = Group.builder().from(group);
             if (!newGroupBuilder.hasMember(account.getName())) {
                 newGroupBuilder.member(account.getName(), getUserRole(account, group));
@@ -107,7 +109,7 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    public Group getGroup(long groupId) throws MopsException {
+    public Group getGroup(UUID groupId) throws MopsException {
         Group group = cachedGroups.get(groupId);
         if (group == null) {
             throw new DatabaseException("Die Gruppe konnte nicht gefunden werden");

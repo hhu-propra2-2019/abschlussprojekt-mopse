@@ -4,11 +4,13 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.util.AggregateBuilder;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.UUID;
 
 /**
  * Builds directories.
@@ -35,7 +37,7 @@ public class DirectoryBuilder {
     /**
      * Id of the group which this Directory belongs to.
      */
-    private long groupOwner = -1L;
+    private UUID groupOwner;
     /**
      * Id of the DirectoryPermissions object which stores the access permission for this Directory tree.
      */
@@ -135,8 +137,19 @@ public class DirectoryBuilder {
      * @param groupOwner id of owning group
      * @return this
      */
-    public DirectoryBuilder groupOwner(long groupOwner) {
+    public DirectoryBuilder groupOwner(@NonNull UUID groupOwner) {
         this.groupOwner = groupOwner;
+        return this;
+    }
+
+    /**
+     * Set owning group id.
+     *
+     * @param groupOwner id of owning group
+     * @return this
+     */
+    public DirectoryBuilder groupOwner(@NonNull Group groupOwner) {
+        this.groupOwner = groupOwner.getId();
         return this;
     }
 
@@ -172,7 +185,7 @@ public class DirectoryBuilder {
         if (name == null) {
             log.error("Directory is not completely setup: name was not set.");
             throw new IllegalStateException("Directory incomplete: name must be set!");
-        } else if (groupOwner == -1L) {
+        } else if (groupOwner == null) {
             log.error("Directory is not completely setup: group owner was not set.");
             throw new IllegalStateException("Directory incomplete: groupOwner must be set!");
         } else if (permissionsId == -1L) {

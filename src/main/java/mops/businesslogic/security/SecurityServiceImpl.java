@@ -14,6 +14,8 @@ import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 /**
  * Checks roles permissions.
  */
@@ -34,9 +36,15 @@ public class SecurityServiceImpl implements SecurityService {
     /**
      * Represents the role of an admin.
      */
-    @Value("${material1.mops.configuration.admin}")
+    @Value("${material1.mops.configuration.role.admin}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
     private String adminRole = "admin";
+    /**
+     * Represents the role of a viewer.
+     */
+    @Value("${material1.mops.configuration.role.viewer}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
+    private String viewerRole = "viewer";
 
     /**
      * {@inheritDoc}
@@ -157,7 +165,7 @@ public class SecurityServiceImpl implements SecurityService {
      */
     @Override
     @SuppressWarnings("PMD.OnlyOneReturn")
-    public boolean isUserAdmin(Account account, long groupId) throws MopsException {
+    public boolean isUserAdmin(Account account, UUID groupId) throws MopsException {
         try {
             checkIfRole(account, groupId, adminRole);
             return true;
@@ -172,7 +180,8 @@ public class SecurityServiceImpl implements SecurityService {
      * {@inheritDoc}
      */
     @Override
-    public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {
+    @SuppressWarnings("PMD.LawOfDemeter")
+    public void checkIfRole(Account account, UUID groupId, String allowedRole) throws MopsException {
         Group group = groupService.getGroup(groupId);
 
         String userRole = group.getMemberRole(account.getName());
@@ -183,7 +192,7 @@ public class SecurityServiceImpl implements SecurityService {
                     allowedRole,
                     groupId);
             String errorMessage = String.format(
-                    "User is not %s of %d and therefore not allowed to do this action.",
+                    "User is not %s of %s and therefore not allowed to do this action.",
                     allowedRole,
                     groupId);
             throw new WriteAccessPermissionException(errorMessage);

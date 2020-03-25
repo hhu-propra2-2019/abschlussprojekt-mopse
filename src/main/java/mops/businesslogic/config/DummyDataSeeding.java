@@ -3,10 +3,12 @@ package mops.businesslogic.config;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileInfoService;
+import mops.businesslogic.group.GroupService;
 import mops.businesslogic.security.Account;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
@@ -27,32 +29,36 @@ import java.util.List;
 public class DummyDataSeeding {
 
     /**
-     * Group id.
-     */
-    private static final long GROUP_ID = 100L;
-
-    /**
      * Represents the role of an admin.
      */
     @Value("${material1.mops.configuration.role.admin}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
     private String adminRole = "admin";
+    /**
+     * Represents the role of a viewer.
+     */
+    @Value("${material1.mops.configuration.role.viewer}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
+    private String viewerRole = "viewer";
 
     /**
      * Initializes application runner.
      *
+     * @param groupService     group service
      * @param fileInfoService  file info service
      * @param fileRepository   connection to the MinIO file repository
      * @param directoryService directory service
      * @return an ApplicationRunner
      */
     @Bean
-    public ApplicationRunner init(FileInfoService fileInfoService,
+    public ApplicationRunner init(GroupService groupService,
+                                  FileInfoService fileInfoService,
                                   FileRepository fileRepository,
                                   DirectoryService directoryService) {
         return args -> {
             log.info("Seeding database with dummy data.");
 
+            Group group = groupService.getAllGroups().get(0);
             final int fileSize1 = 2_000;
             final int fileSize2 = 3_000;
             final String owner1 = "studentin";
@@ -62,10 +68,10 @@ public class DummyDataSeeding {
 
             DirectoryPermissions directoryPermissions = DirectoryPermissions.builder()
                     .entry(adminRole, true, true, true)
-                    .entry("viewer", true, false, false)
+                    .entry(viewerRole, true, false, false)
                     .build();
 
-            Directory directoryParent = directoryService.getOrCreateRootFolder(GROUP_ID).getRootDir();
+            Directory directoryParent = directoryService.getOrCreateRootFolder(group.getId()).getRootDir();
             directoryService.updatePermission(admin, directoryParent.getId(), directoryPermissions);
 
             List<Directory> children = directoryService.getSubFolders(admin, directoryParent.getId());

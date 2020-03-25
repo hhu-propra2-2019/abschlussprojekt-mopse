@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Handles meta data for files.
@@ -66,7 +67,7 @@ public interface FileInfoService {
      * @param groupId group
      * @return bytes used
      */
-    long getStorageUsageInGroup(long groupId) throws MopsException;
+    long getStorageUsageInGroup(UUID groupId) throws MopsException;
 
     /**
      * Get the total number of bytes used by all groups.
@@ -81,7 +82,7 @@ public interface FileInfoService {
      * @param groupId group
      * @return file count
      */
-    long getFileCountInGroup(long groupId) throws MopsException;
+    long getFileCountInGroup(UUID groupId) throws MopsException;
 
     /**
      * Get the total number of files in all groups.

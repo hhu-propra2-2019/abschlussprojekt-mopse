@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Builds file meta data.
@@ -24,7 +25,7 @@ public class GroupBuilder {
     /**
      * Database Id.
      */
-    private Long id;
+    private UUID id;
     /**
      * File name.
      */
@@ -58,7 +59,7 @@ public class GroupBuilder {
      * @param id id
      * @return this
      */
-    public GroupBuilder id(Long id) {
+    public GroupBuilder id(@NonNull UUID id) {
         this.id = id;
         return this;
     }

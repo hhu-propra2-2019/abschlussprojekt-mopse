@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Value;
 import mops.persistence.directory.Directory;
 
+import java.util.UUID;
+
 /**
  * Wraps a url for a group given a group id.
  */
@@ -25,7 +27,7 @@ public class GroupRootDirWrapper {
      * @return group id
      */
     @JsonGetter("group_id")
-    public long getGroupId() {
+    public UUID getGroupId() {
         return rootDir.getGroupOwner();
     }
 

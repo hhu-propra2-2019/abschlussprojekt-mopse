@@ -4,6 +4,8 @@ import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 /**
  * Checks roles permissions.
  */
@@ -53,7 +55,7 @@ public interface SecurityService {
      * @param groupId id of the group to check
      * @return true if admin
      */
-    boolean isUserAdmin(Account account, long groupId) throws MopsException;
+    boolean isUserAdmin(Account account, UUID groupId) throws MopsException;
 
     /**
      * Checks if user is has a role.
@@ -63,6 +65,6 @@ public interface SecurityService {
      * @param allowedRole role which has the right
      * @throws MopsException checked exception to present to UI
      */
-    void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException;
+    void checkIfRole(Account account, UUID groupId, String allowedRole) throws MopsException;
 
 }
