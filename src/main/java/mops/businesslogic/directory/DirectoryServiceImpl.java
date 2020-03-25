@@ -24,9 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -74,16 +72,63 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter"})
     public List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException {
         Directory directory = getDirectory(parentDirID);
         securityService.checkReadPermission(account, directory);
         try {
-            return directoryRepository.getAllSubFoldersOfParent(parentDirID);
+            List<Directory> directories = directoryRepository.getAllSubFoldersOfParent(parentDirID);
+            if (directory.getParentId() == null) {
+                // If the current dir is the root folder,
+                // there could be directories in it without
+                // reading permission
+                directories = removeNoReadPermissionDirectories(account, directories);
+            }
+            return directories;
         } catch (Exception e) {
             log.error("Subfolders of parent folder with id '{}' could not be loaded:", parentDirID, e);
             throw new DatabaseException("Unterordner konnten nicht geladen werden.", e);
         }
+    }
+
+    /**
+     * Removes all directories without reading permissions.
+     *
+     * @param account the account
+     * @param directories all directories that should be checked
+     * @return filtered list
+     * @throws MopsException on error
+     */
+    @SuppressWarnings("PMD.LawOfDemeter")
+    private List<Directory> removeNoReadPermissionDirectories(Account account,
+                                                              List<Directory> directories) throws MopsException {
+        List<Directory> readableFolders = new ArrayList<>();
+        for (Directory dir : directories) {
+            boolean readPerm = securityService.getPermissionsOfUser(account, dir).isRead();
+            if (readPerm) {
+                readableFolders.add(dir);
+            }
+        }
+        return readableFolders;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
+    public List<Directory> getDirectoryPath(long dirId) throws MopsException {
+        List<Directory> result = new LinkedList<>();
+        Directory dir = getDirectory(dirId);
+        while (dir.getParentId() != null) {
+            result.add(dir);
+            dir = getDirectory(dir.getParentId());
+        }
+        // add root
+        result.add(dir);
+        //reversing list
+        Collections.reverse(result);
+        return result;
     }
 
     /**
@@ -232,11 +277,46 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
+    public Directory editDirectory(
+            Account account,
+            long dirId,
+            String newName,
+            DirectoryPermissions newPermissions) throws MopsException {
+        Directory directory = getDirectory(dirId);
+        securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
+
+        if (directory.getParentId() != null) {
+            if (newName == null || newName.isEmpty()) {
+                log.error("The user '{}' tried to change the name of a directory to an empty name.", account.getName());
+                throw new DatabaseException("Name des Ordners darf nicht leer sein.");
+            }
+            directory.setName(newName);
+        }
+
+        updatePermission(account, dirId, newPermissions);
+
+        return saveDirectory(directory);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     public DirectoryPermissions updatePermission(Account account,
                                                  long dirId,
                                                  DirectoryPermissions permissions) throws MopsException {
         Directory directory = getDirectory(dirId);
         securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
+
+        Set<String> roles = groupService.fetchRolesInGroup(directory.getGroupOwner());
+        if (!permissions.getRoles().equals(roles)) {
+            log.error("The user '{}' tried to change the permissions of a directory to an invalid one. "
+                            + "Role Permissions are missing or superfluous.",
+                    account.getName());
+            throw new DatabaseException("Neue Berechtigungen ungültig.");
+        }
+
         DirectoryPermissions updatedPermissions = DirectoryPermissions.builder()
                 .from(permissions)
                 .id(directory.getPermissionsId())

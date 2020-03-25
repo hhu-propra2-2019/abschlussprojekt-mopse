@@ -27,65 +27,47 @@ Es ist aufwendig für Lerngruppen oder Kurse Dateien miteinander zu teilen, wenn
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
 1. Docker starten und eventuell in IntelliJ einbinden.
-1. `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
-1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `template.env`
-erstellen (also `template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
-Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
-für das Starten des PostgreSQL Containers.
-1. Eine Datei namens `dev.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `template.env`
-erstellen (also `template.env` im selben Verzeichnis duplizieren und die Kopie in `dev.env` umbenennen),
-Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
-für das Starten des MinIO Containers.
-1. Run Configuration `docker-compose.dev.yml: MinIO` starten
-oder alternativ `docker-compose -f docker-compose.dev.yml up minio_dev` in der Konsole ausführen.
-Dies geht recht schnell. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
-Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `minio_dev`-Service beendet
-oder alternativ in der Konsole `docker-compose -f docker-compose.dev.yml down --volumes` ausführen. 
-`--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
-1. Run Configuration `docker-compose.yml: PostgreSQL` starten
-oder alternativ `docker-compose up material1_db` in der Konsole ausführen.
-Dies kann mehrere Minuten dauern.
-Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `material1_db`-Service beendet
-oder alternativ in der Konsole `docker-compose down --volumes` ausführen. 
+1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
+1. Run Configuration `docker-compose.yml: PostgreSQL & MinIO` starten
+oder alternativ `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up material1_db material1_minio` in der
+Konsole ausführen. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
+Zum Beenden in IntelliJ einfach auf den Knopf drücken, der die Konfiguration `Compose: docker-compose.yml` beendet
+oder alternativ in der Konsole
+`docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --volumes --remove-orphans` ausführen.
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
 1. Run Configuration `Material1Application - dev` starten
-oder alternativ die Spring Anwendung im Spring Profil `dev` starten.
-1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1/groups geöffnet werden.
+oder alternativ die Spring Anwendung mit Gradle im Spring Profil `dev` starten.
+1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1 geöffnet werden.
 
 ### Production Profile (mit externer PostgreSQL Datenbank und echtem `Gruppenfindung`s-Adapter)
 
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
 1. Docker starten und eventuell in IntelliJ einbinden.
-1. `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
-1. Eine Datei namens `prod.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `template.env`
-erstellen (also `template.env` im selben Verzeichnis duplizieren und die Kopie in `prod.env` umbenennen),
-Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
-für das Starten  des PostgreSQL Containers.
-1. Eine Datei namens `dev.env` im Wurzelverzeichnis des Projekts nach der Vorlage in der Datei `template.env`
-erstellen (also `template.env` im selben Verzeichnis duplizieren und die Kopie in `dev.env` umbenennen),
-Änderungen sind für das lokale Starten nicht notwendig. Diese Datei wird von `docker-compose` gelesen und ist notwendig
-für das Starten des MinIO Containers.
-1. Run Configuration `docker-compose.dev.yml: MinIO` starten
-oder alternativ `docker-compose -f docker-compose.dev.yml up minio_dev` in der Konsole ausführen.
-Dies geht recht schnell. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
-Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `minio_dev`-Service beendet
-oder alternativ in der Konsole `docker-compose -f docker-compose.dev.yml down --volumes` ausführen. 
+1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
+1. Run Configuration `docker-compose.yml: PostgreSQL & MinIO` starten
+oder alternativ `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up material1_db material1_minio` in der
+Konsole ausführen. Das MinIO Webinterface ist dann über http://localhost:9000 erreichbar.
+Zum Beenden in IntelliJ einfach auf den Knopf drücken, der die Konfiguration `Compose: docker-compose.yml` beendet
+oder alternativ in der Konsole
+`docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --volumes --remove-orphans` ausführen.
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
-1. Run Configuration `docker-compose.yml: PostgreSQL` starten
-oder alternativ `docker-compose up material1_db` in der Konsole ausführen.
-Dies kann mehrere Minuten dauern.
-Zum Beenden in IntelliJ einfach auf den Knopf drücken, der den `material1_db`-Service beendet
-oder alternativ in der Konsole `docker-compose down --volumes` ausführen. 
-`--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
-1. Run Configuration `Material1Application - prod (local)` starten
-oder alternativ die Spring Anwendung im Spring Profil `prod` mit folgenden Umgebungsvariablen starten:
-`MATERIAL1_PORT=8080;MATERIAL1_DB_HOST=localhost;MATERIAL1_DB_PORT=5432;POSTGRES_USER=postgres;POSTGRES_PASSWORD=password;POSTGRES_DB=material1;MATERIAL1_MINIO_HOST=http://localhost;MATERIAL1_MINIO_PORT=9000;MATERIAL1_MINIO_BUCKET_NAME=dev-bucket;MINIO_ACCESS_KEY=dev_minio_access_key;MINIO_SECRET_KEY=dev_minio_secret_key;MATERIAL1_GRUPPENFINDUNG_URL=https://mops.hhu.de/gruppe1;MATERIAL1_ADMIN_ROLE=admin;MATERIAL_MAX_FOLDER_PER_GROUP=200`.
-Gelesen werden sie von Spring in den einzelnen `application.properties`-Dateien für die Profile.
-1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1/groups geöffnet werden.
+1. Run Configuration `Material1Application - prod` starten
+oder alternativ die Spring Anwendung mit Gradle im Spring Profil `prod` starten.
+1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1 geöffnet werden.
 
-Es ist möglich die Werte der Umgebungsvariablen anzupassen, dann müssen sie allerdings gleichzeitig in der `prod.env`
-und der Run Configuration geändert werden.
+### Als Komplettpaket im Dev Profile (mit externer PostgreSQL Datenbank und Stub `Gruppenfindung`s-Adapter)
+
+1. Docker starten
+1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
+1. `docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.prod.yml -f docker-compose.demo.yml up --build material1_app`
+in der Konsole ausführen. Zum Beenden in der Konsole
+`docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.prod.yml -f docker-compose.demo.yml down --volumes --remove-orphans`
+ausführen. `--volumes` ist notwendig um die erstellten Docker Volumes mitzulöschen.
+
+## Ausloggen
+
+Man kann sich in dev nicht über den gegebenen Logout-Link ausloggen. Man kann aber links unten auf den Namen klicken und dann auf der Keycloak-Seite oben rechts auf `Logout` klicken, dann ist man ausgeloggt.
 
 ## Dokumentation
 

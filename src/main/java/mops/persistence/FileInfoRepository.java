@@ -33,7 +33,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
      * @return total storage usage in bytes
      */
     @Query("SELECT COALESCE(SUM(size), 0) FROM file_info "
-            + "LEFT JOIN directory "
+            + "INNER JOIN directory "
             + "ON file_info.directory_id = directory.id "
             + "WHERE group_owner = :groupId")
     long getStorageUsageInGroup(@Param("groupId") long groupId);
@@ -53,7 +53,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
      * @return total file count
      */
     @Query("SELECT COALESCE(COUNT(*), 0) FROM file_info "
-            + "LEFT JOIN directory "
+            + "INNER JOIN directory "
             + "ON file_info.directory_id = directory.id "
             + "WHERE group_owner = :groupId")
     long getFileCountInGroup(@Param("groupId") long groupId);
@@ -66,4 +66,14 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
     @Query("SELECT id FROM file_info")
     Set<Long> findAllIds();
 
+    /**
+     * Finds all FileInfo IDs, where no dir exists anymore.
+     * Should theoretically always be an empty list.
+     *
+     * @return all IDs of found orphans
+     */
+    @Query("SELECT id from file_info "
+            + "WHERE directory_id NOT IN "
+            + "(SELECT id from directory)")
+    Set<Long> findAllOrphansByDirectory();
 }
