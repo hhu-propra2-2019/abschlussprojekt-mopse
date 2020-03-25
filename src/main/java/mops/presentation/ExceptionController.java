@@ -71,7 +71,7 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
                         "Die angeforderte Ressource konnte nicht gefunden werden :(");
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 model.addAttribute("status_message", "Captain, wir haben ein Problem! Wuff!");
-            } else if(statusCode == HttpStatus.METHOD_NOT_ALLOWED.value()) {
+            } else if (statusCode == HttpStatus.METHOD_NOT_ALLOWED.value()) {
                 model.addAttribute("status_message", "Diese Methode ist nicht erlaubt.");
             }
         }
