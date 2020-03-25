@@ -252,6 +252,7 @@ public class DirectoryController {
 
         model.addAttribute("fileQueryForm", queryForm);
         model.addAttribute("account", account);
+        model.addAttribute("backDirId", dirId);
         return "files";
     }
 }
