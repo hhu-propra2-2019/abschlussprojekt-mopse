@@ -4,23 +4,12 @@ services:
   material1_db:
     image: postgres:alpine
     ports:
-      - "${MATERIAL1_DB_PORT:-5432}:5432"
+      - "5432:5432"
     volumes:
       - material1_db_volume:/var/lib/postgresql/data
       - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
-    env_file:
-      - prod.env
-  material1:
-    build:
-      context: .
-      args:
-        MATERIAL1_PORT: ${MATERIAL1_PORT:-8080}
-    depends_on:
-      - material1_db
-    env_file:
-      - prod.env
 
 volumes:
   material1_db_volume:

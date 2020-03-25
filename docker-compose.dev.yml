@@ -1,15 +1,16 @@
 version: "3.7"
 
 services:
-  minio_dev:
+  material1_db:
+    env_file: dev.env
+  material1_minio:
     image: minio/minio:latest
     ports:
-      - "${MINIO_PORT:-9000}:9000"
+      - "9000:9000"
     volumes:
-      - minio_dev_volume:/data
-    env_file:
-      - dev.env
+      - material1_minio_volume:/data
     command: server /data
+    env_file: dev.env
 
 volumes:
-  minio_dev_volume:
+  material1_minio_volume:

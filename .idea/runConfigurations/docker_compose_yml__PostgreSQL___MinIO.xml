@@ -1,11 +1,17 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="docker-compose.yml: PostgreSQL" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+  <configuration default="false" name="docker-compose.yml: PostgreSQL &amp; MinIO" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
         <option name="removeVolumesOnComposeDown" value="true" />
+        <option name="secondarySourceFiles">
+          <list>
+            <option value="docker-compose.dev.yml" />
+          </list>
+        </option>
         <option name="services">
           <list>
             <option value="material1_db" />
+            <option value="material1_minio" />
           </list>
         </option>
         <option name="sourceFilePath" value="docker-compose.yml" />
