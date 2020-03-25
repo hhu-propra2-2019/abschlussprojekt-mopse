@@ -86,6 +86,7 @@
             <th>Typ</th>
             <th>Besitzer</th>
             <th>Größe</th>
+            <th th:if="${deletePermission}"></th>
         </tr>
         <tr th:each="dir : ${dirs}">
             <td><a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
@@ -94,7 +95,7 @@
             <td></td>
             <td></td>
             <td>
-                <form action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}" th:method="post">
+                <form th:if="${deletePermission}" action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}" th:method="post">
                     <input type="submit" name="deleteFolder" value="Ordner löschen">
                 </form>
             </td>
@@ -106,23 +107,24 @@
             <td th:text="${file.owner}">%Owner%</td>
             <td th:text="${file.getSizeString()}">%Größe%</td>
             <td>
-                <form action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
+                <form th:if="${deletePermission || file.getOwner() == account.getName()}" action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
                     <input type="submit" name="deleteFile" value="Datei löschen">
                 </form>
             </td>
         </tr>
     </table>
+    <div th:if="${writePermission}">
+        <form action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}" th:method="post">
+            <input type="text" name="folderName" required>
+            <input type="submit" name="newFolder" value="Neuer Ordner">
+        </form>
 
-    <form action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}" th:method="post">
-        <input type="text" name="folderName" required>
-        <input type="submit" name="newFolder" value="Neuer Ordner">
-    </form>
-
-    <form action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}" th:method="post"
-          enctype="multipart/form-data">
-        <input type="file" name="file" required>
-        <input type="submit" name="uploadFile" value="Datei Hochladen">
-    </form>
+        <form action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}" th:method="post"
+              enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <input type="submit" name="uploadFile" value="Datei Hochladen">
+        </form>
+    </div>
 
     <form action="#" th:action="@{{dirId}/search(dirId = ${directory.getId()})}" th:method="post"
           th:object="${fileQueryForm}">
