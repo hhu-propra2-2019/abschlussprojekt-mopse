@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -36,18 +37,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class DirectoryServiceImpl implements DirectoryService {
-
-    /**
-     * Represents the role of an admin.
-     */
-    @Value("${material1.mops.configuration.admin}")
-    private String adminRole = "admin";
-    /**
-     * The max amount of folders per group.
-     */
-    @SuppressWarnings("checkstyle:MagicNumber")
-    @Value("${material1.mops.configuration.max-groups}")
-    private long maxFoldersPerGroup = 200L;
 
     /**
      * This connects to database related to directory information.
@@ -69,6 +58,17 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Connects to the GruppenFindungs API.
      */
     private final GroupService groupService;
+    /**
+     * Represents the role of an admin.
+     */
+    @Value("${material1.mops.configuration.admin}")
+    private String adminRole = "admin";
+    /**
+     * The max amount of folders per group.
+     */
+    @SuppressWarnings("checkstyle:MagicNumber")
+    @Value("${material1.mops.configuration.max-groups}")
+    private long maxFoldersPerGroup = 200L;
 
     /**
      * {@inheritDoc}
@@ -91,13 +91,21 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
-    public String buildDirectoryPath(long dirId) throws MopsException {
-        String result = "";
+    public List<Directory> getDirectoryPath(long dirId) throws MopsException {
+        List<Directory> result = new LinkedList<>();
         Directory dir = getDirectory(dirId);
-        if (dir.getParentId() != null) {
-            result = buildDirectoryPath(dir.getParentId()) + "/" + dir.getName();
+        while (dir.getParentId() != null) {
+            result.add(dir);
+            dir = getDirectory(dir.getParentId());
         }
-        return result;
+        // add root
+        result.add(dir);
+        List<Directory> resultReversed = new LinkedList<>();
+        //reversing list
+        for (int i = result.size() - 1; i >= 0; i--) {
+            resultReversed.add(result.get(i));
+        }
+        return resultReversed;
     }
 
     /**

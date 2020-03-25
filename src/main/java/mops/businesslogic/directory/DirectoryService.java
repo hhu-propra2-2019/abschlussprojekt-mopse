@@ -27,12 +27,12 @@ public interface DirectoryService {
     List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException;
 
     /**
-     * Builds visual directory path.
+     * Builds directory path as list.
      *
-     * @param dirId user credentials
-     * @return directory path string
+     * @param dirId highest dir of path
+     * @return directory path ordered list
      */
-    String buildDirectoryPath(long dirId) throws MopsException;
+    List<Directory> getDirectoryPath(long dirId) throws MopsException;
 
     /**
      * Creates the group root directory.
