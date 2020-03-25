@@ -98,7 +98,7 @@ public class SecurityServiceImpl implements SecurityService {
         boolean allowedToWrite = permissions.isAllowedToWrite(userRole);
 
         if (!allowedToWrite) {
-            log.error("The user '{}' tried to write in '{}' where they have no write permissions.",
+            log.debug("The user '{}' has no write permissions in '{}' .",
                     account.getName(),
                     directory.getName());
             throw new WriteAccessPermissionException(
@@ -121,7 +121,7 @@ public class SecurityServiceImpl implements SecurityService {
         boolean allowedToRead = permissions.isAllowedToRead(userRole);
 
         if (!allowedToRead) {
-            log.error("The user '{}' tried to read in '{}' where they have no read permissions.",
+            log.debug("The user '{}' has no read permissions in '{}' .",
                     account.getName(),
                     directory.getName());
             throw new ReadAccessPermissionException(
@@ -146,7 +146,7 @@ public class SecurityServiceImpl implements SecurityService {
         boolean allowedToDelete = permissions.isAllowedToDelete(userRole);
 
         if (!allowedToDelete) {
-            log.error("The user '{}' tried to delete in '{}' where they have no delete permissions.",
+            log.debug("The user '{}' has no delete permissions in '{}' .",
                     account.getName(),
                     directory.getName());
             throw new DeleteAccessPermissionException(
