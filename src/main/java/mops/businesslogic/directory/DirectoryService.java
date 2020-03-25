@@ -27,6 +27,14 @@ public interface DirectoryService {
     List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException;
 
     /**
+     * Builds directory path as list.
+     *
+     * @param dirId highest dir of path
+     * @return directory path ordered list
+     */
+    List<Directory> getDirectoryPath(long dirId) throws MopsException;
+
+    /**
      * Creates the group root directory.
      *
      * @param groupId the group id

@@ -148,6 +148,31 @@ class DirectoryServiceTest {
     }
 
     /**
+     * Test if path display works correctly.
+     */
+    @Test
+    void buildDirectoryPathTest() throws MopsException {
+        String subDirName1 = "a";
+        String subDirName2 = "b";
+
+        Directory createdFirstDir = directoryService.createFolder(admin, root.getId(), subDirName1);
+        Directory createdSecondDir = directoryService.createFolder(admin, createdFirstDir.getId(), subDirName2);
+
+        List<Directory> shouldReturn = List.of(root, createdFirstDir, createdSecondDir);
+        List<Directory> result = directoryService.getDirectoryPath(createdSecondDir.getId());
+        assertThat(result).containsSequence(shouldReturn);
+    }
+
+    /**
+     * Test if path display works correctly.
+     */
+    @Test
+    void buildDirectoryPathInRootTest() throws MopsException {
+        List<Directory> result = directoryService.getDirectoryPath(root.getId());
+        assertThat(result).containsExactly(root);
+    }
+
+    /**
      * Test if sub folders are correctly returned.
      */
     @Test
@@ -285,7 +310,7 @@ class DirectoryServiceTest {
     }
 
     @Test
-    void searchFolderWithoutPermissionTest() throws MopsException {
+    void searchFolderWithoutPermissionTest() {
         FileQuery fileQuery = FileQuery.builder()
                 .build();
 
