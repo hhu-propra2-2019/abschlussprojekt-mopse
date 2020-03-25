@@ -92,11 +92,12 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn"})
     public String buildDirectoryPath(long dirId) throws MopsException {
+        String result = "";
         Directory dir = getDirectory(dirId);
-        if (dir.getParentId() == null) {
-            return "";
+        if (dir.getParentId() != null) {
+            result = buildDirectoryPath(dir.getParentId()) + "/" + dir.getName();
         }
-        return buildDirectoryPath(dir.getParentId()) + "/" + dir.getName();
+        return result;
     }
 
     /**
