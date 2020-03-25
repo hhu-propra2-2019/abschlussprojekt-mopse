@@ -151,6 +151,7 @@ public class SecurityServiceImpl implements SecurityService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.OnlyOneReturn")
     public boolean isUserAdmin(Account account, long groupId) throws MopsException {
         try {
             checkIfRole(account, groupId, adminRole);

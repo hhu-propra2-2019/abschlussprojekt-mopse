@@ -31,6 +31,7 @@ public class EditDirectoryForm {
      * @param permissions directory permissions
      * @return EditDirectoryForm
      */
+    @SuppressWarnings("PMD.LawOfDemeter") // streams & builder
     public static EditDirectoryForm of(Directory directory, DirectoryPermissions permissions) {
         EditDirectoryForm form = new EditDirectoryForm();
         form.setName(directory.getName());
@@ -54,6 +55,7 @@ public class EditDirectoryForm {
      *
      * @return directory permissions
      */
+    @SuppressWarnings("PMD.LawOfDemeter") // streams & builder
     public DirectoryPermissions buildDirectoryPermissions() {
         DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
         rolePermissions.forEach(rolePermissions -> builder.entry(

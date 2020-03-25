@@ -230,6 +230,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Directory editDirectory(
             Account account,
             long dirId,

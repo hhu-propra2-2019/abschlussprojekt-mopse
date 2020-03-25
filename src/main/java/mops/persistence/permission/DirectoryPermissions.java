@@ -113,6 +113,7 @@ public class DirectoryPermissions {
      *
      * @return roles
      */
+    @SuppressWarnings("PMD.LawOfDemeter") // stream
     public Set<String> getRoles() {
         return permissions.stream()
                 .map(DirectoryPermissionEntry::getRole)
