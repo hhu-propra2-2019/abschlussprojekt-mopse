@@ -6,6 +6,8 @@ import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.security.Account;
+import mops.businesslogic.security.SecurityService;
+import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -43,6 +45,11 @@ public class DirectoryController {
     private final FileService fileService;
 
     /**
+     * Fetches permissions of user.
+     */
+    private final SecurityService securityService;
+
+    /**
      * Shows the content of a folder (files and sub folders).
      *
      * @param redirectAttributes redirect attributes
@@ -63,6 +70,9 @@ public class DirectoryController {
             Directory directory = directoryService.getDirectory(dirId);
             List<Directory> directories = directoryService.getSubFolders(account, dirId);
             List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+            UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
+            model.addAttribute("deletePermission", userPermission.isDelete());
+            model.addAttribute("writePermission", userPermission.isWrite());
             model.addAttribute("directory", directory);
             model.addAttribute("dirs", directories);
             model.addAttribute("files", files);
