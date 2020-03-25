@@ -114,6 +114,9 @@
   </div>
 </header>
 <div class="main-wrapper"><main>
+    <form action="../1" method="get">
+        <input type="submit" value="Ebene hoch">
+    </form>
     <table>
         <tr>
             <th>Name</th>
