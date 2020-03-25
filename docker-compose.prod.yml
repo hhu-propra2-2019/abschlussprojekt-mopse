@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  material1_app:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file: prod.env
+    depends_on:
+      - material1_db
+  material1_db:
+    env_file: prod.env

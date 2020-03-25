@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  material1_app:
+    environment:
+      MATERIAL1_PROFILE: dev
+    depends_on:
+      - material1_minio
