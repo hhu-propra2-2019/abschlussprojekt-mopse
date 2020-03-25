@@ -83,7 +83,36 @@
     <div>
         <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir Name</a>
     </div>
-
+    <div th:if="${adminRole}">
+        <form action="#" th:action="@{{dirId}/edit(dirId = ${directory.id})}" th:method="post"
+              th:object="${editDirectoryForm}">
+            <fieldset th:if="${directory.parentId} != null">
+                <label>
+                    <span>Ordnername:</span>
+                    <input type="text" th:field="*{name}"/>
+                </label>
+            </fieldset>
+            <table>
+                <thead>
+                <tr>
+                    <th>Rolle</th>
+                    <th>Lesen</th>
+                    <th>Schreiben</th>
+                    <th>Löschen</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="rolePermissions, itemStat : *{rolePermissions}">
+                    <td><input type="text" th:field="*{rolePermissions[__${itemStat.index}__].role}" readonly/></td>
+                    <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
+                    <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
+                    <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
+                </tr>
+                </tbody>
+            </table>
+            <input class="btn btn-primary" type="submit" value="Speichern">
+        </form>
+    </div>
     <table>
         <tr>
             <th>Name</th>
@@ -100,7 +129,8 @@
             <td></td>
             <td></td>
             <td>
-                <form th:if="${deletePermission}" action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}" th:method="post">
+                <form th:if="${deletePermission}" action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}"
+                      th:method="post">
                     <input type="submit" name="deleteFolder" value="Ordner löschen">
                 </form>
             </td>
@@ -112,26 +142,27 @@
             <td th:text="${file.owner}">%Owner%</td>
             <td th:text="${file.getSizeString()}">%Größe%</td>
             <td>
-                <form th:if="${deletePermission || file.owner == account.name}" action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
+                <form th:if="${deletePermission || file.owner == account.name}" action="#"
+                      th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
                     <input type="submit" name="deleteFile" value="Datei löschen">
                 </form>
             </td>
         </tr>
     </table>
     <div th:if="${writePermission}">
-        <form action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}" th:method="post">
+        <form action="#" th:action="@{{dirId}/create(dirId = ${directory.id})}" th:method="post">
             <input type="text" name="folderName" required>
             <input type="submit" name="newFolder" value="Neuer Ordner">
         </form>
 
-        <form action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}" th:method="post"
+        <form action="#" th:action="@{{dirId}/upload(dirId = ${directory.id})}" th:method="post"
               enctype="multipart/form-data">
             <input type="file" name="file" required>
             <input type="submit" name="uploadFile" value="Datei Hochladen">
         </form>
     </div>
 
-    <form action="#" th:action="@{{dirId}/search(dirId = ${directory.getId()})}" th:method="post"
+    <form action="#" th:action="@{{dirId}/search(dirId = ${directory.id})}" th:method="post"
           th:object="${fileQueryForm}">
         <div id="names">
             <div id="names[0]">
