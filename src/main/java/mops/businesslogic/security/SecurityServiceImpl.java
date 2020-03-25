@@ -1,6 +1,6 @@
 package mops.businesslogic.security;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.exception.DeleteAccessPermissionException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
@@ -10,6 +10,7 @@ import mops.businesslogic.permission.PermissionService;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SecurityServiceImpl implements SecurityService {
 
     /**
@@ -28,6 +29,13 @@ public class SecurityServiceImpl implements SecurityService {
      * Handles directory permissions.
      */
     private final PermissionService permissionService;
+
+    /**
+     * Represents the role of an admin.
+     */
+    @Value("${material1.mops.configuration.admin}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
+    private String adminRole = "admin";
 
     /**
      * {@inheritDoc}
@@ -136,6 +144,22 @@ public class SecurityServiceImpl implements SecurityService {
                     String.format("Der Benutzer %s hat keine Löschberechtigungen in %s.",
                             account.getName(),
                             directory.getName()));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.OnlyOneReturn")
+    public boolean isUserAdmin(Account account, long groupId) throws MopsException {
+        try {
+            checkIfRole(account, groupId, adminRole);
+            return true;
+        } catch (WriteAccessPermissionException e) {
+            return false;
+        } catch (MopsException e) {
+            throw new MopsException("Keine Rollenprüfung auf admin möglich.", e);
         }
     }
 

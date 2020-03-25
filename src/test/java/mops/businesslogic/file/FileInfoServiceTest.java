@@ -1,5 +1,6 @@
 package mops.businesslogic.file;
 
+import mops.businesslogic.exception.DatabaseDuplicationException;
 import mops.exception.MopsException;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.file.FileInfo;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.List;
@@ -104,5 +106,14 @@ class FileInfoServiceTest {
 
         assertThatThrownBy(() -> fileInfoService.deleteFileInfo(2L))
                 .isInstanceOf(MopsException.class);
+    }
+
+    @Test
+    public void duplicatonTest() throws MopsException {
+        fileInfoService.saveFileInfo(file1);
+        DbActionExecutionException exception = mock(DbActionExecutionException.class);
+        given(exception.getCause()).willReturn(mock(DuplicateKeyException.class));
+        willThrow(exception).given(fileInfoRepository).save(file1);
+        assertThatExceptionOfType(DatabaseDuplicationException.class).isThrownBy(() -> fileInfoService.saveFileInfo(file1));
     }
 }

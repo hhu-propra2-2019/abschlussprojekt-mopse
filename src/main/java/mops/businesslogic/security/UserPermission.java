@@ -11,15 +11,15 @@ import lombok.Value;
 public class UserPermission {
 
     /**
-     * read permission flag.
+     * Read permission flag.
      */
     boolean read;
     /**
-     * write permission flag.
+     * Write permission flag.
      */
     boolean write;
     /**
-     * delete permission flag.
+     * Delete permission flag.
      */
     boolean delete;
 

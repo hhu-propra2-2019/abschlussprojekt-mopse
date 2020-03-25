@@ -24,9 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -36,18 +34,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class DirectoryServiceImpl implements DirectoryService {
-
-    /**
-     * Represents the role of an admin.
-     */
-    @Value("${material1.mops.configuration.admin}")
-    private String adminRole = "admin";
-    /**
-     * The max amount of folders per group.
-     */
-    @SuppressWarnings("checkstyle:MagicNumber")
-    @Value("${material1.mops.configuration.max-groups}")
-    private long maxFoldersPerGroup = 200L;
 
     /**
      * This connects to database related to directory information.
@@ -69,6 +55,17 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Connects to the GruppenFindungs API.
      */
     private final GroupService groupService;
+    /**
+     * Represents the role of an admin.
+     */
+    @Value("${material1.mops.configuration.admin}")
+    private String adminRole = "admin";
+    /**
+     * The max amount of folders per group.
+     */
+    @SuppressWarnings("checkstyle:MagicNumber")
+    @Value("${material1.mops.configuration.max-groups}")
+    private long maxFoldersPerGroup = 200L;
 
     /**
      * {@inheritDoc}
@@ -84,6 +81,25 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("Subfolders of parent folder with id '{}' could not be loaded:", parentDirID, e);
             throw new DatabaseException("Unterordner konnten nicht geladen werden.", e);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
+    public List<Directory> getDirectoryPath(long dirId) throws MopsException {
+        List<Directory> result = new LinkedList<>();
+        Directory dir = getDirectory(dirId);
+        while (dir.getParentId() != null) {
+            result.add(dir);
+            dir = getDirectory(dir.getParentId());
+        }
+        // add root
+        result.add(dir);
+        //reversing list
+        Collections.reverse(result);
+        return result;
     }
 
     /**
@@ -231,11 +247,46 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
+    public Directory editDirectory(
+            Account account,
+            long dirId,
+            String newName,
+            DirectoryPermissions newPermissions) throws MopsException {
+        Directory directory = getDirectory(dirId);
+        securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
+
+        if (directory.getParentId() != null) {
+            if (newName == null || newName.isEmpty()) {
+                log.error("The user '{}' tried to change the name of a directory to an empty name.", account.getName());
+                throw new DatabaseException("Name des Ordners darf nicht leer sein.");
+            }
+            directory.setName(newName);
+        }
+
+        updatePermission(account, dirId, newPermissions);
+
+        return saveDirectory(directory);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     public DirectoryPermissions updatePermission(Account account,
                                                  long dirId,
                                                  DirectoryPermissions permissions) throws MopsException {
         Directory directory = getDirectory(dirId);
         securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
+
+        Set<String> roles = groupService.fetchRolesInGroup(directory.getGroupOwner());
+        if (!permissions.getRoles().equals(roles)) {
+            log.error("The user '{}' tried to change the permissions of a directory to an invalid one. "
+                            + "Role Permissions are missing or superfluous.",
+                    account.getName());
+            throw new DatabaseException("Neue Berechtigungen ungültig.");
+        }
+
         DirectoryPermissions updatedPermissions = DirectoryPermissions.builder()
                 .from(permissions)
                 .id(directory.getPermissionsId())
