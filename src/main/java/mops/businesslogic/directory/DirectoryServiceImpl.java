@@ -91,7 +91,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     /**
-     * Removes all directories without reading permissions in place.
+     * Removes all directories without reading permissions.
      *
      * @param account the account
      * @param directories all directories that should be checked
