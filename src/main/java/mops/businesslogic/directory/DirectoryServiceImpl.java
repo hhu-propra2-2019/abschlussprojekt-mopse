@@ -24,10 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -100,12 +97,9 @@ public class DirectoryServiceImpl implements DirectoryService {
         }
         // add root
         result.add(dir);
-        List<Directory> resultReversed = new LinkedList<>();
         //reversing list
-        for (int i = result.size() - 1; i >= 0; i--) {
-            resultReversed.add(result.get(i));
-        }
-        return resultReversed;
+        Collections.reverse(result);
+        return result;
     }
 
     /**
