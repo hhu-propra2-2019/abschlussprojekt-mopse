@@ -87,6 +87,10 @@ Gelesen werden sie von Spring in den einzelnen `application.properties`-Dateien 
 Es ist möglich die Werte der Umgebungsvariablen anzupassen, dann müssen sie allerdings gleichzeitig in der `prod.env`
 und der Run Configuration geändert werden.
 
+## Ausloggen
+
+Man kan nicht in dev nicht über den Logout ausloggen. Man kann aber links unten auf den Namen klicken und dann auf der Keycloak-Seite oben rechts auf logout klicken, dann ist man ausgeloggt.
+
 ## Dokumentation
 
 Hier kann die Dokumentation gefunden werden: [Dokumentation](https://hhu-propra2.github.io/abschlussprojekt-mopse/)
