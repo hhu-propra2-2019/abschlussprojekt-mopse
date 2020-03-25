@@ -36,7 +36,7 @@ oder alternativ in der Konsole
 `docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --volumes --remove-orphans` ausführen.
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
 1. Run Configuration `Material1Application - dev` starten
-oder alternativ die Spring Anwendung im Spring Profil `dev` starten.
+oder alternativ die Spring Anwendung mit Gradle im Spring Profil `dev` starten.
 1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1 geöffnet werden.
 
 ### Production Profile (mit externer PostgreSQL Datenbank und echtem `Gruppenfindung`s-Adapter)
@@ -53,9 +53,8 @@ oder alternativ in der Konsole
 `docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --volumes --remove-orphans` ausführen.
 `--volumes` ist notwendig um das erstellte Docker Volume mitzulöschen.
 1. Run Configuration `Material1Application - prod` starten
-oder alternativ die Spring Anwendung im Spring Profil `prod` mit der Umgebungsvariablen `MATERIAL1_DB_HOST=localhost`
-starten.
-1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1/groups geöffnet werden.
+oder alternativ die Spring Anwendung mit Gradle im Spring Profil `prod` starten.
+1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1 geöffnet werden.
 
 ### Als Komplettpaket im Dev Profile (mit externer PostgreSQL Datenbank und Stub `Gruppenfindung`s-Adapter)
 
