@@ -33,17 +33,17 @@ starten.
 In all diesen Fällen sollen sämtliche Umgebungsvariablen und Startparameter richtig konfiguriert sein.
 
 Gelöst wird dies durch das Benutzen von mehreren `docker-compose` .yml Dateien, die zusammen geladen werden.
-Denn `docker-compose` erlaubt es bereits definierte Services in einer anderen Konfigurationsdatei zu ergänzen.
+Denn `docker-compose` erlaubt es, bereits definierte Services in einer anderen Konfigurationsdatei zu ergänzen.
 
 Also gibt es nun:
 
 `docker-compose.yml`: Enthält die Definition des Datenbank-Containers ohne Konfiguration.
 
-`docker-compose.dev.yml`: Enthält die Definition des MinIO-Containers mit Konfiguration und zusätzlich Konfiguration
+`docker-compose.dev.yml`: Enthält die Definition des MinIO-Containers mit Konfiguration und zusätzlich die Konfiguration
 für den in der `docker-compose.yml` definierten Datenbank-Container.
 
 `docker-compose.prod.yml`: Enthält die Definition des Anwendungs-Containers mit Build-Anweisungen und Konfiguration und
-zusätzlich Konfiguration für den in der `docker-compose.yml` definierten Datenbank-Container.
+zusätzlich die Konfiguration für den in der `docker-compose.yml` definierten Datenbank-Container.
 
 `docker-compose.demo.yml`: Überschreibt Teile der Konfiguration des Anwendungs-Containers aus der
 `docker-compose.prod.yml` und fügt ein weiteres `depends_on` auf den MinIO-Container aus `docker-compose.dev.yml` ein.
