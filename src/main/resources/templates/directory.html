@@ -6,7 +6,7 @@
     <title>Ordner</title>
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <link rel="stylesheet"  type="text/css" href="../static/styles.css" th:href="@{/style.css}">
+        <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{/style.css}">
         <script>
             namesCounter = 1;
             ownersCounter = 1;
@@ -71,6 +71,7 @@
                 document.getElementById("show-search-button").style.display = "none";
                 document.getElementById("material1-search-form").style.display = "flex";
             }
+
             function hideSearchForm() {
                 document.getElementById("show-search-button").style.display = "block";
                 document.getElementById("material1-search-form").style.display = "none";
@@ -94,8 +95,10 @@
     </div>
 
     <!-- Form to search for a file in the folder and all subfolders by 4 different parameters -->
-    <input class="material1-show-search-button" id="show-search-button" type="button" value="Suche öffnen" onclick="showSearchForm()">
-    <form class="material1-search-form" id="material1-search-form" action="#" th:action="@{{dirId}/search(dirId = ${directory.getId()})}" th:method="post"
+    <input class="material1-show-search-button" id="show-search-button" type="button" value="Suche öffnen"
+           onclick="showSearchForm()">
+    <form class="material1-search-form" id="material1-search-form" action="#"
+          th:action="@{{dirId}/search(dirId = ${directory.getId()})}" th:method="post"
           th:object="${fileQueryForm}">
         <div class="material1-search-form-column" id="names">
             <div class="material1-search-form-field" id="names[0]">
@@ -103,28 +106,32 @@
                 <div><input type="button" value="+" onclick="addNewInputLine('names', 'Dateiname')"></div>
             </div>
         </div>
-        <div class="material1-search-form-column"><input type="button" value="-" id="namesDelete" onclick="deleteLastInputLine('names[0]')"></div>
+        <div class="material1-search-form-column"><input type="button" value="-" id="namesDelete"
+                                                         onclick="deleteLastInputLine('names[0]')"></div>
         <div class="material1-search-form-column" id="owners">
             <div class="material1-search-form-field" id="owners[0]">
                 <div><input type="text" name="owners[0]" placeholder="Besitzer" th:field="*{owners[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('owners', 'Besitzer')"></div>
             </div>
         </div>
-        <div class="material1-search-form-column"><input type="button" value="-" id="ownersDelete" onclick="deleteLastInputLine('owners[0]')"></div>
+        <div class="material1-search-form-column"><input type="button" value="-" id="ownersDelete"
+                                                         onclick="deleteLastInputLine('owners[0]')"></div>
         <div class="material1-search-form-column" id="types">
             <div class="material1-search-form-field" id="types[0]">
                 <div><input type="text" name="types[0]" placeholder="Dateityp" th:field="*{types[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('types', 'Dateityp')"></div>
             </div>
         </div>
-        <div class="material1-search-form-column"><input type="button" value="-" id="typesDelete" onclick="deleteLastInputLine('types[0]')"></div>
+        <div class="material1-search-form-column"><input type="button" value="-" id="typesDelete"
+                                                         onclick="deleteLastInputLine('types[0]')"></div>
         <div class="material1-search-form-column" id="tags">
             <div class="material1-search-form-field" id="tags[0]">
                 <div><input type="text" name="tags[0]" placeholder="Tags" th:field="*{tags[0]}"></div>
                 <div><input type="button" value="+" onclick="addNewInputLine('tags', 'Tags')"></div>
             </div>
         </div>
-        <div class="material1-search-form-column"><input type="button" value="-" id="tagsDelete" onclick="deleteLastInputLine('tags[0]')"></div>
+        <div class="material1-search-form-column"><input type="button" value="-" id="tagsDelete"
+                                                         onclick="deleteLastInputLine('tags[0]')"></div>
         <div class="material1-search-form-column">
             <div><input type="submit" name="searchFile" value="Datei suchen"></div>
         </div>
@@ -168,18 +175,20 @@
         </tr>
     </table>
 
-    <!-- Form to create a new subfolder -->
-    <form action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}" th:method="post">
-        <input type="text" name="folderName" required>
-        <input type="submit" name="newFolder" value="Neuer Ordner">
-    </form>
+    <div class="material1-create-forms">
+        <!-- Form to create a new subfolder -->
+        <form action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}" th:method="post">
+            <input type="text" name="folderName" required>
+            <input type="submit" name="newFolder" value="Neuer Ordner">
+        </form>
 
-    <!-- Form to upload a new file to the folder -->
-    <form action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}" th:method="post"
-          enctype="multipart/form-data">
-        <input type="file" name="file" required>
-        <input type="submit" name="uploadFile" value="Datei Hochladen">
-    </form>
+        <!-- Form to upload a new file to the folder -->
+        <form action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}" th:method="post"
+              enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <input type="submit" name="uploadFile" value="Datei Hochladen">
+        </form>
+    </div>
 </main>
 </body>
 </html>
