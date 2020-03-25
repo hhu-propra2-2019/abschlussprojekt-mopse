@@ -76,7 +76,16 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = getDirectory(parentDirID);
         securityService.checkReadPermission(account, directory);
         try {
-            return directoryRepository.getAllSubFoldersOfParent(parentDirID);
+            List<Directory> allSubFoldersOfParent = directoryRepository.getAllSubFoldersOfParent(parentDirID);
+            List<Directory> readableFolders = new ArrayList<>();
+            for (Directory dir : allSubFoldersOfParent) {
+                boolean readPerm = securityService.getPermissionsOfUser(account, dir).isRead();
+                if (readPerm) {
+                    readableFolders.add(dir);
+                }
+            }
+
+            return readableFolders;
         } catch (Exception e) {
             log.error("Subfolders of parent folder with id '{}' could not be loaded:", parentDirID, e);
             throw new DatabaseException("Unterordner konnten nicht geladen werden.", e);
