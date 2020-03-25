@@ -1,5 +1,6 @@
 package mops.businesslogic.group;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.exception.DatabaseException;
@@ -69,7 +70,7 @@ public class GroupServiceProdImpl implements GroupService {
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public boolean doesGroupExist(long groupId) throws MopsException {
         log.debug("Request existence of group '{}'.", groupId);
-        throw new UnsupportedOperationException("nyi");
+        throw new MopsException("noch nicht implementiert", new UnsupportedOperationException("nyi"));
     }
 
     /**
@@ -79,11 +80,7 @@ public class GroupServiceProdImpl implements GroupService {
     @SuppressWarnings("PMD.LawOfDemeter") // stream
     public Set<String> getRoles(long groupId) throws MopsException {
         log.debug("Request roles in group '{}'", groupId);
-        if (doesGroupExist(groupId)) {
-            return Set.of(adminRole, viewerRole);
-        }
-
-        return Set.of();
+        throw new MopsException("noch nicht implementiert", new UnsupportedOperationException("nyi"));
     }
 
     /**
@@ -92,7 +89,7 @@ public class GroupServiceProdImpl implements GroupService {
     @Override
     public List<Group> getAllGroups() throws MopsException {
         log.debug("Request all groups.");
-        throw new UnsupportedOperationException("nyi");
+        throw new MopsException("noch nicht implementiert", new UnsupportedOperationException("nyi"));
     }
 
     /**
@@ -101,26 +98,16 @@ public class GroupServiceProdImpl implements GroupService {
     @Override
     public List<Group> getUserGroups(Account account) throws MopsException {
         log.debug("Request all groups of user '{}'.", account.getName());
-        throw new UnsupportedOperationException("nyi");
+        throw new MopsException("noch nicht implementiert", new UnsupportedOperationException("nyi"));
     }
 
-    @Transactional(rollbackFor = MopsException.class)
+    @Transactional
     @Scheduled(fixedRate = UPDATE_RATE)
     @SuppressWarnings("checkstyle:DesignForExtension")
     void updateDatabase() throws MopsException {
-        // TODO: implement with timestamp and deltas
+        // TODO: implement with timestamp and deltas once the gruppen1 API is implemented
         /*try {
-            deleteAllGroups();
-            List<GroupDTO> groups = returnAllGroups();
 
-            for (GroupDTO groupDto : groups) {
-                List<UserDTO> userDtos = returnUsersOfGroup(groupDto.getId());
-                Group.builder().name(groupDto.name)
-            }
-            returnUsersOfGroup(...);
-            isUserAdminInGroup(...);
-
-            groupRepository.saveAll(...);
         } catch (MopsException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             log.error("Error while updating group database:", e);
@@ -218,14 +205,14 @@ public class GroupServiceProdImpl implements GroupService {
     }
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    private List<GroupDTO> returnAllGroups() throws MopsException {
+    private UpdatedGroupsDTO returnAllGroups(long lastEventId) throws MopsException {
         try {
             return restTemplate.exchange(
-                    gruppenfindungsUrl + "/returnAllGroups",
+                    gruppenfindungsUrl + "/returnAllGroups?lastEventId={lastEventid}",
                     HttpMethod.GET,
                     null,
-                    new ParameterizedTypeReference<List<GroupDTO>>() {
-                    }
+                    UpdatedGroupsDTO.class,
+                    String.valueOf(lastEventId)
             ).getBody();
         } catch (Exception e) {
             throw new GruppenfindungsException("...", e);
@@ -264,15 +251,62 @@ public class GroupServiceProdImpl implements GroupService {
         }
     }
 
-    static class GroupDTO {
+    /**
+     * Updated groups since the last time stamp.
+     */
+    @Data
+    static class UpdatedGroupsDTO {
 
-        // TODO: fields, once gruppen1 adds them
+        /**
+         * Current event timestamp id.
+         */
+        private long eventId;
+        /**
+         * List of groups.
+         */
+        private List<GroupDTO> groupDAOs;
 
     }
 
+    /**
+     * Group.
+     */
+    @Data
+    static class GroupDTO {
+
+        /**
+         * Group id.
+         */
+        private long groupId;
+        /**
+         * Course.
+         */
+        private String course;
+        /**
+         * Group description.
+         */
+        private String groupDescription;
+        /**
+         * Group name.
+         */
+        private String groupName;
+        /**
+         * Group status.
+         */
+        private String status;
+
+    }
+
+    /**
+     * User.
+     */
+    @Data
     static class UserDTO {
 
-        // TODO: fields, once gruppen1 adds them
+        /**
+         * User name.
+         */
+        private String username;
 
     }
 }
