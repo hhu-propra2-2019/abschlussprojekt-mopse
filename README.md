@@ -89,7 +89,7 @@ und der Run Configuration geändert werden.
 
 ## Ausloggen
 
-Man kann sich nicht in dev nicht über den Logout ausloggen. Man kann aber links unten auf den Namen klicken und dann auf der Keycloak-Seite oben rechts auf `Logout` klicken, dann ist man ausgeloggt.
+Man kann sich in dev nicht über den gegebenen Logout-Link ausloggen. Man kann aber links unten auf den Namen klicken und dann auf der Keycloak-Seite oben rechts auf `Logout` klicken, dann ist man ausgeloggt.
 
 ## Dokumentation
 
