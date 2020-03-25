@@ -115,7 +115,12 @@
 </header>
 <div class="main-wrapper"><main>
     
-    
+
+    <div class="d-block">
+        
+        <img src="/mops_error.jpg" class="rounded mx-auto h-50 w-50" alt="Sad Pug.">
+    </div>
+    <br>
     
 </main></div>
 <footer class="footer footer-main">
