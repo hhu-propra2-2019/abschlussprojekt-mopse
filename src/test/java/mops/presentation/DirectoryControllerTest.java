@@ -3,6 +3,7 @@ package mops.presentation;
 import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
+import mops.businesslogic.directory.DeleteService;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.directory.ZipService;
 import mops.businesslogic.file.FileService;
@@ -53,6 +54,8 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @MockBean
     PermissionService permissionService;
     @MockBean
+    DeleteService deleteService;
+    @MockBean
     ZipService zipService;
 
     /**
@@ -74,7 +77,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         given(directoryService.getSubFolders(any(), eq(1L))).willReturn(List.of());
         given(fileService.getFilesOfDirectory(any(), eq(1L))).willReturn(List.of());
         given(directoryService.createFolder(any(), eq(1L), any())).willReturn(directory);
-        given(directoryService.deleteFolder(any(), eq(1L))).willReturn(root);
+        given(deleteService.deleteFolder(any(), eq(1L))).willReturn(root);
         given(directoryService.searchFolder(any(), eq(1L), any())).willReturn(List.of());
         given(securityService.getPermissionsOfUser(any(), any())).willReturn(userPermission);
         given(permissionService.getPermissions(any())).willReturn(permissions);

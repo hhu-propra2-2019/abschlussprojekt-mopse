@@ -45,11 +45,11 @@ public class GarbageCollector {
 
         Set<Long> metaIds;
         Set<Long> fileIds;
-        Set<Long> filesWithoutDirectoy;
+        Set<Long> filesWithoutDirectory;
         try {
             metaIds = new HashSet<>(fileInfoService.fetchAllFileInfoIds());
             fileIds = new HashSet<>(fileService.getAllFileIds());
-            filesWithoutDirectoy = new HashSet<>(fileInfoService.fetchAllOrphanedFileInfos());
+            filesWithoutDirectory = new HashSet<>(fileInfoService.fetchAllOrphanedFileInfos());
         } catch (MopsException e) {
             log.error("There was an error while collecting all IDs:", e);
             return;
@@ -86,7 +86,7 @@ public class GarbageCollector {
 
             }
 
-            for (Long fileId : filesWithoutDirectoy) {
+            for (Long fileId : filesWithoutDirectory) {
                 fileInfoService.deleteFileInfo(fileId);
                 fileService.deleteFile(fileId);
                 log.debug("Removed orphaned File with ID {} from non existing directory", fileId);

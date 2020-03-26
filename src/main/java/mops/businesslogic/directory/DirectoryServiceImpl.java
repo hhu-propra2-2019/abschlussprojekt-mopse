@@ -3,7 +3,6 @@ package mops.businesslogic.directory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.exception.DatabaseException;
-import mops.businesslogic.exception.DeleteAccessPermissionException;
 import mops.businesslogic.exception.StorageLimitationException;
 import mops.businesslogic.file.FileInfoService;
 import mops.businesslogic.file.query.FileQuery;
@@ -22,8 +21,6 @@ import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -206,47 +203,6 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         Directory directory = builder.build();
         return saveDirectory(directory);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @Transactional
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) //these are not violations of demeter's law
-    public Directory deleteFolder(Account account, long dirId) throws MopsException {
-        Directory directory = getDirectory(dirId);
-        securityService.checkDeletePermission(account, directory);
-
-        List<FileInfo> files = fileInfoService.fetchAllFilesInDirectory(dirId);
-        List<Directory> subFolders = getSubFolders(account, dirId);
-
-        if (!files.isEmpty() || !subFolders.isEmpty()) {
-            log.error("The user '{}' tried to delete the folder with id {}, but the folder was not empty.",
-                    account.getName(),
-                    dirId);
-            String errorMessage = String.format("Der Ordner %s ist nicht leer.", directory.getName());
-            throw new DeleteAccessPermissionException(errorMessage);
-        }
-
-        Directory parentDirectory = null;
-        if (directory.getParentId() != null) {
-            parentDirectory = getDirectory(directory.getParentId());
-        }
-
-        try {
-            deleteDirectory(directory);
-
-            if (parentDirectory == null || parentDirectory.getPermissionsId() != directory.getPermissionsId()) {
-                permissionService.deletePermissions(directory);
-            }
-        } catch (MopsException e) {
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error("Error while deleting directory {} by user {}:", directory.getName(), account.getName(), e);
-            throw new MopsException("Fehler während des Löschens aufgetreten", e);
-        }
-
-        return parentDirectory;
     }
 
     /**

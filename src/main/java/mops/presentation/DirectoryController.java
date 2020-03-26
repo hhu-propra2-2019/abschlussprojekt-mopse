@@ -2,6 +2,7 @@ package mops.presentation;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mops.businesslogic.directory.DeleteService;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.directory.ZipService;
 import mops.businesslogic.file.FileService;
@@ -61,6 +62,10 @@ public class DirectoryController {
      * Fetches role permissions.
      */
     private final PermissionService permissionService;
+    /**
+     * Deletes files and directories.
+     */
+    private final DeleteService deleteService;
     /**
      * Zips a directory.
      */
@@ -251,7 +256,10 @@ public class DirectoryController {
         log.info("Deletion of folder with id {} requested by user '{}'.", dirId, account.getName());
 
         try {
-            Directory directory = directoryService.deleteFolder(account, dirId);
+            Directory directory = deleteService.deleteFolder(account, dirId);
+            if (directory == null) {
+                return "redirect:/material1/groups";
+            }
             redirectAttributes.addAttribute("dirId", directory.getId());
         } catch (MopsException e) {
             log.error("Failed to delete folder with id '{}':", dirId, e);

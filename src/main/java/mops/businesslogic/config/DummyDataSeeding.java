@@ -125,10 +125,10 @@ public class DummyDataSeeding {
                 fileInfoParent = filesInRootDir.get(0);
             }
 
-            List<FileInfo> filesInChildDir = fileInfoService.fetchAllFilesInDirectory(directoryParent.getId());
+            List<FileInfo> filesInChildDir = fileInfoService.fetchAllFilesInDirectory(directoryChild.getId());
             FileInfo fileInfoChild;
 
-            if (filesInRootDir.isEmpty()) {
+            if (filesInChildDir.isEmpty()) {
                 fileInfoChild = FileInfo.builder()
                         .name("Test2")
                         .directory(directoryChild)
