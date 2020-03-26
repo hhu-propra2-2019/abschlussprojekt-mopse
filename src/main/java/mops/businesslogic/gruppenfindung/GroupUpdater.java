@@ -1,6 +1,7 @@
 package mops.businesslogic.gruppenfindung;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.event.LatestEventIdService;
 import mops.businesslogic.group.GroupService;
 import mops.exception.ImpossibleException;
@@ -21,6 +22,7 @@ import java.util.UUID;
 /**
  * Component that updates our group database.
  */
+@Slf4j
 @Component
 @Profile("prod")
 @RequiredArgsConstructor
@@ -63,7 +65,9 @@ public class GroupUpdater {
     @Scheduled(fixedRate = UPDATE_RATE)
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) // optional, builder
     public void updateDatabase() throws MopsException {
+        log.debug("Pulling group database update from Gruppenfindung.");
         LatestEventId latestEventId = latestEventIdService.getLatestEventId();
+        log.debug("Current latest event id is '{}'.", latestEventId.getEventId());
 
         UpdatedGroupsDTO updatedGroups = gruppenfindungsService.getUpdatedGroups(latestEventId.getEventId());
 
@@ -100,6 +104,10 @@ public class GroupUpdater {
 
         groupService.saveAllGroups(updated);
         groupService.deleteAllGroups(deleted);
+
+        log.debug("{} groups changed.", updated.size());
+        log.debug("{} groups deleted.", deleted.size());
+        log.debug("New latest event id is '{}'.", updatedGroups.getEventId());
 
         latestEventId.setEventId(updatedGroups.getEventId());
         latestEventIdService.saveLatestEventId(latestEventId);

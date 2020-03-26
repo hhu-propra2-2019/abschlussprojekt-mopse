@@ -60,7 +60,7 @@ public class GruppenfindungsService {
                     .get("doesGroupExist");
         } catch (Exception e) {
             log.error("Error while doing API call 'doesGroupExist' to Gruppenfindung:", e);
-            throw new GruppenfindungsException("Fehler beim Aufruf von 'doesGroupExist'", e);
+            throw new GruppenfindungsException("Fehler beim Aufruf von 'doesGroupExist'.", e);
         }
     }
 
