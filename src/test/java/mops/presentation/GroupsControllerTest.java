@@ -32,7 +32,7 @@ class GroupsControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      */
     @BeforeEach
     void setup() throws MopsException {
-        given(groupService.getAllGroupsOfUser(any())).willReturn(List.of());
+        given(groupService.getUserGroups(any())).willReturn(List.of());
     }
 
     /**

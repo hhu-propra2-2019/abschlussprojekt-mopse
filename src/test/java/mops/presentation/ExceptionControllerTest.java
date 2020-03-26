@@ -14,7 +14,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @KeycloakContext
 @WebMvcTest(ExceptionController.class)
-public class ExceptionControllerTest extends ServletKeycloakAuthUnitTestingSupport {
+class ExceptionControllerTest extends ServletKeycloakAuthUnitTestingSupport {
+
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void error() throws Exception {

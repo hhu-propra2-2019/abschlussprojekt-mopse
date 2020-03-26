@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.util.AggregateBuilder;
 
@@ -137,6 +138,17 @@ public class DirectoryBuilder {
      */
     public DirectoryBuilder groupOwner(long groupOwner) {
         this.groupOwner = groupOwner;
+        return this;
+    }
+
+    /**
+     * Set owning group id.
+     *
+     * @param groupOwner id of owning group
+     * @return this
+     */
+    public DirectoryBuilder groupOwner(@NonNull Group groupOwner) {
+        this.groupOwner = groupOwner.getId();
         return this;
     }
 

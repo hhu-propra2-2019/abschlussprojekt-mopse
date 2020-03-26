@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJdbcTest
 class DirectoryRepositoryTest {
 
-    static final long GROUP_ID = 0L;
+    static final long GROUP_ID = 1L;
 
     @Autowired
     DirectoryRepository directoryRepository;
@@ -52,7 +52,7 @@ class DirectoryRepositoryTest {
     }
 
     @Test
-    public void groupFolderCountTest() {
+    void groupFolderCountTest() {
         DirectoryPermissions empty = directoryPermissionsRepository.save(DirectoryPermissions.builder().build());
         Directory root = Directory.builder()
                 .name("")

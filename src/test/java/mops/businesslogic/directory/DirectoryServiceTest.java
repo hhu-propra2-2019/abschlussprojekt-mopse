@@ -10,6 +10,7 @@ import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.util.DbContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -33,9 +35,10 @@ class DirectoryServiceTest {
     static final String STUDENTIN = "studentin";
     static final String ADMIN = "admin";
     static final String EDITOR = "editor";
-    static final String USER = "user";
+    static final String VIEWER = "viewer";
     static final String INTRUDER = "intruder";
-    static final long GROUP_ID = 0L;
+    static final long GROUP_ID = 1L;
+    static final UUID GROUP_UUID = new UUID(0, 1L);
 
     @MockBean
     GroupService groupService;
@@ -61,15 +64,30 @@ class DirectoryServiceTest {
     @BeforeEach
     void setup() throws MopsException {
         intruder = Account.of(INTRUDER, "intruder@uni-koeln.de", STUDENTIN);
-        user = Account.of(USER, "user@hhu.de", STUDENTIN);
+        user = Account.of(VIEWER, "user@hhu.de", STUDENTIN);
         editor = Account.of(EDITOR, "editor@hhu.de", STUDENTIN);
         admin = Account.of(ADMIN, "admin@hhu.de", STUDENTIN);
 
-        given(groupService.fetchRolesInGroup(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, USER));
-        given(groupService.fetchRoleForUserInGroup(admin, GROUP_ID)).willReturn(ADMIN);
-        given(groupService.fetchRoleForUserInGroup(editor, GROUP_ID)).willReturn(EDITOR);
-        given(groupService.fetchRoleForUserInGroup(user, GROUP_ID)).willReturn(USER);
-        given(groupService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
+        given(groupService.getRoles(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
+
+        Group group = Group.builder()
+                .id(GROUP_ID)
+                .groupId(GROUP_UUID)
+                .name("Test Group")
+                .member(admin.getName(), ADMIN)
+                .member(editor.getName(), EDITOR)
+                .member(user.getName(), VIEWER)
+                .build();
+
+        given(groupService.getGroup(GROUP_ID)).willReturn(group);
+        given(groupService.doesGroupExist(GROUP_ID)).willReturn(true);
+        given(groupService.getDefaultPermissions(GROUP_ID)).willReturn(
+                DirectoryPermissions.builder()
+                        .entry(ADMIN, true, true, true)
+                        .entry(EDITOR, true, true, false)
+                        .entry(VIEWER, true, false, false)
+                        .build()
+        );
 
         root = directoryService.getOrCreateRootFolder(GROUP_ID).getRootDir();
     }
@@ -111,7 +129,7 @@ class DirectoryServiceTest {
     }
 
     @Test
-    public void createSecondLevelFolderTest() throws MopsException {
+    void createSecondLevelFolderTest() throws MopsException {
         String subDirName = "a";
         String secondLevelName = "b";
 
@@ -137,7 +155,7 @@ class DirectoryServiceTest {
     @Test
     void updatePermissionTest() throws MopsException {
         DirectoryPermissions permissions = DirectoryPermissions.builder()
-                .entry(USER, true, false, false)
+                .entry(VIEWER, true, false, false)
                 .entry(EDITOR, true, false, false)
                 .entry(ADMIN, true, true, true)
                 .build();
@@ -203,7 +221,7 @@ class DirectoryServiceTest {
     @Test
     void createSubFolderWithReadsOnlyPermissionTest() throws MopsException {
         DirectoryPermissions permissions = DirectoryPermissions.builder()
-                .entry(USER, false, false, false)
+                .entry(VIEWER, false, false, false)
                 .entry(EDITOR, true, false, false)
                 .entry(ADMIN, true, true, true)
                 .build();
@@ -233,16 +251,31 @@ class DirectoryServiceTest {
     }
 
     @Test
-    public void deleteRootFolderTest() throws MopsException {
-        long groupId = 100L;
+    void deleteRootFolderTest() throws MopsException {
+        long id = 2L;
+        UUID groupId = new UUID(0, 2);
 
-        given(groupService.fetchRolesInGroup(groupId)).willReturn(Set.of(ADMIN, EDITOR, USER));
-        given(groupService.fetchRoleForUserInGroup(admin, groupId)).willReturn(ADMIN);
-        given(groupService.fetchRoleForUserInGroup(editor, groupId)).willReturn(EDITOR);
-        given(groupService.fetchRoleForUserInGroup(user, groupId)).willReturn(USER);
-        given(groupService.fetchRoleForUserInGroup(intruder, groupId)).willReturn(INTRUDER);
+        Group group = Group.builder()
+                .id(id)
+                .groupId(groupId)
+                .name("Another Test Group")
+                .member(admin.getName(), ADMIN)
+                .member(editor.getName(), EDITOR)
+                .member(user.getName(), VIEWER)
+                .build();
 
-        Directory rootFolder = directoryService.getOrCreateRootFolder(groupId).getRootDir();
+        given(groupService.getRoles(id)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
+        given(groupService.getGroup(id)).willReturn(group);
+        given(groupService.doesGroupExist(id)).willReturn(true);
+        given(groupService.getDefaultPermissions(id)).willReturn(
+                DirectoryPermissions.builder()
+                        .entry(ADMIN, true, true, true)
+                        .entry(EDITOR, true, true, false)
+                        .entry(VIEWER, true, false, false)
+                        .build()
+        );
+
+        Directory rootFolder = directoryService.getOrCreateRootFolder(id).getRootDir();
         long permissionsId = rootFolder.getPermissionsId();
         Directory directory = directoryService.deleteFolder(admin, rootFolder.getId());
         Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);
@@ -252,7 +285,7 @@ class DirectoryServiceTest {
     }
 
     @Test
-    public void deleteSecondLevelFolderTest() throws MopsException {
+    void deleteSecondLevelFolderTest() throws MopsException {
         Directory subFolder = directoryService.createFolder(admin, root.getId(), "a");
         Directory secondLevel = directoryService.createFolder(admin, subFolder.getId(), "b");
         long permissionsId = secondLevel.getPermissionsId();
@@ -278,7 +311,7 @@ class DirectoryServiceTest {
                         .directory(root)
                         .type("txt")
                         .size(0L)
-                        .owner(USER)
+                        .owner(VIEWER)
                         .build()
         );
 
@@ -290,7 +323,7 @@ class DirectoryServiceTest {
                         .directory(child)
                         .type("txt")
                         .size(0L)
-                        .owner(USER)
+                        .owner(VIEWER)
                         .build()
         );
 
@@ -300,7 +333,7 @@ class DirectoryServiceTest {
                         .directory(root)
                         .type("txt")
                         .size(0L)
-                        .owner(USER)
+                        .owner(VIEWER)
                         .build()
         );
 

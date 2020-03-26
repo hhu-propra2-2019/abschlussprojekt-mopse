@@ -27,7 +27,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @KeycloakContext
 @WebMvcTest(GroupController.class)
-public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
+class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
+
+    static final long GROUP_ID = 1L;
+    static final long DIR_ID = 2L;
 
     @MockBean
     DirectoryService directoryService;
@@ -37,13 +40,13 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      */
     @BeforeEach
     void setup() throws MopsException {
-        given(directoryService.getOrCreateRootFolder(1L))
+        given(directoryService.getOrCreateRootFolder(GROUP_ID))
                 .willReturn(new GroupRootDirWrapper(
                         Directory.builder()
-                                .id(2L)
+                                .id(DIR_ID)
                                 .name("")
                                 .permissions(0L)
-                                .groupOwner(1L)
+                                .groupOwner(GROUP_ID)
                                 .build()
                 ));
     }
@@ -54,11 +57,11 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "api_user", idToken = @WithIDToken(email = "user@mail.de"))
     void getRootDirectoryUrl() throws Exception {
-        mockMvc().perform(get("/material1/group/{groupId}/url", 1L))
+        mockMvc().perform(get("/material1/group/{groupId}/url", GROUP_ID))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.group_id").value(1L))
-                .andExpect(jsonPath("$.root_dir_id").value(2L))
-                .andExpect(jsonPath("$.root_dir_url").value("/material1/dir/2"))
+                .andExpect(jsonPath("$.group_id").value(GROUP_ID))
+                .andExpect(jsonPath("$.root_dir_id").value(DIR_ID))
+                .andExpect(jsonPath("$.root_dir_url").value("/material1/dir/" + DIR_ID))
                 .andDo(document("index/GroupController/{method-name}",
                         pathParameters(
                                 parameterWithName("groupId").description("The group id.")
@@ -74,7 +77,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void getGroupUrlForbidden() throws Exception {
         mockMvc()
-                .perform(get("/material1/group/{groupId}/url", 1L))
+                .perform(get("/material1/group/{groupId}/url", GROUP_ID))
                 .andExpect(status().isForbidden());
     }
 
@@ -84,9 +87,9 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void getRootDirectory() throws Exception {
-        mockMvc().perform(get("/material1/group/{groupId}", 1L))
+        mockMvc().perform(get("/material1/group/{groupId}", GROUP_ID))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlTemplate("/material1/dir/{dirId}", 2L))
+                .andExpect(redirectedUrlTemplate("/material1/dir/{dirId}", DIR_ID))
                 .andDo(document("index/GroupController/{method-name}",
                         pathParameters(
                                 parameterWithName("groupId").description("The group id.")
@@ -105,11 +108,11 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         fileQueryForm.setTypes(new String[] { "pdf" });
         fileQueryForm.setTags(new String[] { "awesome" });
 
-        mockMvc().perform(post("/material1/group/{groupId}/search", 1)
+        mockMvc().perform(post("/material1/group/{groupId}/search", GROUP_ID)
                 .requestAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlTemplate("/material1/dir/{dirId}/search", 2L))
+                .andExpect(redirectedUrlTemplate("/material1/dir/{dirId}/search", DIR_ID))
                 .andDo(document("index/GroupController/{method-name}",
                         pathParameters(
                                 parameterWithName("groupId").description("The group id.")
@@ -121,7 +124,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      */
     @Test
     void notSignedIn() throws Exception {
-        mockMvc().perform(get("/material1/group/1"))
+        mockMvc().perform(get("/material1/group/{groupId}", GROUP_ID))
                 .andExpect(status().is3xxRedirection());
     }
 }
