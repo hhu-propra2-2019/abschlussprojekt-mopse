@@ -14,8 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.UUID;
-
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -31,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(GroupController.class)
 public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
-    static final UUID GROUP_ID = new UUID(0, 1);
+    static final long GROUP_ID = 1L;
     static final long DIR_ID = 2L;
 
     @MockBean
@@ -61,7 +59,7 @@ public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     void getRootDirectoryUrl() throws Exception {
         mockMvc().perform(get("/material1/group/{groupId}/url", GROUP_ID))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.group_id").value(GROUP_ID.toString()))
+                .andExpect(jsonPath("$.group_id").value(GROUP_ID))
                 .andExpect(jsonPath("$.root_dir_id").value(DIR_ID))
                 .andExpect(jsonPath("$.root_dir_url").value("/material1/dir/" + DIR_ID))
                 .andDo(document("index/GroupController/{method-name}",

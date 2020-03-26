@@ -66,7 +66,7 @@ public class GroupUpdater {
         UpdatedGroupsDTO updatedGroups = gruppenfindungsService.getUpdatedGroups(latestEventId.getEventId());
 
         List<Group> updated = new ArrayList<>();
-        List<UUID> deleted = new ArrayList<>();
+        List<Long> deleted = new ArrayList<>();
 
         for (GroupDTO groupDAO : updatedGroups.getGroupDAOs()) {
             UUID groupId = groupDAO.getGroupId();
@@ -85,7 +85,8 @@ public class GroupUpdater {
                     updated.add(builder.build());
                     break;
                 case DEACTIVATED:
-                    deleted.add(groupId);
+                    // TODO: find ids to delete
+                    //deleted.add(groupId);
                     break;
                 default: // switch is exhaustive, this should never happen
                     throw new ImpossibleException("Unerwarteter Fehler - dies sollte nicht passieren");
@@ -93,8 +94,7 @@ public class GroupUpdater {
         }
 
         groupService.saveAllGroups(updated);
-        // TODO: find ids to delete
-        //groupService.deleteAllGroups(deleted);
+        groupService.deleteAllGroups(deleted);
 
         latestEventId.setEventId(updatedGroups.getEventId());
         latestEventIdService.saveLatestEventId(latestEventId);
