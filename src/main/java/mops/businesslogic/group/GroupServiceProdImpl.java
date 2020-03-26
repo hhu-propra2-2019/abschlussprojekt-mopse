@@ -47,7 +47,7 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" }) // optional
     public boolean doesGroupExist(long groupId) throws MopsException {
         log.debug("Request existence of group '{}'.", groupId);
         try {
@@ -72,6 +72,7 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" }) // iterable fluent api
     public List<Group> getAllGroups() throws MopsException {
         log.debug("Request all groups.");
         List<Group> groups = new ArrayList<>();
@@ -88,6 +89,7 @@ public class GroupServiceProdImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public List<Group> getUserGroups(Account account) throws MopsException {
         log.debug("Request all groups of user '{}'.", account.getName());
         try {

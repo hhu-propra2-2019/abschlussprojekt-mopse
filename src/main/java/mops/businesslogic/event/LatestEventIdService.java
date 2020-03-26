@@ -27,7 +27,7 @@ public class LatestEventIdService {
      * @return loaded latest event id
      * @throws MopsException on error
      */
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" }) // optional fluent api
     public LatestEventId getLatestEventId() throws MopsException {
         try {
             return latestEventIdRepository.findById(0L).orElse(LatestEventId.of());

@@ -61,6 +61,7 @@ public class GroupUpdater {
      * Scheduled function to update our database the external group event stream.
      */
     @Scheduled(fixedRate = UPDATE_RATE)
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) // optional, builder
     public void updateDatabase() throws MopsException {
         LatestEventId latestEventId = latestEventIdService.getLatestEventId();
 

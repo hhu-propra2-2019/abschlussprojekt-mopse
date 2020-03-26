@@ -107,7 +107,7 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter" }) //Streams
+    @SuppressWarnings({ "PMD.LawOfDemeter" }) //builder
     public DirectoryPermissions getDefaultPermissions(long groupId) {
         return DirectoryPermissions.builder()
                 .entry(adminRole, true, true, true)
@@ -132,6 +132,7 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Optional<Group> findGroupByGroupId(UUID groupId) throws MopsException {
         return cachedGroups.values().stream()
                 .filter(g -> g.getGroupId().equals(groupId))
