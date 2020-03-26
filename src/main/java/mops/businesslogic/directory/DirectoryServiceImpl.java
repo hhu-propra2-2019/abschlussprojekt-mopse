@@ -18,7 +18,6 @@ import mops.persistence.directory.Directory;
 import mops.persistence.directory.DirectoryBuilder;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.persistence.permission.DirectoryPermissionsBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,18 +38,18 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Represents the role of an admin.
      */
     @Value("${material1.mops.configuration.role.admin}")
-    private String adminRole = "admin";
+    private String adminRole;
     /**
      * Represents the role of a viewer.
      */
     @Value("${material1.mops.configuration.role.viewer}")
-    private String viewerRole = "viewer";
+    private String viewerRole;
     /**
      * The max amount of folders per group.
      */
     @SuppressWarnings("checkstyle:MagicNumber")
     @Value("${material1.mops.configuration.quota.max-folders-in-group}")
-    private long maxFoldersPerGroup = 200L;
+    private long maxFoldersPerGroup;
 
     /**
      * This connects to database related to directory information.
@@ -163,8 +162,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             throw new MopsException(error);
         }
 
-        Set<String> roleNames = groupService.getRoles(groupId);
-        DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
+        DirectoryPermissions rootPermissions = groupService.getDefaultPermissions();
         rootPermissions = permissionService.savePermissions(rootPermissions);
         Directory directory = Directory.builder()
                 .name("")
@@ -400,23 +398,5 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("Failed to get total directory count:", e);
             throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
         }
-    }
-
-    /**
-     * Creates the default permissions.
-     *
-     * @param roleNames all role names existing in the group
-     * @return default directory permissions
-     */
-    //TODO: this is a placeholder and can only be implemented when GruppenFindung defined their roles.
-    @SuppressWarnings({ "PMD.LawOfDemeter" }) //Streams
-    private DirectoryPermissions createDefaultPermissions(Set<String> roleNames) {
-        DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
-        builder.entry(adminRole, true, true, true);
-        roleNames
-                .stream()
-                .filter(role -> !role.equalsIgnoreCase(adminRole))
-                .forEach(role -> builder.entry(role, true, false, false));
-        return builder.build();
     }
 }

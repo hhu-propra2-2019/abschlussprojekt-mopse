@@ -22,7 +22,7 @@ CREATE TABLE directory
     id                 BIGSERIAL PRIMARY KEY,
     name               VARCHAR(255) NOT NULL,
     parent_id          BIGINT,
-    group_owner        UUID      NOT NULL,
+    group_owner        UUID         NOT NULL,
     permissions_id     BIGINT       NOT NULL,
     creation_time      TIMESTAMP    NOT NULL,
     last_modified_time TIMESTAMP    NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE "group"
 
 CREATE TABLE group_member
 (
-    group_id UUID       NOT NULL,
+    group_id UUID         NOT NULL,
     name     VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     role     VARCHAR(255) NOT NULL CHECK (role NOT LIKE ''),
     CONSTRAINT fk_member_group FOREIGN KEY (group_id) REFERENCES "group" (id),
@@ -78,3 +78,9 @@ CREATE TABLE group_member
 );
 
 CREATE INDEX i_member_group ON group_member (group_id);
+
+CREATE TABLE latest_event_id
+(
+    id       INT PRIMARY KEY DEFAULT 0,
+    event_id BIGINT NOT NULL
+);

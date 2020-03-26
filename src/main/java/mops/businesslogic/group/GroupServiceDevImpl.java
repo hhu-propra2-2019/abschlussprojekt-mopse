@@ -6,6 +6,7 @@ import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.group.Group;
 import mops.persistence.group.GroupBuilder;
+import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,13 @@ public class GroupServiceDevImpl implements GroupService {
      */
     @Value("${material1.mops.configuration.role.admin}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
-    private String adminRole = "admin";
+    private String adminRole;
     /**
      * Represents the role of a viewer.
      */
     @Value("${material1.mops.configuration.role.viewer}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
-    private String viewerRole = "viewer";
+    private String viewerRole;
 
     /**
      * Group cache.
@@ -67,11 +68,7 @@ public class GroupServiceDevImpl implements GroupService {
     @Override
     @SuppressWarnings("PMD.OnlyOneReturn")
     public Set<String> getRoles(UUID groupId) throws MopsException {
-        if (doesGroupExist(groupId)) {
-            return Set.of(adminRole, viewerRole);
-        }
-
-        return Set.of();
+        return Set.of(adminRole, viewerRole);
     }
 
     /**
@@ -109,6 +106,18 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings({ "PMD.LawOfDemeter" }) //Streams
+    public DirectoryPermissions getDefaultPermissions() {
+        return DirectoryPermissions.builder()
+                .entry(adminRole, true, true, true)
+                .entry(viewerRole, true, false, false)
+                .build();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Group getGroup(UUID groupId) throws MopsException {
         Group group = cachedGroups.get(groupId);
         if (group == null) {
@@ -116,6 +125,22 @@ public class GroupServiceDevImpl implements GroupService {
         }
 
         return group;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Group> saveAllGroups(Collection<Group> groups) throws MopsException {
+        throw new MopsException("nicht unterstützt", new UnsupportedOperationException("not supported"));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteAllGroups(Collection<UUID> groupIds) throws MopsException {
+        throw new MopsException("nicht unterstützt", new UnsupportedOperationException("nyi"));
     }
 
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn" }) // these are streams

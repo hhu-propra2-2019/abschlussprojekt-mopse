@@ -6,7 +6,6 @@ import mops.businesslogic.file.FileInfoService;
 import mops.businesslogic.file.FileServiceImpl;
 import mops.exception.MopsException;
 import org.springframework.context.annotation.Profile;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +17,6 @@ import java.util.Set;
  */
 @Profile("!test")
 @Component
-@EnableScheduling
 @Slf4j
 @AllArgsConstructor
 public class GarbageCollector {

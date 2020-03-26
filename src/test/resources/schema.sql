@@ -78,3 +78,9 @@ CREATE TABLE IF NOT EXISTS group_member
 );
 
 CREATE INDEX IF NOT EXISTS i_member_group ON group_member (group_id);
+
+CREATE TABLE latest_event_id
+(
+    id       INT PRIMARY KEY DEFAULT 0,
+    event_id BIGINT NOT NULL
+);

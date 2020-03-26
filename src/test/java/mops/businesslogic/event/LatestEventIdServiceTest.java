@@ -1,11 +1,11 @@
-package mops.businesslogic.group;
+package mops.businesslogic.event;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class GroupServiceTest {
+class LatestEventIdServiceTest {
 
-    // TODO: test if the GroupService wraps exceptions from the repository correctly
+    // TODO: test if the LatestEventIdService wraps exceptions correctly
 
 }
