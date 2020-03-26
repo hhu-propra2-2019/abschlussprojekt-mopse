@@ -10,5 +10,5 @@ Expires: 0
 X-Frame-Options: DENY
 Content-Length: 64
 
-{"group_id":1,"root_dir_url":"/material1/dir/2","root_dir_id":2}
+{"group_id":1,"root_dir_id":2,"root_dir_url":"/material1/dir/2"}
 ----

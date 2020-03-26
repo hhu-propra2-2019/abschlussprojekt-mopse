@@ -145,7 +145,7 @@ Content-Length: 10376
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/0/search"
-              method="post"><input type="hidden" name="_csrf" value="0e3b7ab7-26b8-45fc-9abf-a6a6dcd02e60"/>
+              method="post"><input type="hidden" name="_csrf" value="bc1d357e-91ec-449b-8e3d-5908f11a04f1"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">

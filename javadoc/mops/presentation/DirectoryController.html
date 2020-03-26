@@ -243,8 +243,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;byte[]&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#zipDirectory(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">zipDirectory</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
-            org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#zipDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">zipDirectory</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
             long&nbsp;dirId)</code></th>
 <td class="colLast">
 <div class="block">Download a directory as zip.</div>
@@ -346,21 +345,19 @@ public&nbsp;java.lang.String&nbsp;uploadFile&#8203;(org.springframework.web.serv
 </dl>
 </li>
 </ul>
-<a id="zipDirectory(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">
+<a id="zipDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>zipDirectory</h4>
 <pre class="methodSignature">@GetMapping("/{dirId}/zip")
-public&nbsp;org.springframework.http.ResponseEntity&lt;byte[]&gt;&nbsp;zipDirectory&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
-                                                                    org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+public&nbsp;org.springframework.http.ResponseEntity&lt;byte[]&gt;&nbsp;zipDirectory&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                                                                     @PathVariable("dirId")
                                                                     long&nbsp;dirId)</pre>
 <div class="block">Download a directory as zip.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>redirectAttributes</code> - redirect attributes</dd>
 <dd><code>token</code> - keycloak auth token</dd>
 <dd><code>dirId</code> - id of the directory</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
