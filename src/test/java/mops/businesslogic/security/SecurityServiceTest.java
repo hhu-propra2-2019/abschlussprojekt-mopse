@@ -68,7 +68,7 @@ class SecurityServiceTest {
                 .build();
         root = Directory.builder()
                 .id(ROOT_DIR_ID)
-                .name("")
+                .name("root")
                 .groupOwner(GROUP_ID)
                 .permissions(PERMISSIONS_ID)
                 .build();
