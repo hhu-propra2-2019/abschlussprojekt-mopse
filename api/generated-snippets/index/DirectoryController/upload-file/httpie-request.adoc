@@ -2,5 +2,5 @@
 ----
 $ http --form POST 'http://localhost:8080/material1/dir/1/upload' \
     'file'@'test.txt' \
-    '_csrf=1ac05929-6846-433b-a718-79cdbd23cfce'
+    '_csrf=99e704d2-ecfd-42eb-af7a-bb7ba7cd904d'
 ----
