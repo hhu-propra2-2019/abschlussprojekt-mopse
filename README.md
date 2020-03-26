@@ -69,7 +69,7 @@ ausführen. `--volumes` ist notwendig um die erstellten Docker Volumes mitzulös
 
 1. Docker starten
 1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
-1. Die Umgebungsvariablen in der Datei `prod.env`  anpassen.
+1. Die Umgebungsvariablen in der Datei `prod.env` anpassen.
 1. `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build material1_app`
 in der Konsole ausführen. Zum Beenden in der Konsole
 `docker-compose -f docker-compose.yml -f docker-compose.prod.yml down`
