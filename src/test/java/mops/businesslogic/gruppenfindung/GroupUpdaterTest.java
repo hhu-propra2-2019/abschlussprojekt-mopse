@@ -22,9 +22,6 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class GroupUpdaterTest {
-
-    // TODO: test if the DTO objects are converted to our data objects correctly (adding, deleting etc.)
-
     @Mock
     GruppenfindungsService gruppenfindungsService;
     @Mock
