@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -107,14 +108,14 @@ class GroupUpdaterTest {
         updatedGroups.setGroupDAOs(List.of(groupDTO));
 
         Group expectedGroup = Group.builder()
+                .id(33L)
                 .groupId(groupId)
                 .name(groupName)
                 .member(userName, "admin")
                 .build();
 
         given(gruppenfindungsService.getUpdatedGroups(anyLong())).willReturn(updatedGroups);
-        given(gruppenfindungsService.getMembers(groupId)).willReturn(List.of(user));
-        given(gruppenfindungsService.isUserAdminInGroup(userName, groupId)).willReturn(true);
+        given(groupService.findGroupByGroupId(groupId)).willReturn(Optional.of(expectedGroup));
 
         groupUpdater.updateDatabase();
 
