@@ -35,10 +35,12 @@ public class ZipServiceImplTest {
     FileService fileService;
 
     private ZipService zipService;
+    private Account account;
 
     @BeforeEach
     void setUp() {
-        zipService = new ZipServiceImpl();
+        zipService = new ZipServiceImpl(directoryService, fileService);
+        account = Account.of("Fridolin", "fridolin@pinguin.de", "admin");
     }
 
     @Test
@@ -46,6 +48,8 @@ public class ZipServiceImplTest {
         long dirId = 3L;
         long groupOwner = 2L;
         long permissionsId = 4L;
+        long fileId = 1L;
+
 
         Directory directory = Directory.builder()
                 .name("root")
@@ -54,6 +58,7 @@ public class ZipServiceImplTest {
                 .build();
 
         FileInfo fileInfo = FileInfo.builder()
+                .id(fileId)
                 .name("test_image")
                 .directory(dirId)
                 .type(MediaType.IMAGE_JPEG_VALUE)
@@ -69,9 +74,10 @@ public class ZipServiceImplTest {
 
         given(directoryService.getDirectory(dirId)).willReturn(directory);
         given(fileService.getFilesOfDirectory(any(Account.class), eq(dirId))).willReturn(List.of(fileInfo));
+        given(fileService.getFile(account, fileInfo.getId())).willReturn(file);
 
 
-        ZipOutputStream zipStream = zipService.zipDirectory(dirId);
+        ZipOutputStream zipStream = zipService.zipDirectory(account, dirId);
 
         assertThat(zipStream).isEqualTo(expectedZipStream);
     }
