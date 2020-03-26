@@ -98,7 +98,7 @@ public class DirectoryController {
 
         model.addAttribute("fileQueryForm", new FileQueryForm());
         model.addAttribute("account", account);
-        return "directory";
+        return "overview";
     }
 
     /**
@@ -257,6 +257,6 @@ public class DirectoryController {
         model.addAttribute("backDirId", dirId);
         // always show delete
         model.addAttribute("deletePermission", true);
-        return "directory";
+        return "overview";
     }
 }
