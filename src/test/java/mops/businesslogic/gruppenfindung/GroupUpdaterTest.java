@@ -3,7 +3,6 @@ package mops.businesslogic.gruppenfindung;
 import mops.businesslogic.event.LatestEventIdService;
 import mops.businesslogic.group.GroupService;
 import mops.exception.MopsException;
-import mops.persistence.GroupRepository;
 import mops.persistence.event.LatestEventId;
 import mops.persistence.group.Group;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,8 +30,6 @@ class GroupUpdaterTest {
     LatestEventIdService latestEventIdService;
     @Mock
     GroupService groupService;
-    @Mock
-    GroupRepository groupRepository;
 
     GroupUpdater groupUpdater;
     private LatestEventId latestEventId;
