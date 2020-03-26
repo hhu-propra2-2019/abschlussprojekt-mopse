@@ -19,6 +19,19 @@ class GroupRepositoryTest {
     GroupRepository groupRepository;
 
     @Test
+    public void saveTest() {
+        Group group = Group.builder()
+                .id(new UUID(0, 123))
+                .member("Segelzwerg", "admin")
+                .name("Root")
+                .build();
+        Group save = groupRepository.save(group);
+
+        assertThat(group).isEqualTo(save);
+
+    }
+
+    @Test
     public void findByUserTest() {
         Group group = Group.builder()
                 .id(new UUID(0, 123))
