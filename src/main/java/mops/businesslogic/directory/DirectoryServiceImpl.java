@@ -19,6 +19,7 @@ import mops.persistence.directory.DirectoryBuilder;
 import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -352,7 +353,10 @@ public class DirectoryServiceImpl implements DirectoryService {
             return directoryRepository.save(directory);
         } catch (Exception e) {
             log.error("The directory with the id '{}' could not be saved to the database:", directory, e);
-            String error = String.format("Der Ordner '%s' konnte nicht gespeichert werden.", directory);
+            String error = String.format("Der Ordner '%s' konnte nicht gespeichert werden.", directory.getName());
+            if (e.getCause() instanceof DuplicateKeyException) {
+                error = String.format("Der Ordner '{}' existiert bereits.", directory.getName());
+            }
             throw new DatabaseException(error, e);
         }
     }
