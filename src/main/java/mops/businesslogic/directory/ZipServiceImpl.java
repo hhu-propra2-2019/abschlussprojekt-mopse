@@ -50,9 +50,8 @@ public class ZipServiceImpl implements ZipService {
         }
         ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
 
-        List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
 
-        zipDirectory(account, directoryName, zipOutputStream, files);
+        zipDirectory(account, directoryName, zipOutputStream, dirId);
 
         return zipOutputStream;
     }
@@ -60,7 +59,8 @@ public class ZipServiceImpl implements ZipService {
     private void zipDirectory(Account account,
                               @NonNull String directoryName,
                               ZipOutputStream zipOutputStream,
-                              List<FileInfo> files) throws MopsException {
+                              long dirId) throws MopsException {
+
         try {
             zipOutputStream.putNextEntry(new ZipEntry(String.format("%s/", directoryName)));
         } catch (IOException e) {
@@ -68,10 +68,18 @@ public class ZipServiceImpl implements ZipService {
             throw new MopsZipsException(String.format("Der Ornder '%s' konnte nicht gezippt werden.", directoryName));
         }
 
+        List<Directory> directories = directoryService.getSubFolders(account, dirId);
+        for (Directory directory : directories) {
+            String path = String.format("%s/%s", directoryName, directory.getName());
+            zipDirectory(account, path, zipOutputStream, directory.getId());
+        }
+
+        List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+
         for (FileInfo fileInfo : files) {
             zipFile(account, zipOutputStream, fileInfo, directoryName);
-
         }
+
         try {
             zipOutputStream.closeEntry();
         } catch (IOException e) {
