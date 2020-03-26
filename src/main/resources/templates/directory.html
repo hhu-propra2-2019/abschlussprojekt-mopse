@@ -7,7 +7,7 @@
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
         <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{/style.css}">
-        <script src="script.js"></script>
+        <script language="javascript" type="text/javascript" src="../static/script.js" th:src="@{/script.js}"></script>
     </th:block>
 </head>
 <body>
@@ -95,7 +95,8 @@
     </div>
 
     <div>
-        <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir Name</a>
+        <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir
+            Name</a>
     </div>
 
     <div th:if="${adminRole}">
@@ -151,7 +152,8 @@
                 <td></td>
                 <td></td>
                 <td>
-                    <form th:if="${deletePermission}" action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}" th:method="post">
+                    <form th:if="${deletePermission}" action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}"
+                          th:method="post">
                         <input class="btn btn-danger" type="submit" name="deleteFolder" value="Ordner löschen">
                     </form>
                 </td>
@@ -163,7 +165,8 @@
                 <td th:text="${file.owner}">%Owner%</td>
                 <td th:text="${file.getSizeString()}">%Größe%</td>
                 <td>
-                    <form th:if="${deletePermission || file.owner == account.name}" action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
+                    <form th:if="${deletePermission || file.owner == account.name}" action="#"
+                          th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
                         <input class="btn btn-danger" type="submit" name="deleteFile" value="Datei löschen">
                     </form>
                 </td>
