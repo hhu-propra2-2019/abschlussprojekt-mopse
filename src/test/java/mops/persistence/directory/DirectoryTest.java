@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -20,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DataJdbcTest
 class DirectoryTest {
 
-    static final UUID GROUP_ID = new UUID(0, 1);
+    static final long GROUP_ID = 1L;
 
     @Autowired
     DirectoryRepository repo;

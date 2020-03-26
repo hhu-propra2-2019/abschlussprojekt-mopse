@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -23,7 +22,7 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 class PermissionServiceTest {
 
-    static final UUID GROUP_ID = new UUID(0, 1);
+    static final long GROUP_ID = 1L;
 
     @Mock
     DirectoryPermissionsRepository permissionsRepository;
