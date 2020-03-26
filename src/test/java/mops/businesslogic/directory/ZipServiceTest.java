@@ -55,13 +55,11 @@ class ZipServiceTest {
         long dirId = 3L;
         long fileId = 1L;
 
-
         Directory directory = Directory.builder()
                 .name("root")
                 .groupOwner(groupOwner)
                 .permissions(permissionsId)
                 .build();
-
         FileInfo fileInfo = FileInfo.builder()
                 .id(fileId)
                 .name("test_image.jpg")
@@ -70,7 +68,6 @@ class ZipServiceTest {
                 .size(192_511)
                 .owner("Fridolin")
                 .build();
-
         FileContainer file = new FileContainer(fileInfo, content);
 
         FileInputStream fileInputStream = new FileInputStream("src/test/resources/static/root.zip");
@@ -106,14 +103,12 @@ class ZipServiceTest {
                 .groupOwner(groupOwner)
                 .permissions(permissionsId)
                 .build();
-
         Directory bottom = Directory.builder()
                 .id(bottomDirId)
                 .name("bottom")
                 .permissions(permissionsId)
                 .groupOwner(groupOwner)
                 .build();
-
         FileInfo fileInfo = FileInfo.builder()
                 .id(fileId)
                 .name("test_image.jpg")
@@ -123,8 +118,6 @@ class ZipServiceTest {
                 .owner("Fridolin")
                 .build();
         FileInfo fileInfoCopy = FileInfo.builder().from(fileInfo).directory(bottomDirId).build();
-
-
         FileContainer file = new FileContainer(fileInfo, content);
 
         given(directoryService.getDirectory(deepDirId)).willReturn(deepDir);
@@ -136,10 +129,8 @@ class ZipServiceTest {
 
         given(directoryService.getSubFolders(account, deepDirId)).willReturn(List.of(bottom));
 
-
         FileInputStream fileInputStream = new FileInputStream("src/test/resources/static/deepZip.zip");
         ZipInputStream expectedInputStream = new ZipInputStream(new BufferedInputStream(fileInputStream));
-
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         zipService.zipDirectory(account, deepDirId, bos);
