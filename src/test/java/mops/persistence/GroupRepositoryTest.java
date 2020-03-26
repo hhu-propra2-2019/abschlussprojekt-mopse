@@ -23,7 +23,7 @@ class GroupRepositoryTest {
     @Test
     public void saveTest() {
         Group group = Group.builder()
-                .groupId(new UUID(0, 123))
+                .groupId(new UUID(0, 1))
                 .member("Segelzwerg", "admin")
                 .name("Root")
                 .build();
@@ -36,7 +36,7 @@ class GroupRepositoryTest {
     @Test
     public void findByUserTest() {
         Group group = Group.builder()
-                .groupId(new UUID(0, 123))
+                .groupId(new UUID(0, 12))
                 .member("Segelzwerg", "admin")
                 .name("Root")
                 .build();
