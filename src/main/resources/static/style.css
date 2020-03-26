@@ -39,4 +39,8 @@ td {
   flex: inherit;
 }
 
+.permissions-wrapper {
+  padding-top: 10px;
+}
+
 /*# sourceMappingURL=style.css.map */
