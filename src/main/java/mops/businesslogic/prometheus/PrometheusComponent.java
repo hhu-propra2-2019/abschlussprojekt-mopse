@@ -5,9 +5,9 @@ import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileInfoService;
-import mops.businesslogic.group.Group;
 import mops.businesslogic.group.GroupService;
 import mops.exception.MopsException;
+import mops.persistence.group.Group;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -48,7 +48,7 @@ public class PrometheusComponent {
     /**
      * Groups for which there were stats added already.
      */
-    private final transient Set<Group> seenGroups = new HashSet<>();
+    private final transient Set<Long> seenGroups = new HashSet<>();
 
     /**
      * Constructor.
@@ -102,8 +102,8 @@ public class PrometheusComponent {
 
     @SuppressWarnings("PMD.LawOfDemeter")
     private void addGroupGauge(Group group) {
-        if (seenGroups.add(group)) {
-            log.debug("Adding new gauges for group '{}'.", group);
+        if (seenGroups.add(group.getId())) {
+            log.debug("Adding new gauges for group '{}' (id {}).", group.getName(), group.getId());
 
             addGroupGauge("groupStorageUsage", "storage usage", group,
                     fileInfoService::getStorageUsageInGroup);
@@ -118,7 +118,7 @@ public class PrometheusComponent {
 
     @SuppressWarnings("PMD.LawOfDemeter") //This is a builder
     private void addGlobalGauge(String key, String message, GlobalStatSupplier statGetter) {
-        log.debug("Adding '" + message + "' gauge.");
+        log.debug("Adding '{}' gauge.", message);
         Gauge
                 .builder("mops.material1." + key, () -> {
                             try {
@@ -134,13 +134,14 @@ public class PrometheusComponent {
 
     @SuppressWarnings("PMD.LawOfDemeter") //This is a builder
     private void addGroupGauge(String key, String message, Group group, GroupStatSupplier statGetter) {
-        log.debug("Adding '" + message + "' gauge for group {}.", group);
+        log.debug("Adding '{}' gauge for group {} (id {}).", message, group.getName(), group.getId());
         Gauge
                 .builder("mops.material1." + key, () -> {
                     try {
                         return statGetter.getGroupStat(group.getId());
                     } catch (MopsException e) {
-                        log.error("Error while reading '{}' in group '{}' from gauge:", message, group, e);
+                        log.error("Error while reading '{}' in group '{}' (id {}) from gauge:",
+                                message, group.getName(), group.getId(), e);
                         return 0L;
                     }
                 })

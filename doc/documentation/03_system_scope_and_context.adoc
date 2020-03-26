@@ -24,15 +24,17 @@ Nutzers in einer bestimmten Gruppe._  | _Wir erhalten ein Datenobjekt (.json) zu
 include::../api/external-api.adoc[]
 
 ****
-GroupService
+GruppenfindungsService
 
 Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der GruppenFindung interagieren.
-Dazu haben wir folgende REST API Anfragen implementiert:
+Dazu haben wir folgende Anfragen an die REST-API der Gruppenfindung implementiert:
 
-. `getAllGroups`: gibt alle existierenden Gruppen zurück
-. `getAllGroupsOfUser`: gibt alle Gruppen zurück, in der ein gegebener User Mitglied ist
-. `fetchRolesInGroup`: gibt alle Rollen in einer gegebenen Gruppe zurück
-. `fetchRoleForUserInGroup`: gibt die Rolle eines bestimmten Users in einer gegebenen Gruppe zurück
+. `doesGroupExist`: fragt ab, ob eine gegebene Gruppe existiert
+. `isUserInGroup`: fragt ab, ob ein gegebener User in einer gegebenen Gruppe Mitglied ist
+. `isUserAdminInGroup`: fragt ab, ob ein gegebener User in einer gegebenen Gruppe Administrator ist
+. `returnAllGroups`: gibt alle Gruppen zurück, die seit einem bestimmten Zeitpunkt, der durch den Parameter `eventId` bestimmt wird, verändert worden sind
+. `returnUsersOfGroup`: gibt alle Mitglieder einer Gruppe zurück
+. `returnGroupsOfUsers`: gibt alle Gruppen eines Users zurück
 
 Diese verschiedenen Anfragen sind notwendig für die verschiedenen Funktionalitäten, die unsere Anwendung bereitstellt:
 

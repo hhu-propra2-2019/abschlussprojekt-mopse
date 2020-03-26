@@ -7,6 +7,7 @@ import mops.businesslogic.group.GroupService;
 import mops.businesslogic.permission.PermissionService;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
+import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import java.util.Set;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -29,9 +31,10 @@ class SecurityServiceTest {
     static final String STUDENTIN = "studentin";
     static final String ADMIN = "admin";
     static final String EDITOR = "editor";
-    static final String USER = "user";
+    static final String VIEWER = "viewer";
     static final String INTRUDER = "intruder";
-    static final long GROUP_ID = 0L;
+    static final long GROUP_ID = 1L;
+    static final UUID GROUP_UUID = new UUID(0, 1);
     static final long PERMISSIONS_ID = 0L;
     static final long ROOT_DIR_ID = 0L;
 
@@ -54,14 +57,14 @@ class SecurityServiceTest {
 
         admin = Account.of(ADMIN, ADMIN + "@hhu.de", STUDENTIN);
         editor = Account.of(EDITOR, EDITOR + "@hhu.de", STUDENTIN);
-        user = Account.of(USER, USER + "@hhu.de", STUDENTIN);
+        user = Account.of(VIEWER, VIEWER + "@hhu.de", STUDENTIN);
         intruder = Account.of(INTRUDER, INTRUDER + "@hhu.de", STUDENTIN);
 
         DirectoryPermissions permissions = DirectoryPermissions.builder()
                 .id(PERMISSIONS_ID)
                 .entry(ADMIN, true, true, true)
                 .entry(EDITOR, true, true, false)
-                .entry(USER, true, false, false)
+                .entry(VIEWER, true, false, false)
                 .build();
         root = Directory.builder()
                 .id(ROOT_DIR_ID)
@@ -72,11 +75,17 @@ class SecurityServiceTest {
 
         given(permissionService.getPermissions(root)).willReturn(permissions);
 
-        given(groupService.fetchRolesInGroup(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, USER));
-        given(groupService.fetchRoleForUserInGroup(admin, GROUP_ID)).willReturn(ADMIN);
-        given(groupService.fetchRoleForUserInGroup(editor, GROUP_ID)).willReturn(EDITOR);
-        given(groupService.fetchRoleForUserInGroup(user, GROUP_ID)).willReturn(USER);
-        given(groupService.fetchRoleForUserInGroup(intruder, GROUP_ID)).willReturn(INTRUDER);
+        Group group = Group.builder()
+                .id(GROUP_ID)
+                .groupId(GROUP_UUID)
+                .name("Test Group")
+                .member(admin.getName(), ADMIN)
+                .member(editor.getName(), EDITOR)
+                .member(user.getName(), VIEWER)
+                .build();
+
+        given(groupService.getRoles(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
+        given(groupService.getGroup(GROUP_ID)).willReturn(group);
     }
 
     @Test
@@ -117,7 +126,7 @@ class SecurityServiceTest {
 
     @Test
     void checkIfRole() {
-        assertThatCode(() -> securityService.checkIfRole(user, GROUP_ID, USER))
+        assertThatCode(() -> securityService.checkIfRole(user, GROUP_ID, VIEWER))
                 .doesNotThrowAnyException();
         assertThatThrownBy(() -> securityService.checkIfRole(user, GROUP_ID, ADMIN))
                 .isInstanceOf(WriteAccessPermissionException.class);
