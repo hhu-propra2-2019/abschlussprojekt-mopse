@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,8 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AuditingDbContext
 @DataJdbcTest
 class GroupRepositoryTest {
-
-    // TODO: implement test for "findByGroupId"
 
     @Autowired
     GroupRepository groupRepository;
@@ -93,5 +92,21 @@ class GroupRepositoryTest {
 
         assertThat(groupsOfUser1).containsExactlyInAnyOrder(group1, group2, group3);
         assertThat(groupsOfUser2).containsExactlyInAnyOrder(group1, group4);
+    }
+
+    @Test
+    public void findByGroupIdTest() {
+        UUID groupId = new UUID(0, 666);
+        Group expectedGroup = Group.builder()
+                .groupId(groupId)
+                .name("Propra2")
+                .build();
+
+        groupRepository.save(expectedGroup);
+
+        Optional<Group> optionalGroup = groupRepository.findByGroupId(groupId);
+        Group group = optionalGroup.orElseThrow();
+
+        assertThat(group).isEqualTo(expectedGroup);
     }
 }
