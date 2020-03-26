@@ -4,19 +4,21 @@ import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import org.springframework.stereotype.Service;
 
-import java.util.zip.ZipOutputStream;
+import java.io.OutputStream;
 
 /**
- * Zips a directory and all it's sub content.
+ * Zips a directory and all its sub content.
  */
 @Service
 public interface ZipService {
+
     /**
      * Zips a directory and all it's content.
      *
-     * @param account user credentials
-     * @param dirId id of the directory to be zipped
-     * @return {@link ZipOutputStream} output stream of the zipped content
+     * @param account      user credentials
+     * @param dirId        id of the directory to be zipped
+     * @param outputStream output stream to write the zipped contents to
      */
-    ZipOutputStream zipDirectory(Account account, long dirId) throws MopsException;
+    void zipDirectory(Account account, long dirId, OutputStream outputStream) throws MopsException;
+
 }

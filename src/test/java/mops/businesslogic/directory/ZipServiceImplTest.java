@@ -6,7 +6,6 @@ import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,15 +15,10 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
@@ -33,7 +27,6 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 public class ZipServiceImplTest {
 
-    private final String generatedZip = "root.zip";
     @Mock
     DirectoryService directoryService;
 
@@ -55,12 +48,6 @@ public class ZipServiceImplTest {
 
         String path = "static/root/test_image.jpg";
         content = new ClassPathResource(path);
-    }
-
-    @AfterEach
-    void tearDown() throws IOException {
-        Files.deleteIfExists(Paths.get(generatedZip));
-        Files.deleteIfExists(Paths.get("deepZip.zip"));
     }
 
     @Test
@@ -93,14 +80,14 @@ public class ZipServiceImplTest {
         given(fileService.getFilesOfDirectory(any(Account.class), eq(dirId))).willReturn(List.of(fileInfo));
         given(fileService.getFile(account, fileInfo.getId())).willReturn(file);
 
-        ZipOutputStream zipStream = zipService.zipDirectory(account, dirId);
-        zipStream.close();
-        FileInputStream reloadedStream = new FileInputStream(generatedZip);
-        ZipInputStream zipInputStream = new ZipInputStream(new BufferedInputStream(reloadedStream));
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        zipService.zipDirectory(account, dirId, bos);
 
-        ZipEntry nextEntry;
-        while ( (nextEntry = zipInputStream.getNextEntry() ) != null) {
-            assertThat(nextEntry).isEqualToComparingOnlyGivenFields(expectedInputStream.getNextEntry(), "name");
+        try (ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()))) {
+            ZipEntry nextEntry;
+            while ((nextEntry = zipInputStream.getNextEntry()) != null) {
+                assertThat(nextEntry).isEqualToComparingOnlyGivenFields(expectedInputStream.getNextEntry(), "name");
+            }
         }
     }
 
@@ -147,19 +134,18 @@ public class ZipServiceImplTest {
         given(directoryService.getSubFolders(account, deepDirId)).willReturn(List.of(bottom));
 
 
-
         FileInputStream fileInputStream = new FileInputStream("src/test/resources/static/deepZip.zip");
         ZipInputStream expectedInputStream = new ZipInputStream(new BufferedInputStream(fileInputStream));
 
 
-        ZipOutputStream zipStream = zipService.zipDirectory(account, deepDirId);
-        zipStream.close();
-        FileInputStream reloadedStream = new FileInputStream("deepZip.zip");
-        ZipInputStream zipInputStream = new ZipInputStream(new BufferedInputStream(reloadedStream));
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        zipService.zipDirectory(account, deepDirId, bos);
 
-        ZipEntry nextEntry;
-        while ( (nextEntry = zipInputStream.getNextEntry() ) != null) {
-            assertThat(nextEntry).isEqualToComparingOnlyGivenFields(expectedInputStream.getNextEntry(), "name");
+        try (ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()))) {
+            ZipEntry nextEntry;
+            while ((nextEntry = zipInputStream.getNextEntry()) != null) {
+                assertThat(nextEntry).isEqualToComparingOnlyGivenFields(expectedInputStream.getNextEntry(), "name");
+            }
         }
     }
 }
