@@ -49,7 +49,7 @@ public class ZipServiceImpl implements ZipService {
             fileOutputStream = Files.newOutputStream(path);
         } catch (IOException e) {
             log.error("Failed to create FileOutputStream for {}", directoryName);
-            throw new MopsException("Interner Fehler beim zippen.");
+            throw new MopsException("Interner Fehler beim zippen.", e);
         }
         ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
 
@@ -68,7 +68,7 @@ public class ZipServiceImpl implements ZipService {
             zipOutputStream.putNextEntry(new ZipEntry(String.format("%s/", directoryName)));
         } catch (IOException e) {
             log.error("Failed create zip entry for directory '{}", directoryName);
-            throw new MopsZipsException(String.format("Der Ornder '%s' konnte nicht gezippt werden.", directoryName));
+            throw new MopsZipsException(String.format("Der Ornder '%s' konnte nicht gezippt werden.", directoryName), e);
         }
 
         List<Directory> directories = directoryService.getSubFolders(account, dirId);
@@ -87,7 +87,7 @@ public class ZipServiceImpl implements ZipService {
             zipOutputStream.closeEntry();
         } catch (IOException e) {
             log.error("Failed to close zip entry for '{}", directoryName);
-            throw new MopsZipsException(String.format("Der zip konnte für '%s' nicht beendet werden", directoryName));
+            throw new MopsZipsException(String.format("Der zip konnte für '%s' nicht beendet werden", directoryName), e);
         }
     }
 
@@ -103,20 +103,20 @@ public class ZipServiceImpl implements ZipService {
         } catch (IOException e) {
             log.error("Failed to zip file '{}.", fileName);
             throw new MopsZipsException(String.format("Die Datei '%s' konnte nicht gezippt werden.",
-                    fileName));
+                    fileName), e);
         }
         try {
             zipOutputStream.write(fileContainer.getContent().getInputStream().readAllBytes());
         } catch (IOException e) {
             log.error("Failed to get file content from '{}'", fileName);
             String message = String.format("Von '%s' konnte der Dateiinhalt nicht gelesen werden.", fileName);
-            throw new mops.businesslogic.exception.FileNotFoundException(message);
+            throw new mops.businesslogic.exception.FileNotFoundException(message, e);
         }
         try {
             zipOutputStream.closeEntry();
         } catch (IOException e) {
             log.error("Failed to close zip entry for '{}", fileName);
-            throw new MopsZipsException(String.format("Der zip konnte für '%s' nicht beendet werden", fileName));
+            throw new MopsZipsException(String.format("Der zip konnte für '%s' nicht beendet werden", fileName), e);
         }
     }
 }
