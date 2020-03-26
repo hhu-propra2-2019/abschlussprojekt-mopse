@@ -15,9 +15,12 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 
-import java.io.FileOutputStream;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,27 +62,32 @@ public class ZipServiceImplTest {
 
         FileInfo fileInfo = FileInfo.builder()
                 .id(fileId)
-                .name("test_image")
+                .name("test_image.jpg")
                 .directory(dirId)
                 .type(MediaType.IMAGE_JPEG_VALUE)
                 .size(192_511)
                 .owner("Fridolin")
                 .build();
 
-        String path = "static/test_image.jpg";
+        String path = "static/root/test_image.jpg";
         Resource content = new ClassPathResource(path);
         FileContainer file = new FileContainer(fileInfo, content);
 
-        FileOutputStream fileOutputStream = new FileOutputStream(directory.getName());
-        ZipOutputStream expectedZipStream = new ZipOutputStream(fileOutputStream);
+        FileInputStream fileInputStream = new FileInputStream("src/test/resources/static/root.zip");
+        ZipInputStream expectedInputStream = new ZipInputStream(new BufferedInputStream(fileInputStream));
 
         given(directoryService.getDirectory(dirId)).willReturn(directory);
         given(fileService.getFilesOfDirectory(any(Account.class), eq(dirId))).willReturn(List.of(fileInfo));
         given(fileService.getFile(account, fileInfo.getId())).willReturn(file);
 
-
         ZipOutputStream zipStream = zipService.zipDirectory(account, dirId);
+        zipStream.close();
+        FileInputStream reloadedStream = new FileInputStream("root.zip");
+        ZipInputStream zipInputStream = new ZipInputStream(new BufferedInputStream(reloadedStream));
 
-        assertThat(zipStream).isEqualTo(expectedZipStream);
+        ZipEntry nextEntry;
+        while ( (nextEntry = zipInputStream.getNextEntry() ) != null) {
+            assertThat(nextEntry).isEqualToComparingOnlyGivenFields(expectedInputStream.getNextEntry(), "name");
+        }
     }
 }
