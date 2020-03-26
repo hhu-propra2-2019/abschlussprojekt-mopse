@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <div>
+    <div th:if="${directoryPath}">
         <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir
             Name</a>
     </div>
@@ -145,7 +145,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="dir : ${dirs}">
+            <tr th:if="${dirs}" th:each="dir : ${dirs}">
                 <td><a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
                 <td th:text="${#temporals.format(dir.creationTime, 'dd.MM.yyyy - HH:mm')}"></td>
                 <td>Dateiordner</td>
@@ -158,7 +158,7 @@
                     </form>
                 </td>
             </tr>
-            <tr th:each="file : ${files}">
+            <tr th:if="${files}" th:each="file : ${files}">
                 <td><a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
                 <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
                 <td th:text="${file.type}">%Typ%</td>
