@@ -60,6 +60,7 @@ public class ZipServiceImplTest {
     @AfterEach
     void tearDown() throws IOException {
         Files.deleteIfExists(Paths.get(generatedZip));
+        Files.deleteIfExists(Paths.get("deepZip.zip"));
     }
 
     @Test
