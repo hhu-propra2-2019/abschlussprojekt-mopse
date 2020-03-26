@@ -119,10 +119,18 @@
                 </thead>
                 <tbody>
                 <tr th:each="rolePermissions, itemStat : *{rolePermissions}">
+                    <div th:if="*{rolePermissions[__${itemStat.index}__].role == 'admin'} ">
                     <td><input type="text" th:field="*{rolePermissions[__${itemStat.index}__].role}" readonly/></td>
-                    <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
-                    <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
-                    <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
+                    <td><input type="checkbox" onclick="return false;" th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
+                    <td><input type="checkbox" onclick="return false;" th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
+                    <td><input type="checkbox" onclick="return false;" th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
+                    </div>
+                    <div th:if="*{rolePermissions[__${itemStat.index}__].role != 'admin'} ">
+                        <td><input type="text" th:field="*{rolePermissions[__${itemStat.index}__].role}" readonly/></td>
+                        <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
+                        <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
+                        <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
+                    </div>
                 </tr>
                 </tbody>
             </table>
