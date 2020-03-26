@@ -134,7 +134,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/0/search"
-              method="post"><input type="hidden" name="_csrf" value="bc1d357e-91ec-449b-8e3d-5908f11a04f1"/>
+              method="post"><input type="hidden" name="_csrf" value="8f79c6c8-d2fd-4f65-9c5c-332f7a61bf60"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
