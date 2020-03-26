@@ -42,7 +42,7 @@ class GroupRepositoryTest {
                 .build();
         groupRepository.save(group);
 
-        List<Group> groups = groupRepository.findByUser("Segelzwergg");
+        List<Group> groups = groupRepository.findByUser("Segelzwerg");
 
         assertThat(groups).containsExactly(group);
     }
