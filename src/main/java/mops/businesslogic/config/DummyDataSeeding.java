@@ -66,23 +66,22 @@ public class DummyDataSeeding {
             final String owner2 = "studentin1";
 
             List<Group> groups = groupService.getAllGroups();
+            Group group;
             if (groups.isEmpty()) {
-                groups = groupService.saveAllGroups(
-                        List.of(
-                                Group.builder()
-                                        .groupId(groupUuid)
-                                        .name("Einzigen #100")
-                                        .member("admin", adminRole)
-                                        .member("orga", adminRole)
-                                        .member("orga1", adminRole)
-                                        .member("studentin", viewerRole)
-                                        .member("studentin1", viewerRole)
-                                        .build()
-                        )
+                group = groupService.saveGroup(
+                        Group.builder()
+                                .groupId(groupUuid)
+                                .name("Einzigen #100")
+                                .member("admin", adminRole)
+                                .member("orga", adminRole)
+                                .member("orga1", adminRole)
+                                .member("studentin", viewerRole)
+                                .member("studentin1", viewerRole)
+                                .build()
                 );
+            } else {
+                group = groups.get(0);
             }
-
-            Group group = groups.get(0);
 
             Account admin = Account.of("orga", "orga@hhu.de", "ROLE_orga");
             groupService.getUserGroups(admin); // add the admin account to the pre-existing group

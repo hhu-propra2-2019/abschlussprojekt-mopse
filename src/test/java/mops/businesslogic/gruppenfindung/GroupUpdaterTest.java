@@ -90,7 +90,7 @@ class GroupUpdaterTest {
 
         groupUpdater.updateDatabase();
 
-        verify(groupService).saveAllGroups(List.of(expectedGroup));
+        verify(groupService).saveGroup(expectedGroup);
     }
 
     @Test
@@ -112,6 +112,6 @@ class GroupUpdaterTest {
 
         groupUpdater.updateDatabase();
 
-        verify(groupService).deleteAllGroups(List.of(expectedGroup.getId()));
+        verify(groupService).deleteGroup(expectedGroup.getId());
     }
 }

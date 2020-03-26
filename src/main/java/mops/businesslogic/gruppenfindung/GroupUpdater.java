@@ -14,8 +14,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -71,8 +69,9 @@ public class GroupUpdater {
 
         UpdatedGroupsDTO updatedGroups = gruppenfindungsService.getUpdatedGroups(latestEventId.getEventId());
 
-        List<Group> updated = new ArrayList<>();
-        List<Long> deleted = new ArrayList<>();
+        int added = 0;
+        int changed = 0;
+        int deleted = 0;
 
         for (GroupDTO groupDAO : updatedGroups.getGroupDAOs()) {
             UUID groupId = groupDAO.getGroupId();
@@ -84,7 +83,13 @@ public class GroupUpdater {
                             .groupId(groupId)
                             .name(groupDAO.getGroupName());
 
-                    optionalGroup.ifPresent(g -> builder.id(g.getId()));
+                    if (optionalGroup.isPresent()) {
+                        long id = optionalGroup.get().getId();
+                        builder.id(id);
+                        changed++;
+                    } else {
+                        added++;
+                    }
 
                     for (UserDTO userDTO : gruppenfindungsService.getMembers(groupDAO.getGroupId())) {
                         String name = userDTO.getUserName();
@@ -92,21 +97,23 @@ public class GroupUpdater {
                         String role = admin ? adminRole : viewerRole;
                         builder.member(name, role);
                     }
-                    updated.add(builder.build());
+                    groupService.saveGroup(builder.build());
                     break;
                 case DEACTIVATED:
-                    optionalGroup.ifPresent(g -> deleted.add(g.getId()));
+                    if (optionalGroup.isPresent()) {
+                        long id = optionalGroup.get().getId();
+                        groupService.deleteGroup(id);
+                        deleted++;
+                    }
                     break;
                 default: // switch is exhaustive, this should never happen
                     throw new ImpossibleException("Unerwarteter Fehler - dies sollte nicht passieren");
             }
         }
 
-        groupService.saveAllGroups(updated);
-        groupService.deleteAllGroups(deleted);
-
-        log.debug("{} groups changed.", updated.size());
-        log.debug("{} groups deleted.", deleted.size());
+        log.debug("{} groups added.", added);
+        log.debug("{} groups changed.", changed);
+        log.debug("{} groups deleted.", deleted);
         log.debug("New latest event id is '{}'.", updatedGroups.getEventId());
 
         latestEventId.setEventId(updatedGroups.getEventId());

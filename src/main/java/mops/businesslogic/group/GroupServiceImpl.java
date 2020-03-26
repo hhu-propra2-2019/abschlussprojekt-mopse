@@ -140,15 +140,13 @@ public class GroupServiceImpl implements GroupService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
-    public List<Group> saveAllGroups(Collection<Group> groups) throws MopsException {
-        List<Group> saved = new ArrayList<>();
+    public Group saveGroup(Group group) throws MopsException {
         try {
-            groupRepository.saveAll(groups).forEach(saved::add);
+            return groupRepository.save(group);
         } catch (Exception e) {
-            log.error("Failed to save {} groups:", groups.size(), e);
-            throw new DatabaseException("Die Gruppen konnte nicht gespeichert werden!", e);
+            log.error("Failed to save group '{}' with group uuid '{}':", group.getName(), group.getGroupId(), e);
+            throw new DatabaseException("Die Gruppe konnte nicht gespeichert werden!", e);
         }
-        return saved;
     }
 
     /**
@@ -156,12 +154,12 @@ public class GroupServiceImpl implements GroupService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
-    public void deleteAllGroups(Collection<Long> groupIds) throws MopsException {
+    public void deleteGroup(long groupId) throws MopsException {
         try {
-            groupIds.forEach(groupRepository::deleteById);
+            groupRepository.deleteById(groupId);
         } catch (Exception e) {
-            log.error("Failed to delete {} groups:", groupIds.size(), e);
-            throw new DatabaseException("Die Gruppen konnte nicht gelöscht werden!", e);
+            log.error("Failed to delete group with id '{}':", groupId, e);
+            throw new DatabaseException("Die Gruppe konnte nicht gelöscht werden!", e);
         }
     }
 }
