@@ -27,8 +27,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -111,12 +110,14 @@ public class ZipServiceImplTest {
         long fileId = 1L;
 
         Directory deepDir = Directory.builder()
+                .id(deepDirId)
                 .name("deepZip")
                 .groupOwner(groupOwner)
                 .permissions(permissionsId)
                 .build();
 
         Directory bottom = Directory.builder()
+                .id(bottomDirId)
                 .name("bottom")
                 .permissions(permissionsId)
                 .groupOwner(groupOwner)
@@ -130,16 +131,19 @@ public class ZipServiceImplTest {
                 .size(192_511)
                 .owner("Fridolin")
                 .build();
+        FileInfo fileInfoCopy = FileInfo.builder().from(fileInfo).directory(bottomDirId).build();
+
 
         FileContainer file = new FileContainer(fileInfo, content);
 
         given(directoryService.getDirectory(deepDirId)).willReturn(deepDir);
+
         given(fileService.getFilesOfDirectory(account, deepDirId)).willReturn(List.of(fileInfo));
-        given(directoryService.getDirectory(bottomDirId)).willReturn(bottom);
-        FileInfo fileInfoCopy = FileInfo.builder().from(fileInfo).directory(bottomDirId).build();
-        given(fileService.getFilesOfDirectory(account, deepDirId)).willReturn(List.of(fileInfoCopy));
-        given(fileService.getFile(account, fileInfo.getId())).willReturn(file);
-        given(fileService.getFile(account, fileInfoCopy.getId())).willReturn(file);
+        given(fileService.getFilesOfDirectory(account, bottomDirId)).willReturn(List.of(fileInfoCopy));
+
+        given(fileService.getFile(eq(account), anyLong())).willReturn(file);
+
+        given(directoryService.getSubFolders(account, deepDirId)).willReturn(List.of(bottom));
 
 
 
