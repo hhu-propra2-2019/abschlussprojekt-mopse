@@ -69,7 +69,7 @@ CREATE TABLE group_table
     last_modified_time TIMESTAMP    NOT NULL
 );
 
-CREATE INDEX i_group_id ON group_table (group_id);
+CREATE INDEX i_group_group_id ON group_table (group_id);
 
 CREATE TABLE group_member
 (
