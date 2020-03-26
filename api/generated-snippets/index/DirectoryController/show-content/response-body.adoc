@@ -122,7 +122,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="0/search"
-              method="post"><input type="hidden" name="_csrf" value="e1cce906-27cf-4e14-98e2-22b4a4eed215"/>
+              method="post"><input type="hidden" name="_csrf" value="333d98e1-652d-426e-8fe9-550c858f5928"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -187,7 +187,7 @@
                     <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
                 </form>
             </div>
-        </div> 
+        </div>
 
         <!-- Path to the current folder -->
         <div class="form-control">
@@ -217,7 +217,7 @@
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="0/create" method="post"><input type="hidden" name="_csrf" value="e1cce906-27cf-4e14-98e2-22b4a4eed215"/>
+        <form class="input-group" action="0/create" method="post"><input type="hidden" name="_csrf" value="333d98e1-652d-426e-8fe9-550c858f5928"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -226,7 +226,7 @@
 
         <!-- Form to upload a new file to the folder -->
         <form class="input-group" action="0/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="e1cce906-27cf-4e14-98e2-22b4a4eed215"/>
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="333d98e1-652d-426e-8fe9-550c858f5928"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">

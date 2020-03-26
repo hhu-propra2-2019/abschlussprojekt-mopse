@@ -1,5 +1,5 @@
 [source,bash]
 ----
-$ curl 'http://localhost:8080/material1/file/1/download?_csrf=09b6e466-8fc7-4a89-b0de-02abf4221884' -i -X GET \
+$ curl 'http://localhost:8080/material1/file/1/download?_csrf=22eccc0b-bcdb-4c8c-a6a4-ad7be4970eed' -i -X GET \
     -H 'Content-Type: */*'
 ----
