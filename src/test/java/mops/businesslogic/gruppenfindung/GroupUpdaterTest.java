@@ -34,12 +34,30 @@ class GroupUpdaterTest {
 
     GroupUpdater groupUpdater;
     private LatestEventId latestEventId;
+    private UUID groupId;
+    private String groupName;
+    private String userName;
+    private UpdatedGroupsDTO updatedGroups;
+    private UserDTO user;
+    private GroupDTO groupDTO;
 
     @BeforeEach
     void setup() throws MopsException {
         groupUpdater = new GroupUpdater(gruppenfindungsService, latestEventIdService, groupService);
         latestEventId = LatestEventId.of();
         given(latestEventIdService.getLatestEventId()).willReturn(latestEventId);
+
+        groupId = new UUID(0, 7);
+        groupName = "test";
+        userName = "Thabb";
+
+        updatedGroups = new UpdatedGroupsDTO();
+        user = new UserDTO();
+        user.setUsername(userName);
+
+        groupDTO = new GroupDTO();
+        groupDTO.setGroupId(groupId);
+        groupDTO.setGroupName(groupName);
     }
 
     @Test
@@ -56,19 +74,7 @@ class GroupUpdaterTest {
 
     @Test
     public void addingGroupTest() throws MopsException {
-        UUID groupId = new UUID(0, 6);
-        String groupName = "test";
-        String userName = "Thabb";
-
-        UpdatedGroupsDTO updatedGroups = new UpdatedGroupsDTO();
         updatedGroups.setEventId(21L);
-
-        UserDTO user = new UserDTO();
-        user.setUsername(userName);
-
-        GroupDTO groupDTO = new GroupDTO();
-        groupDTO.setGroupId(groupId);
-        groupDTO.setGroupName(groupName);
         groupDTO.setStatus(StatusDTO.ACTIVE);
 
         updatedGroups.setGroupDAOs(List.of(groupDTO));
@@ -90,19 +96,7 @@ class GroupUpdaterTest {
 
     @Test
     public void deleteGroupTest() throws MopsException {
-        UUID groupId = new UUID(0, 7);
-        String groupName = "test";
-        String userName = "Thabb";
-
-        UpdatedGroupsDTO updatedGroups = new UpdatedGroupsDTO();
         updatedGroups.setEventId(22L);
-
-        UserDTO user = new UserDTO();
-        user.setUsername(userName);
-
-        GroupDTO groupDTO = new GroupDTO();
-        groupDTO.setGroupId(groupId);
-        groupDTO.setGroupName(groupName);
         groupDTO.setStatus(StatusDTO.DEACTIVATED);
 
         updatedGroups.setGroupDAOs(List.of(groupDTO));
