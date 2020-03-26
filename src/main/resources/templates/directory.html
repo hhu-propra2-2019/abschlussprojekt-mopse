@@ -6,65 +6,8 @@
     <title>Ordner</title>
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <script>
-            namesCounter = 1;
-            ownersCounter = 1;
-            typesCounter = 1;
-            tagsCounter = 1;
-
-            function addNewInputLine(type, placeholder) {
-                const counter = window[type + "Counter"];
-
-                const parent = document.getElementById(type);
-                const div1 = document.createElement("div");
-                const div2 = document.createElement("div");
-                const div3 = document.createElement("div");
-                const text = document.createElement("input");
-                const button = document.createElement("input");
-
-                text.type = "text";
-                text.name = type + "[" + counter + "]";
-                text.placeholder = placeholder;
-                text.setAttribute("th:field", type + "[" + counter + "]");
-                text.required = true;
-                button.type = "button";
-                button.value = "+";
-                button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', '" + placeholder + "');");
-                div1.id = text.name;
-
-                div2.appendChild(text);
-                div3.appendChild(button);
-                div1.appendChild(div2);
-                div1.appendChild(div3);
-                parent.appendChild(div1);
-
-                window[type + "Counter"]++;
-
-                const delButtonName = type + "[" + counter + "]";
-                const delButtonID = type + "Delete";
-                document.getElementById(delButtonID)
-                    .setAttribute("onclick", "javascript: deleteLastInputLine('" + delButtonName + "')");
-            }
-
-            function deleteLastInputLine(del) {
-                const idLength = del.length;
-                const substring = del.substring(0, idLength - 3);
-
-                const counter = del.substring(idLength - 2, idLength - 1);
-                if (counter > 0) {
-                    // delete element
-                    const child = document.getElementById(del);
-                    child.parentNode.removeChild(child);
-
-                    // update deleteButton
-                    window[substring + "Counter"]--;
-                    const newOnclick = substring + "[" + (window[substring + "Counter"] - 1) + "]";
-                    const delButtonID = substring + "Delete";
-                    document.getElementById(delButtonID)
-                        .setAttribute("onclick", "javascript: deleteLastInputLine('" + newOnclick + "')");
-                }
-            }
-        </script>
+        <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{/style.css}">
+        <script language="javascript" type="text/javascript" src="../static/script.js" th:src="@{/script.js}"></script>
     </th:block>
 </head>
 <body>
@@ -74,15 +17,88 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
-    <div th:if="${directory.getParentId()} != null">
-        <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
-            <input type="submit" value="Ebene hoch">
+    <!-- Form to search for a file in the folder and all subfolders by 4 different parameters -->
+    <div class="material1-search-wrapper">
+        <input class="material1-show-search-button btn btn-primary" id="show-search-button" type="button"
+               value="Suche öffnen"
+               onclick="showSearchForm()">
+        <form class="material1-search-form" id="material1-search-form" action="#"
+              th:action="@{{dirId}/search(dirId = ${directory.getId()})}" th:method="post"
+              th:object="${fileQueryForm}">
+            <div class="material1-search-form-column" id="names">
+                <div class="material1-search-form-field input-group" id="names[0]">
+                    <input class="form-control" type="text" name="names[0]" placeholder="Dateiname"
+                           th:field="*{names[0]}">
+                    <div class="input-group-append">
+                        <input class="btn btn-outline-warning" type="button" value="+"
+                               onclick="addNewInputLine('names', 'Dateiname')">
+                    </div>
+                </div>
+            </div>
+            <div class="material1-search-form-column">
+                <input class="btn btn-warning" type="button" value="-" id="namesDelete"
+                       onclick="deleteLastInputLine('names[0]')">
+            </div>
+            <div class="material1-search-form-column" id="owners">
+                <div class="material1-search-form-field input-group" id="owners[0]">
+                    <input class="form-control" type="text" name="owners[0]" placeholder="Besitzer"
+                           th:field="*{owners[0]}">
+                    <div class="input-group-append"><input class="btn btn-outline-warning" type="button" value="+"
+                                                           onclick="addNewInputLine('owners', 'Besitzer')"></div>
+                </div>
+            </div>
+            <div class="material1-search-form-column">
+                <input class="btn btn-warning" type="button" value="-" id="ownersDelete"
+                       onclick="deleteLastInputLine('owners[0]')">
+            </div>
+            <div class="material1-search-form-column" id="types">
+                <div class="material1-search-form-field input-group" id="types[0]">
+                    <input class="form-control" type="text" name="types[0]" placeholder="Dateityp"
+                           th:field="*{types[0]}">
+                    <div class="input-group-append"><input class="btn btn-outline-warning" type="button" value="+"
+                                                           onclick="addNewInputLine('types', 'Dateityp')"></div>
+                </div>
+            </div>
+            <div class="material1-search-form-column">
+                <input class="btn btn-warning" type="button" value="-" id="typesDelete"
+                       onclick="deleteLastInputLine('types[0]')">
+            </div>
+            <div class="material1-search-form-column" id="tags">
+                <div class="material1-search-form-field input-group" id="tags[0]">
+                    <input class="form-control" type="text" name="tags[0]" placeholder="Tags"
+                           th:field="*{tags[0]}">
+                    <div class="input-group-append"><input class="btn btn-outline-warning" type="button" value="+"
+                                                           onclick="addNewInputLine('tags', 'Tags')"></div>
+                </div>
+            </div>
+            <div class="material1-search-form-column">
+                <input class="btn btn-warning" type="button" value="-" id="tagsDelete"
+                       onclick="deleteLastInputLine('tags[0]')">
+            </div>
+            <div class="material1-search-form-column">
+                <div><input class="btn btn-outline-primary" type="submit" name="searchFile" value="Datei suchen"></div>
+            </div>
+            <div class="material1-search-form-column">
+                <div><input class="btn btn-primary" type="button" name="closeSearchForm" value="Suche schließen"
+                            onclick="hideSearchForm()"></div>
+            </div>
         </form>
     </div>
-    <br>
-    <div>
-        <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir Name</a>
+
+    <!-- Button to the directory above -->
+    <div th:if="${directory.getParentId()} != null">
+        <div class="button-above-wrapper">
+            <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
+                <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
+            </form>
+        </div>
     </div>
+
+    <div>
+        <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir
+            Name</a>
+    </div>
+
     <div th:if="${adminRole}">
         <form action="#" th:action="@{{dirId}/edit(dirId = ${directory.id})}" th:method="post"
               th:object="${editDirectoryForm}">
@@ -113,89 +129,72 @@
             <input class="btn btn-primary" type="submit" value="Speichern">
         </form>
     </div>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Erstelldatum</th>
-            <th>Typ</th>
-            <th>Besitzer</th>
-            <th>Größe</th>
-            <th></th>
-        </tr>
-        <tr th:each="dir : ${dirs}">
-            <td><a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
-            <td th:text="${#temporals.format(dir.creationTime, 'dd.MM.yyyy - HH:mm')}"></td>
-            <td>Dateiordner</td>
-            <td></td>
-            <td></td>
-            <td>
-                <form th:if="${deletePermission}" action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}"
-                      th:method="post">
-                    <input type="submit" name="deleteFolder" value="Ordner löschen">
-                </form>
-            </td>
-        </tr>
-        <tr th:each="file : ${files}">
-            <td><a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
-            <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
-            <td th:text="${file.type}">%Typ%</td>
-            <td th:text="${file.owner}">%Owner%</td>
-            <td th:text="${file.getSizeString()}">%Größe%</td>
-            <td>
-                <form th:if="${deletePermission || file.owner == account.name}" action="#"
-                      th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
-                    <input type="submit" name="deleteFile" value="Datei löschen">
-                </form>
-            </td>
-        </tr>
-    </table>
-    <div th:if="${writePermission}">
-        <form action="#" th:action="@{{dirId}/create(dirId = ${directory.id})}" th:method="post">
-            <input type="text" name="folderName" required>
-            <input type="submit" name="newFolder" value="Neuer Ordner">
-        </form>
 
-        <form action="#" th:action="@{{dirId}/upload(dirId = ${directory.id})}" th:method="post"
-              enctype="multipart/form-data">
-            <input type="file" name="file" required>
-            <input type="submit" name="uploadFile" value="Datei Hochladen">
-        </form>
+
+    <!-- Main Table to show the Folder Content -->
+    <div class="table-responsive">
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Erstelldatum</th>
+                <th scope="col">Typ</th>
+                <th scope="col">Besitzer</th>
+                <th scope="col">Größe</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dir : ${dirs}">
+                <td><a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
+                <td th:text="${#temporals.format(dir.creationTime, 'dd.MM.yyyy - HH:mm')}"></td>
+                <td>Dateiordner</td>
+                <td></td>
+                <td></td>
+                <td>
+                    <form th:if="${deletePermission}" action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}"
+                          th:method="post">
+                        <input class="btn btn-danger" type="submit" name="deleteFolder" value="Ordner löschen">
+                    </form>
+                </td>
+            </tr>
+            <tr th:each="file : ${files}">
+                <td><a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
+                <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
+                <td th:text="${file.type}">%Typ%</td>
+                <td th:text="${file.owner}">%Owner%</td>
+                <td th:text="${file.getSizeString()}">%Größe%</td>
+                <td>
+                    <form th:if="${deletePermission || file.owner == account.name}" action="#"
+                          th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
+                        <input class="btn btn-danger" type="submit" name="deleteFile" value="Datei löschen">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
-    <form action="#" th:action="@{{dirId}/search(dirId = ${directory.id})}" th:method="post"
-          th:object="${fileQueryForm}">
-        <div id="names">
-            <div id="names[0]">
-                <div><input type="text" name="names[0]" placeholder="Dateiname" th:field="*{names[0]}"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('names', 'Dateiname')"></div>
+    <div th:if="${writePermission}" class="material1-create-forms">
+        <!-- Form to create a new subfolder -->
+        <form class="input-group" action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}"
+              th:method="post">
+            <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
+            <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
             </div>
-        </div>
-        <div><input type="button" value="-" id="namesDelete" onclick="deleteLastInputLine('names[0]')"></div>
-        <div id="owners">
-            <div id="owners[0]">
-                <div><input type="text" name="owners[0]" placeholder="Besitzer" th:field="*{owners[0]}"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('owners', 'Besitzer')"></div>
+        </form>
+
+        <!-- Form to upload a new file to the folder -->
+        <form class="input-group" action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}"
+              th:method="post"
+              enctype="multipart/form-data">
+            <input class="form-control" type="file" name="file" id="file-input-form" required>
+            <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">
             </div>
-        </div>
-        <div><input type="button" value="-" id="ownersDelete" onclick="deleteLastInputLine('owners[0]')"></div>
-        <div id="types">
-            <div id="types[0]">
-                <div><input type="text" name="types[0]" placeholder="Dateityp" th:field="*{types[0]}"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('types', 'Dateityp')"></div>
-            </div>
-        </div>
-        <div><input type="button" value="-" id="typesDelete" onclick="deleteLastInputLine('types[0]')"></div>
-        <div id="tags">
-            <div id="tags[0]">
-                <div><input type="text" name="tags[0]" placeholder="Tags" th:field="*{tags[0]}"></div>
-                <div><input type="button" value="+" onclick="addNewInputLine('tags', 'Tags')"></div>
-            </div>
-        </div>
-        <div><input type="button" value="-" id="tagsDelete" onclick="deleteLastInputLine('tags[0]')"></div>
-        <div>
-            <div><input type="submit" name="searchFile" value="Datei suchen"></div>
-        </div>
-    </form>
+        </form>
+    </div>
 </main>
 </body>
 </html>
