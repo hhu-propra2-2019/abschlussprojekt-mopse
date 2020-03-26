@@ -345,13 +345,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Delete file from database by id.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryService.html#deleteFolder(mops.businesslogic.security.Account,long)">deleteFolder(Account, long)</a></span> - Method in interface mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DeleteService.html#deleteFolder(mops.businesslogic.security.Account,long)">deleteFolder(Account, long)</a></span> - Method in interface mops.businesslogic.directory.<a href="mops/businesslogic/directory/DeleteService.html" title="interface in mops.businesslogic.directory">DeleteService</a></dt>
 <dd>
-<div class="block">Deletes a folder.</div>
+<div class="block">Deletes folder recursively.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryServiceImpl.html#deleteFolder(mops.businesslogic.security.Account,long)">deleteFolder(Account, long)</a></span> - Method in class mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryServiceImpl.html" title="class in mops.businesslogic.directory">DirectoryServiceImpl</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DeleteServiceImpl.html#deleteFolder(mops.businesslogic.security.Account,long)">deleteFolder(Account, long)</a></span> - Method in class mops.businesslogic.directory.<a href="mops/businesslogic/directory/DeleteServiceImpl.html" title="class in mops.businesslogic.directory">DeleteServiceImpl</a></dt>
 <dd>
-<div class="block">Deletes a folder.</div>
+<div class="block">Deletes folder recursively.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#deleteFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">deleteFolder(RedirectAttributes, KeycloakAuthenticationToken, long)</a></span> - Method in class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>
@@ -373,6 +373,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Deletes the permissions of a directory.</div>
 </dd>
+<dt><a href="mops/businesslogic/directory/DeleteService.html" title="interface in mops.businesslogic.directory"><span class="typeNameLink">DeleteService</span></a> - Interface in <a href="mops/businesslogic/directory/package-summary.html">mops.businesslogic.directory</a></dt>
+<dd>
+<div class="block">Handles directory and file deletion.</div>
+</dd>
+<dt><a href="mops/businesslogic/directory/DeleteServiceImpl.html" title="class in mops.businesslogic.directory"><span class="typeNameLink">DeleteServiceImpl</span></a> - Class in <a href="mops/businesslogic/directory/package-summary.html">mops.businesslogic.directory</a></dt>
+<dd>
+<div class="block">Handles directory and file deletion.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DeleteServiceImpl.html#%3Cinit%3E(mops.businesslogic.file.FileService,mops.businesslogic.file.FileInfoService,mops.businesslogic.directory.DirectoryService,mops.businesslogic.permission.PermissionService,mops.businesslogic.security.SecurityService)">DeleteServiceImpl(FileService, FileInfoService, DirectoryService, PermissionService, SecurityService)</a></span> - Constructor for class mops.businesslogic.directory.<a href="mops/businesslogic/directory/DeleteServiceImpl.html" title="class in mops.businesslogic.directory">DeleteServiceImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfoBuilder.html#directory(long)">directory(long)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></dt>
 <dd>
 <div class="block">Set directory.</div>
@@ -393,7 +403,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Controller Class for all requests on 'material1/dir'.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService,mops.businesslogic.directory.ZipService)">DirectoryController(DirectoryService, FileService, SecurityService, PermissionService, ZipService)</a></span> - Constructor for class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService,mops.businesslogic.directory.DeleteService,mops.businesslogic.directory.ZipService)">DirectoryController(DirectoryService, FileService, SecurityService, PermissionService, DeleteService, ZipService)</a></span> - Constructor for class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission"><span class="typeNameLink">DirectoryPermissions</span></a> - Class in <a href="mops/persistence/permission/package-summary.html">mops.persistence.permission</a></dt>
 <dd>
