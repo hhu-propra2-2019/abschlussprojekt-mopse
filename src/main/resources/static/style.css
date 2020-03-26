@@ -18,19 +18,16 @@
   padding-bottom: 5px;
 }
 
-.path-wrapper {
+.material1-path-wrapper {
   display: flex;
   padding-bottom: 10px;
 }
-.path-wrapper .button-above-wrapper {
+.material1-path-wrapper .material1-button-above-wrapper {
   padding-right: 10px;
-}
-.path-wrapper .form-control {
-  width: auto;
-}
-
-.button-above-wrapper {
   padding-bottom: 10px;
+}
+.material1-path-wrapper .form-control {
+  width: auto;
 }
 
 td {
@@ -51,8 +48,17 @@ td {
   flex: inherit;
 }
 
-.permissions-wrapper {
-  padding-top: 10px;
+.material1-permissions-wrapper {
+  padding-top: 50px;
+}
+.material1-permissions-wrapper .material1-show-permissions {
+  display: block;
+}
+.material1-permissions-wrapper .material1-hide-permissions {
+  display: none;
+}
+.material1-permissions-wrapper .material1-hide-permissions input {
+  margin-bottom: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

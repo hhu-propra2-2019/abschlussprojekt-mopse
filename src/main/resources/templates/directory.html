@@ -85,10 +85,10 @@
         </form>
     </div>
 
-    <div class="path-wrapper">
+    <div class="material1-path-wrapper">
         <!-- Button to the directory above -->
         <div th:if="${directory.getParentId()} != null">
-            <div class="button-above-wrapper">
+            <div class="material1-button-above-wrapper">
                 <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
                     <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
                 </form>
@@ -168,9 +168,14 @@
     </div>
 
     <!-- Change Permissions -->
-    <div class="permissions-wrapper" th:if="${adminRole}">
-        <form action="#" th:action="@{{dirId}/edit(dirId = ${directory.id})}" th:method="post"
+    <div class="material1-permissions-wrapper" th:if="${adminRole}">
+        <input class="material1-show-permissions btn btn-primary" type="button" id="show-permissions"
+               value="Rechte bearbeiten" onclick="showPermissionChange()">
+
+        <form class="material1-hide-permissions" action="#" id="hide-permissions"
+              th:action="@{{dirId}/edit(dirId = ${directory.id})}" th:method="post"
               th:object="${editDirectoryForm}">
+            <input class="btn btn-primary" type="button" value="Verbergen" onclick="hidePermissionChange()">
             <fieldset th:if="${directory.parentId} != null">
                 <label>
                     <span>Ordnername:</span>
