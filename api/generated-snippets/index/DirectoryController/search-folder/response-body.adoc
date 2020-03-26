@@ -121,8 +121,8 @@
         <input class="material1-show-search-button btn btn-primary" id="show-search-button" type="button"
                value="Suche öffnen"
                onclick="showSearchForm()">
-        <form class="material1-search-form" id="material1-search-form" action="0/search"
-              method="post"><input type="hidden" name="_csrf" value="0cc48235-7b15-4b56-9850-9637ccefe11e"/>
+        <form class="material1-search-form" id="material1-search-form" action="/material1/dir/0/search"
+              method="post"><input type="hidden" name="_csrf" value="6bd3d81b-928d-4f98-a76c-8f7d5cb1e94c"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -183,7 +183,7 @@
         <!-- Button to the directory above -->
         <div>
             <div class="material1-button-above-wrapper">
-                <form action="0" method="get">
+                <form action="/material1/dir/0" method="get">
                     <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
                 </form>
             </div>

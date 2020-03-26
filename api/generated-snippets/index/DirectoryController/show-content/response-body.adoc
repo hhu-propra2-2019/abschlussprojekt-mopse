@@ -121,8 +121,8 @@
         <input class="material1-show-search-button btn btn-primary" id="show-search-button" type="button"
                value="Suche öffnen"
                onclick="showSearchForm()">
-        <form class="material1-search-form" id="material1-search-form" action="0/search"
-              method="post"><input type="hidden" name="_csrf" value="333d98e1-652d-426e-8fe9-550c858f5928"/>
+        <form class="material1-search-form" id="material1-search-form" action="/material1/dir/0/search"
+              method="post"><input type="hidden" name="_csrf" value="11a29909-fdcc-46d4-8813-e6aebbb3fca0"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -183,7 +183,7 @@
         <!-- Button to the directory above -->
         <div>
             <div class="material1-button-above-wrapper">
-                <form action="0" method="get">
+                <form action="/material1/dir/0" method="get">
                     <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
                 </form>
             </div>
@@ -217,7 +217,7 @@
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="0/create" method="post"><input type="hidden" name="_csrf" value="333d98e1-652d-426e-8fe9-550c858f5928"/>
+        <form class="input-group" action="/material1/dir/0/create" method="post"><input type="hidden" name="_csrf" value="11a29909-fdcc-46d4-8813-e6aebbb3fca0"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -225,8 +225,8 @@
         </form>
 
         <!-- Form to upload a new file to the folder -->
-        <form class="input-group" action="0/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="333d98e1-652d-426e-8fe9-550c858f5928"/>
+        <form class="input-group" action="/material1/dir/0/upload" method="post"
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="11a29909-fdcc-46d4-8813-e6aebbb3fca0"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">
