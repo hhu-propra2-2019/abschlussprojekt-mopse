@@ -2,12 +2,14 @@ package mops.businesslogic.directory;
 
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
+import org.springframework.stereotype.Service;
 
 import java.util.zip.ZipOutputStream;
 
 /**
  * Zips a directory and all it's sub content.
  */
+@Service
 public interface ZipService {
     /**
      * Zips a directory and all it's content.
