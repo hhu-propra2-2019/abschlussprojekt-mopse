@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,7 +31,7 @@ class GroupUpdaterTest {
     GroupUpdater groupUpdater;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         groupUpdater = new GroupUpdater(gruppenfindungsService, latestEventIdService, groupService);
     }
 
@@ -43,7 +43,7 @@ class GroupUpdaterTest {
         UpdatedGroupsDTO updatedGroups = new UpdatedGroupsDTO();
         updatedGroups.setEventId(20L);
         updatedGroups.setGroupDAOs(List.of());
-        given(gruppenfindungsService.getUpdatedGroups(any())).willReturn(updatedGroups);
+        given(gruppenfindungsService.getUpdatedGroups(anyLong())).willReturn(updatedGroups);
 
         groupUpdater.updateDatabase();
 
