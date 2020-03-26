@@ -15,6 +15,7 @@
 }
 .material1-search-wrapper .material1-search-form .material1-search-form-column .material1-search-form-field {
   display: flex;
+  padding-bottom: 5px;
 }
 
 .path-wrapper {

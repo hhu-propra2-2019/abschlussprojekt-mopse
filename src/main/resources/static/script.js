@@ -8,7 +8,6 @@ function addNewInputLine(type, placeholder) {
 
     const parent = document.getElementById(type);
     const field = document.createElement("div");
-    const textContainer = document.createElement("div");
     const buttonContainer = document.createElement("div");
     const text = document.createElement("input");
     const button = document.createElement("input");
@@ -18,15 +17,17 @@ function addNewInputLine(type, placeholder) {
     text.placeholder = placeholder;
     text.setAttribute("th:field", type + "[" + counter + "]");
     text.required = true;
+    text.setAttribute("class", "form-control");
     button.type = "button";
     button.value = "+";
+    button.setAttribute("class", "btn btn-outline-warning");
     button.setAttribute("onClick", "javascript: addNewInputLine('" + type + "', '" + placeholder + "');");
     field.id = text.name;
-    field.setAttribute("class", "material1-search-form-field");
+    field.setAttribute("class", "material1-search-form-field input-group");
+    buttonContainer.setAttribute("class", "input-group-append");
 
-    textContainer.appendChild(text);
     buttonContainer.appendChild(button);
-    field.appendChild(textContainer);
+    field.appendChild(text);
     field.appendChild(buttonContainer);
     parent.appendChild(field);
 
