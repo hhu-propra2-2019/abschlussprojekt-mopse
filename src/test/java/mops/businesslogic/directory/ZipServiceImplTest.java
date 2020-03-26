@@ -34,6 +34,7 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 public class ZipServiceImplTest {
 
+    private final String generatedZip = "root.zip";
     @Mock
     DirectoryService directoryService;
 
@@ -42,23 +43,29 @@ public class ZipServiceImplTest {
 
     private ZipService zipService;
     private Account account;
+    private long groupOwner;
+    private long permissionsId;
+    private Resource content;
 
     @BeforeEach
     void setUp() {
         zipService = new ZipServiceImpl(directoryService, fileService);
         account = Account.of("Fridolin", "fridolin@pinguin.de", "admin");
+        groupOwner = 2L;
+        permissionsId = 4L;
+
+        String path = "static/root/test_image.jpg";
+        content = new ClassPathResource(path);
     }
 
     @AfterEach
     void tearDown() throws IOException {
-        Files.deleteIfExists(Paths.get("root.zip"));
+        Files.deleteIfExists(Paths.get(generatedZip));
     }
 
     @Test
     public void zipDirectoryWithOneFileTest() throws MopsException, IOException {
         long dirId = 3L;
-        long groupOwner = 2L;
-        long permissionsId = 4L;
         long fileId = 1L;
 
 
@@ -77,8 +84,6 @@ public class ZipServiceImplTest {
                 .owner("Fridolin")
                 .build();
 
-        String path = "static/root/test_image.jpg";
-        Resource content = new ClassPathResource(path);
         FileContainer file = new FileContainer(fileInfo, content);
 
         FileInputStream fileInputStream = new FileInputStream("src/test/resources/static/root.zip");
@@ -90,7 +95,61 @@ public class ZipServiceImplTest {
 
         ZipOutputStream zipStream = zipService.zipDirectory(account, dirId);
         zipStream.close();
-        FileInputStream reloadedStream = new FileInputStream("root.zip");
+        FileInputStream reloadedStream = new FileInputStream(generatedZip);
+        ZipInputStream zipInputStream = new ZipInputStream(new BufferedInputStream(reloadedStream));
+
+        ZipEntry nextEntry;
+        while ( (nextEntry = zipInputStream.getNextEntry() ) != null) {
+            assertThat(nextEntry).isEqualToComparingOnlyGivenFields(expectedInputStream.getNextEntry(), "name");
+        }
+    }
+
+    @Test
+    public void zipDirectoryWithNestedDirectoriesTest() throws IOException, MopsException {
+        long deepDirId = 69L;
+        long bottomDirId = 42L;
+        long fileId = 1L;
+
+        Directory deepDir = Directory.builder()
+                .name("deepZip")
+                .groupOwner(groupOwner)
+                .permissions(permissionsId)
+                .build();
+
+        Directory bottom = Directory.builder()
+                .name("bottom")
+                .permissions(permissionsId)
+                .groupOwner(groupOwner)
+                .build();
+
+        FileInfo fileInfo = FileInfo.builder()
+                .id(fileId)
+                .name("test_image.jpg")
+                .directory(deepDirId)
+                .type(MediaType.IMAGE_JPEG_VALUE)
+                .size(192_511)
+                .owner("Fridolin")
+                .build();
+
+        FileContainer file = new FileContainer(fileInfo, content);
+
+        given(directoryService.getDirectory(deepDirId)).willReturn(deepDir);
+        given(fileService.getFilesOfDirectory(account, deepDirId)).willReturn(List.of(fileInfo));
+        given(directoryService.getDirectory(bottomDirId)).willReturn(bottom);
+        FileInfo fileInfoCopy = FileInfo.builder().from(fileInfo).directory(bottomDirId).build();
+        given(fileService.getFilesOfDirectory(account, deepDirId)).willReturn(List.of(fileInfoCopy));
+        given(fileService.getFile(account, fileInfo.getId())).willReturn(file);
+        given(fileService.getFile(account, fileInfoCopy.getId())).willReturn(file);
+
+
+
+        FileInputStream fileInputStream = new FileInputStream("src/test/resources/static/deepZip.zip");
+        ZipInputStream expectedInputStream = new ZipInputStream(new BufferedInputStream(fileInputStream));
+
+
+        ZipOutputStream zipStream = zipService.zipDirectory(account, deepDirId);
+        zipStream.close();
+        FileInputStream reloadedStream = new FileInputStream("deepZip.zip");
         ZipInputStream zipInputStream = new ZipInputStream(new BufferedInputStream(reloadedStream));
 
         ZipEntry nextEntry;
