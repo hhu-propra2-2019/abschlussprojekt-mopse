@@ -153,7 +153,9 @@
                 <td></td>
                 <td>
                     <form th:if="${deletePermission}" action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}"
-                          th:method="post">
+                          th:method="post"
+                          onsubmit="return confirm('Diese Aktion kann nicht rückgangig gemacht werden. Soll der '
+                          + 'Ordner wirklich gelöscht werden?');">
                         <input class="btn btn-danger" type="submit" name="deleteFolder" value="Ordner löschen">
                     </form>
                 </td>

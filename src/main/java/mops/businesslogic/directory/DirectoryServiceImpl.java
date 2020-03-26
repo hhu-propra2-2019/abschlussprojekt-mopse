@@ -2,6 +2,7 @@ package mops.businesslogic.directory;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mops.businesslogic.delete.DeleteService;
 import mops.businesslogic.exception.DatabaseException;
 import mops.businesslogic.exception.DeleteAccessPermissionException;
 import mops.businesslogic.exception.StorageLimitationException;
@@ -20,6 +21,7 @@ import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.persistence.permission.DirectoryPermissionsBuilder;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +46,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Handles meta data of files.
      */
     private final FileInfoService fileInfoService;
+    /**
+     * Handle directory and file deletion;
+     */
+    private final DeleteService deleteService;
     /**
      * Handle permission checks for roles.
      */
@@ -94,7 +100,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Removes all directories without reading permissions.
      *
-     * @param account the account
+     * @param account     the account
      * @param directories all directories that should be checked
      * @return filtered list
      * @throws MopsException on error
@@ -116,7 +122,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
     public List<Directory> getDirectoryPath(long dirId) throws MopsException {
         List<Directory> result = new LinkedList<>();
         Directory dir = getDirectory(dirId);
@@ -135,8 +141,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
-            "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
+            "PMD.AvoidCatchingGenericException"})
     public GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException {
         Optional<GroupRootDirWrapper> optRootDir;
         try {
@@ -215,40 +221,12 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @Transactional
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) //these are not violations of demeter's law
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"}) //these are not violations of demeter's law
     public Directory deleteFolder(Account account, long dirId) throws MopsException {
         Directory directory = getDirectory(dirId);
         securityService.checkDeletePermission(account, directory);
 
-        List<FileInfo> files = fileInfoService.fetchAllFilesInDirectory(dirId);
-        List<Directory> subFolders = getSubFolders(account, dirId);
-
-        if (!files.isEmpty() || !subFolders.isEmpty()) {
-            log.error("The user '{}' tried to delete the folder with id {}, but the folder was not empty.",
-                    account.getName(),
-                    dirId);
-            String errorMessage = String.format("Der Ordner %s ist nicht leer.", directory.getName());
-            throw new DeleteAccessPermissionException(errorMessage);
-        }
-
-        Directory parentDirectory = null;
-        if (directory.getParentId() != null) {
-            parentDirectory = getDirectory(directory.getParentId());
-        }
-
-        try {
-            deleteDirectory(directory);
-
-            if (parentDirectory == null || parentDirectory.getPermissionsId() != directory.getPermissionsId()) {
-                permissionService.deletePermissions(directory);
-            }
-        } catch (MopsException e) {
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error("Error while deleting directory {} by user {}:", directory.getName(), account.getName(), e);
-            throw new MopsException("Fehler während des Löschens aufgetreten", e);
-        }
-
-        return parentDirectory;
+        return deleteService.deleteFolder(account, dirId);
     }
 
     /**
@@ -327,7 +305,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException"})
     public Directory getDirectory(long dirId) throws MopsException {
         try {
             return directoryRepository.findById(dirId).orElseThrow();
@@ -406,7 +384,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return default directory permissions
      */
     //TODO: this is a placeholder and can only be implemented when GruppenFindung defined their roles.
-    @SuppressWarnings({ "PMD.LawOfDemeter" }) //Streams
+    @SuppressWarnings({"PMD.LawOfDemeter"}) //Streams
     private DirectoryPermissions createDefaultPermissions(Set<String> roleNames) {
         DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
         builder.entry(adminRole, true, true, true);
