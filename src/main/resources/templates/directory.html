@@ -85,19 +85,21 @@
         </form>
     </div>
 
-    <!-- Button to the directory above -->
-    <div th:if="${directory.getParentId()} != null">
-        <div class="button-above-wrapper">
-            <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
-                <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
-            </form>
+    <div class="path-wrapper">
+        <!-- Button to the directory above -->
+        <div th:if="${directory.getParentId()} != null">
+            <div class="button-above-wrapper">
+                <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
+                    <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
+                </form>
+            </div>
         </div>
-    </div>
 
-    <!-- Path to the current folder -->
-    <div>
-        <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir
-            Name</a>
+        <!-- Path to the current folder -->
+        <div class="form-control">
+            <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir
+                Name</a>
+        </div>
     </div>
 
     <!-- Main Table to show the Folder Content -->

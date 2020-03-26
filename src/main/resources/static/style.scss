@@ -21,6 +21,18 @@
   }
 }
 
+.path-wrapper {
+  display: flex;
+  padding-bottom: 10px;
+
+  .button-above-wrapper {
+    padding-right: 10px;
+  }
+  .form-control {
+    width: auto;
+  }
+}
+
 .button-above-wrapper {
   padding-bottom: 10px;
 }

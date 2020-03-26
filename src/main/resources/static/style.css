@@ -17,6 +17,17 @@
   display: flex;
 }
 
+.path-wrapper {
+  display: flex;
+  padding-bottom: 10px;
+}
+.path-wrapper .button-above-wrapper {
+  padding-right: 10px;
+}
+.path-wrapper .form-control {
+  width: auto;
+}
+
 .button-above-wrapper {
   padding-bottom: 10px;
 }
