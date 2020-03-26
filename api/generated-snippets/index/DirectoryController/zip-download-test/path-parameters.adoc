@@ -1,0 +1,8 @@
+.+/material1/dir/{dirId}/zip+
+|===
+|Parameter|Description
+
+|`+dirId+`
+|The directory id.
+
+|===
