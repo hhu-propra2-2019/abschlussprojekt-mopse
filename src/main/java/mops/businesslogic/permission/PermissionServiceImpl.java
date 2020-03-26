@@ -34,7 +34,7 @@ public class PermissionServiceImpl implements PermissionService {
         } catch (Exception e) {
             log.error("Failed to retrieve directory permissions with id '{}' for directory with id '{}' and name '{}':",
                     id, directory.getId(), directory.getName(), e);
-            String message = String.format("Die Berechtigungnen für den Ordner '%s' konnten nicht gefunden werden.",
+            String message = String.format("Die Berechtigungen für den Ordner '%s' konnten nicht gefunden werden.",
                     directory.getName());
             throw new DatabaseException(message, e);
         }
@@ -65,7 +65,7 @@ public class PermissionServiceImpl implements PermissionService {
             permissionsRepository.deleteById(id);
         } catch (Exception e) {
             log.error("Failed to delete directory permissions with id '{}':", id, e);
-            String message = String.format("Die Berechtigungnen für den Ordner '%s' konnten nicht gelöscht werden.",
+            String message = String.format("Die Berechtigungen für den Ordner '%s' konnten nicht gelöscht werden.",
                     directory.getName());
             throw new DatabaseException(message, e);
         }

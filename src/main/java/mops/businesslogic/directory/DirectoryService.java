@@ -53,15 +53,6 @@ public interface DirectoryService {
     Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException;
 
     /**
-     * Deletes a folder.
-     *
-     * @param account user credential
-     * @param dirId   id of the folder to be deleted
-     * @return parent directory of the deleted folder
-     */
-    Directory deleteFolder(Account account, long dirId) throws MopsException;
-
-    /**
      * Searches a folder for files.
      *
      * @param account user credentials
