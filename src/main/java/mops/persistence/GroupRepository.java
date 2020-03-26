@@ -34,7 +34,7 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
      * @return list of groups
      */
     @Query("SELECT * FROM group_table "
-            + "INNER JOIN group_member ON group_table.id = group_member.group_id  "
+            + "INNER JOIN group_member ON group_table.id = group_member.group_id "
             + "WHERE group_member.name = :name")
     List<Group> findByUser(@Param("name") String name);
 
