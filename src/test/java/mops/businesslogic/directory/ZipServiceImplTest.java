@@ -6,6 +6,7 @@ import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,8 @@ import org.springframework.http.MediaType;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -44,6 +47,11 @@ public class ZipServiceImplTest {
     void setUp() {
         zipService = new ZipServiceImpl(directoryService, fileService);
         account = Account.of("Fridolin", "fridolin@pinguin.de", "admin");
+    }
+
+    @AfterEach
+    void tearDown() throws IOException {
+        Files.deleteIfExists(Paths.get("root.zip"));
     }
 
     @Test
