@@ -23,6 +23,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -116,13 +117,12 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     public void zipDownloadTest() throws Exception {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] expected = { 0x46, 0x55, 0x43, 0x4b, 0x20, 0x59, 0x4f, 0x55 };
         doAnswer(invocation -> {
-            ByteArrayOutputStream bos = invocation.getArgument(0, ByteArrayOutputStream.class);
-            byte[] bytes = { 0x46, 0x55, 0x43, 0x4b, 0x20, 0x59, 0x4f, 0x55};
-            bos.writeBytes(bytes);
+            ByteArrayOutputStream bos = invocation.getArgument(2);
+            bos.writeBytes(expected);
             return bos;
-        }).when(zipService).zipDirectory(any(), eq(1L), eq(outputStream));
+        }).when(zipService).zipDirectory(any(), eq(1L), any(OutputStream.class));
         MvcResult result = mockMvc().perform(get("/material1/dir/{dirId}/zip", 1)
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM))
@@ -134,8 +134,8 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                 .andReturn();
 
         assertThat(result.getResponse().getContentType()).isEqualTo(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-        assertThat(result.getResponse().getContentLength()).isEqualTo(outputStream.toByteArray().length);
-        assertThat(result.getResponse().getContentAsByteArray()).isEqualTo(outputStream.toByteArray());
+        assertThat(result.getResponse().getContentLength()).isEqualTo(expected.length);
+        assertThat(result.getResponse().getContentAsByteArray()).isEqualTo(expected);
     }
 
     /**
