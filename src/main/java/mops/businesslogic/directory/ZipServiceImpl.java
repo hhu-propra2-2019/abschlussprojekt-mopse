@@ -12,9 +12,11 @@ import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -40,11 +42,12 @@ public class ZipServiceImpl implements ZipService {
     @Override
     public ZipOutputStream zipDirectory(Account account, long dirId) throws MopsException {
         Directory directory = directoryService.getDirectory(dirId);
-        FileOutputStream fileOutputStream;
+        OutputStream fileOutputStream;
         @NonNull String directoryName = directory.getName();
         try {
-            fileOutputStream = new FileOutputStream(String.format("%s.zip", directoryName));
-        } catch (FileNotFoundException e) {
+            Path path = Paths.get(String.format("%s.zip", directoryName));
+            fileOutputStream = Files.newOutputStream(path);
+        } catch (IOException e) {
             log.error("Failed to create FileOutputStream for {}", directoryName);
             throw new MopsException("Interner Fehler beim zippen.");
         }
