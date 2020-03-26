@@ -27,6 +27,14 @@ public interface DirectoryService {
     List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException;
 
     /**
+     * Builds directory path as list.
+     *
+     * @param dirId highest dir of path
+     * @return directory path ordered list
+     */
+    List<Directory> getDirectoryPath(long dirId) throws MopsException;
+
+    /**
      * Creates the group root directory.
      *
      * @param groupId the group id
@@ -62,6 +70,21 @@ public interface DirectoryService {
      * @return list of files
      */
     List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) throws MopsException;
+
+
+    /**
+     * Edit the directory's properties.
+     *
+     * @param account        user credentials
+     * @param dirId          directory to be edited
+     * @param newName        new directory name
+     * @param newPermissions new permissions object
+     * @return edited directory
+     */
+    Directory editDirectory(Account account,
+                            long dirId,
+                            String newName,
+                            DirectoryPermissions newPermissions) throws MopsException;
 
     /**
      * Replaces the permissions for a directory and all its parents and children (which use the same permissions object)

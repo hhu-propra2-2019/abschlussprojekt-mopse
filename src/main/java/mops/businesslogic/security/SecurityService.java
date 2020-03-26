@@ -47,6 +47,15 @@ public interface SecurityService {
     void checkDeletePermission(Account account, Directory directory) throws MopsException;
 
     /**
+     * Checks if user is has the admin role.
+     *
+     * @param account user credentials
+     * @param groupId id of the group to check
+     * @return true if admin
+     */
+    boolean isUserAdmin(Account account, long groupId) throws MopsException;
+
+    /**
      * Checks if user is has a role.
      *
      * @param account     user credentials
