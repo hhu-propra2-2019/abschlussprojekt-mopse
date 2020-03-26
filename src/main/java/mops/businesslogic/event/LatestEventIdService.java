@@ -22,6 +22,8 @@ public class LatestEventIdService {
     private final LatestEventIdRepository latestEventIdRepository;
 
     /**
+     * Get the latest event id.
+     *
      * @return loaded latest event id
      * @throws MopsException on error
      */
