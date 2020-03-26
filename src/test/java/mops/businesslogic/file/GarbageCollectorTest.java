@@ -13,7 +13,7 @@ import java.util.Set;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class GarbageCollectorTest {
+class GarbageCollectorTest {
 
     @Mock
     FileServiceImpl fileService;

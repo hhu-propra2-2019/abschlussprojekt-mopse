@@ -109,7 +109,7 @@ class FileInfoServiceTest {
     }
 
     @Test
-    public void duplicatonTest() throws MopsException {
+    void duplicationTest() throws MopsException {
         fileInfoService.saveFileInfo(file1);
         DbActionExecutionException exception = mock(DbActionExecutionException.class);
         given(exception.getCause()).willReturn(mock(DuplicateKeyException.class));

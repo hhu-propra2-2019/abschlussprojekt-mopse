@@ -51,7 +51,7 @@ class SecurityTests {
     @Test
     @WithMockKeycloackAuth(name = "prometheus", roles = "monitoring", idToken = @WithIDToken(email =
             "prometheus@mail.de"))
-    public void prometheusShouldHaveAccess() throws Exception {
+    void prometheusShouldHaveAccess() throws Exception {
         mvc.perform(get("/actuator"))
                 .andExpect(status().isOk());
     }

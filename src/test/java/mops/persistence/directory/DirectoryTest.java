@@ -19,6 +19,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DataJdbcTest
 class DirectoryTest {
 
+    static final long GROUP_ID = 1L;
+
     @Autowired
     DirectoryRepository repo;
     @Autowired
@@ -35,7 +37,7 @@ class DirectoryTest {
 
         Directory rootDir = Directory.builder()
                 .name("")
-                .groupOwner(0L)
+                .groupOwner(GROUP_ID)
                 .permissions(rootDirPerms)
                 .build();
         rootDir = repo.save(rootDir);
@@ -59,7 +61,7 @@ class DirectoryTest {
         Directory wrong = Directory.builder()
                 .name("")
                 .parent(0L)
-                .groupOwner(0L)
+                .groupOwner(GROUP_ID)
                 .permissions(0L)
                 .build();
 
