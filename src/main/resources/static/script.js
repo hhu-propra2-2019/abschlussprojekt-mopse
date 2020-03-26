@@ -16,7 +16,6 @@ function addNewInputLine(type, placeholder) {
     text.name = type + "[" + counter + "]";
     text.placeholder = placeholder;
     text.setAttribute("th:field", type + "[" + counter + "]");
-    text.required = true;
     text.setAttribute("class", "form-control");
     button.type = "button";
     button.value = "+";
