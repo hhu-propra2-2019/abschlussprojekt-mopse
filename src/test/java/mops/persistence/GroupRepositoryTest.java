@@ -21,7 +21,7 @@ class GroupRepositoryTest {
     @Test
     public void saveTest() {
         Group group = Group.builder()
-                .id(new UUID(0, 123))
+                .groupId(new UUID(0, 123))
                 .member("Segelzwerg", "admin")
                 .name("Root")
                 .build();
@@ -34,7 +34,7 @@ class GroupRepositoryTest {
     @Test
     public void findByUserTest() {
         Group group = Group.builder()
-                .id(new UUID(0, 123))
+                .groupId(new UUID(0, 123))
                 .member("Segelzwerg", "admin")
                 .name("Root")
                 .build();
@@ -48,25 +48,25 @@ class GroupRepositoryTest {
     @Test
     public void findMultipleGroupsTest() {
         Group group1 = Group.builder()
-                .id(new UUID(0, 123))
+                .groupId(new UUID(0, 123))
                 .member("Segelzwerg", "admin")
                 .name("Root")
                 .build();
 
         Group group2 = Group.builder()
-                .id(new UUID(0, 124))
+                .groupId(new UUID(0, 124))
                 .member("Segelzwerg", "admin")
                 .name("FirstLevel")
                 .build();
 
         Group group3 = Group.builder()
-                .id(new UUID(0, 125))
+                .groupId(new UUID(0, 125))
                 .member("Segelzwerg", "admin")
                 .name("2ndLeve")
                 .build();
 
         Group group4 = Group.builder()
-                .id(new UUID(0, 126))
+                .groupId(new UUID(0, 126))
                 .member("iTitus", "admin")
                 .name("Wrong")
                 .build();
