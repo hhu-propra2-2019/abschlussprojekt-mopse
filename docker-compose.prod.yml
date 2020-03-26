@@ -6,6 +6,8 @@ services:
     ports:
       - "8080:8080"
     env_file: prod.env
+    environment:
+      MATERIAL1_PROFILE: prod
     depends_on:
       - material1_db
   material1_db:
