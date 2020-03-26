@@ -36,6 +36,16 @@ public class Material1Controller {
     }
 
     /**
+     * Top Index Route.
+     *
+     * @return redirect
+     */
+    @GetMapping("/")
+    public String topIndex() {
+        return "redirect:/material1";
+    }
+
+    /**
      * Logout Route.
      *
      * @param request servlet request
