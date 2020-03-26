@@ -94,11 +94,13 @@
         </div>
     </div>
 
+    <!-- Path to the current folder -->
     <div>
         <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir
             Name</a>
     </div>
 
+    <!-- Change Permissions -->
     <div th:if="${adminRole}">
         <form action="#" th:action="@{{dirId}/edit(dirId = ${directory.id})}" th:method="post"
               th:object="${editDirectoryForm}">
