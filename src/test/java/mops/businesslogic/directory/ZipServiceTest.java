@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class ZipServiceTest {
+class ZipServiceTest {
 
     @Mock
     DirectoryService directoryService;
