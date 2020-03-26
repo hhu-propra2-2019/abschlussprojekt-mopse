@@ -129,7 +129,7 @@ class DirectoryServiceTest {
     }
 
     @Test
-    public void createSecondLevelFolderTest() throws MopsException {
+    void createSecondLevelFolderTest() throws MopsException {
         String subDirName = "a";
         String secondLevelName = "b";
 
@@ -251,7 +251,7 @@ class DirectoryServiceTest {
     }
 
     @Test
-    public void deleteRootFolderTest() throws MopsException {
+    void deleteRootFolderTest() throws MopsException {
         long id = 2L;
         UUID groupId = new UUID(0, 2);
 
@@ -285,7 +285,7 @@ class DirectoryServiceTest {
     }
 
     @Test
-    public void deleteSecondLevelFolderTest() throws MopsException {
+    void deleteSecondLevelFolderTest() throws MopsException {
         Directory subFolder = directoryService.createFolder(admin, root.getId(), "a");
         Directory secondLevel = directoryService.createFolder(admin, subFolder.getId(), "b");
         long permissionsId = secondLevel.getPermissionsId();

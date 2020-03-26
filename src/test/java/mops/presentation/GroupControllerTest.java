@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @KeycloakContext
 @WebMvcTest(GroupController.class)
-public class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
+class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
 
     static final long GROUP_ID = 1L;
     static final long DIR_ID = 2L;

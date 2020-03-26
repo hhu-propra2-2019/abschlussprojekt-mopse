@@ -52,7 +52,7 @@ class DirectoryRepositoryTest {
     }
 
     @Test
-    public void groupFolderCountTest() {
+    void groupFolderCountTest() {
         DirectoryPermissions empty = directoryPermissionsRepository.save(DirectoryPermissions.builder().build());
         Directory root = Directory.builder()
                 .name("")

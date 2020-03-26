@@ -22,6 +22,7 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class GroupUpdaterTest {
+
     @Mock
     GruppenfindungsService gruppenfindungsService;
     @Mock
@@ -30,13 +31,14 @@ class GroupUpdaterTest {
     GroupService groupService;
 
     GroupUpdater groupUpdater;
-    private LatestEventId latestEventId;
-    private UUID groupId;
-    private String groupName;
-    private String userName;
-    private UpdatedGroupsDTO updatedGroups;
-    private UserDTO user;
-    private GroupDTO groupDTO;
+
+    LatestEventId latestEventId;
+    UUID groupId;
+    String groupName;
+    String userName;
+    UpdatedGroupsDTO updatedGroups;
+    UserDTO user;
+    GroupDTO groupDTO;
 
     @BeforeEach
     void setup() throws MopsException {
@@ -70,7 +72,7 @@ class GroupUpdaterTest {
     }
 
     @Test
-    public void addingGroupTest() throws MopsException {
+    void addingGroupTest() throws MopsException {
         updatedGroups.setEventId(21L);
         groupDTO.setStatus(StatusDTO.ACTIVE);
 
@@ -92,7 +94,7 @@ class GroupUpdaterTest {
     }
 
     @Test
-    public void deleteGroupTest() throws MopsException {
+    void deleteGroupTest() throws MopsException {
         updatedGroups.setEventId(22L);
         groupDTO.setStatus(StatusDTO.DEACTIVATED);
 

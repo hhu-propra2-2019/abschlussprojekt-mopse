@@ -69,7 +69,7 @@ class DirectoryPermissionsTest {
     }
 
     @Test
-    public void copyTest() {
+    void copyTest() {
         DirectoryPermissions admin = DirectoryPermissions.builder()
                 .entry("admin", true, true, true)
                 .id(1L)
