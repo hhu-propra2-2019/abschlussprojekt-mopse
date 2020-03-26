@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -70,12 +71,16 @@ public class GroupUpdater {
 
         for (GroupDTO groupDAO : updatedGroups.getGroupDAOs()) {
             UUID groupId = groupDAO.getGroupId();
+            Optional<Group> optionalGroup = groupService.findGroupByGroupId(groupId);
+
             switch (groupDAO.getStatus()) {
                 case ACTIVE:
                     GroupBuilder builder = Group.builder()
-                            // TODO: find id if this is a update
                             .groupId(groupId)
                             .name(groupDAO.getGroupName());
+
+                    optionalGroup.ifPresent(g -> builder.id(g.getId()));
+
                     for (UserDTO userDTO : gruppenfindungsService.getMembers(groupDAO.getGroupId())) {
                         String name = userDTO.getUsername();
                         boolean admin = gruppenfindungsService.isUserAdminInGroup(name, groupId);
@@ -85,8 +90,7 @@ public class GroupUpdater {
                     updated.add(builder.build());
                     break;
                 case DEACTIVATED:
-                    // TODO: find ids to delete
-                    //deleted.add(groupId);
+                    optionalGroup.ifPresent(g -> deleted.add(g.getId()));
                     break;
                 default: // switch is exhaustive, this should never happen
                     throw new ImpossibleException("Unerwarteter Fehler - dies sollte nicht passieren");

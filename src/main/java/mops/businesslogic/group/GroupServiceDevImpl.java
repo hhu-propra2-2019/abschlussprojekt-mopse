@@ -132,6 +132,16 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    public Optional<Group> findGroupByGroupId(UUID groupId) throws MopsException {
+        return cachedGroups.values().stream()
+                .filter(g -> g.getGroupId().equals(groupId))
+                .findFirst();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Group> saveAllGroups(Collection<Group> groups) throws MopsException {
         throw new MopsException("nicht unterstützt", new UnsupportedOperationException("not supported"));
     }

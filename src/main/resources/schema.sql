@@ -66,7 +66,8 @@ CREATE TABLE group_table
     group_id           UUID         NOT NULL,
     name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     creation_time      TIMESTAMP    NOT NULL,
-    last_modified_time TIMESTAMP    NOT NULL
+    last_modified_time TIMESTAMP    NOT NULL,
+    CONSTRAINT u_group_id UNIQUE (group_id)
 );
 
 CREATE INDEX i_group_group_id ON group_table (group_id);

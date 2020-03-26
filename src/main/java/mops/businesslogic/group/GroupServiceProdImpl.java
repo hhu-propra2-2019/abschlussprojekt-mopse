@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * {@inheritDoc}
@@ -123,6 +120,21 @@ public class GroupServiceProdImpl implements GroupService {
             return groupRepository.findById(groupId).orElseThrow();
         } catch (Exception e) {
             log.error("Failed to retrieve group with id '{}':", groupId, e);
+            throw new DatabaseException(
+                    "Die Gruppe konnte nicht gefunden werden, bitte versuchen sie es später nochmal!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
+    public Optional<Group> findGroupByGroupId(UUID groupId) throws MopsException {
+        try {
+            return groupRepository.findByGroupId(groupId);
+        } catch (Exception e) {
+            log.error("Failed to retrieve group with group uuid '{}':", groupId, e);
             throw new DatabaseException(
                     "Die Gruppe konnte nicht gefunden werden, bitte versuchen sie es später nochmal!", e);
         }

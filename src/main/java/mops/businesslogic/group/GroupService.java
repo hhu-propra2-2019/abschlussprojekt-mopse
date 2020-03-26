@@ -6,9 +6,7 @@ import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * API to Gruppenfindung.
@@ -62,6 +60,14 @@ public interface GroupService {
      * @return group
      */
     Group getGroup(long groupId) throws MopsException;
+
+    /**
+     * Get a group by its group uuid.
+     *
+     * @param groupId group uuid
+     * @return group
+     */
+    Optional<Group> findGroupByGroupId(UUID groupId) throws MopsException;
 
     /**
      * Save all given groups.
