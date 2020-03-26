@@ -15,7 +15,12 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -70,23 +75,24 @@ class ZipServiceTest {
                 .build();
         FileContainer file = new FileContainer(fileInfo, content);
 
-        FileInputStream fileInputStream = new FileInputStream("src/test/resources/static/root.zip");
-        ZipInputStream expectedInputStream = new ZipInputStream(new BufferedInputStream(fileInputStream));
+        try (ZipInputStream expectedInputStream =
+                     new ZipInputStream(new BufferedInputStream(Files.newInputStream(
+                             Path.of("src/test/resources/static/root.zip"))))) {
+            given(directoryService.getDirectory(dirId)).willReturn(directory);
+            given(fileService.getFilesOfDirectory(any(Account.class), eq(dirId))).willReturn(List.of(fileInfo));
+            given(fileService.getFile(account, fileInfo.getId())).willReturn(file);
 
-        given(directoryService.getDirectory(dirId)).willReturn(directory);
-        given(fileService.getFilesOfDirectory(any(Account.class), eq(dirId))).willReturn(List.of(fileInfo));
-        given(fileService.getFile(account, fileInfo.getId())).willReturn(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            zipService.zipDirectory(account, dirId, bos);
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        zipService.zipDirectory(account, dirId, bos);
-
-        try (ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()))) {
-            ZipEntry nextEntry;
-            while ((nextEntry = zipInputStream.getNextEntry()) != null) {
-                ZipEntry expectedNextEntry = expectedInputStream.getNextEntry();
-                assertThat(nextEntry.getName()).isEqualTo(expectedNextEntry.getName());
-                assertThat(nextEntry.isDirectory()).isEqualTo(expectedNextEntry.isDirectory());
-                assertThat(zipInputStream.readAllBytes()).isEqualTo(expectedInputStream.readAllBytes());
+            try (ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()))) {
+                ZipEntry nextEntry;
+                while ((nextEntry = zipInputStream.getNextEntry()) != null) {
+                    ZipEntry expectedNextEntry = expectedInputStream.getNextEntry();
+                    assertThat(nextEntry.getName()).isEqualTo(expectedNextEntry.getName());
+                    assertThat(nextEntry.isDirectory()).isEqualTo(expectedNextEntry.isDirectory());
+                    assertThat(zipInputStream.readAllBytes()).isEqualTo(expectedInputStream.readAllBytes());
+                }
             }
         }
     }
@@ -129,19 +135,21 @@ class ZipServiceTest {
 
         given(directoryService.getSubFolders(account, deepDirId)).willReturn(List.of(bottom));
 
-        FileInputStream fileInputStream = new FileInputStream("src/test/resources/static/deepZip.zip");
-        ZipInputStream expectedInputStream = new ZipInputStream(new BufferedInputStream(fileInputStream));
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        zipService.zipDirectory(account, deepDirId, bos);
+        try (ZipInputStream expectedInputStream =
+                     new ZipInputStream(new BufferedInputStream(Files.newInputStream(
+                             Path.of("src/test/resources/static/deepZip.zip"))))) {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            zipService.zipDirectory(account, deepDirId, bos);
 
-        try (ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()))) {
-            ZipEntry nextEntry;
-            while ((nextEntry = zipInputStream.getNextEntry()) != null) {
-                ZipEntry expectedNextEntry = expectedInputStream.getNextEntry();
-                assertThat(nextEntry.getName()).isEqualTo(expectedNextEntry.getName());
-                assertThat(nextEntry.isDirectory()).isEqualTo(expectedNextEntry.isDirectory());
-                assertThat(zipInputStream.readAllBytes()).isEqualTo(expectedInputStream.readAllBytes());
+            try (ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()))) {
+                ZipEntry nextEntry;
+                while ((nextEntry = zipInputStream.getNextEntry()) != null) {
+                    ZipEntry expectedNextEntry = expectedInputStream.getNextEntry();
+                    assertThat(nextEntry.getName()).isEqualTo(expectedNextEntry.getName());
+                    assertThat(nextEntry.isDirectory()).isEqualTo(expectedNextEntry.isDirectory());
+                    assertThat(zipInputStream.readAllBytes()).isEqualTo(expectedInputStream.readAllBytes());
+                }
             }
         }
     }
