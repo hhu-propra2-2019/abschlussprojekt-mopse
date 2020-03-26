@@ -33,13 +33,13 @@ public class DummyDataSeeding {
      */
     @Value("${material1.mops.configuration.role.admin}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
-    private String adminRole;
+    private String adminRole = "admin";
     /**
      * Represents the role of a viewer.
      */
     @Value("${material1.mops.configuration.role.viewer}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
-    private String viewerRole;
+    private String viewerRole = "viewer";
 
     /**
      * Initializes application runner.
@@ -64,7 +64,8 @@ public class DummyDataSeeding {
             final String owner1 = "studentin";
             final String owner2 = "studentin1";
 
-            Account admin = Account.of("admin", "admin@hhu.de", "admin");
+            Account admin = Account.of("admin", "admin@hhu.de", "ROLE_admin");
+            groupService.getUserGroups(admin); // add the admin account to the pre-existing group
 
             DirectoryPermissions directoryPermissions = DirectoryPermissions.builder()
                     .entry(adminRole, true, true, true)

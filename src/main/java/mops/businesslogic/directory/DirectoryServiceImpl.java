@@ -39,18 +39,13 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Represents the role of an admin.
      */
     @Value("${material1.mops.configuration.role.admin}")
-    private String adminRole;
-    /**
-     * Represents the role of a viewer.
-     */
-    @Value("${material1.mops.configuration.role.viewer}")
-    private String viewerRole;
+    private String adminRole = "admin";
     /**
      * The max amount of folders per group.
      */
     @SuppressWarnings("checkstyle:MagicNumber")
     @Value("${material1.mops.configuration.quota.max-folders-in-group}")
-    private long maxFoldersPerGroup;
+    private long maxFoldersPerGroup = 200L;
 
     /**
      * This connects to database related to directory information.
@@ -355,7 +350,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("The directory with the id '{}' could not be saved to the database:", directory, e);
             String error = String.format("Der Ordner '%s' konnte nicht gespeichert werden.", directory.getName());
             if (e.getCause() instanceof DuplicateKeyException) {
-                error = String.format("Der Ordner '{}' existiert bereits.", directory.getName());
+                error = String.format("Der Ordner '%s' existiert bereits.", directory.getName());
             }
             throw new DatabaseException(error, e);
         }

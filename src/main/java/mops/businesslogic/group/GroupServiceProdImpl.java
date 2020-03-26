@@ -30,13 +30,13 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Value("${material1.mops.configuration.role.admin}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
-    private String adminRole;
+    private String adminRole = "admin";
     /**
      * Represents the role of a viewer.
      */
     @Value("${material1.mops.configuration.role.viewer}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
-    private String viewerRole;
+    private String viewerRole = "viewer";
 
     /**
      * Access to our Group Database.

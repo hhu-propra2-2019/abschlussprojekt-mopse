@@ -36,13 +36,7 @@ public class SecurityServiceImpl implements SecurityService {
      */
     @Value("${material1.mops.configuration.role.admin}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
-    private String adminRole;
-    /**
-     * Represents the role of a viewer.
-     */
-    @Value("${material1.mops.configuration.role.viewer}")
-    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
-    private String viewerRole;
+    private String adminRole = "admin";
 
     /**
      * {@inheritDoc}

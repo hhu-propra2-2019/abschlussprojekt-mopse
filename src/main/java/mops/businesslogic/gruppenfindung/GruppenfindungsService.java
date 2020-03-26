@@ -29,7 +29,7 @@ public class GruppenfindungsService {
      */
     @Value("${material1.mops.gruppenfindung.url}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
-    private String gruppenfindungsUrl;
+    private String gruppenfindungsUrl = "https://mops.hhu.de/gruppen1";
 
     /**
      * Allows to send REST API calls.
