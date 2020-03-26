@@ -38,6 +38,7 @@ public class ZipServiceImpl implements ZipService {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("PMD.LawOfDemeter")
     @Override
     public void zipDirectory(Account account, long dirId, OutputStream outputStream) throws MopsException {
         Directory directory = directoryService.getDirectory(dirId);
@@ -84,6 +85,7 @@ public class ZipServiceImpl implements ZipService {
         }
     }
 
+    @SuppressWarnings("PMD.LawOfDemeter") //this is a stream
     private void zipFile(Account account,
                          ZipOutputStream zipOutputStream,
                          FileInfo fileInfo,
