@@ -80,7 +80,7 @@ public class ZipServiceImpl implements ZipService {
             zipOutputStream.closeEntry();
         } catch (IOException e) {
             log.error("Failed to close zip entry for '{}", directoryName);
-            String message = String.format("Der Zip konnte für '%s' nicht beendet werden", directoryName);
+            String message = String.format("Der Zip für '%s' konnte nicht beendet werden", directoryName);
             throw new MopsZipsException(message, e);
         }
     }
@@ -103,14 +103,14 @@ public class ZipServiceImpl implements ZipService {
             zipOutputStream.write(fileContainer.getContent().getInputStream().readAllBytes());
         } catch (IOException e) {
             log.error("Failed to get file content from '{}'", fileName);
-            String message = String.format("Von '%s' konnte der Dateiinhalt nicht gelesen werden.", fileName);
+            String message = String.format("Der Dateiinhalt von '%s' konnte nicht gelesen werden.", fileName);
             throw new FileNotFoundException(message, e);
         }
         try {
             zipOutputStream.closeEntry();
         } catch (IOException e) {
             log.error("Failed to close zip entry for '{}", fileName);
-            throw new MopsZipsException(String.format("Der Zip konnte für '%s' nicht beendet werden", fileName), e);
+            throw new MopsZipsException(String.format("Der Zip für '%s' konnte nicht beendet werden", fileName), e);
         }
     }
 }
