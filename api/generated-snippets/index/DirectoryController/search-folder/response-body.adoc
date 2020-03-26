@@ -5,12 +5,14 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Mops - Dateien</title>
+  <title>Mops - Ordner</title>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/icono.min.css" rel="stylesheet">
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
+        <link rel="stylesheet" type="text/css" href="/style.css">
+        <script language="javascript" type="text/javascript" src="/script.js"></script>
     
 </head>
 <body>
@@ -114,19 +116,104 @@
   </div>
 </header>
 <div class="main-wrapper"><main>
-    <form action="../1" method="get">
-        <input type="submit" value="Ebene hoch">
-    </form>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Erstellungsdatum</th>
-            <th>Typ</th>
-            <th>Besitzer</th>
-            <th>Größe</th>
-        </tr>
-        
-    </table>
+    <!-- Form to search for a file in the folder and all subfolders by 4 different parameters -->
+    <div class="material1-search-wrapper">
+        <input class="material1-show-search-button btn btn-primary" id="show-search-button" type="button"
+               value="Suche öffnen"
+               onclick="showSearchForm()">
+        <form class="material1-search-form" id="material1-search-form" action="0/search"
+              method="post"><input type="hidden" name="_csrf" value="e77ce1fc-547e-44ce-815a-78af8c58c8b7"/>
+            <div class="material1-search-form-column" id="names">
+                <div class="material1-search-form-field input-group" id="names[0]">
+                    <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
+                    <div class="input-group-append">
+                        <input class="btn btn-outline-warning" type="button" value="+"
+                               onclick="addNewInputLine('names', 'Dateiname')">
+                    </div>
+                </div>
+            </div>
+            <div class="material1-search-form-column">
+                <input class="btn btn-warning" type="button" value="-" id="namesDelete"
+                       onclick="deleteLastInputLine('names[0]')">
+            </div>
+            <div class="material1-search-form-column" id="owners">
+                <div class="material1-search-form-field input-group" id="owners[0]">
+                    <input class="form-control" type="text" name="owners[0]" placeholder="Besitzer" id="owners0" value="">
+                    <div class="input-group-append"><input class="btn btn-outline-warning" type="button" value="+"
+                                                           onclick="addNewInputLine('owners', 'Besitzer')"></div>
+                </div>
+            </div>
+            <div class="material1-search-form-column">
+                <input class="btn btn-warning" type="button" value="-" id="ownersDelete"
+                       onclick="deleteLastInputLine('owners[0]')">
+            </div>
+            <div class="material1-search-form-column" id="types">
+                <div class="material1-search-form-field input-group" id="types[0]">
+                    <input class="form-control" type="text" name="types[0]" placeholder="Dateityp" id="types0" value="">
+                    <div class="input-group-append"><input class="btn btn-outline-warning" type="button" value="+"
+                                                           onclick="addNewInputLine('types', 'Dateityp')"></div>
+                </div>
+            </div>
+            <div class="material1-search-form-column">
+                <input class="btn btn-warning" type="button" value="-" id="typesDelete"
+                       onclick="deleteLastInputLine('types[0]')">
+            </div>
+            <div class="material1-search-form-column" id="tags">
+                <div class="material1-search-form-field input-group" id="tags[0]">
+                    <input class="form-control" type="text" name="tags[0]" placeholder="Tags" id="tags0" value="">
+                    <div class="input-group-append"><input class="btn btn-outline-warning" type="button" value="+"
+                                                           onclick="addNewInputLine('tags', 'Tags')"></div>
+                </div>
+            </div>
+            <div class="material1-search-form-column">
+                <input class="btn btn-warning" type="button" value="-" id="tagsDelete"
+                       onclick="deleteLastInputLine('tags[0]')">
+            </div>
+            <div class="material1-search-form-column">
+                <div><input class="btn btn-outline-primary" type="submit" name="searchFile" value="Datei suchen"></div>
+            </div>
+            <div class="material1-search-form-column">
+                <div><input class="btn btn-primary" type="button" name="closeSearchForm" value="Suche schließen"
+                            onclick="hideSearchForm()"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Button to the directory above -->
+    <div>
+        <div class="button-above-wrapper">
+            <form action="0" method="get">
+                <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
+            </form>
+        </div>
+    </div>
+
+    
+
+    
+
+
+    <!-- Main Table to show the Folder Content -->
+    <div class="table-responsive">
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Erstelldatum</th>
+                <th scope="col">Typ</th>
+                <th scope="col">Besitzer</th>
+                <th scope="col">Größe</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            
+            
+            </tbody>
+        </table>
+    </div>
+
+    
 </main></div>
 <footer class="footer footer-main">
   <div class="account">
