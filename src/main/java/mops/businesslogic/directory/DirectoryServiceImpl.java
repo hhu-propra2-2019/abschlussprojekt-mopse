@@ -77,7 +77,8 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = getDirectory(parentDirID);
         securityService.checkReadPermission(account, directory);
         try {
-            List<Directory> directories = directoryRepository.getAllSubFoldersOfParent(parentDirID);
+            List<Directory> directories = new ArrayList<>(directoryRepository.getAllSubFoldersOfParent(parentDirID));
+            Collections.sort(directories);
             if (directory.getParentId() == null) {
                 // If the current dir is the root folder,
                 // there could be directories in it without
@@ -94,7 +95,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     /**
      * Removes all directories without reading permissions.
      *
-     * @param account the account
+     * @param account     the account
      * @param directories all directories that should be checked
      * @return filtered list
      * @throws MopsException on error
@@ -116,7 +117,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
     public List<Directory> getDirectoryPath(long dirId) throws MopsException {
         List<Directory> result = new LinkedList<>();
         Directory dir = getDirectory(dirId);
@@ -135,8 +136,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
-            "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
+            "PMD.AvoidCatchingGenericException"})
     public GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException {
         Optional<GroupRootDirWrapper> optRootDir;
         try {
@@ -215,7 +216,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @Transactional
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) //these are not violations of demeter's law
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"}) //these are not violations of demeter's law
     public Directory deleteFolder(Account account, long dirId) throws MopsException {
         Directory directory = getDirectory(dirId);
         securityService.checkDeletePermission(account, directory);
@@ -327,7 +328,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException"})
     public Directory getDirectory(long dirId) throws MopsException {
         try {
             return directoryRepository.findById(dirId).orElseThrow();
@@ -406,7 +407,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * @return default directory permissions
      */
     //TODO: this is a placeholder and can only be implemented when GruppenFindung defined their roles.
-    @SuppressWarnings({ "PMD.LawOfDemeter" }) //Streams
+    @SuppressWarnings({"PMD.LawOfDemeter"}) //Streams
     private DirectoryPermissions createDefaultPermissions(Set<String> roleNames) {
         DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
         builder.entry(adminRole, true, true, true);

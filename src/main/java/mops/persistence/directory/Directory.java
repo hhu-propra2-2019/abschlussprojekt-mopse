@@ -16,7 +16,7 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor(access = AccessLevel.PACKAGE, onConstructor_ = @PersistenceConstructor)
 @AggregateRoot
-public class Directory {
+public class Directory implements Comparable<Directory> {
 
     /**
      * Database Id.
@@ -81,5 +81,13 @@ public class Directory {
      */
     public static DirectoryBuilder builder() {
         return new DirectoryBuilder();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int compareTo(Directory directory) {
+        return this.getName().compareTo(directory.getName());
     }
 }
