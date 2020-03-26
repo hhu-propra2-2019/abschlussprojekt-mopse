@@ -9,7 +9,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 10403
+Content-Length: 10606
 
 <!DOCTYPE html>
 <html lang="en">
@@ -133,7 +133,7 @@ Content-Length: 10403
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="0/search"
-              method="post"><input type="hidden" name="_csrf" value="d2e25f08-17b3-4e17-88eb-95c3b369db6a"/>
+              method="post"><input type="hidden" name="_csrf" value="461db90c-c542-4f81-b4b8-5ea7a90e84c3"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -190,21 +190,21 @@ Content-Length: 10403
         </form>
     </div>
 
-    <!-- Button to the directory above -->
-    <div>
-        <div class="button-above-wrapper">
-            <form action="0" method="get">
-                <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
-            </form>
+    <div class="material1-path-wrapper">
+        <!-- Button to the directory above -->
+        <div>
+            <div class="material1-button-above-wrapper">
+                <form action="0" method="get">
+                    <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
+                </form>
+            </div>
+        </div> 
+
+        <!-- Path to the current folder -->
+        <div class="form-control">
+            
         </div>
     </div>
-
-    <div>
-        
-    </div>
-
-    
-
 
     <!-- Main Table to show the Folder Content -->
     <div class="table-responsive">
@@ -228,7 +228,7 @@ Content-Length: 10403
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="0/create" method="post"><input type="hidden" name="_csrf" value="d2e25f08-17b3-4e17-88eb-95c3b369db6a"/>
+        <form class="input-group" action="0/create" method="post"><input type="hidden" name="_csrf" value="461db90c-c542-4f81-b4b8-5ea7a90e84c3"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -237,13 +237,16 @@ Content-Length: 10403
 
         <!-- Form to upload a new file to the folder -->
         <form class="input-group" action="0/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="d2e25f08-17b3-4e17-88eb-95c3b369db6a"/>
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="461db90c-c542-4f81-b4b8-5ea7a90e84c3"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">
             </div>
         </form>
     </div>
+
+    <!-- Change Permissions -->
+    
 </main></div>
 <footer class="footer footer-main">
   <div class="account">

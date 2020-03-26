@@ -122,7 +122,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="0/search"
-              method="post"><input type="hidden" name="_csrf" value="870df377-46a7-4997-8259-50793db8ced6"/>
+              method="post"><input type="hidden" name="_csrf" value="6aaa6ac2-1323-4466-9113-97d8a5f5ac6c"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -179,19 +179,21 @@
         </form>
     </div>
 
-    <!-- Button to the directory above -->
-    <div>
-        <div class="button-above-wrapper">
-            <form action="0" method="get">
-                <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
-            </form>
+    <div class="material1-path-wrapper">
+        <!-- Button to the directory above -->
+        <div>
+            <div class="material1-button-above-wrapper">
+                <form action="0" method="get">
+                    <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
+                </form>
+            </div>
+        </div> 
+
+        <!-- Path to the current folder -->
+        <div class="form-control">
+            
         </div>
     </div>
-
-    
-
-    
-
 
     <!-- Main Table to show the Folder Content -->
     <div class="table-responsive">
@@ -213,6 +215,9 @@
         </table>
     </div>
 
+    
+
+    <!-- Change Permissions -->
     
 </main></div>
 <footer class="footer footer-main">
