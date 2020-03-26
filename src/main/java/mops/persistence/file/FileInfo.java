@@ -9,6 +9,7 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.Set;
 
@@ -18,7 +19,12 @@ import java.util.Set;
 @Data
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @AggregateRoot
-public class FileInfo implements Comparable<FileInfo> {
+public class FileInfo {
+
+    /**
+     * Name Comparator.
+     */
+    public static final Comparator<FileInfo> NAME_COMPARATOR = Comparator.comparing(FileInfo::getName);
 
     /**
      * Database Id.
@@ -138,13 +144,5 @@ public class FileInfo implements Comparable<FileInfo> {
             suffix = "GiB";
         }
         return String.format("%.2f %s", result, suffix);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int compareTo(FileInfo fileInfo) {
-        return this.getName().compareTo(fileInfo.getName());
     }
 }
