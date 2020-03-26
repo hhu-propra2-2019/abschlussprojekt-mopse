@@ -105,3 +105,11 @@ Wir haben `SLF4J` nicht konfiguriert, also wird standardmäßig `Logback` benutz
 Wir haben uns dafür entschieden, weil unsere Internetrecherche die meisten Treffer dazu ergeben hat und unser Tutor uns
 unabhängig davon zu geraten hat. Die Einfachheit des Tools ist ebenfalls ein Entscheidungsgrund gewesen.
 ****
+
+
+=== Zip Test
+
+****
+Bei unseren genertien Zipfiles werden die Flags wie `size` beim Erstellen nicht neu gesetzt. Daher testen wir in nur, ob
+die Namen stimmen. Das sie korrekt erzeugt werden und entpackt werden können, haben wir manuell getestet.
+****
