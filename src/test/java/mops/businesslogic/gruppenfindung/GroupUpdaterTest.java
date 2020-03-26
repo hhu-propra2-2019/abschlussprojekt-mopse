@@ -87,6 +87,6 @@ class GroupUpdaterTest {
 
         groupUpdater.updateDatabase();
 
-        verify(groupRepository).save(expectedGroup);
+        verify(groupService).saveAllGroups(List.of(expectedGroup));
     }
 }
