@@ -81,6 +81,6 @@ CREATE INDEX i_member_group ON group_member (group_id);
 
 CREATE TABLE latest_event_id
 (
-    id       INT PRIMARY KEY DEFAULT 0,
+    id       INT PRIMARY KEY,
     event_id BIGINT NOT NULL
 );
