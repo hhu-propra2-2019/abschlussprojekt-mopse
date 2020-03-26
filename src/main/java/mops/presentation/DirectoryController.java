@@ -42,7 +42,7 @@ import java.util.Set;
 @Slf4j
 // demeter violations in logging
 // dataflow/one return violations in try-catch statements
-@SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn", "PMD.LawOfDemeter" })
+@SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn", "PMD.LawOfDemeter", "PMD.ExcessiveImports"})
 public class DirectoryController {
 
     /**
@@ -117,7 +117,7 @@ public class DirectoryController {
      *
      * @param redirectAttributes redirect attributes
      * @param token              keycloak auth token
-     * @param dirId              id of the directory id where it will be uploaded
+     * @param dirId              id of the directory where it will be uploaded
      * @param multipartFile      file object
      * @return route after completion
      */
@@ -142,25 +142,37 @@ public class DirectoryController {
         return "redirect:/material1/dir/{dirId}";
     }
 
+    /**
+     * Download a directory as zip.
+     *
+     * @param redirectAttributes redirect attributes
+     * @param token              keycloak auth token
+     * @param dirId              id of the directory
+     * @return a zip as byte array
+     */
+    @SuppressWarnings("PMD.DataflowAnamolyAnalysis")
     @GetMapping("/{dirId}/zip")
     public ResponseEntity<byte[]> zipDirectory(RedirectAttributes redirectAttributes,
                                                  KeycloakAuthenticationToken token,
                                                  @PathVariable("dirId") long dirId) {
         Account account = Account.of(token);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Directory directory;
         try {
             zipService.zipDirectory(account, dirId, bos);
+            directory = directoryService.getDirectory(dirId);
         } catch (MopsException e) {
             log.error("Failed to zip directory with id: {}", dirId);
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Ordner konnte nicht gezippt werden.", e);
         }
         byte[] bytes = bos.toByteArray();
+
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .contentLength(bytes.length)
                 .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "inline; filename=\"" + dirId + "\"")
+                        String.format("inline; filename=\"%s.zip\"", directory.getName()))
                 .body(bytes);
     }
 
