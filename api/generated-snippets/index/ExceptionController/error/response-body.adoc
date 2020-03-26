@@ -109,6 +109,9 @@
       </nav>
       <nav class="navigation navigation-secondary" is="mops-navigation">
         <!-- Navigation als ungeordnete Liste mit einfachen Links hier einfügen! -->
+        <ul>
+            <li><a href="/material1/groups">Meine Gruppen</a></li>
+        </ul>
     </nav>
     </div>
   </div>
@@ -118,7 +121,8 @@
     <div class="d-block">
         
         
-        <img src="/mops_error.jpg" class="rounded mx-auto h-50 w-50" alt="Sad Pug.">
+        <img src="/mops_error.jpg" class="rounded mx-auto h-50 w-50"
+             alt="Sad Pug.">
     </div>
     <br>
     

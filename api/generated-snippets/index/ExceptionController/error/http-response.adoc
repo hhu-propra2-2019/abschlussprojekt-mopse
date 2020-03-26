@@ -9,7 +9,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 4392
+Content-Length: 4499
 
 <!DOCTYPE html>
 <html lang="en">
@@ -120,6 +120,9 @@ Content-Length: 4392
       </nav>
       <nav class="navigation navigation-secondary" is="mops-navigation">
         <!-- Navigation als ungeordnete Liste mit einfachen Links hier einfügen! -->
+        <ul>
+            <li><a href="/material1/groups">Meine Gruppen</a></li>
+        </ul>
     </nav>
     </div>
   </div>
@@ -129,7 +132,8 @@ Content-Length: 4392
     <div class="d-block">
         
         
-        <img src="/mops_error.jpg" class="rounded mx-auto h-50 w-50" alt="Sad Pug.">
+        <img src="/mops_error.jpg" class="rounded mx-auto h-50 w-50"
+             alt="Sad Pug.">
     </div>
     <br>
     
