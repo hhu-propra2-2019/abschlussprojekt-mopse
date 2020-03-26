@@ -315,7 +315,9 @@ public class DirectoryServiceImpl implements DirectoryService {
                             + "Role Permissions are missing or superfluous.",
                     account.getName());
             throw new DatabaseException("Neue Berechtigungen ungültig.");
-        } else if (!permissions.isAllowedToRead(adminRole)
+        }
+
+        if (!permissions.isAllowedToRead(adminRole)
                 || !permissions.isAllowedToWrite(adminRole)
                 || !permissions.isAllowedToDelete(adminRole)) {
             log.error("The user '{}' tried to change the permissions of the admin role.", account.getName());
