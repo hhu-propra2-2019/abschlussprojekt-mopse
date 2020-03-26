@@ -13,7 +13,7 @@ import java.io.OutputStream;
 public interface ZipService {
 
     /**
-     * Zips a directory and all it's content.
+     * Zips a directory and all its contents.
      *
      * @param account      user credentials
      * @param dirId        id of the directory to be zipped
