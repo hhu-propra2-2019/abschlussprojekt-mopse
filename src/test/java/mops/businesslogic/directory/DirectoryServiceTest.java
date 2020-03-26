@@ -37,7 +37,8 @@ class DirectoryServiceTest {
     static final String EDITOR = "editor";
     static final String VIEWER = "viewer";
     static final String INTRUDER = "intruder";
-    static final UUID GROUP_ID = new UUID(0, 1);
+    static final long GROUP_ID = 1L;
+    static final UUID GROUP_UUID = new UUID(0, 1L);
 
     @MockBean
     GroupService groupService;
@@ -71,6 +72,7 @@ class DirectoryServiceTest {
 
         Group group = Group.builder()
                 .id(GROUP_ID)
+                .groupId(GROUP_UUID)
                 .name("Test Group")
                 .member(admin.getName(), ADMIN)
                 .member(editor.getName(), EDITOR)
@@ -243,21 +245,23 @@ class DirectoryServiceTest {
 
     @Test
     public void deleteRootFolderTest() throws MopsException {
+        long id = 2L;
         UUID groupId = new UUID(0, 2);
 
         Group group = Group.builder()
-                .id(groupId)
+                .id(id)
+                .groupId(groupId)
                 .name("Another Test Group")
                 .member(admin.getName(), ADMIN)
                 .member(editor.getName(), EDITOR)
                 .member(user.getName(), VIEWER)
                 .build();
 
-        given(groupService.getRoles(groupId)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
-        given(groupService.getGroup(groupId)).willReturn(group);
-        given(groupService.doesGroupExist(groupId)).willReturn(true);
+        given(groupService.getRoles(id)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
+        given(groupService.getGroup(id)).willReturn(group);
+        given(groupService.doesGroupExist(id)).willReturn(true);
 
-        Directory rootFolder = directoryService.getOrCreateRootFolder(groupId).getRootDir();
+        Directory rootFolder = directoryService.getOrCreateRootFolder(id).getRootDir();
         long permissionsId = rootFolder.getPermissionsId();
         Directory directory = directoryService.deleteFolder(admin, rootFolder.getId());
         Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);

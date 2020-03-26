@@ -33,7 +33,8 @@ class SecurityServiceTest {
     static final String EDITOR = "editor";
     static final String VIEWER = "viewer";
     static final String INTRUDER = "intruder";
-    static final UUID GROUP_ID = new UUID(0, 1);
+    static final long GROUP_ID = 1L;
+    static final UUID GROUP_UUID = new UUID(0, 1);
     static final long PERMISSIONS_ID = 0L;
     static final long ROOT_DIR_ID = 0L;
 
@@ -76,6 +77,7 @@ class SecurityServiceTest {
 
         Group group = Group.builder()
                 .id(GROUP_ID)
+                .groupId(GROUP_UUID)
                 .name("Test Group")
                 .member(admin.getName(), ADMIN)
                 .member(editor.getName(), EDITOR)

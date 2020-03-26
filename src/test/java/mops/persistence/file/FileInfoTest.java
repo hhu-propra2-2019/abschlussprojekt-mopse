@@ -15,7 +15,6 @@ import org.springframework.data.relational.core.conversion.DbActionExecutionExce
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -24,8 +23,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DataJdbcTest
 class FileInfoTest {
 
-    static final UUID GROUP1_ID = new UUID(0, 1);
-    static final UUID GROUP2_ID = new UUID(0, 2);
+    static final long GROUP1_ID = 1L;
+    static final long GROUP2_ID = 2L;
 
     @Autowired
     FileInfoRepository repo;
