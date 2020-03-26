@@ -50,9 +50,10 @@ public interface GroupService {
     /**
      * Creates the default permissions.
      *
+     * @param groupId group id
      * @return default directory permissions
      */
-    DirectoryPermissions getDefaultPermissions();
+    DirectoryPermissions getDefaultPermissions(long groupId);
 
     /**
      * Get a group by id.

@@ -81,6 +81,13 @@ class DirectoryServiceTest {
 
         given(groupService.getGroup(GROUP_ID)).willReturn(group);
         given(groupService.doesGroupExist(GROUP_ID)).willReturn(true);
+        given(groupService.getDefaultPermissions(GROUP_ID)).willReturn(
+                DirectoryPermissions.builder()
+                        .entry(ADMIN, true, true, true)
+                        .entry(EDITOR, true, true, false)
+                        .entry(VIEWER, true, false, false)
+                        .build()
+        );
 
         root = directoryService.getOrCreateRootFolder(GROUP_ID).getRootDir();
     }
@@ -260,6 +267,13 @@ class DirectoryServiceTest {
         given(groupService.getRoles(id)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
         given(groupService.getGroup(id)).willReturn(group);
         given(groupService.doesGroupExist(id)).willReturn(true);
+        given(groupService.getDefaultPermissions(id)).willReturn(
+                DirectoryPermissions.builder()
+                        .entry(ADMIN, true, true, true)
+                        .entry(EDITOR, true, true, false)
+                        .entry(VIEWER, true, false, false)
+                        .build()
+        );
 
         Directory rootFolder = directoryService.getOrCreateRootFolder(id).getRootDir();
         long permissionsId = rootFolder.getPermissionsId();

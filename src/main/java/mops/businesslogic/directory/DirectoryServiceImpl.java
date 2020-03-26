@@ -163,7 +163,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             throw new MopsException(error);
         }
 
-        DirectoryPermissions rootPermissions = groupService.getDefaultPermissions();
+        DirectoryPermissions rootPermissions = groupService.getDefaultPermissions(groupId);
         rootPermissions = permissionService.savePermissions(rootPermissions);
         Directory directory = Directory.builder()
                 .name("")

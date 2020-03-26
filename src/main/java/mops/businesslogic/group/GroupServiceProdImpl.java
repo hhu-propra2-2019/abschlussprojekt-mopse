@@ -106,7 +106,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter" }) //builder
-    public DirectoryPermissions getDefaultPermissions() {
+    public DirectoryPermissions getDefaultPermissions(long groupId) {
         return DirectoryPermissions.builder()
                 .entry(adminRole, true, true, true)
                 .entry(viewerRole, true, false, false)
