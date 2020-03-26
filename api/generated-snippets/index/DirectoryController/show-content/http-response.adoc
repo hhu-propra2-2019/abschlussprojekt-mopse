@@ -133,7 +133,7 @@ Content-Length: 10665
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/0/search"
-              method="post"><input type="hidden" name="_csrf" value="11a29909-fdcc-46d4-8813-e6aebbb3fca0"/>
+              method="post"><input type="hidden" name="_csrf" value="f3a16e3f-1dba-42c5-a281-1345129be028"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -228,7 +228,7 @@ Content-Length: 10665
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="/material1/dir/0/create" method="post"><input type="hidden" name="_csrf" value="11a29909-fdcc-46d4-8813-e6aebbb3fca0"/>
+        <form class="input-group" action="/material1/dir/0/create" method="post"><input type="hidden" name="_csrf" value="f3a16e3f-1dba-42c5-a281-1345129be028"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -237,7 +237,7 @@ Content-Length: 10665
 
         <!-- Form to upload a new file to the folder -->
         <form class="input-group" action="/material1/dir/0/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="11a29909-fdcc-46d4-8813-e6aebbb3fca0"/>
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="f3a16e3f-1dba-42c5-a281-1345129be028"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">
