@@ -20,7 +20,7 @@ class GroupRepositoryTest {
     GroupRepository groupRepository;
 
     @Test
-    public void saveTest() {
+    void saveTest() {
         Group group = Group.builder()
                 .groupId(new UUID(0, 1))
                 .member("Segelzwerg", "admin")
@@ -32,7 +32,7 @@ class GroupRepositoryTest {
     }
 
     @Test
-    public void findByUserTest() {
+    void findByUserTest() {
         Group group = Group.builder()
                 .groupId(new UUID(0, 12))
                 .member("Segelzwerg", "admin")
@@ -46,9 +46,8 @@ class GroupRepositoryTest {
     }
 
     @Test
-    public void findMultipleGroupsTest() {
+    void findMultipleGroupsTest() {
         Group group1 = Group.builder()
-                .id(123L)
                 .groupId(new UUID(0, 123))
                 .member("Segelzwerg", "admin")
                 .member("iTitus", "viewer")
@@ -56,28 +55,24 @@ class GroupRepositoryTest {
                 .build();
 
         Group group2 = Group.builder()
-                .id(124L)
                 .groupId(new UUID(0, 124))
                 .member("Segelzwerg", "admin")
                 .name("2")
                 .build();
 
         Group group3 = Group.builder()
-                .id(125L)
                 .groupId(new UUID(0, 125))
                 .member("Segelzwerg", "admin")
                 .name("3")
                 .build();
 
         Group group4 = Group.builder()
-                .id(126L)
                 .groupId(new UUID(0, 126))
                 .member("iTitus", "admin")
                 .name("4")
                 .build();
 
         Group group5 = Group.builder()
-                .id(127L)
                 .groupId(new UUID(0, 127))
                 .member("Jens", "admin")
                 .name("5")
@@ -95,7 +90,7 @@ class GroupRepositoryTest {
     }
 
     @Test
-    public void findByGroupIdTest() {
+    void findByGroupIdTest() {
         UUID groupId = new UUID(0, 666);
         Group expectedGroup = Group.builder()
                 .groupId(groupId)
