@@ -52,6 +52,7 @@ public class DeleteServiceImpl implements DeleteService {
      */
     @Override
     @Transactional
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.LawOfDemeter" })
     public Directory deleteFolder(Account account, long dirId) throws MopsException {
         log.debug("Requesting deletion of folder with id '{}'.", dirId);
         Directory directory = directoryService.getDirectory(dirId);
