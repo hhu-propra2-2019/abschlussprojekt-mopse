@@ -86,7 +86,7 @@ class ZipServiceTest {
         try (ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()))) {
             ZipEntry nextEntry;
             while ((nextEntry = zipInputStream.getNextEntry()) != null) {
-                assertThat(nextEntry).isEqualToComparingOnlyGivenFields(expectedInputStream.getNextEntry(), "name");
+                assertThat(nextEntry.getName()).isEqualTo(expectedInputStream.getNextEntry().getName());
             }
         }
     }
@@ -144,7 +144,7 @@ class ZipServiceTest {
         try (ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()))) {
             ZipEntry nextEntry;
             while ((nextEntry = zipInputStream.getNextEntry()) != null) {
-                assertThat(nextEntry).isEqualToComparingOnlyGivenFields(expectedInputStream.getNextEntry(), "name");
+                assertThat(nextEntry.getName()).isEqualTo(expectedInputStream.getNextEntry().getName());
             }
         }
     }
