@@ -20,9 +20,9 @@ CREATE INDEX i_entry_perm ON directory_permission_entry (permissions_id);
 CREATE TABLE directory
 (
     id                 BIGSERIAL PRIMARY KEY,
-    name               VARCHAR(255) NOT NULL,
+    name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     parent_id          BIGINT,
-    group_owner        INTEGER      NOT NULL,
+    group_owner        BIGINT       NOT NULL,
     permissions_id     BIGINT       NOT NULL,
     creation_time      TIMESTAMP    NOT NULL,
     last_modified_time TIMESTAMP    NOT NULL,
@@ -59,3 +59,32 @@ CREATE TABLE file_tag
 );
 
 CREATE INDEX i_tag_file ON file_tag (file_id);
+
+CREATE TABLE group_table
+(
+    id                 BIGSERIAL PRIMARY KEY,
+    group_id           UUID         NOT NULL,
+    name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
+    creation_time      TIMESTAMP    NOT NULL,
+    last_modified_time TIMESTAMP    NOT NULL,
+    CONSTRAINT u_group_id UNIQUE (group_id)
+);
+
+CREATE INDEX i_group_group_id ON group_table (group_id);
+
+CREATE TABLE group_member
+(
+    group_id BIGINT       NOT NULL,
+    name     VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
+    role     VARCHAR(255) NOT NULL CHECK (role NOT LIKE ''),
+    CONSTRAINT fk_member_group FOREIGN KEY (group_id) REFERENCES group_table (id),
+    CONSTRAINT u_member UNIQUE (group_id, name)
+);
+
+CREATE INDEX i_member_group ON group_member (group_id);
+
+CREATE TABLE latest_event_id
+(
+    id       INT PRIMARY KEY,
+    event_id BIGINT NOT NULL
+);

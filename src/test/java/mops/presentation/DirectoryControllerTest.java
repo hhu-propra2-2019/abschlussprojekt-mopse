@@ -4,6 +4,7 @@ import com.c4_soft.springaddons.test.security.context.support.WithIDToken;
 import com.c4_soft.springaddons.test.security.context.support.WithMockKeycloackAuth;
 import com.c4_soft.springaddons.test.security.web.servlet.request.keycloak.ServletKeycloakAuthUnitTestingSupport;
 import mops.businesslogic.directory.DirectoryService;
+import mops.businesslogic.directory.ZipService;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.permission.PermissionService;
 import mops.businesslogic.security.SecurityService;
@@ -17,14 +18,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MvcResult;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
@@ -45,6 +52,8 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     SecurityService securityService;
     @MockBean
     PermissionService permissionService;
+    @MockBean
+    ZipService zipService;
 
     /**
      * Setups the a Mock MVC Builder.
@@ -79,7 +88,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     void showContent() throws Exception {
         mockMvc().perform(get("/material1/dir/{dir}", 1))
                 .andExpect(status().isOk())
-                .andExpect(view().name("directory"))
+                .andExpect(view().name("overview"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
                                 parameterWithName("dir").description("The directory id.")
@@ -103,6 +112,30 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                         pathParameters(
                                 parameterWithName("dir").description("The directory id.")
                         )));
+    }
+
+    @Test
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    public void zipDownloadTest() throws Exception {
+        byte[] expected = { 0x46, 0x55, 0x43, 0x4b, 0x20, 0x59, 0x4f, 0x55 };
+        doAnswer(invocation -> {
+            ByteArrayOutputStream bos = invocation.getArgument(2);
+            bos.writeBytes(expected);
+            return bos;
+        }).when(zipService).zipDirectory(any(), eq(1L), any(OutputStream.class));
+        MvcResult result = mockMvc().perform(get("/material1/dir/{dirId}/zip", 1)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM))
+                .andExpect(status().isOk())
+                .andDo(document("index/DirectoryController/{method-name}",
+                        pathParameters(
+                                parameterWithName("dirId").description("The directory id.")
+                        )))
+                .andReturn();
+
+        assertThat(result.getResponse().getContentType()).isEqualTo(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        assertThat(result.getResponse().getContentLength()).isEqualTo(expected.length);
+        assertThat(result.getResponse().getContentAsByteArray()).isEqualTo(expected);
     }
 
     /**
@@ -138,7 +171,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                 .requestAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("files"))
+                .andExpect(view().name("overview"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
                                 parameterWithName("dir").description("The directory id.")

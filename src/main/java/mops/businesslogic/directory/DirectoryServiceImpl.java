@@ -18,8 +18,8 @@ import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.directory.DirectoryBuilder;
 import mops.persistence.file.FileInfo;
+import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
-import mops.persistence.permission.DirectoryPermissionsBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DuplicateKeyException;
@@ -37,6 +37,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class DirectoryServiceImpl implements DirectoryService {
+
+    /**
+     * Represents the role of an admin.
+     */
+    @Value("${material1.mops.configuration.role.admin}")
+    private String adminRole = "admin";
+    /**
+     * The max amount of folders per group.
+     */
+    @SuppressWarnings("checkstyle:MagicNumber")
+    @Value("${material1.mops.configuration.quota.max-folders-in-group}")
+    private long maxFoldersPerGroup = 200L;
 
     /**
      * This connects to database related to directory information.
@@ -62,28 +74,18 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Connects to the GruppenFindungs API.
      */
     private final GroupService groupService;
-    /**
-     * Represents the role of an admin.
-     */
-    @Value("${material1.mops.configuration.admin}")
-    private String adminRole = "admin";
-    /**
-     * The max amount of folders per group.
-     */
-    @SuppressWarnings("checkstyle:MagicNumber")
-    @Value("${material1.mops.configuration.max-groups}")
-    private long maxFoldersPerGroup;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter"})
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" })
     public List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException {
         Directory directory = getDirectory(parentDirID);
         securityService.checkReadPermission(account, directory);
         try {
-            List<Directory> directories = directoryRepository.getAllSubFoldersOfParent(parentDirID);
+            List<Directory> directories = new ArrayList<>(directoryRepository.getAllSubFoldersOfParent(parentDirID));
+            directories.sort(Directory.NAME_COMPARATOR);
             if (directory.getParentId() == null) {
                 // If the current dir is the root folder,
                 // there could be directories in it without
@@ -122,7 +124,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     public List<Directory> getDirectoryPath(long dirId) throws MopsException {
         List<Directory> result = new LinkedList<>();
         Directory dir = getDirectory(dirId);
@@ -141,8 +143,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
-            "PMD.AvoidCatchingGenericException"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
+            "PMD.AvoidCatchingGenericException" })
     public GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException {
         Optional<GroupRootDirWrapper> optRootDir;
         try {
@@ -158,16 +160,12 @@ public class DirectoryServiceImpl implements DirectoryService {
             return optRootDir.get();
         }
 
-        Set<String> roleNames = groupService.fetchRolesInGroup(groupId);
-        if (roleNames.isEmpty()) { // TODO: check for actual existence of group
-            log.error("A root directory for group '{}' could not be created, as the group does not exist.", groupId);
-            String error = "Es konnte kein Wurzelverzeichnis für die Gruppe erstellt werden, da sie nicht existiert.";
-            throw new MopsException(error);
-        }
-        DirectoryPermissions rootPermissions = createDefaultPermissions(roleNames);
+        Group group = groupService.getGroup(groupId); // implicit check of existence
+
+        DirectoryPermissions rootPermissions = groupService.getDefaultPermissions(groupId);
         rootPermissions = permissionService.savePermissions(rootPermissions);
         Directory directory = Directory.builder()
-                .name("")
+                .name(group.getName())
                 .groupOwner(groupId)
                 .permissions(rootPermissions)
                 .build(); // no demeter violation here
@@ -221,7 +219,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @Transactional
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"}) //these are not violations of demeter's law
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) //these are not violations of demeter's law
     public Directory deleteFolder(Account account, long dirId) throws MopsException {
         Directory directory = getDirectory(dirId);
         securityService.checkDeletePermission(account, directory);
@@ -286,11 +284,18 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = getDirectory(dirId);
         securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
 
-        Set<String> roles = groupService.fetchRolesInGroup(directory.getGroupOwner());
+        Set<String> roles = groupService.getRoles(directory.getGroupOwner());
         if (!permissions.getRoles().equals(roles)) {
             log.error("The user '{}' tried to change the permissions of a directory to an invalid one. "
                             + "Role Permissions are missing or superfluous.",
                     account.getName());
+            throw new DatabaseException("Neue Berechtigungen ungültig.");
+        }
+
+        if (!permissions.isAllowedToRead(adminRole)
+                || !permissions.isAllowedToWrite(adminRole)
+                || !permissions.isAllowedToDelete(adminRole)) {
+            log.error("The user '{}' tried to change the permissions of the admin role.", account.getName());
             throw new DatabaseException("Neue Berechtigungen ungültig.");
         }
 
@@ -305,7 +310,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
     public Directory getDirectory(long dirId) throws MopsException {
         try {
             return directoryRepository.findById(dirId).orElseThrow();
@@ -328,7 +333,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("The directory with the id '{}' could not be saved to the database:", directory, e);
             String error = String.format("Der Ordner '%s' konnte nicht gespeichert werden.", directory.getName());
             if (e.getCause() instanceof DuplicateKeyException) {
-                error = String.format("Der Ordner '{}' existiert bereits.", directory.getName());
+                error = String.format("Der Ordner '%s' existiert bereits.", directory.getName());
             }
             throw new DatabaseException(error, e);
         }
@@ -375,23 +380,5 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("Failed to get total directory count:", e);
             throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
         }
-    }
-
-    /**
-     * Creates the default permissions.
-     *
-     * @param roleNames all role names existing in the group
-     * @return default directory permissions
-     */
-    //TODO: this is a placeholder and can only be implemented when GruppenFindung defined their roles.
-    @SuppressWarnings({"PMD.LawOfDemeter"}) //Streams
-    private DirectoryPermissions createDefaultPermissions(Set<String> roleNames) {
-        DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
-        builder.entry(adminRole, true, true, true);
-        roleNames
-                .stream()
-                .filter(role -> !role.equalsIgnoreCase(adminRole))
-                .forEach(role -> builder.entry(role, true, false, false));
-        return builder.build();
     }
 }

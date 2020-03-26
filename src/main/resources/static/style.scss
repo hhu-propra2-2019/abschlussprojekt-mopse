@@ -16,13 +16,23 @@
 
       .material1-search-form-field {
         display: flex;
+        padding-bottom: 5px;
       }
     }
   }
 }
 
-.button-above-wrapper {
+.material1-path-wrapper {
+  display: flex;
   padding-bottom: 10px;
+
+  .material1-button-above-wrapper {
+    padding-right: 10px;
+    padding-bottom: 10px;
+  }
+  .form-control {
+    width: auto;
+  }
 }
 
 td {
@@ -39,6 +49,19 @@ td {
     .form-control {
       width: auto;
       flex: inherit;
+    }
+  }
+}
+
+.material1-permissions-wrapper {
+  padding-top: 50px;
+  .material1-show-permissions {
+    display: block;
+  }
+  .material1-hide-permissions {
+    display: none;
+    input{
+      margin-bottom: 10px;
     }
   }
 }

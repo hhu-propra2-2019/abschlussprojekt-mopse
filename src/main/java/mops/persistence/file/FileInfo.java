@@ -5,11 +5,11 @@ import mops.util.AggregateRoot;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.Set;
 
@@ -17,9 +17,14 @@ import java.util.Set;
  * Represents a file.
  */
 @Data
-@AllArgsConstructor(access = AccessLevel.PACKAGE, onConstructor_ = @PersistenceConstructor)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @AggregateRoot
 public class FileInfo {
+
+    /**
+     * Name Comparator.
+     */
+    public static final Comparator<FileInfo> NAME_COMPARATOR = Comparator.comparing(FileInfo::getName);
 
     /**
      * Database Id.

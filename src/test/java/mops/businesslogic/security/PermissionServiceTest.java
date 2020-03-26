@@ -22,6 +22,8 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 class PermissionServiceTest {
 
+    static final long GROUP_ID = 1L;
+
     @Mock
     DirectoryPermissionsRepository permissionsRepository;
 
@@ -37,14 +39,14 @@ class PermissionServiceTest {
 
         directory = Directory.builder()
                 .id(1L)
-                .name("")
-                .groupOwner(100L)
+                .name("root")
+                .groupOwner(GROUP_ID)
                 .permissions(2L)
                 .build();
         otherDirectory = Directory.builder()
                 .id(2L)
-                .name("")
-                .groupOwner(100L)
+                .name("root")
+                .groupOwner(GROUP_ID)
                 .permissions(3L)
                 .build();
 

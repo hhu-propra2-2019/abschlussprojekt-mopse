@@ -5,18 +5,23 @@ import mops.util.AggregateRoot;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.annotation.PersistenceConstructor;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Comparator;
 
 /**
  * Represents a directory where files can be stored.
  */
 @Data
-@AllArgsConstructor(access = AccessLevel.PACKAGE, onConstructor_ = @PersistenceConstructor)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @AggregateRoot
 public class Directory {
+
+    /**
+     * Name Comparator.
+     */
+    public static final Comparator<Directory> NAME_COMPARATOR = Comparator.comparing(Directory::getName);
 
     /**
      * Database Id.
