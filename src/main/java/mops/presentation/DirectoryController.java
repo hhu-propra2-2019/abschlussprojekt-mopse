@@ -243,6 +243,8 @@ public class DirectoryController {
 
         try {
             List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
+            Directory directory = directoryService.getDirectory(dirId);
+            model.addAttribute("directory", directory);
             model.addAttribute("files", files);
         } catch (MopsException e) {
             log.error("Failed to search in folder with id '{}':", dirId, e);
@@ -253,6 +255,8 @@ public class DirectoryController {
         model.addAttribute("fileQueryForm", queryForm);
         model.addAttribute("account", account);
         model.addAttribute("backDirId", dirId);
-        return "files";
+        // always show delete
+        model.addAttribute("deletePermission", true);
+        return "directory";
     }
 }
