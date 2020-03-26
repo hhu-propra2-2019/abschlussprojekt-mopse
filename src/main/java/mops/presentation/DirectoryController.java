@@ -172,7 +172,7 @@ public class DirectoryController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .contentLength(bytes.length)
                 .header(HttpHeaders.CONTENT_DISPOSITION,
-                        String.format("inline; filename=\"%s.zip\"", directory.getName()))
+                        String.format("attachment; filename=\"%s.zip\"", directory.getName()))
                 .body(bytes);
     }
 
