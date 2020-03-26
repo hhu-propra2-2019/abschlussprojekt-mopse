@@ -56,7 +56,7 @@ oder alternativ in der Konsole
 oder alternativ die Spring Anwendung mit Gradle im Spring Profil `prod` starten.
 1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1 geöffnet werden.
 
-### Als Komplettpaket im Dev Profile (mit externer PostgreSQL Datenbank und Stub `Gruppenfindung`s-Adapter)
+### Als Komplettpaket im Dev Profile [Demo] (mit externer PostgreSQL Datenbank und Stub `Gruppenfindung`s-Adapter)
 
 1. Docker starten
 1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
@@ -64,6 +64,17 @@ oder alternativ die Spring Anwendung mit Gradle im Spring Profil `prod` starten.
 in der Konsole ausführen. Zum Beenden in der Konsole
 `docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.prod.yml -f docker-compose.demo.yml down --volumes --remove-orphans`
 ausführen. `--volumes` ist notwendig um die erstellten Docker Volumes mitzulöschen.
+
+### In Production (mit externer PostgreSQL Datenbank, externem MinIO und echtem `Gruppenfindung`s-Adapter)
+
+1. Docker starten
+1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
+1. Die Umgebungsvariablen in der Datei `prod.env` anpassen.
+1. `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build material1_app`
+in der Konsole ausführen. Zum Beenden in der Konsole
+`docker-compose -f docker-compose.yml -f docker-compose.prod.yml down`
+ausführen. Eventuell müssen weitere Vorsichtsmaßnahmen getroffen werden, damit `docker-compose` nicht das Volume löscht,
+in dem PostgreSQL seine Daten speichert.
 
 ## Dokumentation
 
