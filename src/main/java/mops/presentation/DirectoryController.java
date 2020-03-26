@@ -3,6 +3,7 @@ package mops.presentation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DirectoryService;
+import mops.businesslogic.directory.ZipService;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.permission.PermissionService;
@@ -17,12 +18,18 @@ import mops.presentation.error.ExceptionPresentationError;
 import mops.presentation.form.EditDirectoryForm;
 import mops.presentation.form.FileQueryForm;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Set;
 
@@ -54,6 +61,10 @@ public class DirectoryController {
      * Fetches role permissions.
      */
     private final PermissionService permissionService;
+    /**
+     * Zips a directory.
+     */
+    private final ZipService zipService;
 
     /**
      * Shows the content of a folder (files and sub folders).
@@ -129,6 +140,28 @@ public class DirectoryController {
 
         redirectAttributes.addAttribute("dirId", dirId);
         return "redirect:/material1/dir/{dirId}";
+    }
+
+    @GetMapping("/{dirId}/zip")
+    public ResponseEntity<byte[]> zipDirectory(RedirectAttributes redirectAttributes,
+                                                 KeycloakAuthenticationToken token,
+                                                 @PathVariable("dirId") long dirId) {
+        Account account = Account.of(token);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            zipService.zipDirectory(account, dirId, bos);
+        } catch (MopsException e) {
+            log.error("Failed to zip directory with id: {}", dirId);
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Ordner konnte nicht gezippt werden.", e);
+        }
+        byte[] bytes = bos.toByteArray();
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentLength(bytes.length)
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "inline; filename=\"" + dirId + "\"")
+                .body(bytes);
     }
 
     /**
