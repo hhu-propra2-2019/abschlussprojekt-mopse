@@ -36,7 +36,7 @@ class DirectoryTest {
         rootDirPerms = permRepo.save(rootDirPerms);
 
         Directory rootDir = Directory.builder()
-                .name("")
+                .name("root")
                 .groupOwner(GROUP_ID)
                 .permissions(rootDirPerms)
                 .build();
@@ -59,7 +59,7 @@ class DirectoryTest {
     @Test
     void failSave() {
         Directory wrong = Directory.builder()
-                .name("")
+                .name("root")
                 .parent(0L)
                 .groupOwner(GROUP_ID)
                 .permissions(0L)

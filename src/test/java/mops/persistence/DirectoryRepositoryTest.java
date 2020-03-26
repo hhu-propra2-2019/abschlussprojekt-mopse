@@ -29,7 +29,7 @@ class DirectoryRepositoryTest {
     void getAllSubFoldersOfParent() {
         DirectoryPermissions empty = directoryPermissionsRepository.save(DirectoryPermissions.builder().build());
         Directory root = Directory.builder()
-                .name("")
+                .name("root")
                 .groupOwner(GROUP_ID)
                 .permissions(empty)
                 .build();
@@ -55,7 +55,7 @@ class DirectoryRepositoryTest {
     void groupFolderCountTest() {
         DirectoryPermissions empty = directoryPermissionsRepository.save(DirectoryPermissions.builder().build());
         Directory root = Directory.builder()
-                .name("")
+                .name("root")
                 .groupOwner(GROUP_ID)
                 .permissions(empty)
                 .build();

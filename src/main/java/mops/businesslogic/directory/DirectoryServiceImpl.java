@@ -17,6 +17,7 @@ import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.directory.DirectoryBuilder;
 import mops.persistence.file.FileInfo;
+import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
@@ -153,16 +154,12 @@ public class DirectoryServiceImpl implements DirectoryService {
             return optRootDir.get();
         }
 
-        if (!groupService.doesGroupExist(groupId)) {
-            log.error("A root directory for group '{}' could not be created, as the group does not exist.", groupId);
-            String error = "Es konnte kein Wurzelverzeichnis für die Gruppe erstellt werden, da sie nicht existiert.";
-            throw new MopsException(error);
-        }
+        Group group = groupService.getGroup(groupId); // implicit check of existence
 
         DirectoryPermissions rootPermissions = groupService.getDefaultPermissions(groupId);
         rootPermissions = permissionService.savePermissions(rootPermissions);
         Directory directory = Directory.builder()
-                .name("")
+                .name(group.getName())
                 .groupOwner(groupId)
                 .permissions(rootPermissions)
                 .build(); // no demeter violation here

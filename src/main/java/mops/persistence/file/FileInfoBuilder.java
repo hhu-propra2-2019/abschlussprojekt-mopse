@@ -200,6 +200,9 @@ public class FileInfoBuilder {
         if (tag.isEmpty()) {
             log.error("Failed to add tag as it was empty.");
             throw new IllegalArgumentException("tag must not be empty!");
+        } else if (tags.stream().map(FileTag::getName).anyMatch(tag::equals)) {
+            log.error("Failed to add tag as it already exists.");
+            throw new IllegalArgumentException("tag already exists");
         }
         this.tags.add(new FileTag(tag));
         return this;

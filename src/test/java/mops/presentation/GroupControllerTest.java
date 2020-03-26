@@ -44,7 +44,7 @@ class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                 .willReturn(new GroupRootDirWrapper(
                         Directory.builder()
                                 .id(DIR_ID)
-                                .name("")
+                                .name("root")
                                 .permissions(0L)
                                 .groupOwner(GROUP_ID)
                                 .build()

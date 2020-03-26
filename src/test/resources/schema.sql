@@ -20,7 +20,7 @@ CREATE INDEX IF NOT EXISTS i_entry_perm ON directory_permission_entry (permissio
 CREATE TABLE IF NOT EXISTS directory
 (
     id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
-    name               VARCHAR(255) NOT NULL,
+    name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     parent_id          BIGINT,
     group_owner        BIGINT       NOT NULL,
     permissions_id     BIGINT       NOT NULL,

@@ -80,7 +80,6 @@ class DirectoryServiceTest {
                 .build();
 
         given(groupService.getGroup(GROUP_ID)).willReturn(group);
-        given(groupService.doesGroupExist(GROUP_ID)).willReturn(true);
         given(groupService.getDefaultPermissions(GROUP_ID)).willReturn(
                 DirectoryPermissions.builder()
                         .entry(ADMIN, true, true, true)
@@ -98,7 +97,7 @@ class DirectoryServiceTest {
     @Test
     void createGroupRootFolder() {
         Directory expected = Directory.builder()
-                .name("")
+                .name("Test Group")
                 .groupOwner(GROUP_ID)
                 .permissions(root.getPermissionsId())
                 .build();
@@ -266,7 +265,6 @@ class DirectoryServiceTest {
 
         given(groupService.getRoles(id)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
         given(groupService.getGroup(id)).willReturn(group);
-        given(groupService.doesGroupExist(id)).willReturn(true);
         given(groupService.getDefaultPermissions(id)).willReturn(
                 DirectoryPermissions.builder()
                         .entry(ADMIN, true, true, true)

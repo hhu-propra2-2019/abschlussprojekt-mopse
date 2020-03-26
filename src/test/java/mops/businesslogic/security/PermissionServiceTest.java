@@ -39,13 +39,13 @@ class PermissionServiceTest {
 
         directory = Directory.builder()
                 .id(1L)
-                .name("")
+                .name("root")
                 .groupOwner(GROUP_ID)
                 .permissions(2L)
                 .build();
         otherDirectory = Directory.builder()
                 .id(2L)
-                .name("")
+                .name("root")
                 .groupOwner(GROUP_ID)
                 .permissions(3L)
                 .build();
