@@ -30,7 +30,6 @@ class GroupRepositoryTest {
         Group save = groupRepository.save(group);
 
         assertThat(group).isEqualTo(save);
-
     }
 
     @Test
@@ -50,37 +49,49 @@ class GroupRepositoryTest {
     @Test
     public void findMultipleGroupsTest() {
         Group group1 = Group.builder()
+                .id(123L)
                 .groupId(new UUID(0, 123))
                 .member("Segelzwerg", "admin")
-                .name("Root")
+                .member("iTitus", "viewer")
+                .name("1")
                 .build();
 
         Group group2 = Group.builder()
+                .id(124L)
                 .groupId(new UUID(0, 124))
                 .member("Segelzwerg", "admin")
-                .name("FirstLevel")
+                .name("2")
                 .build();
 
         Group group3 = Group.builder()
+                .id(125L)
                 .groupId(new UUID(0, 125))
                 .member("Segelzwerg", "admin")
-                .name("2ndLeve")
+                .name("3")
                 .build();
 
         Group group4 = Group.builder()
+                .id(126L)
                 .groupId(new UUID(0, 126))
                 .member("iTitus", "admin")
-                .name("Wrong")
+                .name("4")
                 .build();
 
-        List<Group> groups = List.of(group1, group2, group3, group4);
+        Group group5 = Group.builder()
+                .id(127L)
+                .groupId(new UUID(0, 127))
+                .member("Jens", "admin")
+                .name("5")
+                .build();
+
+        List<Group> groups = List.of(group1, group2, group3, group4, group5);
 
         groupRepository.saveAll(groups);
 
         List<Group> groupsOfUser1 = groupRepository.findByUser("Segelzwerg");
         List<Group> groupsOfUser2 = groupRepository.findByUser("iTitus");
 
-        assertThat(groupsOfUser1).containsExactly(group1, group2, group3);
-        assertThat(groupsOfUser2).containsExactly(group4);
+        assertThat(groupsOfUser1).containsExactlyInAnyOrder(group1, group2, group3);
+        assertThat(groupsOfUser2).containsExactlyInAnyOrder(group1, group4);
     }
 }
