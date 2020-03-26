@@ -12,6 +12,9 @@
 <header>
     <nav class="navigation navigation-secondary" is="mops-navigation" th:fragment="navigation">
         <!-- Navigation als ungeordnete Liste mit einfachen Links hier einfügen! -->
+        <ul>
+            <li><a href="#" th:href="@{/material1/groups}">Meine Gruppen</a></li>
+        </ul>
     </nav>
 </header>
 <main th:fragment="bodycontent">
@@ -22,9 +25,11 @@
         </div>
         <div th:if="${statuscode}">
             <h1 th:text="${statuscode}">404</h1>
-            <h3 th:if="${status_message}" th:text="${status_message}">Die angeforderte Resource konnte nicht gefunden werden :(</h3>
+            <h3 th:if="${status_message}"
+                th:text="${status_message}">Die angeforderte Resource konnte nicht gefunden werden :(</h3>
         </div>
-        <img src="../static/mops_error.jpg" th:src="@{/mops_error.jpg}" class="rounded mx-auto h-50 w-50" alt="Sad Pug.">
+        <img src="../static/mops_error.jpg" th:src="@{/mops_error.jpg}" class="rounded mx-auto h-50 w-50"
+             alt="Sad Pug.">
     </div>
     <br>
     <a th:if="${referer}" th:href="${referer}" class="nav-link">Zurück</a>
