@@ -87,7 +87,7 @@ public class GroupUpdater {
                     optionalGroup.ifPresent(g -> builder.id(g.getId()));
 
                     for (UserDTO userDTO : gruppenfindungsService.getMembers(groupDAO.getGroupId())) {
-                        String name = userDTO.getUsername();
+                        String name = userDTO.getUserName();
                         boolean admin = gruppenfindungsService.isUserAdminInGroup(name, groupId);
                         String role = admin ? adminRole : viewerRole;
                         builder.member(name, role);

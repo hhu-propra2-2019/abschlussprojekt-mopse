@@ -11,6 +11,6 @@ public class UserDTO {
     /**
      * User name.
      */
-    private String username;
+    private String userName;
 
 }

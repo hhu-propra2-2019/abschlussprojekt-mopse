@@ -52,7 +52,7 @@ class GroupUpdaterTest {
 
         updatedGroups = new UpdatedGroupsDTO();
         user = new UserDTO();
-        user.setUsername(userName);
+        user.setUserName(userName);
 
         groupDTO = new GroupDTO();
         groupDTO.setGroupId(groupId);
