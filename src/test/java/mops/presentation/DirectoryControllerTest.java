@@ -138,7 +138,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                 .requestAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("files"))
+                .andExpect(view().name("directory"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
                                 parameterWithName("dir").description("The directory id.")
