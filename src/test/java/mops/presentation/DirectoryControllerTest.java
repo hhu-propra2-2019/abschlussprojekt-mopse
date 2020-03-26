@@ -119,7 +119,8 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         doAnswer(invocation -> {
             ByteArrayOutputStream bos = invocation.getArgument(0, ByteArrayOutputStream.class);
-            bos.writeBytes("abc".getBytes());
+            byte[] bytes = { 0x46, 0x55, 0x43, 0x4b, 0x20, 0x59, 0x4f, 0x55};
+            bos.writeBytes(bytes);
             return bos;
         }).when(zipService).zipDirectory(any(), eq(1L), eq(outputStream));
         MvcResult result = mockMvc().perform(get("/material1/dir/{dirId}/zip", 1)
