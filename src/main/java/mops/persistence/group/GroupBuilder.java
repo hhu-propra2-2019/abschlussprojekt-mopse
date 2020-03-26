@@ -25,7 +25,11 @@ public class GroupBuilder {
     /**
      * Database Id.
      */
-    private UUID id;
+    private Long id;
+    /**
+     * Group Id.
+     */
+    private UUID groupId;
     /**
      * File name.
      */
@@ -47,6 +51,7 @@ public class GroupBuilder {
      */
     public GroupBuilder from(@NonNull Group group) {
         this.id = group.getId();
+        this.groupId = group.getGroupId();
         this.name = group.getName();
         group.getMembers().forEach(member -> member(member.getName(), member.getRole()));
         this.creationTime = group.getCreationTime();
@@ -59,7 +64,7 @@ public class GroupBuilder {
      * @param id id
      * @return this
      */
-    public GroupBuilder id(@NonNull UUID id) {
+    public GroupBuilder id(Long id) {
         this.id = id;
         return this;
     }
@@ -72,6 +77,17 @@ public class GroupBuilder {
      */
     public GroupBuilder id(Group group) {
         this.id = group == null ? null : group.getId();
+        return this;
+    }
+
+    /**
+     * Set group id.
+     *
+     * @param groupId group id
+     * @return this
+     */
+    public GroupBuilder groupId(@NonNull UUID groupId) {
+        this.groupId = groupId;
         return this;
     }
 
@@ -129,13 +145,17 @@ public class GroupBuilder {
      * @throws IllegalStateException if Group is not complete
      */
     public Group build() {
-        if (name == null) {
+        if (groupId == null) {
+            log.error("Group is not complete: group id was not set.");
+            throw new IllegalStateException("Group incomplete: group id must be set!");
+        } else if (name == null) {
             log.error("Group is not complete: name was not set.");
             throw new IllegalStateException("Group incomplete: name must be set!");
         }
 
         return new Group(
                 id,
+                groupId,
                 name,
                 members,
                 creationTime == null ? null : Timestamp.from(creationTime),

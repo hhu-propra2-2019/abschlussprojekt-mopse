@@ -27,7 +27,7 @@ public class GroupServiceDevImpl implements GroupService {
     /**
      * Group id.
      */
-    private static final Set<UUID> VALID_GROUP_IDS = Set.of(new UUID(0, 100));
+    private static final Set<Long> VALID_GROUP_IDS = Set.of(100L);
 
     /**
      * Represents the role of an admin.
@@ -46,9 +46,10 @@ public class GroupServiceDevImpl implements GroupService {
      * Group cache.
      */
     @SuppressWarnings("PMD.BeanMembersShouldSerialize")
-    private final Map<UUID, Group> cachedGroups = VALID_GROUP_IDS.stream()
+    private final Map<Long, Group> cachedGroups = VALID_GROUP_IDS.stream()
             .map(id -> Group.builder()
                     .id(id)
+                    .groupId(new UUID(0, id))
                     .name("Einzigen #" + id)
                     .build()
             )
@@ -58,7 +59,7 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    public boolean doesGroupExist(UUID groupId) throws MopsException {
+    public boolean doesGroupExist(long groupId) throws MopsException {
         return VALID_GROUP_IDS.contains(groupId);
     }
 
@@ -67,7 +68,7 @@ public class GroupServiceDevImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.OnlyOneReturn")
-    public Set<String> getRoles(UUID groupId) throws MopsException {
+    public Set<String> getRoles(long groupId) throws MopsException {
         return Set.of(adminRole, viewerRole);
     }
 
@@ -86,9 +87,9 @@ public class GroupServiceDevImpl implements GroupService {
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.UseConcurrentHashMap" }) // builder
     public List<Group> getUserGroups(Account account) throws MopsException {
-        Map<UUID, Group> newCache = new HashMap<>();
-        for (Map.Entry<UUID, Group> entry : cachedGroups.entrySet()) {
-            UUID id = entry.getKey();
+        Map<Long, Group> newCache = new HashMap<>();
+        for (Map.Entry<Long, Group> entry : cachedGroups.entrySet()) {
+            long id = entry.getKey();
             Group group = entry.getValue();
 
             GroupBuilder newGroupBuilder = Group.builder().from(group);
@@ -118,7 +119,7 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    public Group getGroup(UUID groupId) throws MopsException {
+    public Group getGroup(long groupId) throws MopsException {
         Group group = cachedGroups.get(groupId);
         if (group == null) {
             throw new DatabaseException("Die Gruppe konnte nicht gefunden werden");
@@ -139,7 +140,7 @@ public class GroupServiceDevImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    public void deleteAllGroups(Collection<UUID> groupIds) throws MopsException {
+    public void deleteAllGroups(Collection<Long> groupIds) throws MopsException {
         throw new MopsException("nicht unterstützt", new UnsupportedOperationException("nyi"));
     }
 

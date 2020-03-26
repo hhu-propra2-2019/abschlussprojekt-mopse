@@ -37,7 +37,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
             + "INNER JOIN directory "
             + "ON file_info.directory_id = directory.id "
             + "WHERE group_owner = :groupId")
-    long getStorageUsageInGroup(@Param("groupId") UUID groupId);
+    long getStorageUsageInGroup(@Param("groupId") long groupId);
 
     /**
      * Counts the total number of bytes in all groups.
@@ -57,7 +57,7 @@ public interface FileInfoRepository extends CrudRepository<FileInfo, Long> {
             + "INNER JOIN directory "
             + "ON file_info.directory_id = directory.id "
             + "WHERE group_owner = :groupId")
-    long getFileCountInGroup(@Param("groupId") UUID groupId);
+    long getFileCountInGroup(@Param("groupId") long groupId);
 
     /**
      * Fetches all file info ids.

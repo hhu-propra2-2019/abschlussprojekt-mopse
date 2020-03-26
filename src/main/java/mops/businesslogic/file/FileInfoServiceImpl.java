@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * Handles meta data for files.
@@ -99,7 +98,7 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public long getStorageUsageInGroup(UUID groupId) throws MopsException {
+    public long getStorageUsageInGroup(long groupId) throws MopsException {
         try {
             return fileInfoRepo.getStorageUsageInGroup(groupId);
         } catch (Exception e) {
@@ -127,7 +126,7 @@ public class FileInfoServiceImpl implements FileInfoService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public long getFileCountInGroup(UUID groupId) throws MopsException {
+    public long getFileCountInGroup(long groupId) throws MopsException {
         try {
             return fileInfoRepo.getFileCountInGroup(groupId);
         } catch (Exception e) {

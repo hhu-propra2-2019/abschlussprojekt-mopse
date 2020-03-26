@@ -26,7 +26,12 @@ public class Group {
      * Database id.
      */
     @Id
-    private UUID id;
+    private Long id;
+    /**
+     * Database id.
+     */
+    @NonNull
+    private UUID groupId;
     /**
      * Group name.
      */

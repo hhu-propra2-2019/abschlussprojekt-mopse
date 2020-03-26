@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * API to Gruppenfindung.
@@ -23,7 +22,7 @@ public interface GroupService {
      * @param groupId the id of the group
      * @return true if it exists, false otherwise
      */
-    boolean doesGroupExist(UUID groupId) throws MopsException;
+    boolean doesGroupExist(long groupId) throws MopsException;
 
     /**
      * Gets all roles that exist in a group.
@@ -31,7 +30,7 @@ public interface GroupService {
      * @param groupId the id of the group
      * @return gets all roles of that group
      */
-    Set<String> getRoles(UUID groupId) throws MopsException;
+    Set<String> getRoles(long groupId) throws MopsException;
 
     /**
      * Fetches all groups.
@@ -61,7 +60,7 @@ public interface GroupService {
      * @param groupId group id
      * @return group
      */
-    Group getGroup(UUID groupId) throws MopsException;
+    Group getGroup(long groupId) throws MopsException;
 
     /**
      * Save all given groups.
@@ -76,6 +75,6 @@ public interface GroupService {
      *
      * @param groupIds list of group ids to be deleted
      */
-    void deleteAllGroups(Collection<UUID> groupIds) throws MopsException;
+    void deleteAllGroups(Collection<Long> groupIds) throws MopsException;
 
 }

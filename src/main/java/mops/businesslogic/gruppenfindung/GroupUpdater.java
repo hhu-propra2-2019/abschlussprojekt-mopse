@@ -73,7 +73,8 @@ public class GroupUpdater {
             switch (groupDAO.getStatus()) {
                 case ACTIVE:
                     GroupBuilder builder = Group.builder()
-                            .id(groupId)
+                            // TODO: find id if this is a update
+                            .groupId(groupId)
                             .name(groupDAO.getGroupName());
                     for (UserDTO userDTO : gruppenfindungsService.getMembers(groupDAO.getGroupId())) {
                         String name = userDTO.getUsername();
@@ -92,7 +93,8 @@ public class GroupUpdater {
         }
 
         groupService.saveAllGroups(updated);
-        groupService.deleteAllGroups(deleted);
+        // TODO: find ids to delete
+        //groupService.deleteAllGroups(deleted);
 
         latestEventId.setEventId(updatedGroups.getEventId());
         latestEventIdService.saveLatestEventId(latestEventId);

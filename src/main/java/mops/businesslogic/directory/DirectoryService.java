@@ -10,7 +10,6 @@ import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Handles meta data for directories.
@@ -41,7 +40,7 @@ public interface DirectoryService {
      * @param groupId the group id
      * @return the directory created
      */
-    GroupRootDirWrapper getOrCreateRootFolder(UUID groupId) throws MopsException;
+    GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException;
 
     /**
      * Creates a new folder inside a folder.
@@ -135,7 +134,7 @@ public interface DirectoryService {
      * @param groupId group
      * @return directory count
      */
-    long getDirCountInGroup(UUID groupId) throws MopsException;
+    long getDirCountInGroup(long groupId) throws MopsException;
 
     /**
      * Get the total number of directories in all groups.

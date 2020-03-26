@@ -14,8 +14,6 @@ import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 /**
  * Checks roles permissions.
  */
@@ -165,7 +163,7 @@ public class SecurityServiceImpl implements SecurityService {
      */
     @Override
     @SuppressWarnings("PMD.OnlyOneReturn")
-    public boolean isUserAdmin(Account account, UUID groupId) throws MopsException {
+    public boolean isUserAdmin(Account account, long groupId) throws MopsException {
         try {
             checkIfRole(account, groupId, adminRole);
             return true;
@@ -181,7 +179,7 @@ public class SecurityServiceImpl implements SecurityService {
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
-    public void checkIfRole(Account account, UUID groupId, String allowedRole) throws MopsException {
+    public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {
         Group group = groupService.getGroup(groupId);
 
         String userRole = group.getMemberRole(account.getName());

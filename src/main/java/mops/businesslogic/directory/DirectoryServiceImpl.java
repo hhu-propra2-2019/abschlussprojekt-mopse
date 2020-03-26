@@ -142,7 +142,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
             "PMD.AvoidCatchingGenericException" })
-    public GroupRootDirWrapper getOrCreateRootFolder(UUID groupId) throws MopsException {
+    public GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException {
         Optional<GroupRootDirWrapper> optRootDir;
         try {
             optRootDir = directoryRepository
@@ -381,7 +381,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public long getDirCountInGroup(UUID groupId) throws MopsException {
+    public long getDirCountInGroup(long groupId) throws MopsException {
         try {
             return directoryRepository.getDirCountInGroup(groupId);
         } catch (Exception e) {

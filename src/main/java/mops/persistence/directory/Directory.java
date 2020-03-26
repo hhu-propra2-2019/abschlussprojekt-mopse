@@ -8,7 +8,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.UUID;
 
 /**
  * Represents a directory where files can be stored.
@@ -36,8 +35,7 @@ public class Directory {
     /**
      * Id of the group which this Directory belongs to.
      */
-    @NonNull
-    private UUID groupOwner;
+    private long groupOwner;
     /**
      * Id of the DirectoryPermissions object which stores the access permission for this Directory tree.
      */

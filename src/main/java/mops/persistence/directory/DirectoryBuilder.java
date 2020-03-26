@@ -10,7 +10,6 @@ import mops.util.AggregateBuilder;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.UUID;
 
 /**
  * Builds directories.
@@ -37,7 +36,7 @@ public class DirectoryBuilder {
     /**
      * Id of the group which this Directory belongs to.
      */
-    private UUID groupOwner;
+    private long groupOwner = -1L;
     /**
      * Id of the DirectoryPermissions object which stores the access permission for this Directory tree.
      */
@@ -137,7 +136,7 @@ public class DirectoryBuilder {
      * @param groupOwner id of owning group
      * @return this
      */
-    public DirectoryBuilder groupOwner(@NonNull UUID groupOwner) {
+    public DirectoryBuilder groupOwner(long groupOwner) {
         this.groupOwner = groupOwner;
         return this;
     }
@@ -185,7 +184,7 @@ public class DirectoryBuilder {
         if (name == null) {
             log.error("Directory is not completely setup: name was not set.");
             throw new IllegalStateException("Directory incomplete: name must be set!");
-        } else if (groupOwner == null) {
+        } else if (groupOwner == -1L) {
             log.error("Directory is not completely setup: group owner was not set.");
             throw new IllegalStateException("Directory incomplete: groupOwner must be set!");
         } else if (permissionsId == -1L) {

@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.UUID;
-
 /**
  * Controller Class for all requests on 'material1/group'.
  */
@@ -47,7 +45,7 @@ public class GroupController {
     @GetMapping("/{groupId}")
     public String getRootDirectory(RedirectAttributes redirectAttributes,
                                    KeycloakAuthenticationToken token,
-                                   @PathVariable("groupId") UUID groupId) {
+                                   @PathVariable("groupId") long groupId) {
         Account account = Account.of(token);
         log.info("Root directory of group with id '{}' requested by user '{}'.", groupId, account.getName());
 
@@ -72,7 +70,7 @@ public class GroupController {
     @ResponseBody
     @Secured("ROLE_api_user")
     public GroupRootDirWrapper getRootDirectoryUrl(KeycloakAuthenticationToken token,
-                                                   @PathVariable("groupId") UUID groupId) {
+                                                   @PathVariable("groupId") long groupId) {
         Account account = Account.of(token);
         log.info("Group root directory url for group with id '{}' requested by user '{}'.", groupId, account.getName());
 
@@ -97,7 +95,7 @@ public class GroupController {
     @PostMapping("/{groupId}/search")
     public String searchFilesInGroup(RedirectAttributes redirectAttributes,
                                      KeycloakAuthenticationToken token,
-                                     @PathVariable("groupId") UUID groupId,
+                                     @PathVariable("groupId") long groupId,
                                      @ModelAttribute("fileQueryForm") FileQueryForm queryForm) {
         Account account = Account.of(token);
         log.info("Search files in group with id '{}' requested by user '{}'.", groupId, account.getName());

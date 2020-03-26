@@ -8,14 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Database connection for groups.
  */
 @Repository
 @AggregateBuilder
-public interface GroupRepository extends CrudRepository<Group, UUID> {
+public interface GroupRepository extends CrudRepository<Group, Long> {
 
     /**
      * Get all groups where a given user is a member.

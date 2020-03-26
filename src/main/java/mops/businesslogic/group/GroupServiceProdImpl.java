@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 /**
  * {@inheritDoc}
@@ -48,7 +51,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public boolean doesGroupExist(UUID groupId) throws MopsException {
+    public boolean doesGroupExist(long groupId) throws MopsException {
         log.debug("Request existence of group '{}'.", groupId);
         try {
             return groupRepository.findById(groupId).isPresent();
@@ -63,7 +66,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings("PMD.LawOfDemeter") // stream
-    public Set<String> getRoles(UUID groupId) throws MopsException {
+    public Set<String> getRoles(long groupId) throws MopsException {
         log.debug("Request roles in group '{}'", groupId);
         return Set.of(adminRole, viewerRole);
     }
@@ -115,7 +118,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
-    public Group getGroup(UUID groupId) throws MopsException {
+    public Group getGroup(long groupId) throws MopsException {
         try {
             return groupRepository.findById(groupId).orElseThrow();
         } catch (Exception e) {
@@ -146,7 +149,7 @@ public class GroupServiceProdImpl implements GroupService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
-    public void deleteAllGroups(Collection<UUID> groupIds) throws MopsException {
+    public void deleteAllGroups(Collection<Long> groupIds) throws MopsException {
         try {
             groupIds.forEach(groupRepository::deleteById);
         } catch (Exception e) {

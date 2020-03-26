@@ -49,7 +49,7 @@ public class PrometheusComponent {
     /**
      * Groups for which there were stats added already.
      */
-    private final transient Set<UUID> seenGroups = new HashSet<>();
+    private final transient Set<Long> seenGroups = new HashSet<>();
 
     /**
      * Constructor.
@@ -179,7 +179,7 @@ public class PrometheusComponent {
          * @return stat
          * @throws MopsException on error
          */
-        Number getGroupStat(UUID groupId) throws MopsException;
+        Number getGroupStat(long groupId) throws MopsException;
 
     }
 }

@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS directory
     id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
     name               VARCHAR(255) NOT NULL,
     parent_id          BIGINT,
-    group_owner        UUID         NOT NULL,
+    group_owner        BIGINT       NOT NULL,
     permissions_id     BIGINT       NOT NULL,
     creation_time      TIMESTAMP    NOT NULL,
     last_modified_time TIMESTAMP    NOT NULL,
@@ -62,15 +62,18 @@ CREATE INDEX IF NOT EXISTS i_tag_file ON file_tag (file_id);
 
 CREATE TABLE IF NOT EXISTS group_table
 (
-    id                 UUID PRIMARY KEY,
+    id                 BIGINT PRIMARY KEY AUTO_INCREMENT,
+    group_id           UUID         NOT NULL,
     name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     creation_time      TIMESTAMP    NOT NULL,
     last_modified_time TIMESTAMP    NOT NULL
 );
 
+CREATE INDEX i_group_id ON group_table (group_id);
+
 CREATE TABLE IF NOT EXISTS group_member
 (
-    group_id UUID         NOT NULL,
+    group_id BIGINT       NOT NULL,
     name     VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     role     VARCHAR(255) NOT NULL CHECK (role NOT LIKE ''),
     CONSTRAINT fk_member_group FOREIGN KEY (group_id) REFERENCES group_table (id),
