@@ -43,7 +43,7 @@ public class ZipServiceImpl implements ZipService {
         FileOutputStream fileOutputStream;
         @NonNull String directoryName = directory.getName();
         try {
-            fileOutputStream = new FileOutputStream(directoryName);
+            fileOutputStream = new FileOutputStream(String.format("%s.zip", directoryName));
         } catch (FileNotFoundException e) {
             log.error("Failed to create FileOutputStream for {}", directoryName);
             throw new MopsException("Interner Fehler beim zippen.");
@@ -52,18 +52,41 @@ public class ZipServiceImpl implements ZipService {
 
         List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
 
-        for (FileInfo fileInfo : files) {
-            zipFile(account, zipOutputStream, fileInfo);
-
-        }
+        zipDirectory(account, directoryName, zipOutputStream, files);
 
         return zipOutputStream;
     }
 
-    private void zipFile(Account account, ZipOutputStream zipOutputStream, FileInfo fileInfo) throws MopsException {
+    private void zipDirectory(Account account,
+                              @NonNull String directoryName,
+                              ZipOutputStream zipOutputStream,
+                              List<FileInfo> files) throws MopsException {
+        try {
+            zipOutputStream.putNextEntry(new ZipEntry(String.format("%s/", directoryName)));
+        } catch (IOException e) {
+            log.error("Failed create zip entry for directory '{}", directoryName);
+            throw new MopsZipsException(String.format("Der Ornder '%s' konnte nicht gezippt werden.", directoryName));
+        }
+
+        for (FileInfo fileInfo : files) {
+            zipFile(account, zipOutputStream, fileInfo, directoryName);
+
+        }
+        try {
+            zipOutputStream.closeEntry();
+        } catch (IOException e) {
+            log.error("Failed to close zip entry for '{}", directoryName);
+            throw new MopsZipsException(String.format("Der zip konnte für '%s' nicht beendet werden", directoryName));
+        }
+    }
+
+    private void zipFile(Account account,
+                         ZipOutputStream zipOutputStream,
+                         FileInfo fileInfo,
+                         String path) throws MopsException {
         FileContainer fileContainer = fileService.getFile(account, fileInfo.getId());
         @NonNull String fileName = fileInfo.getName();
-        ZipEntry zipEntry = new ZipEntry(fileName);
+        ZipEntry zipEntry = new ZipEntry(String.format("%s/%s", path, fileName));
         try {
             zipOutputStream.putNextEntry(zipEntry);
         } catch (IOException e) {
