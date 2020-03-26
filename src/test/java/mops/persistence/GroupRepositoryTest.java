@@ -15,6 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJdbcTest
 class GroupRepositoryTest {
 
+    // TODO: implement test for "findByGroupId"
+
     @Autowired
     GroupRepository groupRepository;
 
@@ -71,7 +73,7 @@ class GroupRepositoryTest {
                 .name("Wrong")
                 .build();
 
-        List<Group> groups= List.of(group1, group2, group3, group4);
+        List<Group> groups = List.of(group1, group2, group3, group4);
 
         groupRepository.saveAll(groups);
 
@@ -80,6 +82,5 @@ class GroupRepositoryTest {
 
         assertThat(groupsOfUser1).containsExactly(group1, group2, group3);
         assertThat(groupsOfUser2).containsExactly(group4);
-
     }
 }
