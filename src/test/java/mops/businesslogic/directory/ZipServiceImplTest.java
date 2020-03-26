@@ -15,8 +15,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.zip.ZipOutputStream;
 
@@ -44,7 +44,7 @@ public class ZipServiceImplTest {
     }
 
     @Test
-    public void zipDirectoryWithOneFileTest() throws MopsException, FileNotFoundException {
+    public void zipDirectoryWithOneFileTest() throws MopsException, IOException {
         long dirId = 3L;
         long groupOwner = 2L;
         long permissionsId = 4L;
@@ -66,7 +66,8 @@ public class ZipServiceImplTest {
                 .owner("Fridolin")
                 .build();
 
-        Resource content = new ClassPathResource("resources/static/test_image.jpg");
+        String path = "static/test_image.jpg";
+        Resource content = new ClassPathResource(path);
         FileContainer file = new FileContainer(fileInfo, content);
 
         FileOutputStream fileOutputStream = new FileOutputStream(directory.getName());
