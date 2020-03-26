@@ -27,8 +27,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":2,"i1":32,"i2":32,"i3":2,"i4":2,"i5":8,"i6":8,"i7":8,"i8":2,"i9":2,"i10":2,"i11":2,"i12":2,"i13":1,"i14":1,"i15":1,"i16":2,"i17":2,"i18":2,"i19":2,"i20":2,"i21":2,"i22":2,"i23":2,"i24":2,"i25":1,"i26":1,"i27":2,"i28":8,"i29":2,"i30":2,"i31":2,"i32":2,"i33":2,"i34":2,"i35":1,"i36":2,"i37":2,"i38":2,"i39":2,"i40":2,"i41":2,"i42":1,"i43":2,"i44":2,"i45":8,"i46":2,"i47":2,"i48":2,"i49":8,"i50":1,"i51":2,"i52":1,"i53":2,"i54":8,"i55":2,"i56":2,"i57":2,"i58":2,"i59":1,"i60":2,"i61":8,"i62":8,"i63":2,"i64":8};
-var tabs = {65535:["t0","All Classes"],1:["t1","Interface Summary"],2:["t2","Class Summary"],8:["t4","Exception Summary"],32:["t6","Annotation Types Summary"]};
+var data = {"i0":2,"i1":32,"i2":32,"i3":2,"i4":2,"i5":8,"i6":8,"i7":8,"i8":2,"i9":2,"i10":2,"i11":2,"i12":2,"i13":1,"i14":1,"i15":1,"i16":2,"i17":2,"i18":2,"i19":2,"i20":2,"i21":2,"i22":2,"i23":2,"i24":2,"i25":1,"i26":1,"i27":2,"i28":8,"i29":2,"i30":2,"i31":2,"i32":2,"i33":2,"i34":2,"i35":1,"i36":2,"i37":2,"i38":2,"i39":2,"i40":2,"i41":2,"i42":1,"i43":2,"i44":2,"i45":1,"i46":2,"i47":2,"i48":8,"i49":2,"i50":8,"i51":2,"i52":2,"i53":1,"i54":2,"i55":2,"i56":2,"i57":8,"i58":1,"i59":2,"i60":1,"i61":2,"i62":8,"i63":2,"i64":2,"i65":2,"i66":2,"i67":1,"i68":2,"i69":4,"i70":8,"i71":8,"i72":2,"i73":2,"i74":2,"i75":8};
+var tabs = {65535:["t0","All Classes"],1:["t1","Interface Summary"],2:["t2","Class Summary"],4:["t3","Enum Summary"],8:["t4","Exception Summary"],32:["t6","Annotation Types Summary"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -105,7 +105,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <table class="typeSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Classes</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Interface Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Class Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Exception Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Annotation Types Summary</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Classes</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Interface Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Class Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Enum Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Exception Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Annotation Types Summary</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Class</th>
 <th class="colLast" scope="col">Description</th>
@@ -340,164 +340,229 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i38" class="altColor">
-<td class="colFirst"><a href="mops/businesslogic/group/Group.html" title="class in mops.businesslogic.group">Group</a></td>
+<td class="colFirst"><a href="mops/persistence/group/Group.html" title="class in mops.persistence.group">Group</a></td>
 <th class="colLast" scope="row">
-<div class="block">Represents a group (course, study group, etc.).</div>
+<div class="block">Represents a group.</div>
 </th>
 </tr>
 <tr id="i39" class="rowColor">
+<td class="colFirst"><a href="mops/persistence/group/GroupBuilder.html" title="class in mops.persistence.group">GroupBuilder</a></td>
+<th class="colLast" scope="row">
+<div class="block">Builds file meta data.</div>
+</th>
+</tr>
+<tr id="i40" class="altColor">
 <td class="colFirst"><a href="mops/presentation/GroupController.html" title="class in mops.presentation">GroupController</a></td>
 <th class="colLast" scope="row">
 <div class="block">Controller Class for all requests on 'material1/group'.</div>
 </th>
 </tr>
-<tr id="i40" class="altColor">
+<tr id="i41" class="rowColor">
+<td class="colFirst"><a href="mops/businesslogic/gruppenfindung/GroupDTO.html" title="class in mops.businesslogic.gruppenfindung">GroupDTO</a></td>
+<th class="colLast" scope="row">
+<div class="block">Group.</div>
+</th>
+</tr>
+<tr id="i42" class="altColor">
+<td class="colFirst"><a href="mops/persistence/GroupRepository.html" title="interface in mops.persistence">GroupRepository</a></td>
+<th class="colLast" scope="row">
+<div class="block">Database connection for groups.</div>
+</th>
+</tr>
+<tr id="i43" class="rowColor">
 <td class="colFirst"><a href="mops/businesslogic/group/GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a></td>
 <th class="colLast" scope="row">
 <div class="block">Wraps a url for a group given a group id.</div>
 </th>
 </tr>
-<tr id="i41" class="rowColor">
+<tr id="i44" class="altColor">
 <td class="colFirst"><a href="mops/presentation/GroupsController.html" title="class in mops.presentation">GroupsController</a></td>
 <th class="colLast" scope="row">
 <div class="block">Controller Class for all requests on '/material1/groups'.</div>
 </th>
 </tr>
-<tr id="i42" class="altColor">
+<tr id="i45" class="rowColor">
 <td class="colFirst"><a href="mops/businesslogic/group/GroupService.html" title="interface in mops.businesslogic.group">GroupService</a></td>
 <th class="colLast" scope="row">
 <div class="block">API to Gruppenfindung.</div>
 </th>
 </tr>
-<tr id="i43" class="rowColor">
-<td class="colFirst"><a href="mops/businesslogic/group/GroupServiceDevImpl.html" title="class in mops.businesslogic.group">GroupServiceDevImpl</a></td>
-<th class="colLast" scope="row">
-<div class="block">
- This is used during development and will return dummies.</div>
-</th>
-</tr>
-<tr id="i44" class="altColor">
-<td class="colFirst"><a href="mops/businesslogic/group/GroupServiceProdImpl.html" title="class in mops.businesslogic.group">GroupServiceProdImpl</a></td>
+<tr id="i46" class="altColor">
+<td class="colFirst"><a href="mops/businesslogic/group/GroupServiceImpl.html" title="class in mops.businesslogic.group">GroupServiceImpl</a></td>
 <th class="colLast" scope="row">
 <div class="block">
  This is used during production.</div>
 </th>
 </tr>
-<tr id="i45" class="rowColor">
-<td class="colFirst"><a href="mops/businesslogic/exception/GruppenFindungException.html" title="class in mops.businesslogic.exception">GruppenFindungException</a></td>
+<tr id="i47" class="rowColor">
+<td class="colFirst"><a href="mops/businesslogic/gruppenfindung/GroupUpdater.html" title="class in mops.businesslogic.gruppenfindung">GroupUpdater</a></td>
 <th class="colLast" scope="row">
-<div class="block">Is thrown when something happened during API request to GruppenFindung.</div>
+<div class="block">Component that updates our group database.</div>
 </th>
 </tr>
-<tr id="i46" class="altColor">
+<tr id="i48" class="altColor">
+<td class="colFirst"><a href="mops/businesslogic/exception/GruppenfindungsException.html" title="class in mops.businesslogic.exception">GruppenfindungsException</a></td>
+<th class="colLast" scope="row">
+<div class="block">Is thrown when something happened during an API request to Gruppenfindung.</div>
+</th>
+</tr>
+<tr id="i49" class="rowColor">
+<td class="colFirst"><a href="mops/businesslogic/gruppenfindung/GruppenfindungsService.html" title="class in mops.businesslogic.gruppenfindung">GruppenfindungsService</a></td>
+<th class="colLast" scope="row">
+<div class="block">Service to call REST-API from Gruppenfindung.</div>
+</th>
+</tr>
+<tr id="i50" class="altColor">
+<td class="colFirst"><a href="mops/exception/ImpossibleException.html" title="class in mops.exception">ImpossibleException</a></td>
+<th class="colLast" scope="row">
+<div class="block">Impossible error.</div>
+</th>
+</tr>
+<tr id="i51" class="rowColor">
 <td class="colFirst"><a href="mops/config/KeycloakConfig.html" title="class in mops.config">KeycloakConfig</a></td>
 <th class="colLast" scope="row">
 <div class="block">WORKAROUND for https://issues.redhat.com/browse/KEYCLOAK-11282.</div>
 </th>
 </tr>
-<tr id="i47" class="rowColor">
+<tr id="i52" class="altColor">
+<td class="colFirst"><a href="mops/persistence/event/LatestEventId.html" title="class in mops.persistence.event">LatestEventId</a></td>
+<th class="colLast" scope="row">
+<div class="block">Represents the latest event id.</div>
+</th>
+</tr>
+<tr id="i53" class="rowColor">
+<td class="colFirst"><a href="mops/persistence/LatestEventIdRepository.html" title="interface in mops.persistence">LatestEventIdRepository</a></td>
+<th class="colLast" scope="row">
+<div class="block">Database connection for the latest event id.</div>
+</th>
+</tr>
+<tr id="i54" class="altColor">
+<td class="colFirst"><a href="mops/businesslogic/event/LatestEventIdService.html" title="class in mops.businesslogic.event">LatestEventIdService</a></td>
+<th class="colLast" scope="row">
+<div class="block">Service to interface with the latest event id.</div>
+</th>
+</tr>
+<tr id="i55" class="rowColor">
 <td class="colFirst"><a href="mops/Material1Application.html" title="class in mops">Material1Application</a></td>
 <th class="colLast" scope="row">
 <div class="block">Starts spring application.</div>
 </th>
 </tr>
-<tr id="i48" class="altColor">
+<tr id="i56" class="altColor">
 <td class="colFirst"><a href="mops/presentation/Material1Controller.html" title="class in mops.presentation">Material1Controller</a></td>
 <th class="colLast" scope="row">
 <div class="block">Controller for basic routes.</div>
 </th>
 </tr>
-<tr id="i49" class="rowColor">
+<tr id="i57" class="rowColor">
 <td class="colFirst"><a href="mops/exception/MopsException.html" title="class in mops.exception">MopsException</a></td>
 <th class="colLast" scope="row">
 <div class="block">Base exception for the application.</div>
 </th>
 </tr>
-<tr id="i50" class="altColor">
+<tr id="i58" class="altColor">
 <td class="colFirst"><a href="mops/businesslogic/permission/PermissionService.html" title="interface in mops.businesslogic.permission">PermissionService</a></td>
 <th class="colLast" scope="row">
 <div class="block">Handles directory permissions.</div>
 </th>
 </tr>
-<tr id="i51" class="rowColor">
+<tr id="i59" class="rowColor">
 <td class="colFirst"><a href="mops/businesslogic/permission/PermissionServiceImpl.html" title="class in mops.businesslogic.permission">PermissionServiceImpl</a></td>
 <th class="colLast" scope="row">
 <div class="block">Implementation for the permissions service.</div>
 </th>
 </tr>
-<tr id="i52" class="altColor">
+<tr id="i60" class="altColor">
 <td class="colFirst"><a href="mops/presentation/error/PresentationError.html" title="interface in mops.presentation.error">PresentationError</a></td>
 <th class="colLast" scope="row">
 <div class="block">An error to be shown in the web template.</div>
 </th>
 </tr>
-<tr id="i53" class="rowColor">
+<tr id="i61" class="rowColor">
 <td class="colFirst"><a href="mops/businesslogic/prometheus/PrometheusComponent.html" title="class in mops.businesslogic.prometheus">PrometheusComponent</a></td>
 <th class="colLast" scope="row">
 <div class="block">Prometheus integration.</div>
 </th>
 </tr>
-<tr id="i54" class="altColor">
+<tr id="i62" class="altColor">
 <td class="colFirst"><a href="mops/businesslogic/exception/ReadAccessPermissionException.html" title="class in mops.businesslogic.exception">ReadAccessPermissionException</a></td>
 <th class="colLast" scope="row">
 <div class="block">Is thrown when an user tries to read something which he/she/it does not have the permission for.</div>
 </th>
 </tr>
-<tr id="i55" class="rowColor">
+<tr id="i63" class="rowColor">
 <td class="colFirst"><a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></td>
 <th class="colLast" scope="row">
 <div class="block">Permissions form wrapper.</div>
 </th>
 </tr>
-<tr id="i56" class="altColor">
+<tr id="i64" class="altColor">
 <td class="colFirst"><a href="mops/config/SchedulingConfig.html" title="class in mops.config">SchedulingConfig</a></td>
 <th class="colLast" scope="row">
 <div class="block">Configuration for scheduled tasks.</div>
 </th>
 </tr>
-<tr id="i57" class="rowColor">
+<tr id="i65" class="rowColor">
 <td class="colFirst"><a href="mops/config/SecurityConfig.html" title="class in mops.config">SecurityConfig</a></td>
 <th class="colLast" scope="row">
 <div class="block">Security configuration for keycloak.</div>
 </th>
 </tr>
-<tr id="i58" class="altColor">
+<tr id="i66" class="altColor">
 <td class="colFirst"><a href="mops/config/SecurityConfig.MethodSecurityConfig.html" title="class in mops.config">SecurityConfig.MethodSecurityConfig</a></td>
 <th class="colLast" scope="row">
 <div class="block">Declaring this class enables us to use the Spring specific.</div>
 </th>
 </tr>
-<tr id="i59" class="rowColor">
+<tr id="i67" class="rowColor">
 <td class="colFirst"><a href="mops/businesslogic/security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a></td>
 <th class="colLast" scope="row">
 <div class="block">Checks roles permissions.</div>
 </th>
 </tr>
-<tr id="i60" class="altColor">
+<tr id="i68" class="altColor">
 <td class="colFirst"><a href="mops/businesslogic/security/SecurityServiceImpl.html" title="class in mops.businesslogic.security">SecurityServiceImpl</a></td>
 <th class="colLast" scope="row">
 <div class="block">Checks roles permissions.</div>
 </th>
 </tr>
-<tr id="i61" class="rowColor">
+<tr id="i69" class="rowColor">
+<td class="colFirst"><a href="mops/businesslogic/gruppenfindung/StatusDTO.html" title="enum in mops.businesslogic.gruppenfindung">StatusDTO</a></td>
+<th class="colLast" scope="row">
+<div class="block">Group status enum.</div>
+</th>
+</tr>
+<tr id="i70" class="altColor">
 <td class="colFirst"><a href="mops/persistence/exception/StorageException.html" title="class in mops.persistence.exception">StorageException</a></td>
 <th class="colLast" scope="row">
 <div class="block">Custom Exception for errors in the MinIO File Storage.</div>
 </th>
 </tr>
-<tr id="i62" class="altColor">
+<tr id="i71" class="rowColor">
 <td class="colFirst"><a href="mops/businesslogic/exception/StorageLimitationException.html" title="class in mops.businesslogic.exception">StorageLimitationException</a></td>
 <th class="colLast" scope="row">
 <div class="block">Is thrown we a storage limitation is violated.</div>
 </th>
 </tr>
-<tr id="i63" class="rowColor">
+<tr id="i72" class="altColor">
+<td class="colFirst"><a href="mops/businesslogic/gruppenfindung/UpdatedGroupsDTO.html" title="class in mops.businesslogic.gruppenfindung">UpdatedGroupsDTO</a></td>
+<th class="colLast" scope="row">
+<div class="block">Updated groups since the last time stamp.</div>
+</th>
+</tr>
+<tr id="i73" class="rowColor">
+<td class="colFirst"><a href="mops/businesslogic/gruppenfindung/UserDTO.html" title="class in mops.businesslogic.gruppenfindung">UserDTO</a></td>
+<th class="colLast" scope="row">
+<div class="block">User.</div>
+</th>
+</tr>
+<tr id="i74" class="altColor">
 <td class="colFirst"><a href="mops/businesslogic/security/UserPermission.html" title="class in mops.businesslogic.security">UserPermission</a></td>
 <th class="colLast" scope="row">
 <div class="block">Wrapper for permission of one user in one directory.</div>
 </th>
 </tr>
-<tr id="i64" class="altColor">
+<tr id="i75" class="rowColor">
 <td class="colFirst"><a href="mops/businesslogic/exception/WriteAccessPermissionException.html" title="class in mops.businesslogic.exception">WriteAccessPermissionException</a></td>
 <th class="colLast" scope="row">
 <div class="block">Is thrown when an user tries to write to a directory for which he/she/it does not have writing permissions.</div>

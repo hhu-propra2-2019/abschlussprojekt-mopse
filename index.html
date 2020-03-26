@@ -869,25 +869,31 @@ Nutzers in einer bestimmten Gruppe.</em></p></td>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>GroupService</p>
+<p>GruppenfindungsService</p>
 </div>
 <div class="paragraph">
 <p>Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der GruppenFindung interagieren.
-Dazu haben wir folgende REST API Anfragen implementiert:</p>
+Dazu haben wir folgende Anfragen an die REST-API der Gruppenfindung implementiert:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>getAllGroups</code>: gibt alle existierenden Gruppen zurück</p>
+<p><code>doesGroupExist</code>: fragt ab, ob eine gegebene Gruppe existiert</p>
 </li>
 <li>
-<p><code>getAllGroupsOfUser</code>: gibt alle Gruppen zurück, in der ein gegebener User Mitglied ist</p>
+<p><code>isUserInGroup</code>: fragt ab, ob ein gegebener User in einer gegebenen Gruppe Mitglied ist</p>
 </li>
 <li>
-<p><code>fetchRolesInGroup</code>: gibt alle Rollen in einer gegebenen Gruppe zurück</p>
+<p><code>isUserAdminInGroup</code>: fragt ab, ob ein gegebener User in einer gegebenen Gruppe Administrator ist</p>
 </li>
 <li>
-<p><code>fetchRoleForUserInGroup</code>: gibt die Rolle eines bestimmten Users in einer gegebenen Gruppe zurück</p>
+<p><code>returnAllGroups</code>: gibt alle Gruppen zurück, die seit einem bestimmten Zeitpunkt, der durch den Parameter <code>eventId</code> bestimmt wird, verändert worden sind</p>
+</li>
+<li>
+<p><code>returnUsersOfGroup</code>: gibt alle Mitglieder einer Gruppe zurück</p>
+</li>
+<li>
+<p><code>returnGroupsOfUsers</code>: gibt alle Gruppen eines Users zurück</p>
 </li>
 </ol>
 </div>
@@ -1406,9 +1412,19 @@ an das <code>FileRepository</code> gestellt werden, um die Datei selbst zu erhal
 <code>DirectoryService</code> und des <code>SecurityService</code> überprüft.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GroupService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GruppenfindungsService</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Erlaubt es Anfragen an die <code>Gruppenfindung</code> zu stellen.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Kommunziert nur über eine REST-API mit der <code>Gruppenfindung</code>.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GroupService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt den Zugang zu unserer Gruppen-Datenbank bereit.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Befragt die Datenbank über das <code>GroupRepository</code> nach Gruppen.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LatestEventIdService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt den Zugang zu der gespeicherten <code>latestEventId</code> zur Verfügung. Wird für die Gruppenfindung benötigt.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Befragt die Datenbank über das <code>LatestEventIdRepository</code> nach der gespeicherten <code>latestEventId</code>.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PermissionService</p></td>
@@ -1456,6 +1472,16 @@ an das <code>FileRepository</code> gestellt werden, um die Datei selbst zu erhal
 <td class="tableblock halign-left valign-top"><p class="tableblock">FileInfoRepository</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ist die Schnittstelle zur <code>Datenbank</code> für die Metadaten einer Datei.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage an die <code>Datenbank</code>, um ein Dateimetadatenobjekt zu erhalten.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GroupRepository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ist die Schnittstelle zur <code>Datenbank</code> für die Gruppen.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage an die <code>Datenbank</code>, um ein Gruppenobjekt zu erhalten.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LatestEventIdRepository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ist die Schnittstelle zur <code>Datenbank</code> für die <code>latestEventId</code>.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt eine Anfrage an die <code>Datenbank</code>, um das <code>latestEventId</code>-Objekt zu erhalten. Es wird immer nur höchstens eins geben.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FileRepository</p></td>
@@ -2241,7 +2267,7 @@ keine Fehler während der Entwicklung übersehen werden.</p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-26 11:14:22 UTC
+Last updated 2020-03-26 15:42:50 UTC
 </div>
 </div>
 </body>

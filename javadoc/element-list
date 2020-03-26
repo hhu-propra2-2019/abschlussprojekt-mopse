@@ -2,10 +2,12 @@ mops
 mops.businesslogic
 mops.businesslogic.config
 mops.businesslogic.directory
+mops.businesslogic.event
 mops.businesslogic.exception
 mops.businesslogic.file
 mops.businesslogic.file.query
 mops.businesslogic.group
+mops.businesslogic.gruppenfindung
 mops.businesslogic.permission
 mops.businesslogic.prometheus
 mops.businesslogic.security
@@ -14,8 +16,10 @@ mops.exception
 mops.persistence
 mops.persistence.config
 mops.persistence.directory
+mops.persistence.event
 mops.persistence.exception
 mops.persistence.file
+mops.persistence.group
 mops.persistence.permission
 mops.presentation
 mops.presentation.error

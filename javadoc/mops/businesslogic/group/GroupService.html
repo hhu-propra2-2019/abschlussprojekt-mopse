@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -124,7 +124,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><code><a href="GroupServiceDevImpl.html" title="class in mops.businesslogic.group">GroupServiceDevImpl</a></code>, <code><a href="GroupServiceProdImpl.html" title="class in mops.businesslogic.group">GroupServiceProdImpl</a></code></dd>
+<dd><code><a href="GroupServiceImpl.html" title="class in mops.businesslogic.group">GroupServiceImpl</a></code></dd>
 </dl>
 <hr>
 <pre>@Service
@@ -151,32 +151,66 @@ public interface <span class="typeNameLabel">GroupService</span></pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchRoleForUserInGroup(mops.businesslogic.security.Account,long)">fetchRoleForUserInGroup</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
-                       long&nbsp;groupId)</code></th>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteGroup(long)">deleteGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
-<div class="block">Gets the role for one user in a group.</div>
+<div class="block">Delete the given group.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>java.util.Set&lt;java.lang.String&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchRolesInGroup(long)">fetchRolesInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#doesGroupExist(long)">doesGroupExist</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
-<div class="block">Gets all roles for a group.</div>
+<div class="block">Tests whether a group exists or not.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="Group.html" title="class in mops.businesslogic.group">Group</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.Optional&lt;<a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findGroupByGroupId(java.util.UUID)">findGroupByGroupId</a></span>&#8203;(java.util.UUID&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Get a group by its group uuid.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllGroups()">getAllGroups</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Fetches all groups.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="Group.html" title="class in mops.businesslogic.group">Group</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllGroupsOfUser(mops.businesslogic.security.Account)">getAllGroupsOfUser</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account)</code></th>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDefaultPermissions(long)">getDefaultPermissions</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Creates the default permissions.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroup(long)">getGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Get a group by id.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>java.util.Set&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRoles(long)">getRoles</a></span>&#8203;(long&nbsp;groupId)</code></th>
+<td class="colLast">
+<div class="block">Gets all roles that exist in a group.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserGroups(mops.businesslogic.security.Account)">getUserGroups</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account)</code></th>
 <td class="colLast">
 <div class="block">Fetches all visible groups of one user.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code><a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveGroup(mops.persistence.group.Group)">saveGroup</a></span>&#8203;(<a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&nbsp;group)</code></th>
+<td class="colLast">
+<div class="block">Save the given group.</div>
 </td>
 </tr>
 </table>
@@ -196,36 +230,34 @@ public interface <span class="typeNameLabel">GroupService</span></pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="fetchRoleForUserInGroup(mops.businesslogic.security.Account,long)">
+<a id="doesGroupExist(long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>fetchRoleForUserInGroup</h4>
-<pre class="methodSignature">java.lang.String&nbsp;fetchRoleForUserInGroup&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
-                                         long&nbsp;groupId)
-                                  throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
-<div class="block">Gets the role for one user in a group.</div>
+<h4>doesGroupExist</h4>
+<pre class="methodSignature">boolean&nbsp;doesGroupExist&#8203;(long&nbsp;groupId)
+                throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Tests whether a group exists or not.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>account</code> - user credentials</dd>
 <dd><code>groupId</code> - the id of the group</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the role of the user in that group</dd>
+<dd>true if group exists, false otherwise</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>
 </li>
 </ul>
-<a id="fetchRolesInGroup(long)">
+<a id="getRoles(long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>fetchRolesInGroup</h4>
-<pre class="methodSignature">java.util.Set&lt;java.lang.String&gt;&nbsp;fetchRolesInGroup&#8203;(long&nbsp;groupId)
-                                           throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
-<div class="block">Gets all roles for a group.</div>
+<h4>getRoles</h4>
+<pre class="methodSignature">java.util.Set&lt;java.lang.String&gt;&nbsp;getRoles&#8203;(long&nbsp;groupId)
+                                  throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Gets all roles that exist in a group.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>groupId</code> - the id of the group</dd>
@@ -242,7 +274,7 @@ public interface <span class="typeNameLabel">GroupService</span></pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getAllGroups</h4>
-<pre class="methodSignature">java.util.List&lt;<a href="Group.html" title="class in mops.businesslogic.group">Group</a>&gt;&nbsp;getAllGroups()
+<pre class="methodSignature">java.util.List&lt;<a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&gt;&nbsp;getAllGroups()
                             throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
 <div class="block">Fetches all groups.</div>
 <dl>
@@ -253,20 +285,110 @@ public interface <span class="typeNameLabel">GroupService</span></pre>
 </dl>
 </li>
 </ul>
-<a id="getAllGroupsOfUser(mops.businesslogic.security.Account)">
+<a id="getUserGroups(mops.businesslogic.security.Account)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
-<h4>getAllGroupsOfUser</h4>
-<pre class="methodSignature">java.util.List&lt;<a href="Group.html" title="class in mops.businesslogic.group">Group</a>&gt;&nbsp;getAllGroupsOfUser&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account)
-                                  throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<h4>getUserGroups</h4>
+<pre class="methodSignature">java.util.List&lt;<a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&gt;&nbsp;getUserGroups&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account)
+                             throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
 <div class="block">Fetches all visible groups of one user.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>account</code> - the account the user</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a list of groups</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="getDefaultPermissions(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDefaultPermissions</h4>
+<pre class="methodSignature"><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;getDefaultPermissions&#8203;(long&nbsp;groupId)</pre>
+<div class="block">Creates the default permissions.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - group id</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>default directory permissions</dd>
+</dl>
+</li>
+</ul>
+<a id="getGroup(long)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getGroup</h4>
+<pre class="methodSignature"><a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&nbsp;getGroup&#8203;(long&nbsp;groupId)
+        throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Get a group by id.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - group id</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>group</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="findGroupByGroupId(java.util.UUID)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>findGroupByGroupId</h4>
+<pre class="methodSignature">java.util.Optional&lt;<a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&gt;&nbsp;findGroupByGroupId&#8203;(java.util.UUID&nbsp;groupId)
+                                      throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Get a group by its group uuid.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - group uuid</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>group</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="saveGroup(mops.persistence.group.Group)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>saveGroup</h4>
+<pre class="methodSignature"><a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&nbsp;saveGroup&#8203;(<a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&nbsp;group)
+         throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Save the given group.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>group</code> - group to be saved</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>saved group</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="deleteGroup(long)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>deleteGroup</h4>
+<pre class="methodSignature">void&nbsp;deleteGroup&#8203;(long&nbsp;groupId)
+          throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Delete the given group.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - id of the group to be deleted</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>

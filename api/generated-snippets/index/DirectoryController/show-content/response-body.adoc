@@ -122,7 +122,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="0/search"
-              method="post"><input type="hidden" name="_csrf" value="461db90c-c542-4f81-b4b8-5ea7a90e84c3"/>
+              method="post"><input type="hidden" name="_csrf" value="e1cce906-27cf-4e14-98e2-22b4a4eed215"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -217,7 +217,7 @@
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="0/create" method="post"><input type="hidden" name="_csrf" value="461db90c-c542-4f81-b4b8-5ea7a90e84c3"/>
+        <form class="input-group" action="0/create" method="post"><input type="hidden" name="_csrf" value="e1cce906-27cf-4e14-98e2-22b4a4eed215"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -226,7 +226,7 @@
 
         <!-- Form to upload a new file to the folder -->
         <form class="input-group" action="0/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="461db90c-c542-4f81-b4b8-5ea7a90e84c3"/>
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="e1cce906-27cf-4e14-98e2-22b4a4eed215"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">

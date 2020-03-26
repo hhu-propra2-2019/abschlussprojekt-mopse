@@ -203,7 +203,7 @@ extends org.springframework.data.repository.CrudRepository&lt;<a href="directory
 <ul class="blockList">
 <li class="blockList">
 <h4>getAllSubFoldersOfParent</h4>
-<pre class="methodSignature">@Query("SELECT * FROM directory WHERE parent_id IS NOT NULL AND parent_id = :parentId")
+<pre class="methodSignature">@Query("SELECT * FROM directory WHERE parent_id = :parentId")
 java.util.List&lt;<a href="directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;&nbsp;getAllSubFoldersOfParent&#8203;(@Param("parentId")
                                                    long&nbsp;parentId)</pre>
 <div class="block">Gets all sub folders.</div>

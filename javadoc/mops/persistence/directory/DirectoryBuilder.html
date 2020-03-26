@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -185,47 +185,54 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#groupOwner(mops.persistence.group.Group)">groupOwner</a></span>&#8203;(@NonNull <a href="../group/Group.html" title="class in mops.persistence.group">Group</a>&nbsp;groupOwner)</code></th>
+<td class="colLast">
+<div class="block">Set owning group id.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#id(java.lang.Long)">id</a></span>&#8203;(java.lang.Long&nbsp;id)</code></th>
 <td class="colLast">
 <div class="block">Set id.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#id(mops.persistence.directory.Directory)">id</a></span>&#8203;(<a href="Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)</code></th>
 <td class="colLast">
 <div class="block">Set id from existing Directory.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#name(java.lang.String)">name</a></span>&#8203;(@NonNull java.lang.String&nbsp;name)</code></th>
 <td class="colLast">
 <div class="block">Set name.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parent(long)">parent</a></span>&#8203;(long&nbsp;parentId)</code></th>
 <td class="colLast">
 <div class="block">Set parent id.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parent(mops.persistence.directory.Directory)">parent</a></span>&#8203;(@NonNull <a href="Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;parent)</code></th>
 <td class="colLast">
 <div class="block">Set parent.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#permissions(long)">permissions</a></span>&#8203;(long&nbsp;permissionsId)</code></th>
 <td class="colLast">
 <div class="block">Set permissons id.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code><a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#permissions(mops.persistence.permission.DirectoryPermissions)">permissions</a></span>&#8203;(@NonNull <a href="../permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;permissions)</code></th>
 <td class="colLast">
@@ -379,6 +386,23 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>groupOwner</h4>
 <pre class="methodSignature">public&nbsp;<a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a>&nbsp;groupOwner&#8203;(long&nbsp;groupOwner)</pre>
+<div class="block">Set owning group id.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupOwner</code> - id of owning group</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this</dd>
+</dl>
+</li>
+</ul>
+<a id="groupOwner(mops.persistence.group.Group)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>groupOwner</h4>
+<pre class="methodSignature">public&nbsp;<a href="DirectoryBuilder.html" title="class in mops.persistence.directory">DirectoryBuilder</a>&nbsp;groupOwner&#8203;(@NonNull
+                                   @NonNull <a href="../group/Group.html" title="class in mops.persistence.group">Group</a>&nbsp;groupOwner)</pre>
 <div class="block">Set owning group id.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
