@@ -54,14 +54,12 @@ class DeleteServiceTest {
     Account admin;
     Account editor;
     Account user;
-    Account intruder;
 
     /**
      * Prepares user accounts.
      */
     @BeforeEach
     void setup() throws MopsException {
-        intruder = Account.of(INTRUDER, "intruder@uni-koeln.de", STUDENTIN);
         user = Account.of(VIEWER, "user@hhu.de", STUDENTIN);
         editor = Account.of(EDITOR, "editor@hhu.de", STUDENTIN);
         admin = Account.of(ADMIN, "admin@hhu.de", STUDENTIN);
