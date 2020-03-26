@@ -10,6 +10,8 @@ import mops.persistence.file.FileInfo;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +35,9 @@ public class FileInfoServiceImpl implements FileInfoService {
     @Override
     public List<FileInfo> fetchAllFilesInDirectory(long dirId) throws MopsException {
         try {
-            return fileInfoRepo.findAllInDirectory(dirId);
+            List<FileInfo> fileInfos = new ArrayList<>(fileInfoRepo.findAllInDirectory(dirId));
+            Collections.sort(fileInfos);
+            return fileInfos;
         } catch (Exception e) {
             log.error("Failed to retrieve all files in directory with id {} from the database:", dirId, e);
             throw new DatabaseException("Es konnten nicht alle Dateien im Verzeichnis gefunden werden!", e);

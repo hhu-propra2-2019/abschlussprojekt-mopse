@@ -55,7 +55,7 @@ public class FileServiceImpl implements FileService {
     @Override
     @Transactional
     // builder & too many if-statements - but those are fine as they are exit points of this method
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.CyclomaticComplexity" })
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.CyclomaticComplexity"})
     public void saveFile(Account account, long dirId, MultipartFile multipartFile,
                          Set<String> tags) throws MopsException {
         if (multipartFile.getSize() <= 0) {
@@ -112,7 +112,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
     @SuppressFBWarnings(value = "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE",
             justification = "There's no nullcheck here.")
     public FileContainer getFile(Account account, long fileId) throws MopsException {
@@ -156,7 +156,7 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     @Transactional
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
     public Directory deleteFile(Account account, long fileId) throws MopsException {
         FileInfo fileInfo;
         try {
@@ -201,7 +201,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
     public FileInfo getFileInfo(Account account, long fileId) throws MopsException {
         FileInfo fileInfo;
         try {

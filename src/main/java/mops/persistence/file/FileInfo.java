@@ -19,7 +19,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor(access = AccessLevel.PACKAGE, onConstructor_ = @PersistenceConstructor)
 @AggregateRoot
-public class FileInfo {
+public class FileInfo implements Comparable<FileInfo> {
 
     /**
      * Database Id.
@@ -139,5 +139,13 @@ public class FileInfo {
             suffix = "GiB";
         }
         return String.format("%.2f %s", result, suffix);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int compareTo(FileInfo fileInfo) {
+        return this.getName().compareTo(fileInfo.getName());
     }
 }
