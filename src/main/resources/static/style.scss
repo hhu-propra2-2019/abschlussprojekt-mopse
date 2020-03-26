@@ -8,6 +8,8 @@
 
   .material1-search-form {
     display: none;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
     .material1-search-form-column {
       padding-right: 10px;
@@ -19,7 +21,24 @@
   }
 }
 
+.button-above-wrapper {
+  padding-bottom: 10px;
+}
+
+td {
+  vertical-align: middle !important;
+}
+
 .material1-create-forms {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  .input-group {
+    padding-top: 10px;
+    width: auto;
+    .form-control {
+      width: auto;
+      flex: inherit;
+    }
+  }
 }

@@ -57,8 +57,8 @@
                 if (window[substringTestIfOver9 + "Counter"] > 9) {
                     ifOver9 = -1;
                 }
-                const substring = del.substring(0, idLength - 3 + ifOver9);
 
+                const substring = del.substring(0, idLength - 3 + ifOver9);
                 const counter = del.substring(idLength - 2 + ifOver9, idLength - 1);
                 if (counter > 0) {
                     // delete element
@@ -95,13 +95,6 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
-    <!-- Button to the directory above -->
-    <div th:if="${directory.getParentId()} != null">
-        <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
-            <input type="submit" value="Ebene hoch">
-        </form>
-    </div>
-
     <!-- Form to search for a file in the folder and all subfolders by 4 different parameters -->
     <div class="material1-search-wrapper">
         <input class="material1-show-search-button btn btn-primary" id="show-search-button" type="button"
@@ -170,45 +163,62 @@
         </form>
     </div>
 
+    <!-- Button to the directory above -->
+
+    <div th:if="${directory.getParentId()} != null">
+        <div class="button-above-wrapper">
+            <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
+                <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
+            </form>
+        </div>
+    </div>
+
     <!-- Main Table to show the Folder Content -->
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>Erstelldatum</th>
-            <th>Typ</th>
-            <th>Besitzer</th>
-            <th>Größe</th>
-            <th></th>
-        </tr>
-        <tr th:each="dir : ${dirs}">
-            <td><a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
-            <td th:text="${#temporals.format(dir.creationTime, 'dd.MM.yyyy - HH:mm')}"></td>
-            <td>Dateiordner</td>
-            <td></td>
-            <td></td>
-            <td>
-                <form action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}" th:method="post">
-                    <input class="btn btn-danger" type="submit" name="deleteFolder" value="Ordner löschen">
-                </form>
-            </td>
-        </tr>
-        <tr th:each="file : ${files}">
-            <td><a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
-            <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
-            <td th:text="${file.type}">%Typ%</td>
-            <td th:text="${file.owner}">%Owner%</td>
-            <td th:text="${file.getSizeString()}">%Größe%</td>
-            <td>
-                <form action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
-                    <input class="btn btn-danger" type="submit" name="deleteFile" value="Datei löschen">
-                </form>
-            </td>
-        </tr>
-    </table>
+    <div class="table-responsive">
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Erstelldatum</th>
+                <th scope="col">Typ</th>
+                <th scope="col">Besitzer</th>
+                <th scope="col">Größe</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dir : ${dirs}">
+                <td><a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
+                <td th:text="${#temporals.format(dir.creationTime, 'dd.MM.yyyy - HH:mm')}"></td>
+                <td>Dateiordner</td>
+                <td></td>
+                <td></td>
+                <td>
+                    <form action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}" th:method="post">
+                        <input class="btn btn-danger" type="submit" name="deleteFolder" value="Ordner löschen">
+                    </form>
+                </td>
+            </tr>
+            <tr th:each="file : ${files}">
+                <td><a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
+                <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
+                <td th:text="${file.type}">%Typ%</td>
+                <td th:text="${file.owner}">%Owner%</td>
+                <td th:text="${file.getSizeString()}">%Größe%</td>
+                <td>
+                    <form action="#" th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
+                        <input class="btn btn-danger" type="submit" name="deleteFile" value="Datei löschen">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}" th:method="post">
+        <form class="input-group" action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}"
+              th:method="post">
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -216,9 +226,10 @@
         </form>
 
         <!-- Form to upload a new file to the folder -->
-        <form class="input-group" action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}" th:method="post"
+        <form class="input-group" action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}"
+              th:method="post"
               enctype="multipart/form-data">
-            <input class="form-control" type="file" name="file" required>
+            <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">
             </div>

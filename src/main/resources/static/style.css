@@ -7,6 +7,8 @@
 }
 .material1-search-wrapper .material1-search-form {
   display: none;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 .material1-search-wrapper .material1-search-form .material1-search-form-column {
   padding-right: 10px;
@@ -15,9 +17,26 @@
   display: flex;
 }
 
+.button-above-wrapper {
+  padding-bottom: 10px;
+}
+
+td {
+  vertical-align: middle !important;
+}
+
 .material1-create-forms {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+.material1-create-forms .input-group {
+  padding-top: 10px;
+  width: auto;
+}
+.material1-create-forms .input-group .form-control {
+  width: auto;
+  flex: inherit;
 }
 
 /*# sourceMappingURL=style.css.map */
