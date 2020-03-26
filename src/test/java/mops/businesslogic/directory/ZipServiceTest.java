@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class ZipServiceImplTest {
+public class ZipServiceTest {
 
     @Mock
     DirectoryService directoryService;
@@ -33,14 +33,14 @@ public class ZipServiceImplTest {
     @Mock
     FileService fileService;
 
-    private ZipService zipService;
-    private Account account;
-    private long groupOwner;
-    private long permissionsId;
-    private Resource content;
+    ZipService zipService;
+    Account account;
+    long groupOwner;
+    long permissionsId;
+    Resource content;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         zipService = new ZipServiceImpl(directoryService, fileService);
         account = Account.of("Fridolin", "fridolin@pinguin.de", "admin");
         groupOwner = 2L;
@@ -51,7 +51,7 @@ public class ZipServiceImplTest {
     }
 
     @Test
-    public void zipDirectoryWithOneFileTest() throws MopsException, IOException {
+    void zipDirectoryWithOneFileTest() throws MopsException, IOException {
         long dirId = 3L;
         long fileId = 1L;
 
@@ -92,7 +92,7 @@ public class ZipServiceImplTest {
     }
 
     @Test
-    public void zipDirectoryWithNestedDirectoriesTest() throws IOException, MopsException {
+    void zipDirectoryWithNestedDirectoriesTest() throws IOException, MopsException {
         long deepDirId = 69L;
         long bottomDirId = 42L;
         long fileId = 1L;
