@@ -77,7 +77,8 @@ public class DirectoryServiceImpl implements DirectoryService {
         Directory directory = getDirectory(parentDirID);
         securityService.checkReadPermission(account, directory);
         try {
-            List<Directory> directories = directoryRepository.getAllSubFoldersOfParent(parentDirID);
+            List<Directory> directories = new ArrayList<>(directoryRepository.getAllSubFoldersOfParent(parentDirID));
+            directories.sort(Directory.NAME_COMPARATOR);
             if (directory.getParentId() == null) {
                 // If the current dir is the root folder,
                 // there could be directories in it without
@@ -313,6 +314,13 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("The user '{}' tried to change the permissions of a directory to an invalid one. "
                             + "Role Permissions are missing or superfluous.",
                     account.getName());
+            throw new DatabaseException("Neue Berechtigungen ungültig.");
+        }
+
+        if (!permissions.isAllowedToRead(adminRole)
+                || !permissions.isAllowedToWrite(adminRole)
+                || !permissions.isAllowedToDelete(adminRole)) {
+            log.error("The user '{}' tried to change the permissions of the admin role.", account.getName());
             throw new DatabaseException("Neue Berechtigungen ungültig.");
         }
 

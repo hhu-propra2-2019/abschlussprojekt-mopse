@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Comparator;
 
 /**
  * Represents a directory where files can be stored.
@@ -16,6 +17,11 @@ import java.time.Instant;
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @AggregateRoot
 public class Directory {
+
+    /**
+     * Name Comparator.
+     */
+    public static final Comparator<Directory> NAME_COMPARATOR = Comparator.comparing(Directory::getName);
 
     /**
      * Database Id.

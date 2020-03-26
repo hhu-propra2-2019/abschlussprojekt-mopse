@@ -93,7 +93,7 @@
                     <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
                 </form>
             </div>
-        </div> 
+        </div>
 
         <!-- Path to the current folder -->
         <div class="form-control">
@@ -171,10 +171,10 @@
     <div th:if="${adminRole}">
         <form action="#" th:action="@{{dirId}/edit(dirId = ${directory.id})}" th:method="post"
               th:object="${editDirectoryForm}">
-            <fieldset th:if="${directory.parentId} != null">
+            <fieldset>
                 <label>
                     <span>Ordnername:</span>
-                    <input type="text" th:field="*{name}"/>
+                    <input type="text" th:field="*{name}" th:readonly="${directory.parentId} == null"/>
                 </label>
             </fieldset>
             <table>
@@ -187,19 +187,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="rolePermissions, itemStat : *{rolePermissions}">
-                    <div th:if="*{rolePermissions[__${itemStat.index}__].role == 'admin'} ">
-                    <td><input type="text" th:field="*{rolePermissions[__${itemStat.index}__].role}" readonly/></td>
-                    <td><input type="checkbox" onclick="return false;" th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
-                    <td><input type="checkbox" onclick="return false;" th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
-                    <td><input type="checkbox" onclick="return false;" th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
-                    </div>
-                    <div th:if="*{rolePermissions[__${itemStat.index}__].role != 'admin'} ">
-                        <td><input type="text" th:field="*{rolePermissions[__${itemStat.index}__].role}" readonly/></td>
-                        <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
-                        <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
-                        <td><input type="checkbox" th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
-                    </div>
+                <tr th:each="rolePermissions, itemStat : *{rolePermissions}"
+                    th:with="adminRow = *{rolePermissions[__${itemStat.index}__].role} == 'admin'">
+                    <td><input type="text" readonly
+                               th:field="*{rolePermissions[__${itemStat.index}__].role}"/></td>
+                    <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
+                               th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
+                    <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
+                               th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
+                    <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
+                               th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
                 </tr>
                 </tbody>
             </table>
