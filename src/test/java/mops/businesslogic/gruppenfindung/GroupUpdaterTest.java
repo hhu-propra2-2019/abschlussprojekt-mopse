@@ -60,7 +60,7 @@ class GroupUpdaterTest {
         String userName = "Thabb";
 
         UpdatedGroupsDTO updatedGroups = new UpdatedGroupsDTO();
-        updatedGroups.setEventId(20L);
+        updatedGroups.setEventId(21L);
 
         UserDTO user = new UserDTO();
         user.setUsername(userName);
@@ -85,5 +85,39 @@ class GroupUpdaterTest {
         groupUpdater.updateDatabase();
 
         verify(groupService).saveAllGroups(List.of(expectedGroup));
+    }
+
+    @Test
+    public void deleteGroupTest() throws MopsException {
+        UUID groupId = new UUID(0, 7);
+        String groupName = "test";
+        String userName = "Thabb";
+
+        UpdatedGroupsDTO updatedGroups = new UpdatedGroupsDTO();
+        updatedGroups.setEventId(22L);
+
+        UserDTO user = new UserDTO();
+        user.setUsername(userName);
+
+        GroupDTO groupDTO = new GroupDTO();
+        groupDTO.setGroupId(groupId);
+        groupDTO.setGroupName(groupName);
+        groupDTO.setStatus(StatusDTO.DEACTIVATED);
+
+        updatedGroups.setGroupDAOs(List.of(groupDTO));
+
+        Group expectedGroup = Group.builder()
+                .groupId(groupId)
+                .name(groupName)
+                .member(userName, "admin")
+                .build();
+
+        given(gruppenfindungsService.getUpdatedGroups(anyLong())).willReturn(updatedGroups);
+        given(gruppenfindungsService.getMembers(groupId)).willReturn(List.of(user));
+        given(gruppenfindungsService.isUserAdminInGroup(userName, groupId)).willReturn(true);
+
+        groupUpdater.updateDatabase();
+
+        verify(groupService).deleteAllGroups(List.of(expectedGroup.getId()));
     }
 }
