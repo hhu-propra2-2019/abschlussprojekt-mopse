@@ -9,7 +9,6 @@ import mops.persistence.GroupRepository;
 import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,9 +20,7 @@ import java.util.*;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Profile("prod")
-@SuppressWarnings("PMD.UnusedPrivateMethod")
-public class GroupServiceProdImpl implements GroupService {
+public class GroupServiceImpl implements GroupService {
 
     /**
      * Represents the role of an admin.
@@ -49,7 +46,6 @@ public class GroupServiceProdImpl implements GroupService {
     @Override
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" }) // optional
     public boolean doesGroupExist(long groupId) throws MopsException {
-        log.debug("Request existence of group '{}'.", groupId);
         try {
             return groupRepository.findById(groupId).isPresent();
         } catch (Exception e) {
@@ -64,7 +60,6 @@ public class GroupServiceProdImpl implements GroupService {
     @Override
     @SuppressWarnings("PMD.LawOfDemeter") // stream
     public Set<String> getRoles(long groupId) throws MopsException {
-        log.debug("Request roles in group '{}'", groupId);
         return Set.of(adminRole, viewerRole);
     }
 
@@ -74,7 +69,6 @@ public class GroupServiceProdImpl implements GroupService {
     @Override
     @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" }) // iterable fluent api
     public List<Group> getAllGroups() throws MopsException {
-        log.debug("Request all groups.");
         List<Group> groups = new ArrayList<>();
         try {
             groupRepository.findAll().forEach(groups::add);
@@ -91,7 +85,6 @@ public class GroupServiceProdImpl implements GroupService {
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public List<Group> getUserGroups(Account account) throws MopsException {
-        log.debug("Request all groups of user '{}'.", account.getName());
         try {
             return groupRepository.findByUser(account.getName());
         } catch (Exception e) {

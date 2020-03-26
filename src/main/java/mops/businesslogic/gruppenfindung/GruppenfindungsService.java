@@ -2,6 +2,7 @@ package mops.businesslogic.gruppenfindung;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.exception.GruppenfindungsException;
 import mops.exception.MopsException;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ import java.util.UUID;
 /**
  * Service to call REST-API from Gruppenfindung.
  */
+@Slf4j
 @Service
 @Profile("prod")
 @RequiredArgsConstructor
@@ -57,7 +59,8 @@ public class GruppenfindungsService {
             return Objects.requireNonNull(result, "got null response from GET")
                     .get("doesGroupExist");
         } catch (Exception e) {
-            throw new GruppenfindungsException("...", e);
+            log.error("Error while doing API call 'doesGroupExist' to Gruppenfindung:", e);
+            throw new GruppenfindungsException("Fehler beim Aufruf von 'doesGroupExist'", e);
         }
     }
 
@@ -84,7 +87,8 @@ public class GruppenfindungsService {
             return Objects.requireNonNull(result, "got null response from GET")
                     .get("isUserInGroup");
         } catch (Exception e) {
-            throw new GruppenfindungsException("...", e);
+            log.error("Error while doing API call 'isUserInGroup' to Gruppenfindung:", e);
+            throw new GruppenfindungsException("Fehler beim Aufruf von 'isUserInGroup'.", e);
         }
     }
 
@@ -111,7 +115,8 @@ public class GruppenfindungsService {
             return Objects.requireNonNull(result, "got null response from GET")
                     .get("isUserAdminInGroup");
         } catch (Exception e) {
-            throw new GruppenfindungsException("...", e);
+            log.error("Error while doing API call 'isUserAdminInGroup' to Gruppenfindung:", e);
+            throw new GruppenfindungsException("Fehler beim Aufruf von 'isUserAdminInGroup'.", e);
         }
     }
 
@@ -132,7 +137,8 @@ public class GruppenfindungsService {
                     String.valueOf(lastEventId)
             ).getBody();
         } catch (Exception e) {
-            throw new GruppenfindungsException("...", e);
+            log.error("Error while doing API call 'returnAllGroups' to Gruppenfindung:", e);
+            throw new GruppenfindungsException("Fehler beim Aufruf von 'returnAllGroups'.", e);
         }
     }
 
@@ -154,7 +160,8 @@ public class GruppenfindungsService {
                     String.valueOf(groupId)
             ).getBody();
         } catch (Exception e) {
-            throw new GruppenfindungsException("...", e);
+            log.error("Error while doing API call 'returnUsersOfGroup' to Gruppenfindung:", e);
+            throw new GruppenfindungsException("Fehler beim Aufruf von 'returnUsersOfGroup'.", e);
         }
     }
 
@@ -176,7 +183,8 @@ public class GruppenfindungsService {
                     userName
             ).getBody();
         } catch (Exception e) {
-            throw new GruppenfindungsException("...", e);
+            log.error("Error while doing API call 'returnGroupsOfUsers' to Gruppenfindung:", e);
+            throw new GruppenfindungsException("Fehler beim Aufruf von 'returnGroupsOfUsers'.", e);
         }
     }
 }

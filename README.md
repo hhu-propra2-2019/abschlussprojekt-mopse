@@ -65,10 +65,6 @@ in der Konsole ausführen. Zum Beenden in der Konsole
 `docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.prod.yml -f docker-compose.demo.yml down --volumes --remove-orphans`
 ausführen. `--volumes` ist notwendig um die erstellten Docker Volumes mitzulöschen.
 
-## Ausloggen
-
-Man kann sich in dev nicht über den gegebenen Logout-Link ausloggen. Man kann aber links unten auf den Namen klicken und dann auf der Keycloak-Seite oben rechts auf `Logout` klicken, dann ist man ausgeloggt.
-
 ## Dokumentation
 
 Hier kann die Dokumentation gefunden werden: [Dokumentation](https://hhu-propra2.github.io/abschlussprojekt-mopse/)

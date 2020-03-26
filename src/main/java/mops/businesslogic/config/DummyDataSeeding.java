@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Profile;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Setups data for development.
@@ -58,13 +59,32 @@ public class DummyDataSeeding {
         return args -> {
             log.info("Seeding database with dummy data.");
 
-            Group group = groupService.getAllGroups().get(0);
+            final UUID groupUuid = new UUID(0, 100L);
             final int fileSize1 = 2_000;
             final int fileSize2 = 3_000;
             final String owner1 = "studentin";
             final String owner2 = "studentin1";
 
-            Account admin = Account.of("admin", "admin@hhu.de", "ROLE_admin");
+            List<Group> groups = groupService.getAllGroups();
+            if (groups.isEmpty()) {
+                groups = groupService.saveAllGroups(
+                        List.of(
+                                Group.builder()
+                                        .groupId(groupUuid)
+                                        .name("Einzigen #100")
+                                        .member("admin", adminRole)
+                                        .member("orga", adminRole)
+                                        .member("orga1", adminRole)
+                                        .member("studentin", viewerRole)
+                                        .member("studentin1", viewerRole)
+                                        .build()
+                        )
+                );
+            }
+
+            Group group = groups.get(0);
+
+            Account admin = Account.of("orga", "orga@hhu.de", "ROLE_orga");
             groupService.getUserGroups(admin); // add the admin account to the pre-existing group
 
             DirectoryPermissions directoryPermissions = DirectoryPermissions.builder()
