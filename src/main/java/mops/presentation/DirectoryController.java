@@ -42,7 +42,7 @@ import java.util.Set;
 @Slf4j
 // demeter violations in logging
 // dataflow/one return violations in try-catch statements
-@SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn", "PMD.LawOfDemeter", "PMD.ExcessiveImports"})
+@SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn", "PMD.LawOfDemeter", "PMD.ExcessiveImports" })
 public class DirectoryController {
 
     /**
@@ -145,16 +145,13 @@ public class DirectoryController {
     /**
      * Download a directory as zip.
      *
-     * @param redirectAttributes redirect attributes
-     * @param token              keycloak auth token
-     * @param dirId              id of the directory
+     * @param token keycloak auth token
+     * @param dirId id of the directory
      * @return a zip as byte array
      */
-    @SuppressWarnings("PMD.DataflowAnamolyAnalysis")
     @GetMapping("/{dirId}/zip")
-    public ResponseEntity<byte[]> zipDirectory(RedirectAttributes redirectAttributes,
-                                                 KeycloakAuthenticationToken token,
-                                                 @PathVariable("dirId") long dirId) {
+    public ResponseEntity<byte[]> zipDirectory(KeycloakAuthenticationToken token,
+                                               @PathVariable("dirId") long dirId) {
         Account account = Account.of(token);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Directory directory;
