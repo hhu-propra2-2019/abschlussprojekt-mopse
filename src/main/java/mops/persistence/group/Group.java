@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -18,6 +19,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @AggregateRoot
+@Table("group_table")
 public class Group {
 
     /**

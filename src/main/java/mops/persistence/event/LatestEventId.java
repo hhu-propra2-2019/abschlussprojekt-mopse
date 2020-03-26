@@ -31,6 +31,6 @@ public class LatestEventId {
      * @return new instance
      */
     public static LatestEventId of() {
-        return new LatestEventId(null, 0L);
+        return new LatestEventId(0L, 0L);
     }
 }
