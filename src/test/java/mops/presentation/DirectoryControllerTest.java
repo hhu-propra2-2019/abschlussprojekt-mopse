@@ -79,7 +79,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     void showContent() throws Exception {
         mockMvc().perform(get("/material1/dir/{dir}", 1))
                 .andExpect(status().isOk())
-                .andExpect(view().name("directory"))
+                .andExpect(view().name("overview"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
                                 parameterWithName("dir").description("The directory id.")
@@ -138,7 +138,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                 .requestAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("directory"))
+                .andExpect(view().name("overview"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
                                 parameterWithName("dir").description("The directory id.")

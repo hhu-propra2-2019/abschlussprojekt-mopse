@@ -23,7 +23,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="#"
-              th:action="@{{dirId}/search(dirId = ${directory.getId()})}" th:method="post"
+              th:action="@{/material1/dir/{dirId}/search(dirId = ${directory.getId()})}" th:method="post"
               th:object="${fileQueryForm}">
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
@@ -89,7 +89,7 @@
         <!-- Button to the directory above -->
         <div th:if="${directory.getParentId()} != null">
             <div class="material1-button-above-wrapper">
-                <form action="#" th:action="@{{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
+                <form action="#" th:action="@{/material1/dir/{dirId}(dirId = ${directory.getParentId()})}" th:method="get">
                     <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
                 </form>
             </div>
@@ -97,7 +97,7 @@
 
         <!-- Path to the current folder -->
         <div class="form-control">
-            <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{{dirId}(dirId = ${dir.id})}">Dir
+            <a th:each="dir : ${directoryPath}" th:text="|${dir.name}/|" th:href="@{/material1/dir/{dirId}(dirId = ${dir.id})}">Dir
                 Name</a>
         </div>
     </div>
@@ -117,27 +117,27 @@
             </thead>
             <tbody>
             <tr th:if="${dirs}" th:each="dir : ${dirs}">
-                <td><a th:text="${dir.name}" th:href="@{{dirId}(dirId = ${dir.id})}">%Name%</a></td>
+                <td><a th:text="${dir.name}" th:href="@{/material1/dir/{dirId}(dirId = ${dir.id})}">%Name%</a></td>
                 <td th:text="${#temporals.format(dir.creationTime, 'dd.MM.yyyy - HH:mm')}"></td>
                 <td>Dateiordner</td>
                 <td></td>
                 <td></td>
                 <td>
-                    <form th:if="${deletePermission}" action="#" th:action="@{{dirId}/delete(dirId = ${dir.id})}"
+                    <form th:if="${deletePermission}" action="#" th:action="@{/material1/dir/{dirId}/delete(dirId = ${dir.id})}"
                           th:method="post">
                         <input class="btn btn-danger" type="submit" name="deleteFolder" value="Ordner löschen">
                     </form>
                 </td>
             </tr>
             <tr th:if="${files}" th:each="file : ${files}">
-                <td><a th:text="${file.name}" th:href="@{../file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
+                <td><a th:text="${file.name}" th:href="@{/material1/file/{fileId}(fileId = ${file.id})}">%Name%</a></td>
                 <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
                 <td th:text="${file.type}">%Typ%</td>
                 <td th:text="${file.owner}">%Owner%</td>
                 <td th:text="${file.getSizeString()}">%Größe%</td>
                 <td>
                     <form th:if="${deletePermission || file.owner == account.name}" action="#"
-                          th:action="@{../file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
+                          th:action="@{/material1/file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
                         <input class="btn btn-danger" type="submit" name="deleteFile" value="Datei löschen">
                     </form>
                 </td>
@@ -148,7 +148,7 @@
 
     <div th:if="${writePermission}" class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="#" th:action="@{{dirId}/create(dirId = ${directory.getId()})}"
+        <form class="input-group" action="#" th:action="@{/material1/dir/{dirId}/create(dirId = ${directory.getId()})}"
               th:method="post">
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
@@ -157,7 +157,7 @@
         </form>
 
         <!-- Form to upload a new file to the folder -->
-        <form class="input-group" action="#" th:action="@{{dirId}/upload(dirId = ${directory.getId()})}"
+        <form class="input-group" action="#" th:action="@{/material1/dir/{dirId}/upload(dirId = ${directory.getId()})}"
               th:method="post"
               enctype="multipart/form-data">
             <input class="form-control" type="file" name="file" id="file-input-form" required>
@@ -169,7 +169,7 @@
 
     <!-- Change Permissions -->
     <div th:if="${adminRole}">
-        <form action="#" th:action="@{{dirId}/edit(dirId = ${directory.id})}" th:method="post"
+        <form action="#" th:action="@{/material1/dir/{dirId}/edit(dirId = ${directory.id})}" th:method="post"
               th:object="${editDirectoryForm}">
             <fieldset>
                 <label>
