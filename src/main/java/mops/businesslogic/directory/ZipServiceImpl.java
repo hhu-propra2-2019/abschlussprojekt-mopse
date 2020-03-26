@@ -88,7 +88,6 @@ public class ZipServiceImpl implements ZipService {
                          ZipOutputStream zipOutputStream,
                          FileInfo fileInfo,
                          String path) throws MopsException {
-        FileContainer fileContainer = fileService.getFile(account, fileInfo.getId());
         String fileName = fileInfo.getName();
         ZipEntry zipEntry = new ZipEntry(String.format("%s/%s", path, fileName));
         try {
@@ -97,6 +96,7 @@ public class ZipServiceImpl implements ZipService {
             log.error("Failed to zip file '{}.", fileName);
             throw new MopsZipsException(String.format("Die Datei '%s' konnte nicht gezippt werden.", fileName), e);
         }
+        FileContainer fileContainer = fileService.getFile(account, fileInfo.getId());
         try {
             zipOutputStream.write(fileContainer.getContent().getInputStream().readAllBytes());
         } catch (IOException e) {
