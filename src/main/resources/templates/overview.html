@@ -6,10 +6,11 @@
     <title>Ordner</title>
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
+        <meta name="_csrf" th:content="${_csrf.token}"/>
         <link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/style.css}">
         <script language="javascript" type="text/javascript" src="../static/script.js" th:src="@{/script.js}"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-                integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
                 crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
                 integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -167,7 +168,12 @@
                                     </span>
                                 </button>
                             </form>
-                            <button th:if="${writePermission}" class="dropdown-item" type="button">Umbenennen</button>
+                            <div th:if="${writePermission && deletePermission}">
+                                <button class="dropdown-item"
+                                        th:attr="onclick=|renameFolder('${dir.name}', '${dir.id}')|" type="button">
+                                    Umbenennen
+                                </button>
+                            </div>
                             <form th:if="${deletePermission}" action="#"
                                   th:action="@{/material1/dir/{dirId}/delete(dirId = ${dir.id})}" th:method="post"
                                   onsubmit="return confirm('Diese Aktion kann nicht rückgangig gemacht werden. Soll der Ordner mit seinem gesamten Inhalt wirklich gelöscht werden?');">
@@ -215,7 +221,12 @@
                                     </span>
                                 </button>
                             </form>
-                            <button th:if="${writePermission}" class="dropdown-item" type="button">Umbenennen</button>
+                            <div th:if="${writePermission && (deletePermission || file.owner == account.name)}">
+                                <button class="dropdown-item"
+                                        th:attr="onclick=|renameFile('${file.name}', '${file.id}')|" type="button">
+                                    Umbenennen
+                                </button>
+                            </div>
                             <form th:if="${deletePermission || file.owner == account.name}" action="#"
                                   th:action="@{/material1/file/{fileId}/delete(fileId = ${file.id})}" th:method="post"
                                   onsubmit="return confirm('Diese Aktion kann nicht rückgangig gemacht werden. Soll die Datei wirklich gelöscht werden?');">
@@ -254,37 +265,40 @@
     <div th:if="${adminRole}">
         <div class="material1-permissions-wrapper">
             <p>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapsePermissions" aria-expanded="false" aria-controls="collapsePermissions">Berechtigungen bearbeiten</button>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapsePermissions"
+                        aria-expanded="false" aria-controls="collapsePermissions">Berechtigungen bearbeiten
+                </button>
             </p>
             <div class="collapse" id="collapsePermissions">
                 <div class="card card-body">
-                <form action="#" th:action="@{/material1/dir/{dirId}/edit(dirId = ${directory.id})}" th:method="post"
-                      th:object="${editDirectoryForm}">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Rolle</th>
-                            <th>Lesen</th>
-                            <th>Schreiben</th>
-                            <th>Löschen</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="rolePermissions, itemStat : *{rolePermissions}"
-                            th:with="adminRow = *{rolePermissions[__${itemStat.index}__].role} == 'admin'">
-                            <td><input class="form-control" type="text" readonly
-                                       th:field="*{rolePermissions[__${itemStat.index}__].role}"/></td>
-                            <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
-                                       th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
-                            <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
-                                       th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
-                            <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
-                                       th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <input class="btn btn-primary" type="submit" value="Speichern">
-                </form>
+                    <form action="#" th:action="@{/material1/dir/{dirId}/edit(dirId = ${directory.id})}"
+                          th:method="post" th:object="${editDirectoryForm}">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Rolle</th>
+                                <th>Lesen</th>
+                                <th>Schreiben</th>
+                                <th>Löschen</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="rolePermissions, itemStat : *{rolePermissions}"
+                                th:with="adminRow = *{rolePermissions[__${itemStat.index}__].role} == 'admin'">
+                                <td><input class="form-control" type="text" readonly
+                                           th:field="*{rolePermissions[__${itemStat.index}__].role}"/></td>
+                                <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
+                                           th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
+                                <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
+                                           th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
+                                <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
+                                           th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <input class="btn btn-primary" type="submit" value="Speichern">
+                    </form>
+                </div>
             </div>
         </div>
     </div>

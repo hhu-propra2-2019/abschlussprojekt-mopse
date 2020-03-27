@@ -74,3 +74,43 @@ function hideSearchForm() {
     document.getElementById("material1-search-form").style.display = "none";
 }
 
+function showPermissionChange() {
+    document.getElementById("show-permissions").style.display = "none";
+    document.getElementById("hide-permissions").style.display = "block";
+}
+
+function hidePermissionChange() {
+    document.getElementById("show-permissions").style.display = "block";
+    document.getElementById("hide-permissions").style.display = "none";
+}
+
+function renameFile(originalName, fileId) {
+    let parts = originalName.split('.');
+    if (parts.length > 1) {
+        originalName = parts.slice(0, -1).join('.');
+    }
+    let token = $("meta[name='_csrf']").attr("content");
+    let name = prompt("Neuer Name (ohne Dateiendung)", originalName);
+    $.post("/material1/file/" + fileId + "/rename",
+        {
+            _csrf: token,
+            newName: name
+        },
+        function () {
+            location.reload();
+        }
+    );
+}
+
+function renameFolder(originalName, dirId) {
+    var token = $("meta[name='_csrf']").attr("content");
+    var name = prompt("Neuer Name", originalName);
+    $.post("/material1/dir/" + dirId + "/rename",
+        {
+            _csrf: token,
+            newName: name
+        },
+        function () {
+            location.reload();
+        });
+}

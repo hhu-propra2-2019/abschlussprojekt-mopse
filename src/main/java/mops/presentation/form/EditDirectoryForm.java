@@ -1,7 +1,6 @@
 package mops.presentation.form;
 
 import lombok.Data;
-import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.persistence.permission.DirectoryPermissionsBuilder;
 
@@ -15,11 +14,6 @@ import java.util.stream.Collectors;
 public class EditDirectoryForm {
 
     /**
-     * Directory name.
-     */
-    private String name;
-
-    /**
      * Role Permissions.
      */
     private List<RolePermissionsForm> rolePermissions;
@@ -27,14 +21,12 @@ public class EditDirectoryForm {
     /**
      * Creates a new EditDirectoryForm from an existing directory and permissions.
      *
-     * @param directory   existing directory
      * @param permissions existing directory permissions
      * @return pre-filled EditDirectoryForm from given directory and permissions
      */
     @SuppressWarnings("PMD.LawOfDemeter") // streams & builder
-    public static EditDirectoryForm of(Directory directory, DirectoryPermissions permissions) {
+    public static EditDirectoryForm of(DirectoryPermissions permissions) {
         EditDirectoryForm form = new EditDirectoryForm();
-        form.setName(directory.getName());
         form.setRolePermissions(
                 permissions.getRoles().stream()
                         .map(role -> {

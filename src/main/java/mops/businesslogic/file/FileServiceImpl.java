@@ -261,4 +261,43 @@ public class FileServiceImpl implements FileService {
     public void deleteFile(long fileId) throws MopsException {
         fileRepository.deleteFile(fileId);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidLiteralsInIfCondition", "PMD.AvoidReassigningParameters" })
+    public Directory renameFile(Account account, long fileId, String newName) throws MopsException {
+        if (newName.isEmpty()) {
+            log.error("User {} tried to rename a file without a name.",
+                    account.getName()
+            );
+            throw new EmptyNameException("Der Dateiname darf nicht leer sein.");
+        }
+
+        newName = newName.replaceAll("[^a-zA-Z0-9._-]", "_");
+
+        FileInfo fileInfo = fileInfoService.fetchFileInfo(fileId);
+        Directory directory = directoryService.getDirectory(fileInfo.getDirectoryId());
+        UserPermission permissionsOfUser = securityService.getPermissionsOfUser(account, directory);
+
+        if (!permissionsOfUser.isDelete() || !permissionsOfUser.isWrite()) {
+            log.error("User {} tried to rename a file without write and delete permission.",
+                    account.getName()
+            );
+            throw new WriteAccessPermissionException("Keine Schreibberechtigung und Löschberechtigung");
+        }
+
+        String[] fileNameParts = fileInfo.getName().split("\\.");
+        if (fileNameParts.length > 1) {
+            String fileExtension = "." + fileNameParts[fileNameParts.length - 1];
+            fileInfo.setName(newName + fileExtension);
+        } else {
+            // file had no extension
+            fileInfo.setName(newName);
+        }
+
+        fileInfoService.saveFileInfo(fileInfo);
+        return directory;
+    }
 }
