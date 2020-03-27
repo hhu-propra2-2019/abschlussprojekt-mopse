@@ -80,7 +80,7 @@ class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      */
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
-    void getFileInfo() throws Exception {
+    void showFile() throws Exception {
         mockMvc().perform(get("/material1/file/{fileId}", 1)
                 .with(csrf()))
                 .andExpect(status().isOk())
