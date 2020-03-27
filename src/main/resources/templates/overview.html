@@ -262,8 +262,8 @@
                       th:object="${editDirectoryForm}">
                     <fieldset>
                         <label>
-                            <span>Ordnername:</span>
-                            <input type="text" th:field="*{name}" th:readonly="${directory.parentId} == null"/>
+                            <span class="material1-badge badge badge-secondary">Ordnername:</span>
+                            <input class="form-control" type="text" th:field="*{name}" th:readonly="${directory.parentId} == null"/>
                         </label>
                     </fieldset>
                     <table>
@@ -278,7 +278,7 @@
                         <tbody>
                         <tr th:each="rolePermissions, itemStat : *{rolePermissions}"
                             th:with="adminRow = *{rolePermissions[__${itemStat.index}__].role} == 'admin'">
-                            <td><input type="text" readonly
+                            <td><input class="form-control" type="text" readonly
                                        th:field="*{rolePermissions[__${itemStat.index}__].role}"/></td>
                             <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
                                        th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
