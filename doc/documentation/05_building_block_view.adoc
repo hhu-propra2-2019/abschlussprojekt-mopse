@@ -172,16 +172,16 @@ Aktionen ausführen kann. Für das Speichern und Abrufen der Ordner wird mit dem
 an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten. Berechtigungen werden mittels des
 `DirectoryService` und des `SecurityService` überprüft._
 
-| GruppenfindungsService
-| _Erlaubt es Anfragen an die `Gruppenfindung` zu stellen._
-| _Kommunziert nur über eine REST-API mit der `Gruppenfindung`._
+| GruppenbildungsService
+| _Erlaubt es Anfragen an die `Gruppenbildung` zu stellen._
+| _Kommunziert nur über eine REST-API mit der `Gruppenbildung`._
 
 | GroupService
 | _Stellt den Zugang zu unserer Gruppen-Datenbank bereit._
 | _Befragt die Datenbank über das `GroupRepository` nach Gruppen._
 
 | LatestEventIdService
-| _Stellt den Zugang zu der gespeicherten `latestEventId` zur Verfügung. Wird für die Gruppenfindung benötigt._
+| _Stellt den Zugang zu der gespeicherten `latestEventId` zur Verfügung. Wird für die Gruppenbildung benötigt._
 | _Befragt die Datenbank über das `LatestEventIdRepository` nach der gespeicherten `latestEventId`._
 
 | PermissionService
@@ -192,6 +192,10 @@ an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten. Berech
 | _Überprüft die Rollenberechtigungen eines Nutzers._
 | _Er vergleicht die Berechtigungen, die aus dem `PermissionService` kommen mit den Rollen des Users, die aus dem
 `GroupService` kommen._
+
+| ZipService
+| _Zippt einen Ordner._
+| _Die Informationen dazu bekommt er vom `DirectoryService`und `FileService`._
 |===
 
 Persistence Layer::
@@ -264,14 +268,22 @@ Dieser hat folgende Routen:
 
 include::../api/generated-snippets/index/DirectoryController/show-content/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/create-folder/path-parameters.adoc[]
+include::../api/generated-snippets/index/DirectoryController/edit-folder/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]
+include::../api/generated-snippets/index/DirectoryController/zip-directory/path-parameters.adoc[]
+
+ExceptionController::
+
+Dieser hat die folgenden Routen:
+include::../api/generated-snippets/index/ExceptionController/error/httpie-request.adoc[]
 
 FileController::
 
 Dieser hat folgende Routen:
 
+include::../api/generated-snippets/index/FileController/show-file/path-parameters.adoc[]
 include::../api/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
 include::../api/generated-snippets/index/FileController/download-file/path-parameters.adoc[]
 
@@ -288,4 +300,11 @@ GroupsController::
 Dieser hat folgende Routen:
 
 include::../api/generated-snippets/index/GroupsController/get-all-groups/httpie-request.adoc[]
+
+Material1Controller::
+
+Dieser hat die folgenden Routen:
+
+include::../api/generated-snippets/index/Material1Controller/index/httpie-request.adoc[]
+
 ****

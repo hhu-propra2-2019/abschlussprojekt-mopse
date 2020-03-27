@@ -3,12 +3,15 @@ package mops.presentation;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.security.Account;
 import mops.presentation.error.ExceptionPresentationError;
+import mops.presentation.error.MessagePresentationError;
+import mops.presentation.error.PresentationError;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,9 +38,18 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
                                          Object handler,
                                          Exception ex) {
         log.error("Caught exception from controller:", ex);
+
+        PresentationError presentationError;
+        if (ex instanceof MaxUploadSizeExceededException) {
+            presentationError = new MessagePresentationError("Die maximale Dateigröße wurde überschritten. "
+                    + "Bitte versuche eine kleinere Datei.");
+        } else {
+            presentationError = new ExceptionPresentationError(ex);
+        }
+
         ModelAndView mav = new ModelAndView("redirect:/material1/error");
         FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
-        flashMap.put("error", new ExceptionPresentationError(ex));
+        flashMap.put("error", presentationError);
         return mav;
     }
 

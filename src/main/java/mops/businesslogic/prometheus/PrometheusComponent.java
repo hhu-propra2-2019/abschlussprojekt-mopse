@@ -1,9 +1,14 @@
 package mops.businesslogic.prometheus;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
 import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.binder.BaseUnits;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DirectoryService;
+import mops.businesslogic.exception.DatabaseException;
 import mops.businesslogic.file.FileInfoService;
 import mops.businesslogic.group.GroupService;
 import mops.exception.MopsException;
@@ -12,8 +17,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Prometheus integration.
@@ -48,7 +54,8 @@ public class PrometheusComponent {
     /**
      * Groups for which there were stats added already.
      */
-    private final transient Set<Long> seenGroups = new HashSet<>();
+    @SuppressWarnings("UnstableApiUsage")
+    private final transient Multimap<Long, Meter.Id> groupGauges = MultimapBuilder.hashKeys().hashSetValues().build();
 
     /**
      * Constructor.
@@ -59,7 +66,7 @@ public class PrometheusComponent {
      * @param meterRegistry    meter registry
      */
     public PrometheusComponent(GroupService groupService, FileInfoService fileInfoService,
-                               DirectoryService directoryService, MeterRegistry meterRegistry) {
+                               DirectoryService directoryService, MeterRegistry meterRegistry) throws MopsException {
         this.groupService = groupService;
         this.fileInfoService = fileInfoService;
         this.directoryService = directoryService;
@@ -73,7 +80,7 @@ public class PrometheusComponent {
      * Update all the gauges.
      */
     @Scheduled(fixedRate = ONE_HOUR_IN_MS)
-    public void updateGauges() {
+    public void updateGauges() throws MopsException {
         addGroupGauges();
     }
 
@@ -81,35 +88,48 @@ public class PrometheusComponent {
     private void addGlobalGauges() {
         log.debug("Adding new global gauges.");
 
-        addGlobalGauge("totalStorageUsage", "total storage usage", fileInfoService::getTotalStorageUsage);
-        addGlobalGauge("totalFileCount", "total file count", fileInfoService::getTotalFileCount);
-        addGlobalGauge("totalDirCount", "total directory count", directoryService::getTotalDirCount);
+        addGlobalGauge("totalStorageUsage", "total storage usage", BaseUnits.BYTES,
+                fileInfoService::getTotalStorageUsage);
+        addGlobalGauge("totalFileCount", "total file count", BaseUnits.FILES,
+                fileInfoService::getTotalFileCount);
+        addGlobalGauge("totalDirCount", "total directory count", "directories",
+                directoryService::getTotalDirCount);
+        addGlobalGauge("totalGroupCount", "total group count", "groups",
+                groupService::getTotalGroupCount);
     }
 
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
-    private void addGroupGauges() {
+    private void addGroupGauges() throws MopsException {
         log.debug("Adding new group gauges.");
 
-        Set<Group> groups = new HashSet<>();
+        List<Group> groups;
         try {
-            groups.addAll(groupService.getAllGroups());
+            groups = groupService.getAllGroups();
         } catch (MopsException e) {
             log.error("Error while getting all groups from gauge setup:", e);
+            throw new DatabaseException("Fehler beim Laden aller Gruppen für Prometheus.", e);
         }
 
         groups.forEach(this::addGroupGauge);
+
+        Set<Long> groupIds = groups.stream().map(Group::getId).collect(Collectors.toSet());
+        Set<Long> removedGroups = groupGauges.keySet().stream()
+                .filter(groupId -> !groupIds.contains(groupId))
+                .collect(Collectors.toSet());
+
+        removedGroups.forEach(id -> groupGauges.removeAll(id).forEach(meterRegistry::remove));
     }
 
     @SuppressWarnings("PMD.LawOfDemeter")
     private void addGroupGauge(Group group) {
-        if (seenGroups.add(group.getId())) {
+        if (groupGauges.containsKey(group.getId())) {
             log.debug("Adding new gauges for group '{}' (id {}).", group.getName(), group.getId());
 
-            addGroupGauge("groupStorageUsage", "storage usage", group,
+            addGroupGauge("groupStorageUsage", "storage usage", BaseUnits.BYTES, group,
                     fileInfoService::getStorageUsageInGroup);
-            addGroupGauge("groupFileCount", "file count", group,
+            addGroupGauge("groupFileCount", "file count", BaseUnits.FILES, group,
                     fileInfoService::getFileCountInGroup);
-            addGroupGauge("groupDirCount", "directory count", group,
+            addGroupGauge("groupDirCount", "directory count", "directories", group,
                     directoryService::getDirCountInGroup);
         } else {
             log.debug("Gauges for group '{}' already exist, skipping.", group);
@@ -117,7 +137,7 @@ public class PrometheusComponent {
     }
 
     @SuppressWarnings("PMD.LawOfDemeter") //This is a builder
-    private void addGlobalGauge(String key, String message, GlobalStatSupplier statGetter) {
+    private void addGlobalGauge(String key, String message, String unit, GlobalStatSupplier statGetter) {
         log.debug("Adding '{}' gauge.", message);
         Gauge
                 .builder("mops.material1." + key, () -> {
@@ -129,13 +149,15 @@ public class PrometheusComponent {
                             }
                         }
                 )
+                .description(message)
+                .baseUnit(unit)
                 .register(meterRegistry);
     }
 
-    @SuppressWarnings("PMD.LawOfDemeter") //This is a builder
-    private void addGroupGauge(String key, String message, Group group, GroupStatSupplier statGetter) {
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) //This is a builder
+    private void addGroupGauge(String key, String message, String unit, Group group, GroupStatSupplier statGetter) {
         log.debug("Adding '{}' gauge for group {} (id {}).", message, group.getName(), group.getId());
-        Gauge
+        Gauge gauge = Gauge
                 .builder("mops.material1." + key, () -> {
                     try {
                         return statGetter.getGroupStat(group.getId());
@@ -145,8 +167,12 @@ public class PrometheusComponent {
                         return 0L;
                     }
                 })
-                .tag("group_id", String.valueOf(group.getId()))
+                .description("group " + message)
+                .baseUnit(unit)
+                .tag("group_id", String.valueOf(group.getGroupId()))
                 .register(meterRegistry);
+
+        groupGauges.put(group.getId(), gauge.getId());
     }
 
     /**
