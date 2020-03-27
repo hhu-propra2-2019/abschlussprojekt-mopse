@@ -192,6 +192,10 @@ an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten. Berech
 | _Überprüft die Rollenberechtigungen eines Nutzers._
 | _Er vergleicht die Berechtigungen, die aus dem `PermissionService` kommen mit den Rollen des Users, die aus dem
 `GroupService` kommen._
+
+| ZipService
+| _Zippt einen Ordner._
+| _Die Informationen dazu bekommt er vom `DirectoryService`und `FileService`._
 |===
 
 Persistence Layer::
