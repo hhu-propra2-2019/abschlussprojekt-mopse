@@ -1,7 +1,6 @@
 package mops.presentation.error;
 
 import lombok.Value;
-import org.springframework.lang.NonNull;
 
 /**
  * An error to be shown in the web template - based on an exception message.
@@ -14,13 +13,11 @@ public class MessagePresentationError implements PresentationError {
     /**
      * The message.
      */
-    @lombok.NonNull
     String message;
 
     /**
      * {@inheritDoc}
      */
-    @NonNull
     @Override
     public String getMessage() {
         return message;
