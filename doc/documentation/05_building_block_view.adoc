@@ -172,16 +172,16 @@ Aktionen ausführen kann. Für das Speichern und Abrufen der Ordner wird mit dem
 an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten. Berechtigungen werden mittels des
 `DirectoryService` und des `SecurityService` überprüft._
 
-| GruppenfindungsService
-| _Erlaubt es Anfragen an die `Gruppenfindung` zu stellen._
-| _Kommunziert nur über eine REST-API mit der `Gruppenfindung`._
+| GruppenbildungsService
+| _Erlaubt es Anfragen an die `Gruppenbildung` zu stellen._
+| _Kommunziert nur über eine REST-API mit der `Gruppenbildung`._
 
 | GroupService
 | _Stellt den Zugang zu unserer Gruppen-Datenbank bereit._
 | _Befragt die Datenbank über das `GroupRepository` nach Gruppen._
 
 | LatestEventIdService
-| _Stellt den Zugang zu der gespeicherten `latestEventId` zur Verfügung. Wird für die Gruppenfindung benötigt._
+| _Stellt den Zugang zu der gespeicherten `latestEventId` zur Verfügung. Wird für die Gruppenbildung benötigt._
 | _Befragt die Datenbank über das `LatestEventIdRepository` nach der gespeicherten `latestEventId`._
 
 | PermissionService

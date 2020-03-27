@@ -1,9 +1,9 @@
-package mops.businesslogic.gruppenfindung;
+package mops.businesslogic.gruppenbildung;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mops.businesslogic.exception.GruppenfindungsException;
+import mops.businesslogic.exception.GruppenbildungsException;
 import mops.exception.MopsException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -18,20 +18,20 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Service to call REST-API from Gruppenfindung.
+ * Service to call REST-API from Gruppenbildung.
  */
 @Slf4j
 @Service
 @Profile("prod")
 @RequiredArgsConstructor
-public class GruppenfindungsService {
+public class GruppenbildungsService {
 
     /**
      * REST-API-URL of gruppen1.
      */
-    @Value("${material1.mops.gruppenfindung.url}")
+    @Value("${material1.mops.gruppenbildung.url}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
-    private String gruppenfindungsUrl = "https://mops.hhu.de/gruppen1";
+    private String gruppenbildungsUrl = "https://mops.hhu.de/gruppen1";
 
     /**
      * Allows to send REST API calls.
@@ -49,7 +49,7 @@ public class GruppenfindungsService {
     public boolean doesGroupExist(UUID groupId) throws MopsException {
         try {
             Map<String, Boolean> result = restTemplate.exchange(
-                    gruppenfindungsUrl + "/isUserAdminInGroup?groupId={groupId}",
+                    gruppenbildungsUrl + "/isUserAdminInGroup?groupId={groupId}",
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<Map<String, Boolean>>() {
@@ -59,8 +59,8 @@ public class GruppenfindungsService {
             return Objects.requireNonNull(result, "got null response from GET")
                     .get("doesGroupExist");
         } catch (Exception e) {
-            log.error("Error while doing API call 'doesGroupExist' to Gruppenfindung:", e);
-            throw new GruppenfindungsException("Fehler beim Aufruf von 'doesGroupExist'.", e);
+            log.error("Error while doing API call 'doesGroupExist' to Gruppenbildung:", e);
+            throw new GruppenbildungsException("Fehler beim Aufruf von 'doesGroupExist'.", e);
         }
     }
 
@@ -76,7 +76,7 @@ public class GruppenfindungsService {
     public boolean isUserInGroup(String userName, UUID groupId) throws MopsException {
         try {
             Map<String, Boolean> result = restTemplate.exchange(
-                    gruppenfindungsUrl + "/isUserInGroup?userName={userName}&groupId={groupId}",
+                    gruppenbildungsUrl + "/isUserInGroup?userName={userName}&groupId={groupId}",
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<Map<String, Boolean>>() {
@@ -87,8 +87,8 @@ public class GruppenfindungsService {
             return Objects.requireNonNull(result, "got null response from GET")
                     .get("isUserInGroup");
         } catch (Exception e) {
-            log.error("Error while doing API call 'isUserInGroup' to Gruppenfindung:", e);
-            throw new GruppenfindungsException("Fehler beim Aufruf von 'isUserInGroup'.", e);
+            log.error("Error while doing API call 'isUserInGroup' to Gruppenbildung:", e);
+            throw new GruppenbildungsException("Fehler beim Aufruf von 'isUserInGroup'.", e);
         }
     }
 
@@ -104,7 +104,7 @@ public class GruppenfindungsService {
     public boolean isUserAdminInGroup(String userName, UUID groupId) throws MopsException {
         try {
             Map<String, Boolean> result = restTemplate.exchange(
-                    gruppenfindungsUrl + "/isUserAdminInGroup?userName={userName}&groupId={groupId}",
+                    gruppenbildungsUrl + "/isUserAdminInGroup?userName={userName}&groupId={groupId}",
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<Map<String, Boolean>>() {
@@ -115,8 +115,8 @@ public class GruppenfindungsService {
             return Objects.requireNonNull(result, "got null response from GET")
                     .get("isUserAdminInGroup");
         } catch (Exception e) {
-            log.error("Error while doing API call 'isUserAdminInGroup' to Gruppenfindung:", e);
-            throw new GruppenfindungsException("Fehler beim Aufruf von 'isUserAdminInGroup'.", e);
+            log.error("Error while doing API call 'isUserAdminInGroup' to Gruppenbildung:", e);
+            throw new GruppenbildungsException("Fehler beim Aufruf von 'isUserAdminInGroup'.", e);
         }
     }
 
@@ -130,15 +130,15 @@ public class GruppenfindungsService {
     public UpdatedGroupsDTO getUpdatedGroups(long lastEventId) throws MopsException {
         try {
             return restTemplate.exchange(
-                    gruppenfindungsUrl + "/returnAllGroups?lastEventId={lastEventid}",
+                    gruppenbildungsUrl + "/returnAllGroups?lastEventId={lastEventid}",
                     HttpMethod.GET,
                     null,
                     UpdatedGroupsDTO.class,
                     String.valueOf(lastEventId)
             ).getBody();
         } catch (Exception e) {
-            log.error("Error while doing API call 'returnAllGroups' to Gruppenfindung:", e);
-            throw new GruppenfindungsException("Fehler beim Aufruf von 'returnAllGroups'.", e);
+            log.error("Error while doing API call 'returnAllGroups' to Gruppenbildung:", e);
+            throw new GruppenbildungsException("Fehler beim Aufruf von 'returnAllGroups'.", e);
         }
     }
 
@@ -152,7 +152,7 @@ public class GruppenfindungsService {
     public List<UserDTO> getMembers(UUID groupId) throws MopsException {
         try {
             return restTemplate.exchange(
-                    gruppenfindungsUrl + "/returnUsersOfGroup?groupId={groupId}",
+                    gruppenbildungsUrl + "/returnUsersOfGroup?groupId={groupId}",
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<UserDTO>>() {
@@ -160,8 +160,8 @@ public class GruppenfindungsService {
                     String.valueOf(groupId)
             ).getBody();
         } catch (Exception e) {
-            log.error("Error while doing API call 'returnUsersOfGroup' to Gruppenfindung:", e);
-            throw new GruppenfindungsException("Fehler beim Aufruf von 'returnUsersOfGroup'.", e);
+            log.error("Error while doing API call 'returnUsersOfGroup' to Gruppenbildung:", e);
+            throw new GruppenbildungsException("Fehler beim Aufruf von 'returnUsersOfGroup'.", e);
         }
     }
 
@@ -175,7 +175,7 @@ public class GruppenfindungsService {
     public List<GroupDTO> getUserGroups(String userName) throws MopsException {
         try {
             return restTemplate.exchange(
-                    gruppenfindungsUrl + "/returnGroupsOfUsers?userName={userName}",
+                    gruppenbildungsUrl + "/returnGroupsOfUsers?userName={userName}",
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<GroupDTO>>() {
@@ -183,8 +183,8 @@ public class GruppenfindungsService {
                     userName
             ).getBody();
         } catch (Exception e) {
-            log.error("Error while doing API call 'returnGroupsOfUsers' to Gruppenfindung:", e);
-            throw new GruppenfindungsException("Fehler beim Aufruf von 'returnGroupsOfUsers'.", e);
+            log.error("Error while doing API call 'returnGroupsOfUsers' to Gruppenbildung:", e);
+            throw new GruppenbildungsException("Fehler beim Aufruf von 'returnGroupsOfUsers'.", e);
         }
     }
 }

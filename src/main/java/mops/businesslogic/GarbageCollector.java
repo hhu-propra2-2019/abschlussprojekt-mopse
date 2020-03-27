@@ -3,7 +3,7 @@ package mops.businesslogic;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.file.FileInfoService;
-import mops.businesslogic.file.FileServiceImpl;
+import mops.businesslogic.file.FileService;
 import mops.exception.MopsException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,7 +24,7 @@ public class GarbageCollector {
     /**
      * One week in milliseconds.
      */
-    private static final long ONE_WEEK = 7L * 24L * 60L * 60L * 1000L;
+    private static final long ONE_DAY = 24L * 60L * 60L * 1000L;
 
     /**
      * FileInfoService.
@@ -33,12 +33,12 @@ public class GarbageCollector {
     /**
      * FileService.
      */
-    private final FileServiceImpl fileService;
+    private final FileService fileService;
 
     /**
      * Collects all IDs, find orphans and delete them.
      */
-    @Scheduled(fixedDelay = ONE_WEEK)
+    @Scheduled(fixedDelay = ONE_DAY)
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn" })
     public void removeOrphans() {
         log.info("Starting garbage collection.");

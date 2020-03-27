@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * API to Gruppenfindung.
+ * Connects to our group database repository.
  */
 @Service
 public interface GroupService {
@@ -78,5 +78,12 @@ public interface GroupService {
      * @param groupId id of the group to be deleted
      */
     void deleteGroup(long groupId) throws MopsException;
+
+    /**
+     * Get the total number of groups.
+     *
+     * @return group count
+     */
+    long getTotalGroupCount() throws MopsException;
 
 }
