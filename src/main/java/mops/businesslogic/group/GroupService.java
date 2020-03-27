@@ -80,7 +80,7 @@ public interface GroupService {
     void deleteGroup(long groupId) throws MopsException;
 
     /**
-     * Get the total number of groups .
+     * Get the total number of groups.
      *
      * @return group count
      */
