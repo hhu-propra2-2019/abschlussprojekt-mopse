@@ -70,7 +70,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter"})
+    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" })
     public List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException {
         Directory directory = getDirectory(parentDirID);
         securityService.checkReadPermission(account, directory);
@@ -115,7 +115,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     public List<Directory> getDirectoryPath(long dirId) throws MopsException {
         List<Directory> result = new LinkedList<>();
         Directory dir = getDirectory(dirId);
@@ -134,8 +134,8 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
-            "PMD.AvoidCatchingGenericException"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
+            "PMD.AvoidCatchingGenericException" })
     public GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException {
         Optional<GroupRootDirWrapper> optRootDir;
         try {
@@ -289,7 +289,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
     public Directory getDirectory(long dirId) throws MopsException {
         try {
             return directoryRepository.findById(dirId).orElseThrow();
