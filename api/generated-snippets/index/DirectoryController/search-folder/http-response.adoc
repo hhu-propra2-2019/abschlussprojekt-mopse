@@ -9,20 +9,20 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 10444
+Content-Length: 10447
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Mops - Ordner</title>
+  <title>Mops - Übersicht</title>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/icono.min.css" rel="stylesheet">
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="eb8acada-9ff2-4a72-82df-edaeb5585582"/>
+        <meta name="_csrf" content="b55eb9fa-bd29-4d09-9311-3334f8011391"/>
         <link rel="stylesheet" type="text/css" href="/style.css">
         <script language="javascript" type="text/javascript" src="/script.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -146,7 +146,7 @@ Content-Length: 10444
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="eb8acada-9ff2-4a72-82df-edaeb5585582"/>
+              method="post"><input type="hidden" name="_csrf" value="b55eb9fa-bd29-4d09-9311-3334f8011391"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="cv">
@@ -221,7 +221,7 @@ Content-Length: 10444
 
     <!-- Main Table to show the Folder Content -->
     <div class="table-responsive">
-        <table class="table ">
+        <table class="table">
             <thead>
             <tr>
                 <th scope="col">Name</th>

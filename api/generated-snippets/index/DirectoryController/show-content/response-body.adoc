@@ -5,13 +5,13 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Mops - Ordner</title>
+  <title>Mops - Übersicht</title>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/icono.min.css" rel="stylesheet">
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="7ce9e035-f6f9-4637-8ccc-a15a6aa4a0e2"/>
+        <meta name="_csrf" content="0c8afe81-22a2-4310-acec-0d14f81f0b66"/>
         <link rel="stylesheet" type="text/css" href="/style.css">
         <script language="javascript" type="text/javascript" src="/script.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -135,7 +135,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="7ce9e035-f6f9-4637-8ccc-a15a6aa4a0e2"/>
+              method="post"><input type="hidden" name="_csrf" value="0c8afe81-22a2-4310-acec-0d14f81f0b66"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -210,7 +210,7 @@
 
     <!-- Main Table to show the Folder Content -->
     <div class="table-responsive">
-        <table class="table ">
+        <table class="table">
             <thead>
             <tr>
                 <th scope="col">Name</th>
@@ -230,7 +230,7 @@
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="/material1/dir/1/create" method="post"><input type="hidden" name="_csrf" value="7ce9e035-f6f9-4637-8ccc-a15a6aa4a0e2"/>
+        <form class="input-group" action="/material1/dir/1/create" method="post"><input type="hidden" name="_csrf" value="0c8afe81-22a2-4310-acec-0d14f81f0b66"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -239,7 +239,7 @@
 
         <!-- Form to upload a new file to the folder -->
         <form class="input-group" action="/material1/dir/1/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="7ce9e035-f6f9-4637-8ccc-a15a6aa4a0e2"/>
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="0c8afe81-22a2-4310-acec-0d14f81f0b66"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">
