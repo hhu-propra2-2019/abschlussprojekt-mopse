@@ -14,8 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * {@inheritDoc}
- * This is used during production.
+ * Access to the group database.
  */
 @Slf4j
 @Service

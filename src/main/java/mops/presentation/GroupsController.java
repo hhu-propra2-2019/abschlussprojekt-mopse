@@ -29,7 +29,7 @@ import java.util.List;
 public class GroupsController {
 
     /**
-     * Communicator with 'Gruppenfindung'.
+     * Connects to our group database.
      */
     private final GroupService groupService;
 
