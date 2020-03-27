@@ -1,7 +1,6 @@
 package mops.presentation.form;
 
 import lombok.Data;
-import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.persistence.permission.DirectoryPermissionsBuilder;
 
@@ -22,7 +21,6 @@ public class EditDirectoryForm {
     /**
      * Creates a new EditDirectoryForm from an existing directory and permissions.
      *
-     * @param directory   existing directory
      * @param permissions existing directory permissions
      * @return pre-filled EditDirectoryForm from given directory and permissions
      */

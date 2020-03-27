@@ -81,7 +81,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         given(fileService.getFilesOfDirectory(any(), eq(1L))).willReturn(List.of());
         given(directoryService.createFolder(any(), eq(1L), any())).willReturn(directory);
         given(deleteService.deleteFolder(any(), eq(1L))).willReturn(root);
-        given(directoryService.editDirectory(any(), eq(1L), any(), any())).willReturn(root);
+        given(directoryService.editDirectory(any(), eq(1L), any())).willReturn(root);
         given(directoryService.searchFolder(any(), eq(1L), any())).willReturn(List.of());
         given(securityService.getPermissionsOfUser(any(), any())).willReturn(userPermission);
         given(permissionService.getPermissions(any())).willReturn(permissions);
@@ -169,7 +169,6 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void editFolder() throws Exception {
         EditDirectoryForm editDirectoryForm = new EditDirectoryForm();
-        editDirectoryForm.setName("New Name");
 
         RolePermissionsForm permissionsForm1 = new RolePermissionsForm();
         permissionsForm1.setRole("admin");
