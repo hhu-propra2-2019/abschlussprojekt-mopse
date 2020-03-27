@@ -74,6 +74,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                 .entry("viewer", true, false, false)
                 .build();
 
+        given(root.getId()).willReturn(1L);
         given(directory.getId()).willReturn(2L);
         given(directoryService.getDirectory(eq(1L))).willReturn(root);
         given(directoryService.getSubFolders(any(), eq(1L))).willReturn(List.of());
