@@ -260,12 +260,6 @@
                 <div class="card card-body">
                 <form action="#" th:action="@{/material1/dir/{dirId}/edit(dirId = ${directory.id})}" th:method="post"
                       th:object="${editDirectoryForm}">
-                    <fieldset>
-                        <label>
-                            <span class="material1-badge badge badge-secondary">Ordnername:</span>
-                            <input class="form-control" type="text" th:field="*{name}" th:readonly="${directory.parentId} == null"/>
-                        </label>
-                    </fieldset>
                     <table>
                         <thead>
                         <tr>
