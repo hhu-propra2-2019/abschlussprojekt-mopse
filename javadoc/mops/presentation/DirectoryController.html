@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -213,6 +213,16 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#renameFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.lang.String)">renameFile</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+          org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+          long&nbsp;dirId,
+          java.lang.String&nbsp;newName)</code></th>
+<td class="colLast">
+<div class="block">Renames a directory.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.presentation.form.FileQueryForm)">searchFolder</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
             org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
             org.springframework.ui.Model&nbsp;model,
@@ -222,7 +232,7 @@ extends java.lang.Object</pre>
 <div class="block">Searches a folder for files.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#showFolderContent(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">showFolderContent</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
                  org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
@@ -232,7 +242,7 @@ extends java.lang.Object</pre>
 <div class="block">Shows the content of a folder (files and sub folders).</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uploadFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,org.springframework.web.multipart.MultipartFile)">uploadFile</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
           org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
@@ -242,7 +252,7 @@ extends java.lang.Object</pre>
 <div class="block">Uploads a file.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;byte[]&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#zipDirectory(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">zipDirectory</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
             long&nbsp;dirId)</code></th>
@@ -442,7 +452,7 @@ public&nbsp;java.lang.String&nbsp;deleteFolder&#8203;(org.springframework.web.se
 <a id="searchFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long,mops.presentation.form.FileQueryForm)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>searchFolder</h4>
 <pre class="methodSignature">@PostMapping("/{dirId}/search")
@@ -463,6 +473,31 @@ public&nbsp;java.lang.String&nbsp;searchFolder&#8203;(org.springframework.web.se
 <dd><code>queryForm</code> - wrapper object of the query form parameter</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>route to files view</dd>
+</dl>
+</li>
+</ul>
+<a id="renameFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>renameFile</h4>
+<pre class="methodSignature">@PostMapping("/{dirId}/rename")
+public&nbsp;java.lang.String&nbsp;renameFile&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+                                   org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+                                   @PathVariable("dirId")
+                                   long&nbsp;dirId,
+                                   @RequestParam("newName")
+                                   java.lang.String&nbsp;newName)</pre>
+<div class="block">Renames a directory.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>redirectAttributes</code> - redirection attributes</dd>
+<dd><code>token</code> - keyloak auth token</dd>
+<dd><code>dirId</code> - the directory id</dd>
+<dd><code>newName</code> - the new name</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>back to the overview</dd>
 </dl>
 </li>
 </ul>

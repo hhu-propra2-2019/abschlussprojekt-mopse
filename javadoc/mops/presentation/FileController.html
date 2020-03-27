@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -195,6 +195,16 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#renameFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.lang.String)">renameFile</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+          org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+          long&nbsp;fileId,
+          java.lang.String&nbsp;newName)</code></th>
+<td class="colLast">
+<div class="block">Renames a file.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;org.springframework.core.io.Resource&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#showFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">showFile</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
         long&nbsp;fileId)</code></th>
@@ -289,7 +299,7 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;org.springframework.core.
 <a id="deleteFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>deleteFile</h4>
 <pre class="methodSignature">@PostMapping("/{fileId}/delete")
@@ -305,6 +315,31 @@ public&nbsp;java.lang.String&nbsp;deleteFile&#8203;(org.springframework.web.serv
 <dd><code>fileId</code> - the id of the file to be deleted</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the route to the parentDir of the deleted file</dd>
+</dl>
+</li>
+</ul>
+<a id="renameFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>renameFile</h4>
+<pre class="methodSignature">@PostMapping("/{fileId}/rename")
+public&nbsp;java.lang.String&nbsp;renameFile&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+                                   org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+                                   @PathVariable("fileId")
+                                   long&nbsp;fileId,
+                                   @RequestParam("newName")
+                                   java.lang.String&nbsp;newName)</pre>
+<div class="block">Renames a file.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>redirectAttributes</code> - redirection attributes</dd>
+<dd><code>token</code> - keyloak auth token</dd>
+<dd><code>fileId</code> - the file id</dd>
+<dd><code>newName</code> - the new name</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>back to the overview</dd>
 </dl>
 </li>
 </ul>

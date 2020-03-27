@@ -11,10 +11,11 @@
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
+        <meta name="_csrf" content="eb8acada-9ff2-4a72-82df-edaeb5585582"/>
         <link rel="stylesheet" type="text/css" href="/style.css">
         <script language="javascript" type="text/javascript" src="/script.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-                integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
                 crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
                 integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -134,7 +135,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="635c7231-f929-4d86-a809-e781e9c2407e"/>
+              method="post"><input type="hidden" name="_csrf" value="eb8acada-9ff2-4a72-82df-edaeb5585582"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="cv">
@@ -230,7 +231,8 @@
     
 
     <!-- Change Permissions -->
-    </main></div>
+    
+</main></div>
 <footer class="footer footer-main">
   <div class="account">
     <a class="account-link" href="https://keycloak.cs.hhu.de/auth/realms/MOPS/account">

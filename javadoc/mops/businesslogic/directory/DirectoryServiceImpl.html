@@ -202,44 +202,34 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#editDirectory(mops.businesslogic.security.Account,long,java.lang.String,mops.persistence.permission.DirectoryPermissions)">editDirectory</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
-             long&nbsp;dirId,
-             java.lang.String&nbsp;newName,
-             <a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;newPermissions)</code></th>
-<td class="colLast">
-<div class="block">Edit the directory's properties.</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirCountInGroup(long)">getDirCountInGroup</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Get the total number of directories in a group.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirectory(long)">getDirectory</a></span>&#8203;(long&nbsp;dirId)</code></th>
 <td class="colLast">
 <div class="block">Internal use only: possible security flaw!.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDirectoryPath(long)">getDirectoryPath</a></span>&#8203;(long&nbsp;dirId)</code></th>
 <td class="colLast">
 <div class="block">Builds directory path as list.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="../group/GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrCreateRootFolder(long)">getOrCreateRootFolder</a></span>&#8203;(long&nbsp;groupId)</code></th>
 <td class="colLast">
 <div class="block">Creates the group root directory.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSubFolders(mops.businesslogic.security.Account,long)">getSubFolders</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
              long&nbsp;parentDirID)</code></th>
@@ -247,11 +237,20 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <div class="block">Returns all folders of the parent folder.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalDirCount()">getTotalDirCount</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get the total number of directories in all groups.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#renameDirectory(mops.businesslogic.security.Account,long,java.lang.String)">renameDirectory</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
+               long&nbsp;dirId,
+               java.lang.String&nbsp;newName)</code></th>
+<td class="colLast">
+<div class="block">renames a directory.</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
@@ -442,33 +441,6 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 </dl>
 </li>
 </ul>
-<a id="editDirectory(mops.businesslogic.security.Account,long,java.lang.String,mops.persistence.permission.DirectoryPermissions)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>editDirectory</h4>
-<pre class="methodSignature">public&nbsp;<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;editDirectory&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
-                               long&nbsp;dirId,
-                               java.lang.String&nbsp;newName,
-                               <a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a>&nbsp;newPermissions)
-                        throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
-<div class="block">Edit the directory's properties.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="DirectoryService.html#editDirectory(mops.businesslogic.security.Account,long,java.lang.String,mops.persistence.permission.DirectoryPermissions)">editDirectory</a></code>&nbsp;in interface&nbsp;<code><a href="DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>account</code> - user credentials</dd>
-<dd><code>dirId</code> - directory to be edited</dd>
-<dd><code>newName</code> - new directory name</dd>
-<dd><code>newPermissions</code> - new permissions object</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>edited directory</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
-</dl>
-</li>
-</ul>
 <a id="updatePermission(mops.businesslogic.security.Account,long,mops.persistence.permission.DirectoryPermissions)">
 <!--   -->
 </a>
@@ -583,7 +555,7 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <a id="getTotalDirCount()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getTotalDirCount</h4>
 <pre class="methodSignature">public&nbsp;long&nbsp;getTotalDirCount()
@@ -596,6 +568,31 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <dd>directory count</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="renameDirectory(mops.businesslogic.security.Account,long,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>renameDirectory</h4>
+<pre class="methodSignature">public&nbsp;<a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;renameDirectory&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
+                                 long&nbsp;dirId,
+                                 java.lang.String&nbsp;newName)
+                          throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">renames a directory.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="DirectoryService.html#renameDirectory(mops.businesslogic.security.Account,long,java.lang.String)">renameDirectory</a></code>&nbsp;in interface&nbsp;<code><a href="DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>account</code> - user credentials</dd>
+<dd><code>dirId</code> - directory ID</dd>
+<dd><code>newName</code> - new name</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the directory</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
 </dl>
 </li>
 </ul>

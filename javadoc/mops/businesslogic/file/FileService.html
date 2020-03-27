@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -197,6 +197,15 @@ public interface <span class="typeNameLabel">FileService</span></pre>
 </td>
 </tr>
 <tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#renameFile(mops.businesslogic.security.Account,long,java.lang.String)">renameFile</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
+          long&nbsp;fileId,
+          java.lang.String&nbsp;newName)</code></th>
+<td class="colLast">
+<div class="block">Renames a file.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveFile(mops.businesslogic.security.Account,long,org.springframework.web.multipart.MultipartFile,java.util.Set)">saveFile</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
         long&nbsp;dirId,
@@ -350,7 +359,7 @@ public interface <span class="typeNameLabel">FileService</span></pre>
 <a id="deleteFile(long)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>deleteFile</h4>
 <pre class="methodSignature">void&nbsp;deleteFile&#8203;(long&nbsp;fileId)
@@ -360,6 +369,29 @@ public interface <span class="typeNameLabel">FileService</span></pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>fileId</code> - the id of the file</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
+</dl>
+</li>
+</ul>
+<a id="renameFile(mops.businesslogic.security.Account,long,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>renameFile</h4>
+<pre class="methodSignature"><a href="../../persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;renameFile&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
+                     long&nbsp;fileId,
+                     java.lang.String&nbsp;newName)
+              throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Renames a file.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>account</code> - user credentials</dd>
+<dd><code>fileId</code> - the file ID</dd>
+<dd><code>newName</code> - the new filename</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the directory of the dir</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - on error</dd>
 </dl>
