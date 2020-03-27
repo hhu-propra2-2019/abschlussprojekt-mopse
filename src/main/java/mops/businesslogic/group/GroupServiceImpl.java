@@ -14,8 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * {@inheritDoc}
- * This is used during production.
+ * Access to the group database.
  */
 @Slf4j
 @Service
@@ -146,6 +145,20 @@ public class GroupServiceImpl implements GroupService {
         } catch (Exception e) {
             log.error("Failed to delete group with id '{}':", groupId, e);
             throw new DatabaseException("Die Gruppe konnte nicht gelöscht werden!", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public long getTotalGroupCount() throws MopsException {
+        try {
+            return groupRepository.count();
+        } catch (Exception e) {
+            log.error("Failed to get total group count:", e);
+            throw new DatabaseException("Gesamtgruppenzahl konnte nicht geladen werden!", e);
         }
     }
 }

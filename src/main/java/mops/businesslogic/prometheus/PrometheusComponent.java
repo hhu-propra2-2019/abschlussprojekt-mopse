@@ -84,6 +84,7 @@ public class PrometheusComponent {
         addGlobalGauge("totalStorageUsage", "total storage usage", fileInfoService::getTotalStorageUsage);
         addGlobalGauge("totalFileCount", "total file count", fileInfoService::getTotalFileCount);
         addGlobalGauge("totalDirCount", "total directory count", directoryService::getTotalDirCount);
+        addGlobalGauge("totalGroupCount", "total group count", groupService::getTotalGroupCount);
     }
 
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
@@ -145,7 +146,7 @@ public class PrometheusComponent {
                         return 0L;
                     }
                 })
-                .tag("group_id", String.valueOf(group.getId()))
+                .tag("group_id", String.valueOf(group.getGroupId()))
                 .register(meterRegistry);
     }
 

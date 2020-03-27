@@ -58,13 +58,16 @@ public class EditDirectoryForm {
     @SuppressWarnings("PMD.LawOfDemeter") // streams & builder
     public DirectoryPermissions buildDirectoryPermissions() {
         DirectoryPermissionsBuilder builder = DirectoryPermissions.builder();
-        rolePermissions.forEach(rolePermissions -> builder.entry(
-                rolePermissions.getRole(),
-                rolePermissions.isRead(),
-                rolePermissions.isWrite(),
-                rolePermissions.isDelete()
-                )
-        );
+        if (rolePermissions != null) {
+            rolePermissions.forEach(rolePermissions ->
+                    builder.entry(
+                            rolePermissions.getRole(),
+                            rolePermissions.isRead(),
+                            rolePermissions.isWrite(),
+                            rolePermissions.isDelete()
+                    )
+            );
+        }
         return builder.build();
     }
 }

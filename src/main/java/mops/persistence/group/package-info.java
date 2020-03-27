@@ -1,4 +1,4 @@
 /**
- * Group aggregate. Mirrors data from Gruppenfindung.
+ * Group aggregate. Mirrors data from Gruppenbildung.
  */
 package mops.persistence.group;

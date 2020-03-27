@@ -36,5 +36,27 @@ Diese verschiedenen Anfragen sind notwendig f체r die verschiedenen Funktionalit�
 - Erstellung einer Platzhalterberechtigung f체r alle Rollen
 
 Da uns w채hrend der Entwicklungszeit der externe Service nicht zur Verf체gung stand, haben wir einen Stub entwickelt,
-welcher festgesetzte Rollen zur체ckgibt. Wir haben uns dazu an dem REST-API Wiki der `Gruppenfindung` orientiert.
+welcher festgesetzte Rollen zur체ckgibt. Wir haben uns dazu an dem REST-API Wiki der `Gruppenbildung` orientiert.
+****
+
+****
+Prometheus
+
+Im `PrometheusComponent` werden unsere Prometheus Statistiken registriert.
+
+Zur Verf체gung gestellt werden:
+
+Global:
+
+- Speicherplatzverbrauch
+- Dateianzahl
+- Ordneranzahl
+- Gruppenanzahl
+
+F체r jede Gruppe einzeln (mit der Gruppen-UUID der Gruppenbildung getaggt):
+
+- Speicherplatzverbrauch
+- Dateianzahl
+- Ordneranzahl
+
 ****

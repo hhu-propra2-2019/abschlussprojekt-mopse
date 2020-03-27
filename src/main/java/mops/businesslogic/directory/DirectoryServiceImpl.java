@@ -62,7 +62,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private final PermissionService permissionService;
     /**
-     * Connects to the GruppenFindungs API.
+     * Connects to our group database.
      */
     private final GroupService groupService;
 
