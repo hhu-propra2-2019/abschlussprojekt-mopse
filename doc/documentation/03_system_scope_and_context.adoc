@@ -2,32 +2,23 @@
 == Kontextabgrenzung
 
 ****
-_Die (technische) Abgrenzung gegenüber allen Kommunikationsbeziehungen (Nachbarsysteme und Benutzerrollen).
-Somit werden die externen Schnittstellen festgelegt._
-
-_Festlegung *aller* Kommunikationsbeziehungen mit Erklärung der *fachlichen* Ein- und Ausgabedaten._
-
-_Kontextdiagramme, Listen von Kommunikationsbeziehungen aber auch plain text wären denkbar._
-****
-
 [cols="1,1,1" options="header"]
 |===
 |Kommunikationsbeziehung |Eingabe | Ausgabe
-| Requests vom Gruppensystem | _Wir erhalten Requests für die Ordner-/Dateierstellung oder Löschung und den Erhalt von
-Dateien aus unserer Datenbank._ | _Wir liefern eine Bestätigung des betreffenden Requests (eventuell inklusive der
-gewollten Datei) zurück, wenn die entsprechenden Berechtigungen vorhanden waren. Ansonsten bearbeiten wir den Request
-nicht._
-| Erfragen von Berechtigungen | _Wir erfragen mit einer Gruppen ID und dem Benutzernamen die Berechtigungen eines
-Nutzers in einer bestimmten Gruppe._  | _Wir erhalten ein Datenobjekt (.json) zurück, dass alle Berechtigungen (Rollen) des betreffenden Nutzers beinhaltet._
+| Weiterleitung von der Gruppenbildung | _Das Gruppenbildungsmodul stellt eine Anfrage mit der GruppenID um einen Weiterleitungslink zu erhalten._ | _Wir liefern einen auf die GruppenID bezogenen Link zurück._
+| Überprüfen des Adminstatus eines Nutzer in einer Gruppe | _Wir erfragen mit einer GruppenID und dem Benutzernamen die Berechtigungen eines Nutzers in einer bestimmten Gruppe._  | _Wir erhalten als Bestätigung einen Boolean zurück._
+| Abfrage aller Gruppenupdates | _Wir erfragen die Veränderungen in den Gruppendaten seit der letzten Anfrage._ | _Wir erhalten eine Liste aller veränderten Gruppen zurück._
+| Erfragen der Mitglieder einer Gruppe | _Wir erfragen mittels einer GruppenID die Mitgliederdaten dieser spezifischen Gruppe._ | Wir erhalten eine Liste von Nutzerdaten zurück._
 |===
+****
 
 include::../api/external-api.adoc[]
 
 ****
-GruppenfindungsService
+Gruppenbildungsservice::
 
-Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der GruppenFindung interagieren.
-Dazu haben wir folgende Anfragen an die REST-API der Gruppenfindung implementiert:
+Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der Gruppenbildung interagieren.
+Dazu haben wir folgende Anfragen an die REST-API der Gruppenbildung implementiert:
 
 . `doesGroupExist`: fragt ab, ob eine gegebene Gruppe existiert
 . `isUserInGroup`: fragt ab, ob ein gegebener User in einer gegebenen Gruppe Mitglied ist
@@ -36,6 +27,7 @@ Dazu haben wir folgende Anfragen an die REST-API der Gruppenfindung implementier
 . `returnUsersOfGroup`: gibt alle Mitglieder einer Gruppe zurück
 . `returnGroupsOfUsers`: gibt alle Gruppen eines Users zurück
 
+Dabei werden von uns nicht alle dieser Anfragen genutzt. Dennoch sind sie implementiert um in Zukunft die Erweiterbarkeit zu vereinfachen.
 Diese verschiedenen Anfragen sind notwendig für die verschiedenen Funktionalitäten, die unsere Anwendung bereitstellt:
 
 - Anzeige aller Gruppen

@@ -2,38 +2,33 @@
 == Glossar
 
 ****
-Eine klare Definition aller Begriffe, die möglicherweise dem Team oder auch außenstehenden nicht einheitlich klar sind.
-Ist auch dafür nützlich ein einheitliches Verständnis zu schaffen und Diskussionen vorzubeugen.
-****
-
 [cols="1,2" options="header"]
 |===
-|Begriff
-|Definition
-
-|Rolle
-|Die Berechtigungsstufe eines Nutzers im System; je nach Kontext entweder global oder lokal in einem Kurs.
-
-|File Info
-|Die Metadaten einer Datei (Name, Größe, Typ) im System.
-
+|Begriff |Definition
 
 |Directory
 |Ein (virtueller) Ordner im System.
 
-|Root Directory
-|Ein Ordner, der eine Gruppe im System repräsentiert. Jede Gruppe hat genau ein Root Directory.
-
 |Directory Permissions
 |Die Berechtigungen (Lesen, Hochladen, Löschen) die jede Rolle hat; einem Ordner zugeordnet.
 
-|Test (Modultest)
-|Modultests überprüfen dauerhaft die Funktion aller Komponenten (Module) des Systems. Dadurch wird sichergestellt, dass
-keine Fehler während der Entwicklung übersehen werden.
+|File Info
+|Die Metadaten einer Datei (Name, Größe, Typ) im System.
 
 |MinIO
 |Die verwendete Cloud-Speicherlösung, die zur Speicherung der Nutzerdateien verwendet wird.
 
 |PostgreSQL
 |Das verwendete Datenbankmanagementsystem. Hier werden Verzeichnisse und Metadaten gespeichert.
+
+|Root Directory
+|Ein Ordner, der eine Gruppe im System repräsentiert. Jede Gruppe hat genau ein Root Directory.
+
+|Rolle
+|Die Berechtigungsstufe eines Nutzers im System; je nach Kontext entweder global oder lokal in einem Kurs.
+
+|Test (Modultest)
+|Modultests überprüfen dauerhaft die Funktion aller Komponenten (Module) des Systems. Dadurch wird sichergestellt, dass
+keine Fehler während der Entwicklung übersehen werden.
 |===
+****
