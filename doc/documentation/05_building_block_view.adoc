@@ -271,8 +271,8 @@ include::../api/generated-snippets//index/DirectoryController/create-folder/path
 include::../api/generated-snippets/index/DirectoryController/edit-folder/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
-include::../api/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]
-include::../api/generated-snippets/index/DirectoryController/zip-download-test/path-parameters.adoc[]
+include::../api/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]Please rename snippets references in doc.
+include::../api/generated-snippets/index/DirectoryController/zip-directory/path-parameters.adoc[]
 
 ExceptionController::
 
@@ -283,7 +283,7 @@ FileController::
 
 Dieser hat folgende Routen:
 
-include::../api/generated-snippets/index/FileController/get-file/path-parameters.adoc[]
+include::../api/generated-snippets/index/FileController/show-file/path-parameters.adoc[]
 include::../api/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
 include::../api/generated-snippets/index/FileController/download-file/path-parameters.adoc[]
 
