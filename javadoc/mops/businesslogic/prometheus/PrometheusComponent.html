@@ -222,7 +222,8 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;PrometheusComponent&#8203;(<a href="../group/GroupService.html" title="interface in mops.businesslogic.group">GroupService</a>&nbsp;groupService,
                            <a href="../file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a>&nbsp;fileInfoService,
                            <a href="../directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService,
-                           io.micrometer.core.instrument.MeterRegistry&nbsp;meterRegistry)</pre>
+                           io.micrometer.core.instrument.MeterRegistry&nbsp;meterRegistry)
+                    throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
 <div class="block">Constructor.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -230,6 +231,8 @@ extends java.lang.Object</pre>
 <dd><code>fileInfoService</code> - file info service</dd>
 <dd><code>directoryService</code> - directory service</dd>
 <dd><code>meterRegistry</code> - meter registry</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -250,8 +253,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>updateGauges</h4>
 <pre class="methodSignature">@Scheduled(fixedRate=3600000L)
-public&nbsp;void&nbsp;updateGauges()</pre>
+public&nbsp;void&nbsp;updateGauges()
+                  throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
 <div class="block">Update all the gauges.</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
 </li>
 </ul>
 </li>

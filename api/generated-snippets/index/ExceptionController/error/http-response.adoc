@@ -9,7 +9,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 4499
+Content-Length: 4613
 
 <!DOCTYPE html>
 <html lang="en">
@@ -132,8 +132,9 @@ Content-Length: 4499
     <div class="d-block">
         
         
-        <img src="/mops_error.jpg" class="rounded mx-auto h-50 w-50"
+        <img src="/mops_error.png" class="rounded mx-auto h-50 w-50"
              alt="Sad Pug.">
+        <div style="color: gray">Credits to <a href="https://www.instagram.com/meddamorff/">meddamorff</a>!</div>
     </div>
     <br>
     
