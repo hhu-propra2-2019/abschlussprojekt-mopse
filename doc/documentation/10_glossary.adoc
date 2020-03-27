@@ -16,7 +16,7 @@
 |Die Metadaten einer Datei (Name, Größe, Typ) im System.
 
 |MinIO
-|Die verwendete Cloud-Speicherlösung, die zur Speicherung der Nutzerdateien verwendet wird.
+|Die verwendete Cloud-Speicherlösung, die zur Speicherung der Nutzerdateien benutzt wird.
 
 |PostgreSQL
 |Das verwendete Datenbankmanagementsystem. Hier werden Verzeichnisse und Metadaten gespeichert.

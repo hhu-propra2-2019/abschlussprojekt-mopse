@@ -67,7 +67,7 @@ Presentation Layer::
 
 | DirectoryController
 | _Stellt den Inhalt eines angefragten Ordners zur Verfügung._
-| _Dateiinformation bekommt er vom `FileService` und die Ordnerinformationen vom `DirectoryService`. Berechtigungen werden vom `PermissionService` sowie vom `SecurityService` erfragt. Um Dateien zu löschen wird auf den `DeleteService` zugegriffen. Um Ordner zum Download zur Verfügung zu stellen wird auf den `ZIPService` verwiesen._
+| _Dateiinformation bekommt er vom `FileService` und die Ordnerinformationen vom `DirectoryService`. Berechtigungen werden vom `PermissionService` sowie vom `SecurityService` erfragt. Um Dateien zu löschen, wird auf den `DeleteService` zugegriffen. Um Ordner zum Download zur Verfügung zu stellen, wird auf den `ZIPService` verwiesen._
 
 | ExceptionController
 | _Fängt sämtliche Exceptions, die im Projekt geworfen werden und stellt diese bereit._
@@ -101,10 +101,10 @@ Business Layer::
 |Komponente |Funktion | Schnittstellen
 | DeleteService
 | _Ermöglicht das Löschen von kompletten Ordnern inklusive aller Unterordner sowie enthaltenen Dateien._
-| _Um die Berechtigungen für das Löschen zu überprüfen wird auf den `SecurityService` zugegriffen. Um die Löschen-Operationen an sich durchzuführen werden der `DirectoryService` sowie der `FileInfoService` genutzt._
+| _Um die Berechtigungen für das Löschen zu überprüfen, wird auf den `SecurityService` zugegriffen. Um die Löschen-Operationen an sich durchzuführen, werden der `DirectoryService` sowie der `FileInfoService` genutzt._
 
 | DirectoryService
-| _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das wechseln zu einem Unterordner sowie das Hochladen einer Datei in den Ordner._
+| _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das Wechseln zu einem Unterordner, sowie das Hochladen einer Datei in den Ordner._
 | _Die Informationen über die Dateien werden vom `FileInfoService` abgerufen. Die Berechtigungen des Ordners werden vom `PermissionService` zur Verfügung gestellt und können verändert werden. Die vom `GroupService` bereitgestellten Rollen werden vom `SecurityService` überprüft, damit ein User nur erlaubte Aktionen ausführen kann. Für das Speichern und Abrufen der Ordner wird mit dem `DirectoryRepository` interagiert._
 
 | FileInfoService
@@ -140,8 +140,8 @@ Business Layer::
 | _Befragt die Datenbank über das `DirectoryPermissionsRepository` nach Ordnerberechtigungen._
 
 |PrometheusComponent
-| _Registriert die Prometheus Statistiken um diese anzuzeigen._
-| _Beim `GroupService` werden alle zur Zeit existierenden Gruppen angefragt. Für jede Gruppe wird beim `DirectoryService` und beim `FileInfoService` angefragt um die Statistiken zu erhalten. Außerdem können bei diesen beiden auch die globalen Statistiken überprüft werden._
+| _Registriert die Prometheus Statistiken, um diese einem externen Tool zur Verfügung zu stellen._
+| _Beim `GroupService` werden alle zur Zeit existierenden Gruppen angefragt. Für jede Gruppe wird beim `DirectoryService` und beim `FileInfoService` angefragt, um die Statistiken zu erhalten. Außerdem können bei diesen beiden auch die globalen Statistiken überprüft werden._
 
 | SecurityService
 | _Überprüft die Rollenberechtigungen eines Nutzers._

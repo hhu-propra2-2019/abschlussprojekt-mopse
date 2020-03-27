@@ -8,7 +8,7 @@
 | Weiterleitung von der Gruppenbildung | _Das Gruppenbildungsmodul stellt eine Anfrage mit der GruppenID um einen Weiterleitungslink zu erhalten._ | _Wir liefern einen auf die GruppenID bezogenen Link zurück._
 | Überprüfen des Adminstatus eines Nutzer in einer Gruppe | _Wir erfragen mit einer GruppenID und dem Benutzernamen die Berechtigungen eines Nutzers in einer bestimmten Gruppe._  | _Wir erhalten als Bestätigung einen Boolean zurück._
 | Abfrage aller Gruppenupdates | _Wir erfragen die Veränderungen in den Gruppendaten seit der letzten Anfrage._ | _Wir erhalten eine Liste aller veränderten Gruppen zurück._
-| Erfragen der Mitglieder einer Gruppe | _Wir erfragen mittels einer GruppenID die Mitgliederdaten dieser spezifischen Gruppe._ | Wir erhalten eine Liste von Nutzerdaten zurück._
+| Erfragen der Mitglieder einer Gruppe | _Wir erfragen mittels einer GruppenID die Mitgliederdaten dieser spezifischen Gruppe._ | _Wir erhalten eine Liste von Nutzerdaten zurück._
 |===
 ****
 
