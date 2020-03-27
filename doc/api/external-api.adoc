@@ -1,11 +1,11 @@
 ****
-Anfrage Gruppenurl::
+Weiterleitung von der Gruppenbildung (Anfrage der Gruppenurl)::
 
 Anfrage:
 
 include::generated-snippets/index/GroupController/get-root-directory-url/path-parameters.adoc[]
 
-Antwort:
+Antwort (.json Objekt):
 
 include::generated-snippets/index/GroupController/get-root-directory-url/response-fields.adoc[]
 
