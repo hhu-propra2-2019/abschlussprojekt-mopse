@@ -83,7 +83,7 @@ Presentation Layer::
 
 | GroupsController
 | _Stellt alle Gruppen eines Benutzers zur Verfügung._
-| _Alle Gruppeninformationen erhält er vom `GroupService`_.
+| _Alle Gruppeninformationen erhält er vom `GroupService`._
 
 | Material1Controller
 | _Stellt Weiterleitungen für den initialen Aufruf und für das Logout bereit._
