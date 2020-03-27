@@ -1,5 +1,5 @@
 [source,bash]
 ----
 $ curl 'http://localhost:8080/material1/dir/1/search' -i -X POST \
-    -d '_csrf=b55eb9fa-bd29-4d09-9311-3334f8011391'
+    -d '_csrf=11766c87-63a1-48ca-9618-a58a490f565b'
 ----

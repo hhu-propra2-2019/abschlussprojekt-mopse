@@ -11,9 +11,8 @@
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="b55eb9fa-bd29-4d09-9311-3334f8011391"/>
+        <meta name="_csrf" content="11766c87-63a1-48ca-9618-a58a490f565b"/>
         <link rel="stylesheet" type="text/css" href="/style.css">
-        <script language="javascript" type="text/javascript" src="/script.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
                 crossorigin="anonymous"></script>
@@ -23,6 +22,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
                 integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
                 crossorigin="anonymous"></script>
+        <script language="javascript" type="text/javascript" src="/script.js"></script>
     
 </head>
 <body>
@@ -135,7 +135,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="b55eb9fa-bd29-4d09-9311-3334f8011391"/>
+              method="post"><input type="hidden" name="_csrf" value="11766c87-63a1-48ca-9618-a58a490f565b"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="cv">
@@ -192,21 +192,7 @@
         </form>
     </div>
 
-    <div class="material1-path-wrapper">
-        <!-- Button to the directory above -->
-        <div>
-            <div class="material1-button-above-wrapper">
-                <form action="/material1/dir/0" method="get">
-                    <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
-                </form>
-            </div>
-        </div>
-
-        <!-- Path to the current folder -->
-        <div class="form-control">
-            
-        </div>
-    </div>
+    
 
     <!-- Main Table to show the Folder Content -->
     <div class="table-responsive">
