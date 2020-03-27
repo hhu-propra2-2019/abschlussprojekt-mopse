@@ -1,5 +1,5 @@
 [source,bash]
 ----
-$ curl 'http://localhost:8080/material1/dir/1/zip?_csrf=cde3ddef-cb93-4883-ae2f-621ec367d208' -i -X GET \
+$ curl 'http://localhost:8080/material1/dir/1/zip?_csrf=712d58b5-7c47-423f-9275-800ed3fde5a9' -i -X GET \
     -H 'Content-Type: application/octet-stream'
 ----
