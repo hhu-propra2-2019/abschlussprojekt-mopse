@@ -104,6 +104,9 @@ public class DirectoryBuilder {
      * @return this
      */
     public DirectoryBuilder name(@NonNull String name) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("name must not be empty");
+        }
         this.name = name;
         return this;
     }

@@ -169,7 +169,8 @@
                             </form>
                             <button th:if="${writePermission}" class="dropdown-item" type="button">Umbenennen</button>
                             <form th:if="${deletePermission}" action="#"
-                                  th:action="@{/material1/dir/{dirId}/delete(dirId = ${dir.id})}" th:method="post">
+                                  th:action="@{/material1/dir/{dirId}/delete(dirId = ${dir.id})}" th:method="post"
+                                  onsubmit="return confirm('Diese Aktion kann nicht rückgangig gemacht werden. Soll der Ordner mit seinem gesamten Inhalt wirklich gelöscht werden?');">
                                 <button class="dropdown-item text-danger" type="submit">Löschen</button>
                             </form>
                         </div>
@@ -216,7 +217,8 @@
                             </form>
                             <button th:if="${writePermission}" class="dropdown-item" type="button">Umbenennen</button>
                             <form th:if="${deletePermission || file.owner == account.name}" action="#"
-                                  th:action="@{/material1/file/{fileId}/delete(fileId = ${file.id})}" th:method="post">
+                                  th:action="@{/material1/file/{fileId}/delete(fileId = ${file.id})}" th:method="post"
+                                  onsubmit="return confirm('Diese Aktion kann nicht rückgangig gemacht werden. Soll die Datei wirklich gelöscht werden?');">
                                 <button class="dropdown-item text-danger" type="submit">Löschen</button>
                             </form>
                         </div>

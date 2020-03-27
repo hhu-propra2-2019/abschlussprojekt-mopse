@@ -20,7 +20,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -80,7 +79,6 @@ class DirectoryServiceTest {
                 .build();
 
         given(groupService.getGroup(GROUP_ID)).willReturn(group);
-        given(groupService.doesGroupExist(GROUP_ID)).willReturn(true);
         given(groupService.getDefaultPermissions(GROUP_ID)).willReturn(
                 DirectoryPermissions.builder()
                         .entry(ADMIN, true, true, true)
@@ -98,7 +96,7 @@ class DirectoryServiceTest {
     @Test
     void createGroupRootFolder() {
         Directory expected = Directory.builder()
-                .name("")
+                .name("Test Group")
                 .groupOwner(GROUP_ID)
                 .permissions(root.getPermissionsId())
                 .build();
@@ -230,73 +228,6 @@ class DirectoryServiceTest {
 
         assertThatExceptionOfType(ReadAccessPermissionException.class)
                 .isThrownBy(() -> directoryService.getSubFolders(user, root.getId()));
-    }
-
-    /**
-     * Tests if a admin can delete subfolder.
-     */
-    @Test
-    void deleteFirstFolderTest() throws MopsException {
-        Directory subFolder = directoryService.createFolder(admin, root.getId(), "a");
-        long permissionsId = subFolder.getPermissionsId();
-
-        Directory parent = directoryService.deleteFolder(admin, subFolder.getId());
-
-        List<Directory> subFolders = directoryService.getSubFolders(admin, root.getId());
-        Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);
-
-        assertThat(parent).isEqualTo(root);
-        assertThat(subFolders).isEmpty();
-        assertThat(byId).isEmpty();
-    }
-
-    @Test
-    void deleteRootFolderTest() throws MopsException {
-        long id = 2L;
-        UUID groupId = new UUID(0, 2);
-
-        Group group = Group.builder()
-                .id(id)
-                .groupId(groupId)
-                .name("Another Test Group")
-                .member(admin.getName(), ADMIN)
-                .member(editor.getName(), EDITOR)
-                .member(user.getName(), VIEWER)
-                .build();
-
-        given(groupService.getRoles(id)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
-        given(groupService.getGroup(id)).willReturn(group);
-        given(groupService.doesGroupExist(id)).willReturn(true);
-        given(groupService.getDefaultPermissions(id)).willReturn(
-                DirectoryPermissions.builder()
-                        .entry(ADMIN, true, true, true)
-                        .entry(EDITOR, true, true, false)
-                        .entry(VIEWER, true, false, false)
-                        .build()
-        );
-
-        Directory rootFolder = directoryService.getOrCreateRootFolder(id).getRootDir();
-        long permissionsId = rootFolder.getPermissionsId();
-        Directory directory = directoryService.deleteFolder(admin, rootFolder.getId());
-        Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);
-
-        assertThat(directory).isNull();
-        assertThat(byId).isEmpty();
-    }
-
-    @Test
-    void deleteSecondLevelFolderTest() throws MopsException {
-        Directory subFolder = directoryService.createFolder(admin, root.getId(), "a");
-        Directory secondLevel = directoryService.createFolder(admin, subFolder.getId(), "b");
-        long permissionsId = secondLevel.getPermissionsId();
-
-        Directory parent = directoryService.deleteFolder(admin, secondLevel.getId());
-        List<Directory> subFolders = directoryService.getSubFolders(admin, subFolder.getId());
-
-        assertThat(parent).isEqualTo(subFolder);
-        assertThat(subFolders).isEmpty();
-        Optional<DirectoryPermissions> byId = directoryPermissionsRepository.findById(permissionsId);
-        assertThat(byId).isNotEmpty();
     }
 
     @Test

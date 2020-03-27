@@ -44,20 +44,6 @@ public class GroupServiceImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" }) // optional
-    public boolean doesGroupExist(long groupId) throws MopsException {
-        try {
-            return groupRepository.findById(groupId).isPresent();
-        } catch (Exception e) {
-            log.error("Error while checking group existence for group {}:", groupId, e);
-            throw new DatabaseException("Konnte nicht auf die Existenz der Gruppe testen.", e);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     @SuppressWarnings("PMD.LawOfDemeter") // stream
     public Set<String> getRoles(long groupId) throws MopsException {
         return Set.of(adminRole, viewerRole);

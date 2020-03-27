@@ -18,14 +18,6 @@ import java.util.UUID;
 public interface GroupService {
 
     /**
-     * Tests whether a group exists or not.
-     *
-     * @param groupId the id of the group
-     * @return true if group exists, false otherwise
-     */
-    boolean doesGroupExist(long groupId) throws MopsException;
-
-    /**
      * Gets all roles that exist in a group.
      *
      * @param groupId the id of the group

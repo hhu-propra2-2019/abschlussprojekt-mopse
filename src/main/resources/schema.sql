@@ -20,7 +20,7 @@ CREATE INDEX i_entry_perm ON directory_permission_entry (permissions_id);
 CREATE TABLE directory
 (
     id                 BIGSERIAL PRIMARY KEY,
-    name               VARCHAR(255) NOT NULL,
+    name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     parent_id          BIGINT,
     group_owner        BIGINT       NOT NULL,
     permissions_id     BIGINT       NOT NULL,
