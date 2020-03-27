@@ -869,11 +869,11 @@ Nutzers in einer bestimmten Gruppe.</em></p></td>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>GruppenfindungsService</p>
+<p>GruppenbildungsService</p>
 </div>
 <div class="paragraph">
-<p>Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der GruppenFindung interagieren.
-Dazu haben wir folgende Anfragen an die REST-API der Gruppenfindung implementiert:</p>
+<p>Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der Gruppenbildung interagieren.
+Dazu haben wir folgende Anfragen an die REST-API der Gruppenbildung implementiert:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -918,7 +918,7 @@ Dazu haben wir folgende Anfragen an die REST-API der Gruppenfindung implementier
 </div>
 <div class="paragraph">
 <p>Da uns während der Entwicklungszeit der externe Service nicht zur Verfügung stand, haben wir einen Stub entwickelt,
-welcher festgesetzte Rollen zurückgibt. Wir haben uns dazu an dem REST-API Wiki der <code>Gruppenfindung</code> orientiert.</p>
+welcher festgesetzte Rollen zurückgibt. Wir haben uns dazu an dem REST-API Wiki der <code>Gruppenbildung</code> orientiert.</p>
 </div>
 </div>
 </div>
@@ -1413,9 +1413,9 @@ an das <code>FileRepository</code> gestellt werden, um die Datei selbst zu erhal
 <code>DirectoryService</code> und des <code>SecurityService</code> überprüft.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GruppenfindungsService</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Erlaubt es Anfragen an die <code>Gruppenfindung</code> zu stellen.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Kommunziert nur über eine REST-API mit der <code>Gruppenfindung</code>.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GruppenbildungsService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Erlaubt es Anfragen an die <code>Gruppenbildung</code> zu stellen.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Kommunziert nur über eine REST-API mit der <code>Gruppenbildung</code>.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GroupService</p></td>
@@ -1424,7 +1424,7 @@ an das <code>FileRepository</code> gestellt werden, um die Datei selbst zu erhal
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LatestEventIdService</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt den Zugang zu der gespeicherten <code>latestEventId</code> zur Verfügung. Wird für die Gruppenfindung benötigt.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt den Zugang zu der gespeicherten <code>latestEventId</code> zur Verfügung. Wird für die Gruppenbildung benötigt.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Befragt die Datenbank über das <code>LatestEventIdRepository</code> nach der gespeicherten <code>latestEventId</code>.</em></p></td>
 </tr>
 <tr>
@@ -2273,7 +2273,7 @@ keine Fehler während der Entwicklung übersehen werden.</p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-27 08:24:28 UTC
+Last updated 2020-03-27 09:53:14 UTC
 </div>
 </div>
 </body>

@@ -24,10 +24,10 @@ Nutzers in einer bestimmten Gruppe._  | _Wir erhalten ein Datenobjekt (.json) zu
 include::../api/external-api.adoc[]
 
 ****
-GruppenfindungsService
+GruppenbildungsService
 
-Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der GruppenFindung interagieren.
-Dazu haben wir folgende Anfragen an die REST-API der Gruppenfindung implementiert:
+Der Service, der unsere Gruppenverwaltung abwickelt, muss mit der Gruppenbildung interagieren.
+Dazu haben wir folgende Anfragen an die REST-API der Gruppenbildung implementiert:
 
 . `doesGroupExist`: fragt ab, ob eine gegebene Gruppe existiert
 . `isUserInGroup`: fragt ab, ob ein gegebener User in einer gegebenen Gruppe Mitglied ist
@@ -44,5 +44,5 @@ Diese verschiedenen Anfragen sind notwendig f체r die verschiedenen Funktionalit�
 - Erstellung einer Platzhalterberechtigung f체r alle Rollen
 
 Da uns w채hrend der Entwicklungszeit der externe Service nicht zur Verf체gung stand, haben wir einen Stub entwickelt,
-welcher festgesetzte Rollen zur체ckgibt. Wir haben uns dazu an dem REST-API Wiki der `Gruppenfindung` orientiert.
+welcher festgesetzte Rollen zur체ckgibt. Wir haben uns dazu an dem REST-API Wiki der `Gruppenbildung` orientiert.
 ****

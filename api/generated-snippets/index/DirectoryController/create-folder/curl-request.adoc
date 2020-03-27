@@ -1,5 +1,5 @@
 [source,bash]
 ----
 $ curl 'http://localhost:8080/material1/dir/1/create' -i -X POST \
-    -d 'folderName=Vorlesungen&_csrf=05ec64e1-29e2-4d87-b141-06413550b565'
+    -d 'folderName=Vorlesungen&_csrf=ac70c0e4-d625-47b6-b303-e4d9cff6563f'
 ----

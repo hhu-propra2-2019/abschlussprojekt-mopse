@@ -7,7 +7,7 @@ mops.businesslogic.exception
 mops.businesslogic.file
 mops.businesslogic.file.query
 mops.businesslogic.group
-mops.businesslogic.gruppenfindung
+mops.businesslogic.gruppenbildung
 mops.businesslogic.permission
 mops.businesslogic.prometheus
 mops.businesslogic.security

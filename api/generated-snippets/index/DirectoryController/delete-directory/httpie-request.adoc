@@ -1,5 +1,5 @@
 [source,bash]
 ----
 $ http --form POST 'http://localhost:8080/material1/dir/1/delete' \
-    '_csrf=3fdd500a-833a-4ee4-bba3-8ee0114992f5'
+    '_csrf=7282fcba-b21b-4718-8a95-2cf18d1c3350'
 ----

@@ -156,8 +156,8 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.file.FileInfoService,mops.businesslogic.file.FileServiceImpl)">GarbageCollector</a></span>&#8203;(<a href="file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a>&nbsp;fileInfoService,
-                <a href="file/FileServiceImpl.html" title="class in mops.businesslogic.file">FileServiceImpl</a>&nbsp;fileService)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.file.FileInfoService,mops.businesslogic.file.FileService)">GarbageCollector</a></span>&#8203;(<a href="file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a>&nbsp;fileInfoService,
+                <a href="file/FileService.html" title="interface in mops.businesslogic.file">FileService</a>&nbsp;fileService)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -209,14 +209,14 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(mops.businesslogic.file.FileInfoService,mops.businesslogic.file.FileServiceImpl)">
+<a id="&lt;init&gt;(mops.businesslogic.file.FileInfoService,mops.businesslogic.file.FileService)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>GarbageCollector</h4>
 <pre>public&nbsp;GarbageCollector&#8203;(<a href="file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a>&nbsp;fileInfoService,
-                        <a href="file/FileServiceImpl.html" title="class in mops.businesslogic.file">FileServiceImpl</a>&nbsp;fileService)</pre>
+                        <a href="file/FileService.html" title="interface in mops.businesslogic.file">FileService</a>&nbsp;fileService)</pre>
 </li>
 </ul>
 </li>
@@ -235,7 +235,7 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>removeOrphans</h4>
-<pre class="methodSignature">@Scheduled(fixedDelay=604800000L)
+<pre class="methodSignature">@Scheduled(fixedDelay=86400000L)
 public&nbsp;void&nbsp;removeOrphans()</pre>
 <div class="block">Collects all IDs, find orphans and delete them.</div>
 </li>
