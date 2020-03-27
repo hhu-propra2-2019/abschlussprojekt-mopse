@@ -15,4 +15,7 @@ eigenen Ordnerstruktur in einer externen Datenbank notwendig._
 | Keycloak erschwert UnitTests| _Aufgrund der Sicherheitskomponenten werden die Controller-Tests stark verkompliziert,
 da die Sicherheitsfeatures gemockt werden müssen._
 |===
+
+All diese möglichen Probleme haben wir jedoch schlussendlich überwunden und konnten das Produkt ohne größere
+Schwierigkeiten fertig stellen.
 ****

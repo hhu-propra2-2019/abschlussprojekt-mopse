@@ -1,94 +1,105 @@
 [[section-design-decisions]]
 == Entwurfsentscheidungen
 
-****
-_Dieser Abschnitt ist möglichweise zu vernachlässigen._
-
-Es geht hier darum große und wichtige Entscheidungen die während des Entwicklungsprozesses entstehen zu erklären und zu
-begründen.
-Es werden also Alternativen miteinader verglichen, abgewogen und die Beste ausgewählt.
-
-****
-
 === Aufbau der Datenbank
 
+****
 image::ER-Modell.png[]
-
+****
 
 ==== Directory
 
+****
 Das Datenobjekt `Directory` stellt einen Ordner dar.
 `Directory` hat ein Attribut `name`. Dieses stellt den Namen des Ordners dar.
 
 Außerdem hat der Entity `Directory` ein Attribut `group`.
 Dort wird eine ID gespeichert, welche die Gruppe des Ordners identifiziert.
 Zusätzlich hat ein Ordner eine eindeutige `ID`.
+****
 
 ==== DirectoryPermissions
 
+****
 Das Datenbankobjekt `DirectoryPermissions` stellt die Berechtigungen für die erstellten Ordner dar.
 Die `DirectoryPermissions` haben eine eindeutige `ID`.
+****
 
 ==== DirectoryPermissionsEntry
 
+****
 Das Datenbankobjekt `DirectoryPermissionsEntry` stellt Berechtigungsinformationen dar.
 `DirectoryPermissionsEntry` hat eine eindeutige `ID`.
 Außerdem hat `DirectoryPermissionsEntry` ein Attribut `role`. `role` stellt die Rolle (Student, Organisator) in der
 Gruppe dar. Für die Rolle gibt es Informationen, ob der Benutzer lesen, schreiben oder löschen darf. Aus diesem Grund
 haben wir 3 `boolean` Attribute für Lesen, Schreiben und Löschen erstellt (`canRead`, `canWrite`, `canDelete`).
+****
 
 ==== FileInfo
 
+****
 In dem Datenbankobjekt `FileInfo` sind Informationen einer Datei dargestellt.
 
 Das Attribut `owner` speichert den Namen des Inhabers der Datei.
 Außerdem speichern wir die Größe (`size`), den Namen (`name`) und den Typ der Datei (`type`).
 Zusätzlich hat jede `FileInfo` eine eindeutige `ID`.
+****
 
 ==== FileTag
 
+****
 Hier speichern wir Tags für die Files (Dateien). Tags sind Kategorien oder Etiketten, die zur Suche und Filterung von
 Dateien nützlich sind. Das Attribut `name` speichert den Namen des Tags.
 Außerdem hat jeder Tag eine eindeutige `ID`.
+****
 
 ==== Beziehungen
 
 ===== Directory hat FileInfo
 
+****
 Hier haben wir eine `1 zu N` Beziehung, da ein Ordner (`Directory`) mehrere Dateien (`FileInfo`) enthalten kann.
 Im Gegenzug kann eine Datei in genau einem Ordner liegen. Entweder sie liegt im Root-Directory, oder in einem
 Unterordner.
+****
 
 ===== Directory parent Directory
 
+****
 `Directory` hat eine rekursive Beziehung mit sich selbst. Ein Ordner kann mehrere Unterordner haben und jeder
 Ordner liegt in höchstens einem Ordner. Ein Ordner kann auch in keinem Ordner liegen, da wir beschlossen haben, dass
 eine Gruppe auch ein Ordner ist. Dies wird als Stammordner (`Root-Directory`) der Gruppe bezeichnet.
+****
 
 ===== FileInfo hat FileTag
 
+****
 Hier haben wir eine `1 zu N` Beziehung. Logischerweise kann eine Datei mehrere Tags haben, aber immer wenn ein Tag
 erstellt wird, wird er genau zu einer Datei zugeordnet.
+****
 
 ===== Directory hat DirectoryPermissions
 
+****
 Jedem Ordner wird genau eine Berechtigung zugeteilt. Dadurch wissen wir, welche Zugriffsberechtigungen die Rollen haben.
 Eine Berechtigung (`DirectoryPermissions`) kann mehreren Ordnern zugeteilt werden, da wir beschlossen haben, dass nur
 die one-level Ordner eine Berechtigung haben.
 Alle Unterordner erben die Berechtigungen der one-Level Ordner. Außerdem hat das Root-directory auch eine eigene
 Berechtigung (`DirectoryPermissions`), denn hier können auch Dateien gespeichert werden.
+****
 
 ===== DirectoryPermissions hat DirectoryPermissionsEntry
 
+****
 Hier haben wir eine `1 zu N` Beziehung.
 Das Datenbankobjekt `DirectoryPermissions` erhält Berechtigungsinformationen von
 `DirectoryPermissionsEntry`. Somit kann eine `Permission` mehrere Berechtigungsinformationen für bestimmte Rollen haben.
 Wiederum wird immer eine `DirectoryPermissionsEntry` zu genau einer `DirectoryPermissions` zugeordnet.
-
-
+****
 
 === ArchUnit Tests
 
+****
 Zur Vorbereitung haben wir uns die Vorlesung zu ArchUnit `Vorlesung 14 PP2` durchgelesen und bearbeitet. Danach haben
 wir die Tests `AGGREGATE_ROOT_PUBLIC_NOTHING_ELSE`, `ONE_AGGREGATE_ROOT_PER_PACKAGE` und `CHECK_LAYERED_ARCHITECTURE`
 geschrieben und dazu eine Hilfsannotation `AggregateRoot` erstellt.
@@ -120,13 +131,15 @@ Dann haben wir noch zwei weitere Tests für Services implementiert:
 Der nun siebte Test `SERVICES_ARE_ANNOTATED_WITH_SERVICE` untersucht, ob alle Services auch richtig mit `@Service` annotiert sind.
 
 Der achte Test, der mit dem siebten sehr in Einstimmung ist, überprüft, ob alle Klassen, die mit `@Service` annotiert sind, auch Service im Namen haben, damit die Struktur des Projekts nicht verwirrend wird. 
+****
 
 === FileStorage
 
-_Als Schnittstelle für die Dateispeicherung haben wir MinIO gewählt, weil es vorgegeben wurde. Die erforderliche
-Konfiguration erfolgt über Umgebungsvariablen um einen möglichst flexiblen Einsatz zu ermöglichen._
+****
+Als Schnittstelle für die Dateispeicherung haben wir MinIO gewählt, weil es vorgegeben wurde. Die erforderliche
+Konfiguration erfolgt über Umgebungsvariablen um einen möglichst flexiblen Einsatz zu ermöglichen.
 
-_Die erforderlichen Umgebungsvariablen lauten:_
+Die erforderlichen Umgebungsvariablen lauten:
 
 - MATERIAL1_MINIO_HOST
 - MATERIAL1_MINIO_PORT
@@ -134,11 +147,8 @@ _Die erforderlichen Umgebungsvariablen lauten:_
 - MINIO_ACCESS_KEY
 - MINIO_SECRET_KEY
 
-_Im Entwicklungsprozess sind diese durch Default-Werte (welche in der `application.properties`) vorgegeben._
+Im Entwicklungsprozess sind diese durch Default-Werte (welche in der `application.properties`) vorgegeben.
 
-_Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach ersetzt werden, wenn
-eine andere Lösung zur Speicherung von Dateien genutzt wird._
-
-=== _<Entscheidung n>_
-
-_<Erklärung>_
+Die Komponente stellt eine einfache Schnittstelle für die Dateispeicherung dar und kann einfach ersetzt werden, wenn
+eine andere Lösung zur Speicherung von Dateien genutzt wird.
+****

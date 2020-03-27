@@ -1,25 +1,12 @@
 [[section-solution-strategy]]
 == Lösungsstrategie
 
-****
-Kurzer Überblick über die grundlegenden Entscheidungen und Lösungsansätze, die Entwurf und Implementierung des Systems
-prägen.
-Hierzu gehören:
-
-* Technologieentscheidungen
-* Entscheidungen über die Top-Level-Zerlegung des Systems, beispielsweise die Verwendung gesamthaft prägender Entwurfs-
-oder Architekturmuster,
-* Entscheidungen zur Erreichung der wichtigsten Qualitätsanforderungen sowie
-
-Eine *kurze* und *präzise* Darlegung aller relevanten Entscheidungen.
-****
-
 === Docker-Compose
 
 ****
 Beim Design der docker-compose Konfigurationen hatten wir komplizierte Anforderungen.
 
-Ziel:
+*Ziel:*
 
 In Production soll ein `docker-compose [...] up` die Anwendung und alle Dependencies (also nur die Datenbank) starten.
 
@@ -35,7 +22,7 @@ In all diesen Fällen sollen sämtliche Umgebungsvariablen und Startparameter ri
 Gelöst wird dies durch das Benutzen von mehreren `docker-compose` .yml Dateien, die zusammen geladen werden.
 Denn `docker-compose` erlaubt es, bereits definierte Services in einer anderen Konfigurationsdatei zu ergänzen.
 
-Also gibt es nun:
+*Also gibt es nun:*
 
 `docker-compose.yml`: Enthält die Definition des Datenbank-Containers ohne Konfiguration.
 
@@ -60,9 +47,11 @@ zusammenbauen.
 ****
 Eine Schwierigkeit der Controller-Tests liegt in der Berücksichtigung der sicherheitsrelevanten Aspekte von
 `spring-security` und `keycloak`.
+
 Wir hatten uns zunächst dafür entschieden diesen Teil zu mocken.
 Anfangs hatten wir Probleme, `@WithMockUser` zu verwenden, daher entschieden wir uns für das Mocken des gesamten
 SecurityContext. Durch  `SecurityContextUtil` wird dieser jedem ControllerTest zur Verfügung gestellt.
+
 Später wurden wir dann auf die Bibliothek `spring-security-test-keycloack-addons` aufmerksam, die das Testen
 massiv vereinfacht. Nun kann man die Annotation `@WithMockKeycloakAuth` benutzen, um Tests mit einer gültigen Keycloak
 Authentifizierung auszustatten.
