@@ -1671,7 +1671,7 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabelle 4. /material1/dir/{dirId}/delete</caption>
+<caption class="title">Tabelle 4. /material1/dir/{dirId}/edit</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1690,7 +1690,7 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabelle 5. /material1/dir/{dirId}/search</caption>
+<caption class="title">Tabelle 5. /material1/dir/{dirId}/delete</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1709,7 +1709,45 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabelle 6. /material1/dir/{dirId}/upload</caption>
+<caption class="title">Tabelle 6. /material1/dir/{dirId}/search</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dirId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 7. /material1/dir/{dirId}/upload</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dirId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The directory id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 8. /material1/dir/{dirId}/zip</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1729,6 +1767,19 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </table>
 <div class="dlist">
 <dl>
+<dt class="hdlist1">ExceptionController</dt>
+<dd>
+<p>Dieser hat die folgenden Routen:</p>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ http GET 'http://localhost:8080/material1/error'</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">FileController</dt>
 <dd>
 <p>Dieser hat folgende Routen:</p>
@@ -1736,7 +1787,7 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </dl>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabelle 7. /material1/file/{fileId}/delete</caption>
+<caption class="title">Tabelle 9. /material1/file/{fileId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1755,7 +1806,26 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabelle 8. /material1/file/{fileId}/download</caption>
+<caption class="title">Tabelle 10. /material1/file/{fileId}/delete</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fileId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file id.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Tabelle 11. /material1/file/{fileId}/download</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1782,7 +1852,7 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </dl>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabelle 9. /material1/group/{groupId}</caption>
+<caption class="title">Tabelle 12. /material1/group/{groupId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1801,7 +1871,7 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabelle 10. /material1/group/{groupId}/url</caption>
+<caption class="title">Tabelle 13. /material1/group/{groupId}/url</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1820,7 +1890,7 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Tabelle 11. /material1/group/{groupId}/search</caption>
+<caption class="title">Tabelle 14. /material1/group/{groupId}/search</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1849,6 +1919,19 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ http GET 'http://localhost:8080/material1/groups'</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Material1Controller</dt>
+<dd>
+<p>Dieser hat die folgenden Routen:</p>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ http GET 'http://localhost:8080/material1'</code></pre>
 </div>
 </div>
 </div>
@@ -2321,7 +2404,7 @@ keine Fehler während der Entwicklung übersehen werden.</p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-27 10:41:01 UTC
+Last updated 2020-03-27 10:58:17 UTC
 </div>
 </div>
 </body>

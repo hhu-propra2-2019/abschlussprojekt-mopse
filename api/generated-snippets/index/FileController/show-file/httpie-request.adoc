@@ -1,0 +1,4 @@
+[source,bash]
+----
+$ http GET 'http://localhost:8080/material1/file/1?_csrf=424220fb-840d-4d0d-9705-750aef111d20'
+----
