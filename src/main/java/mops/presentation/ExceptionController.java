@@ -42,7 +42,7 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
         PresentationError presentationError;
         if (ex instanceof MaxUploadSizeExceededException) {
             presentationError = new MessagePresentationError("Die maximale Dateigröße wurde überschritten. "
-                    + "Versuche eine kleinere Datei.");
+                    + "Bitte versuche eine kleinere Datei.");
         } else {
             presentationError = new ExceptionPresentationError(ex);
         }
