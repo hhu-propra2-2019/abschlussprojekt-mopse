@@ -222,6 +222,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         for (Directory subDir : getSubFolders(account, dirId)) {
             results.addAll(searchFolder(account, subDir.getId(), query));
         }
+        results.sort(FileInfo.NAME_COMPARATOR);
         return results;
     }
 
