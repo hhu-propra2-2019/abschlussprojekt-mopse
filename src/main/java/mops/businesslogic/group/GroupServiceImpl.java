@@ -153,6 +153,7 @@ public class GroupServiceImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public long getTotalGroupCount() throws MopsException {
         try {
             return groupRepository.count();
