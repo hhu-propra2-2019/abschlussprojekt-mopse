@@ -3,7 +3,7 @@ package mops.presentation.error;
 import lombok.Value;
 
 /**
- * An error to be shown in the web template - based on an exception message.
+ * An error to be shown in the web template - based on a string message.
  */
 @Value
 // @Value automatically makes all fields `private final` which CheckStyle and PMD don't see
