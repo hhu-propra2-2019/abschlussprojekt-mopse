@@ -7,7 +7,7 @@ Host: localhost:8080
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Content-Disposition: form-data; name=_csrf
 
-2bd6ace7-c30b-49f3-96ff-09d788c061a1
+f5d3f503-61d4-4873-81ad-361c15c9b7ba
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Content-Disposition: form-data; name=file; filename=test.txt
 Content-Type: text/plain

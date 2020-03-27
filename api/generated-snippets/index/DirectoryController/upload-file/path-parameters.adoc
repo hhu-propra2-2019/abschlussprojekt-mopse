@@ -1,8 +1,8 @@
-.+/material1/dir/{dir}/upload+
+.+/material1/dir/{dirId}/upload+
 |===
 |Parameter|Description
 
-|`+dir+`
+|`+dirId+`
 |The directory id.
 
 |===

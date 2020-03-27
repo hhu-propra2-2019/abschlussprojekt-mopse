@@ -196,12 +196,10 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;org.springframework.core.io.Resource&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">getFile</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
-       org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-       org.springframework.ui.Model&nbsp;model,
-       long&nbsp;fileId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#showFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">showFile</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+        long&nbsp;fileId)</code></th>
 <td class="colLast">
-<div class="block">Retrieves a file.</div>
+<div class="block">Retrieves a file preview.</div>
 </td>
 </tr>
 </table>
@@ -247,27 +245,23 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,org.springframework.ui.Model,long)">
+<a id="showFile(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getFile</h4>
+<h4>showFile</h4>
 <pre class="methodSignature">@GetMapping("/{fileId}")
-public&nbsp;org.springframework.http.ResponseEntity&lt;org.springframework.core.io.Resource&gt;&nbsp;getFile&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
-                                                                                             org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                                                                                             org.springframework.ui.Model&nbsp;model,
-                                                                                             @PathVariable("fileId")
-                                                                                             long&nbsp;fileId)</pre>
-<div class="block">Retrieves a file.</div>
+public&nbsp;org.springframework.http.ResponseEntity&lt;org.springframework.core.io.Resource&gt;&nbsp;showFile&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+                                                                                              @PathVariable("fileId")
+                                                                                              long&nbsp;fileId)</pre>
+<div class="block">Retrieves a file preview.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>redirectAttributes</code> - redirect attributes</dd>
-<dd><code>token</code> - a keycloak authentication token</dd>
-<dd><code>model</code> - model</dd>
+<dd><code>token</code> - user credentials</dd>
 <dd><code>fileId</code> - the id of the requested file</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the route to template 'file'</dd>
+<dd>in-browser preview of the file</dd>
 </dl>
 </li>
 </ul>
