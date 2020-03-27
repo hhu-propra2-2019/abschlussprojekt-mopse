@@ -275,6 +275,8 @@ public class FileServiceImpl implements FileService {
             throw new EmptyNameException("Der Dateiname darf nicht leer sein.");
         }
 
+        newName = newName.replaceAll("[^a-zA-Z0-9._-]", "_");
+
         FileInfo fileInfo = fileInfoService.fetchFileInfo(fileId);
         Directory directory = directoryService.getDirectory(fileInfo.getDirectoryId());
         UserPermission permissionsOfUser = securityService.getPermissionsOfUser(account, directory);

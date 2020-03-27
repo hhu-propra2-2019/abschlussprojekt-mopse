@@ -176,7 +176,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             throw new DatabaseException("Name leer.");
         }
 
-        dirName = dirName.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+        dirName = dirName.replaceAll("[^a-zA-Z0-9._-]", "_");
 
         Directory parentDir = getDirectory(parentDirId);
         long groupFolderCount = getDirCountInGroup(parentDir.getGroupOwner());

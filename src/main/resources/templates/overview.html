@@ -169,7 +169,10 @@
                                 </button>
                             </form>
                             <div th:if="${writePermission && deletePermission}">
-                                <button class="dropdown-item" th:attr="onclick=|renameFolder('${dir.name}', '${dir.id}')|" type="button">Umbenennen</button>
+                                <button class="dropdown-item"
+                                        th:attr="onclick=|renameFolder('${dir.name}', '${dir.id}')|" type="button">
+                                    Umbenennen
+                                </button>
                             </div>
                             <form th:if="${deletePermission}" action="#"
                                   th:action="@{/material1/dir/{dirId}/delete(dirId = ${dir.id})}" th:method="post"
@@ -219,7 +222,10 @@
                                 </button>
                             </form>
                             <div th:if="${writePermission && (deletePermission || file.owner == account.name)}">
-                                <button class="dropdown-item" th:attr="onclick=|renameFile('${file.name}', '${file.id}')|"  type="button">Umbenennen</button>
+                                <button class="dropdown-item"
+                                        th:attr="onclick=|renameFile('${file.name}', '${file.id}')|" type="button">
+                                    Umbenennen
+                                </button>
                             </div>
                             <form th:if="${deletePermission || file.owner == account.name}" action="#"
                                   th:action="@{/material1/file/{fileId}/delete(fileId = ${file.id})}" th:method="post"
@@ -259,37 +265,40 @@
     <div th:if="${adminRole}">
         <div class="material1-permissions-wrapper">
             <p>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapsePermissions" aria-expanded="false" aria-controls="collapsePermissions">Berechtigungen bearbeiten</button>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapsePermissions"
+                        aria-expanded="false" aria-controls="collapsePermissions">Berechtigungen bearbeiten
+                </button>
             </p>
             <div class="collapse" id="collapsePermissions">
                 <div class="card card-body">
-                <form action="#" th:action="@{/material1/dir/{dirId}/edit(dirId = ${directory.id})}" th:method="post"
-                      th:object="${editDirectoryForm}">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Rolle</th>
-                            <th>Lesen</th>
-                            <th>Schreiben</th>
-                            <th>Löschen</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="rolePermissions, itemStat : *{rolePermissions}"
-                            th:with="adminRow = *{rolePermissions[__${itemStat.index}__].role} == 'admin'">
-                            <td><input class="form-control" type="text" readonly
-                                       th:field="*{rolePermissions[__${itemStat.index}__].role}"/></td>
-                            <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
-                                       th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
-                            <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
-                                       th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
-                            <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
-                                       th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <input class="btn btn-primary" type="submit" value="Speichern">
-                </form>
+                    <form action="#" th:action="@{/material1/dir/{dirId}/edit(dirId = ${directory.id})}"
+                          th:method="post" th:object="${editDirectoryForm}">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Rolle</th>
+                                <th>Lesen</th>
+                                <th>Schreiben</th>
+                                <th>Löschen</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="rolePermissions, itemStat : *{rolePermissions}"
+                                th:with="adminRow = *{rolePermissions[__${itemStat.index}__].role} == 'admin'">
+                                <td><input class="form-control" type="text" readonly
+                                           th:field="*{rolePermissions[__${itemStat.index}__].role}"/></td>
+                                <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
+                                           th:field="*{rolePermissions[__${itemStat.index}__].read}"/></td>
+                                <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
+                                           th:field="*{rolePermissions[__${itemStat.index}__].write}"/></td>
+                                <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
+                                           th:field="*{rolePermissions[__${itemStat.index}__].delete}"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <input class="btn btn-primary" type="submit" value="Speichern">
+                    </form>
+                </div>
             </div>
         </div>
     </div>

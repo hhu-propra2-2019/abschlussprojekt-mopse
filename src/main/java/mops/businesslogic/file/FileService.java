@@ -86,7 +86,7 @@ public interface FileService {
      * Renames a file.
      *
      * @param account user credentials
-     * @param fileId the file ID
+     * @param fileId  the file ID
      * @param newName the new filename
      * @return the directory of the dir
      * @throws MopsException on error

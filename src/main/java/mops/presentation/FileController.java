@@ -132,11 +132,11 @@ public class FileController {
     /**
      * Renames a file.
      *
-     * @param redirectAttributes    redirection attributes
-     * @param token                 keyloak auth token
-     * @param fileId                the file id
-     * @param newName               the new name
-     * @return                      back to the overview
+     * @param redirectAttributes redirection attributes
+     * @param token              keyloak auth token
+     * @param fileId             the file id
+     * @param newName            the new name
+     * @return back to the overview
      */
     @PostMapping("/{fileId}/rename")
     public String renameFile(RedirectAttributes redirectAttributes,
