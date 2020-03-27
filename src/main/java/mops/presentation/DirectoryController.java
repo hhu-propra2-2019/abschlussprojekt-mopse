@@ -293,6 +293,7 @@ public class DirectoryController {
         try {
             List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
             Directory directory = directoryService.getDirectory(dirId);
+
             model.addAttribute("directory", directory);
             model.addAttribute("files", files);
         } catch (MopsException e) {
@@ -303,9 +304,11 @@ public class DirectoryController {
 
         model.addAttribute("fileQueryForm", queryForm);
         model.addAttribute("account", account);
-        model.addAttribute("backDirId", dirId);
+
         // always show delete
         model.addAttribute("deletePermission", true);
+        model.addAttribute("writePermission", false);
+        model.addAttribute("adminRole", false);
         return "overview";
     }
 

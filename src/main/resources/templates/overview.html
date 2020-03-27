@@ -8,7 +8,6 @@
         <!-- Links, Skripts, Styles hier einfügen! -->
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/style.css}">
-        <script language="javascript" type="text/javascript" src="../static/script.js" th:src="@{/script.js}"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
                 crossorigin="anonymous"></script>
@@ -18,6 +17,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
                 integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
                 crossorigin="anonymous"></script>
+        <script language="javascript" type="text/javascript" src="../static/script.js" th:src="@{/script.js}"></script>
     </th:block>
 </head>
 <body>
@@ -98,7 +98,7 @@
         </form>
     </div>
 
-    <div class="material1-path-wrapper">
+    <div class="material1-path-wrapper" th:if="${directoryPath} != null">
         <!-- Button to the directory above -->
         <div th:if="${directory.getParentId()} != null">
             <div class="material1-button-above-wrapper">
@@ -169,8 +169,8 @@
                                 </button>
                             </form>
                             <div th:if="${writePermission && deletePermission}">
-                                <button class="dropdown-item"
-                                        th:attr="onclick=|renameFolder('${dir.name}', '${dir.id}')|" type="button">
+                                <button class="dropdown-item material1-dir-rename" type="button"
+                                        th:data-dir-name="${dir.name}" th:data-dir-id="${dir.id}">
                                     Umbenennen
                                 </button>
                             </div>
@@ -222,8 +222,8 @@
                                 </button>
                             </form>
                             <div th:if="${writePermission && (deletePermission || file.owner == account.name)}">
-                                <button class="dropdown-item"
-                                        th:attr="onclick=|renameFile('${file.name}', '${file.id}')|" type="button">
+                                <button class="dropdown-item material1-file-rename" type="button"
+                                        th:data-file-name="${file.name}" th:data-file-id="${file.id}">
                                     Umbenennen
                                 </button>
                             </div>
