@@ -49,6 +49,7 @@ zusätzlich die Konfiguration für den in der `docker-compose.yml` definierten D
 `docker-compose.prod.yml` und fügt ein weiteres `depends_on` auf den MinIO-Container aus `docker-compose.dev.yml` ein.
 
 Geladen werden die Konfigurationen aus den Dateien `dev.env` und `prod.env`.
+Eine vollständige Liste der Umgebungsvariablen findet sich in der `prod.env` und diese sind dort auch dokumentiert.
 
 Somit kann man sich für jeden Fall aus den `docker-compose`-Konfigurationsdateien die passende Konfiguration
 zusammenbauen.
