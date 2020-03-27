@@ -206,4 +206,23 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         mockMvc().perform(get("/material1/dir/1"))
                 .andExpect(status().is3xxRedirection());
     }
+
+    /**
+     *
+     */
+    @Test
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void editFolder() throws Exception {
+        mockMvc().perform(post("/material1/dir/{dirId}/edit", 1)
+                .param("editDirectoryForm", "newFolderName")
+                .requestAttr("dirId", 1)
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/material1/dir/1"))
+                .andDo(document("index(DirectoryController/{method-name}",
+                        pathParameters(
+                                parameterWithName("dir").description("The directory id.")
+                        )));
+
+    }
 }
