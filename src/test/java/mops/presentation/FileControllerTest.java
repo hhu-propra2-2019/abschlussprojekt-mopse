@@ -85,7 +85,7 @@ class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
-                .andDo(document("index/DirectoryController/{method-name}",
+                .andDo(document("index/FileController/{method-name}",
                         pathParameters(
                                 parameterWithName("fileId").description("The file id.")
                         )));
