@@ -2,5 +2,5 @@
 ----
 $ http --form POST 'http://localhost:8080/material1/dir/1/create' \
     'folderName=Vorlesungen' \
-    '_csrf=280e3b60-55c6-4217-b237-a05c25ccbbb6'
+    '_csrf=2fcdec3e-23e8-46df-923d-30703a1daf78'
 ----
