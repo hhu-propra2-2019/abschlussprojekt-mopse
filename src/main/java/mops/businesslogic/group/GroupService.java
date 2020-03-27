@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * API to Gruppenfindung.
+ * Connects to our group database repository.
  */
 @Service
 public interface GroupService {

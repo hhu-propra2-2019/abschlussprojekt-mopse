@@ -22,7 +22,7 @@ Es ist aufwendig für Lerngruppen oder Kurse Dateien miteinander zu teilen, wenn
 
 ## Lokales Starten der Anwendung
 
-### Development Profile (mit externer PostgreSQL Datenbank und Stub `Gruppenfindung`s-Adapter)
+### Development Profile (mit externer PostgreSQL Datenbank und Stub `Gruppenbildung`s-Adapter)
 
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
@@ -39,7 +39,7 @@ oder alternativ in der Konsole
 oder alternativ die Spring Anwendung mit Gradle im Spring Profil `dev` starten.
 1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1 geöffnet werden.
 
-### Production Profile (mit externer PostgreSQL Datenbank und echtem `Gruppenfindung`s-Adapter)
+### Production Profile (mit externer PostgreSQL Datenbank und echtem `Gruppenbildung`s-Adapter)
 
 Es existieren IntelliJ Run Configurations um die benötigten Services zu starten.
 
@@ -56,7 +56,7 @@ oder alternativ in der Konsole
 oder alternativ die Spring Anwendung mit Gradle im Spring Profil `prod` starten.
 1. Im Webbrowser kann nun zum Beispiel http://localhost:8080/material1 geöffnet werden.
 
-### Als Komplettpaket im Dev Profile [Demo] (mit externer PostgreSQL Datenbank und Stub `Gruppenfindung`s-Adapter)
+### Als Komplettpaket im Dev Profile [Demo] (mit externer PostgreSQL Datenbank und Stub `Gruppenbildung`s-Adapter)
 
 1. Docker starten
 1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
@@ -65,7 +65,7 @@ in der Konsole ausführen. Zum Beenden in der Konsole
 `docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.prod.yml -f docker-compose.demo.yml down --volumes --remove-orphans`
 ausführen. `--volumes` ist notwendig um die erstellten Docker Volumes mitzulöschen.
 
-### In Production (mit externer PostgreSQL Datenbank, externem MinIO und echtem `Gruppenfindung`s-Adapter)
+### In Production (mit externer PostgreSQL Datenbank, externem MinIO und echtem `Gruppenbildung`s-Adapter)
 
 1. Docker starten
 1. OPTIONAL: `update_docker_images.bat/.sh` ausführen, um die Docker Images zu aktualisieren.
