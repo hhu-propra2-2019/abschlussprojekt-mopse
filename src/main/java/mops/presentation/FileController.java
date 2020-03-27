@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,19 +37,15 @@ public class FileController {
     private final FileService fileService;
 
     /**
-     * Retrieves a file.
+     * Retrieves a file preview.
      *
-     * @param redirectAttributes redirect attributes
-     * @param token              a keycloak authentication token
-     * @param model              model
-     * @param fileId             the id of the requested file
-     * @return the route to template 'file'
+     * @param token  user credentials
+     * @param fileId the id of the requested file
+     * @return in-browser preview of the file
      */
     @GetMapping("/{fileId}")
-    public ResponseEntity<Resource> getFile(RedirectAttributes redirectAttributes,
-                                            KeycloakAuthenticationToken token,
-                                            Model model,
-                                            @PathVariable("fileId") long fileId) {
+    public ResponseEntity<Resource> showFile(KeycloakAuthenticationToken token,
+                                             @PathVariable("fileId") long fileId) {
         Account account = Account.of(token);
         log.info("File with id '{}' requested for download by user '{}'.", fileId, account.getName());
 

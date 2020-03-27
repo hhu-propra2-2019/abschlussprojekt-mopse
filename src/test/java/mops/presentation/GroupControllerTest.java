@@ -109,7 +109,7 @@ class GroupControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         fileQueryForm.setTags(new String[] { "awesome" });
 
         mockMvc().perform(post("/material1/group/{groupId}/search", GROUP_ID)
-                .requestAttr("fileQueryForm", fileQueryForm)
+                .flashAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlTemplate("/material1/dir/{dirId}/search", DIR_ID))

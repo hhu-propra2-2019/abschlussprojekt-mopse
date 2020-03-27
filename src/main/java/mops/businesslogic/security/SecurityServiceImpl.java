@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 public class SecurityServiceImpl implements SecurityService {
 
     /**
-     * API for GruppenFindung which handles permissions.
+     * Connects to our group database.
      */
     private final GroupService groupService;
     /**

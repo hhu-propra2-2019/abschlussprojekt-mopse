@@ -1,4 +1,4 @@
-package mops.businesslogic.gruppenfindung;
+package mops.businesslogic.gruppenbildung;
 
 import lombok.Data;
 

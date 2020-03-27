@@ -62,7 +62,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      */
     private final PermissionService permissionService;
     /**
-     * Connects to the GruppenFindungs API.
+     * Connects to our group database.
      */
     private final GroupService groupService;
 
@@ -222,6 +222,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         for (Directory subDir : getSubFolders(account, dirId)) {
             results.addAll(searchFolder(account, subDir.getId(), query));
         }
+        results.sort(FileInfo.NAME_COMPARATOR);
         return results;
     }
 

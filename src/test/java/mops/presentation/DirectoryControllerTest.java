@@ -13,7 +13,9 @@ import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.permission.DirectoryPermissions;
+import mops.presentation.form.EditDirectoryForm;
 import mops.presentation.form.FileQueryForm;
+import mops.presentation.form.RolePermissionsForm;
 import mops.util.KeycloakContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -72,12 +74,14 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
                 .entry("viewer", true, false, false)
                 .build();
 
+        given(root.getId()).willReturn(1L);
         given(directory.getId()).willReturn(2L);
         given(directoryService.getDirectory(eq(1L))).willReturn(root);
         given(directoryService.getSubFolders(any(), eq(1L))).willReturn(List.of());
         given(fileService.getFilesOfDirectory(any(), eq(1L))).willReturn(List.of());
         given(directoryService.createFolder(any(), eq(1L), any())).willReturn(directory);
         given(deleteService.deleteFolder(any(), eq(1L))).willReturn(root);
+        given(directoryService.editDirectory(any(), eq(1L), any(), any())).willReturn(root);
         given(directoryService.searchFolder(any(), eq(1L), any())).willReturn(List.of());
         given(securityService.getPermissionsOfUser(any(), any())).willReturn(userPermission);
         given(permissionService.getPermissions(any())).willReturn(permissions);
@@ -89,12 +93,12 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void showContent() throws Exception {
-        mockMvc().perform(get("/material1/dir/{dir}", 1))
+        mockMvc().perform(get("/material1/dir/{dirId}", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("overview"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
-                                parameterWithName("dir").description("The directory id.")
+                                parameterWithName("dirId").description("The directory id.")
                         )));
     }
 
@@ -106,20 +110,20 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     void uploadFile() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain",
                 "teststring".getBytes(StandardCharsets.UTF_8));
-        mockMvc().perform(fileUpload("/material1/dir/{dir}/upload", 1)
+        mockMvc().perform(fileUpload("/material1/dir/{dirId}/upload", 1)
                 .file(file)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/material1/dir/1"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
-                                parameterWithName("dir").description("The directory id.")
+                                parameterWithName("dirId").description("The directory id.")
                         )));
     }
 
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
-    public void zipDownloadTest() throws Exception {
+    public void zipDirectory() throws Exception {
         byte[] expected = { 0x46, 0x55, 0x43, 0x4b, 0x20, 0x59, 0x4f, 0x55 };
         doAnswer(invocation -> {
             ByteArrayOutputStream bos = invocation.getArgument(2);
@@ -147,14 +151,48 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void createFolder() throws Exception {
-        mockMvc().perform(post("/material1/dir/{dir}/create", 1)
+        mockMvc().perform(post("/material1/dir/{dirId}/create", 1)
                 .param("folderName", "Vorlesungen")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/material1/dir/2"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
-                                parameterWithName("dir").description("The directory id.")
+                                parameterWithName("dirId").description("The directory id.")
+                        )));
+    }
+
+    /**
+     * Tests the route after editing a folder.
+     */
+    @Test
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void editFolder() throws Exception {
+        EditDirectoryForm editDirectoryForm = new EditDirectoryForm();
+        editDirectoryForm.setName("New Name");
+
+        RolePermissionsForm permissionsForm1 = new RolePermissionsForm();
+        permissionsForm1.setRole("admin");
+        permissionsForm1.setRead(true);
+        permissionsForm1.setWrite(true);
+        permissionsForm1.setDelete(true);
+
+        RolePermissionsForm permissionsForm2 = new RolePermissionsForm();
+        permissionsForm2.setRole("viewer");
+        permissionsForm2.setRead(true);
+        permissionsForm2.setWrite(true);
+        permissionsForm2.setDelete(false);
+
+        editDirectoryForm.setRolePermissions(List.of(permissionsForm1, permissionsForm2));
+
+        mockMvc().perform(post("/material1/dir/{dirId}/edit", 1)
+                .flashAttr("editDirectoryForm", editDirectoryForm)
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/material1/dir/1"))
+                .andDo(document("index/DirectoryController/{method-name}",
+                        pathParameters(
+                                parameterWithName("dirId").description("The directory id.")
                         )));
     }
 
@@ -170,14 +208,14 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         fileQueryForm.setTypes(new String[] { "pdf" });
         fileQueryForm.setTags(new String[] { "awesome" });
 
-        mockMvc().perform(post("/material1/dir/{dir}/search", 1)
-                .requestAttr("fileQueryForm", fileQueryForm)
+        mockMvc().perform(post("/material1/dir/{dirId}/search", 1)
+                .flashAttr("fileQueryForm", fileQueryForm)
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("overview"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
-                                parameterWithName("dir").description("The directory id.")
+                                parameterWithName("dirId").description("The directory id.")
                         )));
     }
 
@@ -187,14 +225,13 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @Test
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void deleteDirectory() throws Exception {
-        mockMvc().perform(post("/material1/dir/{dir}/delete", 1)
-                .requestAttr("dirId", 1)
+        mockMvc().perform(post("/material1/dir/{dirId}/delete", 1)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/material1/dir/0"))
+                .andExpect(redirectedUrl("/material1/dir/1"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
-                                parameterWithName("dir").description("The directory id.")
+                                parameterWithName("dirId").description("The directory id.")
                         )));
     }
 
@@ -203,7 +240,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      */
     @Test
     void notSignedIn() throws Exception {
-        mockMvc().perform(get("/material1/dir/1"))
+        mockMvc().perform(get("/material1/dir/{dirId}", 1))
                 .andExpect(status().is3xxRedirection());
     }
 }
