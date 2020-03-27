@@ -134,7 +134,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="bea27ae8-9ff9-4b66-b186-eeafa33f261e"/>
+              method="post"><input type="hidden" name="_csrf" value="f4078bbf-324b-405c-aa3d-b8f5a5fa9f34"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="cv">
@@ -230,8 +230,7 @@
     
 
     <!-- Change Permissions -->
-    
-</main></div>
+    </main></div>
 <footer class="footer footer-main">
   <div class="account">
     <a class="account-link" href="https://keycloak.cs.hhu.de/auth/realms/MOPS/account">

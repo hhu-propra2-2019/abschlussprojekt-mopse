@@ -9,7 +9,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 11464
+Content-Length: 11463
 
 <!DOCTYPE html>
 <html lang="en">
@@ -145,7 +145,7 @@ Content-Length: 11464
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="4bb1a7f1-47d4-4b48-8138-8e259d990c53"/>
+              method="post"><input type="hidden" name="_csrf" value="8042925a-a336-45ec-8150-c329ffe06fa5"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -240,7 +240,7 @@ Content-Length: 11464
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="/material1/dir/1/create" method="post"><input type="hidden" name="_csrf" value="4bb1a7f1-47d4-4b48-8138-8e259d990c53"/>
+        <form class="input-group" action="/material1/dir/1/create" method="post"><input type="hidden" name="_csrf" value="8042925a-a336-45ec-8150-c329ffe06fa5"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -249,7 +249,7 @@ Content-Length: 11464
 
         <!-- Form to upload a new file to the folder -->
         <form class="input-group" action="/material1/dir/1/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="4bb1a7f1-47d4-4b48-8138-8e259d990c53"/>
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="8042925a-a336-45ec-8150-c329ffe06fa5"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">
@@ -258,8 +258,7 @@ Content-Length: 11464
     </div>
 
     <!-- Change Permissions -->
-    
-</main></div>
+    </main></div>
 <footer class="footer footer-main">
   <div class="account">
     <a class="account-link" href="https://keycloak.cs.hhu.de/auth/realms/MOPS/account">
