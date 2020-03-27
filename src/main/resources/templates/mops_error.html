@@ -28,8 +28,9 @@
             <h3 th:if="${status_message}"
                 th:text="${status_message}">Die angeforderte Resource konnte nicht gefunden werden :(</h3>
         </div>
-        <img src="../static/mops_error.jpg" th:src="@{/mops_error.jpg}" class="rounded mx-auto h-50 w-50"
+        <img src="../static/mops_error.jpg" th:src="@{/mops_error.png}" class="rounded mx-auto h-50 w-50"
              alt="Sad Pug.">
+        <div style="color: gray">Credits to <a href="https://www.instagram.com/meddamorff/">meddamorff</a>!</div>
     </div>
     <br>
     <a th:if="${referer}" th:href="${referer}" class="nav-link">Zurück</a>
