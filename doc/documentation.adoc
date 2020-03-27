@@ -15,28 +15,6 @@ endif::basebackend-html[]
 // configure DE settings for asciidoc
 include::documentation/config.adoc[]
 
-// short explanation about formatting, can be deleted later
-== Formatierung
-
-****
-Überschriften jetweder Form werden automatisch zur Nummerierung der einzelnen Punkte genutzt und sollten somit nicht leichtfertig genutzt werden.
-Unterhalb einer Überschrift beginnt der Inhalt zu dieser Überschrift.
-Dieser Inhalt muss in einen "Container" verpackt werden (der natürlich auch wieder geschlossen werden muss).
-
-Normale Schrift stellt Text dar, der auch so in der fertigen Dokumentation stehen sollen, und somit prkatisch die "Lösung" der "Aufgabenstellung" darstellt.
-
-_Kursiver Text ist die "Aufgabenstellung", die wir erfüllen müssen.
-Diese sollte in der fertigen Dokumentation nicht mehr enthalten sein._
-
-[cols="1,2" options="header"]
-|===
-|Spalte 1 |Spalte 2
-| Schlagworte in einer Tabelle sollten in normaler Schrift geschrieben werden. | _Genauere Erklärungen in einer Tabelle sollten kursiv geschrieben werden, um den Unterschied klar festzusetzen._
-| <Schlagwort> | _<Erklärung>_
-| <Schlagwort> | _<Erklärung>_
-|===
-
-****
 // numbering from here on
 :numbered:
 
@@ -61,21 +39,9 @@ include::documentation/04_solution_strategy.adoc[]
 include::documentation/05_building_block_view.adoc[]
 
 <<<<
-// 6. Laufzeitsicht
-include::documentation/06_runtime_view.adoc[]
-
-<<<<
-// 7. Querschnittliche Konzepte
-include::documentation/07_concepts.adoc[]
-
-<<<<
-// 8. Entscheidungen
+// 6. Entscheidungen
 include::documentation/08_design_decisions.adoc[]
 
 <<<<
-// 9. Qualität...
-include::documentation/09_quality_scenarios.adoc[]
-
-<<<<
-// 10. Glossar
+// 7. Glossar
 include::documentation/10_glossary.adoc[]
