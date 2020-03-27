@@ -6,6 +6,18 @@
     <title>Materialsammlung</title>
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <link rel="stylesheet" type="text/css" href="../staticjavascript/style.css" th:href="@{/style.css}">
+        <script language="" type="text/javascript" src="../static/script.js" th:src="@{/script.js}"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+                integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+                crossorigin="anonymous"></script>
     </th:block>
 </head>
 <body>
@@ -15,15 +27,23 @@
     </nav>
 </header>
 <main th:fragment="bodycontent">
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Typ</th>
-        </tr>
-        <tr th:each="group : ${groups}" th:href="@{/dir/${group.id}}">
-            <td><a th:text="${group.name}" th:href="@{group/{groupId}(groupId = ${group.id})}">%Name%</a></td>
-        </tr>
-    </table>
+    <div class="container">
+        <h1>Meine Gruppen</h1>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="group : ${groups}" th:href="@{/dir/${group.id}}">
+                    <td><a th:text="${group.name}" th:href="@{group/{groupId}(groupId = ${group.id})}">%Name%</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </main>
 </body>
 </html>
