@@ -15,11 +15,6 @@ import java.util.stream.Collectors;
 public class EditDirectoryForm {
 
     /**
-     * Directory name.
-     */
-    private String name;
-
-    /**
      * Role Permissions.
      */
     private List<RolePermissionsForm> rolePermissions;
@@ -32,9 +27,8 @@ public class EditDirectoryForm {
      * @return pre-filled EditDirectoryForm from given directory and permissions
      */
     @SuppressWarnings("PMD.LawOfDemeter") // streams & builder
-    public static EditDirectoryForm of(Directory directory, DirectoryPermissions permissions) {
+    public static EditDirectoryForm of(DirectoryPermissions permissions) {
         EditDirectoryForm form = new EditDirectoryForm();
-        form.setName(directory.getName());
         form.setRolePermissions(
                 permissions.getRoles().stream()
                         .map(role -> {

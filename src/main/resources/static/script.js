@@ -101,3 +101,16 @@ function renameFile(originalName, fileId) {
         });
 }
 
+function renameFolder(originalName, dirId) {
+    var token = $("meta[name='_csrf']").attr("content");
+    var name = prompt("Neuer Name", originalName);
+    $.post("/material1/dir/" + dirId + "/rename",
+        {
+            _csrf: token,
+            newName: name
+        },
+        function () {
+            location.reload();
+        });
+}
+
