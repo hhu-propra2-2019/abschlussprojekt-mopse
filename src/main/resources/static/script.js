@@ -74,13 +74,3 @@ function hideSearchForm() {
     document.getElementById("material1-search-form").style.display = "none";
 }
 
-function showPermissionChange() {
-    document.getElementById("show-permissions").style.display = "none";
-    document.getElementById("hide-permissions").style.display = "block";
-}
-
-function hidePermissionChange() {
-    document.getElementById("show-permissions").style.display = "block";
-    document.getElementById("hide-permissions").style.display = "none";
-}
-
