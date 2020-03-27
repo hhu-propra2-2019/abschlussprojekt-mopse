@@ -261,4 +261,40 @@ public class FileServiceImpl implements FileService {
     public void deleteFile(long fileId) throws MopsException {
         fileRepository.deleteFile(fileId);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Directory renameFile(Account account, long fileId, String newName) throws MopsException {
+        if (newName.isEmpty()) {
+            log.error("User {} tried to rename a file without a name.",
+                    account.getName()
+            );
+            throw new StorageException("Der Dateiname darf nicht leer sein.");
+        }
+
+        FileInfo fileInfo = fileInfoService.fetchFileInfo(fileId);
+        Directory directory = directoryService.getDirectory(fileInfo.getDirectoryId());
+        UserPermission permissionsOfUser = securityService.getPermissionsOfUser(account, directory);
+
+        if (!permissionsOfUser.isDelete() || !permissionsOfUser.isWrite()) {
+            log.error("User {} tried to rename a file without write and delete permission.",
+                    account.getName()
+            );
+            throw new WriteAccessPermissionException("Keine Schreibberechtigung und Löschberechtigung");
+        }
+
+        String[] fileNameParts = fileInfo.getName().split("\\.");
+        if (fileNameParts.length != 1) {
+            String fileExtension = ".".concat(fileNameParts[fileNameParts.length - 1]);
+            fileInfo.setName(newName.concat(fileExtension));
+        } else {
+            // file had no extension
+            fileInfo.setName(newName);
+        }
+
+        fileInfoService.saveFileInfo(fileInfo);
+        return directory;
+    }
 }

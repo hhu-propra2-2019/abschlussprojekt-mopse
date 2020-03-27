@@ -133,4 +133,31 @@ public class FileController {
             return "redirect:/material1/error";
         }
     }
+
+    /**
+     * Renames a file.
+     *
+     * @param redirectAttributes    redirection attributes
+     * @param token                 keyloak auth token
+     * @param fileId                the file id
+     * @param newName               the new name
+     * @return                      back to the overview
+     */
+    @PostMapping("/{fileId}/rename")
+    public String renameFile(RedirectAttributes redirectAttributes,
+                             KeycloakAuthenticationToken token,
+                             @PathVariable("fileId") long fileId,
+                             @RequestParam("newName") String newName) {
+        System.err.println("WTF");
+        Account account = Account.of(token);
+        try {
+            Directory dir = fileService.renameFile(account, fileId, newName);
+            redirectAttributes.addAttribute("dirId", dir.getId());
+            return "redirect:/material1/dir/{dirId}";
+        } catch (MopsException e) {
+            log.error("Failed to rename file with id '{}':", fileId, e);
+            redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
+            return "redirect:/material1/error";
+        }
+    }
 }

@@ -82,4 +82,14 @@ public interface FileService {
      */
     void deleteFile(long fileId) throws MopsException;
 
+    /**
+     * Renames a file.
+     *
+     * @param account user credentials
+     * @param fileId the file ID
+     * @param newName the new filename
+     * @return the directory of the dir
+     * @throws MopsException on error
+     */
+    Directory renameFile(Account account, long fileId, String newName) throws MopsException;
 }

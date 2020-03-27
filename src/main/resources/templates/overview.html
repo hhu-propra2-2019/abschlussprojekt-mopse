@@ -6,10 +6,12 @@
     <title>Ordner</title>
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
+        <meta name="_csrf" th:content="${_csrf.token}"/>
         <link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/style.css}">
         <script language="javascript" type="text/javascript" src="../static/script.js" th:src="@{/script.js}"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-                integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        <script
+                src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
                 crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
                 integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -215,7 +217,9 @@
                                     </span>
                                 </button>
                             </form>
-                            <button th:if="${writePermission}" class="dropdown-item" type="button">Umbenennen</button>
+                            <div th:if="${writePermission && (deletePermission || file.owner == account.name)}">
+                                <button class="dropdown-item" th:attr="onclick=|renameFile('${file.name}', '${file.id}')|"  type="button">Umbenennen</button>
+                            </div>
                             <form th:if="${deletePermission || file.owner == account.name}" action="#"
                                   th:action="@{/material1/file/{fileId}/delete(fileId = ${file.id})}" th:method="post"
                                   onsubmit="return confirm('Diese Aktion kann nicht rückgangig gemacht werden. Soll die Datei wirklich gelöscht werden?');">

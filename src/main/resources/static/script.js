@@ -84,3 +84,20 @@ function hidePermissionChange() {
     document.getElementById("hide-permissions").style.display = "none";
 }
 
+function renameFile(originalName, fileId) {
+    var path = originalName.split('.');
+    if (path.length > 1) {
+        originalName = path.slice(0, -1).join('.');
+    }
+    var token = $("meta[name='_csrf']").attr("content");
+    var name = prompt("Neuer Name (ohne Dateiendung)", originalName);
+    $.post("/material1/file/" + fileId + "/rename",
+        {
+            _csrf: token,
+            newName: name
+        },
+        function () {
+            location.reload();
+        });
+}
+
