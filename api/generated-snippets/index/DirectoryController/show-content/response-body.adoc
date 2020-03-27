@@ -134,7 +134,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/0/search"
-              method="post"><input type="hidden" name="_csrf" value="195f0ddc-7eb3-4250-ae09-d56888978a21"/>
+              method="post"><input type="hidden" name="_csrf" value="a34446bc-a623-4bbb-9e08-e56e295898b0"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -229,7 +229,7 @@
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="/material1/dir/0/create" method="post"><input type="hidden" name="_csrf" value="195f0ddc-7eb3-4250-ae09-d56888978a21"/>
+        <form class="input-group" action="/material1/dir/0/create" method="post"><input type="hidden" name="_csrf" value="a34446bc-a623-4bbb-9e08-e56e295898b0"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -238,7 +238,7 @@
 
         <!-- Form to upload a new file to the folder -->
         <form class="input-group" action="/material1/dir/0/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="195f0ddc-7eb3-4250-ae09-d56888978a21"/>
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="a34446bc-a623-4bbb-9e08-e56e295898b0"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">

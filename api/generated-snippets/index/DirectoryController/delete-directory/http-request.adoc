@@ -4,5 +4,5 @@ POST /material1/dir/1/delete HTTP/1.1
 Host: localhost:8080
 Content-Type: application/x-www-form-urlencoded
 
-_csrf=7282fcba-b21b-4718-8a95-2cf18d1c3350
+_csrf=7e8fc0d2-e3c8-4aac-8d63-5deef2b98fea
 ----

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -224,13 +224,20 @@ implements <a href="GroupService.html" title="interface in mops.businesslogic.gr
 </td>
 </tr>
 <tr id="i6" class="altColor">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalGroupCount()">getTotalGroupCount</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get the total number of groups.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserGroups(mops.businesslogic.security.Account)">getUserGroups</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account)</code></th>
 <td class="colLast">
 <div class="block">Fetches all visible groups of one user.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveGroup(mops.persistence.group.Group)">saveGroup</a></span>&#8203;(<a href="../../persistence/group/Group.html" title="class in mops.persistence.group">Group</a>&nbsp;group)</code></th>
 <td class="colLast">
@@ -425,7 +432,7 @@ implements <a href="GroupService.html" title="interface in mops.businesslogic.gr
 <a id="deleteGroup(long)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>deleteGroup</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;deleteGroup&#8203;(long&nbsp;groupId)
@@ -436,6 +443,25 @@ implements <a href="GroupService.html" title="interface in mops.businesslogic.gr
 <dd><code><a href="GroupService.html#deleteGroup(long)">deleteGroup</a></code>&nbsp;in interface&nbsp;<code><a href="GroupService.html" title="interface in mops.businesslogic.group">GroupService</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>groupId</code> - id of the group to be deleted</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="getTotalGroupCount()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getTotalGroupCount</h4>
+<pre class="methodSignature">public&nbsp;long&nbsp;getTotalGroupCount()
+                        throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Get the total number of groups.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="GroupService.html#getTotalGroupCount()">getTotalGroupCount</a></code>&nbsp;in interface&nbsp;<code><a href="GroupService.html" title="interface in mops.businesslogic.group">GroupService</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>group count</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>
