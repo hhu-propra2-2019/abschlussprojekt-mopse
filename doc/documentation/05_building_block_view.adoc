@@ -268,14 +268,22 @@ Dieser hat folgende Routen:
 
 include::../api/generated-snippets/index/DirectoryController/show-content/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/create-folder/path-parameters.adoc[]
+include::../api/generated-snippets/index/DirectoryController/edit-folder/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]
+include::../api/generated-snippets/index/DirectoryController/zip-download-test/path-parameters.adoc[]
+
+ExceptionController::
+
+Dieser hat die folgenden Routen:
+include::../api/generated-snippets/index/ExceptionController/error/httpie-request.adoc[]
 
 FileController::
 
 Dieser hat folgende Routen:
 
+include::../api/generated-snippets/index/FileController/get-file/path-parameters.adoc[]
 include::../api/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
 include::../api/generated-snippets/index/FileController/download-file/path-parameters.adoc[]
 
@@ -292,4 +300,11 @@ GroupsController::
 Dieser hat folgende Routen:
 
 include::../api/generated-snippets/index/GroupsController/get-all-groups/httpie-request.adoc[]
+
+Material1Controller::
+
+Dieser hat die folgenden Routen:
+
+include::../api/generated-snippets/index/Material1Controller/index/httpie-request.adoc[]
+
 ****
