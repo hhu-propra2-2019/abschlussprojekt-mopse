@@ -169,7 +169,9 @@
                                     </span>
                                 </button>
                             </form>
-                            <button th:if="${writePermission}" class="dropdown-item" type="button">Umbenennen</button>
+                            <div th:if="${writePermission && deletePermission}">
+                                <button class="dropdown-item" th:attr="onclick=|renameFolder('${dir.name}', '${dir.id}')|" type="button">Umbenennen</button>
+                            </div>
                             <form th:if="${deletePermission}" action="#"
                                   th:action="@{/material1/dir/{dirId}/delete(dirId = ${dir.id})}" th:method="post"
                                   onsubmit="return confirm('Diese Aktion kann nicht rückgangig gemacht werden. Soll der Ordner mit seinem gesamten Inhalt wirklich gelöscht werden?');">

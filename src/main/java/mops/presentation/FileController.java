@@ -143,7 +143,6 @@ public class FileController {
                              KeycloakAuthenticationToken token,
                              @PathVariable("fileId") long fileId,
                              @RequestParam("newName") String newName) {
-        System.err.println("WTF");
         Account account = Account.of(token);
         try {
             Directory dir = fileService.renameFile(account, fileId, newName);

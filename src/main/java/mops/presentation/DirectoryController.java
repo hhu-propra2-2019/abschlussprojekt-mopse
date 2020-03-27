@@ -96,7 +96,7 @@ public class DirectoryController {
             List<Directory> dirPath = directoryService.getDirectoryPath(dirId);
             boolean admin = securityService.isUserAdmin(account, directory.getGroupOwner());
             DirectoryPermissions permissions = permissionService.getPermissions(directory);
-            EditDirectoryForm editDirectoryForm = EditDirectoryForm.of(directory, permissions);
+            EditDirectoryForm editDirectoryForm = EditDirectoryForm.of(permissions);
 
             model.addAttribute("deletePermission", userPermission.isDelete());
             model.addAttribute("writePermission", userPermission.isWrite());
@@ -225,11 +225,10 @@ public class DirectoryController {
         Account account = Account.of(token);
         log.info("Directory edit requested in directory with id '{}' by user '{}'.", dirId, account.getName());
 
-        String newName = editForm.getName();
         DirectoryPermissions newPermissions = editForm.buildDirectoryPermissions();
 
         try {
-            Directory directory = directoryService.editDirectory(account, dirId, newName, newPermissions);
+            Directory directory = directoryService.editDirectory(account, dirId, newPermissions);
             redirectAttributes.addAttribute("dirId", directory.getId());
         } catch (MopsException e) {
             log.error("Failed to edit directory with id '{}':", dirId, e);
@@ -308,5 +307,30 @@ public class DirectoryController {
         // always show delete
         model.addAttribute("deletePermission", true);
         return "overview";
+    }
+    /**
+     * Renames a directory.
+     *
+     * @param redirectAttributes    redirection attributes
+     * @param token                 keyloak auth token
+     * @param dirId                the directory id
+     * @param newName               the new name
+     * @return                      back to the overview
+     */
+    @PostMapping("/{dirId}/rename")
+    public String renameFile(RedirectAttributes redirectAttributes,
+                             KeycloakAuthenticationToken token,
+                             @PathVariable("dirId") long dirId,
+                             @RequestParam("newName") String newName) {
+        Account account = Account.of(token);
+        try {
+            directoryService.renameDirectory(account, dirId, newName);
+            redirectAttributes.addAttribute("dirId", dirId);
+            return "redirect:/material1/dir/{dirId}";
+        } catch (MopsException e) {
+            log.error("Failed to rename directory with id '{}':", dirId, e);
+            redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
+            return "redirect:/material1/error";
+        }
     }
 }

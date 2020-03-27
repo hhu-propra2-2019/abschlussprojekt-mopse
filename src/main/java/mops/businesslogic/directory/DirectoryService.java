@@ -68,13 +68,11 @@ public interface DirectoryService {
      *
      * @param account        user credentials
      * @param dirId          directory to be edited
-     * @param newName        new directory name
      * @param newPermissions new permissions object
      * @return edited directory
      */
     Directory editDirectory(Account account,
                             long dirId,
-                            String newName,
                             DirectoryPermissions newPermissions) throws MopsException;
 
     /**
@@ -133,5 +131,16 @@ public interface DirectoryService {
      * @return directory count
      */
     long getTotalDirCount() throws MopsException;
+
+    /**
+     * renames a directory.
+     *
+     * @param account user credentials
+     * @param dirId directory ID
+     * @param newName new name
+     * @return the directory
+     * @throws MopsException on error
+     */
+    Directory renameDirectory(Account account, long dirId, String newName) throws MopsException;
 
 }

@@ -3,7 +3,9 @@ package mops.businesslogic.directory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.exception.DatabaseException;
+import mops.businesslogic.exception.EmptyNameException;
 import mops.businesslogic.exception.StorageLimitationException;
+import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.businesslogic.file.FileInfoService;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.group.GroupRootDirWrapper;
@@ -11,6 +13,7 @@ import mops.businesslogic.group.GroupService;
 import mops.businesslogic.permission.PermissionService;
 import mops.businesslogic.security.Account;
 import mops.businesslogic.security.SecurityService;
+import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
@@ -34,18 +37,6 @@ import java.util.stream.Collectors;
 public class DirectoryServiceImpl implements DirectoryService {
 
     /**
-     * Represents the role of an admin.
-     */
-    @Value("${material1.mops.configuration.role.admin}")
-    private String adminRole = "admin";
-    /**
-     * The max amount of folders per group.
-     */
-    @SuppressWarnings("checkstyle:MagicNumber")
-    @Value("${material1.mops.configuration.quota.max-folders-in-group}")
-    private long maxFoldersPerGroup = 200L;
-
-    /**
      * This connects to database related to directory information.
      */
     private final DirectoryRepository directoryRepository;
@@ -65,6 +56,17 @@ public class DirectoryServiceImpl implements DirectoryService {
      * Connects to our group database.
      */
     private final GroupService groupService;
+    /**
+     * Represents the role of an admin.
+     */
+    @Value("${material1.mops.configuration.role.admin}")
+    private String adminRole = "admin";
+    /**
+     * The max amount of folders per group.
+     */
+    @SuppressWarnings("checkstyle:MagicNumber")
+    @Value("${material1.mops.configuration.quota.max-folders-in-group}")
+    private long maxFoldersPerGroup = 200L;
 
     /**
      * {@inheritDoc}
@@ -167,12 +169,14 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.AvoidReassigningParameters"})
     public Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException {
         if (dirName.isEmpty()) {
             log.error("The user '{}' tried to create a sub folder with an empty name.", account.getName());
             throw new DatabaseException("Name leer.");
         }
+
+        dirName = dirName.replaceAll("[^a-zA-Z0-9.\\-]", "_");
 
         Directory parentDir = getDirectory(parentDirId);
         long groupFolderCount = getDirCountInGroup(parentDir.getGroupOwner());
@@ -234,18 +238,9 @@ public class DirectoryServiceImpl implements DirectoryService {
     public Directory editDirectory(
             Account account,
             long dirId,
-            String newName,
             DirectoryPermissions newPermissions) throws MopsException {
         Directory directory = getDirectory(dirId);
         securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
-
-        if (directory.getParentId() != null) {
-            if (newName == null || newName.isEmpty()) {
-                log.error("The user '{}' tried to change the name of a directory to an empty name.", account.getName());
-                throw new DatabaseException("Name des Ordners darf nicht leer sein.");
-            }
-            directory.setName(newName);
-        }
 
         updatePermission(account, dirId, newPermissions);
 
@@ -359,5 +354,33 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("Failed to get total directory count:", e);
             throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings({"PMD.AvoidReassigningParameters", "PMD.LawOfDemeter"})
+    public Directory renameDirectory(Account account, long dirId, String newName) throws MopsException {
+        if (newName.isEmpty()) {
+            log.error("User {} tried to rename a directory without a name.",
+                    account.getName()
+            );
+            throw new EmptyNameException("Der Dateiname darf nicht leer sein.");
+        }
+
+        Directory directory = getDirectory(dirId);
+        UserPermission permissionsOfUser = securityService.getPermissionsOfUser(account, directory);
+
+        if (!permissionsOfUser.isDelete() || !permissionsOfUser.isWrite()) {
+            log.error("User {} tried to rename a directory without write and delete permission.",
+                    account.getName()
+            );
+            throw new WriteAccessPermissionException("Keine Schreibberechtigung und Löschberechtigung");
+        }
+
+        newName = newName.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+        directory.setName(newName);
+        return directoryRepository.save(directory);
     }
 }

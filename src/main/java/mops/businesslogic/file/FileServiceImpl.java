@@ -266,12 +266,13 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.AvoidLiteralsInIfCondition"})
     public Directory renameFile(Account account, long fileId, String newName) throws MopsException {
         if (newName.isEmpty()) {
             log.error("User {} tried to rename a file without a name.",
                     account.getName()
             );
-            throw new StorageException("Der Dateiname darf nicht leer sein.");
+            throw new EmptyNameException("Der Dateiname darf nicht leer sein.");
         }
 
         FileInfo fileInfo = fileInfoService.fetchFileInfo(fileId);
@@ -286,7 +287,7 @@ public class FileServiceImpl implements FileService {
         }
 
         String[] fileNameParts = fileInfo.getName().split("\\.");
-        if (fileNameParts.length != 1) {
+        if (fileNameParts.length > 1) {
             String fileExtension = ".".concat(fileNameParts[fileNameParts.length - 1]);
             fileInfo.setName(newName.concat(fileExtension));
         } else {
