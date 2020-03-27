@@ -85,12 +85,12 @@ function hidePermissionChange() {
 }
 
 function renameFile(originalName, fileId) {
-    var path = originalName.split('.');
-    if (path.length > 1) {
-        originalName = path.slice(0, -1).join('.');
+    let parts = originalName.split('.');
+    if (parts.length > 1) {
+        originalName = parts.slice(0, -1).join('.');
     }
-    var token = $("meta[name='_csrf']").attr("content");
-    var name = prompt("Neuer Name (ohne Dateiendung)", originalName);
+    let token = $("meta[name='_csrf']").attr("content");
+    let name = prompt("Neuer Name (ohne Dateiendung)", originalName);
     $.post("/material1/file/" + fileId + "/rename",
         {
             _csrf: token,
@@ -98,7 +98,8 @@ function renameFile(originalName, fileId) {
         },
         function () {
             location.reload();
-        });
+        }
+    );
 }
 
 function renameFolder(originalName, dirId) {
@@ -113,4 +114,3 @@ function renameFolder(originalName, dirId) {
             location.reload();
         });
 }
-

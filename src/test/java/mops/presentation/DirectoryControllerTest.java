@@ -81,7 +81,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         given(fileService.getFilesOfDirectory(any(), eq(1L))).willReturn(List.of());
         given(directoryService.createFolder(any(), eq(1L), any())).willReturn(directory);
         given(deleteService.deleteFolder(any(), eq(1L))).willReturn(root);
-        given(directoryService.editDirectory(any(), eq(1L), any())).willReturn(root);
+        given(directoryService.updatePermission(any(), eq(1L), any())).willReturn(permissions);
         given(directoryService.searchFolder(any(), eq(1L), any())).willReturn(List.of());
         given(securityService.getPermissionsOfUser(any(), any())).willReturn(userPermission);
         given(permissionService.getPermissions(any())).willReturn(permissions);

@@ -228,8 +228,8 @@ public class DirectoryController {
         DirectoryPermissions newPermissions = editForm.buildDirectoryPermissions();
 
         try {
-            Directory directory = directoryService.editDirectory(account, dirId, newPermissions);
-            redirectAttributes.addAttribute("dirId", directory.getId());
+            directoryService.updatePermission(account, dirId, newPermissions);
+            redirectAttributes.addAttribute("dirId", dirId);
         } catch (MopsException e) {
             log.error("Failed to edit directory with id '{}':", dirId, e);
             redirectAttributes.addFlashAttribute("error", new ExceptionPresentationError(e));
@@ -308,14 +308,15 @@ public class DirectoryController {
         model.addAttribute("deletePermission", true);
         return "overview";
     }
+
     /**
      * Renames a directory.
      *
-     * @param redirectAttributes    redirection attributes
-     * @param token                 keyloak auth token
-     * @param dirId                the directory id
-     * @param newName               the new name
-     * @return                      back to the overview
+     * @param redirectAttributes redirection attributes
+     * @param token              keyloak auth token
+     * @param dirId              the directory id
+     * @param newName            the new name
+     * @return back to the overview
      */
     @PostMapping("/{dirId}/rename")
     public String renameFile(RedirectAttributes redirectAttributes,

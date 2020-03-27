@@ -62,19 +62,6 @@ public interface DirectoryService {
      */
     List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) throws MopsException;
 
-
-    /**
-     * Edit the directory's properties.
-     *
-     * @param account        user credentials
-     * @param dirId          directory to be edited
-     * @param newPermissions new permissions object
-     * @return edited directory
-     */
-    Directory editDirectory(Account account,
-                            long dirId,
-                            DirectoryPermissions newPermissions) throws MopsException;
-
     /**
      * Replaces the permissions for a directory and all its parents and children (which use the same permissions object)
      * with the given ones.
@@ -136,7 +123,7 @@ public interface DirectoryService {
      * renames a directory.
      *
      * @param account user credentials
-     * @param dirId directory ID
+     * @param dirId   directory ID
      * @param newName new name
      * @return the directory
      * @throws MopsException on error

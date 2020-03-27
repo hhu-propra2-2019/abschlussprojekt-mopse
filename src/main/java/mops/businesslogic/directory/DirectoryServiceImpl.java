@@ -169,7 +169,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.LawOfDemeter", "PMD.AvoidReassigningParameters"})
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidReassigningParameters" })
     public Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException {
         if (dirName.isEmpty()) {
             log.error("The user '{}' tried to create a sub folder with an empty name.", account.getName());
@@ -228,23 +228,6 @@ public class DirectoryServiceImpl implements DirectoryService {
         }
         results.sort(FileInfo.NAME_COMPARATOR);
         return results;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
-    public Directory editDirectory(
-            Account account,
-            long dirId,
-            DirectoryPermissions newPermissions) throws MopsException {
-        Directory directory = getDirectory(dirId);
-        securityService.checkIfRole(account, directory.getGroupOwner(), adminRole);
-
-        updatePermission(account, dirId, newPermissions);
-
-        return saveDirectory(directory);
     }
 
     /**
@@ -360,7 +343,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"PMD.AvoidReassigningParameters", "PMD.LawOfDemeter"})
+    @SuppressWarnings({ "PMD.AvoidReassigningParameters", "PMD.LawOfDemeter" })
     public Directory renameDirectory(Account account, long dirId, String newName) throws MopsException {
         if (newName.isEmpty()) {
             log.error("User {} tried to rename a directory without a name.",
