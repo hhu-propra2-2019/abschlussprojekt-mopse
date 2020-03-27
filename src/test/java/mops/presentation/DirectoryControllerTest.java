@@ -228,7 +228,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         mockMvc().perform(post("/material1/dir/{dirId}/delete", 1)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/material1/dir/0"))
+                .andExpect(redirectedUrl("/material1/dir/1"))
                 .andDo(document("index/DirectoryController/{method-name}",
                         pathParameters(
                                 parameterWithName("dirId").description("The directory id.")
