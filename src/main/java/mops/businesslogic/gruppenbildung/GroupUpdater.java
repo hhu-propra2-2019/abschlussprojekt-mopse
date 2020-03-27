@@ -1,4 +1,4 @@
-package mops.businesslogic.gruppenfindung;
+package mops.businesslogic.gruppenbildung;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,9 +45,9 @@ public class GroupUpdater {
     private String viewerRole = "viewer";
 
     /**
-     * Connection to the Gruppenfindung REST API.
+     * Connection to the Gruppenbildung REST API.
      */
-    private final GruppenfindungsService gruppenfindungsService;
+    private final GruppenbildungsService gruppenbildungsService;
     /**
      * Connection to the saved latest event id.
      */
@@ -63,11 +63,11 @@ public class GroupUpdater {
     @Scheduled(fixedRate = UPDATE_RATE)
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" }) // optional, builder
     public void updateDatabase() throws MopsException {
-        log.debug("Pulling group database update from Gruppenfindung.");
+        log.debug("Pulling group database update from Gruppenbildung.");
         LatestEventId latestEventId = latestEventIdService.getLatestEventId();
         log.debug("Current latest event id is '{}'.", latestEventId.getEventId());
 
-        UpdatedGroupsDTO updatedGroups = gruppenfindungsService.getUpdatedGroups(latestEventId.getEventId());
+        UpdatedGroupsDTO updatedGroups = gruppenbildungsService.getUpdatedGroups(latestEventId.getEventId());
 
         int added = 0;
         int changed = 0;
@@ -91,9 +91,9 @@ public class GroupUpdater {
                         added++;
                     }
 
-                    for (UserDTO userDTO : gruppenfindungsService.getMembers(groupDAO.getGroupId())) {
+                    for (UserDTO userDTO : gruppenbildungsService.getMembers(groupDAO.getGroupId())) {
                         String name = userDTO.getUserName();
-                        boolean admin = gruppenfindungsService.isUserAdminInGroup(name, groupId);
+                        boolean admin = gruppenbildungsService.isUserAdminInGroup(name, groupId);
                         String role = admin ? adminRole : viewerRole;
                         builder.member(name, role);
                     }

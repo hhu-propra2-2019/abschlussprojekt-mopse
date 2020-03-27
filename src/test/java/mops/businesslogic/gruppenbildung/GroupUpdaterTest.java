@@ -1,4 +1,4 @@
-package mops.businesslogic.gruppenfindung;
+package mops.businesslogic.gruppenbildung;
 
 import mops.businesslogic.event.LatestEventIdService;
 import mops.businesslogic.group.GroupService;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 class GroupUpdaterTest {
 
     @Mock
-    GruppenfindungsService gruppenfindungsService;
+    GruppenbildungsService gruppenbildungsService;
     @Mock
     LatestEventIdService latestEventIdService;
     @Mock
@@ -42,7 +42,7 @@ class GroupUpdaterTest {
 
     @BeforeEach
     void setup() throws MopsException {
-        groupUpdater = new GroupUpdater(gruppenfindungsService, latestEventIdService, groupService);
+        groupUpdater = new GroupUpdater(gruppenbildungsService, latestEventIdService, groupService);
         latestEventId = LatestEventId.of();
         given(latestEventIdService.getLatestEventId()).willReturn(latestEventId);
 
@@ -64,7 +64,7 @@ class GroupUpdaterTest {
         UpdatedGroupsDTO updatedGroups = new UpdatedGroupsDTO();
         updatedGroups.setEventId(20L);
         updatedGroups.setGroupDAOs(List.of());
-        given(gruppenfindungsService.getUpdatedGroups(anyLong())).willReturn(updatedGroups);
+        given(gruppenbildungsService.getUpdatedGroups(anyLong())).willReturn(updatedGroups);
 
         groupUpdater.updateDatabase();
 
@@ -84,9 +84,9 @@ class GroupUpdaterTest {
                 .member(userName, "admin")
                 .build();
 
-        given(gruppenfindungsService.getUpdatedGroups(anyLong())).willReturn(updatedGroups);
-        given(gruppenfindungsService.getMembers(groupId)).willReturn(List.of(user));
-        given(gruppenfindungsService.isUserAdminInGroup(userName, groupId)).willReturn(true);
+        given(gruppenbildungsService.getUpdatedGroups(anyLong())).willReturn(updatedGroups);
+        given(gruppenbildungsService.getMembers(groupId)).willReturn(List.of(user));
+        given(gruppenbildungsService.isUserAdminInGroup(userName, groupId)).willReturn(true);
 
         groupUpdater.updateDatabase();
 
@@ -107,7 +107,7 @@ class GroupUpdaterTest {
                 .member(userName, "admin")
                 .build();
 
-        given(gruppenfindungsService.getUpdatedGroups(anyLong())).willReturn(updatedGroups);
+        given(gruppenbildungsService.getUpdatedGroups(anyLong())).willReturn(updatedGroups);
         given(groupService.findGroupByGroupId(groupId)).willReturn(Optional.of(expectedGroup));
 
         groupUpdater.updateDatabase();
