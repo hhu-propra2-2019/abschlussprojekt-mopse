@@ -22,7 +22,7 @@ Content-Length: 5531
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="53b566ca-12ae-4bc0-84ca-fb90ae36802e"/>
+        <meta name="_csrf" content="94a36ab1-941f-4fff-8423-00d06e02f14f"/>
         <link rel="stylesheet" type="text/css" href="/style.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="

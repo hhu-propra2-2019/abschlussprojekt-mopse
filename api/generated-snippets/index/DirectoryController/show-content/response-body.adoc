@@ -11,7 +11,7 @@
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="8e9fb295-39b4-48fa-8307-11d6956d0dd3"/>
+        <meta name="_csrf" content="87a9e432-bae8-45d6-8337-b10345d580f1"/>
         <link rel="stylesheet" type="text/css" href="/style.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -135,7 +135,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="8e9fb295-39b4-48fa-8307-11d6956d0dd3"/>
+              method="post"><input type="hidden" name="_csrf" value="87a9e432-bae8-45d6-8337-b10345d580f1"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -228,9 +228,70 @@
         </table>
     </div>
 
+    <!-- Edit Folders -->
+    <div class="modal fade" id="material1-modal-edit-folder"
+         tabindex="-1" role="dialog" aria-labelledby="material1-modal-edit-folder-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="material1-modal-edit-folder-title">Ordner bearbeiten</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/" method="post" id="material1-modal-edit-folder-form"><input type="hidden" name="_csrf" value="87a9e432-bae8-45d6-8337-b10345d580f1"/>
+                        <input type="hidden" name="originDirId" value="1">
+                        <div class="form-group">
+                            <label for="material1-modal-edit-folder-name" class="col-form-label">Ordnername:</label>
+                            <input type="text" class="form-control" id="material1-modal-edit-folder-name"
+                                   name="newName" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                    <input type="submit" form="material1-modal-edit-folder-form" class="btn btn-primary"
+                           value="Speichern">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Files -->
+    <div class="modal fade" id="material1-modal-edit-file"
+         tabindex="-1" role="dialog" aria-labelledby="material1-modal-edit-file-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="material1-modal-edit-file-title">Datei bearbeiten</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/" method="post" id="material1-modal-edit-file-form"><input type="hidden" name="_csrf" value="87a9e432-bae8-45d6-8337-b10345d580f1"/>
+                        <div class="form-group">
+                            <label for="material1-modal-edit-file-name" class="col-form-label">
+                                Dateiname (ohne Dateiendung):
+                            </label>
+                            <input type="text" class="form-control" id="material1-modal-edit-file-name"
+                                   name="newName" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                    <input type="submit" form="material1-modal-edit-file-form" class="btn btn-primary"
+                           value="Speichern">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="/material1/dir/1/create" method="post"><input type="hidden" name="_csrf" value="8e9fb295-39b4-48fa-8307-11d6956d0dd3"/>
+        <form class="input-group" action="/material1/dir/1/create" method="post"><input type="hidden" name="_csrf" value="87a9e432-bae8-45d6-8337-b10345d580f1"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -239,7 +300,7 @@
 
         <!-- Form to upload a new file to the folder -->
         <form class="input-group" action="/material1/dir/1/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="8e9fb295-39b4-48fa-8307-11d6956d0dd3"/>
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="87a9e432-bae8-45d6-8337-b10345d580f1"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">

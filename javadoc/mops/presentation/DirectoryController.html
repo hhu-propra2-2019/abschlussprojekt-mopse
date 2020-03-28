@@ -213,9 +213,10 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#renameFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.lang.String)">renameFile</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#renameFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.util.Optional,java.lang.String)">renameFile</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
           org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
           long&nbsp;dirId,
+          java.util.Optional&lt;java.lang.Long&gt;&nbsp;originDirId,
           java.lang.String&nbsp;newName)</code></th>
 <td class="colLast">
 <div class="block">Renames a directory.</div>
@@ -476,7 +477,7 @@ public&nbsp;java.lang.String&nbsp;searchFolder&#8203;(org.springframework.web.se
 </dl>
 </li>
 </ul>
-<a id="renameFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.lang.String)">
+<a id="renameFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.util.Optional,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -487,6 +488,8 @@ public&nbsp;java.lang.String&nbsp;renameFile&#8203;(org.springframework.web.serv
                                    org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
                                    @PathVariable("dirId")
                                    long&nbsp;dirId,
+                                   @RequestParam(value="originDirId",required=false)
+                                   java.util.Optional&lt;java.lang.Long&gt;&nbsp;originDirId,
                                    @RequestParam("newName")
                                    java.lang.String&nbsp;newName)</pre>
 <div class="block">Renames a directory.</div>
@@ -494,6 +497,7 @@ public&nbsp;java.lang.String&nbsp;renameFile&#8203;(org.springframework.web.serv
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>redirectAttributes</code> - redirection attributes</dd>
 <dd><code>token</code> - keyloak auth token</dd>
+<dd><code>originDirId</code> - the (optional) directory where this request came from</dd>
 <dd><code>dirId</code> - the directory id</dd>
 <dd><code>newName</code> - the new name</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
