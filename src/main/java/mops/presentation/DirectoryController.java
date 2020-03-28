@@ -32,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -317,21 +318,22 @@ public class DirectoryController {
      *
      * @param redirectAttributes redirection attributes
      * @param token              keyloak auth token
-     * @param originDirId        the directory where this request came from, may be null
+     * @param originDirId        the (optional) directory where this request came from
      * @param dirId              the directory id
      * @param newName            the new name
      * @return back to the overview
      */
     @PostMapping("/{dirId}/rename")
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public String renameFile(RedirectAttributes redirectAttributes,
                              KeycloakAuthenticationToken token,
                              @PathVariable("dirId") long dirId,
-                             @RequestParam(value = "originDirId", required = false) Long originDirId,
+                             @RequestParam(value = "originDirId", required = false) Optional<Long> originDirId,
                              @RequestParam("newName") String newName) {
         Account account = Account.of(token);
         try {
             directoryService.renameDirectory(account, dirId, newName);
-            redirectAttributes.addAttribute("dirId", originDirId == null ? dirId : originDirId);
+            redirectAttributes.addAttribute("dirId", originDirId.orElse(dirId));
             return "redirect:/material1/dir/{dirId}";
         } catch (MopsException e) {
             log.error("Failed to rename directory with id '{}':", dirId, e);
