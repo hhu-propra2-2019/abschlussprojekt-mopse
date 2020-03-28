@@ -85,7 +85,7 @@ $(function () {
 
         let modal = $(this);
         modal.find("#material1-modal-edit-folder-form").attr("action", formAction);
-        modal.find("#material1-modal-edit-folder-name").val(name).trigger("focus");
+        modal.find("#material1-modal-edit-folder-name").val(name);
     });
     $("#material1-modal-edit-file").on("show.bs.modal", function (event) {
         let button = $(event.relatedTarget);
@@ -99,6 +99,6 @@ $(function () {
 
         let modal = $(this);
         modal.find("#material1-modal-edit-file-form").attr("action", formAction);
-        modal.find("#material1-modal-edit-file-name").val(name).trigger("focus");
+        modal.find("#material1-modal-edit-file-name").val(name);
     });
 });
