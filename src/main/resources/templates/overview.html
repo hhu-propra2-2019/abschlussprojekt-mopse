@@ -3,11 +3,11 @@
       th:replace="~{mopslayout :: html(name='Materialsammlung', title='Übersicht', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}">
 <head>
     <meta charset="utf-8">
-    <title>Ordner</title>
+    <title>Übersicht</title>
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
         <meta name="_csrf" th:content="${_csrf.token}"/>
-        <link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/style.css}">
+        <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
                 crossorigin="anonymous"></script>
@@ -17,7 +17,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
                 integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
                 crossorigin="anonymous"></script>
-        <script language="javascript" type="text/javascript" src="../static/script.js" th:src="@{/script.js}"></script>
+        <script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
     </th:block>
 </head>
 <body>
@@ -102,10 +102,9 @@
         <!-- Button to the directory above -->
         <div th:if="${directory.parentId} != null">
             <div class="material1-button-above-wrapper">
-                <form action="#" th:action="@{/material1/dir/{dirId}(dirId = ${directory.parentId})}"
-                      th:method="get">
-                    <input class="btn btn-outline-primary" type="submit" value="Ebene hoch">
-                </form>
+                <a class="btn btn-outline-primary" th:href="@{/material1/dir/{dirId}(dirId = ${directory.parentId})}">
+                    Ebene hoch
+                </a>
             </div>
         </div>
 
@@ -140,34 +139,21 @@
                     <div class="dropdown">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                            <svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
-                                      clip-rule="evenodd"/>
-                            </svg>
+                            <img src="../static/img/list.svg" th:src="@{/img/list.svg}" alt="Menü">
                         </button>
                         <div class="dropdown-menu">
-                            <form action="#" th:action="@{/material1/dir/{dirId}/zip(dirId = ${dir.id})}"
-                                  th:method="get">
-                                <button class="dropdown-item" type="submit">
-                                    <span>
-                                        <svg class="bi bi-download" width="1em" height="1em" viewBox="0 0 16 16"
-                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                  d="M.5 8a.5.5 0 01.5.5V12a1 1 0 001 1h12a1 1 0 001-1V8.5a.5.5 0 011 0V12a2 2 0 01-2 2H2a2 2 0 01-2-2V8.5A.5.5 0 01.5 8z"
-                                                  clip-rule="evenodd"/>
-                                            <path fill-rule="evenodd"
-                                                  d="M5 7.5a.5.5 0 01.707 0L8 9.793 10.293 7.5a.5.5 0 11.707.707l-2.646 2.647a.5.5 0 01-.708 0L5 8.207A.5.5 0 015 7.5z"
-                                                  clip-rule="evenodd"/>
-                                            <path fill-rule="evenodd"
-                                                  d="M8 1a.5.5 0 01.5.5v8a.5.5 0 01-1 0v-8A.5.5 0 018 1z"
-                                                  clip-rule="evenodd"/>
-                                        </svg>
-                                        Download
-                                    </span>
-                                </button>
-                            </form>
+                            <a class="dropdown-item" th:href="@{/material1/dir/{dirId}/zip(dirId = ${dir.id})}">
+                                <span>
+                                    <img src="../static/img/download.svg" th:src="@{/img/download.svg}" alt="">
+                                    Download
+                                </span>
+                            </a>
+                            <div th:if="${search && dir.parentId != null}">
+                                <a class="dropdown-item"
+                                   th:href="@{/material1/dir/{dirId}(dirId = ${dir.parentId})}">
+                                    Öffne Ordnerpfad
+                                </a>
+                            </div>
                             <div th:if="${writePermission && deletePermission}">
                                 <button type="button" class="dropdown-item material1-dir-rename" data-toggle="modal"
                                         data-target="#material1-modal-edit-folder"
@@ -195,34 +181,22 @@
                     <div class="dropdown">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                            <svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
-                                      clip-rule="evenodd"/>
-                            </svg>
+                            <img src="../static/img/list.svg" th:src="@{/img/list.svg}" alt="Menü">
                         </button>
                         <div class="dropdown-menu">
-                            <form action="#" th:action="@{/material1/file/{fileId}/download(fileId = ${file.id})}"
-                                  th:method="get">
-                                <button class="dropdown-item" type="submit">
-                                    <span>
-                                        <svg class="bi bi-download" width="1em" height="1em" viewBox="0 0 16 16"
-                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                  d="M.5 8a.5.5 0 01.5.5V12a1 1 0 001 1h12a1 1 0 001-1V8.5a.5.5 0 011 0V12a2 2 0 01-2 2H2a2 2 0 01-2-2V8.5A.5.5 0 01.5 8z"
-                                                  clip-rule="evenodd"/>
-                                            <path fill-rule="evenodd"
-                                                  d="M5 7.5a.5.5 0 01.707 0L8 9.793 10.293 7.5a.5.5 0 11.707.707l-2.646 2.647a.5.5 0 01-.708 0L5 8.207A.5.5 0 015 7.5z"
-                                                  clip-rule="evenodd"/>
-                                            <path fill-rule="evenodd"
-                                                  d="M8 1a.5.5 0 01.5.5v8a.5.5 0 01-1 0v-8A.5.5 0 018 1z"
-                                                  clip-rule="evenodd"/>
-                                        </svg>
-                                        Download
-                                    </span>
-                                </button>
-                            </form>
+                            <a class="dropdown-item"
+                               th:href="@{/material1/file/{fileId}/download(fileId = ${file.id})}">
+                                <span>
+                                    <img src="../static/img/download.svg" th:src="@{/img/download.svg}" alt="">
+                                    Download
+                                </span>
+                            </a>
+                            <div th:if="${search}">
+                                <a class="dropdown-item"
+                                   th:href="@{/material1/dir/{dirId}(dirId = ${file.directoryId})}">
+                                    Öffne Dateipfad
+                                </a>
+                            </div>
                             <div th:if="${writePermission && (deletePermission || file.owner == account.name)}">
                                 <button type="button" class="dropdown-item material1-file-rename" data-toggle="modal"
                                         data-target="#material1-modal-edit-file"
