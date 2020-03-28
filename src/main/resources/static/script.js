@@ -74,51 +74,31 @@ function hideSearchForm() {
     document.getElementById("material1-search-form").style.display = "none";
 }
 
-function renameFile() {
-    let originalName = this.dataset.fileName;
-    let fileId = this.dataset.fileId;
-
-    let parts = originalName.split('.');
-    if (parts.length > 1) {
-        originalName = parts.slice(0, -1).join('.');
-    }
-    let token = $("meta[name='_csrf']").attr("content");
-    let name = prompt("Neuer Name (ohne Dateiendung)", originalName);
-    if (name !== null) {
-        $.post("/material1/file/" + fileId + "/rename",
-            {
-                _csrf: token,
-                newName: name
-            },
-            function () {
-                location.reload();
-            }
-        );
-    }
-    return false;
-}
-
-function renameDir() {
-    let originalName = this.dataset.dirName;
-    let dirId = this.dataset.dirId;
-
-    let token = $("meta[name='_csrf']").attr("content");
-    let name = prompt("Neuer Name", originalName);
-    if (name !== null) {
-        $.post("/material1/dir/" + dirId + "/rename",
-            {
-                _csrf: token,
-                newName: name
-            },
-            function () {
-                location.reload();
-            }
-        );
-    }
-    return false;
-}
-
 $(function () {
-    $(".material1-file-rename").click(renameFile);
-    $(".material1-dir-rename").click(renameDir);
+    $("#material1-modal-edit-folder").on("show.bs.modal", function (event) {
+        let button = $(event.relatedTarget); // Button that triggered the modal
+        let formAction = button.data("modalFormAction"); // Extract info from data-* attributes
+        let name = button.data("modalFormName");
+
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
+        let modal = $(this);
+        modal.find("#material1-modal-edit-folder-form").attr("action", formAction);
+        modal.find("#material1-modal-edit-folder-name").val(name);
+    });
+    $("#material1-modal-edit-file").on("show.bs.modal", function (event) {
+        let button = $(event.relatedTarget);
+        let formAction = button.data("modalFormAction");
+        let name = button.data("modalFormName");
+
+        let parts = name.split(".");
+        if (parts.length > 1) {
+            name = parts.slice(0, -1).join(".");
+        }
+
+        let modal = $(this);
+        modal.find("#material1-modal-edit-file-form").attr("action", formAction);
+        modal.find("#material1-modal-edit-file-name").val(name);
+    });
 });
