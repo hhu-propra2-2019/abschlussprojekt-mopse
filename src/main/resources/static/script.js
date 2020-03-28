@@ -77,7 +77,7 @@ function hideSearchForm() {
 $(function () {
     $("#material1-modal-edit-folder").on("show.bs.modal", function (event) {
         let button = $(event.relatedTarget); // Button that triggered the modal
-        let formAction = button.data("modalFormAction");// Extract info from data-* attributes
+        let formAction = button.data("modalFormAction"); // Extract info from data-* attributes
         let name = button.data("modalFormName");
 
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
