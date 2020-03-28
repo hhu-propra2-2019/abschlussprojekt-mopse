@@ -103,7 +103,10 @@
         <div th:if="${directory.parentId} != null">
             <div class="material1-button-above-wrapper">
                 <a class="btn btn-outline-primary" th:href="@{/material1/dir/{dirId}(dirId = ${directory.parentId})}">
-                    Ebene hoch
+                    <span>
+                        <img src="../static/img/arrow-90deg-up.svg" th:src="@{/img/arrow-90deg-up.svg}" alt="">
+                        Ebene hoch
+                    </span>
                 </a>
             </div>
         </div>
