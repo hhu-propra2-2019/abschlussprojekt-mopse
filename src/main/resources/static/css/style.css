@@ -1,0 +1,58 @@
+.form-search-wrapper {
+  display: none !important;
+}
+
+.material1-search-wrapper {
+  padding-bottom: 10px;
+}
+.material1-search-wrapper .material1-search-form {
+  display: none;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.material1-search-wrapper .material1-search-form .material1-search-form-column {
+  padding-right: 10px;
+}
+.material1-search-wrapper .material1-search-form .material1-search-form-column .material1-search-form-field {
+  display: flex;
+  padding-bottom: 5px;
+}
+
+.material1-path-wrapper {
+  display: flex;
+  padding-bottom: 10px;
+}
+.material1-path-wrapper .material1-button-above-wrapper {
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+.material1-path-wrapper .form-control {
+  width: auto;
+}
+
+td {
+  vertical-align: middle !important;
+}
+
+.material1-create-forms {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.material1-create-forms .input-group {
+  padding-top: 10px;
+  width: auto;
+}
+.material1-create-forms .input-group .form-control {
+  width: auto;
+  flex: inherit;
+}
+
+.material1-permissions-wrapper {
+  padding-top: 50px;
+}
+.material1-permissions-wrapper .material1-badge {
+  margin-bottom: 5px;
+}
+
+/*# sourceMappingURL=style.css.map */
