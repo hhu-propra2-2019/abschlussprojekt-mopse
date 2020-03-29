@@ -3,11 +3,11 @@
       th:replace="~{mopslayout :: html(name='Materialsammlung', title='Fehler', headcontent=~{:: headcontent}, navigation=~{:: navigation}, bodycontent=~{:: bodycontent})}">
 <head>
     <meta charset="utf-8">
-    <title>Materialsammlung</title>
+    <title>Fehler</title>
     <th:block th:fragment="headcontent">
         <!-- Links, Skripts, Styles hier einfügen! -->
         <meta name="_csrf" th:content="${_csrf.token}"/>
-        <link rel="stylesheet" type="text/css" href="../staticjavascript/style.css" th:href="@{/style.css}">
+        <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
                 crossorigin="anonymous"></script>
@@ -17,7 +17,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
                 integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
                 crossorigin="anonymous"></script>
-        <script language="javascript" type="text/javascript" src="../static/script.js" th:src="@{/script.js}"></script>
+        <script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
     </th:block>
 </head>
 <body>
@@ -40,7 +40,7 @@
             <h3 th:if="${status_message}"
                 th:text="${status_message}">Die angeforderte Resource konnte nicht gefunden werden :(</h3>
         </div>
-        <img src="../static/mops_error.png" th:src="@{/mops_error.png}" class="rounded mx-auto h-50 w-50"
+        <img src="../static/img/mops_error.png" th:src="@{/img/mops_error.png}" class="rounded mx-auto h-50 w-50"
              alt="Sad Pug.">
         <div style="color: gray">Credits to <a href="https://www.instagram.com/meddamorff/">meddamorff</a>!</div>
     </div>

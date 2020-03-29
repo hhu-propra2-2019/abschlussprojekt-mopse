@@ -115,6 +115,7 @@ public class DirectoryController {
 
         model.addAttribute("fileQueryForm", new FileQueryForm());
         model.addAttribute("account", account);
+        model.addAttribute("search", false);
         return "overview";
     }
 
@@ -310,6 +311,7 @@ public class DirectoryController {
         model.addAttribute("deletePermission", true);
         model.addAttribute("writePermission", false);
         model.addAttribute("adminRole", false);
+        model.addAttribute("search", true);
         return "overview";
     }
 
