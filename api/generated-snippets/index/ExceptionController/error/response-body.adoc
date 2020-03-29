@@ -11,8 +11,8 @@
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="5f988ed3-138b-44ed-b13b-d3556e7de800"/>
-        <link rel="stylesheet" type="text/css" href="/style.css">
+        <meta name="_csrf" content="01710dee-3ef3-4db1-a32c-b5b8b899952b"/>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
                 crossorigin="anonymous"></script>
@@ -22,7 +22,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
                 integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
                 crossorigin="anonymous"></script>
-        <script language="javascript" type="text/javascript" src="/script.js"></script>
+        <script src="/js/script.js"></script>
     
 </head>
 <body>
@@ -133,7 +133,7 @@
     <div class="d-block">
         
         
-        <img src="/mops_error.png" class="rounded mx-auto h-50 w-50"
+        <img src="/img/mops_error.png" class="rounded mx-auto h-50 w-50"
              alt="Sad Pug.">
         <div style="color: gray">Credits to <a href="https://www.instagram.com/meddamorff/">meddamorff</a>!</div>
     </div>
