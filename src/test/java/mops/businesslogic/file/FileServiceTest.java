@@ -275,11 +275,11 @@ class FileServiceTest {
                 .when(fileInfoService)
                 .fetchFileInfo(fileId);
 
-        fileService.renameFile(account, fileId, "newName");
+        fileService.renameFile(account, fileId, "new /Name-file");
 
         verify(fileInfoService, times(1)).saveFileInfo(any());
         // verify new name with old extension
-        verify(fileInfoSpy).setName("newName.bin");
+        verify(fileInfoSpy).setName("new__Name-file.bin");
     }
 
     @Test
