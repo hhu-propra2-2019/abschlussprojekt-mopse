@@ -254,7 +254,6 @@ class FileServiceTest {
 
     @Test
     void renameAFile() throws MopsException {
-        ArgumentCaptor<FileInfo> argumentCaptor = ArgumentCaptor.forClass(FileInfo.class);
         long dirId = 1;
         long fileId = 1;
 
@@ -270,15 +269,17 @@ class FileServiceTest {
                 .owner("notUser1234")
                 .build();
 
-        doReturn(fileInfoStub)
+        FileInfo fileInfoSpy = spy(fileInfoStub);
+
+        doReturn(fileInfoSpy)
                 .when(fileInfoService)
                 .fetchFileInfo(fileId);
 
         fileService.renameFile(account, fileId, "newName");
 
-        verify(fileInfoService, times(1)).saveFileInfo(argumentCaptor.capture());
+        verify(fileInfoService, times(1)).saveFileInfo(any());
         // verify new name with old extension
-        assertThat("newName.bin").isEqualTo(argumentCaptor.getValue().getName());
+        verify(fileInfoSpy).setName("newName.bin");
     }
 
     private byte[] getRandomBytes() {
