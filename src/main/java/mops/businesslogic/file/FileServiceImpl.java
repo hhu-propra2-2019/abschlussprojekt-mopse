@@ -268,7 +268,7 @@ public class FileServiceImpl implements FileService {
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidLiteralsInIfCondition", "PMD.AvoidReassigningParameters" })
     public Directory renameFile(Account account, long fileId, String newName) throws MopsException {
-        if (newName.replace(" ", "").isEmpty()) {
+        if (newName.replaceAll("\\s+", "").isEmpty()) {
             log.error("User {} tried to rename a file without a name.",
                     account.getName()
             );

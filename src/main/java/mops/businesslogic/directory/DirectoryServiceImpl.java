@@ -345,7 +345,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     @SuppressWarnings({ "PMD.AvoidReassigningParameters", "PMD.LawOfDemeter" })
     public Directory renameDirectory(Account account, long dirId, String newName) throws MopsException {
-        if (newName.replace(" ", "").isEmpty()) {
+        if (newName.replaceAll("\\s+", "").isEmpty()) {
             log.error("User {} tried to rename a directory without a name.",
                     account.getName()
             );
