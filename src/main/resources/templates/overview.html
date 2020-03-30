@@ -100,14 +100,41 @@
 
     <div class="material1-path-wrapper" th:if="${directoryPath} != null">
         <!-- Button to the directory above -->
-        <div th:if="${directory.parentId} != null">
-            <div class="material1-button-above-wrapper">
-                <a class="btn btn-outline-primary" th:href="@{/material1/dir/{dirId}(dirId = ${directory.parentId})}">
+        <div th:if="${directory.parentId} != null" class="material1-button-above-wrapper">
+            <a class="btn btn-outline-primary" th:href="@{/material1/dir/{dirId}(dirId = ${directory.parentId})}">
                     <span>
                         <img src="../static/img/arrow-90deg-up.svg" th:src="@{/img/arrow-90deg-up.svg}" alt="">
                         Ebene hoch
                     </span>
+            </a>
+        </div>
+
+        <!-- Dropdown menu -->
+        <div class="dropdown material1-button-above-wrapper">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                <img src="../static/img/list.svg" th:src="@{/img/list.svg}" alt="Menü">
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" th:href="@{/material1/dir/{dirId}/zip(dirId = ${directory.id})}">
+                                <span>
+                                    <img src="../static/img/download.svg" th:src="@{/img/download.svg}" alt="">
+                                    Download
+                                </span>
                 </a>
+                <div th:if="${directory.parentId != null && writePermission && deletePermission}">
+                    <button type="button" class="dropdown-item material1-dir-rename" data-toggle="modal"
+                            data-target="#material1-modal-edit-folder"
+                            th:data-modal-form-action="@{/material1/dir/{dirId}/rename(dirId = ${directory.id})}"
+                            th:data-modal-form-name="${directory.name}">
+                        Bearbeiten
+                    </button>
+                </div>
+                <form th:if="${deletePermission}" action="#"
+                      th:action="@{/material1/dir/{dirId}/delete(dirId = ${directory.id})}" th:method="post"
+                      onsubmit="return confirm('Diese Aktion kann nicht rückgangig gemacht werden. Soll der Ordner mit seinem gesamten Inhalt wirklich gelöscht werden?');">
+                    <button class="dropdown-item text-danger" type="submit">Löschen</button>
+                </form>
             </div>
         </div>
 
