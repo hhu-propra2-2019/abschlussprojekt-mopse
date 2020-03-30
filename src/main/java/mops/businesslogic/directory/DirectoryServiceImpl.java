@@ -353,6 +353,13 @@ public class DirectoryServiceImpl implements DirectoryService {
         }
 
         Directory directory = getDirectory(dirId);
+
+        if (directory.getParentId() == null) {
+            log.error("User {} tried to rename the root folder of group '{}'.",
+                    account.getName(), directory.getGroupOwner());
+            throw new WriteAccessPermissionException("Keine Berechtigung um das Wurzelverzeichnis umzubenennen.");
+        }
+
         UserPermission permissionsOfUser = securityService.getPermissionsOfUser(account, directory);
 
         if (!permissionsOfUser.isDelete() || !permissionsOfUser.isWrite()) {
