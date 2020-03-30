@@ -13,6 +13,7 @@ import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
@@ -249,6 +250,35 @@ class FileServiceTest {
         byte[] retrievedData = fileContainer.getContent().getInputStream().readAllBytes();
 
         assertThat(originalContent).isEqualTo(retrievedData);
+    }
+
+    @Test
+    void renameAFile() throws MopsException {
+        ArgumentCaptor<FileInfo> argumentCaptor = ArgumentCaptor.forClass(FileInfo.class);
+        long dirId = 1;
+        long fileId = 1;
+
+        UserPermission userPermission = new UserPermission(false, true, true);
+        doReturn(userPermission)
+                .when(securityService)
+                .getPermissionsOfUser(eq(account), any());
+
+        FileInfo fileInfoStub = FileInfo.builder()
+                .from(file)
+                .id(fileId)
+                .directory(dirId)
+                .owner("notUser1234")
+                .build();
+
+        doReturn(fileInfoStub)
+                .when(fileInfoService)
+                .fetchFileInfo(fileId);
+
+        fileService.renameFile(account, fileId, "newName");
+
+        verify(fileInfoService, times(1)).saveFileInfo(argumentCaptor.capture());
+        // verify new name with old extension
+        assertThat("newName.bin").isEqualTo(argumentCaptor.getValue().getName());
     }
 
     private byte[] getRandomBytes() {
