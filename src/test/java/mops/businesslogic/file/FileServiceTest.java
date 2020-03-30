@@ -2,6 +2,7 @@ package mops.businesslogic.file;
 
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.exception.DeleteAccessPermissionException;
+import mops.businesslogic.exception.EmptyNameException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.businesslogic.security.Account;
@@ -320,6 +321,15 @@ class FileServiceTest {
         assertThatCode(() -> {
             fileService.renameFile(account, fileId, "newName");
         }).doesNotThrowAnyException();
+    }
+
+    @Test
+    void noNameException() {
+        long fileId = 17;
+
+        assertThatThrownBy(() -> {
+            fileService.renameFile(account, fileId, "");
+        }).isInstanceOf(EmptyNameException.class);
     }
 
     private byte[] getRandomBytes() {
