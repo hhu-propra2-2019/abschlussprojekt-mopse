@@ -48,7 +48,7 @@ class FileServiceTest {
     void prepareTest() {
         random = new Random();
         file = new MockMultipartFile("file.bin",
-                "originalFilename",
+                "originalFilename.bin",
                 "text/plain",
                 getRandomBytes()
         );
