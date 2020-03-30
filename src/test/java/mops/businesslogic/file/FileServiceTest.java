@@ -23,8 +23,7 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -280,6 +279,47 @@ class FileServiceTest {
         verify(fileInfoService, times(1)).saveFileInfo(any());
         // verify new name with old extension
         verify(fileInfoSpy).setName("newName.bin");
+    }
+
+    @Test
+    void renamePermissions() throws MopsException {
+        long dirId = 1;
+        long fileId = 17;
+
+        FileInfo fileInfoStub = FileInfo.builder()
+                .from(file)
+                .id(fileId)
+                .directory(dirId)
+                .owner("notUser1234") // irrelevant here
+                .build();
+
+        doReturn(fileInfoStub)
+                .when(fileInfoService)
+                .fetchFileInfo(fileId);
+
+        UserPermission noPerms = new UserPermission(false, false, false);
+        UserPermission deletePerm = new UserPermission(false, false, true);
+        UserPermission writePerm = new UserPermission(false, true, false);
+        UserPermission writeAndDeletePerm = new UserPermission(false, true, true);
+
+        when(securityService.getPermissionsOfUser(any(), any()))
+                .thenReturn(noPerms, deletePerm, writePerm, writeAndDeletePerm);
+
+        assertThatThrownBy(() -> {
+            fileService.renameFile(account, fileId, "newName");
+        }).isInstanceOf(WriteAccessPermissionException.class);
+
+        assertThatThrownBy(() -> {
+            fileService.renameFile(account, fileId, "newName");
+        }).isInstanceOf(WriteAccessPermissionException.class);
+
+        assertThatThrownBy(() -> {
+            fileService.renameFile(account, fileId, "newName");
+        }).isInstanceOf(WriteAccessPermissionException.class);
+
+        assertThatCode(() -> {
+            fileService.renameFile(account, fileId, "newName");
+        }).doesNotThrowAnyException();
     }
 
     private byte[] getRandomBytes() {
