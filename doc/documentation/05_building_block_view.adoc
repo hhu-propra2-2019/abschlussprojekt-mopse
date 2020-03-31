@@ -209,6 +209,7 @@ Dieser hat folgende Routen:
 include::../api/generated-snippets/index/DirectoryController/show-content/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/create-folder/path-parameters.adoc[]
 include::../api/generated-snippets/index/DirectoryController/edit-folder/path-parameters.adoc[]
+include::../api/generated-snippets/index/DirectoryController/rename-folder/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/delete-directory/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/search-folder/path-parameters.adoc[]
 include::../api/generated-snippets//index/DirectoryController/upload-file/path-parameters.adoc[]
@@ -225,6 +226,7 @@ Dieser hat folgende Routen:
 
 include::../api/generated-snippets/index/FileController/show-file/path-parameters.adoc[]
 include::../api/generated-snippets/index/FileController/delete-file/path-parameters.adoc[]
+include::../api/generated-snippets/index/FileController/rename-file/path-parameters.adoc[]
 include::../api/generated-snippets/index/FileController/download-file/path-parameters.adoc[]
 
 GroupController::

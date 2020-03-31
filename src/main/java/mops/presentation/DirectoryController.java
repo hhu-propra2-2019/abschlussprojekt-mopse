@@ -327,11 +327,11 @@ public class DirectoryController {
      */
     @PostMapping("/{dirId}/rename")
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    public String renameFile(RedirectAttributes redirectAttributes,
-                             KeycloakAuthenticationToken token,
-                             @PathVariable("dirId") long dirId,
-                             @RequestParam(value = "originDirId", required = false) Optional<Long> originDirId,
-                             @RequestParam("newName") String newName) {
+    public String renameFolder(RedirectAttributes redirectAttributes,
+                               KeycloakAuthenticationToken token,
+                               @PathVariable("dirId") long dirId,
+                               @RequestParam(value = "originDirId", required = false) Optional<Long> originDirId,
+                               @RequestParam("newName") String newName) {
         Account account = Account.of(token);
         try {
             directoryService.renameDirectory(account, dirId, newName);
