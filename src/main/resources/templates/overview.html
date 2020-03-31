@@ -100,15 +100,41 @@
 
     <div class="material1-path-wrapper" th:if="${directoryPath} != null">
         <!-- Button to the directory above -->
-        <div th:if="${directory.parentId} != null">
-            <div class="material1-button-above-wrapper">
-                <a class="btn btn-outline-primary" th:href="@{/material1/dir/{dirId}(dirId = ${directory.parentId})}">
+        <div th:if="${directory.parentId} != null" class="material1-button-above-wrapper">
+            <a class="btn btn-outline-primary" th:href="@{/material1/dir/{dirId}(dirId = ${directory.parentId})}">
                     <span>
-                        <img src="../static/img/arrow-90deg-up.svg" th:src="@{/img/arrow-90deg-up.svg}" alt="">
+                        <svg class="bi bi-arrow-90deg-up" width="1em" height="1em" viewBox="0 0 16 16"
+                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M2.646 6.854a.5.5 0 00.708 0L6 4.207l2.646 2.647a.5.5 0 10.708-.708l-3-3a.5.5 0 00-.708 0l-3 3a.5.5 0 000 .708z"
+                                  clip-rule="evenodd"/>
+                            <path fill-rule="evenodd"
+                                  d="M6 3.5a.5.5 0 00-.5.5v6.5A2.5 2.5 0 008 13h5.5a.5.5 0 000-1H8a1.5 1.5 0 01-1.5-1.5V4a.5.5 0 00-.5-.5z"
+                                  clip-rule="evenodd"/>
+                        </svg>
                         Ebene hoch
                     </span>
-                </a>
-            </div>
+            </a>
+        </div>
+
+        <!-- Download button -->
+        <div class="material1-button-above-wrapper">
+            <a class="btn btn-outline-primary" th:href="@{/material1/dir/{dirId}/zip(dirId = ${directory.id})}">
+                <span>
+                    <svg class="bi bi-download" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M.5 8a.5.5 0 01.5.5V12a1 1 0 001 1h12a1 1 0 001-1V8.5a.5.5 0 011 0V12a2 2 0 01-2 2H2a2 2 0 01-2-2V8.5A.5.5 0 01.5 8z"
+                              clip-rule="evenodd"/>
+                        <path fill-rule="evenodd"
+                              d="M5 7.5a.5.5 0 01.707 0L8 9.793 10.293 7.5a.5.5 0 11.707.707l-2.646 2.647a.5.5 0 01-.708 0L5 8.207A.5.5 0 015 7.5z"
+                              clip-rule="evenodd"/>
+                        <path fill-rule="evenodd" d="M8 1a.5.5 0 01.5.5v8a.5.5 0 01-1 0v-8A.5.5 0 018 1z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    Download
+                </span>
+            </a>
         </div>
 
         <!-- Path to the current folder -->
@@ -142,12 +168,28 @@
                     <div class="dropdown">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                            <img src="../static/img/list.svg" th:src="@{/img/list.svg}" alt="Menü">
+                            <svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" th:href="@{/material1/dir/{dirId}/zip(dirId = ${dir.id})}">
                                 <span>
-                                    <img src="../static/img/download.svg" th:src="@{/img/download.svg}" alt="">
+                                    <svg class="bi bi-download" width="1em" height="1em" viewBox="0 0 16 16"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M.5 8a.5.5 0 01.5.5V12a1 1 0 001 1h12a1 1 0 001-1V8.5a.5.5 0 011 0V12a2 2 0 01-2 2H2a2 2 0 01-2-2V8.5A.5.5 0 01.5 8z"
+                                              clip-rule="evenodd"/>
+                                        <path fill-rule="evenodd"
+                                              d="M5 7.5a.5.5 0 01.707 0L8 9.793 10.293 7.5a.5.5 0 11.707.707l-2.646 2.647a.5.5 0 01-.708 0L5 8.207A.5.5 0 015 7.5z"
+                                              clip-rule="evenodd"/>
+                                        <path fill-rule="evenodd"
+                                              d="M8 1a.5.5 0 01.5.5v8a.5.5 0 01-1 0v-8A.5.5 0 018 1z"
+                                              clip-rule="evenodd"/>
+                                    </svg>
                                     Download
                                 </span>
                             </a>
@@ -184,13 +226,29 @@
                     <div class="dropdown">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                            <img src="../static/img/list.svg" th:src="@{/img/list.svg}" alt="Menü">
+                            <svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item"
                                th:href="@{/material1/file/{fileId}/download(fileId = ${file.id})}">
                                 <span>
-                                    <img src="../static/img/download.svg" th:src="@{/img/download.svg}" alt="">
+                                    <svg class="bi bi-download" width="1em" height="1em" viewBox="0 0 16 16"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M.5 8a.5.5 0 01.5.5V12a1 1 0 001 1h12a1 1 0 001-1V8.5a.5.5 0 011 0V12a2 2 0 01-2 2H2a2 2 0 01-2-2V8.5A.5.5 0 01.5 8z"
+                                              clip-rule="evenodd"/>
+                                        <path fill-rule="evenodd"
+                                              d="M5 7.5a.5.5 0 01.707 0L8 9.793 10.293 7.5a.5.5 0 11.707.707l-2.646 2.647a.5.5 0 01-.708 0L5 8.207A.5.5 0 015 7.5z"
+                                              clip-rule="evenodd"/>
+                                        <path fill-rule="evenodd"
+                                              d="M8 1a.5.5 0 01.5.5v8a.5.5 0 01-1 0v-8A.5.5 0 018 1z"
+                                              clip-rule="evenodd"/>
+                                    </svg>
                                     Download
                                 </span>
                             </a>
