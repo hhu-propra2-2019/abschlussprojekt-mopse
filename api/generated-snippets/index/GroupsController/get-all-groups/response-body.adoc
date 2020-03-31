@@ -11,7 +11,7 @@
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="592ef45e-2471-4794-96a0-2f85f2745b9f"/>
+        <meta name="_csrf" content="e7fafe4a-86fc-43de-b096-95a28e85ea72"/>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="

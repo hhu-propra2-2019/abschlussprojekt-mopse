@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ http --form POST 'http://localhost:8080/material1/file/1/rename' \
+    'newName=New Name' \
+    '_csrf=18019b48-7e0c-46e0-af3d-f63b32101699'
+----

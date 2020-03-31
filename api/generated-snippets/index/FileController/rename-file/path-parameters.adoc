@@ -1,0 +1,8 @@
+.+/material1/file/{fileId}/rename+
+|===
+|Parameter|Description
+
+|`+fileId+`
+|The file id.
+
+|===

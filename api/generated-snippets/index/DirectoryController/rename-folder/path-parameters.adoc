@@ -1,0 +1,8 @@
+.+/material1/dir/{dirId}/rename+
+|===
+|Parameter|Description
+
+|`+dirId+`
+|The directory id.
+
+|===

@@ -213,11 +213,11 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#renameFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.util.Optional,java.lang.String)">renameFile</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
-          org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-          long&nbsp;dirId,
-          java.util.Optional&lt;java.lang.Long&gt;&nbsp;originDirId,
-          java.lang.String&nbsp;newName)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#renameFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.util.Optional,java.lang.String)">renameFolder</a></span>&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+            org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+            long&nbsp;dirId,
+            java.util.Optional&lt;java.lang.Long&gt;&nbsp;originDirId,
+            java.lang.String&nbsp;newName)</code></th>
 <td class="colLast">
 <div class="block">Renames a directory.</div>
 </td>
@@ -477,21 +477,21 @@ public&nbsp;java.lang.String&nbsp;searchFolder&#8203;(org.springframework.web.se
 </dl>
 </li>
 </ul>
-<a id="renameFile(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.util.Optional,java.lang.String)">
+<a id="renameFolder(org.springframework.web.servlet.mvc.support.RedirectAttributes,org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,long,java.util.Optional,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>renameFile</h4>
+<h4>renameFolder</h4>
 <pre class="methodSignature">@PostMapping("/{dirId}/rename")
-public&nbsp;java.lang.String&nbsp;renameFile&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
-                                   org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
-                                   @PathVariable("dirId")
-                                   long&nbsp;dirId,
-                                   @RequestParam(value="originDirId",required=false)
-                                   java.util.Optional&lt;java.lang.Long&gt;&nbsp;originDirId,
-                                   @RequestParam("newName")
-                                   java.lang.String&nbsp;newName)</pre>
+public&nbsp;java.lang.String&nbsp;renameFolder&#8203;(org.springframework.web.servlet.mvc.support.RedirectAttributes&nbsp;redirectAttributes,
+                                     org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
+                                     @PathVariable("dirId")
+                                     long&nbsp;dirId,
+                                     @RequestParam(value="originDirId",required=false)
+                                     java.util.Optional&lt;java.lang.Long&gt;&nbsp;originDirId,
+                                     @RequestParam("newName")
+                                     java.lang.String&nbsp;newName)</pre>
 <div class="block">Renames a directory.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

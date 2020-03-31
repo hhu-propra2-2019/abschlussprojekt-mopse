@@ -4,6 +4,7 @@ HTTP/1.1 200 OK
 Content-Type: application/octet-stream
 Content-Length: 4
 Content-Disposition: inline; filename="file"
+Accept-Ranges: bytes
 X-Content-Type-Options: nosniff
 X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate

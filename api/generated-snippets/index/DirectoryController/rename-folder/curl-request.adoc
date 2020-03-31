@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/material1/dir/1/rename' -i -X POST \
+    -d 'originDirId=1&newName=New+Name&_csrf=c7397683-c94f-41ee-acc7-3eac82c910ba'
+----
