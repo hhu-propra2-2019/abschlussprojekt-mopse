@@ -2,6 +2,7 @@ package mops.businesslogic.file;
 
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.exception.DeleteAccessPermissionException;
+import mops.businesslogic.exception.EmptyNameException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.businesslogic.security.Account;
@@ -22,8 +23,7 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -48,7 +48,7 @@ class FileServiceTest {
     void prepareTest() {
         random = new Random();
         file = new MockMultipartFile("file.bin",
-                "originalFilename",
+                "originalFilename.bin",
                 "text/plain",
                 getRandomBytes()
         );
@@ -249,6 +249,86 @@ class FileServiceTest {
         byte[] retrievedData = fileContainer.getContent().getInputStream().readAllBytes();
 
         assertThat(originalContent).isEqualTo(retrievedData);
+    }
+
+    @Test
+    void renameAFile() throws MopsException {
+        long dirId = 1;
+        long fileId = 1;
+
+        UserPermission userPermission = new UserPermission(false, true, true);
+        doReturn(userPermission)
+                .when(securityService)
+                .getPermissionsOfUser(eq(account), any());
+
+        FileInfo fileInfoStub = FileInfo.builder()
+                .from(file)
+                .id(fileId)
+                .directory(dirId)
+                .owner("notUser1234")
+                .build();
+
+        FileInfo fileInfoSpy = spy(fileInfoStub);
+
+        doReturn(fileInfoSpy)
+                .when(fileInfoService)
+                .fetchFileInfo(fileId);
+
+        fileService.renameFile(account, fileId, "new /Name-file");
+
+        verify(fileInfoService, times(1)).saveFileInfo(any());
+        // verify new name with old extension
+        verify(fileInfoSpy).setName("new__Name-file.bin");
+    }
+
+    @Test
+    void renamePermissions() throws MopsException {
+        long dirId = 1;
+        long fileId = 17;
+
+        FileInfo fileInfoStub = FileInfo.builder()
+                .from(file)
+                .id(fileId)
+                .directory(dirId)
+                .owner("notUser1234") // irrelevant here
+                .build();
+
+        doReturn(fileInfoStub)
+                .when(fileInfoService)
+                .fetchFileInfo(fileId);
+
+        UserPermission noPerms = new UserPermission(false, false, false);
+        UserPermission deletePerm = new UserPermission(false, false, true);
+        UserPermission writePerm = new UserPermission(false, true, false);
+        UserPermission writeAndDeletePerm = new UserPermission(false, true, true);
+
+        when(securityService.getPermissionsOfUser(any(), any()))
+                .thenReturn(noPerms, deletePerm, writePerm, writeAndDeletePerm);
+
+        assertThatThrownBy(() -> {
+            fileService.renameFile(account, fileId, "newName");
+        }).isInstanceOf(WriteAccessPermissionException.class);
+
+        assertThatThrownBy(() -> {
+            fileService.renameFile(account, fileId, "newName");
+        }).isInstanceOf(WriteAccessPermissionException.class);
+
+        assertThatThrownBy(() -> {
+            fileService.renameFile(account, fileId, "newName");
+        }).isInstanceOf(WriteAccessPermissionException.class);
+
+        assertThatCode(() -> {
+            fileService.renameFile(account, fileId, "newName");
+        }).doesNotThrowAnyException();
+    }
+
+    @Test
+    void noNameException() {
+        long fileId = 17;
+
+        assertThatThrownBy(() -> {
+            fileService.renameFile(account, fileId, "");
+        }).isInstanceOf(EmptyNameException.class);
     }
 
     private byte[] getRandomBytes() {

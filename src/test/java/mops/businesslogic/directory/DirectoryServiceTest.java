@@ -1,6 +1,8 @@
 package mops.businesslogic.directory;
 
+import mops.businesslogic.exception.EmptyNameException;
 import mops.businesslogic.exception.ReadAccessPermissionException;
+import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.group.GroupService;
 import mops.businesslogic.security.Account;
@@ -23,8 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @DbContext
@@ -280,5 +281,48 @@ class DirectoryServiceTest {
 
         assertThatExceptionOfType(ReadAccessPermissionException.class)
                 .isThrownBy(() -> directoryService.searchFolder(intruder, root.getId(), fileQuery));
+    }
+
+    @Test
+    void renameAFolder() throws MopsException {
+        Directory directory = Directory.builder()
+                .fromParent(root)
+                .name("oldDirName")
+                .build();
+
+        directory = directoryService.saveDirectory(directory);
+
+        directoryService.renameDirectory(admin, directory.getId(), "new Dir-Name/");
+        Directory newNamedDir = directoryService.getDirectory(directory.getId());
+        assertThat(newNamedDir.getName()).isEqualTo("new_Dir-Name_");
+    }
+
+    @Test
+    void emptyName() {
+        assertThatThrownBy(() -> {
+            directoryService.renameDirectory(admin, 1, "");
+        }).isInstanceOf(EmptyNameException.class);
+    }
+
+    @Test
+    void renamePermissions() throws MopsException {
+        Directory directory = Directory.builder()
+                .fromParent(root)
+                .name("oldDirName")
+                .build();
+
+        long dirId = directoryService.saveDirectory(directory).getId();
+
+        assertThatThrownBy(() -> {
+            directoryService.renameDirectory(editor, dirId, "something random");
+        }).isInstanceOf(WriteAccessPermissionException.class);
+
+        assertThatThrownBy(() -> {
+            directoryService.renameDirectory(user, dirId, "something random");
+        }).isInstanceOf(WriteAccessPermissionException.class);
+
+        assertThatCode(() -> {
+            directoryService.renameDirectory(admin, dirId, "something random");
+        }).doesNotThrowAnyException();
     }
 }
