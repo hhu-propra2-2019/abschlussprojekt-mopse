@@ -11,7 +11,7 @@
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="97e5bc04-4aba-4a1c-b9af-47d81e59ad79"/>
+        <meta name="_csrf" content="f27fd9b1-9d92-4631-88b5-b4b6367f55c6"/>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -135,7 +135,7 @@
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="97e5bc04-4aba-4a1c-b9af-47d81e59ad79"/>
+              method="post"><input type="hidden" name="_csrf" value="f27fd9b1-9d92-4631-88b5-b4b6367f55c6"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="cv">

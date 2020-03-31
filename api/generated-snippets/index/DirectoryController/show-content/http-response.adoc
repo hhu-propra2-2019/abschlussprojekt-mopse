@@ -9,7 +9,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 14985
+Content-Length: 16735
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +22,7 @@ Content-Length: 14985
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="5d484080-25aa-461b-8f5c-7c52f929ca99"/>
+        <meta name="_csrf" content="38488b5a-22ab-425e-977c-828a9c49b01c"/>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -146,7 +146,7 @@ Content-Length: 14985
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="5d484080-25aa-461b-8f5c-7c52f929ca99"/>
+              method="post"><input type="hidden" name="_csrf" value="38488b5a-22ab-425e-977c-828a9c49b01c"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -205,15 +205,41 @@ Content-Length: 14985
 
     <div class="material1-path-wrapper">
         <!-- Button to the directory above -->
-        <div>
-            <div class="material1-button-above-wrapper">
-                <a class="btn btn-outline-primary" href="/material1/dir/0">
+        <div class="material1-button-above-wrapper">
+            <a class="btn btn-outline-primary" href="/material1/dir/0">
                     <span>
-                        <img src="/img/arrow-90deg-up.svg" alt="">
+                        <svg class="bi bi-arrow-90deg-up" width="1em" height="1em" viewBox="0 0 16 16"
+                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M2.646 6.854a.5.5 0 00.708 0L6 4.207l2.646 2.647a.5.5 0 10.708-.708l-3-3a.5.5 0 00-.708 0l-3 3a.5.5 0 000 .708z"
+                                  clip-rule="evenodd"/>
+                            <path fill-rule="evenodd"
+                                  d="M6 3.5a.5.5 0 00-.5.5v6.5A2.5 2.5 0 008 13h5.5a.5.5 0 000-1H8a1.5 1.5 0 01-1.5-1.5V4a.5.5 0 00-.5-.5z"
+                                  clip-rule="evenodd"/>
+                        </svg>
                         Ebene hoch
                     </span>
-                </a>
-            </div>
+            </a>
+        </div>
+
+        <!-- Download button -->
+        <div class="material1-button-above-wrapper">
+            <a class="btn btn-outline-primary" href="/material1/dir/1/zip">
+                <span>
+                    <svg class="bi bi-download" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M.5 8a.5.5 0 01.5.5V12a1 1 0 001 1h12a1 1 0 001-1V8.5a.5.5 0 011 0V12a2 2 0 01-2 2H2a2 2 0 01-2-2V8.5A.5.5 0 01.5 8z"
+                              clip-rule="evenodd"/>
+                        <path fill-rule="evenodd"
+                              d="M5 7.5a.5.5 0 01.707 0L8 9.793 10.293 7.5a.5.5 0 11.707.707l-2.646 2.647a.5.5 0 01-.708 0L5 8.207A.5.5 0 015 7.5z"
+                              clip-rule="evenodd"/>
+                        <path fill-rule="evenodd" d="M8 1a.5.5 0 01.5.5v8a.5.5 0 01-1 0v-8A.5.5 0 018 1z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    Download
+                </span>
+            </a>
         </div>
 
         <!-- Path to the current folder -->
@@ -254,7 +280,7 @@ Content-Length: 14985
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/" method="post" id="material1-modal-edit-folder-form"><input type="hidden" name="_csrf" value="5d484080-25aa-461b-8f5c-7c52f929ca99"/>
+                    <form action="/" method="post" id="material1-modal-edit-folder-form"><input type="hidden" name="_csrf" value="38488b5a-22ab-425e-977c-828a9c49b01c"/>
                         <input type="hidden" name="originDirId" value="1">
                         <div class="form-group">
                             <label for="material1-modal-edit-folder-name" class="col-form-label">Ordnername:</label>
@@ -284,7 +310,7 @@ Content-Length: 14985
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/" method="post" id="material1-modal-edit-file-form"><input type="hidden" name="_csrf" value="5d484080-25aa-461b-8f5c-7c52f929ca99"/>
+                    <form action="/" method="post" id="material1-modal-edit-file-form"><input type="hidden" name="_csrf" value="38488b5a-22ab-425e-977c-828a9c49b01c"/>
                         <div class="form-group">
                             <label for="material1-modal-edit-file-name" class="col-form-label">
                                 Dateiname (ohne Dateiendung):
@@ -305,7 +331,7 @@ Content-Length: 14985
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="/material1/dir/1/create" method="post"><input type="hidden" name="_csrf" value="5d484080-25aa-461b-8f5c-7c52f929ca99"/>
+        <form class="input-group" action="/material1/dir/1/create" method="post"><input type="hidden" name="_csrf" value="38488b5a-22ab-425e-977c-828a9c49b01c"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -314,7 +340,7 @@ Content-Length: 14985
 
         <!-- Form to upload a new file to the folder -->
         <form class="input-group" action="/material1/dir/1/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="5d484080-25aa-461b-8f5c-7c52f929ca99"/>
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="38488b5a-22ab-425e-977c-828a9c49b01c"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">
