@@ -13,20 +13,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -56,23 +53,29 @@ class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
      */
     @BeforeEach
     void setup() throws MopsException {
+        Directory directory = Directory.builder()
+                .id(2L)
+                .name("Test Directory")
+                .permissions(0L)
+                .groupOwner(0L)
+                .build();
+
         fileContent = "test".getBytes(StandardCharsets.UTF_8);
         fileInfo = FileInfo.builder()
                 .name("file")
-                .directory(2L)
+                .directory(directory)
                 .type(MediaType.APPLICATION_OCTET_STREAM_VALUE)
                 .size(fileContent.length)
                 .owner("user")
                 .build();
 
-        Resource resource = new InputStreamResource(new ByteArrayInputStream(fileContent));
+        Resource resource = new ByteArrayResource(fileContent);
         FileContainer fileContainer = new FileContainer(fileInfo, resource);
 
         given(fileService.getFileInfo(any(), eq(1L))).willReturn(fileInfo);
         given(fileService.getFile(any(), eq(1L))).willReturn(fileContainer);
-        Directory dir = mock(Directory.class);
-        when(dir.getId()).thenReturn(2L);
-        given(fileService.deleteFile(any(), eq(1L))).willReturn(dir);
+        given(fileService.deleteFile(any(), eq(1L))).willReturn(directory);
+        given(fileService.renameFile(any(), eq(1L), any())).willReturn(directory);
     }
 
     /**
@@ -119,6 +122,23 @@ class FileControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
     void deleteFile() throws Exception {
         mockMvc().perform(post("/material1/file/{fileId}/delete", 1)
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect((redirectedUrl("/material1/dir/2")))
+                .andDo(document("index/FileController/{method-name}",
+                        pathParameters(
+                                parameterWithName("fileId").description("The file id.")
+                        )));
+    }
+
+    /**
+     * Tests if a user can rename a file.
+     */
+    @Test
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void renameFile() throws Exception {
+        mockMvc().perform(post("/material1/file/{fileId}/rename", 1)
+                .param("newName", "New Name")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect((redirectedUrl("/material1/dir/2")))

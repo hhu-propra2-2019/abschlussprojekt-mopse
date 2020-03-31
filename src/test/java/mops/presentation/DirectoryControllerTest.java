@@ -196,6 +196,24 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     }
 
     /**
+     * Tests the route after renaming a folder.
+     */
+    @Test
+    @WithMockKeycloackAuth(roles = "studentin", idToken = @WithIDToken(email = "user@mail.de"))
+    void renameFolder() throws Exception {
+        mockMvc().perform(post("/material1/dir/{dirId}/rename", 1)
+                .param("originDirId", String.valueOf(1L))
+                .param("newName", "New Name")
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/material1/dir/1"))
+                .andDo(document("index/DirectoryController/{method-name}",
+                        pathParameters(
+                                parameterWithName("dirId").description("The directory id.")
+                        )));
+    }
+
+    /**
      * Tests the route after searching a folder.
      */
     @Test
