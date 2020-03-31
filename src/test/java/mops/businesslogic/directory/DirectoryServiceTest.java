@@ -300,7 +300,7 @@ class DirectoryServiceTest {
     @Test
     void emptyName() {
         assertThatThrownBy(() -> {
-            directoryService.renameDirectory(admin, 1, "   ");
+            directoryService.renameDirectory(admin, 1, "");
         }).isInstanceOf(EmptyNameException.class);
     }
 

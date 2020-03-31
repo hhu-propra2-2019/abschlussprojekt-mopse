@@ -327,7 +327,7 @@ class FileServiceTest {
         long fileId = 17;
 
         assertThatThrownBy(() -> {
-            fileService.renameFile(account, fileId, "  ");
+            fileService.renameFile(account, fileId, "");
         }).isInstanceOf(EmptyNameException.class);
     }
 
