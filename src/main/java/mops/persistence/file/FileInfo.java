@@ -180,6 +180,7 @@ public class FileInfo {
      * @param time current time
      * @return if this file is available
      */
+    @SuppressWarnings("PMD.LawOfDemeter")
     public boolean isAvailable(Instant time) {
         Instant availableFrom = getAvailableFrom();
         Instant availableTo = getAvailableTo();

@@ -245,7 +245,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
     public List<FileInfo> getFilesOfDirectory(Account account, long dirId) throws MopsException {
         Directory directory = directoryService.getDirectory(dirId);
         UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
