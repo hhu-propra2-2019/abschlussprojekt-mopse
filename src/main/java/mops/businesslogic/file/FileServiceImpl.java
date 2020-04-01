@@ -8,6 +8,7 @@ import mops.businesslogic.exception.*;
 import mops.businesslogic.security.Account;
 import mops.businesslogic.security.SecurityService;
 import mops.businesslogic.security.UserPermission;
+import mops.businesslogic.time.TimeService;
 import mops.exception.MopsException;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
@@ -21,8 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Instant;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Handles requests to MinIO.
@@ -44,6 +47,10 @@ public class FileServiceImpl implements FileService {
      * Handle permission checks for roles.
      */
     private final SecurityService securityService;
+    /**
+     * Queries the time.
+     */
+    private final TimeService timeService;
     /**
      * File content repository.
      */
@@ -131,7 +138,13 @@ public class FileServiceImpl implements FileService {
         Directory directory = directoryService.getDirectory(fileInfo.getDirectoryId());
         UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
 
-        if (!userPermission.isRead()) {
+        boolean isOwner = fileInfo.getOwner().equals(account.getName());
+        boolean isAdmin = securityService.isUserAdmin(account, directory.getGroupOwner());
+        boolean isAvailable = fileInfo.isAvailable(timeService.getInstantNow());
+        boolean isPrivileged = isOwner || isAdmin;
+        boolean normalReadAllowed = userPermission.isRead() && isAvailable;
+
+        if (!isPrivileged && !normalReadAllowed) {
             log.error("User {} tried to read file {} without permission.",
                     account.getName(),
                     fileId
@@ -243,7 +256,13 @@ public class FileServiceImpl implements FileService {
             );
             throw new ReadAccessPermissionException("Keine Leseberechtigung");
         }
-        return fileInfoService.fetchAllFilesInDirectory(dirId);
+
+        boolean isAdmin = securityService.isUserAdmin(account, directory.getGroupOwner());
+        Instant now = timeService.getInstantNow();
+
+        return fileInfoService.fetchAllFilesInDirectory(dirId).stream()
+                .filter(file -> isAdmin || account.getName().equals(file.getOwner()) || file.isAvailable(now))
+                .collect(Collectors.toList());
     }
 
     /**
