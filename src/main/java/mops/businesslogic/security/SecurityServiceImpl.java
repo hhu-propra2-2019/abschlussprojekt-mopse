@@ -37,6 +37,12 @@ public class SecurityServiceImpl implements SecurityService {
     @Value("${material1.mops.configuration.role.admin}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
     private String adminRole = "admin";
+    /**
+     * Represents the role of the internal admin user.
+     */
+    @Value("${material1.mops.configuration.role.internal-admin}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
+    private String internalAdminRole = "material1_internal_admin";
 
     /**
      * {@inheritDoc}
@@ -85,7 +91,7 @@ public class SecurityServiceImpl implements SecurityService {
         DirectoryPermissions permissions = permissionService.getPermissions(directory);
         Group group = groupService.getGroup(directory.getGroupOwner());
 
-        String userRole = group.getMemberRole(account.getName());
+        String userRole = getUserRole(group, account);
 
         //this is not a violation of demeter's law
         boolean allowedToWrite = permissions.isAllowedToWrite(userRole);
@@ -110,7 +116,7 @@ public class SecurityServiceImpl implements SecurityService {
         DirectoryPermissions permissions = permissionService.getPermissions(directory);
         Group group = groupService.getGroup(directory.getGroupOwner());
 
-        String userRole = group.getMemberRole(account.getName());
+        String userRole = getUserRole(group, account);
 
         //this is not a violation of demeter's law
         boolean allowedToRead = permissions.isAllowedToRead(userRole);
@@ -136,7 +142,7 @@ public class SecurityServiceImpl implements SecurityService {
         DirectoryPermissions permissions = permissionService.getPermissions(directory);
         Group group = groupService.getGroup(directory.getGroupOwner());
 
-        String userRole = group.getMemberRole(account.getName());
+        String userRole = getUserRole(group, account);
 
         //this is not a violation of demeter's law
         boolean allowedToDelete = permissions.isAllowedToDelete(userRole);
@@ -176,7 +182,7 @@ public class SecurityServiceImpl implements SecurityService {
     public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {
         Group group = groupService.getGroup(groupId);
 
-        String userRole = group.getMemberRole(account.getName());
+        String userRole = getUserRole(group, account);
 
         if (!allowedRole.equals(userRole)) {
             log.error("The user '{}' does not have the required role '{}' in group with id {}.",
@@ -189,5 +195,17 @@ public class SecurityServiceImpl implements SecurityService {
                     groupId);
             throw new WriteAccessPermissionException(errorMessage);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn" })
+    public String getUserRole(Group group, Account account) {
+        if (account.getRoles().contains(internalAdminRole)) {
+            return adminRole;
+        }
+        return group.getMemberRole(account.getName());
     }
 }
