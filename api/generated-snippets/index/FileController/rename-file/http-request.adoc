@@ -4,5 +4,5 @@ POST /material1/file/1/rename HTTP/1.1
 Host: localhost:8080
 Content-Type: application/x-www-form-urlencoded
 
-newName=New+Name&_csrf=72206a48-ed14-4f73-9623-01e400f00dfe
+newName=New+Name&_csrf=a59f46d4-c788-447a-9756-78f45bd434a4
 ----

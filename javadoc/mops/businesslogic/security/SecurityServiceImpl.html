@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -224,6 +224,14 @@ implements <a href="SecurityService.html" title="interface in mops.businesslogic
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserRole(long,mops.businesslogic.security.Account)">getUserRole</a></span>&#8203;(long&nbsp;groupId,
+           <a href="Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account)</code></th>
+<td class="colLast">
+<div class="block">Get the role of a given user in a group.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isUserAdmin(mops.businesslogic.security.Account,long)">isUserAdmin</a></span>&#8203;(<a href="Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
            long&nbsp;groupId)</code></th>
@@ -387,7 +395,7 @@ implements <a href="SecurityService.html" title="interface in mops.businesslogic
 <a id="checkIfRole(mops.businesslogic.security.Account,long,java.lang.String)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>checkIfRole</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;checkIfRole&#8203;(<a href="Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
@@ -404,6 +412,29 @@ implements <a href="SecurityService.html" title="interface in mops.businesslogic
 <dd><code>allowedRole</code> - role which has the right</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code> - checked exception to present to UI</dd>
+</dl>
+</li>
+</ul>
+<a id="getUserRole(long,mops.businesslogic.security.Account)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getUserRole</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getUserRole&#8203;(long&nbsp;groupId,
+                                    <a href="Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account)
+                             throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
+<div class="block">Get the role of a given user in a group.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SecurityService.html#getUserRole(long,mops.businesslogic.security.Account)">getUserRole</a></code>&nbsp;in interface&nbsp;<code><a href="SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupId</code> - group to check</dd>
+<dd><code>account</code> - given user</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>user role</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>
 </li>
 </ul>

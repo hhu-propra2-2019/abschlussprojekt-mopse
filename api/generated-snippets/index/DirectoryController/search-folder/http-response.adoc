@@ -22,7 +22,7 @@ Content-Length: 9985
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="974d88e8-d025-45a6-95a0-8f2ea885c8a2"/>
+        <meta name="_csrf" content="3dd3c20b-c56a-41fe-b36f-64b4c7347701"/>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -146,7 +146,7 @@ Content-Length: 9985
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="974d88e8-d025-45a6-95a0-8f2ea885c8a2"/>
+              method="post"><input type="hidden" name="_csrf" value="3dd3c20b-c56a-41fe-b36f-64b4c7347701"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="cv">
