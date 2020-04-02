@@ -1,8 +1,9 @@
-package mops.businesslogic.file;
+package mops.businesslogic;
 
-import mops.businesslogic.GarbageCollector;
 import mops.businesslogic.directory.DeleteService;
 import mops.businesslogic.directory.DirectoryService;
+import mops.businesslogic.file.FileInfoService;
+import mops.businesslogic.file.FileServiceImpl;
 import mops.businesslogic.group.GroupService;
 import mops.exception.MopsException;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,7 +57,7 @@ class GarbageCollectorTest {
 
         garbageCollector.removeOrphanedFiles();
 
-        verify(fileService, times(1)).deleteFile(6);
+        verify(fileService, times(1)).deleteFileWithoutMeta(6);
         verify(fileInfoService, times(1)).deleteFileInfo(2);
 
         for (Long fileId : givenFileIds) {
@@ -64,7 +65,7 @@ class GarbageCollectorTest {
         }
 
         for (Long metaId : givenMetaIds) {
-            verify(fileService, never()).deleteFile(metaId);
+            verify(fileService, never()).deleteFileWithoutMeta(metaId);
         }
     }
 }

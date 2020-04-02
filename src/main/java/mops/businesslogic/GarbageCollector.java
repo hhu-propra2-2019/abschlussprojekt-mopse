@@ -2,14 +2,21 @@ package mops.businesslogic;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mops.businesslogic.directory.DeleteService;
+import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.file.FileInfoService;
 import mops.businesslogic.file.FileService;
+import mops.businesslogic.group.GroupService;
+import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
+import mops.persistence.directory.Directory;
+import mops.persistence.group.Group;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,15 +41,35 @@ public class GarbageCollector {
      * FileService.
      */
     private final FileService fileService;
+    /**
+     * DeleteService.
+     */
+    private final DeleteService deleteService;
+    /**
+     * GroupService.
+     */
+    private final GroupService groupService;
+    /**
+     * DirectoryService.
+     */
+    private final DirectoryService directoryService;
+
+    /**
+     * Starts garbage collection.
+     */
+    @Scheduled(fixedDelay = ONE_DAY)
+    public void garbageCollection() {
+        log.info("Starting garbage collection.");
+        removeOrphanedFiles();
+        removeOrphanedDirs();
+        log.info("Garbage collection finished.");
+    }
 
     /**
      * Collects all IDs, find orphans and delete them.
      */
-    @Scheduled(fixedDelay = ONE_DAY)
     @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn" })
-    public void removeOrphans() {
-        log.info("Starting garbage collection.");
-
+    public void removeOrphanedFiles() {
         Set<Long> metaIds;
         Set<Long> fileIds;
         Set<Long> filesWithoutDirectory;
@@ -81,18 +108,52 @@ public class GarbageCollector {
             }
 
             for (Long fileId : fileIds) {
-                fileService.deleteFile(fileId);
+                fileService.deleteFileWithoutMeta(fileId);
                 log.debug("Removed orphaned File with ID {}", fileId);
 
             }
 
             for (Long fileId : filesWithoutDirectory) {
                 fileInfoService.deleteFileInfo(fileId);
-                fileService.deleteFile(fileId);
+                fileService.deleteFileWithoutMeta(fileId);
                 log.debug("Removed orphaned File with ID {} from non existing directory", fileId);
             }
         } catch (MopsException e) {
             log.error("There was an error while removing orphans:", e);
         }
+    }
+
+
+    /**
+     * Looks for all groups in our database and existing directories.
+     * Removes all directories without an existing group.
+     */
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.LawOfDemeter" })
+    public void removeOrphanedDirs() {
+        Set<Long> groupIdsFromGroups = new HashSet<>();
+        Set<Long> groupIdsFromDirectories = new HashSet<>();
+
+        try {
+            List<Group> allGroups = groupService.getAllGroups();
+            List<Directory> allRootDirectories = directoryService.getAllRootDirectories();
+            allGroups.forEach(g -> groupIdsFromGroups.add(g.getId()));
+            allRootDirectories.forEach(r -> groupIdsFromDirectories.add(r.getGroupOwner()));
+        } catch (MopsException e) {
+            log.error("Error on retrieving all groups", e);
+            return;
+        }
+
+        Set<Long> intersection = new HashSet<>(groupIdsFromGroups);
+        intersection.retainAll(groupIdsFromDirectories);
+        // only orphans left
+        groupIdsFromDirectories.removeAll(intersection);
+
+        groupIdsFromDirectories.forEach(group -> {
+            try {
+                deleteService.deleteFolder(gbAccount, group);
+            } catch (MopsException e) {
+                log.error("Couldn't remove orphaned root dir with id {}", group, e);
+            }
+        });
     }
 }
