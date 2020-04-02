@@ -2,7 +2,6 @@ package mops.businesslogic.security;
 
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
-import mops.persistence.group.Group;
 import org.springframework.stereotype.Service;
 
 /**
@@ -69,10 +68,10 @@ public interface SecurityService {
     /**
      * Get the role of a given user in a group.
      *
-     * @param group   group to check
+     * @param groupId group to check
      * @param account given user
      * @return user role
      */
-    String getUserRole(Group group, Account account);
+    String getUserRole(long groupId, Account account) throws MopsException;
 
 }

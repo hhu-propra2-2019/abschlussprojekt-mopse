@@ -89,9 +89,7 @@ public class SecurityServiceImpl implements SecurityService {
     @SuppressWarnings("PMD.LawOfDemeter")
     public void checkWritePermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions permissions = permissionService.getPermissions(directory);
-        Group group = groupService.getGroup(directory.getGroupOwner());
-
-        String userRole = getUserRole(group, account);
+        String userRole = getUserRole(directory.getGroupOwner(), account);
 
         //this is not a violation of demeter's law
         boolean allowedToWrite = permissions.isAllowedToWrite(userRole);
@@ -114,9 +112,7 @@ public class SecurityServiceImpl implements SecurityService {
     @SuppressWarnings("PMD.LawOfDemeter")
     public void checkReadPermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions permissions = permissionService.getPermissions(directory);
-        Group group = groupService.getGroup(directory.getGroupOwner());
-
-        String userRole = getUserRole(group, account);
+        String userRole = getUserRole(directory.getGroupOwner(), account);
 
         //this is not a violation of demeter's law
         boolean allowedToRead = permissions.isAllowedToRead(userRole);
@@ -140,9 +136,7 @@ public class SecurityServiceImpl implements SecurityService {
     @SuppressWarnings("PMD.LawOfDemeter")
     public void checkDeletePermission(Account account, Directory directory) throws MopsException {
         DirectoryPermissions permissions = permissionService.getPermissions(directory);
-        Group group = groupService.getGroup(directory.getGroupOwner());
-
-        String userRole = getUserRole(group, account);
+        String userRole = getUserRole(directory.getGroupOwner(), account);
 
         //this is not a violation of demeter's law
         boolean allowedToDelete = permissions.isAllowedToDelete(userRole);
@@ -180,9 +174,7 @@ public class SecurityServiceImpl implements SecurityService {
     @Override
     @SuppressWarnings("PMD.LawOfDemeter")
     public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {
-        Group group = groupService.getGroup(groupId);
-
-        String userRole = getUserRole(group, account);
+        String userRole = getUserRole(groupId, account);
 
         if (!allowedRole.equals(userRole)) {
             log.error("The user '{}' does not have the required role '{}' in group with id {}.",
@@ -202,10 +194,12 @@ public class SecurityServiceImpl implements SecurityService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn" })
-    public String getUserRole(Group group, Account account) {
+    public String getUserRole(long groupId, Account account) throws MopsException {
         if (account.getRoles().contains(internalAdminRole)) {
             return adminRole;
         }
+
+        Group group = groupService.getGroup(groupId);
         return group.getMemberRole(account.getName());
     }
 }
