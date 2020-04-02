@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -156,97 +156,111 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#availableFrom(java.time.Instant)">availableFrom</a></span>&#8203;(java.time.Instant&nbsp;availableFrom)</code></th>
+<td class="colLast">
+<div class="block">Set the available from time.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#availableTo(java.time.Instant)">availableTo</a></span>&#8203;(java.time.Instant&nbsp;availableTo)</code></th>
+<td class="colLast">
+<div class="block">Set the available to time.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="FileInfo.html" title="class in mops.persistence.file">FileInfo</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#build()">build</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Builds the FileInfo.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#directory(long)">directory</a></span>&#8203;(long&nbsp;directoryId)</code></th>
 <td class="colLast">
 <div class="block">Set directory.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#directory(mops.persistence.directory.Directory)">directory</a></span>&#8203;(@NonNull <a href="../directory/Directory.html" title="class in mops.persistence.directory">Directory</a>&nbsp;directory)</code></th>
 <td class="colLast">
 <div class="block">Set directory.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#from(mops.persistence.file.FileInfo)">from</a></span>&#8203;(@NonNull <a href="FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&nbsp;file)</code></th>
 <td class="colLast">
 <div class="block">Initialize from existing FileInfo.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#from(org.springframework.web.multipart.MultipartFile)">from</a></span>&#8203;(@NonNull org.springframework.web.multipart.MultipartFile&nbsp;file)</code></th>
 <td class="colLast">
 <div class="block">Initialize from existing MultipartFile.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#id(java.lang.Long)">id</a></span>&#8203;(java.lang.Long&nbsp;id)</code></th>
 <td class="colLast">
 <div class="block">Set id.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#id(mops.persistence.file.FileInfo)">id</a></span>&#8203;(<a href="FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&nbsp;fileInfo)</code></th>
 <td class="colLast">
 <div class="block">Set id from existing FileInfo.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#name(java.lang.String)">name</a></span>&#8203;(@NonNull java.lang.String&nbsp;name)</code></th>
 <td class="colLast">
 <div class="block">Set name.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#owner(java.lang.String)">owner</a></span>&#8203;(@NonNull java.lang.String&nbsp;owner)</code></th>
 <td class="colLast">
 <div class="block">Set owner.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#size(long)">size</a></span>&#8203;(long&nbsp;size)</code></th>
 <td class="colLast">
 <div class="block">Set size.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tag(java.lang.String)">tag</a></span>&#8203;(@NonNull java.lang.String&nbsp;tag)</code></th>
 <td class="colLast">
 <div class="block">Add tag.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tags(java.lang.Iterable)">tags</a></span>&#8203;(@NonNull java.lang.Iterable&lt;java.lang.String&gt;&nbsp;tags)</code></th>
 <td class="colLast">
 <div class="block">Add tags.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tags(java.lang.String...)">tags</a></span>&#8203;(@NonNull java.lang.String...&nbsp;tags)</code></th>
 <td class="colLast">
 <div class="block">Add tags.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code><a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#type(java.lang.String)">type</a></span>&#8203;(@NonNull java.lang.String&nbsp;type)</code></th>
 <td class="colLast">
@@ -489,6 +503,38 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>tags</code> - tags</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this</dd>
+</dl>
+</li>
+</ul>
+<a id="availableFrom(java.time.Instant)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>availableFrom</h4>
+<pre class="methodSignature">public&nbsp;<a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a>&nbsp;availableFrom&#8203;(java.time.Instant&nbsp;availableFrom)</pre>
+<div class="block">Set the available from time.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>availableFrom</code> - available from time</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this</dd>
+</dl>
+</li>
+</ul>
+<a id="availableTo(java.time.Instant)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>availableTo</h4>
+<pre class="methodSignature">public&nbsp;<a href="FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a>&nbsp;availableTo&#8203;(java.time.Instant&nbsp;availableTo)</pre>
+<div class="block">Set the available to time.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>availableTo</code> - available to time</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>this</dd>
 </dl>

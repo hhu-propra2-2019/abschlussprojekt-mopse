@@ -115,6 +115,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Interface for marking a class with Aggregate Root for testing.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfoBuilder.html#availableFrom(java.time.Instant)">availableFrom(Instant)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></dt>
+<dd>
+<div class="block">Set the available from time.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfoBuilder.html#availableTo(java.time.Instant)">availableTo(Instant)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfoBuilder.html" title="class in mops.persistence.file">FileInfoBuilder</a></dt>
+<dd>
+<div class="block">Set the available to time.</div>
+</dd>
 </dl>
 <a id="I:B">
 <!--   -->
@@ -653,7 +661,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Handles requests to MinIO.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileServiceImpl.html#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileInfoService,mops.businesslogic.security.SecurityService,mops.persistence.FileRepository)">FileServiceImpl(DirectoryService, FileInfoService, SecurityService, FileRepository)</a></span> - Constructor for class mops.businesslogic.file.<a href="mops/businesslogic/file/FileServiceImpl.html" title="class in mops.businesslogic.file">FileServiceImpl</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileServiceImpl.html#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileInfoService,mops.businesslogic.security.SecurityService,mops.businesslogic.time.TimeService,mops.persistence.FileRepository)">FileServiceImpl(DirectoryService, FileInfoService, SecurityService, TimeService, FileRepository)</a></span> - Constructor for class mops.businesslogic.file.<a href="mops/businesslogic/file/FileServiceImpl.html" title="class in mops.businesslogic.file">FileServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/FileInfoRepository.html#findAllIds()">findAllIds()</a></span> - Method in interface mops.persistence.<a href="mops/persistence/FileInfoRepository.html" title="interface in mops.persistence">FileInfoRepository</a></dt>
 <dd>
@@ -758,6 +766,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/persistence/DirectoryRepository.html#getAllSubFoldersOfParent(long)">getAllSubFoldersOfParent(long)</a></span> - Method in interface mops.persistence.<a href="mops/persistence/DirectoryRepository.html" title="interface in mops.persistence">DirectoryRepository</a></dt>
 <dd>
 <div class="block">Gets all sub folders.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#getAvailableFrom()">getAvailableFrom()</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
+<dd>
+<div class="block">Get the available from time.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#getAvailableTo()">getAvailableTo()</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
+<dd>
+<div class="block">Get the available to time.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/config/FileRepositoryConfig.html#getBucketName()">getBucketName()</a></span> - Method in class mops.persistence.config.<a href="mops/persistence/config/FileRepositoryConfig.html" title="class in mops.persistence.config">FileRepositoryConfig</a></dt>
 <dd>
@@ -959,6 +975,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileContainer.html#getInfo()">getInfo()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileContainer.html" title="class in mops.businesslogic.file">FileContainer</a></dt>
 <dd>
 <div class="block">contains info of file.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/time/TimeService.html#getInstantNow()">getInstantNow()</a></span> - Method in interface mops.businesslogic.time.<a href="mops/businesslogic/time/TimeService.html" title="interface in mops.businesslogic.time">TimeService</a></dt>
+<dd>
+<div class="block">Get the current Instant time.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/time/TimeServiceImpl.html#getInstantNow()">getInstantNow()</a></span> - Method in class mops.businesslogic.time.<a href="mops/businesslogic/time/TimeServiceImpl.html" title="class in mops.businesslogic.time">TimeServiceImpl</a></dt>
+<dd>
+<div class="block">Get the current Instant time.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/directory/Directory.html#getLastModifiedTime()">getLastModifiedTime()</a></span> - Method in class mops.persistence.directory.<a href="mops/persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></dt>
 <dd>
@@ -1462,6 +1486,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Checks if a role has writing access.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#isAvailable(java.time.Instant)">isAvailable(Instant)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
+<dd>
+<div class="block">Tests whether this file is available at the given time.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/UserPermission.html#isDelete()">isDelete()</a></span> - Method in class mops.businesslogic.security.<a href="mops/businesslogic/security/UserPermission.html" title="class in mops.businesslogic.security">UserPermission</a></dt>
 <dd>
 <div class="block">Delete permission flag.</div>
@@ -1627,6 +1655,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="mops/businesslogic/security/package-summary.html">mops.businesslogic.security</a> - package mops.businesslogic.security</dt>
 <dd>
 <div class="block">Services and utilities that work with security, permissions and authentication.</div>
+</dd>
+<dt><a href="mops/businesslogic/time/package-summary.html">mops.businesslogic.time</a> - package mops.businesslogic.time</dt>
+<dd>
+<div class="block">Package for time querying services.</div>
 </dd>
 <dt><a href="mops/config/package-summary.html">mops.config</a> - package mops.config</dt>
 <dd>
@@ -2199,6 +2231,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Add tags.</div>
 </dd>
+<dt><a href="mops/businesslogic/time/TimeService.html" title="interface in mops.businesslogic.time"><span class="typeNameLink">TimeService</span></a> - Interface in <a href="mops/businesslogic/time/package-summary.html">mops.businesslogic.time</a></dt>
+<dd>
+<div class="block">Queries the time.</div>
+</dd>
+<dt><a href="mops/businesslogic/time/TimeServiceImpl.html" title="class in mops.businesslogic.time"><span class="typeNameLink">TimeServiceImpl</span></a> - Class in <a href="mops/businesslogic/time/package-summary.html">mops.businesslogic.time</a></dt>
+<dd>
+<div class="block">Queries the time.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/time/TimeServiceImpl.html#%3Cinit%3E()">TimeServiceImpl()</a></span> - Constructor for class mops.businesslogic.time.<a href="mops/businesslogic/time/TimeServiceImpl.html" title="class in mops.businesslogic.time">TimeServiceImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/presentation/Material1Controller.html#topIndex()">topIndex()</a></span> - Method in class mops.presentation.<a href="mops/presentation/Material1Controller.html" title="class in mops.presentation">Material1Controller</a></dt>
 <dd>
 <div class="block">Top Index Route.</div>

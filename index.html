@@ -1160,17 +1160,16 @@ Darstellung nach gleichem Schema wie zuvor.</em></p>
 <p><strong>Erklärung:</strong></p>
 </div>
 <div class="paragraph">
-<p>Von der HTML Presentation aus wird je nach Route ein bestimmter Controller in der Presentation Layer
-angesteuert. Jeder Controller repräsentiert damit einen Routenanfang <code>/material1/{routenBeginn}</code>.
+<p>Von der HTML Presentation aus wird je nach Route ein bestimmter Controller in der Presentation Layer angesteuert.
+Jeder Controller repräsentiert damit einen Routenanfang <code>/material1/{routenBeginn}</code>.
 Hierdurch werden zu große Controller vermieden und Übersicht geschaffen.</p>
 </div>
 <div class="paragraph">
-<p>Die Services der Business Layer bearbeiten die Anfragen der Controller und stellen diese die angefragten Daten zur
-Verfügung. Die von ihnen benötigten Daten holen sie sich wiederum von der Persitence Layer.</p>
+<p>Die Services der Business Layer bearbeiten die Anfragen der Controller und stellen diese die angefragten Daten zur Verfügung.
+Die von ihnen benötigten Daten holen sie sich wiederum von der Persitence Layer.</p>
 </div>
 <div class="paragraph">
-<p>In der Persistence Layer liegen die Repositorys, die im Prinzip direkte Schnittstellen zwischen den Anfragen der
-Services und der Database Layer darstellen.
+<p>In der Persistence Layer liegen die Repositorys, die im Prinzip direkte Schnittstellen zwischen den Anfragen der Services und der Database Layer darstellen.
 Sie verarbeiten also deren Anfragen und leiten sie an die Database Layer weiter.</p>
 </div>
 <div class="paragraph">
@@ -1270,7 +1269,7 @@ Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FileService</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Verwaltet die Funktionen einer Datei. Dabei wird die Datei selbst mit ihren Metadaten verknüpft. Ermöglicht außerdem das Löschen von Dateien.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Mittels einer Anfrage an den <code>FileInfoService</code> werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das <code>FileRepository</code> gestellt werden, um die Datei selbst zu erhalten. Berechtigungen werden mittels des <code>DirectoryService</code> und des <code>SecurityService</code> überprüft.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Mittels einer Anfrage an den <code>FileInfoService</code> werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das <code>FileRepository</code> gestellt werden, um die Datei selbst zu erhalten. Berechtigungen werden mittels des <code>DirectoryService</code> und des <code>SecurityService</code> überprüft. Der Verfügbarkeitszeitraum der Dateien wird mittels des <code>TimeService</code> überprüft.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GarbageCollector</p></td>
@@ -1317,6 +1316,11 @@ Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ZipService</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Zippt einen Ordner.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Die Informationen dazu bekommt er vom <code>DirectoryService</code> und <code>FileService</code>.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TimeService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt die aktuelle Zeit bereit.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Befragt die Java Zeit-API nach der aktuellen Zeit.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -2063,7 +2067,7 @@ keine Fehler während der Entwicklung übersehen werden.</p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-31 12:35:47 UTC
+Last updated 2020-04-02 09:44:06 UTC
 </div>
 </div>
 </body>
