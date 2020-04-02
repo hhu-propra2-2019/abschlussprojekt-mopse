@@ -1,6 +1,9 @@
 package mops.businesslogic.file;
 
 import mops.businesslogic.GarbageCollector;
+import mops.businesslogic.directory.DeleteService;
+import mops.businesslogic.directory.DirectoryService;
+import mops.businesslogic.group.GroupService;
 import mops.exception.MopsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,13 +22,23 @@ class GarbageCollectorTest {
     FileServiceImpl fileService;
     @Mock
     FileInfoService fileInfoService;
+    @Mock
+    DeleteService deleteService;
+    @Mock
+    GroupService groupService;
+    @Mock
+    DirectoryService directoryService;
 
     GarbageCollector garbageCollector;
 
 
     @BeforeEach
     void prepare() {
-        garbageCollector = new GarbageCollector(fileInfoService, fileService);
+        garbageCollector = new GarbageCollector(fileInfoService,
+                fileService,
+                deleteService,
+                groupService,
+                directoryService);
     }
 
     @Test
@@ -41,7 +54,7 @@ class GarbageCollectorTest {
                 .when(fileInfoService)
                 .fetchAllFileInfoIds();
 
-        garbageCollector.removeOrphans();
+        garbageCollector.removeOrphanedFiles();
 
         verify(fileService, times(1)).deleteFile(6);
         verify(fileInfoService, times(1)).deleteFileInfo(2);
