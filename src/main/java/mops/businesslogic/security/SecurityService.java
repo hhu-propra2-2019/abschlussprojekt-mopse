@@ -65,4 +65,13 @@ public interface SecurityService {
      */
     void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException;
 
+    /**
+     * Get the role of a given user in a group.
+     *
+     * @param groupId group to check
+     * @param account given user
+     * @return user role
+     */
+    String getUserRole(long groupId, Account account) throws MopsException;
+
 }
