@@ -8,8 +8,10 @@ import mops.businesslogic.exception.WriteAccessPermissionException;
 import mops.businesslogic.security.Account;
 import mops.businesslogic.security.SecurityService;
 import mops.businesslogic.security.UserPermission;
+import mops.businesslogic.time.TimeService;
 import mops.exception.MopsException;
 import mops.persistence.FileRepository;
+import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Random;
 import java.util.Set;
 
@@ -35,6 +39,8 @@ class FileServiceTest {
     FileInfoService fileInfoService;
     @Mock
     SecurityService securityService;
+    @Mock
+    TimeService timeService;
     @Mock
     FileRepository fileRepository;
 
@@ -53,7 +59,8 @@ class FileServiceTest {
                 getRandomBytes()
         );
         account = Account.of("user1234", "mail", Set.of());
-        fileService = new FileServiceImpl(directoryService, fileInfoService, securityService, fileRepository);
+        fileService = new FileServiceImpl(directoryService, fileInfoService, securityService, timeService,
+                fileRepository);
     }
 
     @Test
@@ -112,14 +119,14 @@ class FileServiceTest {
                 .when(securityService)
                 .getPermissionsOfUser(eq(account), any());
 
-        FileInfo fileInfoStub = FileInfo.builder()
-                .from(file)
+        FileInfo file = FileInfo.builder()
+                .from(this.file)
                 .id(fileId)
                 .directory(dirId)
                 .owner(account.getName()) // account is owner
                 .build();
 
-        doReturn(fileInfoStub)
+        doReturn(file)
                 .when(fileInfoService)
                 .fetchFileInfo(fileId);
 
@@ -188,6 +195,8 @@ class FileServiceTest {
 
     @Test
     void noPermissionToRetrieveFile() throws MopsException {
+        long groupId = 2;
+        long permId = 54;
         long dirId = 1;
         long fileId = 17;
 
@@ -196,16 +205,78 @@ class FileServiceTest {
                 .when(securityService)
                 .getPermissionsOfUser(eq(account), any());
 
+        Directory directory = Directory.builder()
+                .id(dirId)
+                .name("Test Dir")
+                .groupOwner(groupId)
+                .permissions(permId)
+                .build();
+
         FileInfo fileInfoStub = FileInfo.builder()
                 .from(file)
                 .id(fileId)
-                .directory(dirId)
+                .directory(directory)
                 .owner("notUser1234") // irrelevant here
                 .build();
+
+        doReturn(directory)
+                .when(directoryService)
+                .getDirectory(dirId);
 
         doReturn(fileInfoStub)
                 .when(fileInfoService)
                 .fetchFileInfo(fileId);
+
+        doReturn(LocalDateTime.of(2019, 12, 31, 0, 0).toInstant(ZoneOffset.UTC))
+                .when(timeService)
+                .getInstantNow();
+
+        assertThatThrownBy(() -> {
+            fileService.getFile(account, fileId);
+        }).isInstanceOf(ReadAccessPermissionException.class);
+
+        verify(fileInfoService, atLeastOnce()).fetchFileInfo(fileId);
+        verify(fileRepository, never()).getFileContent(fileId);
+    }
+
+    @Test
+    void outOfAvailabilityRetrieveFile() throws MopsException {
+        long groupId = 2;
+        long permId = 54;
+        long dirId = 1;
+        long fileId = 17;
+
+        UserPermission userPermission = new UserPermission(true, false, false);
+        doReturn(userPermission)
+                .when(securityService)
+                .getPermissionsOfUser(eq(account), any());
+
+        Directory directory = Directory.builder()
+                .id(dirId)
+                .name("Test Dir")
+                .groupOwner(groupId)
+                .permissions(permId)
+                .build();
+
+        FileInfo fileInfoStub = FileInfo.builder()
+                .from(file)
+                .id(fileId)
+                .directory(directory)
+                .owner("notUser1234") // irrelevant here
+                .availableFrom(LocalDateTime.of(2020, 1, 1, 0, 0).toInstant(ZoneOffset.UTC))
+                .build();
+
+        doReturn(directory)
+                .when(directoryService)
+                .getDirectory(dirId);
+
+        doReturn(fileInfoStub)
+                .when(fileInfoService)
+                .fetchFileInfo(fileId);
+
+        doReturn(LocalDateTime.of(2019, 12, 31, 0, 0).toInstant(ZoneOffset.UTC))
+                .when(timeService)
+                .getInstantNow();
 
         assertThatThrownBy(() -> {
             fileService.getFile(account, fileId);
@@ -217,6 +288,8 @@ class FileServiceTest {
 
     @Test
     void canRetrieveFile() throws MopsException, IOException {
+        long groupId = 2;
+        long permId = 54;
         long dirId = 1;
         long fileId = 17;
 
@@ -225,12 +298,23 @@ class FileServiceTest {
                 .when(securityService)
                 .getPermissionsOfUser(eq(account), any());
 
+        Directory directory = Directory.builder()
+                .id(dirId)
+                .name("Test Dir")
+                .groupOwner(groupId)
+                .permissions(permId)
+                .build();
+
         FileInfo fileInfoStub = FileInfo.builder()
                 .from(file)
                 .id(fileId)
-                .directory(dirId)
+                .directory(directory)
                 .owner("notUser1234")
                 .build();
+
+        doReturn(directory)
+                .when(directoryService)
+                .getDirectory(dirId);
 
         doReturn(fileInfoStub)
                 .when(fileInfoService)
@@ -239,6 +323,10 @@ class FileServiceTest {
         doReturn(file.getInputStream())
                 .when(fileRepository)
                 .getFileContent(fileId);
+
+        doReturn(LocalDateTime.of(2019, 12, 31, 0, 0).toInstant(ZoneOffset.UTC))
+                .when(timeService)
+                .getInstantNow();
 
         FileContainer fileContainer = fileService.getFile(account, fileId);
 

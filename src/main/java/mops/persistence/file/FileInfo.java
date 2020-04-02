@@ -65,6 +65,16 @@ public class FileInfo {
      * Creation Time.
      */
     @Setter(AccessLevel.PRIVATE)
+    private Timestamp availableFrom;
+    /**
+     * Creation Time.
+     */
+    @Setter(AccessLevel.PRIVATE)
+    private Timestamp availableTo;
+    /**
+     * Creation Time.
+     */
+    @Setter(AccessLevel.PRIVATE)
     @EqualsAndHashCode.Exclude
     @CreatedDate
     private Timestamp creationTime;
@@ -96,6 +106,24 @@ public class FileInfo {
         return tags.stream()
                 .anyMatch(tag -> tag.getName().toLowerCase(Locale.ROOT)
                         .contains(otherTag.toLowerCase(Locale.ROOT)));
+    }
+
+    /**
+     * Get the available from time.
+     *
+     * @return available from time
+     */
+    public Instant getAvailableFrom() {
+        return availableFrom == null ? null : availableFrom.toInstant();
+    }
+
+    /**
+     * Get the available to time.
+     *
+     * @return available to time
+     */
+    public Instant getAvailableTo() {
+        return availableTo == null ? null : availableTo.toInstant();
     }
 
     /**
@@ -144,5 +172,20 @@ public class FileInfo {
             suffix = "GiB";
         }
         return String.format("%.2f %s", result, suffix);
+    }
+
+    /**
+     * Tests whether this file is available at the given time.
+     *
+     * @param time current time
+     * @return if this file is available
+     */
+    @SuppressWarnings("PMD.LawOfDemeter")
+    public boolean isAvailable(Instant time) {
+        Instant availableFrom = getAvailableFrom();
+        Instant availableTo = getAvailableTo();
+
+        return (availableFrom == null || availableFrom.compareTo(time) <= 0)
+                && (availableTo == null || availableTo.compareTo(time) >= 0);
     }
 }
