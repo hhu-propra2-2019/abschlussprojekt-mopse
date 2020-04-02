@@ -373,4 +373,12 @@ public class DirectoryServiceImpl implements DirectoryService {
         directory.setName(newName);
         return directoryRepository.save(directory);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Directory> getAllRootDirectories() {
+        return directoryRepository.getAllRootDirectories();
+    }
 }
