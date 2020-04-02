@@ -172,7 +172,6 @@ public class SecurityServiceImpl implements SecurityService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
     public void checkIfRole(Account account, long groupId, String allowedRole) throws MopsException {
         String userRole = getUserRole(groupId, account);
 
