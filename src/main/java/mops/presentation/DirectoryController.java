@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DeleteService;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.directory.ZipService;
+import mops.businesslogic.file.FileListEntry;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.permission.PermissionService;
@@ -92,7 +93,7 @@ public class DirectoryController {
         try {
             Directory directory = directoryService.getDirectory(dirId);
             List<Directory> directories = directoryService.getSubFolders(account, dirId);
-            List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+            List<FileListEntry> files = fileService.getFilesOfDirectory(account, dirId);
             UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
             List<Directory> dirPath = directoryService.getDirectoryPath(dirId);
             boolean admin = securityService.isUserAdmin(account, directory.getGroupOwner());
