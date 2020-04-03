@@ -221,7 +221,7 @@
                 <td th:text="${#temporals.format(file.creationTime, 'dd.MM.yyyy - HH:mm')}">%Datum%</td>
                 <td th:text="${file.type}">%Typ%</td>
                 <td th:text="${file.owner}">%Owner%</td>
-                <td th:text="${file.getSizeString()}">%Größe%</td>
+                <td th:text="${file.sizeString}">%Größe%</td>
                 <td>
                     <div class="dropdown">
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
@@ -258,7 +258,7 @@
                                     Öffne Dateipfad
                                 </a>
                             </div>
-                            <div th:if="${writePermission && (deletePermission || file.owner == account.name)}">
+                            <div th:if="${file.edit}">
                                 <button type="button" class="dropdown-item material1-file-rename" data-toggle="modal"
                                         data-target="#material1-modal-edit-file"
                                         th:data-modal-form-action="@{/material1/file/{fileId}/rename(fileId = ${file.id})}"
@@ -266,7 +266,7 @@
                                     Bearbeiten
                                 </button>
                             </div>
-                            <form th:if="${deletePermission || file.owner == account.name}" action="#"
+                            <form th:if="${file.delete}" action="#"
                                   th:action="@{/material1/file/{fileId}/delete(fileId = ${file.id})}" th:method="post"
                                   onsubmit="return confirm('Diese Aktion kann nicht rückgangig gemacht werden. Soll die Datei wirklich gelöscht werden?');">
                                 <button class="dropdown-item text-danger" type="submit">Löschen</button>

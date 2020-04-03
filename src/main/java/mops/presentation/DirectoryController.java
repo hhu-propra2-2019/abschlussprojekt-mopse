@@ -9,12 +9,12 @@ import mops.businesslogic.file.FileListEntry;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.permission.PermissionService;
+import mops.businesslogic.search.SearchService;
 import mops.businesslogic.security.Account;
 import mops.businesslogic.security.SecurityService;
 import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
-import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.presentation.error.ExceptionPresentationError;
 import mops.presentation.form.EditDirectoryForm;
@@ -68,6 +68,10 @@ public class DirectoryController {
      * Deletes files and directories.
      */
     private final DeleteService deleteService;
+    /**
+     * Searches files.
+     */
+    private final SearchService searchService;
     /**
      * Zips a directory.
      */
@@ -294,7 +298,7 @@ public class DirectoryController {
         FileQuery query = queryForm.toQuery();
 
         try {
-            List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
+            List<FileListEntry> files = searchService.searchFolder(account, dirId, query);
             Directory directory = directoryService.getDirectory(dirId);
 
             model.addAttribute("directory", directory);

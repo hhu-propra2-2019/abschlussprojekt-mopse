@@ -232,58 +232,6 @@ class DirectoryServiceTest {
     }
 
     @Test
-    void searchFolderTest() throws MopsException {
-        FileQuery query = FileQuery.builder()
-                .name("a")
-                .build();
-
-        FileInfo matchingFile1 = fileInfoRepository.save(
-                FileInfo.builder()
-                        .name("a")
-                        .directory(root)
-                        .type("txt")
-                        .size(0L)
-                        .owner(VIEWER)
-                        .build()
-        );
-
-        Directory child = directoryService.createFolder(admin, root.getId(), "child");
-
-        FileInfo matchingFile2 = fileInfoRepository.save(
-                FileInfo.builder()
-                        .name("ab")
-                        .directory(child)
-                        .type("txt")
-                        .size(0L)
-                        .owner(VIEWER)
-                        .build()
-        );
-
-        fileInfoRepository.save(
-                FileInfo.builder()
-                        .name("b")
-                        .directory(root)
-                        .type("txt")
-                        .size(0L)
-                        .owner(VIEWER)
-                        .build()
-        );
-
-        List<FileInfo> fileInfos = directoryService.searchFolder(user, root.getId(), query);
-
-        assertThat(fileInfos).containsExactlyInAnyOrder(matchingFile1, matchingFile2);
-    }
-
-    @Test
-    void searchFolderWithoutPermissionTest() {
-        FileQuery fileQuery = FileQuery.builder()
-                .build();
-
-        assertThatExceptionOfType(ReadAccessPermissionException.class)
-                .isThrownBy(() -> directoryService.searchFolder(intruder, root.getId(), fileQuery));
-    }
-
-    @Test
     void renameAFolder() throws MopsException {
         Directory directory = Directory.builder()
                 .fromParent(root)

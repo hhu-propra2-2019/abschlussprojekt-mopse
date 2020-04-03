@@ -8,6 +8,7 @@ import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.directory.ZipService;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.permission.PermissionService;
+import mops.businesslogic.search.SearchService;
 import mops.businesslogic.security.SecurityService;
 import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
@@ -58,6 +59,8 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
     @MockBean
     DeleteService deleteService;
     @MockBean
+    SearchService searchService;
+    @MockBean
     ZipService zipService;
 
     /**
@@ -82,7 +85,7 @@ class DirectoryControllerTest extends ServletKeycloakAuthUnitTestingSupport {
         given(directoryService.createFolder(any(), eq(1L), any())).willReturn(directory);
         given(deleteService.deleteFolder(any(), eq(1L))).willReturn(root);
         given(directoryService.updatePermission(any(), eq(1L), any())).willReturn(permissions);
-        given(directoryService.searchFolder(any(), eq(1L), any())).willReturn(List.of());
+        given(searchService.searchFolder(any(), eq(1L), any())).willReturn(List.of());
         given(securityService.getPermissionsOfUser(any(), any())).willReturn(userPermission);
         given(permissionService.getPermissions(any())).willReturn(permissions);
     }

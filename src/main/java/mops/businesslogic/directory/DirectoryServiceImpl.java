@@ -6,8 +6,6 @@ import mops.businesslogic.exception.DatabaseException;
 import mops.businesslogic.exception.EmptyNameException;
 import mops.businesslogic.exception.StorageLimitationException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
-import mops.businesslogic.file.FileInfoService;
-import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.group.GroupRootDirWrapper;
 import mops.businesslogic.group.GroupService;
 import mops.businesslogic.permission.PermissionService;
@@ -18,7 +16,6 @@ import mops.exception.MopsException;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.directory.DirectoryBuilder;
-import mops.persistence.file.FileInfo;
 import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +25,6 @@ import org.springframework.data.relational.core.conversion.DbActionExecutionExce
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Handles meta data for directories.
@@ -42,10 +38,6 @@ public class DirectoryServiceImpl implements DirectoryService {
      * This connects to database related to directory information.
      */
     private final DirectoryRepository directoryRepository;
-    /**
-     * Handles meta data of files.
-     */
-    private final FileInfoService fileInfoService;
     /**
      * Handle permission checks for roles.
      */
@@ -208,27 +200,6 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         Directory directory = builder.build();
         return saveDirectory(directory);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
-    public List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) throws MopsException {
-        Directory directory = getDirectory(dirId);
-        securityService.checkReadPermission(account, directory);
-        List<FileInfo> fileInfos = fileInfoService.fetchAllFilesInDirectory(dirId);
-
-        List<FileInfo> results = fileInfos.stream() //this is a stream not violation of demeter's law
-                .filter(query::checkMatch)
-                .collect(Collectors.toList());
-
-        for (Directory subDir : getSubFolders(account, dirId)) {
-            results.addAll(searchFolder(account, subDir.getId(), query));
-        }
-        results.sort(FileInfo.NAME_COMPARATOR);
-        return results;
     }
 
     /**

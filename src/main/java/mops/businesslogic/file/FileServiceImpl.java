@@ -261,8 +261,14 @@ public class FileServiceImpl implements FileService {
         Instant now = timeService.getInstantNow();
 
         return fileInfoService.fetchAllFilesInDirectory(dirId).stream()
-                .filter(file -> isAdmin || account.getName().equals(file.getOwner()) || file.isAvailable(now))
-                .map(FileListEntry::new)
+                .map(file -> new FileListEntry(
+                        file,
+                        userPermission,
+                        isAdmin,
+                        file.getOwner().equals(account.getName()),
+                        now
+                ))
+                .filter(FileListEntry::isRead)
                 .collect(Collectors.toList());
     }
 
