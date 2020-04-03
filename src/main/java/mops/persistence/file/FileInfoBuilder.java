@@ -54,6 +54,14 @@ public class FileInfoBuilder {
      */
     private final Set<FileTag> tags = new HashSet<>();
     /**
+     * Available from Time.
+     */
+    private Instant availableFrom;
+    /**
+     * Available to Time.
+     */
+    private Instant availableTo;
+    /**
      * Creation Time.
      */
     private Instant creationTime;
@@ -72,6 +80,8 @@ public class FileInfoBuilder {
         this.size = file.getSize();
         this.owner = file.getOwner();
         file.getTags().stream().map(FileTag::getName).forEach(this::tag);
+        this.availableFrom = file.getAvailableFrom();
+        this.availableTo = file.getAvailableTo();
         this.creationTime = file.getCreationTime();
         return this;
     }
@@ -231,6 +241,28 @@ public class FileInfoBuilder {
     }
 
     /**
+     * Set the available from time.
+     *
+     * @param availableFrom available from time
+     * @return this
+     */
+    public FileInfoBuilder availableFrom(Instant availableFrom) {
+        this.availableFrom = availableFrom;
+        return this;
+    }
+
+    /**
+     * Set the available to time.
+     *
+     * @param availableTo available to time
+     * @return this
+     */
+    public FileInfoBuilder availableTo(Instant availableTo) {
+        this.availableTo = availableTo;
+        return this;
+    }
+
+    /**
      * Builds the FileInfo.
      *
      * @return composed FileInfo
@@ -263,6 +295,8 @@ public class FileInfoBuilder {
                 size,
                 owner,
                 tags,
+                availableFrom == null ? null : Timestamp.from(availableFrom),
+                availableTo == null ? null : Timestamp.from(availableTo),
                 creationTime == null ? null : Timestamp.from(creationTime),
                 null
         );

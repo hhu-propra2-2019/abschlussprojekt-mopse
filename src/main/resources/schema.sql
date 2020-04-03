@@ -42,6 +42,8 @@ CREATE TABLE file_info
     type               VARCHAR(255) NOT NULL CHECK (type NOT LIKE ''),
     size               BIGINT       NOT NULL,
     owner              VARCHAR(255) NOT NULL CHECK (owner NOT LIKE ''),
+    available_from     TIMESTAMP,
+    available_to       TIMESTAMP,
     creation_time      TIMESTAMP    NOT NULL,
     last_modified_time TIMESTAMP    NOT NULL,
     CONSTRAINT fk_file_dir FOREIGN KEY (directory_id) REFERENCES directory (id),
