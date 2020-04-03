@@ -1,6 +1,6 @@
 package mops.businesslogic;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DeleteService;
 import mops.businesslogic.directory.DirectoryService;
@@ -11,6 +11,7 @@ import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.group.Group;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ import java.util.Set;
 @Profile("!test")
 @Component
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class GarbageCollector {
 
     /**
@@ -54,17 +55,23 @@ public class GarbageCollector {
      */
     private final DirectoryService directoryService;
     /**
-     * Garbage Collector Account
+     * Garbage Collector Account.
      */
     private Account gbAccount;
+    /**
+     * Name of internal admin role.
+     */
+    @Value("${material1.mops.configuration.role.internal-admin}")
+    @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
+    private String internalAdminRole = "material1_internal_admin";
 
     /**
      * Starts garbage collection.
      */
     @Scheduled(fixedDelay = ONE_DAY)
     public void garbageCollection() {
+        gbAccount = Account.of("GarbageCollector", "mops.hhu.de", null, internalAdminRole);
         log.info("Starting garbage collection.");
-        gbAccount = Account.of(); // TODO
         removeOrphanedFiles();
         removeOrphanedDirs();
         log.info("Garbage collection finished.");
@@ -126,8 +133,7 @@ public class GarbageCollector {
             log.error("There was an error while removing orphans:", e);
         }
     }
-
-
+    
     /**
      * Looks for all groups in our database and existing directories.
      * Removes all directories without an existing group.
