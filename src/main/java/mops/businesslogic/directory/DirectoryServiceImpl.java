@@ -72,7 +72,7 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" })
+    @SuppressWarnings("PMD.LawOfDemeter")
     public List<Directory> getSubFolders(Account account, long parentDirID) throws MopsException {
         Directory directory = getDirectory(parentDirID);
         securityService.checkReadPermission(account, directory);
@@ -86,7 +86,7 @@ public class DirectoryServiceImpl implements DirectoryService {
                 directories = removeNoReadPermissionDirectories(account, directories);
             }
             return directories;
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("Subfolders of parent folder with id '{}' could not be loaded:", parentDirID, e);
             throw new DatabaseException("Unterordner konnten nicht geladen werden.", e);
         }
@@ -136,15 +136,14 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis",
-            "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.OnlyOneReturn", "PMD.DataflowAnomalyAnalysis" })
     public GroupRootDirWrapper getOrCreateRootFolder(long groupId) throws MopsException {
         Optional<GroupRootDirWrapper> optRootDir;
         try {
             optRootDir = directoryRepository
                     .getRootFolder(groupId)
                     .map(GroupRootDirWrapper::new);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("Error while searching for root directory of group with id '{}':", groupId, e);
             throw new DatabaseException("Das Wurzelverzeichnis konnte nicht gefunden werden.", e);
         }
@@ -267,11 +266,11 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Directory getDirectory(long dirId) throws MopsException {
         try {
             return directoryRepository.findById(dirId).orElseThrow();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("The directory with the id '{}' was requested, but was not found in the database:", dirId, e);
             String error = String.format("Der Ordner mit der ID '%d' konnte nicht gefunden werden.", dirId);
             throw new DatabaseException(error, e);
@@ -282,11 +281,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public Directory saveDirectory(Directory directory) throws MopsException {
         try {
             return directoryRepository.save(directory);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("The directory with the id '{}' could not be saved to the database:", directory, e);
             String error = String.format("Der Ordner '%s' konnte nicht gespeichert werden.", directory.getName());
             if (e.getCause() instanceof DuplicateKeyException) {
@@ -300,11 +298,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public void deleteDirectory(Directory directory) throws MopsException {
         try {
             directoryRepository.delete(directory);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("The directory '{}' could not be deleted from the database:", directory, e);
             String error = String.format("Der Ordner '%s' konnte nicht gelöscht werden.", directory);
             throw new DatabaseException(error, e);
@@ -315,11 +312,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public long getDirCountInGroup(long groupId) throws MopsException {
         try {
             return directoryRepository.getDirCountInGroup(groupId);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("Failed to get total directory count in group with id '{}':", groupId, e);
             throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
         }
@@ -329,11 +325,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public long getTotalDirCount() throws MopsException {
         try {
             return directoryRepository.count();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("Failed to get total directory count:", e);
             throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
         }
@@ -378,11 +373,10 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public List<Directory> getAllRootDirectories() throws MopsException {
         try {
             return directoryRepository.getAllRootDirectories();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("Failed to get all root directories:", e);
             throw new DatabaseException("Die Wurzelverzeichnisse konnten nicht geladen werden!", e);
         }
