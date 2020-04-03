@@ -113,7 +113,7 @@ Business Layer::
 | _Mittels einer Anfrage an den `FileInfoService` werden die Metadaten angefragt. Mit diesen wiederum kann eine Anfrage an das `FileRepository` gestellt werden, um die Datei selbst zu erhalten. Berechtigungen werden mittels des `DirectoryService` und des `SecurityService` überprüft. Der Verfügbarkeitszeitraum der Dateien wird mittels des `TimeService` überprüft._
 
 | GarbageCollector
-| _Löscht verwaiste in regelmäßigen Zeitintervallen Metadaten von Dateien oder Binaries. Außerdem werden nicht mehr existierende Gruppen inklusive all ihrer Inhalte gelöscht._
+| _Löscht in regelmäßigen Zeitintervallen verwaiste Metadaten von Dateien oder Binaries. Außerdem werden nicht mehr existierende Gruppen inklusive all ihrer Inhalte gelöscht._
 | _Holt sich die Metadaten von Dateien vom `FileInfoService` und die Binaries vom `FileService`. Die Existenz von Gruppen wird mittels des `GroupService` überprüft._
 
 | GruppenbildungsService

@@ -321,14 +321,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Internal use only: possible security flaw!.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileService.html#deleteFile(long)">deleteFile(long)</a></span> - Method in interface mops.businesslogic.file.<a href="mops/businesslogic/file/FileService.html" title="interface in mops.businesslogic.file">FileService</a></dt>
-<dd>
-<div class="block">INTERNAL USE ONLY.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileServiceImpl.html#deleteFile(long)">deleteFile(long)</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileServiceImpl.html" title="class in mops.businesslogic.file">FileServiceImpl</a></dt>
-<dd>
-<div class="block">INTERNAL USE ONLY.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/FileRepository.html#deleteFile(long)">deleteFile(long)</a></span> - Method in class mops.persistence.<a href="mops/persistence/FileRepository.html" title="class in mops.persistence">FileRepository</a></dt>
 <dd>
 <div class="block">Deletes a file permanently.</div>
@@ -352,6 +344,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileInfoServiceImpl.html#deleteFileInfo(long)">deleteFileInfo(long)</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileInfoServiceImpl.html" title="class in mops.businesslogic.file">FileInfoServiceImpl</a></dt>
 <dd>
 <div class="block">Delete file from database by id.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileService.html#deleteFileWithoutMeta(long)">deleteFileWithoutMeta(long)</a></span> - Method in interface mops.businesslogic.file.<a href="mops/businesslogic/file/FileService.html" title="interface in mops.businesslogic.file">FileService</a></dt>
+<dd>
+<div class="block">INTERNAL USE ONLY.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileServiceImpl.html#deleteFileWithoutMeta(long)">deleteFileWithoutMeta(long)</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileServiceImpl.html" title="class in mops.businesslogic.file">FileServiceImpl</a></dt>
+<dd>
+<div class="block">INTERNAL USE ONLY.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DeleteService.html#deleteFolder(mops.businesslogic.security.Account,long)">deleteFolder(Account, long)</a></span> - Method in interface mops.businesslogic.directory.<a href="mops/businesslogic/directory/DeleteService.html" title="interface in mops.businesslogic.directory">DeleteService</a></dt>
 <dd>
@@ -725,11 +725,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">G</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/GarbageCollector.html#garbageCollection()">garbageCollection()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GarbageCollector.html" title="class in mops.businesslogic">GarbageCollector</a></dt>
+<dd>
+<div class="block">Starts garbage collection.</div>
+</dd>
 <dt><a href="mops/businesslogic/GarbageCollector.html" title="class in mops.businesslogic"><span class="typeNameLink">GarbageCollector</span></a> - Class in <a href="mops/businesslogic/package-summary.html">mops.businesslogic</a></dt>
 <dd>
 <div class="block">Removes content of no longer existing groups.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/GarbageCollector.html#%3Cinit%3E(mops.businesslogic.file.FileInfoService,mops.businesslogic.file.FileService)">GarbageCollector(FileInfoService, FileService)</a></span> - Constructor for class mops.businesslogic.<a href="mops/businesslogic/GarbageCollector.html" title="class in mops.businesslogic">GarbageCollector</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/GarbageCollector.html#%3Cinit%3E(mops.businesslogic.file.FileInfoService,mops.businesslogic.file.FileService,mops.businesslogic.directory.DeleteService,mops.businesslogic.group.GroupService,mops.businesslogic.directory.DirectoryService)">GarbageCollector(FileInfoService, FileService, DeleteService, GroupService, DirectoryService)</a></span> - Constructor for class mops.businesslogic.<a href="mops/businesslogic/GarbageCollector.html" title="class in mops.businesslogic">GarbageCollector</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/config/FileRepositoryConfig.html#getAccessKey()">getAccessKey()</a></span> - Method in class mops.persistence.config.<a href="mops/persistence/config/FileRepositoryConfig.html" title="class in mops.persistence.config">FileRepositoryConfig</a></dt>
 <dd>
@@ -762,6 +766,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/persistence/FileRepository.html#getAllIds()">getAllIds()</a></span> - Method in class mops.persistence.<a href="mops/persistence/FileRepository.html" title="class in mops.persistence">FileRepository</a></dt>
 <dd>
 <div class="block">Fetches all IDs.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryService.html#getAllRootDirectories()">getAllRootDirectories()</a></span> - Method in interface mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a></dt>
+<dd>
+<div class="block">Fetches list of all root directories.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryServiceImpl.html#getAllRootDirectories()">getAllRootDirectories()</a></span> - Method in class mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryServiceImpl.html" title="class in mops.businesslogic.directory">DirectoryServiceImpl</a></dt>
+<dd>
+<div class="block">Fetches list of all root directories.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/persistence/DirectoryRepository.html#getAllRootDirectories()">getAllRootDirectories()</a></span> - Method in interface mops.persistence.<a href="mops/persistence/DirectoryRepository.html" title="interface in mops.persistence">DirectoryRepository</a></dt>
+<dd>
+<div class="block">Gets all root directories.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/DirectoryRepository.html#getAllSubFoldersOfParent(long)">getAllSubFoldersOfParent(long)</a></span> - Method in interface mops.persistence.<a href="mops/persistence/DirectoryRepository.html" title="interface in mops.persistence">DirectoryRepository</a></dt>
 <dd>
@@ -1877,10 +1893,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/exception/ReadAccessPermissionException.html#%3Cinit%3E(java.lang.String)">ReadAccessPermissionException(String)</a></span> - Constructor for exception mops.businesslogic.exception.<a href="mops/businesslogic/exception/ReadAccessPermissionException.html" title="class in mops.businesslogic.exception">ReadAccessPermissionException</a></dt>
 <dd>
 <div class="block">Is thrown when an user tries to read something which he/she/it does not have the permission for.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/GarbageCollector.html#removeOrphans()">removeOrphans()</a></span> - Method in class mops.businesslogic.<a href="mops/businesslogic/GarbageCollector.html" title="class in mops.businesslogic">GarbageCollector</a></dt>
-<dd>
-<div class="block">Collects all IDs, find orphans and delete them.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryService.html#renameDirectory(mops.businesslogic.security.Account,long,java.lang.String)">renameDirectory(Account, long, String)</a></span> - Method in interface mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a></dt>
 <dd>

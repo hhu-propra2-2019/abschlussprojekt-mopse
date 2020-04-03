@@ -156,8 +156,11 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.file.FileInfoService,mops.businesslogic.file.FileService)">GarbageCollector</a></span>&#8203;(<a href="file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a>&nbsp;fileInfoService,
-                <a href="file/FileService.html" title="interface in mops.businesslogic.file">FileService</a>&nbsp;fileService)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.businesslogic.file.FileInfoService,mops.businesslogic.file.FileService,mops.businesslogic.directory.DeleteService,mops.businesslogic.group.GroupService,mops.businesslogic.directory.DirectoryService)">GarbageCollector</a></span>&#8203;(<a href="file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a>&nbsp;fileInfoService,
+                <a href="file/FileService.html" title="interface in mops.businesslogic.file">FileService</a>&nbsp;fileService,
+                <a href="directory/DeleteService.html" title="interface in mops.businesslogic.directory">DeleteService</a>&nbsp;deleteService,
+                <a href="group/GroupService.html" title="interface in mops.businesslogic.group">GroupService</a>&nbsp;groupService,
+                <a href="directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -180,9 +183,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeOrphans()">removeOrphans</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#garbageCollection()">garbageCollection</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Collects all IDs, find orphans and delete them.</div>
+<div class="block">Starts garbage collection.</div>
 </td>
 </tr>
 </table>
@@ -209,14 +212,17 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(mops.businesslogic.file.FileInfoService,mops.businesslogic.file.FileService)">
+<a id="&lt;init&gt;(mops.businesslogic.file.FileInfoService,mops.businesslogic.file.FileService,mops.businesslogic.directory.DeleteService,mops.businesslogic.group.GroupService,mops.businesslogic.directory.DirectoryService)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>GarbageCollector</h4>
 <pre>public&nbsp;GarbageCollector&#8203;(<a href="file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a>&nbsp;fileInfoService,
-                        <a href="file/FileService.html" title="interface in mops.businesslogic.file">FileService</a>&nbsp;fileService)</pre>
+                        <a href="file/FileService.html" title="interface in mops.businesslogic.file">FileService</a>&nbsp;fileService,
+                        <a href="directory/DeleteService.html" title="interface in mops.businesslogic.directory">DeleteService</a>&nbsp;deleteService,
+                        <a href="group/GroupService.html" title="interface in mops.businesslogic.group">GroupService</a>&nbsp;groupService,
+                        <a href="directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a>&nbsp;directoryService)</pre>
 </li>
 </ul>
 </li>
@@ -229,15 +235,15 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="removeOrphans()">
+<a id="garbageCollection()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>removeOrphans</h4>
+<h4>garbageCollection</h4>
 <pre class="methodSignature">@Scheduled(fixedDelay=86400000L)
-public&nbsp;void&nbsp;removeOrphans()</pre>
-<div class="block">Collects all IDs, find orphans and delete them.</div>
+public&nbsp;void&nbsp;garbageCollection()</pre>
+<div class="block">Starts garbage collection.</div>
 </li>
 </ul>
 </li>
