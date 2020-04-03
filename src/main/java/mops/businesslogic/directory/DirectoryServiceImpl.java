@@ -373,4 +373,18 @@ public class DirectoryServiceImpl implements DirectoryService {
         directory.setName(newName);
         return directoryRepository.save(directory);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public List<Directory> getAllRootDirectories() throws MopsException {
+        try {
+            return directoryRepository.getAllRootDirectories();
+        } catch (Exception e) {
+            log.error("Failed to get all root directories:", e);
+            throw new DatabaseException("Die Wurzelverzeichnisse konnten nicht geladen werden!", e);
+        }
+    }
 }

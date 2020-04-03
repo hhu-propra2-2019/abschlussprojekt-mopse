@@ -76,11 +76,12 @@ public interface FileService {
     /**
      * INTERNAL USE ONLY.
      * Deletes a file without checking permission.
+     * And without removing the corresponding FileInfo.
      *
      * @param fileId the id of the file
      * @throws MopsException on error
      */
-    void deleteFile(long fileId) throws MopsException;
+    void deleteFileWithoutMeta(long fileId) throws MopsException;
 
     /**
      * Renames a file.

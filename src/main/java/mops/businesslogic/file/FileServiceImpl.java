@@ -277,7 +277,7 @@ public class FileServiceImpl implements FileService {
      * {@inheritDoc}
      */
     @Override
-    public void deleteFile(long fileId) throws MopsException {
+    public void deleteFileWithoutMeta(long fileId) throws MopsException {
         fileRepository.deleteFile(fileId);
     }
 

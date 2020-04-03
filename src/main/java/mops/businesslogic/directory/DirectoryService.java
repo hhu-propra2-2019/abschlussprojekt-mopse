@@ -130,4 +130,12 @@ public interface DirectoryService {
      */
     Directory renameDirectory(Account account, long dirId, String newName) throws MopsException;
 
+    /**
+     * Fetches list of all root directories.
+     *
+     * @return all root directories.
+     * @throws MopsException on error.
+     */
+    List<Directory> getAllRootDirectories() throws MopsException;
+
 }

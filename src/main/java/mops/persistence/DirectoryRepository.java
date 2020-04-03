@@ -44,4 +44,11 @@ public interface DirectoryRepository extends CrudRepository<Directory, Long> {
     @Query("SELECT * FROM directory WHERE group_owner = :groupId AND parent_id IS NULL")
     Optional<Directory> getRootFolder(@Param("groupId") long groupId);
 
+    /**
+     * Gets all root directories.
+     *
+     * @return List of all root directories.
+     */
+    @Query("SELECT * FROM directory WHERE parent_id IS NULL")
+    List<Directory> getAllRootDirectories();
 }

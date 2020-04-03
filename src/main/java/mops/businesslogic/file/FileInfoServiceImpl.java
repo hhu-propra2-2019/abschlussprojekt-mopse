@@ -170,7 +170,13 @@ public class FileInfoServiceImpl implements FileInfoService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public Set<Long> fetchAllOrphanedFileInfos() throws MopsException {
-        return fileInfoRepo.findAllOrphansByDirectory();
+        try {
+            return fileInfoRepo.findAllOrphansByDirectory();
+        } catch (Exception e) {
+            log.error("Failed to find all orphaned file infos:", e);
+            throw new MopsException("Verwaiste IDs konnten nicht gefunden werden.", e);
+        }
     }
 }
