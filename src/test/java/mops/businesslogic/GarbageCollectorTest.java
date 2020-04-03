@@ -39,11 +39,13 @@ class GarbageCollectorTest {
 
     @BeforeEach
     void prepare() {
-        garbageCollector = new GarbageCollector(fileInfoService,
+        garbageCollector = new GarbageCollector(
+                fileInfoService,
                 fileService,
                 deleteService,
                 groupService,
-                directoryService);
+                directoryService
+        );
     }
 
     @Test

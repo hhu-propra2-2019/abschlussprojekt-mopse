@@ -136,5 +136,6 @@ public interface DirectoryService {
      * @return all root directories.
      * @throws MopsException on error.
      */
-    List<Directory> getAllRootDirectories();
+    List<Directory> getAllRootDirectories() throws MopsException;
+
 }

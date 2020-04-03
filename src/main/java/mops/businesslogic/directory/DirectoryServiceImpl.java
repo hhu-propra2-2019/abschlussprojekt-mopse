@@ -378,7 +378,13 @@ public class DirectoryServiceImpl implements DirectoryService {
      * {@inheritDoc}
      */
     @Override
-    public List<Directory> getAllRootDirectories() {
-        return directoryRepository.getAllRootDirectories();
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public List<Directory> getAllRootDirectories() throws MopsException {
+        try {
+            return directoryRepository.getAllRootDirectories();
+        } catch (Exception e) {
+            log.error("Failed to get all root directories:", e);
+            throw new DatabaseException("Die Wurzelverzeichnisse konnten nicht geladen werden!", e);
+        }
     }
 }
