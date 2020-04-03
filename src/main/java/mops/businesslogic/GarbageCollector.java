@@ -16,9 +16,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Removes content of no longer existing groups.
@@ -133,7 +131,7 @@ public class GarbageCollector {
             log.error("There was an error while removing orphans:", e);
         }
     }
-    
+
     /**
      * Looks for all groups in our database and existing directories.
      * Removes all directories without an existing group.
@@ -142,12 +140,17 @@ public class GarbageCollector {
     public void removeOrphanedDirs() {
         Set<Long> groupIdsFromGroups = new HashSet<>();
         Set<Long> groupIdsFromDirectories = new HashSet<>();
+        Map<Long, Long> rootDirOfGroup = new HashMap<>();
 
         try {
             List<Group> allGroups = groupService.getAllGroups();
-            List<Directory> allRootDirectories = directoryService.getAllRootDirectories();
+            List<Directory> allRootDirectoriyGroupIds = directoryService.getAllRootDirectories();
             allGroups.forEach(g -> groupIdsFromGroups.add(g.getId()));
-            allRootDirectories.forEach(r -> groupIdsFromDirectories.add(r.getGroupOwner()));
+            allRootDirectoriyGroupIds.forEach(r -> {
+                        groupIdsFromDirectories.add(r.getGroupOwner());
+                        rootDirOfGroup.put(r.getGroupOwner(), r.getId());
+                    }
+            );
         } catch (MopsException e) {
             log.error("Error on retrieving all groups", e);
             return;
@@ -158,11 +161,11 @@ public class GarbageCollector {
         // only orphans left
         groupIdsFromDirectories.removeAll(intersection);
 
-        groupIdsFromDirectories.forEach(group -> {
+        groupIdsFromDirectories.forEach(groupId -> {
             try {
-                deleteService.deleteFolder(gbAccount, group);
+                deleteService.deleteFolder(gbAccount, rootDirOfGroup.get(groupId));
             } catch (MopsException e) {
-                log.error("Couldn't remove orphaned root dir with id {}", group, e);
+                log.error("Couldn't remove orphaned root dir with id {}", groupId, e);
             }
         });
     }
