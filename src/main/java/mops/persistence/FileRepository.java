@@ -15,6 +15,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -106,8 +107,7 @@ public class FileRepository {
                     null, // no encryption will be needed
                     type
             );
-        } catch (MinioException | IOException | InvalidKeyException
-                | NoSuchAlgorithmException | XmlPullParserException e) {
+        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
             log.error("Failed so save file '{}' to MinIO server:", fileId, e);
             throw new StorageException("Fehler beim Speichern der Datei.", e);
         }
@@ -125,9 +125,7 @@ public class FileRepository {
                     configuration.getBucketName(),
                     String.valueOf(fileId)
             );
-        } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
-                | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
-                | ErrorResponseException | InternalException | InvalidArgumentException | InvalidResponseException e) {
+        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
             log.error("Failed to delete file with id {} from MinIO Server:", fileId, e);
             throw new StorageException("Fehler beim Löschen der Datei.", e);
         }
@@ -147,9 +145,7 @@ public class FileRepository {
                     configuration.getBucketName(),
                     String.valueOf(fileId)
             );
-        } catch (IOException | InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
-                | InvalidKeyException | NoResponseException | XmlPullParserException | ErrorResponseException
-                | InternalException | InvalidArgumentException | InvalidResponseException e) {
+        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
             log.error("Failed to get content of file with id {}:", fileId, e);
             throw new StorageException("Fehler beim Zugriff auf den Inhalt der Datei.", e);
         }
@@ -172,9 +168,7 @@ public class FileRepository {
         } catch (ErrorResponseException e) {
             // file not found
             return false;
-        } catch (InvalidKeyException | NoSuchAlgorithmException | NoResponseException | InvalidResponseException
-                | XmlPullParserException | InvalidArgumentException | InsufficientDataException | InternalException
-                | InvalidBucketNameException | IOException e) {
+        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
             log.error("Failed to check file existence for id {}:", fileId, e);
             throw new StorageException("Fehler beim Zugriff auf Datei.", e);
         }
@@ -187,7 +181,7 @@ public class FileRepository {
      *
      * @return all File IDs
      */
-    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" })
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Set<Long> getAllIds() throws StorageException {
         try {
             Iterable<Result<Item>> results = minioClient.listObjects(configuration.getBucketName());
@@ -198,7 +192,7 @@ public class FileRepository {
                 );
             }
             return ids;
-        } catch (Exception e) {
+        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
             throw new StorageException("Fehler beim Laden aller File IDs.", e);
         }
     }
@@ -214,9 +208,7 @@ public class FileRepository {
             for (Result<Item> result : minioClient.listObjects(configuration.getBucketName())) {
                 minioClient.removeObject(configuration.getBucketName(), result.get().objectName());
             }
-        } catch (ErrorResponseException | InsufficientDataException | InternalException | InvalidArgumentException
-                | InvalidBucketNameException | InvalidResponseException | NoResponseException | IOException
-                | InvalidKeyException | NoSuchAlgorithmException | XmlPullParserException e) {
+        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
             log.error("Failed to clear bucket:", e);
             throw new StorageException("Bucket konnte nicht geleert werden.", e);
         }

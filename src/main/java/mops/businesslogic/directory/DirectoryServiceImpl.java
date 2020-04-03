@@ -22,7 +22,9 @@ import mops.persistence.file.FileInfo;
 import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -86,7 +88,7 @@ public class DirectoryServiceImpl implements DirectoryService {
                 directories = removeNoReadPermissionDirectories(account, directories);
             }
             return directories;
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Subfolders of parent folder with id '{}' could not be loaded:", parentDirID, e);
             throw new DatabaseException("Unterordner konnten nicht geladen werden.", e);
         }
@@ -143,7 +145,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             optRootDir = directoryRepository
                     .getRootFolder(groupId)
                     .map(GroupRootDirWrapper::new);
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Error while searching for root directory of group with id '{}':", groupId, e);
             throw new DatabaseException("Das Wurzelverzeichnis konnte nicht gefunden werden.", e);
         }
@@ -270,7 +272,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public Directory getDirectory(long dirId) throws MopsException {
         try {
             return directoryRepository.findById(dirId).orElseThrow();
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("The directory with the id '{}' was requested, but was not found in the database:", dirId, e);
             String error = String.format("Der Ordner mit der ID '%d' konnte nicht gefunden werden.", dirId);
             throw new DatabaseException(error, e);
@@ -284,7 +286,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public Directory saveDirectory(Directory directory) throws MopsException {
         try {
             return directoryRepository.save(directory);
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("The directory with the id '{}' could not be saved to the database:", directory, e);
             String error = String.format("Der Ordner '%s' konnte nicht gespeichert werden.", directory.getName());
             if (e.getCause() instanceof DuplicateKeyException) {
@@ -301,7 +303,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public void deleteDirectory(Directory directory) throws MopsException {
         try {
             directoryRepository.delete(directory);
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("The directory '{}' could not be deleted from the database:", directory, e);
             String error = String.format("Der Ordner '%s' konnte nicht gelöscht werden.", directory);
             throw new DatabaseException(error, e);
@@ -315,7 +317,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public long getDirCountInGroup(long groupId) throws MopsException {
         try {
             return directoryRepository.getDirCountInGroup(groupId);
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get total directory count in group with id '{}':", groupId, e);
             throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
         }
@@ -328,7 +330,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public long getTotalDirCount() throws MopsException {
         try {
             return directoryRepository.count();
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get total directory count:", e);
             throw new DatabaseException("Gesamtordneranzahl konnte nicht geladen werden!", e);
         }
@@ -376,7 +378,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public List<Directory> getAllRootDirectories() throws MopsException {
         try {
             return directoryRepository.getAllRootDirectories();
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get all root directories:", e);
             throw new DatabaseException("Die Wurzelverzeichnisse konnten nicht geladen werden!", e);
         }

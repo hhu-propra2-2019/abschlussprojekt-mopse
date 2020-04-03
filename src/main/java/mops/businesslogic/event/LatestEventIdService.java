@@ -6,6 +6,8 @@ import mops.businesslogic.exception.DatabaseException;
 import mops.exception.MopsException;
 import mops.persistence.LatestEventIdRepository;
 import mops.persistence.event.LatestEventId;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,11 +29,11 @@ public class LatestEventIdService {
      * @return loaded latest event id
      * @throws MopsException on error
      */
-    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" }) // optional fluent api
+    @SuppressWarnings("PMD.LawOfDemeter") // optional fluent api
     public LatestEventId getLatestEventId() throws MopsException {
         try {
             return latestEventIdRepository.findById(0L).orElse(LatestEventId.of());
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get latest event id database:", e);
             throw new DatabaseException("Neueste Event Id konnte nicht geladen werden!", e);
         }
@@ -43,11 +45,10 @@ public class LatestEventIdService {
      * @param latestEventId latest event id to save
      * @throws MopsException on error
      */
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public void saveLatestEventId(LatestEventId latestEventId) throws MopsException {
         try {
             latestEventIdRepository.save(latestEventId);
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to save latest event id database:", e);
             throw new DatabaseException("Neueste Event Id konnte nicht gespeichert werden!", e);
         }

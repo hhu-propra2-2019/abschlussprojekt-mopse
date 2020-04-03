@@ -9,6 +9,8 @@ import mops.persistence.GroupRepository;
 import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,6 +24,10 @@ import java.util.*;
 public class GroupServiceImpl implements GroupService {
 
     /**
+     * Access to our Group Database.
+     */
+    private final GroupRepository groupRepository;
+    /**
      * Represents the role of an admin.
      */
     @Value("${material1.mops.configuration.role.admin}")
@@ -33,11 +39,6 @@ public class GroupServiceImpl implements GroupService {
     @Value("${material1.mops.configuration.role.viewer}")
     @SuppressWarnings({ "PMD.ImmutableField", "PMD.BeanMembersShouldSerialize" })
     private String viewerRole = "viewer";
-
-    /**
-     * Access to our Group Database.
-     */
-    private final GroupRepository groupRepository;
 
     /**
      * {@inheritDoc}
@@ -57,7 +58,7 @@ public class GroupServiceImpl implements GroupService {
         List<Group> groups = new ArrayList<>();
         try {
             groupRepository.findAll().forEach(groups::add);
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Error while getting all groups:", e);
             throw new DatabaseException("Konnte nicht alle Gruppen laden.", e);
         }
@@ -71,7 +72,7 @@ public class GroupServiceImpl implements GroupService {
     public List<Group> getUserGroups(Account account) throws MopsException {
         try {
             return groupRepository.findByUser(account.getName());
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Error while getting all groups for user {}:", account.getName(), e);
             throw new DatabaseException("Konnte nicht alle Gruppen eines Benutzers laden.", e);
         }
@@ -97,7 +98,7 @@ public class GroupServiceImpl implements GroupService {
     public Group getGroup(long groupId) throws MopsException {
         try {
             return groupRepository.findById(groupId).orElseThrow();
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to retrieve group with id '{}':", groupId, e);
             throw new DatabaseException(
                     "Die Gruppe konnte nicht gefunden werden, bitte versuchen sie es später nochmal!", e);
@@ -112,7 +113,7 @@ public class GroupServiceImpl implements GroupService {
     public Optional<Group> findGroupByGroupId(UUID groupId) throws MopsException {
         try {
             return groupRepository.findByGroupId(groupId);
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to retrieve group with group uuid '{}':", groupId, e);
             throw new DatabaseException(
                     "Die Gruppe konnte nicht gefunden werden, bitte versuchen sie es später nochmal!", e);
@@ -127,7 +128,7 @@ public class GroupServiceImpl implements GroupService {
     public Group saveGroup(Group group) throws MopsException {
         try {
             return groupRepository.save(group);
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to save group '{}' with group uuid '{}':", group.getName(), group.getGroupId(), e);
             throw new DatabaseException("Die Gruppe konnte nicht gespeichert werden!", e);
         }
@@ -141,7 +142,7 @@ public class GroupServiceImpl implements GroupService {
     public void deleteGroup(long groupId) throws MopsException {
         try {
             groupRepository.deleteById(groupId);
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to delete group with id '{}':", groupId, e);
             throw new DatabaseException("Die Gruppe konnte nicht gelöscht werden!", e);
         }
@@ -154,7 +155,7 @@ public class GroupServiceImpl implements GroupService {
     public long getTotalGroupCount() throws MopsException {
         try {
             return groupRepository.count();
-        } catch (RuntimeException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get total group count:", e);
             throw new DatabaseException("Gesamtgruppenzahl konnte nicht geladen werden!", e);
         }
