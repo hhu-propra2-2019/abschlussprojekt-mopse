@@ -9,6 +9,8 @@ import mops.persistence.GroupRepository;
 import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,6 +23,10 @@ import java.util.*;
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
 
+    /**
+     * Access to our Group Database.
+     */
+    private final GroupRepository groupRepository;
     /**
      * Represents the role of an admin.
      */
@@ -35,11 +41,6 @@ public class GroupServiceImpl implements GroupService {
     private String viewerRole = "viewer";
 
     /**
-     * Access to our Group Database.
-     */
-    private final GroupRepository groupRepository;
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -52,12 +53,12 @@ public class GroupServiceImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.LawOfDemeter" }) // iterable fluent api
+    @SuppressWarnings("PMD.LawOfDemeter") // iterable fluent api
     public List<Group> getAllGroups() throws MopsException {
         List<Group> groups = new ArrayList<>();
         try {
             groupRepository.findAll().forEach(groups::add);
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Error while getting all groups:", e);
             throw new DatabaseException("Konnte nicht alle Gruppen laden.", e);
         }
@@ -68,11 +69,10 @@ public class GroupServiceImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public List<Group> getUserGroups(Account account) throws MopsException {
         try {
             return groupRepository.findByUser(account.getName());
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Error while getting all groups for user {}:", account.getName(), e);
             throw new DatabaseException("Konnte nicht alle Gruppen eines Benutzers laden.", e);
         }
@@ -94,11 +94,11 @@ public class GroupServiceImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Group getGroup(long groupId) throws MopsException {
         try {
             return groupRepository.findById(groupId).orElseThrow();
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to retrieve group with id '{}':", groupId, e);
             throw new DatabaseException(
                     "Die Gruppe konnte nicht gefunden werden, bitte versuchen sie es später nochmal!", e);
@@ -109,11 +109,11 @@ public class GroupServiceImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Optional<Group> findGroupByGroupId(UUID groupId) throws MopsException {
         try {
             return groupRepository.findByGroupId(groupId);
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to retrieve group with group uuid '{}':", groupId, e);
             throw new DatabaseException(
                     "Die Gruppe konnte nicht gefunden werden, bitte versuchen sie es später nochmal!", e);
@@ -124,11 +124,11 @@ public class GroupServiceImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Group saveGroup(Group group) throws MopsException {
         try {
             return groupRepository.save(group);
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to save group '{}' with group uuid '{}':", group.getName(), group.getGroupId(), e);
             throw new DatabaseException("Die Gruppe konnte nicht gespeichert werden!", e);
         }
@@ -138,11 +138,11 @@ public class GroupServiceImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings("PMD.LawOfDemeter")
     public void deleteGroup(long groupId) throws MopsException {
         try {
             groupRepository.deleteById(groupId);
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to delete group with id '{}':", groupId, e);
             throw new DatabaseException("Die Gruppe konnte nicht gelöscht werden!", e);
         }
@@ -152,11 +152,10 @@ public class GroupServiceImpl implements GroupService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public long getTotalGroupCount() throws MopsException {
         try {
             return groupRepository.count();
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get total group count:", e);
             throw new DatabaseException("Gesamtgruppenzahl konnte nicht geladen werden!", e);
         }

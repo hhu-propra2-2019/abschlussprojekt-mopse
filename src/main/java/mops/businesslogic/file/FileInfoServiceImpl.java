@@ -7,7 +7,9 @@ import mops.businesslogic.exception.DatabaseException;
 import mops.exception.MopsException;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.file.FileInfo;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,14 +32,13 @@ public class FileInfoServiceImpl implements FileInfoService {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public List<FileInfo> fetchAllFilesInDirectory(long dirId) throws MopsException {
         try {
             List<FileInfo> fileInfos = new ArrayList<>(fileInfoRepo.findAllInDirectory(dirId));
             fileInfos.sort(FileInfo.NAME_COMPARATOR);
             return fileInfos;
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to retrieve all files in directory with id {} from the database:", dirId, e);
             throw new DatabaseException("Es konnten nicht alle Dateien im Verzeichnis gefunden werden!", e);
         }
@@ -46,12 +47,12 @@ public class FileInfoServiceImpl implements FileInfoService {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.AvoidCatchingGenericException" })
+    @SuppressWarnings("PMD.LawOfDemeter")
     @Override
     public FileInfo fetchFileInfo(long fileId) throws MopsException {
         try {
             return fileInfoRepo.findById(fileId).orElseThrow();
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to retrieve file info for file with id {} from the database:", fileId, e);
             throw new DatabaseException("Die Datei-Informationen konnten nicht gefunden werden!", e);
         }
@@ -60,12 +61,11 @@ public class FileInfoServiceImpl implements FileInfoService {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public FileInfo saveFileInfo(FileInfo fileInfo) throws MopsException {
         try {
             return fileInfoRepo.save(fileInfo);
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             if (e.getCause() instanceof DuplicateKeyException) {
                 log.error("The file '{}'  already exists in the directory '{}’.",
                         fileInfo.getDirectoryId(),
@@ -85,12 +85,11 @@ public class FileInfoServiceImpl implements FileInfoService {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void deleteFileInfo(long fileId) throws MopsException {
         try {
             fileInfoRepo.deleteById(fileId);
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to delete file with id {}:", fileId, e);
             throw new DatabaseException("Datei-Informationen konnten nicht gelöscht werden!", e);
         }
@@ -100,11 +99,10 @@ public class FileInfoServiceImpl implements FileInfoService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public long getStorageUsageInGroup(long groupId) throws MopsException {
         try {
             return fileInfoRepo.getStorageUsageInGroup(groupId);
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get total storage used by group with id {}:", groupId, e);
             throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
         }
@@ -114,11 +112,10 @@ public class FileInfoServiceImpl implements FileInfoService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public long getTotalStorageUsage() throws MopsException {
         try {
             return fileInfoRepo.getTotalStorageUsage();
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get total storage used:", e);
             throw new DatabaseException("Gesamtspeicherplatz konnte nicht geladen werden!", e);
         }
@@ -128,11 +125,10 @@ public class FileInfoServiceImpl implements FileInfoService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public long getFileCountInGroup(long groupId) throws MopsException {
         try {
             return fileInfoRepo.getFileCountInGroup(groupId);
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get total file count in group with id {}:", groupId, e);
             throw new DatabaseException("Gesamtdateianzahl konnte nicht geladen werden!", e);
         }
@@ -142,11 +138,10 @@ public class FileInfoServiceImpl implements FileInfoService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public long getTotalFileCount() throws MopsException {
         try {
             return fileInfoRepo.count();
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get total file count:", e);
             throw new DatabaseException("Gesamtdateianzahl konnte nicht geladen werden!", e);
         }
@@ -156,11 +151,10 @@ public class FileInfoServiceImpl implements FileInfoService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public Set<Long> fetchAllFileInfoIds() throws MopsException {
         try {
             return fileInfoRepo.findAllIds();
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to get all FileInfo ids:", e);
             throw new MopsException("IDs konnten nicht gefunden werden.", e);
         }
@@ -170,11 +164,10 @@ public class FileInfoServiceImpl implements FileInfoService {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public Set<Long> fetchAllOrphanedFileInfos() throws MopsException {
         try {
             return fileInfoRepo.findAllOrphansByDirectory();
-        } catch (Exception e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
             log.error("Failed to find all orphaned file infos:", e);
             throw new MopsException("Verwaiste IDs konnten nicht gefunden werden.", e);
         }
