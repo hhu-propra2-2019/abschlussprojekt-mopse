@@ -53,6 +53,10 @@ public class GarbageCollector {
      * DirectoryService.
      */
     private final DirectoryService directoryService;
+    /**
+     * Garbage Collector Account
+     */
+    private Account gbAccount;
 
     /**
      * Starts garbage collection.
@@ -60,6 +64,7 @@ public class GarbageCollector {
     @Scheduled(fixedDelay = ONE_DAY)
     public void garbageCollection() {
         log.info("Starting garbage collection.");
+        gbAccount = Account.of(); // TODO
         removeOrphanedFiles();
         removeOrphanedDirs();
         log.info("Garbage collection finished.");
@@ -114,8 +119,7 @@ public class GarbageCollector {
             }
 
             for (Long fileId : filesWithoutDirectory) {
-                fileInfoService.deleteFileInfo(fileId);
-                fileService.deleteFileWithoutMeta(fileId);
+                fileService.deleteFile(gbAccount, fileId);
                 log.debug("Removed orphaned File with ID {} from non existing directory", fileId);
             }
         } catch (MopsException e) {
