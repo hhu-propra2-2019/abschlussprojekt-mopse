@@ -64,7 +64,7 @@ Presentation Layer::
 
 | DirectoryController
 | _Stellt den Inhalt eines angefragten Ordners zur Verfügung._
-| _Dateiinformation bekommt er vom `FileService` und die Ordnerinformationen vom `DirectoryService`. Berechtigungen werden vom `PermissionService` sowie vom `SecurityService` erfragt. Um Dateien zu löschen, wird auf den `DeleteService` zugegriffen. Um Ordner zum Download zur Verfügung zu stellen, wird auf den `ZIPService` verwiesen._
+| _Dateiinformation bekommt er vom `FileService` und die Ordnerinformationen vom `DirectoryService`. Berechtigungen werden vom `PermissionService` sowie vom `SecurityService` erfragt. Um Dateien zu löschen, wird auf den `DeleteService` zugegriffen. Um nach Dateien zu suchen, wird auf den `SearchService` zugegriffen. Um Ordner zum Download zur Verfügung zu stellen, wird auf den `ZIPService` verwiesen._
 
 | ExceptionController
 | _Fängt sämtliche Exceptions, die im Projekt geworfen werden und stellt diese bereit._
@@ -100,9 +100,13 @@ Business Layer::
 | _Ermöglicht das Löschen von kompletten Ordnern inklusive aller Unterordner sowie enthaltenen Dateien._
 | _Um die Berechtigungen für das Löschen zu überprüfen, wird auf den `SecurityService` zugegriffen. Um die Löschen-Operationen an sich durchzuführen, werden der `DirectoryService` sowie der `FileInfoService` genutzt._
 
+| SearchService
+| _Stellt die Suche nach Dateien in Ordnern und Unterordnern bereit._
+| _Um die Such-Operationen durchzuführen, werden der `FileService` (für das Sammeln aller Dateien in einem Ordner) sowie der `DirectoryService` (für das Sammeln aller Unterordner in einem Ordner) genutzt._
+
 | DirectoryService
 | _Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das Wechseln zu einem Unterordner, sowie das Hochladen einer Datei in den Ordner._
-| _Die Informationen über die Dateien werden vom `FileInfoService` abgerufen. Die Berechtigungen des Ordners werden vom `PermissionService` zur Verfügung gestellt und können verändert werden. Die vom `GroupService` bereitgestellten Rollen werden vom `SecurityService` überprüft, damit ein User nur erlaubte Aktionen ausführen kann. Für das Speichern und Abrufen der Ordner wird mit dem `DirectoryRepository` interagiert._
+| _Die Berechtigungen des Ordners werden vom `PermissionService` zur Verfügung gestellt und können verändert werden. Die vom `GroupService` bereitgestellten Rollen werden vom `SecurityService` überprüft, damit ein User nur erlaubte Aktionen ausführen kann. Für das Speichern und Abrufen der Ordner wird mit dem `DirectoryRepository` interagiert._
 
 | FileInfoService
 | _Verwaltet alle Metadaten einer Datei in Form des Objektes `FileInfo`._
