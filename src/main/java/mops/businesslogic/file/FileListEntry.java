@@ -50,7 +50,8 @@ public class FileListEntry {
      * @return true if read is allowed
      */
     public boolean isRead() {
-        return isPrivileged() || (userPermission.isRead() && isAvailable(now));
+        boolean read = userPermission.isRead() && isAvailable(now);
+        return isPrivileged() || read;
     }
 
     /**
@@ -59,7 +60,8 @@ public class FileListEntry {
      * @return true if edit is allowed
      */
     public boolean isEdit() {
-        return isPrivileged() || (userPermission.isWrite() && userPermission.isDelete());
+        boolean edit = userPermission.isWrite() && userPermission.isDelete();
+        return isPrivileged() || edit;
     }
 
     /**
@@ -68,7 +70,8 @@ public class FileListEntry {
      * @return true if delete is allowed
      */
     public boolean isDelete() {
-        return isPrivileged() || userPermission.isDelete();
+        boolean delete = userPermission.isDelete();
+        return isPrivileged() || delete;
     }
 
     /**

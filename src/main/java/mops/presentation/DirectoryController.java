@@ -104,8 +104,7 @@ public class DirectoryController {
             DirectoryPermissions permissions = permissionService.getPermissions(directory);
             EditDirectoryForm editDirectoryForm = EditDirectoryForm.of(permissions);
 
-            model.addAttribute("deletePermission", userPermission.isDelete());
-            model.addAttribute("writePermission", userPermission.isWrite());
+            model.addAttribute("permission", userPermission);
             model.addAttribute("adminRole", admin);
             model.addAttribute("directory", directory);
             model.addAttribute("dirs", directories);
@@ -312,10 +311,6 @@ public class DirectoryController {
         model.addAttribute("fileQueryForm", queryForm);
         model.addAttribute("account", account);
 
-        // always show delete
-        model.addAttribute("deletePermission", true);
-        model.addAttribute("writePermission", false);
-        model.addAttribute("adminRole", false);
         model.addAttribute("search", true);
         return "overview";
     }

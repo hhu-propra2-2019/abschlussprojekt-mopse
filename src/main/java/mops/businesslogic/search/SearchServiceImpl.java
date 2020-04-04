@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Service implementation for searching.
+ */
 @Service
 @RequiredArgsConstructor
 public class SearchServiceImpl implements SearchService {
@@ -32,6 +35,7 @@ public class SearchServiceImpl implements SearchService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD.LawOfDemeter") // functional api
     public List<FileListEntry> searchFolder(Account account, long dirId, FileQuery query) throws MopsException {
         List<FileListEntry> results = new ArrayList<>();
         doSearchFolder(account, dirId, query, results);
@@ -48,7 +52,7 @@ public class SearchServiceImpl implements SearchService {
      * @param results results list to be filled
      * @throws MopsException on error
      */
-    @SuppressWarnings("PMD.LawOfDemeter")
+    @SuppressWarnings("PMD.LawOfDemeter") // stream
     private void doSearchFolder(Account account, long dirId, FileQuery query, List<FileListEntry> results)
             throws MopsException {
         fileService.getFilesOfDirectory(account, dirId).stream() // this is a stream not violation of demeter's law

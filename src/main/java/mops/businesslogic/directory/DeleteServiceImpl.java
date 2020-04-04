@@ -63,7 +63,7 @@ public class DeleteServiceImpl implements DeleteService {
         List<Directory> subFolders = directoryService.getSubFolders(account, dirId);
 
         Directory parentDirectory = null;
-        if (directory.getParentId() != null) {
+        if (!directory.isRoot()) {
             parentDirectory = directoryService.getDirectory(directory.getParentId());
         }
 

@@ -73,7 +73,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         try {
             List<Directory> directories = new ArrayList<>(directoryRepository.getAllSubFoldersOfParent(parentDirID));
             directories.sort(Directory.NAME_COMPARATOR);
-            if (directory.getParentId() == null) {
+            if (directory.isRoot()) {
                 // If the current dir is the root folder,
                 // there could be directories in it without
                 // reading permission
@@ -115,7 +115,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public List<Directory> getDirectoryPath(long dirId) throws MopsException {
         List<Directory> result = new LinkedList<>();
         Directory dir = getDirectory(dirId);
-        while (dir.getParentId() != null) {
+        while (!dir.isRoot()) {
             result.add(dir);
             dir = getDirectory(dir.getParentId());
         }
@@ -188,7 +188,7 @@ public class DirectoryServiceImpl implements DirectoryService {
                 .fromParent(parentDir)
                 .name(dirName);
 
-        if (parentDir.getParentId() == null) {
+        if (parentDir.isRoot()) {
             DirectoryPermissions parentPermissions = permissionService.getPermissions(parentDir);
             DirectoryPermissions permissions = DirectoryPermissions.builder()
                     .from(parentPermissions)
@@ -322,7 +322,7 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         Directory directory = getDirectory(dirId);
 
-        if (directory.getParentId() == null) {
+        if (directory.isRoot()) {
             log.error("User {} tried to rename the root folder of group '{}'.",
                     account.getName(), directory.getGroupOwner());
             throw new WriteAccessPermissionException("Keine Berechtigung um das Wurzelverzeichnis umzubenennen.");
