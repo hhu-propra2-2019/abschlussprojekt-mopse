@@ -7,7 +7,6 @@ import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.group.GroupService;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
-import mops.persistence.DirectoryPermissionsRepository;
 import mops.persistence.FileInfoRepository;
 import mops.persistence.FileRepository;
 import mops.persistence.directory.Directory;
@@ -22,7 +21,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -36,7 +34,6 @@ class SearchServiceTest {
 
     static final String STUDENTIN = "studentin";
     static final String ADMIN = "admin";
-    static final String EDITOR = "editor";
     static final String VIEWER = "viewer";
     static final String INTRUDER = "intruder";
     static final long GROUP_ID = 1L;
@@ -52,13 +49,10 @@ class SearchServiceTest {
     @Autowired
     DirectoryService directoryService;
     @Autowired
-    DirectoryPermissionsRepository directoryPermissionsRepository;
-    @Autowired
     FileInfoRepository fileInfoRepository;
 
     Directory root;
     Account admin;
-    Account editor;
     Account user;
     Account intruder;
 
@@ -69,17 +63,13 @@ class SearchServiceTest {
     void setup() throws MopsException {
         intruder = Account.of(INTRUDER, "intruder@uni-koeln.de", STUDENTIN);
         user = Account.of(VIEWER, "user@hhu.de", STUDENTIN);
-        editor = Account.of(EDITOR, "editor@hhu.de", STUDENTIN);
         admin = Account.of(ADMIN, "admin@hhu.de", STUDENTIN);
-
-        given(groupService.getRoles(GROUP_ID)).willReturn(Set.of(ADMIN, EDITOR, VIEWER));
 
         Group group = Group.builder()
                 .id(GROUP_ID)
                 .groupId(GROUP_UUID)
                 .name("Test Group")
                 .member(admin.getName(), ADMIN)
-                .member(editor.getName(), EDITOR)
                 .member(user.getName(), VIEWER)
                 .build();
 
@@ -87,7 +77,6 @@ class SearchServiceTest {
         given(groupService.getDefaultPermissions(GROUP_ID)).willReturn(
                 DirectoryPermissions.builder()
                         .entry(ADMIN, true, true, true)
-                        .entry(EDITOR, true, true, false)
                         .entry(VIEWER, true, false, false)
                         .build()
         );
