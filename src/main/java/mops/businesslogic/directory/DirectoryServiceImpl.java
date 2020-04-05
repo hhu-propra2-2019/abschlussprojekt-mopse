@@ -6,8 +6,6 @@ import mops.businesslogic.exception.DatabaseException;
 import mops.businesslogic.exception.EmptyNameException;
 import mops.businesslogic.exception.StorageLimitationException;
 import mops.businesslogic.exception.WriteAccessPermissionException;
-import mops.businesslogic.file.FileInfoService;
-import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.group.GroupRootDirWrapper;
 import mops.businesslogic.group.GroupService;
 import mops.businesslogic.permission.PermissionService;
@@ -18,7 +16,6 @@ import mops.exception.MopsException;
 import mops.persistence.DirectoryRepository;
 import mops.persistence.directory.Directory;
 import mops.persistence.directory.DirectoryBuilder;
-import mops.persistence.file.FileInfo;
 import mops.persistence.group.Group;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +25,6 @@ import org.springframework.data.relational.core.conversion.DbActionExecutionExce
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Handles meta data for directories.
@@ -42,10 +38,6 @@ public class DirectoryServiceImpl implements DirectoryService {
      * This connects to database related to directory information.
      */
     private final DirectoryRepository directoryRepository;
-    /**
-     * Handles meta data of files.
-     */
-    private final FileInfoService fileInfoService;
     /**
      * Handle permission checks for roles.
      */
@@ -81,7 +73,7 @@ public class DirectoryServiceImpl implements DirectoryService {
         try {
             List<Directory> directories = new ArrayList<>(directoryRepository.getAllSubFoldersOfParent(parentDirID));
             directories.sort(Directory.NAME_COMPARATOR);
-            if (directory.getParentId() == null) {
+            if (directory.isRoot()) {
                 // If the current dir is the root folder,
                 // there could be directories in it without
                 // reading permission
@@ -123,7 +115,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     public List<Directory> getDirectoryPath(long dirId) throws MopsException {
         List<Directory> result = new LinkedList<>();
         Directory dir = getDirectory(dirId);
-        while (dir.getParentId() != null) {
+        while (!dir.isRoot()) {
             result.add(dir);
             dir = getDirectory(dir.getParentId());
         }
@@ -194,7 +186,7 @@ public class DirectoryServiceImpl implements DirectoryService {
                 .fromParent(parentDir)
                 .name(dirName);
 
-        if (parentDir.getParentId() == null) {
+        if (parentDir.isRoot()) {
             DirectoryPermissions parentPermissions = permissionService.getPermissions(parentDir);
             DirectoryPermissions permissions = DirectoryPermissions.builder()
                     .from(parentPermissions)
@@ -206,27 +198,6 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         Directory directory = builder.build();
         return saveDirectory(directory);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressWarnings("PMD.LawOfDemeter")
-    public List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) throws MopsException {
-        Directory directory = getDirectory(dirId);
-        securityService.checkReadPermission(account, directory);
-        List<FileInfo> fileInfos = fileInfoService.fetchAllFilesInDirectory(dirId);
-
-        List<FileInfo> results = fileInfos.stream() //this is a stream not violation of demeter's law
-                .filter(query::checkMatch)
-                .collect(Collectors.toList());
-
-        for (Directory subDir : getSubFolders(account, dirId)) {
-            results.addAll(searchFolder(account, subDir.getId(), query));
-        }
-        results.sort(FileInfo.NAME_COMPARATOR);
-        return results;
     }
 
     /**
@@ -349,7 +320,7 @@ public class DirectoryServiceImpl implements DirectoryService {
 
         Directory directory = getDirectory(dirId);
 
-        if (directory.getParentId() == null) {
+        if (directory.isRoot()) {
             log.error("User {} tried to rename the root folder of group '{}'.",
                     account.getName(), directory.getGroupOwner());
             throw new WriteAccessPermissionException("Keine Berechtigung um das Wurzelverzeichnis umzubenennen.");

@@ -246,7 +246,7 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.DataflowAnomalyAnalysis" })
-    public List<FileInfo> getFilesOfDirectory(Account account, long dirId) throws MopsException {
+    public List<FileListEntry> getFilesOfDirectory(Account account, long dirId) throws MopsException {
         Directory directory = directoryService.getDirectory(dirId);
         UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
         if (!userPermission.isRead()) {
@@ -261,7 +261,14 @@ public class FileServiceImpl implements FileService {
         Instant now = timeService.getInstantNow();
 
         return fileInfoService.fetchAllFilesInDirectory(dirId).stream()
-                .filter(file -> isAdmin || account.getName().equals(file.getOwner()) || file.isAvailable(now))
+                .map(file -> new FileListEntry(
+                        file,
+                        userPermission,
+                        isAdmin,
+                        file.getOwner().equals(account.getName()),
+                        now
+                ))
+                .filter(FileListEntry::isRead)
                 .collect(Collectors.toList());
     }
 

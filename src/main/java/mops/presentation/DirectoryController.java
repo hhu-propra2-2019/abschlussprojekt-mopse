@@ -5,15 +5,16 @@ import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.directory.DeleteService;
 import mops.businesslogic.directory.DirectoryService;
 import mops.businesslogic.directory.ZipService;
+import mops.businesslogic.file.FileListEntry;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.permission.PermissionService;
+import mops.businesslogic.search.SearchService;
 import mops.businesslogic.security.Account;
 import mops.businesslogic.security.SecurityService;
 import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
-import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import mops.presentation.error.ExceptionPresentationError;
 import mops.presentation.form.EditDirectoryForm;
@@ -68,6 +69,10 @@ public class DirectoryController {
      */
     private final DeleteService deleteService;
     /**
+     * Searches files.
+     */
+    private final SearchService searchService;
+    /**
      * Zips a directory.
      */
     private final ZipService zipService;
@@ -92,15 +97,14 @@ public class DirectoryController {
         try {
             Directory directory = directoryService.getDirectory(dirId);
             List<Directory> directories = directoryService.getSubFolders(account, dirId);
-            List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+            List<FileListEntry> files = fileService.getFilesOfDirectory(account, dirId);
             UserPermission userPermission = securityService.getPermissionsOfUser(account, directory);
             List<Directory> dirPath = directoryService.getDirectoryPath(dirId);
             boolean admin = securityService.isUserAdmin(account, directory.getGroupOwner());
             DirectoryPermissions permissions = permissionService.getPermissions(directory);
             EditDirectoryForm editDirectoryForm = EditDirectoryForm.of(permissions);
 
-            model.addAttribute("deletePermission", userPermission.isDelete());
-            model.addAttribute("writePermission", userPermission.isWrite());
+            model.addAttribute("permission", userPermission);
             model.addAttribute("adminRole", admin);
             model.addAttribute("directory", directory);
             model.addAttribute("dirs", directories);
@@ -293,7 +297,7 @@ public class DirectoryController {
         FileQuery query = queryForm.toQuery();
 
         try {
-            List<FileInfo> files = directoryService.searchFolder(account, dirId, query);
+            List<FileListEntry> files = searchService.searchFolder(account, dirId, query);
             Directory directory = directoryService.getDirectory(dirId);
 
             model.addAttribute("directory", directory);
@@ -307,10 +311,6 @@ public class DirectoryController {
         model.addAttribute("fileQueryForm", queryForm);
         model.addAttribute("account", account);
 
-        // always show delete
-        model.addAttribute("deletePermission", true);
-        model.addAttribute("writePermission", false);
-        model.addAttribute("adminRole", false);
         model.addAttribute("search", true);
         return "overview";
     }

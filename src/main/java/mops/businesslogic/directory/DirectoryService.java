@@ -1,11 +1,9 @@
 package mops.businesslogic.directory;
 
-import mops.businesslogic.file.query.FileQuery;
 import mops.businesslogic.group.GroupRootDirWrapper;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
-import mops.persistence.file.FileInfo;
 import mops.persistence.permission.DirectoryPermissions;
 import org.springframework.stereotype.Service;
 
@@ -51,16 +49,6 @@ public interface DirectoryService {
      * @return id of the new folder
      */
     Directory createFolder(Account account, long parentDirId, String dirName) throws MopsException;
-
-    /**
-     * Searches a folder for files.
-     *
-     * @param account user credentials
-     * @param dirId   id of the folder to be searched
-     * @param query   wrapper object of the query parameter
-     * @return list of files
-     */
-    List<FileInfo> searchFolder(Account account, long dirId, FileQuery query) throws MopsException;
 
     /**
      * Replaces the permissions for a directory and all its parents and children (which use the same permissions object)

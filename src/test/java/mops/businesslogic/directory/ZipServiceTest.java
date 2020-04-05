@@ -1,8 +1,10 @@
 package mops.businesslogic.directory;
 
 import mops.businesslogic.file.FileContainer;
+import mops.businesslogic.file.FileListEntry;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.security.Account;
+import mops.businesslogic.security.UserPermission;
 import mops.exception.MopsException;
 import mops.persistence.directory.Directory;
 import mops.persistence.file.FileInfo;
@@ -21,6 +23,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -73,14 +77,22 @@ class ZipServiceTest {
                 .size(192_511)
                 .owner("Fridolin")
                 .build();
-        FileContainer file = new FileContainer(fileInfo, content);
+        FileListEntry fileListEntry = new FileListEntry(
+                fileInfo,
+                new UserPermission(true, false, false),
+                false,
+                false,
+                LocalDateTime.of(2020, 1, 1, 0, 0).toInstant(ZoneOffset.UTC)
+        );
+        FileContainer fileContainer = new FileContainer(fileInfo, content);
 
         try (ZipInputStream expectedInputStream =
                      new ZipInputStream(new BufferedInputStream(Files.newInputStream(
                              Path.of("src/test/resources/static/root.zip"))))) {
             given(directoryService.getDirectory(dirId)).willReturn(directory);
-            given(fileService.getFilesOfDirectory(any(Account.class), eq(dirId))).willReturn(List.of(fileInfo));
-            given(fileService.getFile(account, fileInfo.getId())).willReturn(file);
+            given(fileService.getFilesOfDirectory(any(Account.class), eq(dirId)))
+                    .willReturn(List.of(fileListEntry));
+            given(fileService.getFile(account, fileInfo.getId())).willReturn(fileContainer);
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             zipService.zipDirectory(account, dirId, bos);
@@ -124,14 +136,28 @@ class ZipServiceTest {
                 .owner("Fridolin")
                 .build();
         FileInfo fileInfoCopy = FileInfo.builder().from(fileInfo).directory(bottomDirId).build();
-        FileContainer file = new FileContainer(fileInfo, content);
+        FileListEntry fileListEntry = new FileListEntry(
+                fileInfo,
+                new UserPermission(true, false, false),
+                false,
+                false,
+                LocalDateTime.of(2020, 1, 1, 0, 0).toInstant(ZoneOffset.UTC)
+        );
+        FileListEntry fileListEntryCopy = new FileListEntry(
+                fileInfoCopy,
+                new UserPermission(true, false, false),
+                false,
+                false,
+                LocalDateTime.of(2020, 1, 1, 0, 0).toInstant(ZoneOffset.UTC)
+        );
+        FileContainer fileContainer = new FileContainer(fileInfo, content);
 
         given(directoryService.getDirectory(deepDirId)).willReturn(deepDir);
 
-        given(fileService.getFilesOfDirectory(account, deepDirId)).willReturn(List.of(fileInfo));
-        given(fileService.getFilesOfDirectory(account, bottomDirId)).willReturn(List.of(fileInfoCopy));
+        given(fileService.getFilesOfDirectory(account, deepDirId)).willReturn(List.of(fileListEntry));
+        given(fileService.getFilesOfDirectory(account, bottomDirId)).willReturn(List.of(fileListEntryCopy));
 
-        given(fileService.getFile(eq(account), anyLong())).willReturn(file);
+        given(fileService.getFile(eq(account), anyLong())).willReturn(fileContainer);
 
         given(directoryService.getSubFolders(account, deepDirId)).willReturn(List.of(bottom));
 

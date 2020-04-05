@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import mops.businesslogic.exception.FileNotFoundException;
 import mops.businesslogic.exception.MopsZipsException;
 import mops.businesslogic.file.FileContainer;
+import mops.businesslogic.file.FileListEntry;
 import mops.businesslogic.file.FileService;
 import mops.businesslogic.security.Account;
 import mops.exception.MopsException;
@@ -70,10 +71,10 @@ public class ZipServiceImpl implements ZipService {
             zipDirectory(account, path, zipOutputStream, directory.getId());
         }
 
-        List<FileInfo> files = fileService.getFilesOfDirectory(account, dirId);
+        List<FileListEntry> files = fileService.getFilesOfDirectory(account, dirId);
 
-        for (FileInfo fileInfo : files) {
-            zipFile(account, zipOutputStream, fileInfo, directoryName);
+        for (FileListEntry file : files) {
+            zipFile(account, zipOutputStream, file.getFileInfo(), directoryName);
         }
 
         try {
