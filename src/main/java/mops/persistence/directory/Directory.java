@@ -80,6 +80,15 @@ public class Directory {
     }
 
     /**
+     * Checks whether this directory is a root directory.
+     *
+     * @return true if this a root directory
+     */
+    public boolean isRoot() {
+        return parentId == null;
+    }
+
+    /**
      * Gives you DirectoryBuilder.
      *
      * @return DirectoryBuilder

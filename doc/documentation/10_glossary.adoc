@@ -15,6 +15,9 @@
 |File Info
 |Die Metadaten einer Datei (Name, Größe, Typ) im System.
 
+|FileListEntry
+|Kombiniert die Metadaten einer Datei und ihre Berechtigungen für eine einfachere Anzeige im HTML-Template.
+
 |MinIO
 |Die verwendete Cloud-Speicherlösung, die zur Speicherung der Nutzerdateien benutzt wird.
 

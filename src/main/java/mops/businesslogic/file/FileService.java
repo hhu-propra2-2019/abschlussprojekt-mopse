@@ -64,7 +64,7 @@ public interface FileService {
      * @return the meta info.
      * @throws MopsException on error.
      */
-    List<FileInfo> getFilesOfDirectory(Account account, long dirId) throws MopsException;
+    List<FileListEntry> getFilesOfDirectory(Account account, long dirId) throws MopsException;
 
     /**
      * Fetches all IDs.
