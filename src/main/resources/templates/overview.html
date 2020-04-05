@@ -383,8 +383,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="rolePermissions, itemStat : *{rolePermissions}"
-                                th:with="adminRow = *{rolePermissions[__${itemStat.index}__].role} == 'admin'">
+                            <tr th:each="rP, itemStat : *{rolePermissions}"
+                                th:with="adminRow = ${rP.role} == 'admin'">
                                 <td><input class="form-control" type="text" readonly
                                            th:field="*{rolePermissions[__${itemStat.index}__].role}"/></td>
                                 <td><input type="checkbox" th:onclick="|return ${!adminRow};|"
