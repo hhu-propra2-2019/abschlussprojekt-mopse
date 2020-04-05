@@ -346,7 +346,6 @@ public class FileServiceImpl implements FileService {
                 String fileExtension = "." + fileNameParts[fileNameParts.length - 1];
                 sanitizedFilename = sanitizedFilename.substring(0, maxSize - fileExtension.length());
                 sanitizedFilename = sanitizedFilename.concat(fileExtension);
-
             } else {
                 sanitizedFilename = sanitizedFilename.substring(0, maxSize);
             }
