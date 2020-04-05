@@ -3,5 +3,5 @@
 $ http --form POST 'http://localhost:8080/material1/dir/1/rename' \
     'originDirId=1' \
     'newName=New Name' \
-    '_csrf=dd2a1528-5e34-4b92-8135-f4666ef2fbbd'
+    '_csrf=34eb5212-6018-4f25-a3fc-6954f0e0ef3c'
 ----

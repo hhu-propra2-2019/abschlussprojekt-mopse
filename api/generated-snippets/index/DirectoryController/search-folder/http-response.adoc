@@ -22,7 +22,7 @@ Content-Length: 13353
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="5b375d32-94cf-4ed2-97c2-c6eec8f93262"/>
+        <meta name="_csrf" content="3f870928-a50d-4707-a949-455917db2a07"/>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -146,7 +146,7 @@ Content-Length: 13353
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="5b375d32-94cf-4ed2-97c2-c6eec8f93262"/>
+              method="post"><input type="hidden" name="_csrf" value="3f870928-a50d-4707-a949-455917db2a07"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="cv">
@@ -237,7 +237,7 @@ Content-Length: 13353
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/" method="post" id="material1-modal-edit-folder-form"><input type="hidden" name="_csrf" value="5b375d32-94cf-4ed2-97c2-c6eec8f93262"/>
+                    <form action="/" method="post" id="material1-modal-edit-folder-form"><input type="hidden" name="_csrf" value="3f870928-a50d-4707-a949-455917db2a07"/>
                         <input type="hidden" name="originDirId" value="1">
                         <div class="form-group">
                             <label for="material1-modal-edit-folder-name" class="col-form-label">Ordnername:</label>
@@ -267,7 +267,7 @@ Content-Length: 13353
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/" method="post" id="material1-modal-edit-file-form"><input type="hidden" name="_csrf" value="5b375d32-94cf-4ed2-97c2-c6eec8f93262"/>
+                    <form action="/" method="post" id="material1-modal-edit-file-form"><input type="hidden" name="_csrf" value="3f870928-a50d-4707-a949-455917db2a07"/>
                         <div class="form-group">
                             <label for="material1-modal-edit-file-name" class="col-form-label">
                                 Dateiname (ohne Dateiendung):

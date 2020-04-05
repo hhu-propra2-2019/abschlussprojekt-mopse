@@ -1,5 +1,5 @@
 [source,bash]
 ----
 $ curl 'http://localhost:8080/material1/dir/1/edit' -i -X POST \
-    -d '_csrf=f7b2e9e3-900a-4a26-84a5-796a454392ef'
+    -d '_csrf=cd95af4c-db39-40e0-9df8-9a052e0216cb'
 ----

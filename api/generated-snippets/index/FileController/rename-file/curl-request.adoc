@@ -1,5 +1,5 @@
 [source,bash]
 ----
 $ curl 'http://localhost:8080/material1/file/1/rename' -i -X POST \
-    -d 'newName=New+Name&_csrf=efd525c4-d5dc-4842-95ce-42f986f098e9'
+    -d 'newName=New+Name&_csrf=bae46436-e50b-4ff8-afc3-5cdb5662a014'
 ----
