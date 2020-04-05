@@ -2,5 +2,5 @@
 ----
 $ http --form POST 'http://localhost:8080/material1/file/1/rename' \
     'newName=New Name' \
-    '_csrf=46b5f6b2-878d-4aa5-84f3-d67e248a3ccf'
+    '_csrf=4fd8f3c7-d389-4a48-b8a4-2238b0682c1c'
 ----

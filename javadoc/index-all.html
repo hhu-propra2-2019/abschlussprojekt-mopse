@@ -411,7 +411,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Controller Class for all requests on 'material1/dir'.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService,mops.businesslogic.directory.DeleteService,mops.businesslogic.directory.ZipService)">DirectoryController(DirectoryService, FileService, SecurityService, PermissionService, DeleteService, ZipService)</a></span> - Constructor for class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
+<dt><span class="memberNameLink"><a href="mops/presentation/DirectoryController.html#%3Cinit%3E(mops.businesslogic.directory.DirectoryService,mops.businesslogic.file.FileService,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService,mops.businesslogic.directory.DeleteService,mops.businesslogic.search.SearchService,mops.businesslogic.directory.ZipService)">DirectoryController(DirectoryService, FileService, SecurityService, PermissionService, DeleteService, SearchService, ZipService)</a></span> - Constructor for class mops.presentation.<a href="mops/presentation/DirectoryController.html" title="class in mops.presentation">DirectoryController</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission"><span class="typeNameLink">DirectoryPermissions</span></a> - Class in <a href="mops/persistence/permission/package-summary.html">mops.persistence.permission</a></dt>
 <dd>
@@ -437,7 +437,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Handles meta data for directories.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryServiceImpl.html#%3Cinit%3E(mops.persistence.DirectoryRepository,mops.businesslogic.file.FileInfoService,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService,mops.businesslogic.group.GroupService)">DirectoryServiceImpl(DirectoryRepository, FileInfoService, SecurityService, PermissionService, GroupService)</a></span> - Constructor for class mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryServiceImpl.html" title="class in mops.businesslogic.directory">DirectoryServiceImpl</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryServiceImpl.html#%3Cinit%3E(mops.persistence.DirectoryRepository,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService,mops.businesslogic.group.GroupService)">DirectoryServiceImpl(DirectoryRepository, SecurityService, PermissionService, GroupService)</a></span> - Constructor for class mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryServiceImpl.html" title="class in mops.businesslogic.directory">DirectoryServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/gruppenbildung/GruppenbildungsService.html#doesGroupExist(java.util.UUID)">doesGroupExist(UUID)</a></span> - Method in class mops.businesslogic.gruppenbildung.<a href="mops/businesslogic/gruppenbildung/GruppenbildungsService.html" title="class in mops.businesslogic.gruppenbildung">GruppenbildungsService</a></dt>
 <dd>
@@ -486,6 +486,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Add permission.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileContainer.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileContainer.html" title="class in mops.businesslogic.file">FileContainer</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/query/FileQuery.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class mops.businesslogic.file.query.<a href="mops/businesslogic/file/query/FileQuery.html" title="class in mops.businesslogic.file.query">FileQuery</a></dt>
 <dd>&nbsp;</dd>
@@ -608,6 +610,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Handles meta data for files.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileInfoServiceImpl.html#%3Cinit%3E(mops.persistence.FileInfoRepository)">FileInfoServiceImpl(FileInfoRepository)</a></span> - Constructor for class mops.businesslogic.file.<a href="mops/businesslogic/file/FileInfoServiceImpl.html" title="class in mops.businesslogic.file">FileInfoServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file"><span class="typeNameLink">FileListEntry</span></a> - Class in <a href="mops/businesslogic/file/package-summary.html">mops.businesslogic.file</a></dt>
+<dd>
+<div class="block">Wrapper for FileInfo and its permissions.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#%3Cinit%3E(mops.persistence.file.FileInfo,mops.businesslogic.security.UserPermission,boolean,boolean,java.time.Instant)">FileListEntry(FileInfo, UserPermission, boolean, boolean, Instant)</a></span> - Constructor for class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="mops/businesslogic/exception/FileNotFoundException.html" title="class in mops.businesslogic.exception"><span class="typeNameLink">FileNotFoundException</span></a> - Exception in <a href="mops/businesslogic/exception/package-summary.html">mops.businesslogic.exception</a></dt>
 <dd>
@@ -783,9 +791,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets all sub folders.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getAvailableFrom()">getAvailableFrom()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File available from time.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#getAvailableFrom()">getAvailableFrom()</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
 <div class="block">Get the available from time.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getAvailableTo()">getAvailableTo()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File available to time.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#getAvailableTo()">getAvailableTo()</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
@@ -802,6 +818,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/gruppenbildung/GroupDTO.html#getCourse()">getCourse()</a></span> - Method in class mops.businesslogic.gruppenbildung.<a href="mops/businesslogic/gruppenbildung/GroupDTO.html" title="class in mops.businesslogic.gruppenbildung">GroupDTO</a></dt>
 <dd>
 <div class="block">Course.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getCreationTime()">getCreationTime()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File creation time.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/directory/Directory.html#getCreationTime()">getCreationTime()</a></span> - Method in class mops.persistence.directory.<a href="mops/persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></dt>
 <dd>
@@ -850,6 +870,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileContainer.html#getDirectoryId()">getDirectoryId()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileContainer.html" title="class in mops.businesslogic.file">FileContainer</a></dt>
 <dd>
 <div class="block">Gets a directory id.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getDirectoryId()">getDirectoryId()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">Id of the Directory this file resides in.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#getDirectoryId()">getDirectoryId()</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
@@ -903,6 +927,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/persistence/FileInfoRepository.html#getFileCountInGroup(long)">getFileCountInGroup(long)</a></span> - Method in interface mops.persistence.<a href="mops/persistence/FileInfoRepository.html" title="interface in mops.persistence">FileInfoRepository</a></dt>
 <dd>
 <div class="block">Counts the total number of files in a group.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getFileInfo()">getFileInfo()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileService.html#getFileInfo(mops.businesslogic.security.Account,long)">getFileInfo(Account, long)</a></span> - Method in interface mops.businesslogic.file.<a href="mops/businesslogic/file/FileService.html" title="interface in mops.businesslogic.file">FileService</a></dt>
 <dd>
@@ -964,6 +992,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the file id.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getId()">getId()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File id.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/directory/Directory.html#getId()">getId()</a></span> - Method in class mops.persistence.directory.<a href="mops/persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></dt>
 <dd>
 <div class="block">Database Id.</div>
@@ -999,6 +1031,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/time/TimeServiceImpl.html#getInstantNow()">getInstantNow()</a></span> - Method in class mops.businesslogic.time.<a href="mops/businesslogic/time/TimeServiceImpl.html" title="class in mops.businesslogic.time">TimeServiceImpl</a></dt>
 <dd>
 <div class="block">Get the current Instant time.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getLastModifiedTime()">getLastModifiedTime()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File last modified time.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/directory/Directory.html#getLastModifiedTime()">getLastModifiedTime()</a></span> - Method in class mops.persistence.directory.<a href="mops/persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></dt>
 <dd>
@@ -1048,6 +1084,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the file name.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getName()">getName()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File name.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/Account.html#getName()">getName()</a></span> - Method in class mops.businesslogic.security.<a href="mops/businesslogic/security/Account.html" title="class in mops.businesslogic.security">Account</a></dt>
 <dd>
 <div class="block">Name of the user.</div>
@@ -1072,6 +1112,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">List of file names to search for.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getNow()">getNow()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">Current time.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryService.html#getOrCreateRootFolder(long)">getOrCreateRootFolder(long)</a></span> - Method in interface mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a></dt>
 <dd>
 <div class="block">Creates the group root directory.</div>
@@ -1079,6 +1123,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryServiceImpl.html#getOrCreateRootFolder(long)">getOrCreateRootFolder(long)</a></span> - Method in class mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryServiceImpl.html" title="class in mops.businesslogic.directory">DirectoryServiceImpl</a></dt>
 <dd>
 <div class="block">Creates the group root directory.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getOwner()">getOwner()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File owner.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#getOwner()">getOwner()</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
@@ -1180,9 +1228,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the file size.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getSize()">getSize()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File size.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#getSize()">getSize()</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
 <div class="block">Size in bytes.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getSizeString()">getSizeString()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File size string.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#getSizeString()">getSizeString()</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
@@ -1264,6 +1320,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the file type.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getType()">getType()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">File type.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#getType()">getType()</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
 <div class="block">File type.</div>
@@ -1295,6 +1355,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/businesslogic/gruppenbildung/UserDTO.html#getUserName()">getUserName()</a></span> - Method in class mops.businesslogic.gruppenbildung.<a href="mops/businesslogic/gruppenbildung/UserDTO.html" title="class in mops.businesslogic.gruppenbildung">UserDTO</a></dt>
 <dd>
 <div class="block">User name.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#getUserPermission()">getUserPermission()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">User Permissions in containing folder.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/SecurityService.html#getUserRole(long,mops.businesslogic.security.Account)">getUserRole(long, Account)</a></span> - Method in interface mops.businesslogic.security.<a href="mops/businesslogic/security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a></dt>
 <dd>
@@ -1398,6 +1462,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileContainer.html#hashCode()">hashCode()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileContainer.html" title="class in mops.businesslogic.file">FileContainer</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#hashCode()">hashCode()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/query/FileQuery.html#hashCode()">hashCode()</a></span> - Method in class mops.businesslogic.file.query.<a href="mops/businesslogic/file/query/FileQuery.html" title="class in mops.businesslogic.file.query">FileQuery</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/group/GroupRootDirWrapper.html#hashCode()">hashCode()</a></span> - Method in class mops.businesslogic.group.<a href="mops/businesslogic/group/GroupRootDirWrapper.html" title="class in mops.businesslogic.group">GroupRootDirWrapper</a></dt>
@@ -1498,6 +1564,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Singleton instance.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#isAdmin()">isAdmin()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">Is the user an admin of the group.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/permission/DirectoryPermissions.html#isAllowedToDelete(java.lang.String)">isAllowedToDelete(String)</a></span> - Method in class mops.persistence.permission.<a href="mops/persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></dt>
 <dd>
 <div class="block">Checks if a role has deleting access.</div>
@@ -1510,9 +1580,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Checks if a role has writing access.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#isAvailable(java.time.Instant)">isAvailable(Instant)</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">Tests whether this file is available at the given time.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/persistence/file/FileInfo.html#isAvailable(java.time.Instant)">isAvailable(Instant)</a></span> - Method in class mops.persistence.file.<a href="mops/persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a></dt>
 <dd>
 <div class="block">Tests whether this file is available at the given time.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#isDelete()">isDelete()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">Checks whether this file list entry can be deleted.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/UserPermission.html#isDelete()">isDelete()</a></span> - Method in class mops.businesslogic.security.<a href="mops/businesslogic/security/UserPermission.html" title="class in mops.businesslogic.security">UserPermission</a></dt>
 <dd>
@@ -1522,6 +1600,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Can delete.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#isEdit()">isEdit()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">Checks whether this file list entry can be edited.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#isPrivileged()">isPrivileged()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">Checks whether this file list entry can be accessed because the user is privileged (admin or owner).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#isRead()">isRead()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
+<dd>
+<div class="block">Checks whether this file list entry can be read.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/UserPermission.html#isRead()">isRead()</a></span> - Method in class mops.businesslogic.security.<a href="mops/businesslogic/security/UserPermission.html" title="class in mops.businesslogic.security">UserPermission</a></dt>
 <dd>
 <div class="block">Read permission flag.</div>
@@ -1529,6 +1619,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="mops/presentation/form/RolePermissionsForm.html#isRead()">isRead()</a></span> - Method in class mops.presentation.form.<a href="mops/presentation/form/RolePermissionsForm.html" title="class in mops.presentation.form">RolePermissionsForm</a></dt>
 <dd>
 <div class="block">Can read.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/persistence/directory/Directory.html#isRoot()">isRoot()</a></span> - Method in class mops.persistence.directory.<a href="mops/persistence/directory/Directory.html" title="class in mops.persistence.directory">Directory</a></dt>
+<dd>
+<div class="block">Checks whether this directory is a root directory.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/security/SecurityService.html#isUserAdmin(mops.businesslogic.security.Account,long)">isUserAdmin(Account, long)</a></span> - Method in interface mops.businesslogic.security.<a href="mops/businesslogic/security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a></dt>
 <dd>
@@ -1675,6 +1769,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="mops/businesslogic/prometheus/package-summary.html">mops.businesslogic.prometheus</a> - package mops.businesslogic.prometheus</dt>
 <dd>
 <div class="block">Prometheus integration.</div>
+</dd>
+<dt><a href="mops/businesslogic/search/package-summary.html">mops.businesslogic.search</a> - package mops.businesslogic.search</dt>
+<dd>
+<div class="block">Search for files.</div>
 </dd>
 <dt><a href="mops/businesslogic/security/package-summary.html">mops.businesslogic.security</a> - package mops.businesslogic.security</dt>
 <dd>
@@ -1993,11 +2091,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Searches are group for matching files.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryService.html#searchFolder(mops.businesslogic.security.Account,long,mops.businesslogic.file.query.FileQuery)">searchFolder(Account, long, FileQuery)</a></span> - Method in interface mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/search/SearchService.html#searchFolder(mops.businesslogic.security.Account,long,mops.businesslogic.file.query.FileQuery)">searchFolder(Account, long, FileQuery)</a></span> - Method in interface mops.businesslogic.search.<a href="mops/businesslogic/search/SearchService.html" title="interface in mops.businesslogic.search">SearchService</a></dt>
 <dd>
 <div class="block">Searches a folder for files.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="mops/businesslogic/directory/DirectoryServiceImpl.html#searchFolder(mops.businesslogic.security.Account,long,mops.businesslogic.file.query.FileQuery)">searchFolder(Account, long, FileQuery)</a></span> - Method in class mops.businesslogic.directory.<a href="mops/businesslogic/directory/DirectoryServiceImpl.html" title="class in mops.businesslogic.directory">DirectoryServiceImpl</a></dt>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/search/SearchServiceImpl.html#searchFolder(mops.businesslogic.security.Account,long,mops.businesslogic.file.query.FileQuery)">searchFolder(Account, long, FileQuery)</a></span> - Method in class mops.businesslogic.search.<a href="mops/businesslogic/search/SearchServiceImpl.html" title="class in mops.businesslogic.search">SearchServiceImpl</a></dt>
 <dd>
 <div class="block">Searches a folder for files.</div>
 </dd>
@@ -2005,6 +2103,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Searches a folder for files.</div>
 </dd>
+<dt><a href="mops/businesslogic/search/SearchService.html" title="interface in mops.businesslogic.search"><span class="typeNameLink">SearchService</span></a> - Interface in <a href="mops/businesslogic/search/package-summary.html">mops.businesslogic.search</a></dt>
+<dd>
+<div class="block">Service for searching.</div>
+</dd>
+<dt><a href="mops/businesslogic/search/SearchServiceImpl.html" title="class in mops.businesslogic.search"><span class="typeNameLink">SearchServiceImpl</span></a> - Class in <a href="mops/businesslogic/search/package-summary.html">mops.businesslogic.search</a></dt>
+<dd>
+<div class="block">Service implementation for searching.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/search/SearchServiceImpl.html#%3Cinit%3E(mops.businesslogic.file.FileService,mops.businesslogic.directory.DirectoryService)">SearchServiceImpl(FileService, DirectoryService)</a></span> - Constructor for class mops.businesslogic.search.<a href="mops/businesslogic/search/SearchServiceImpl.html" title="class in mops.businesslogic.search">SearchServiceImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="mops/config/SecurityConfig.html" title="class in mops.config"><span class="typeNameLink">SecurityConfig</span></a> - Class in <a href="mops/config/package-summary.html">mops.config</a></dt>
 <dd>
 <div class="block">Security configuration for keycloak.</div>
@@ -2270,6 +2378,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Create FileQuery from FileQueryForm.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileContainer.html#toString()">toString()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileContainer.html" title="class in mops.businesslogic.file">FileContainer</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="mops/businesslogic/file/FileListEntry.html#toString()">toString()</a></span> - Method in class mops.businesslogic.file.<a href="mops/businesslogic/file/FileListEntry.html" title="class in mops.businesslogic.file">FileListEntry</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="mops/businesslogic/file/query/FileQuery.html#toString()">toString()</a></span> - Method in class mops.businesslogic.file.query.<a href="mops/businesslogic/file/query/FileQuery.html" title="class in mops.businesslogic.file.query">FileQuery</a></dt>
 <dd>&nbsp;</dd>

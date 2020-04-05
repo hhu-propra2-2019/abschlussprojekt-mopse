@@ -10,6 +10,7 @@ mops.businesslogic.group
 mops.businesslogic.gruppenbildung
 mops.businesslogic.permission
 mops.businesslogic.prometheus
+mops.businesslogic.search
 mops.businesslogic.security
 mops.businesslogic.time
 mops.config

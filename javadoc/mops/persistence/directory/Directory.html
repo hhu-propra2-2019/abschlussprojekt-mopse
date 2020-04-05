@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10};
+var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -252,34 +252,41 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i11" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isRoot()">isRoot</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Checks whether this directory is a root directory.</div>
+</td>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGroupOwner(long)">setGroupOwner</a></span>&#8203;(long&nbsp;groupOwner)</code></th>
 <td class="colLast">
 <div class="block">Id of the group which this Directory belongs to.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(@NonNull java.lang.String&nbsp;name)</code></th>
 <td class="colLast">
 <div class="block">Directory name.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParentId(java.lang.Long)">setParentId</a></span>&#8203;(java.lang.Long&nbsp;parentId)</code></th>
 <td class="colLast">
 <div class="block">Id of the Directory above this one.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPermissionsId(long)">setPermissionsId</a></span>&#8203;(long&nbsp;permissionsId)</code></th>
 <td class="colLast">
 <div class="block">Id of the DirectoryPermissions object which stores the access permission for this Directory tree.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -353,6 +360,20 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>last modified time</dd>
+</dl>
+</li>
+</ul>
+<a id="isRoot()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isRoot</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;isRoot()</pre>
+<div class="block">Checks whether this directory is a root directory.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if this a root directory</dd>
 </dl>
 </li>
 </ul>

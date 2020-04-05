@@ -796,7 +796,7 @@ Schwierigkeiten fertig stellen.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>{"group_id":1,"root_dir_url":"/material1/dir/2","root_dir_id":2}</code></pre>
+<pre class="highlight nowrap"><code>{"group_id":1,"root_dir_id":2,"root_dir_url":"/material1/dir/2"}</code></pre>
 </div>
 </div>
 </div>
@@ -1198,7 +1198,7 @@ Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DirectoryController</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt den Inhalt eines angefragten Ordners zur Verfügung.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Dateiinformation bekommt er vom <code>FileService</code> und die Ordnerinformationen vom <code>DirectoryService</code>. Berechtigungen werden vom <code>PermissionService</code> sowie vom <code>SecurityService</code> erfragt. Um Dateien zu löschen, wird auf den <code>DeleteService</code> zugegriffen. Um Ordner zum Download zur Verfügung zu stellen, wird auf den <code>ZIPService</code> verwiesen.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Dateiinformation bekommt er vom <code>FileService</code> und die Ordnerinformationen vom <code>DirectoryService</code>. Berechtigungen werden vom <code>PermissionService</code> sowie vom <code>SecurityService</code> erfragt. Um Dateien zu löschen, wird auf den <code>DeleteService</code> zugegriffen. Um nach Dateien zu suchen, wird auf den <code>SearchService</code> zugegriffen. Um Ordner zum Download zur Verfügung zu stellen, wird auf den <code>ZIPService</code> verwiesen.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ExceptionController</p></td>
@@ -1257,9 +1257,14 @@ Sie stellen diese ja nach Anfrage der Repositorys zur Verfügung.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Um die Berechtigungen für das Löschen zu überprüfen, wird auf den <code>SecurityService</code> zugegriffen. Um die Löschen-Operationen an sich durchzuführen, werden der <code>DirectoryService</code> sowie der <code>FileInfoService</code> genutzt.</em></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SearchService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt die Suche nach Dateien in Ordnern und Unterordnern bereit.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Um die Such-Operationen durchzuführen, werden der <code>FileService</code> (für das Sammeln aller Dateien in einem Ordner) sowie der <code>DirectoryService</code> (für das Sammeln aller Unterordner in einem Ordner) genutzt.</em></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DirectoryService</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stellt sämtliche Funktionen zur Verwaltung eines Ordners zur Verfügung. Das beinhaltet das Erstellen, Löschen und Durchsuchen von Ordnern, das Wechseln zu einem Unterordner, sowie das Hochladen einer Datei in den Ordner.</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Die Informationen über die Dateien werden vom <code>FileInfoService</code> abgerufen. Die Berechtigungen des Ordners werden vom <code>PermissionService</code> zur Verfügung gestellt und können verändert werden. Die vom <code>GroupService</code> bereitgestellten Rollen werden vom <code>SecurityService</code> überprüft, damit ein User nur erlaubte Aktionen ausführen kann. Für das Speichern und Abrufen der Ordner wird mit dem <code>DirectoryRepository</code> interagiert.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Die Berechtigungen des Ordners werden vom <code>PermissionService</code> zur Verfügung gestellt und können verändert werden. Die vom <code>GroupService</code> bereitgestellten Rollen werden vom <code>SecurityService</code> überprüft, damit ein User nur erlaubte Aktionen ausführen kann. Für das Speichern und Abrufen der Ordner wird mit dem <code>DirectoryRepository</code> interagiert.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FileInfoService</p></td>
@@ -2038,6 +2043,10 @@ eine andere Lösung zur Speicherung von Dateien genutzt wird.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Die Metadaten einer Datei (Name, Größe, Typ) im System.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileListEntry</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kombiniert die Metadaten einer Datei und ihre Berechtigungen für eine einfachere Anzeige im HTML-Template.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MinIO</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Die verwendete Cloud-Speicherlösung, die zur Speicherung der Nutzerdateien benutzt wird.</p></td>
 </tr>
@@ -2067,7 +2076,7 @@ keine Fehler während der Entwicklung übersehen werden.</p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-03 13:10:34 UTC
+Last updated 2020-04-05 08:38:12 UTC
 </div>
 </div>
 </body>

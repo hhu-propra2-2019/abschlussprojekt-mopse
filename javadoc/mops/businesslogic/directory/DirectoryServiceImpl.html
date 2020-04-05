@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -160,8 +160,7 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.persistence.DirectoryRepository,mops.businesslogic.file.FileInfoService,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService,mops.businesslogic.group.GroupService)">DirectoryServiceImpl</a></span>&#8203;(<a href="../../persistence/DirectoryRepository.html" title="interface in mops.persistence">DirectoryRepository</a>&nbsp;directoryRepository,
-                    <a href="../file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a>&nbsp;fileInfoService,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(mops.persistence.DirectoryRepository,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService,mops.businesslogic.group.GroupService)">DirectoryServiceImpl</a></span>&#8203;(<a href="../../persistence/DirectoryRepository.html" title="interface in mops.persistence">DirectoryRepository</a>&nbsp;directoryRepository,
                     <a href="../security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a>&nbsp;securityService,
                     <a href="../permission/PermissionService.html" title="interface in mops.businesslogic.permission">PermissionService</a>&nbsp;permissionService,
                     <a href="../group/GroupService.html" title="interface in mops.businesslogic.group">GroupService</a>&nbsp;groupService)</code></th>
@@ -268,15 +267,6 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 </td>
 </tr>
 <tr id="i11" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#searchFolder(mops.businesslogic.security.Account,long,mops.businesslogic.file.query.FileQuery)">searchFolder</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
-            long&nbsp;dirId,
-            <a href="../file/query/FileQuery.html" title="class in mops.businesslogic.file.query">FileQuery</a>&nbsp;query)</code></th>
-<td class="colLast">
-<div class="block">Searches a folder for files.</div>
-</td>
-</tr>
-<tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="../../persistence/permission/DirectoryPermissions.html" title="class in mops.persistence.permission">DirectoryPermissions</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updatePermission(mops.businesslogic.security.Account,long,mops.persistence.permission.DirectoryPermissions)">updatePermission</a></span>&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
                 long&nbsp;dirId,
@@ -310,14 +300,13 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(mops.persistence.DirectoryRepository,mops.businesslogic.file.FileInfoService,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService,mops.businesslogic.group.GroupService)">
+<a id="&lt;init&gt;(mops.persistence.DirectoryRepository,mops.businesslogic.security.SecurityService,mops.businesslogic.permission.PermissionService,mops.businesslogic.group.GroupService)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>DirectoryServiceImpl</h4>
 <pre>public&nbsp;DirectoryServiceImpl&#8203;(<a href="../../persistence/DirectoryRepository.html" title="interface in mops.persistence">DirectoryRepository</a>&nbsp;directoryRepository,
-                            <a href="../file/FileInfoService.html" title="interface in mops.businesslogic.file">FileInfoService</a>&nbsp;fileInfoService,
                             <a href="../security/SecurityService.html" title="interface in mops.businesslogic.security">SecurityService</a>&nbsp;securityService,
                             <a href="../permission/PermissionService.html" title="interface in mops.businesslogic.permission">PermissionService</a>&nbsp;permissionService,
                             <a href="../group/GroupService.html" title="interface in mops.businesslogic.group">GroupService</a>&nbsp;groupService)</pre>
@@ -418,31 +407,6 @@ implements <a href="DirectoryService.html" title="interface in mops.businesslogi
 <dd><code>dirName</code> - name of the new folder</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>id of the new folder</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
-</dl>
-</li>
-</ul>
-<a id="searchFolder(mops.businesslogic.security.Account,long,mops.businesslogic.file.query.FileQuery)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>searchFolder</h4>
-<pre class="methodSignature">public&nbsp;java.util.List&lt;<a href="../../persistence/file/FileInfo.html" title="class in mops.persistence.file">FileInfo</a>&gt;&nbsp;searchFolder&#8203;(<a href="../security/Account.html" title="class in mops.businesslogic.security">Account</a>&nbsp;account,
-                                             long&nbsp;dirId,
-                                             <a href="../file/query/FileQuery.html" title="class in mops.businesslogic.file.query">FileQuery</a>&nbsp;query)
-                                      throws <a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></pre>
-<div class="block">Searches a folder for files.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="DirectoryService.html#searchFolder(mops.businesslogic.security.Account,long,mops.businesslogic.file.query.FileQuery)">searchFolder</a></code>&nbsp;in interface&nbsp;<code><a href="DirectoryService.html" title="interface in mops.businesslogic.directory">DirectoryService</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>account</code> - user credentials</dd>
-<dd><code>dirId</code> - id of the folder to be searched</dd>
-<dd><code>query</code> - wrapper object of the query parameter</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>list of files</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exception/MopsException.html" title="class in mops.exception">MopsException</a></code></dd>
 </dl>
