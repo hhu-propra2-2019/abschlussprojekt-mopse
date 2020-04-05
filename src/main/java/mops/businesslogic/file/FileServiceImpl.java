@@ -294,7 +294,7 @@ public class FileServiceImpl implements FileService {
             throw new EmptyNameException("Der Dateiname darf nicht leer sein.");
         }
 
-        newName = newName.replaceAll("[^a-zA-Z0-9._-]", "_");
+        newName = sanitizeName(newName);
 
         FileInfo fileInfo = fileInfoService.fetchFileInfo(fileId);
         Directory directory = directoryService.getDirectory(fileInfo.getDirectoryId());
@@ -318,5 +318,30 @@ public class FileServiceImpl implements FileService {
 
         fileInfoService.saveFileInfo(fileInfo);
         return directory;
+    }
+
+    /**
+     * Sanitizes a filename.
+     *
+     * @param filename the filename
+     * @return sanitized String
+     */
+    @SuppressWarnings({ "PMD.AvoidLiteralsInIfCondition", "PMD.LawOfDemeter" })
+    private String sanitizeName(String filename) {
+        final int maxSize = 255;
+        String sanitizedFilename = filename.replaceAll("[^öÖäÄüÜa-zA-Z0-9()._-]", "_");
+
+        if (sanitizedFilename.length() > maxSize) {
+            String[] fileNameParts = sanitizedFilename.split("\\.");
+            if (fileNameParts.length > 1) {
+                // with extension
+                String fileExtension = "." + fileNameParts[fileNameParts.length - 1];
+                sanitizedFilename = sanitizedFilename.substring(0, maxSize - fileExtension.length());
+                sanitizedFilename = sanitizedFilename.concat(fileExtension);
+            } else {
+                sanitizedFilename = sanitizedFilename.substring(0, maxSize);
+            }
+        }
+        return sanitizedFilename;
     }
 }

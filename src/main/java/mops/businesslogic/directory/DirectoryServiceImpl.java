@@ -176,9 +176,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("The user '{}' tried to create a sub folder with an empty name.", account.getName());
             throw new DatabaseException("Name leer.");
         }
-
-        dirName = dirName.replaceAll("[^a-zA-Z0-9._-]", "_");
-
+        dirName = sanitizeName(dirName);
         Directory parentDir = getDirectory(parentDirId);
         long groupFolderCount = getDirCountInGroup(parentDir.getGroupOwner());
         if (groupFolderCount >= maxFoldersPerGroup) {
@@ -366,7 +364,7 @@ public class DirectoryServiceImpl implements DirectoryService {
             throw new WriteAccessPermissionException("Keine Schreibberechtigung und Löschberechtigung");
         }
 
-        newName = newName.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+        newName = sanitizeName(newName);
         directory.setName(newName);
         return directoryRepository.save(directory);
     }
@@ -382,5 +380,22 @@ public class DirectoryServiceImpl implements DirectoryService {
             log.error("Failed to get all root directories:", e);
             throw new DatabaseException("Die Wurzelverzeichnisse konnten nicht geladen werden!", e);
         }
+    }
+
+    /**
+     * Sanitizes a folder name.
+     *
+     * @param folderName the folder name
+     * @return sanitized String
+     */
+    @SuppressWarnings("PMD.LawOfDemeter")
+    private String sanitizeName(String folderName) {
+        final int maxSize = 255;
+        String sanitizedFolderName = folderName.replaceAll("[^öÖäÄüÜa-zA-Z0-9()._-]", "_");
+
+        if (sanitizedFolderName.length() > maxSize) {
+            sanitizedFolderName = sanitizedFolderName.substring(0, maxSize);
+        }
+        return sanitizedFolderName;
     }
 }
