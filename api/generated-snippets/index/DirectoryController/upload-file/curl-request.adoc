@@ -3,5 +3,5 @@
 $ curl 'http://localhost:8080/material1/dir/1/upload' -i -X POST \
     -H 'Content-Type: multipart/form-data' \
     -F 'file=@test.txt;type=text/plain' \
-    -F '_csrf=7af522e4-b17d-444e-8f8c-66696ab29290'
+    -F '_csrf=166be939-7077-40b3-8a10-6259fd784337'
 ----
