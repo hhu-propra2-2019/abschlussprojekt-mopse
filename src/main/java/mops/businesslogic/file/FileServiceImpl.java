@@ -294,7 +294,6 @@ public class FileServiceImpl implements FileService {
             throw new EmptyNameException("Der Dateiname darf nicht leer sein.");
         }
 
-        newName = sanitizeName(newName);
 
         FileInfo fileInfo = fileInfoService.fetchFileInfo(fileId);
         Directory directory = directoryService.getDirectory(fileInfo.getDirectoryId());
@@ -310,9 +309,11 @@ public class FileServiceImpl implements FileService {
         String[] fileNameParts = fileInfo.getName().split("\\.");
         if (fileNameParts.length > 1) {
             String fileExtension = "." + fileNameParts[fileNameParts.length - 1];
-            fileInfo.setName(newName + fileExtension);
+            newName = sanitizeName(newName + fileExtension);
+            fileInfo.setName(newName);
         } else {
             // file had no extension
+            newName = sanitizeName(newName);
             fileInfo.setName(newName);
         }
 
@@ -338,6 +339,7 @@ public class FileServiceImpl implements FileService {
                 String fileExtension = "." + fileNameParts[fileNameParts.length - 1];
                 sanitizedFilename = sanitizedFilename.substring(0, maxSize - fileExtension.length());
                 sanitizedFilename = sanitizedFilename.concat(fileExtension);
+
             } else {
                 sanitizedFilename = sanitizedFilename.substring(0, maxSize);
             }
