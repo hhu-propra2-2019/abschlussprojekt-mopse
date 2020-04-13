@@ -243,7 +243,8 @@ public class DirectoryServiceImpl implements DirectoryService {
     public Directory getDirectory(long dirId) throws MopsException {
         try {
             return directoryRepository.findById(dirId).orElseThrow();
-        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException
+                | NoSuchElementException e) {
             log.error("The directory with the id '{}' was requested, but was not found in the database:", dirId, e);
             String error = String.format("Der Ordner mit der ID '%d' konnte nicht gefunden werden.", dirId);
             throw new DatabaseException(error, e);

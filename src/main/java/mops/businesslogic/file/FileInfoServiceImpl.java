@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
@@ -52,7 +53,8 @@ public class FileInfoServiceImpl implements FileInfoService {
     public FileInfo fetchFileInfo(long fileId) throws MopsException {
         try {
             return fileInfoRepo.findById(fileId).orElseThrow();
-        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException
+                | NoSuchElementException e) {
             log.error("Failed to retrieve file info for file with id {} from the database:", fileId, e);
             throw new DatabaseException("Die Datei-Informationen konnten nicht gefunden werden!", e);
         }
