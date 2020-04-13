@@ -11,6 +11,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 /**
  * Implementation for the permissions service.
  */
@@ -33,7 +35,8 @@ public class PermissionServiceImpl implements PermissionService {
         long id = directory.getPermissionsId();
         try {
             return permissionsRepository.findById(id).orElseThrow();
-        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException
+                | NoSuchElementException e) {
             log.error("Failed to retrieve directory permissions with id '{}' for directory with id '{}' and name '{}':",
                     id, directory.getId(), directory.getName(), e);
             String message = String.format("Die Berechtigungen für den Ordner '%s' konnten nicht gefunden werden.",

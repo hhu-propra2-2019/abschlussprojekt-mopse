@@ -98,7 +98,8 @@ public class GroupServiceImpl implements GroupService {
     public Group getGroup(long groupId) throws MopsException {
         try {
             return groupRepository.findById(groupId).orElseThrow();
-        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException e) {
+        } catch (DataAccessException | IllegalArgumentException | DbActionExecutionException
+                | NoSuchElementException e) {
             log.error("Failed to retrieve group with id '{}':", groupId, e);
             throw new DatabaseException(
                     "Die Gruppe konnte nicht gefunden werden, bitte versuchen sie es später nochmal!", e);
