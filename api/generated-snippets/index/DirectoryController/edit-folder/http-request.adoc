@@ -4,5 +4,5 @@ POST /material1/dir/1/edit HTTP/1.1
 Host: localhost:8080
 Content-Type: application/x-www-form-urlencoded
 
-_csrf=cd95af4c-db39-40e0-9df8-9a052e0216cb
+_csrf=420ec47b-615c-431d-a7df-0ff206a65e51
 ----

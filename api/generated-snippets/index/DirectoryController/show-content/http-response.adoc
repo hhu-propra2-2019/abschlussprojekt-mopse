@@ -22,7 +22,7 @@ Content-Length: 16735
   <link href="/css/styles.min.css" rel="stylesheet">
   
         <!-- Links, Skripts, Styles hier einfügen! -->
-        <meta name="_csrf" content="88d562db-7251-498f-afb9-71431d3ba44a"/>
+        <meta name="_csrf" content="60112032-e2ff-4fe6-a3fa-7dd7088169d3"/>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -146,7 +146,7 @@ Content-Length: 16735
                value="Suche öffnen"
                onclick="showSearchForm()">
         <form class="material1-search-form" id="material1-search-form" action="/material1/dir/1/search"
-              method="post"><input type="hidden" name="_csrf" value="88d562db-7251-498f-afb9-71431d3ba44a"/>
+              method="post"><input type="hidden" name="_csrf" value="60112032-e2ff-4fe6-a3fa-7dd7088169d3"/>
             <div class="material1-search-form-column" id="names">
                 <div class="material1-search-form-field input-group" id="names[0]">
                     <input class="form-control" type="text" name="names[0]" placeholder="Dateiname" id="names0" value="">
@@ -280,7 +280,7 @@ Content-Length: 16735
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/" method="post" id="material1-modal-edit-folder-form"><input type="hidden" name="_csrf" value="88d562db-7251-498f-afb9-71431d3ba44a"/>
+                    <form action="/" method="post" id="material1-modal-edit-folder-form"><input type="hidden" name="_csrf" value="60112032-e2ff-4fe6-a3fa-7dd7088169d3"/>
                         <input type="hidden" name="originDirId" value="1">
                         <div class="form-group">
                             <label for="material1-modal-edit-folder-name" class="col-form-label">Ordnername:</label>
@@ -310,7 +310,7 @@ Content-Length: 16735
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/" method="post" id="material1-modal-edit-file-form"><input type="hidden" name="_csrf" value="88d562db-7251-498f-afb9-71431d3ba44a"/>
+                    <form action="/" method="post" id="material1-modal-edit-file-form"><input type="hidden" name="_csrf" value="60112032-e2ff-4fe6-a3fa-7dd7088169d3"/>
                         <div class="form-group">
                             <label for="material1-modal-edit-file-name" class="col-form-label">
                                 Dateiname (ohne Dateiendung):
@@ -331,7 +331,7 @@ Content-Length: 16735
 
     <div class="material1-create-forms">
         <!-- Form to create a new subfolder -->
-        <form class="input-group" action="/material1/dir/1/create" method="post"><input type="hidden" name="_csrf" value="88d562db-7251-498f-afb9-71431d3ba44a"/>
+        <form class="input-group" action="/material1/dir/1/create" method="post"><input type="hidden" name="_csrf" value="60112032-e2ff-4fe6-a3fa-7dd7088169d3"/>
             <input class="form-control" type="text" placeholder="Ordnername..." name="folderName" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="newFolder" value="Neuer Ordner">
@@ -340,7 +340,7 @@ Content-Length: 16735
 
         <!-- Form to upload a new file to the folder -->
         <form class="input-group" action="/material1/dir/1/upload" method="post"
-              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="88d562db-7251-498f-afb9-71431d3ba44a"/>
+              enctype="multipart/form-data"><input type="hidden" name="_csrf" value="60112032-e2ff-4fe6-a3fa-7dd7088169d3"/>
             <input class="form-control" type="file" name="file" id="file-input-form" required>
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" name="uploadFile" value="Datei Hochladen">

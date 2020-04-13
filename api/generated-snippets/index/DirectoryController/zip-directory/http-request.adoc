@@ -1,6 +1,6 @@
 [source,http,options="nowrap"]
 ----
-GET /material1/dir/1/zip?_csrf=61b37868-bbb5-44ee-a66b-678c78067d19 HTTP/1.1
+GET /material1/dir/1/zip?_csrf=2bcb0759-af49-4b17-93f8-58e35968797f HTTP/1.1
 Content-Type: application/octet-stream
 Host: localhost:8080
 
