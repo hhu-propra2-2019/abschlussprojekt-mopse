@@ -78,8 +78,8 @@ in dem PostgreSQL seine Daten speichert.
 
 ## Dokumentation
 
-Hier kann die Dokumentation gefunden werden: [Dokumentation](https://hhu-propra2.github.io/abschlussprojekt-mopse/)
+Hier kann die Dokumentation gefunden werden: [Dokumentation](https://hhu-propra2-2019.github.io/abschlussprojekt-mopse/)
 
-Javadoc kann hier aufgerufen werden: [Javadoc](https://hhu-propra2.github.io/abschlussprojekt-mopse/javadoc/)
+Javadoc kann hier aufgerufen werden: [Javadoc](https://hhu-propra2-2019.github.io/abschlussprojekt-mopse/javadoc/)
 
-Die REST API Dokumentation befindet sich hier: [REST API](https://hhu-propra2.github.io/abschlussprojekt-mopse/#section-system-scope-and-context)
+Die REST API Dokumentation befindet sich hier: [REST API](https://hhu-propra2-2019.github.io/abschlussprojekt-mopse/#section-system-scope-and-context)
