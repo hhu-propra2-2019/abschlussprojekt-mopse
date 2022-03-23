@@ -1,11 +1,11 @@
-CREATE TABLE directory_permissions
+CREATE TABLE IF NOT EXISTS directory_permissions
 (
     id                 BIGSERIAL PRIMARY KEY,
     creation_time      TIMESTAMP NOT NULL,
     last_modified_time TIMESTAMP NOT NULL
 );
 
-CREATE TABLE directory_permission_entry
+CREATE TABLE IF NOT EXISTS directory_permission_entry
 (
     permissions_id BIGINT       NOT NULL,
     role           VARCHAR(255) NOT NULL CHECK (role NOT LIKE ''),
@@ -15,9 +15,9 @@ CREATE TABLE directory_permission_entry
     CONSTRAINT fk_entry_perm FOREIGN KEY (permissions_id) REFERENCES directory_permissions (id)
 );
 
-CREATE INDEX i_entry_perm ON directory_permission_entry (permissions_id);
+CREATE INDEX IF NOT EXISTS i_entry_perm ON directory_permission_entry (permissions_id);
 
-CREATE TABLE directory
+CREATE TABLE IF NOT EXISTS directory
 (
     id                 BIGSERIAL PRIMARY KEY,
     name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
@@ -31,10 +31,10 @@ CREATE TABLE directory
     CONSTRAINT u_dir UNIQUE (name, parent_id, group_owner)
 );
 
-CREATE INDEX i_dir_dir ON directory (parent_id);
-CREATE INDEX i_dir_perm ON directory (permissions_id);
+CREATE INDEX IF NOT EXISTS i_dir_dir ON directory (parent_id);
+CREATE INDEX IF NOT EXISTS i_dir_perm ON directory (permissions_id);
 
-CREATE TABLE file_info
+CREATE TABLE IF NOT EXISTS file_info
 (
     id                 BIGSERIAL PRIMARY KEY,
     name               VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
@@ -50,9 +50,9 @@ CREATE TABLE file_info
     CONSTRAINT u_file UNIQUE (name, directory_id)
 );
 
-CREATE INDEX i_file_dir ON file_info (directory_id);
+CREATE INDEX IF NOT EXISTS i_file_dir ON file_info (directory_id);
 
-CREATE TABLE file_tag
+CREATE TABLE IF NOT EXISTS file_tag
 (
     name    VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
     file_id BIGINT       NOT NULL,
@@ -60,9 +60,9 @@ CREATE TABLE file_tag
     CONSTRAINT u_tag UNIQUE (name, file_id)
 );
 
-CREATE INDEX i_tag_file ON file_tag (file_id);
+CREATE INDEX IF NOT EXISTS i_tag_file ON file_tag (file_id);
 
-CREATE TABLE group_table
+CREATE TABLE IF NOT EXISTS group_table
 (
     id                 BIGSERIAL PRIMARY KEY,
     group_id           UUID         NOT NULL,
@@ -72,9 +72,9 @@ CREATE TABLE group_table
     CONSTRAINT u_group_id UNIQUE (group_id)
 );
 
-CREATE INDEX i_group_group_id ON group_table (group_id);
+CREATE INDEX IF NOT EXISTS i_group_group_id ON group_table (group_id);
 
-CREATE TABLE group_member
+CREATE TABLE IF NOT EXISTS group_member
 (
     group_id BIGINT       NOT NULL,
     name     VARCHAR(255) NOT NULL CHECK (name NOT LIKE ''),
@@ -83,9 +83,9 @@ CREATE TABLE group_member
     CONSTRAINT u_member UNIQUE (group_id, name)
 );
 
-CREATE INDEX i_member_group ON group_member (group_id);
+CREATE INDEX IF NOT EXISTS i_member_group ON group_member (group_id);
 
-CREATE TABLE latest_event_id
+CREATE TABLE IF NOT EXISTS latest_event_id
 (
     id       INT PRIMARY KEY,
     event_id BIGINT NOT NULL

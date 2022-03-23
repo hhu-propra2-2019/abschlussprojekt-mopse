@@ -4,11 +4,12 @@ import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
+import mops.Material1Application;
 
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 import static mops.architecture.ArchitectureRuleConfig.*;
 
-@AnalyzeClasses(importOptions = ImportOption.DoNotIncludeTests.class, packages = "mops")
+@AnalyzeClasses(importOptions = ImportOption.DoNotIncludeTests.class, packagesOf = Material1Application.class)
 class LayeredArchitectureTest {
 
     /**

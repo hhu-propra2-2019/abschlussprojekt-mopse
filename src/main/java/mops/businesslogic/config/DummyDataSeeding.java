@@ -104,10 +104,8 @@ public class DummyDataSeeding {
             }
 
             List<FileInfo> filesInRootDir = fileInfoService.fetchAllFilesInDirectory(directoryParent.getId());
-            FileInfo fileInfoParent;
-
             if (filesInRootDir.isEmpty()) {
-                fileInfoParent = FileInfo.builder()
+                FileInfo fileInfoParent = FileInfo.builder()
                         .name("Test1")
                         .directory(directoryParent)
                         .type("application/pdf")
@@ -121,15 +119,11 @@ public class DummyDataSeeding {
                 try (InputStream stream = new ByteArrayInputStream(contentParent)) {
                     fileRepository.saveFile(stream, fileSize1, fileInfoParent.getType(), fileInfoParent.getId());
                 }
-            } else {
-                fileInfoParent = filesInRootDir.get(0);
             }
 
             List<FileInfo> filesInChildDir = fileInfoService.fetchAllFilesInDirectory(directoryChild.getId());
-            FileInfo fileInfoChild;
-
             if (filesInChildDir.isEmpty()) {
-                fileInfoChild = FileInfo.builder()
+                FileInfo fileInfoChild = FileInfo.builder()
                         .name("Test2")
                         .directory(directoryChild)
                         .type("image/png")
@@ -143,8 +137,6 @@ public class DummyDataSeeding {
                 try (InputStream stream = new ByteArrayInputStream(contentChild)) {
                     fileRepository.saveFile(stream, fileSize2, fileInfoChild.getType(), fileInfoChild.getId());
                 }
-            } else {
-                fileInfoChild = filesInChildDir.get(0);
             }
         };
     }

@@ -1,9 +1,8 @@
 package mops.persistence;
 
-import io.minio.MinioClient;
-import io.minio.ObjectStat;
-import io.minio.Result;
-import io.minio.errors.*;
+import io.minio.*;
+import io.minio.errors.ErrorResponseException;
+import io.minio.errors.MinioException;
 import io.minio.messages.Item;
 import lombok.extern.slf4j.Slf4j;
 import mops.persistence.config.FileRepositoryConfig;
@@ -11,14 +10,11 @@ import mops.persistence.exception.StorageException;
 import mops.util.AggregateBuilder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,25 +44,20 @@ public class FileRepository {
      */
     public FileRepository(FileRepositoryConfig configuration) throws StorageException {
         this.configuration = configuration;
-        try {
-            minioClient = new MinioClient(
-                    configuration.getHost(),
-                    configuration.getPort(),
-                    configuration.getAccessKey(),
-                    configuration.getSecretKey()
-            );
-        } catch (InvalidEndpointException | InvalidPortException e) {
-            log.error("The connection to the MinIO server failed:", e);
-            throw new StorageException("Fehler beim Verbinden zum MinIO Server.", e);
-        }
+        this.minioClient = MinioClient.builder()
+                .endpoint(configuration.getHost() + ":" + configuration.getPort())
+                .credentials(configuration.getAccessKey(), configuration.getSecretKey())
+                .build();
 
         try {
-            if (!minioClient.bucketExists(configuration.getBucketName())) {
-                minioClient.makeBucket(configuration.getBucketName());
+            if (!minioClient.bucketExists(BucketExistsArgs.builder()
+                    .bucket(configuration.getBucketName())
+                    .build())) {
+                minioClient.makeBucket(MakeBucketArgs.builder()
+                        .bucket(configuration.getBucketName())
+                        .build());
             }
-        } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException
-                | IOException | InvalidKeyException | NoResponseException | XmlPullParserException
-                | ErrorResponseException | InternalException | InvalidResponseException | RegionConflictException e) {
+        } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
             log.error("Failed to find and create the bucket '{}':", configuration.getBucketName(), e);
             throw new StorageException("Fehler beim Suchen und Erstellen des Buckets.", e);
         }
@@ -79,6 +70,7 @@ public class FileRepository {
      * @param fileId the File ID given by the FileInfo database.
      * @throws StorageException on Error
      */
+    @SuppressWarnings("PMD.LawOfDemeter")
     public void saveFile(MultipartFile file, long fileId) throws StorageException {
         try (InputStream stream = file.getInputStream()) {
             saveFile(stream, file.getSize(), file.getContentType(), fileId);
@@ -97,17 +89,19 @@ public class FileRepository {
      * @param fileId the File ID given by the FileInfo database.
      * @throws StorageException on Error
      */
+    @SuppressWarnings("PMD.LawOfDemeter")
     public void saveFile(InputStream stream, long size, String type, long fileId) throws StorageException {
         try {
-            minioClient.putObject(configuration.getBucketName(),
-                    String.valueOf(fileId),
-                    stream,
-                    size,
-                    new HashMap<>(),
-                    null, // no encryption will be needed
-                    type
-            );
-        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
+            PutObjectArgs.Builder builder = PutObjectArgs.builder()
+                    .bucket(configuration.getBucketName())
+                    .object(String.valueOf(fileId))
+                    .stream(stream, size, -1);
+            if (type != null && !type.isEmpty()) {
+                builder.contentType(type);
+            }
+
+            minioClient.putObject(builder.build());
+        } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
             log.error("Failed so save file '{}' to MinIO server:", fileId, e);
             throw new StorageException("Fehler beim Speichern der Datei.", e);
         }
@@ -119,13 +113,14 @@ public class FileRepository {
      * @param fileId the ID of the file that's desired to be deleted.
      * @throws StorageException on error
      */
+    @SuppressWarnings("PMD.LawOfDemeter")
     public void deleteFile(long fileId) throws StorageException {
         try {
-            minioClient.removeObject(
-                    configuration.getBucketName(),
-                    String.valueOf(fileId)
-            );
-        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
+            minioClient.removeObject(RemoveObjectArgs.builder()
+                    .bucket(configuration.getBucketName())
+                    .object(String.valueOf(fileId))
+                    .build());
+        } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
             log.error("Failed to delete file with id {} from MinIO Server:", fileId, e);
             throw new StorageException("Fehler beim Löschen der Datei.", e);
         }
@@ -138,14 +133,14 @@ public class FileRepository {
      * @return file content as byte array
      * @throws StorageException on error
      */
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.LawOfDemeter" })
     public InputStream getFileContent(long fileId) throws StorageException {
         try {
-            return minioClient.getObject(
-                    configuration.getBucketName(),
-                    String.valueOf(fileId)
-            );
-        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
+            return minioClient.getObject(GetObjectArgs.builder()
+                    .bucket(configuration.getBucketName())
+                    .object(String.valueOf(fileId))
+                    .build());
+        } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
             log.error("Failed to get content of file with id {}:", fileId, e);
             throw new StorageException("Fehler beim Zugriff auf den Inhalt der Datei.", e);
         }
@@ -157,18 +152,18 @@ public class FileRepository {
      * @param fileId the file ID
      * @return true if found
      */
-    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn" })
+    @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis", "PMD.OnlyOneReturn", "PMD.LawOfDemeter" })
     public boolean fileExist(long fileId) throws StorageException {
-        ObjectStat objectStat;
+        StatObjectResponse objectStat;
         try {
-            objectStat = minioClient.statObject(
-                    configuration.getBucketName(),
-                    String.valueOf(fileId)
-            );
+            objectStat = minioClient.statObject(StatObjectArgs.builder()
+                    .bucket(configuration.getBucketName())
+                    .object(String.valueOf(fileId))
+                    .build());
         } catch (ErrorResponseException e) {
             // file not found
             return false;
-        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
+        } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
             log.error("Failed to check file existence for id {}:", fileId, e);
             throw new StorageException("Fehler beim Zugriff auf Datei.", e);
         }
@@ -184,7 +179,9 @@ public class FileRepository {
     @SuppressWarnings("PMD.LawOfDemeter")
     public Set<Long> getAllIds() throws StorageException {
         try {
-            Iterable<Result<Item>> results = minioClient.listObjects(configuration.getBucketName());
+            Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder()
+                    .bucket(configuration.getBucketName())
+                    .build());
             Set<Long> ids = new HashSet<>();
             for (Result<Item> item : results) {
                 ids.add(
@@ -192,7 +189,7 @@ public class FileRepository {
                 );
             }
             return ids;
-        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
+        } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
             throw new StorageException("Fehler beim Laden aller File IDs.", e);
         }
     }
@@ -205,10 +202,15 @@ public class FileRepository {
     @SuppressWarnings({ "PMD.DefaultPackage", "PMD.LawOfDemeter" })
     void clearBucket() throws StorageException {
         try {
-            for (Result<Item> result : minioClient.listObjects(configuration.getBucketName())) {
-                minioClient.removeObject(configuration.getBucketName(), result.get().objectName());
+            for (Result<Item> result : minioClient.listObjects(ListObjectsArgs.builder()
+                    .bucket(configuration.getBucketName())
+                    .build())) {
+                minioClient.removeObject(RemoveObjectArgs.builder()
+                        .bucket(configuration.getBucketName())
+                        .object(result.get().objectName())
+                        .build());
             }
-        } catch (MinioException | GeneralSecurityException | XmlPullParserException | IOException e) {
+        } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
             log.error("Failed to clear bucket:", e);
             throw new StorageException("Bucket konnte nicht geleert werden.", e);
         }
