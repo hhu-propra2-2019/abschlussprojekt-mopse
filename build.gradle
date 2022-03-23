@@ -11,7 +11,7 @@ plugins {
 
 group = 'mops'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_11
 
 configurations {
     compileOnly {
@@ -35,9 +35,9 @@ ext {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok'
+    // compileOnly 'org.projectlombok:lombok'
+    // testCompileOnly 'org.projectlombok:lombok'
     compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
-
     testCompileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -48,7 +48,8 @@ dependencies {
     testRuntimeOnly 'com.h2database:h2'
 
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor 'org.projectlombok:lombok'
+    // annotationProcessor 'org.projectlombok:lombok'
+    // testAnnotationProcessor 'org.projectlombok:lombok'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
@@ -57,11 +58,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    compileOnly 'org.projectlombok:lombok'
     implementation 'mops:styleguide:2.2.0'
     implementation 'io.minio:minio:8.3.7'
-    // manually update okhttp because minio requires newer version and spring overwrites it
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'org.keycloak:keycloak-spring-boot-starter:17.0.0'
     implementation 'org.keycloak.bom:keycloak-adapter-bom:17.0.0'
     implementation 'org.springframework.security.oauth:spring-security-oauth2:2.5.1.RELEASE'
@@ -78,6 +76,9 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+    }
+    dependencies {
+        dependency 'com.squareup.okhttp3:okhttp:4.9.3' // manually update okhttp because minio requires newer version and spring overwrites it
     }
 }
 
@@ -113,6 +114,10 @@ tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
         xml.required = false
         html.required = true
     }
+}
+
+lombok {
+    version = '1.18.22'
 }
 
 task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: compileJava) {
