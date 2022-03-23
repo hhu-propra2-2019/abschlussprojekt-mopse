@@ -1,8 +1,6 @@
 package mops.util;
 
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.annotation.*;
@@ -18,6 +16,5 @@ import java.lang.annotation.*;
 @TestContext
 @Transactional
 @AutoConfigureCache
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public @interface DbContext {
 }

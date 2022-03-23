@@ -1,11 +1,12 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.5.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.springframework.boot' version '2.6.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.asciidoctor.convert' version '1.5.8'
     id 'java'
     id 'checkstyle'
     id 'pmd'
-    id 'com.github.spotbugs' version '4.0.4'
-    id 'io.franzbecker.gradle-lombok' version '3.3.0'
+    id 'com.github.spotbugs' version '5.0.6'
+    id 'io.franzbecker.gradle-lombok' version '5.0.0'
 }
 
 group = 'mops'
@@ -13,10 +14,6 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
-    developmentOnly
-    runtimeClasspath {
-        extendsFrom developmentOnly
-    }
     compileOnly {
         extendsFrom annotationProcessor
     }
@@ -32,13 +29,21 @@ repositories {
     }
 }
 
+ext {
+    set('snippetsDir', file('build/generated-snippets'))
+    set('testcontainersVersion', '1.16.2')
+}
+
 dependencies {
     compileOnly 'org.projectlombok:lombok'
-    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.0.0'
+    compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
+
+    testCompileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 
     testRuntimeOnly 'com.h2database:h2'
 
@@ -50,51 +55,64 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    compileOnly 'org.projectlombok:lombok'
     implementation 'mops:styleguide:2.2.0'
-    implementation 'io.minio:minio:6.0.13'
-    implementation 'io.micrometer:micrometer-registry-prometheus:1.3.6'
-    implementation 'org.keycloak:keycloak-spring-boot-starter:9.0.0'
-    implementation 'org.keycloak.bom:keycloak-adapter-bom:9.0.0'
-    implementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.4.0.RELEASE'
+    implementation 'io.minio:minio:8.3.7'
+    // manually update okhttp because minio requires newer version and spring overwrites it
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    // implementation 'io.micrometer:micrometer-registry-prometheus:1.8.3'
+    implementation 'org.keycloak:keycloak-spring-boot-starter:17.0.0'
+    implementation 'org.keycloak.bom:keycloak-adapter-bom:17.0.0'
+    implementation 'org.springframework.security.oauth:spring-security-oauth2:2.5.1.RELEASE'
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql'
     testImplementation 'com.c4-soft.springaddons:spring-security-test-keycloack-addons:1.2.0'
-    testImplementation 'com.tngtech.archunit:archunit-junit5:0.13.1'
-    testImplementation 'org.testcontainers:testcontainers:1.13.0'
-    testImplementation 'org.testcontainers:junit-jupiter:1.13.0'
+    testImplementation 'com.tngtech.archunit:archunit-junit5:0.23.1'
 }
 
-checkstyle.toolVersion = '8.30'
+dependencyManagement {
+    imports {
+        mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+    }
+}
+
+checkstyle.toolVersion = '10.0'
 checkstyleTest.enabled = false
 tasks.withType(Checkstyle) {
     reports {
-        xml.enabled = false
-        html.enabled = true
+        xml.required = false
+        html.required = true
     }
 }
 
 pmd {
-    toolVersion = '6.22.0'
+    toolVersion = '6.43.0'
     ruleSets = []
     ruleSetFiles = files 'config/pmd/pmd.xml'
 }
 pmdTest.enabled = false
 tasks.withType(Pmd) {
     reports {
-        xml.enabled = false
-        html.enabled = true
+        xml.required = false
+        html.required = true
     }
 }
 
-spotbugs.toolVersion = '4.0.1'
+spotbugs {
+    toolVersion = '4.6.0'
+    excludeFilter = file("$rootDir/config/spotbugs/excludeFilter.xml")
+}
+
 tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
     reports {
-        xml.enabled = false
-        html.enabled = true
+        xml.required = false
+        html.required = true
     }
 }
 
@@ -114,6 +132,12 @@ javadoc {
     failOnError = false
 }
 
-test {
+tasks.named('test') {
+    outputs.dir snippetsDir
     useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+    inputs.dir snippetsDir
+    dependsOn test
 }

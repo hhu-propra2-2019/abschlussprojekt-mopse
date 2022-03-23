@@ -11,7 +11,8 @@ import java.util.*;
  */
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @SuppressWarnings({ "PMD.LawOfDemeter", "PMD.TooManyMethods", "PMD.AvoidFieldNameMatchingMethodName",
-        "PMD.BeanMembersShouldSerialize", "PMD.GodClass" }) // this is a builder
+        "PMD.BeanMembersShouldSerialize", "PMD.GodClass" })
+// this is a builder
 public class FileQueryBuilder {
 
     /**
@@ -96,7 +97,8 @@ public class FileQueryBuilder {
     }
 
     // pmd doesn't like tokenizers
-    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity", "PMD.DataflowAnomalyAnalysis" })
+    @SuppressWarnings({ "PMD.CognitiveComplexity", "PMD.CyclomaticComplexity", "PMD.NPathComplexity",
+            "PMD.DataflowAnomalyAnalysis" })
     private List<String> tokenize(String search) {
         int length = search.length();
 

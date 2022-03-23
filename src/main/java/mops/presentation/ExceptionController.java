@@ -102,12 +102,4 @@ public class ExceptionController implements HandlerExceptionResolver, ErrorContr
 
         return "mops_error";
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getErrorPath() {
-        return "/material1/error";
-    }
 }

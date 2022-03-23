@@ -36,7 +36,7 @@ class HaveExactlyOneAggregateRoot extends ArchCondition<Slice> {
 
         if (aggregateRootNames.size() == 1) {
             conditionEvents.add(satisfied(slice, "Exactly one Aggregate Root!"));
-        } else {
+        } else if (aggregateRootNames.size() > 1) {
             conditionEvents.add(violated(slice, "Violation of only one Aggregate Root!"));
         }
     }
