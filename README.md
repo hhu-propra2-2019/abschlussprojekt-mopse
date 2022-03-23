@@ -1,4 +1,4 @@
-![Gradle Checks](https://github.com/hhu-propra2/abschlussprojekt-mopse/workflows/Gradle%20Checks/badge.svg) ![Generate Documentation](https://github.com/hhu-propra2/abschlussprojekt-mopse/workflows/Generate%20Documentation/badge.svg)
+[![Gradle Checks](https://github.com/hhu-propra2-2019/abschlussprojekt-mopse/actions/workflows/gradle.yml/badge.svg)](https://github.com/hhu-propra2-2019/abschlussprojekt-mopse/actions/workflows/gradle.yml) [![Generate Documentation](https://github.com/hhu-propra2-2019/abschlussprojekt-mopse/actions/workflows/documentation.yml/badge.svg)](https://github.com/hhu-propra2-2019/abschlussprojekt-mopse/actions/workflows/documentation.yml)
 
 # Materialsammlung
 
