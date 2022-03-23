@@ -13,8 +13,7 @@
 <!--[if IE]>
 <script type="text/javascript" src="../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../jquery/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="../../jquery/jquery-migrate-3.0.1.js"></script>
+<script type="text/javascript" src="../../jquery/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="../../jquery/jquery-ui.js"></script>
 </head>
 <body>
@@ -27,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10};
+var data = {"i0":10,"i1":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -183,10 +182,6 @@ implements org.springframework.web.servlet.HandlerExceptionResolver, org.springf
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getErrorPath()">getErrorPath</a></span>()</code></th>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#handleError(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,javax.servlet.http.HttpServletRequest,org.springframework.ui.Model)">handleError</a></span>&#8203;(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken&nbsp;token,
            javax.servlet.http.HttpServletRequest&nbsp;request,
            org.springframework.ui.Model&nbsp;model)</code></th>
@@ -194,7 +189,7 @@ implements org.springframework.web.servlet.HandlerExceptionResolver, org.springf
 <div class="block">Error mapping.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>org.springframework.web.servlet.ModelAndView</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resolveException(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.Object,java.lang.Exception)">resolveException</a></span>&#8203;(javax.servlet.http.HttpServletRequest&nbsp;request,
                 javax.servlet.http.HttpServletResponse&nbsp;response,
@@ -263,7 +258,7 @@ implements org.springframework.web.servlet.HandlerExceptionResolver, org.springf
 <a id="handleError(org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken,javax.servlet.http.HttpServletRequest,org.springframework.ui.Model)">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>handleError</h4>
 <pre class="methodSignature">@RequestMapping("/material1/error")
@@ -278,19 +273,6 @@ public&nbsp;java.lang.String&nbsp;handleError&#8203;(org.keycloak.adapters.sprin
 <dd><code>model</code> - model</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>view</dd>
-</dl>
-</li>
-</ul>
-<a id="getErrorPath()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>getErrorPath</h4>
-<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getErrorPath()</pre>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>getErrorPath</code>&nbsp;in interface&nbsp;<code>org.springframework.boot.web.servlet.error.ErrorController</code></dd>
 </dl>
 </li>
 </ul>
