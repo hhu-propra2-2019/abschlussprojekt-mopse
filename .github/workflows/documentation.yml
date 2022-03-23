@@ -3,6 +3,7 @@
 name: Generate Documentation
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -11,8 +12,8 @@ jobs:
   gen_doc:
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        java: [11]
+        os: [ ubuntu-latest ]
+        java: [ 11 ]
     runs-on: ${{ matrix.os }}
     name: Deploy Documentation
     steps:
@@ -42,7 +43,7 @@ jobs:
 
       - name: Run Asciidoctor
         id: adocbuild
-        uses: avattathil/asciidoctor-action@master
+        uses: tonynv/asciidoctor-action@master
         with:
           program: "asciidoctor -D doc -a data-uri --backend=html5 -o index.html doc/documentation.adoc"
 
@@ -52,5 +53,5 @@ jobs:
       - name: Deploy docs to github pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          deploy_key: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./doc
